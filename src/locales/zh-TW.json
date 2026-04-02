@@ -103,7 +103,18 @@
         "orgManagement": "組織管理",
         "subAgent": "下級代理",
         "developer": "介接資訊",
-        "integrationInfo": "介接資訊"
+        "integrationInfo": "介接資訊",
+        "games": "遊戲管理",
+        "gameDetail": "遊戲詳情",
+        "players": "玩家分析",
+        "settlements": "結算報表",
+        "transactions": "交易記錄",
+        "invoices": "發票管理",
+        "settings": "系統設置",
+        "apiKeys": "API 密鑰",
+        "permissions": "權限管理",
+        "finance": "財務結算",
+        "system": "系統管理"
     },
     "layout": {
         "masterAdmin": "👑 Master Admin",
@@ -129,7 +140,11 @@
         "quickLogin": "快速登入",
         "masterAdmin": "總管理者",
         "merchant": "商戶",
-        "authenticating": "驗證中..."
+        "authenticating": "驗證中...",
+        "success": "登入成功",
+        "failed": "帳號或密碼錯誤",
+        "appName": "Game Developer Dashboard",
+        "subtitle": "遊戲開發商管理後台"
     },
     "columns": {
         "id": "ID",

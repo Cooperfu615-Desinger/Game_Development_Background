@@ -1,43 +1,60 @@
+export interface Settlement {
+    id: string
+    period: string
+    type: 'daily' | 'weekly' | 'monthly'
+    revenue: number
+    revenueShare: number
+    fee: number
+    netAmount: number
+    status: 'pending' | 'confirmed' | 'paid'
+    createdAt: string
+}
+
+export interface Transaction {
+    id: string
+    betId: string
+    playerId: string
+    playerName: string
+    gameId: string
+    gameName: string
+    type: 'bet' | 'win' | 'refund'
+    amount: number
+    currency: string
+    createdAt: string
+}
+
 export interface Invoice {
     id: string
-    merchant_id: string
-    merchant_name: string
+    invoiceNo: string
     period: string
-    total_ggr: number
-    commission_rate: number
-    amount_due: number
-    status: 'pending' | 'paid' | 'verifying'
-    payment_proof?: string
-    created_at: string
-    paid_at?: string
-    paid_by?: string
-    breakdown: InvoiceBreakdown[]
+    amount: number
+    currency: string
+    status: 'draft' | 'confirmed' | 'paid'
+    dueDate: string
+    createdAt: string
 }
 
-export interface InvoiceBreakdown {
-    provider: string
-    ggr: number
-    rate: number
-    amount: number
+export interface SettlementFilter {
+    startDate: string | null
+    endDate: string | null
+    status: Settlement['status'] | undefined
+    page: number
+    pageSize: number
 }
 
-// Fund Management Types
-export type FundType = 'top-up' | 'credit-limit' | 'manual-adjust'
-export type FundStatus = 'pending' | 'approved' | 'rejected'
+export interface TransactionFilter {
+    betId: string
+    playerId: string
+    gameId: string
+    currency: string | undefined
+    startDate: string | null
+    endDate: string | null
+    page: number
+    pageSize: number
+}
 
-export interface FundRecord {
-    id: string
-    merchant_id: string
-    merchant_name: string
-    type: FundType
-    amount: number
-
-    // Additional fields
-    proof?: string
-    reason?: string
-    reviewer?: string
-
-    status: FundStatus
-    created_at: string
-    updated_at?: string
+export interface InvoiceFilter {
+    status: Invoice['status'] | undefined
+    page: number
+    pageSize: number
 }

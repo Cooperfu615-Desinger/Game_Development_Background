@@ -2,7 +2,7 @@
 import { computed, h } from 'vue'
 import {
     NCard, NDataTable, NTag, NInput, NSelect,
-    NButton, NIcon, NSpace
+    NButton, NIcon
 } from 'naive-ui'
 import { FileDownloadOutlined } from '@vicons/material'
 import type { DataTableColumns } from 'naive-ui'

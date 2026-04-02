@@ -2,7 +2,7 @@
 import { computed, h } from 'vue'
 import {
     NCard, NDataTable, NTag, NSelect, NDatePicker,
-    NSpace, NStatistic, NSkeleton
+    NStatistic, NSkeleton
 } from 'naive-ui'
 import type { DataTableColumns } from 'naive-ui'
 import { useSettlements } from '@/composables/useFinance'

@@ -40,8 +40,8 @@ export function useSettlements() {
             params.set('page', String(filters.value.page))
             params.set('limit', String(filters.value.pageSize))
             if (filters.value.status) params.set('status', filters.value.status)
-            if (filters.value.startDate) params.set('startDate', filters.value.startDate)
-            if (filters.value.endDate) params.set('endDate', filters.value.endDate)
+            if (filters.value.startDate) params.set('startDate', new Date(filters.value.startDate).toISOString().slice(0, 7))
+            if (filters.value.endDate) params.set('endDate', new Date(filters.value.endDate).toISOString().slice(0, 7))
             const res = await window.fetch(`/api/finance/settlements?${params}`)
             const json = await res.json()
             settlements.value = json.data.items
@@ -54,7 +54,7 @@ export function useSettlements() {
     // 使用 big.js 計算總計
     const totalNetAmount = () =>
         settlements.value
-            .reduce((acc, s) => acc.plus(new Big(s.netAmount)), new Big(0))
+            .reduce((acc: Big, s: Settlement) => acc.plus(new Big(s.netAmount)), new Big(0))
             .toFixed(2)
 
     watch(filters, () => { syncToUrl(); fetch() }, { deep: true, immediate: true })

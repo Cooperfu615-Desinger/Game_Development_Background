@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
 import {
-    NModal, NCard, NForm, NFormItem, NInput, NInputNumber,
-    NSelect, NButton, NSpace
+    NModal, NForm, NFormItem, NInput, NInputNumber,
+    NButton, NSpace
 } from 'naive-ui'
 import type { FormInst } from 'naive-ui'
 import type { Game } from '@/types/game'

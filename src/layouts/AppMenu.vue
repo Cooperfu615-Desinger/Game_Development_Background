@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watch } from 'vue'
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { NMenu } from 'naive-ui'
 import { useI18n } from 'vue-i18n'

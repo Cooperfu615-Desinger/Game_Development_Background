@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NCard, NStatistic, NSkeleton, NTabs, NTabPane, NIcon } from 'naive-ui'
+import { NCard, NStatistic, NSkeleton, NIcon } from 'naive-ui'
 import { PeopleAltOutlined } from '@vicons/material'
 import VChart from 'vue-echarts'
 import { usePlayerAnalytics } from '@/composables/usePlayerAnalytics'

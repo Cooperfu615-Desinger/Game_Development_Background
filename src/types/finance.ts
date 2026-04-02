@@ -35,8 +35,8 @@ export interface Invoice {
 }
 
 export interface SettlementFilter {
-    startDate: string | null
-    endDate: string | null
+    startDate: number | null
+    endDate: number | null
     status: Settlement['status'] | undefined
     page: number
     pageSize: number

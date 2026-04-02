@@ -1,4 +1,4 @@
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, shallowRef, computed, onMounted, onUnmounted } from 'vue'
 import type { EChartsOption } from 'echarts'
 import type { DashboardStats, TopGame, RevenuePeriod } from '@/types/dashboard'
 
@@ -8,7 +8,7 @@ export function useDashboard() {
     // ── 狀態 ──────────────────────────────────────
     const stats = ref<DashboardStats | null>(null)
     const topGames = ref<TopGame[]>([])
-    const revenueChartOption = ref<EChartsOption>({})
+    const revenueChartOption = shallowRef({} as EChartsOption)
     const period = ref<RevenuePeriod>('7d')
 
     const loadingStats = ref(false)
@@ -72,6 +72,7 @@ export function useDashboard() {
             trigger: 'axis',
             formatter: (params: unknown) => {
                 const p = (params as Array<{ name: string; value: number }>)[0]
+                if (!p) return ''
                 return `${p.name}<br/>營收：${p.value.toLocaleString()}`
             }
         },

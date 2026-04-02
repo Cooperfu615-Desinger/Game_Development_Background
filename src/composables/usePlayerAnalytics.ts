@@ -1,4 +1,4 @@
-import { ref, watch, onMounted } from 'vue'
+import { ref, shallowRef, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import type { EChartsOption } from 'echarts'
 import type { Player, PlayerFilter, OverviewStats, RetentionData } from '@/types/player'
@@ -9,9 +9,9 @@ export function usePlayerAnalytics() {
 
     // ── 概況狀態 ───────────────────────────────────
     const overviewStats = ref<OverviewStats | null>(null)
-    const dauChartOption = ref<EChartsOption>({})
+    const dauChartOption = shallowRef({} as EChartsOption)
     const retentionData = ref<RetentionData[]>([])
-    const arpuChartOption = ref<EChartsOption>({})
+    const arpuChartOption = shallowRef({} as EChartsOption)
 
     const loadingOverview = ref(false)
     const loadingRetention = ref(false)
@@ -120,6 +120,7 @@ export function usePlayerAnalytics() {
     const buildArpuChart = (dates: string[], arpu: number[]): EChartsOption => ({
         tooltip: { trigger: 'axis', formatter: (p: unknown) => {
             const pt = (p as Array<{ name: string; value: number }>)[0]
+            if (!pt) return ''
             return `${pt.name}<br/>ARPU：$${pt.value.toFixed(2)}`
         }},
         grid: { left: 16, right: 16, top: 16, bottom: 24, containLabel: true },

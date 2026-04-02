@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NInput, NSelect, NButton, NSpace } from 'naive-ui'
+import { NInput, NSelect, NButton } from 'naive-ui'
 import type { GameFilter } from '@/types/game'
 
 const props = defineProps<{ filters: GameFilter; loading: boolean }>()

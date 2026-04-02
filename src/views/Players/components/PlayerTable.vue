@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, h } from 'vue'
-import { NDataTable, NTag, NInput, NSelect, NSpace, NButton } from 'naive-ui'
+import { NDataTable, NTag, NInput, NSelect, NButton } from 'naive-ui'
 import type { DataTableColumns } from 'naive-ui'
 import type { Player, PlayerFilter } from '@/types/player'
 

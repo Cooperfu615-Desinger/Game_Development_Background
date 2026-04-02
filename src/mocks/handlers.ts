@@ -1,0 +1,1079 @@
+import { http, HttpResponse, delay } from 'msw'
+import { faker } from '@faker-js/faker'
+import type { Merchant, MerchantDetail } from '../types/merchant'
+import type { Agent } from '../types/agent'
+import type { Provider } from '../types/provider'
+import { mockGames } from './data/games'
+import { financeHandlers } from './finance'
+import { systemHandlers } from './system'
+import { agentHandlers } from './agent'
+import { fundsHandlers } from './funds'
+
+// ... existing code ...
+
+// Helper Functions
+function createRandomAgent(id: number, parentId: number | null = null, level: number = 1): Agent {
+    const pct = faker.number.int({ min: 10, max: 90 })
+    return {
+        id,
+        account: faker.internet.username(),
+        site_code: faker.string.alpha({ length: 4, casing: 'upper' }),
+        level,
+        parent_id: parentId,
+        balance: faker.number.float({ min: 1000, max: 100000, fractionDigits: 2 }),
+        percent: pct,
+        commission_rate: pct,
+        player_count: faker.number.int({ min: 0, max: 200 }),
+        monthly_performance: faker.number.float({ min: 0, max: 50000, fractionDigits: 2 }),
+        promotion_code: faker.string.alphanumeric(8).toUpperCase(),
+        state: faker.helpers.arrayElement(['active', 'disabled']),
+        created_at: faker.date.past().toISOString(),
+        children_count: level < 3 ? faker.number.int({ min: 0, max: 5 }) : 0
+    }
+}
+
+function createRandomMerchant(id: number): Merchant {
+    const walletMode = faker.helpers.arrayElement(['transfer', 'seamless']) as 'transfer' | 'seamless'
+    const displayId = `OP-${(1000 + id).toString()}`
+
+    return {
+        id,
+        display_id: displayId,
+        site_code: faker.string.alpha({ length: 3, casing: 'upper' }),
+        account: faker.internet.username(),
+        name: faker.company.name(), // Keeping as is, but UI might use this or remarks
+        remarks: faker.lorem.sentence({ min: 3, max: 8 }), // New remarks field
+        currency_type: faker.helpers.arrayElement(['TWD', 'CNY', 'USD']),
+        percent: faker.number.float({ min: 10, max: 90, fractionDigits: 2 }), // Refers to revenue_share
+        revenue_share: faker.number.float({ min: 10, max: 90, fractionDigits: 2 }),
+        authorized_providers: faker.helpers.arrayElements(['pg', 'evo', 'pp', 'jili', 'habanero'], { min: 0, max: 3 }),
+        state: faker.helpers.arrayElement([0, 1]),
+        created_at: faker.date.past().toISOString(),
+        // Extended fields
+        walletMode,
+        secretKey: faker.string.uuid(),
+        ipWhitelist: [faker.internet.ip(), faker.internet.ip()],
+        baseCurrency: 'USD',
+        // Balance only for transfer wallet mode
+        balance: walletMode === 'transfer'
+            ? faker.number.float({ min: 1000, max: 100000, fractionDigits: 2 })
+            : undefined
+    }
+}
+
+// Mock Providers
+export const mockProviders: Provider[] = [
+    {
+        id: 1,
+        code: 'pg',
+        name: 'PG Soft',
+        status: 'active',
+        type: 'Slot',
+        gameCount: 128,
+        apiConfig: {
+            apiUrl: 'https://api.pgsoft.com',
+            merchantCode: 'AGG_TEST',
+            secretKey: 'sk_pg_123',
+            revenueShare: 12,
+            currency: 'USD'
+        },
+        contractConfig: {
+            settlement_currency: 'USD',
+            rules: {
+                slot_free_spin: { enabled: false, provider_share: 0 },
+                live_tip: { enabled: false, provider_share: 0 },
+                card_fee: { enabled: false, provider_share: 0 }
+            }
+        }
+    },
+    {
+        id: 2,
+        code: 'evo',
+        name: 'Evolution',
+        status: 'active',
+        type: 'Live',
+        gameCount: 85,
+        apiConfig: {
+            apiUrl: 'https://api.evolution.com',
+            merchantCode: 'AGG_EVO',
+            secretKey: 'sk_evo_456',
+            revenueShare: 10,
+            currency: 'EUR'
+        },
+        contractConfig: {
+            settlement_currency: 'EUR',
+            rules: {
+                slot_free_spin: { enabled: false, provider_share: 0 },
+                live_tip: { enabled: false, provider_share: 0 },
+                card_fee: { enabled: false, provider_share: 0 }
+            }
+        }
+    },
+    {
+        id: 3,
+        code: 'pp',
+        name: 'Pragmatic Play',
+        status: 'active',
+        type: 'Slot',
+        gameCount: 256,
+        apiConfig: {
+            apiUrl: 'https://api.pragmaticplay.com',
+            merchantCode: 'AGG_PP',
+            secretKey: 'sk_pp_789',
+            revenueShare: 15,
+            currency: 'USD'
+        },
+        contractConfig: {
+            settlement_currency: 'USD',
+            rules: {
+                slot_free_spin: { enabled: false, provider_share: 0 },
+                live_tip: { enabled: false, provider_share: 0 },
+                card_fee: { enabled: false, provider_share: 0 }
+            }
+        }
+    },
+    {
+        id: 4,
+        code: 'jili',
+        name: 'JILI',
+        status: 'maintenance',
+        type: 'Slot',
+        gameCount: 67,
+        apiConfig: {
+            apiUrl: 'https://api.jili.com',
+            merchantCode: 'AGG_JILI',
+            secretKey: 'sk_jili_abc',
+            revenueShare: 8,
+            currency: 'USD'
+        },
+        contractConfig: {
+            settlement_currency: 'USD',
+            rules: {
+                slot_free_spin: { enabled: false, provider_share: 0 },
+                live_tip: { enabled: false, provider_share: 0 },
+                card_fee: { enabled: false, provider_share: 0 }
+            }
+        }
+    },
+    {
+        id: 5,
+        code: 'habanero',
+        name: 'Habanero',
+        status: 'active',
+        type: 'Slot',
+        gameCount: 142,
+        apiConfig: {
+            apiUrl: 'https://api.habanero.com',
+            merchantCode: 'AGG_HAB',
+            secretKey: 'sk_hab_xyz',
+            revenueShare: 11,
+            currency: 'USD'
+        },
+        contractConfig: {
+            settlement_currency: 'USD',
+            rules: {
+                slot_free_spin: { enabled: false, provider_share: 0 },
+                live_tip: { enabled: false, provider_share: 0 },
+                card_fee: { enabled: false, provider_share: 0 }
+            }
+        }
+    }
+]
+
+// Merchant Subscription Map: merchantId -> [{ providerId, status, revenueShare, excludedGames }]
+const merchantSubscriptionMap = new Map<number, any[]>()
+
+export const handlers = [
+    // ================== AUTH HANDLERS ==================
+    // Login API - Returns role-based tokens
+    http.post('/api/login', async ({ request }) => {
+        await delay(500)
+        const body = await request.json() as { username: string; password: string }
+        const { username, password } = body
+
+        // Scenario A: Master Admin
+        if (username === 'admin' && password === 'admin123') {
+            return HttpResponse.json({
+                success: true,
+                token: 'mock-master-token-' + Date.now(),
+                role: 'MASTER',
+                name: 'Super Admin',
+                code: null
+            })
+        }
+
+        // Scenario B: Merchant
+        if (username === 'merchant' && password === '123456') {
+            return HttpResponse.json({
+                success: true,
+                token: 'mock-merchant-token-' + Date.now(),
+                role: 'MERCHANT',
+                name: 'Golden Dragon',
+                code: 'AGT001'
+            })
+        }
+
+        // Invalid credentials
+        return HttpResponse.json({
+            success: false,
+            message: 'Invalid username or password'
+        }, { status: 401 })
+    }),
+
+    // ... existing handlers ...
+
+    // Get Merchant Subscriptions
+    http.get('/api/v2/merchant/:id/providers', async ({ params }) => {
+        await delay(500)
+        const merchantId = Number(params.id)
+
+        let subscriptions = merchantSubscriptionMap.get(merchantId)
+        if (!subscriptions) {
+            // Default: All providers disabled
+            subscriptions = mockProviders.map(p => ({
+                providerId: p.id,
+                status: 'disabled',
+                revenueShare: 0,
+                excludedGames: []
+            }))
+            merchantSubscriptionMap.set(merchantId, subscriptions)
+        }
+
+        // Merge with current provider list to handle new providers
+        const result = mockProviders.map(p => {
+            const sub = subscriptions?.find(s => s.providerId === p.id)
+            return {
+                providerId: p.id,
+                name: p.name,
+                code: p.code,
+                globalStatus: p.status, // Current global status
+                status: sub?.status || 'disabled',
+                revenueShare: sub?.revenueShare || 0,
+                excludedGames: sub?.excludedGames || []
+            }
+        })
+
+        return HttpResponse.json({
+            code: 0,
+            msg: 'success',
+            data: result
+        })
+    }),
+
+    // Update Merchant Subscriptions
+    http.post('/api/v2/merchant/:id/providers', async ({ params, request }) => {
+        await delay(800)
+        const merchantId = Number(params.id)
+        const body = await request.json() as any[]
+
+        // Update map
+        merchantSubscriptionMap.set(merchantId, body)
+
+        return HttpResponse.json({
+            code: 0,
+            msg: 'Subscriptions Updated'
+        })
+    }),
+
+    // Game List
+    http.get('/api/v2/games', async ({ request }) => {
+        await delay(500)
+        const url = new URL(request.url)
+        const providerId = url.searchParams.get('provider_id')
+        const type = url.searchParams.get('type')
+        const status = url.searchParams.get('status')
+        const search = url.searchParams.get('search')?.toLowerCase()
+
+        let filtered = [...mockGames]
+
+        if (providerId) {
+            filtered = filtered.filter(g => g.providerId === Number(providerId))
+        }
+        if (type) {
+            filtered = filtered.filter(g => g.type === type)
+        }
+        if (status) {
+            filtered = filtered.filter(g => g.status === status)
+        }
+        if (search) {
+            filtered = filtered.filter(g =>
+                g.name_en.toLowerCase().includes(search) ||
+                (g.name_zh && g.name_zh.includes(search)) ||
+                g.game_id.toLowerCase().includes(search)
+            )
+        }
+
+        return HttpResponse.json({
+            code: 0,
+            msg: 'success',
+            data: {
+                list: filtered,
+                total: filtered.length
+            }
+        })
+    }),
+
+    // Game Sync
+    http.post('/api/v2/games/sync', async () => {
+        await delay(3000)
+        return HttpResponse.json({
+            code: 0,
+            msg: `Synced ${faker.number.int({ min: 5, max: 20 })} new games successfully`,
+            data: { count: 15 }
+        })
+    }),
+
+    // Update Game Status
+    http.post('/api/v2/games/update', async ({ request }) => {
+        await delay(600)
+        const body = await request.json() as any
+        const game = mockGames.find(g => g.game_id === body.game_id)
+        if (game) {
+            Object.assign(game, body)
+        }
+        return HttpResponse.json({
+            code: 0,
+            msg: 'Game Updated'
+        })
+    }),
+    // Create Provider
+    http.post('/api/admin/providers', async ({ request }) => {
+        await delay(800)
+        const body = await request.json() as any
+
+        if (mockProviders.some(p => p.code === body.code)) {
+            return HttpResponse.json({
+                code: 409,
+                msg: 'Provider Code already exists'
+            })
+        }
+
+        const newProvider = {
+            id: mockProviders.length + 1,
+            code: body.code,
+            name: body.name,
+            status: 'active' as const,
+            type: body.type || 'Slot',
+            gameCount: 0,
+            apiConfig: body.apiConfig || {},
+            contractConfig: body.contractConfig || {
+                settlement_currency: 'USD',
+                rules: {
+                    slot_free_spin: { enabled: false, provider_share: 0 },
+                    live_tip: { enabled: false, provider_share: 0 },
+                    card_fee: { enabled: false, provider_share: 0 }
+                }
+            },
+            contract: body.contract || { costPercent: 0, expiryDate: '' }
+        }
+
+        mockProviders.push(newProvider)
+
+        return HttpResponse.json({
+            code: 0,
+            msg: 'success',
+            data: newProvider
+        })
+    }),
+
+    // Provider List
+    http.get('/api/v2/providers', async () => {
+        await delay(600)
+        return HttpResponse.json({
+            code: 0,
+            msg: 'success',
+            data: {
+                list: mockProviders,
+                total: mockProviders.length
+            }
+        })
+    }),
+
+    // Update Provider
+    http.post('/api/v2/providers/update', async ({ request }) => {
+        await delay(800)
+        const body = await request.json() as any
+        const providerIndex = mockProviders.findIndex(p => p.id === body.id)
+
+        if (providerIndex !== -1) {
+            // Merge updates
+            mockProviders[providerIndex] = {
+                ...mockProviders[providerIndex],
+                ...body,
+                apiConfig: {
+                    ...mockProviders[providerIndex]!.apiConfig,
+                    ...(body.apiConfig || {})
+                }
+            }
+        }
+
+        return HttpResponse.json({
+            code: 0,
+            msg: 'Provider Updated Successfully'
+        })
+    }),
+    ...agentHandlers,
+    ...fundsHandlers,
+
+    http.get('/api/v2/agent/list', async ({ request }) => {
+        await delay(500) // Simulate network latency
+        const url = new URL(request.url)
+        const search = url.searchParams.get('search')?.toLowerCase()
+
+        // Generate 20 mock merchants
+        let mockList = Array.from({ length: 20 }).map((_, i) => createRandomMerchant(i + 1))
+
+        if (search) {
+            mockList = mockList.filter(m =>
+                m.display_id?.toLowerCase().includes(search) ||
+                m.site_code?.toLowerCase().includes(search) ||
+                m.name?.toLowerCase().includes(search)
+            )
+        }
+
+        return HttpResponse.json({
+            code: 0,
+            msg: 'success',
+            data: {
+                list: mockList,
+                total: mockList.length,
+                page: 1,
+                limit: 20
+            }
+        })
+    }),
+
+    // Get Merchant Detail
+    http.get('/api/v2/agent/:id', async ({ params }) => {
+        await delay(500)
+        const id = Number(params.id)
+        const merchant = createRandomMerchant(id) as MerchantDetail
+
+        // Enrich with detail fields
+        merchant.secret_key = faker.string.uuid()
+        merchant.wallet_mode = faker.helpers.arrayElement(['transfer', 'seamless'])
+        merchant.ip_whitelist = [faker.internet.ip(), faker.internet.ip()]
+        merchant.rtp_level = faker.number.float({ min: 90, max: 99, fractionDigits: 1 })
+
+        return HttpResponse.json({
+            code: 0,
+            msg: 'success',
+            data: merchant
+        })
+    }),
+
+    // Update Game Config
+    http.post('/api/v2/game/update', async () => {
+        await delay(1000)
+        return HttpResponse.json({
+            code: 0,
+            msg: 'success',
+            data: null
+        })
+    }),
+
+    // Update Merchant
+    http.post('/api/v2/agent/update', async () => {
+        await delay(800)
+        return HttpResponse.json({
+            code: 0,
+            msg: 'success'
+        })
+    }),
+
+    // Update RTP
+    http.post('/api/v2/game/rtp', async () => {
+        await delay(1000) // Longer delay for critical change
+        // Simulate random failure
+        if (Math.random() > 0.9) {
+            return HttpResponse.json({
+                code: 500,
+                msg: 'System busy, please try again.'
+            })
+        }
+        return HttpResponse.json({
+            code: 0,
+            msg: 'RTP Updated Successfully'
+        })
+    }),
+
+    // Create Merchant
+    http.post('/api/v2/agent/management/agents', async ({ request }) => {
+        await delay(1000)
+        const body = await request.json() as any
+
+        // Mock Conflict Error (Site Code 'EXIST')
+        if (body.site_code === 'EXT') {
+            return HttpResponse.json({
+                code: 409,
+                msg: 'Site Code already exists'
+            })
+        }
+
+        return HttpResponse.json({
+            code: 0,
+            msg: 'Merchant Created Successfully',
+            data: {
+                id: faker.number.int({ min: 100, max: 999 })
+            }
+        })
+    }),
+
+    // Get Bet Logs (Round Search) - Phase 8.8 Spec
+    http.post('/api/v2/report/bet-logs', async ({ request }) => {
+        await delay(800)
+        const body = await request.json() as any
+        const { match_roundId, match_playerId, match_merchant, match_provider, timeRange } = {
+            match_roundId: body.roundId,
+            match_playerId: body.playerId,
+            match_merchant: body.merchantCode,
+            match_provider: body.provider,
+            timeRange: body.timeRange
+        }
+
+        const list = faker.helpers.multiple(() => {
+            // Merchant data
+            const merchantCode = match_merchant || `OP-${faker.number.int({ min: 1001, max: 1020 })}`
+            const merchantName = faker.helpers.arrayElement(['Golden Dragon', 'Silver Tiger', 'Diamond Star', 'Royal Crown', 'Lucky 88', 'Grand Casino'])
+
+            // Provider data
+            const providerScenario = match_provider
+                ? (match_provider === 'pg' ? 'PG' : match_provider === 'evo' ? 'EVO' : 'PP')
+                : faker.helpers.weightedArrayElement([
+                    { weight: 60, value: 'PG' },
+                    { weight: 30, value: 'EVO' },
+                    { weight: 10, value: 'PP' }
+                ])
+
+            const providerName = providerScenario === 'PG' ? 'PG Soft' : providerScenario === 'EVO' ? 'Evolution' : 'Pragmatic Play'
+            const gameName = faker.helpers.arrayElement(['Fortune Tiger', 'Super Ace', 'Crazy Time', 'Sweet Bonanza', 'Gates of Olympus'])
+
+            // Player IDs (dual-layer)
+            const aggPlayerId = match_playerId || `PL-${faker.number.int({ min: 1000, max: 9999 })}`
+            const merchantMemberId = match_playerId || `mem_${faker.internet.username().toLowerCase()}`
+
+            // Financial scenarios
+            const scenario = faker.helpers.weightedArrayElement([
+                { weight: 40, value: 'WIN' },    // 40% wins
+                { weight: 50, value: 'LOSS' },   // 50% losses
+                { weight: 10, value: 'REFUND' }  // 10% refunds/cancelled
+            ])
+
+            let betAmount: number, payoutAmount: number, netWin: number, status: 'settled' | 'unsettled' | 'cancelled'
+
+            const baseBet = faker.number.float({ min: 10, max: 500, fractionDigits: 2 })
+
+            switch (scenario) {
+                case 'WIN':
+                    betAmount = baseBet
+                    payoutAmount = baseBet * faker.number.float({ min: 1.5, max: 10, fractionDigits: 2 })
+                    netWin = Number((payoutAmount - betAmount).toFixed(2))
+                    status = 'settled'
+                    break
+                case 'LOSS':
+                    betAmount = baseBet
+                    payoutAmount = faker.datatype.boolean(0.9) ? 0 : baseBet * faker.number.float({ min: 0.1, max: 0.9, fractionDigits: 2 })
+                    netWin = Number((payoutAmount - betAmount).toFixed(2))
+                    status = 'settled'
+                    break
+                case 'REFUND':
+                    betAmount = baseBet
+                    payoutAmount = baseBet
+                    netWin = 0
+                    status = 'cancelled'
+                    break
+                default:
+                    betAmount = baseBet
+                    payoutAmount = 0
+                    netWin = -baseBet
+                    status = 'settled'
+            }
+
+            // Timestamp
+            let created_at = faker.date.recent({ days: 1 }).toISOString()
+            if (timeRange && timeRange.length === 2) {
+                const start = new Date(timeRange[0])
+                const end = new Date(timeRange[1])
+                created_at = faker.date.between({ from: start, to: end }).toISOString()
+            }
+
+            return {
+                // Core IDs
+                round_id: match_roundId || `R-${faker.string.numeric(12)}`,
+                id: `PF-${faker.string.numeric(10)}`,
+                created_at,
+
+                // Merchant info
+                merchant_display_id: merchantCode,
+                merchant_name: merchantName,
+
+                // Game info
+                provider_name: providerName,
+                game_name: gameName,
+
+                // Player IDs
+                agg_player_id: aggPlayerId,
+                merchant_member_id: merchantMemberId,
+
+                // Financial
+                bet_amount: betAmount,
+                payout_amount: payoutAmount,
+                net_win: netWin,
+                currency: 'USD',
+
+                // Status
+                status,
+
+                // Detail
+                game_detail: {
+                    round_id: `R-${faker.string.numeric(12)}`,
+                    matrix: [],
+                    lines_won: [],
+                    free_games_triggered: false,
+                    multiplier: 1,
+                    currency: 'USD'
+                },
+
+                // Legacy compatibility (for existing code)
+                merchant_code: merchantCode,
+                providerCode: providerScenario.toLowerCase(),
+                providerName,
+                player_account: merchantMemberId,
+                player_id: aggPlayerId,
+                win_amount: payoutAmount,
+                profit: netWin,
+                payout: betAmount > 0 ? payoutAmount / betAmount : 0,
+                originalBet: betAmount,
+                originalWin: payoutAmount,
+                exchangeRate: 1.0,
+                txId: faker.string.uuid()
+            }
+        }, { count: 50 })
+
+        return HttpResponse.json({
+            code: 0,
+            msg: 'success',
+            data: {
+                list,
+                total: 200
+            }
+        })
+    }),
+
+    // Dashboard Statistics (War Room)
+    http.get('/api/v2/report/dashboard', async () => {
+        await delay(500)
+
+        // Generate trend data for 7 days
+        const trend = Array.from({ length: 7 }, (_, i) => {
+            const date = new Date()
+            date.setDate(date.getDate() - (6 - i))
+            const bet = faker.number.float({ min: 10000, max: 50000, fractionDigits: 2 })
+            const win = bet * faker.number.float({ min: 0.90, max: 1.05, fractionDigits: 2 }) // RTP 90-105%
+            return {
+                date: date.toISOString().split('T')[0],
+                ggr: Number((bet - win).toFixed(2)),
+                bet: Number(bet.toFixed(2))
+            }
+        })
+
+        // Current snapshot stats
+        const totalBet = 1500000 + faker.number.float({ min: 100, max: 1000 }) // ~1.5M
+        const totalWin = totalBet * 0.965 // ~96.5% RTP
+        const ggr = totalBet - totalWin
+
+        return HttpResponse.json({
+            code: 0,
+            msg: 'success',
+            data: {
+                // KPIs
+                total_bet: Number(totalBet.toFixed(2)),
+                total_ggr: Number(ggr.toFixed(2)),
+                rtp: 96.50,
+                active_players: faker.number.int({ min: 2500, max: 3500 }),
+                total_requests: faker.number.int({ min: 4000000, max: 4500000 }), // ~4.2M
+                avg_margin: 3.5, // 3.5%
+
+                // Charts
+                trend, // [ {date, ggr, bet}, ... ]
+                provider_share: [
+                    { name: 'PG Soft', value: 45 },
+                    { name: 'Evolution', value: 30 },
+                    { name: 'Pragmatic Play', value: 25 }
+                ],
+
+                // Top Lists
+                top_merchants: [
+                    { name: 'Bet365', ggr: 45000 },
+                    { name: '1xbet', ggr: 32000 },
+                    { name: 'K9Win', ggr: 28000 },
+                    { name: 'M88', ggr: 15000 },
+                    { name: 'Fun88', ggr: 12000 }
+                ],
+                top_games: [
+                    { name: 'Mahjong Ways 2', bet_count: 50000 },
+                    { name: 'Super Ace', bet_count: 42000 },
+                    { name: 'Crazy Time', bet_count: 35000 },
+                    { name: 'Fortune Tiger', bet_count: 28000 },
+                    { name: 'Gates of Olympus', bet_count: 25000 }
+                ],
+
+                // System Health
+                system_health: [
+                    { provider: 'PG Soft', status: 'healthy', latency: 45 },
+                    { provider: 'Evolution', status: 'warning', latency: 120 },
+                    { provider: 'Pragmatic Play', status: 'critical', latency: 0 } // 0 = timeout
+                ]
+            }
+        })
+    }),
+
+    // Game Center - List
+    http.get('/api/v2/game/list', async () => {
+        await delay(600)
+
+        const list = faker.helpers.multiple(() => {
+            const provider = faker.helpers.arrayElement(['PGSoft', 'JILI', 'PragmaticPlay', 'Habanero'])
+            return {
+                game_id: faker.string.alpha({ length: 6, casing: 'lower' }) + '_' + faker.number.int({ min: 100, max: 999 }),
+                name_en: faker.lorem.words({ min: 2, max: 3 }).replace(/^\w/, (c) => c.toUpperCase()),
+                provider: provider,
+                type: faker.helpers.arrayElement(['Slot', 'Live', 'Fishing']),
+                rtp_default: faker.number.float({ min: 95.0, max: 98.0, fractionDigits: 1 }),
+                status: faker.helpers.arrayElement(['active', 'maintenance'])
+            }
+        }, { count: 30 })
+
+        return HttpResponse.json({
+            code: 0,
+            msg: 'success',
+            data: {
+                list,
+                total: 100
+            }
+        })
+    }),
+
+    // Hierarchical Agent List
+    http.get('/api/v2/agents', async ({ request }) => {
+        await delay(500)
+        const url = new URL(request.url)
+        const parentIdParam = url.searchParams.get('parent_id')
+        const parentId = parentIdParam ? Number(parentIdParam) : null
+
+        let level = 1
+        if (parentId) {
+            const levelParam = url.searchParams.get('level')
+            level = levelParam ? Number(levelParam) + 1 : 2
+        }
+
+        const count = faker.number.int({ min: 5, max: 15 })
+        const list = Array.from({ length: count }).map(() =>
+            createRandomAgent(
+                faker.number.int({ min: 1000, max: 99999 }),
+                parentId,
+                level
+            )
+        )
+
+        return HttpResponse.json({
+            code: 0,
+            msg: 'success',
+            data: {
+                list,
+                total: count
+            }
+        })
+    }),
+
+    // Create Agent
+    http.post('/api/v2/agent/create', async () => {
+        await delay(1000)
+        return HttpResponse.json({
+            code: 0,
+            msg: 'Agent Created Successfully',
+            data: { id: faker.number.int({ min: 10000, max: 99999 }) }
+        })
+    }),
+
+    // Update Agent
+    http.post('/api/v2/agent/update', async () => {
+        await delay(800)
+        return HttpResponse.json({
+            code: 0,
+            msg: 'Agent Updated Successfully'
+        })
+    }),
+
+    // Generate New Key
+    http.post('/api/v2/agent/regenerate-key', async () => {
+        await delay(500)
+        return HttpResponse.json({
+            code: 0,
+            msg: 'New Secret Key Generated',
+            data: {
+                secret_key: 'sk_live_' + faker.string.uuid()
+            }
+        })
+    }),
+
+    // Save Merchant Config
+    http.post('/api/v2/agent/config/update', async () => {
+        await delay(800)
+        return HttpResponse.json({
+            code: 0,
+            msg: 'Configuration Saved Successfully'
+        })
+    }),
+
+    // Agent Game List (Phase 9.1)
+    http.get('/api/v2/agent/games', async () => {
+        await delay(600)
+
+        // Transform mockGames into MerchantGame format
+        const list = mockGames.map(game => ({
+            game_id: game.game_id,
+            game_code: game.game_id, // simple mapping
+            name_en: game.name_en,
+            name_zh: game.name_zh,
+            provider: game.provider,
+            type: game.type,
+            rtp: game.rtp_default,
+            // Randomly assign states for demo
+            merchant_enabled: faker.datatype.boolean(),
+            master_enabled: game.status === 'active', // 'maintenance' or 'disabled' -> false
+            thumbnail: game.thumbnail,
+            // New fields for Phase 9.1
+            release_date: faker.date.past({ years: 2 }).toISOString().split('T')[0],
+            admin_status: game.status // 'active' | 'maintenance' | 'disabled'
+        }))
+
+        return HttpResponse.json({
+            code: 0,
+            msg: 'success',
+            data: {
+                list,
+                total: list.length
+            }
+        })
+    }),
+
+    // Toggle Agent Game Status
+    http.post('/api/v2/agent/games/toggle', async () => {
+        await delay(400)
+        return HttpResponse.json({
+            code: 0,
+            msg: 'success'
+        })
+    }),
+
+    // Merchant Daily Revenue Report (Aggregated)
+    http.get('/api/v2/merchant/reports/daily', async () => {
+        await delay(500)
+
+        const items = Array.from({ length: 30 }).map((_, i) => {
+            const date = new Date()
+            date.setDate(date.getDate() - i)
+            const dateStr = date.toISOString().split('T')[0]
+
+            // Generate nested items first
+            const categories = ['Slot', 'Live', 'Arcade']
+            const children = categories.map(cat => {
+                const bet = Number(faker.finance.amount({ min: 1000, max: 100000, dec: 2 }))
+                const rtp = faker.number.int({ min: 85, max: 105 })
+                const payout = Number((bet * (rtp / 100)).toFixed(2))
+                return {
+                    key: `${dateStr}-${cat}`,
+                    date: cat, // Display name for UI
+                    active_players: faker.number.int({ min: 5, max: 200 }),
+                    tx_count: faker.number.int({ min: 10, max: 500 }),
+                    total_bet: bet,
+                    total_payout: payout,
+                    net_win: Number((payout - bet).toFixed(2)),
+                    rtp: rtp
+                }
+            })
+
+            // Sum up for daily total
+            const dailyTotal = children.reduce((acc, curr) => ({
+                active_players: acc.active_players + curr.active_players,
+                tx_count: acc.tx_count + curr.tx_count,
+                total_bet: acc.total_bet + curr.total_bet,
+                total_payout: acc.total_payout + curr.total_payout,
+                net_win: acc.net_win + curr.net_win
+            }), { active_players: 0, tx_count: 0, total_bet: 0, total_payout: 0, net_win: 0 })
+
+            return {
+                key: dateStr,
+                date: dateStr,
+                ...dailyTotal,
+                children // Nested data
+            }
+        })
+
+        // Calculate Grand Total Summary
+        const summary = items.reduce((acc, curr) => ({
+            total_bet: acc.total_bet + curr.total_bet,
+            total_payout: acc.total_payout + curr.total_payout,
+            net_win: acc.net_win + curr.net_win,
+            tx_count: acc.tx_count + curr.tx_count,
+            active_players: acc.active_players + curr.active_players
+        }), { total_bet: 0, total_payout: 0, net_win: 0, tx_count: 0, active_players: 0 })
+
+        return HttpResponse.json({
+            code: 0,
+            msg: 'success',
+            data: {
+                items,
+                summary
+            }
+        })
+    }),
+
+    // Merchant Report Transactions Information (Drill-down)
+    http.get('/api/v2/merchant/reports/transactions', async () => {
+        await delay(600)
+        const total = 50
+        const list = Array.from({ length: 15 }).map(() => {
+            const bet = Number(faker.finance.amount({ min: 10, max: 1000, dec: 2 }))
+            const isWin = faker.datatype.boolean()
+            const payout = isWin ? bet * faker.number.float({ min: 0.5, max: 50 }) : 0
+
+            return {
+                id: faker.string.uuid(),
+                player_id: `user_${faker.string.alphanumeric(6)}`,
+                game_name: faker.helpers.arrayElement(mockGames).name_en,
+                bet_amount: bet,
+                payout_amount: Number(payout.toFixed(2)),
+                net_win: Number((payout - bet).toFixed(2)),
+                created_at: faker.date.recent().toISOString()
+            }
+        })
+
+        return HttpResponse.json({
+            code: 0,
+            msg: 'success',
+            data: {
+                list,
+                total
+            }
+        })
+    }),
+
+    // ================== MERCHANT FINANCE CENTER ==================
+    // Get Merchant Wallet
+    http.get('/api/v2/merchant/wallet', async () => {
+        await delay(300)
+        return HttpResponse.json({
+            code: 0,
+            msg: 'success',
+            data: {
+                credit_limit: 100000,
+                balance: 23456.78,
+                outstanding_amount: 15800.50,
+                currency: 'TWD',
+                exchange_rate: 32.50,
+                credit_request_status: 'none' // 'none' | 'pending' | 'rejected'
+            }
+        })
+    }),
+
+    // Submit Credit Limit Request
+    http.post('/api/v2/merchant/wallet/credit-limit-request', async () => {
+        await delay(500)
+        return HttpResponse.json({
+            code: 0,
+            msg: 'success',
+            data: { request_id: faker.string.uuid() }
+        })
+    }),
+
+    // Submit Top-up Request
+    http.post('/api/v2/merchant/wallet/top-up', async () => {
+        await delay(500)
+        return HttpResponse.json({
+            code: 0,
+            msg: 'success',
+            data: { request_id: faker.string.uuid() }
+        })
+    }),
+
+    // Get Invoices with verification_status
+    http.get('/api/v2/merchant/invoices', async () => {
+        await delay(400)
+        const list = Array.from({ length: 6 }).map((_, i) => {
+            const isPaid = i < 2
+            return {
+                id: `INV-${2026}${String(i + 1).padStart(2, '0')}`,
+                period: `2025-${String(12 - i).padStart(2, '0')}`,
+                total_ggr: Number(faker.finance.amount({ min: 5000, max: 50000, dec: 2 })),
+                commission_rate: 15,
+                amount_due: Number(faker.finance.amount({ min: 1000, max: 10000, dec: 2 })),
+                status: isPaid ? 'paid' : 'pending',
+                verification_status: isPaid ? 'verified' : (i === 2 ? 'verifying' : 'none'),
+                created_at: faker.date.past().toISOString()
+            }
+        })
+        return HttpResponse.json({
+            code: 0,
+            msg: 'success',
+            data: { list, total: list.length }
+        })
+    }),
+
+    // Submit Invoice Payment Proof
+    http.post('/api/v2/merchant/invoices/:id/payment', async () => {
+        await delay(600)
+        return HttpResponse.json({
+            code: 0,
+            msg: 'success',
+            data: { verification_status: 'verifying' }
+        })
+    }),
+    // Dashboard Statistics (War Room)
+    http.get('/api/v2/merchant/dashboard/stats', async () => {
+        await delay(500);
+        const wallet = {
+            balance: Number(faker.finance.amount({ min: 50000, max: 200000, dec: 2 })),
+            credit_limit: Number(faker.finance.amount({ min: 100000, max: 500000, dec: 2 })),
+            currency: faker.helpers.arrayElement(['TWD', 'USD', 'CNY']),
+            exchange_rate: Number(faker.finance.amount({ min: 0.8, max: 1.2, dec: 4 }))
+        };
+        const totalBet = Number(faker.finance.amount({ min: 1000000, max: 5000000, dec: 2 }));
+        const totalWin = totalBet * faker.number.float({ min: 0.9, max: 1.05, fractionDigits: 4 });
+        const today_kpi = {
+            total_bet: totalBet,
+            net_win: Number((totalBet - totalWin).toFixed(2)),
+            active_players: faker.number.int({ min: 2000, max: 5000 }),
+            tx_count: faker.number.int({ min: 10000, max: 50000 }),
+            comparison: {
+                bet_pct: faker.number.float({ min: -5, max: 5, fractionDigits: 2 }),
+                win_pct: faker.number.float({ min: -5, max: 5, fractionDigits: 2 }),
+                player_pct: faker.number.float({ min: -5, max: 5, fractionDigits: 2 })
+            }
+        };
+        const trend_7d = Array.from({ length: 7 }, (_, i) => {
+            const date = new Date();
+            date.setDate(date.getDate() - (6 - i));
+            const bet = Number(faker.finance.amount({ min: 50000, max: 300000, dec: 2 }));
+            const win = bet * faker.number.float({ min: 0.9, max: 1.05, fractionDigits: 4 });
+            return { date: date.toISOString().split('T')[0], bet, net_win: Number((bet - win).toFixed(2)) };
+        });
+        const alerts = [
+            { type: 'invoice', message: '您有 2 筆待付帳單', count: 2 },
+            { type: 'reject', message: '最近有 1 筆充值申請被拒絕', count: 1 }
+        ];
+        const top_games = faker.helpers.multiple(() => ({
+            name: faker.lorem.words(2),
+            bet: Number(faker.finance.amount({ min: 20000, max: 150000, dec: 2 })),
+            win: Number(faker.finance.amount({ min: 15000, max: 140000, dec: 2 }))
+        }), { count: 5 });
+        return HttpResponse.json({
+            code: 0,
+            msg: 'success',
+            data: { wallet, today_kpi, trend_7d, alerts, top_games }
+        });
+    }),
+    ...financeHandlers,
+    ...systemHandlers
+]

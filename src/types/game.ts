@@ -1,20 +1,26 @@
 export interface Game {
-    game_id: string;
-    name_en: string;
-    name_zh?: string;
-    provider: string; // 'PGSoft' | 'JILI' | 'PragmaticPlay'
-    providerId?: number;
-    type: string; // 'Slot' | 'Live' | 'Fishing'
-    rtp_default: number;
-    status: 'active' | 'maintenance';
-    thumbnail?: string;
+    id: string
+    name: string
+    status: 'active' | 'inactive'
+    version: string
+    rtp: number
+    activeUsers: number
+    publishedAt: string
+    category: 'slot' | 'table' | 'live' | 'fishing'
+    description?: string
+}
+
+export interface GameFilter {
+    status: 'active' | 'inactive' | undefined
+    search: string
+    category: Game['category'] | undefined
+    page: number
+    pageSize: number
 }
 
 export interface GameListResponse {
-    code: number;
-    msg: string;
-    data: {
-        list: Game[];
-        total: number;
-    };
+    items: Game[]
+    total: number
+    page: number
+    limit: number
 }

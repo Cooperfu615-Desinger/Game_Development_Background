@@ -11,17 +11,38 @@ import { computed } from 'vue'
 
 const { locale } = useI18n()
 
-// Theme Overrides for Light Green Primary
+// Theme Overrides — Neon Cyan (aligned with design-tokens.css)
 const themeOverrides = {
   common: {
-    primaryColor: '#63e2b7', // Light Green
-    primaryColorHover: '#7fe7c4',
-    primaryColorPressed: '#5acea7',
-    primaryColorSuppl: '#2a483e'
+    primaryColor: '#00D4FF',
+    primaryColorHover: '#33DDFF',
+    primaryColorPressed: '#00AACC',
+    primaryColorSuppl: '#003D4D',
+    borderRadius: '8px',
+    fontFamily: "Rajdhani, 'Noto Sans TC', system-ui, sans-serif",
   },
   Button: {
-    textColorPrimary: '#1a3b32' // Deep Green for better contrast on Light Green bg
-  }
+    textColorPrimary: '#0A0E1A',
+    fontWeight: '600',
+  },
+  Menu: {
+    itemColorActive: 'rgba(0, 212, 255, 0.12)',
+    itemTextColorActive: '#00D4FF',
+    itemIconColorActive: '#00D4FF',
+    itemColorActiveHover: 'rgba(0, 212, 255, 0.16)',
+    itemTextColorActiveHover: '#33DDFF',
+    itemIconColorActiveHover: '#33DDFF',
+  },
+  DataTable: {
+    thColor: '#0F1525',
+    tdColor: '#141B2D',
+    tdColorHover: 'rgba(0, 212, 255, 0.05)',
+    borderColor: '#1E3054',
+  },
+  Card: {
+    color: '#141B2D',
+    borderColor: '#1E3054',
+  },
 }
 
 const naiveLocale = computed(() => {
@@ -37,7 +58,7 @@ const naiveDateLocale = computed(() => {
   <n-config-provider :theme="darkTheme" :theme-overrides="themeOverrides" :locale="naiveLocale" :date-locale="naiveDateLocale">
     <n-global-style />
     <n-message-provider>
-      <div class="min-h-screen bg-[#18181c] text-white">
+      <div class="min-h-screen bg-[#0A0E1A] text-white">
         <router-view />
       </div>
     </n-message-provider>

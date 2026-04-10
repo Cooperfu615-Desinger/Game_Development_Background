@@ -90,10 +90,12 @@ import { computed } from 'vue'
 
 <style scoped>
 .trend-up {
-  color: var(--color-status-online);
+  color: var(--color-neon-green);
+  text-shadow: 0 0 8px var(--color-neon-green-glow);
 }
 .trend-down {
-  color: var(--color-status-error);
+  color: var(--color-neon-red);
+  text-shadow: 0 0 8px var(--color-neon-red-glow);
 }
 .trend-flat {
   color: var(--color-text-muted);

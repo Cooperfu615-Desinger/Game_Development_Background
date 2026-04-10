@@ -45,8 +45,8 @@ const handleUserSelect = (key: string) => {
       :inverted="true"
     >
       <div class="h-16 flex items-center justify-center overflow-hidden whitespace-nowrap">
-        <span v-if="!collapsed" class="text-base font-bold text-white tracking-widest pl-4">Game Dev Hub</span>
-        <span v-else class="text-base font-bold text-white">GD</span>
+        <span v-if="!collapsed" class="ds-sidebar-brand text-sm pl-4">Game Dev Hub</span>
+        <span v-else class="ds-sidebar-brand-short text-base">GD</span>
       </div>
       <AppMenu :collapsed="collapsed" />
     </n-layout-sider>

@@ -1,6 +1,6 @@
 /**
  * Design System — CSS Custom Properties
- * Game Developer Dashboard
+ * Game Developer Dashboard — NEURAL COMMAND / Sci-Fi Theme
  * 現代科幻風格，深色優先
  */
 
@@ -8,64 +8,86 @@
    DARK THEME (default)
 ───────────────────────────────────────────── */
 :root {
-  /* Surfaces */
-  --color-bg-base:     #0A0E1A;
-  --color-bg-surface:  #0F1525;
-  --color-bg-card:     #141B2D;
-  --color-bg-elevated: #1A2236;
-  --color-bg-overlay:  #1E2740;
+  /* Surfaces — deep space palette */
+  --color-bg-base:      #080C18;
+  --color-bg-surface:   #0D1220;
+  --color-bg-card:      #111827;
+  --color-bg-elevated:  #172035;
+  --color-bg-overlay:   #1C2840;
+  --color-bg-sidebar:   #080C18;
 
   /* Primary — Neon Cyan */
-  --color-primary:      #00D4FF;
-  --color-primary-dim:  #00AACC;
-  --color-primary-glow: rgba(0, 212, 255, 0.25);
-  --color-primary-soft: rgba(0, 212, 255, 0.1);
-  --color-primary-text: #0A0E1A;
+  --color-primary:            #00D4FF;
+  --color-primary-dim:        #00AACC;
+  --color-primary-bright:     #66E9FF;
+  --color-primary-glow:       rgba(0, 212, 255, 0.3);
+  --color-primary-glow-soft:  rgba(0, 212, 255, 0.15);
+  --color-primary-glow-intense: rgba(0, 212, 255, 0.55);
+  --color-primary-soft:       rgba(0, 212, 255, 0.08);
+  --color-primary-text:       #080C18;
 
   /* Accent — Electric Purple */
-  --color-accent:      #A855F7;
-  --color-accent-dim:  #9333EA;
-  --color-accent-glow: rgba(168, 85, 247, 0.25);
-  --color-accent-soft: rgba(168, 85, 247, 0.1);
+  --color-accent:            #A855F7;
+  --color-accent-dim:        #9333EA;
+  --color-accent-bright:     #C084FC;
+  --color-accent-glow:       rgba(168, 85, 247, 0.3);
+  --color-accent-glow-soft:  rgba(168, 85, 247, 0.15);
+  --color-accent-soft:       rgba(168, 85, 247, 0.08);
+
+  /* Neon Status — brighter, more vivid than standard */
+  --color-neon-green:       #39FF14;
+  --color-neon-green-glow:  rgba(57, 255, 20, 0.3);
+  --color-neon-green-soft:  rgba(57, 255, 20, 0.08);
+  --color-neon-red:         #FF2D55;
+  --color-neon-red-glow:    rgba(255, 45, 85, 0.3);
+  --color-neon-red-soft:    rgba(255, 45, 85, 0.08);
+  --color-neon-amber:       #FFB800;
+  --color-neon-amber-glow:  rgba(255, 184, 0, 0.3);
+  --color-neon-amber-soft:  rgba(255, 184, 0, 0.08);
 
   /* Text */
   --color-text-primary:   #E8F4FD;
   --color-text-secondary: #B8D0E8;
   --color-text-muted:     #8FA3BE;
   --color-text-disabled:  #4A6080;
-  --color-text-inverse:   #0A0E1A;
+  --color-text-inverse:   #080C18;
 
   /* Border */
-  --color-border-subtle:  #152540;
-  --color-border-default: #1E3054;
-  --color-border-strong:  #2A4270;
-  --color-border-glow:    rgba(0, 212, 255, 0.3);
-  --color-border-accent:  rgba(168, 85, 247, 0.3);
+  --color-border-subtle:  #111D35;
+  --color-border-default: #192847;
+  --color-border-strong:  #253D6B;
+  --color-border-glow:    rgba(0, 212, 255, 0.35);
+  --color-border-glow-intense: rgba(0, 212, 255, 0.65);
+  --color-border-accent:  rgba(168, 85, 247, 0.35);
+  --color-border-green:   rgba(57, 255, 20, 0.35);
+  --color-border-red:     rgba(255, 45, 85, 0.35);
 
   /* Status */
-  --color-status-online:  #10B981;
+  --color-status-online:  #39FF14;
   --color-status-offline: #6B7280;
-  --color-status-error:   #EF4444;
-  --color-status-pending: #F59E0B;
-  --color-status-info:    #3B82F6;
+  --color-status-error:   #FF2D55;
+  --color-status-pending: #FFB800;
+  --color-status-info:    #00D4FF;
 
   /* Status — soft backgrounds */
-  --color-status-online-bg:  rgba(16, 185, 129, 0.12);
-  --color-status-offline-bg: rgba(107, 114, 128, 0.12);
-  --color-status-error-bg:   rgba(239, 68, 68, 0.12);
-  --color-status-pending-bg: rgba(245, 158, 11, 0.12);
-  --color-status-info-bg:    rgba(59, 130, 246, 0.12);
+  --color-status-online-bg:  rgba(57, 255, 20, 0.1);
+  --color-status-offline-bg: rgba(107, 114, 128, 0.1);
+  --color-status-error-bg:   rgba(255, 45, 85, 0.1);
+  --color-status-pending-bg: rgba(255, 184, 0, 0.1);
+  --color-status-info-bg:    rgba(0, 212, 255, 0.1);
 
   /* Status — border */
-  --color-status-online-border:  rgba(16, 185, 129, 0.4);
-  --color-status-offline-border: rgba(107, 114, 128, 0.4);
-  --color-status-error-border:   rgba(239, 68, 68, 0.4);
-  --color-status-pending-border: rgba(245, 158, 11, 0.4);
-  --color-status-info-border:    rgba(59, 130, 246, 0.4);
+  --color-status-online-border:  rgba(57, 255, 20, 0.45);
+  --color-status-offline-border: rgba(107, 114, 128, 0.35);
+  --color-status-error-border:   rgba(255, 45, 85, 0.45);
+  --color-status-pending-border: rgba(255, 184, 0, 0.45);
+  --color-status-info-border:    rgba(0, 212, 255, 0.45);
 
-  /* Typography */
-  --font-sans: 'Inter', 'Noto Sans TC', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  /* Typography — display/heading use sci-fi fonts */
+  --font-display: 'Orbitron', 'JetBrains Mono', monospace;
+  --font-heading:  'Rajdhani', 'Noto Sans TC', system-ui, sans-serif;
+  --font-sans:    'Rajdhani', 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
 
   /* Font sizes */
   --text-display: 2.25rem;
@@ -89,19 +111,26 @@
   --space-12: 48px;
 
   /* Border radius */
-  --radius-sm:    6px;
+  --radius-sm:    4px;
   --radius-md:    8px;
-  --radius-card:  12px;
-  --radius-modal: 16px;
+  --radius-card:  10px;
+  --radius-modal: 14px;
   --radius-full:  9999px;
 
   /* Shadows */
-  --shadow-card:       0 4px 24px rgba(0, 0, 0, 0.4);
-  --shadow-card-hover: 0 4px 32px rgba(0, 212, 255, 0.08), 0 0 0 1px rgba(0, 212, 255, 0.2);
-  --shadow-glow-cyan:  0 0 20px rgba(0, 212, 255, 0.25);
-  --shadow-glow-purple:0 0 20px rgba(168, 85, 247, 0.25);
-  --shadow-modal:      0 24px 80px rgba(0, 0, 0, 0.7);
-  --shadow-dropdown:   0 8px 32px rgba(0, 0, 0, 0.6);
+  --shadow-card:              0 4px 24px rgba(0, 0, 0, 0.6);
+  --shadow-card-hover:        0 4px 32px rgba(0, 212, 255, 0.12), 0 0 0 1px rgba(0, 212, 255, 0.3);
+  --shadow-glow-cyan:         0 0 20px rgba(0, 212, 255, 0.3);
+  --shadow-glow-cyan-intense: 0 0 30px rgba(0, 212, 255, 0.6), 0 0 60px rgba(0, 212, 255, 0.2);
+  --shadow-glow-purple:       0 0 20px rgba(168, 85, 247, 0.3);
+  --shadow-glow-green:        0 0 20px rgba(57, 255, 20, 0.35);
+  --shadow-glow-red:          0 0 20px rgba(255, 45, 85, 0.35);
+  --shadow-modal:             0 24px 80px rgba(0, 0, 0, 0.85);
+  --shadow-dropdown:          0 8px 32px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(0, 212, 255, 0.1);
+
+  /* Corner bracket size */
+  --corner-size:  18px;
+  --corner-width: 2px;
 
   /* Animation */
   --ease-snappy: cubic-bezier(0.4, 0, 0.2, 1);
@@ -114,18 +143,18 @@
   --duration-slow:   500ms;
 
   /* Layout */
-  --sidebar-width:         240px;
+  --sidebar-width:           240px;
   --sidebar-collapsed-width: 64px;
-  --header-height:         60px;
-  --content-max-width:     1440px;
+  --header-height:           60px;
+  --content-max-width:       1440px;
 
-  /* ECharts color palette */
+  /* ECharts color palette — neon updated */
   --chart-color-1: #00D4FF;
   --chart-color-2: #A855F7;
-  --chart-color-3: #10B981;
-  --chart-color-4: #F59E0B;
-  --chart-color-5: #EF4444;
-  --chart-color-6: #3B82F6;
+  --chart-color-3: #39FF14;
+  --chart-color-4: #FFB800;
+  --chart-color-5: #FF2D55;
+  --chart-color-6: #66E9FF;
   --chart-color-7: #EC4899;
   --chart-color-8: #14B8A6;
 }

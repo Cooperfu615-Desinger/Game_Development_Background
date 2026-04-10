@@ -26,7 +26,10 @@ const formatRevenue = (v: number) =>
     <div class="flex flex-col gap-6">
         <!-- Header -->
         <div class="flex items-center justify-between">
-            <h1 class="text-2xl font-bold">儀表板</h1>
+            <div class="ds-page-header flex-1 mr-4">
+                <h1>儀表板</h1>
+                <p>即時監控 · 遊戲平台總覽</p>
+            </div>
             <n-button size="small" @click="refreshAll" :loading="loadingStats">
                 <template #icon>
                     <n-icon><RefreshOutlined /></n-icon>

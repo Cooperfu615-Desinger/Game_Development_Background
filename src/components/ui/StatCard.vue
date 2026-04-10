@@ -143,7 +143,7 @@ const valueColor = computed(() => ({
     <!-- Header: label + icon -->
     <div class="flex items-start justify-between mb-3">
       <span class="ds-label">{{ label }}</span>
-      <span v-if="icon" class="text-xl leading-none opacity-80">{{ icon }}</span>
+      <span v-if="icon" class="ds-metric-icon text-lg" :class="variant === 'accent' ? 'ds-metric-icon-accent' : ''">{{ icon }}</span>
     </div>
 
     <!-- Main value -->

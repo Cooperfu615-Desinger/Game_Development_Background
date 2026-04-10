@@ -93,6 +93,14 @@ const routes: RouteRecordRaw[] = [
         meta: { title: 'common.login' }
     },
 
+    // ================== DEV ONLY ==================
+    {
+        path: '/design-system',
+        name: 'DesignSystem',
+        component: () => import('../views/DesignSystem.vue'),
+        meta: { title: 'Design System' }
+    },
+
     // ================== FALLBACK ==================
     {
         path: '/:pathMatch(.*)*',

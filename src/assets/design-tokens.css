@@ -1,0 +1,154 @@
+/**
+ * Design System — CSS Custom Properties
+ * Game Developer Dashboard
+ * 現代科幻風格，深色優先
+ */
+
+/* ─────────────────────────────────────────────
+   DARK THEME (default)
+───────────────────────────────────────────── */
+:root {
+  /* Surfaces */
+  --color-bg-base:     #0A0E1A;
+  --color-bg-surface:  #0F1525;
+  --color-bg-card:     #141B2D;
+  --color-bg-elevated: #1A2236;
+  --color-bg-overlay:  #1E2740;
+
+  /* Primary — Neon Cyan */
+  --color-primary:      #00D4FF;
+  --color-primary-dim:  #00AACC;
+  --color-primary-glow: rgba(0, 212, 255, 0.25);
+  --color-primary-soft: rgba(0, 212, 255, 0.1);
+  --color-primary-text: #0A0E1A;
+
+  /* Accent — Electric Purple */
+  --color-accent:      #A855F7;
+  --color-accent-dim:  #9333EA;
+  --color-accent-glow: rgba(168, 85, 247, 0.25);
+  --color-accent-soft: rgba(168, 85, 247, 0.1);
+
+  /* Text */
+  --color-text-primary:   #E8F4FD;
+  --color-text-secondary: #B8D0E8;
+  --color-text-muted:     #8FA3BE;
+  --color-text-disabled:  #4A6080;
+  --color-text-inverse:   #0A0E1A;
+
+  /* Border */
+  --color-border-subtle:  #152540;
+  --color-border-default: #1E3054;
+  --color-border-strong:  #2A4270;
+  --color-border-glow:    rgba(0, 212, 255, 0.3);
+  --color-border-accent:  rgba(168, 85, 247, 0.3);
+
+  /* Status */
+  --color-status-online:  #10B981;
+  --color-status-offline: #6B7280;
+  --color-status-error:   #EF4444;
+  --color-status-pending: #F59E0B;
+  --color-status-info:    #3B82F6;
+
+  /* Status — soft backgrounds */
+  --color-status-online-bg:  rgba(16, 185, 129, 0.12);
+  --color-status-offline-bg: rgba(107, 114, 128, 0.12);
+  --color-status-error-bg:   rgba(239, 68, 68, 0.12);
+  --color-status-pending-bg: rgba(245, 158, 11, 0.12);
+  --color-status-info-bg:    rgba(59, 130, 246, 0.12);
+
+  /* Status — border */
+  --color-status-online-border:  rgba(16, 185, 129, 0.4);
+  --color-status-offline-border: rgba(107, 114, 128, 0.4);
+  --color-status-error-border:   rgba(239, 68, 68, 0.4);
+  --color-status-pending-border: rgba(245, 158, 11, 0.4);
+  --color-status-info-border:    rgba(59, 130, 246, 0.4);
+
+  /* Typography */
+  --font-sans: 'Inter', 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+  /* Font sizes */
+  --text-display: 2.25rem;
+  --text-h1:      1.75rem;
+  --text-h2:      1.375rem;
+  --text-h3:      1.125rem;
+  --text-h4:      0.9375rem;
+  --text-body:    0.875rem;
+  --text-sm:      0.8125rem;
+  --text-xs:      0.75rem;
+
+  /* Spacing */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Border radius */
+  --radius-sm:    6px;
+  --radius-md:    8px;
+  --radius-card:  12px;
+  --radius-modal: 16px;
+  --radius-full:  9999px;
+
+  /* Shadows */
+  --shadow-card:       0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover: 0 4px 32px rgba(0, 212, 255, 0.08), 0 0 0 1px rgba(0, 212, 255, 0.2);
+  --shadow-glow-cyan:  0 0 20px rgba(0, 212, 255, 0.25);
+  --shadow-glow-purple:0 0 20px rgba(168, 85, 247, 0.25);
+  --shadow-modal:      0 24px 80px rgba(0, 0, 0, 0.7);
+  --shadow-dropdown:   0 8px 32px rgba(0, 0, 0, 0.6);
+
+  /* Animation */
+  --ease-snappy: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-gentle: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --duration-micro:  100ms;
+  --duration-fast:   150ms;
+  --duration-base:   200ms;
+  --duration-medium: 300ms;
+  --duration-slow:   500ms;
+
+  /* Layout */
+  --sidebar-width:         240px;
+  --sidebar-collapsed-width: 64px;
+  --header-height:         60px;
+  --content-max-width:     1440px;
+
+  /* ECharts color palette */
+  --chart-color-1: #00D4FF;
+  --chart-color-2: #A855F7;
+  --chart-color-3: #10B981;
+  --chart-color-4: #F59E0B;
+  --chart-color-5: #EF4444;
+  --chart-color-6: #3B82F6;
+  --chart-color-7: #EC4899;
+  --chart-color-8: #14B8A6;
+}
+
+/* ─────────────────────────────────────────────
+   LIGHT THEME (optional — less priority)
+───────────────────────────────────────────── */
+.light {
+  --color-bg-base:     #F0F4F8;
+  --color-bg-surface:  #FFFFFF;
+  --color-bg-card:     #FFFFFF;
+  --color-bg-elevated: #F7FAFC;
+  --color-bg-overlay:  #EDF2F7;
+
+  --color-text-primary:   #0F1525;
+  --color-text-secondary: #2D4060;
+  --color-text-muted:     #4A6080;
+  --color-text-disabled:  #8FA3BE;
+
+  --color-border-subtle:  #E2EAF4;
+  --color-border-default: #C8D8EC;
+  --color-border-strong:  #A0BCDB;
+
+  --shadow-card:       0 2px 12px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 4px 20px rgba(0, 212, 255, 0.12), 0 0 0 1px rgba(0, 212, 255, 0.2);
+}

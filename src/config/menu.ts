@@ -69,8 +69,8 @@ export const menuOptions = (t: (key: string) => string): MenuOption[] => [
         key: 'player-agent-group',
         children: [
             {
-                label: () => h(RouterLink, { to: '/agents' }, { default: () => t('menu.agents') }),
-                key: 'Agents',
+                label: () => h(RouterLink, { to: '/platforms' }, { default: () => t('menu.platforms') }),
+                key: 'Platforms',
                 icon: renderIcon(GroupsOutlined)
             },
             {

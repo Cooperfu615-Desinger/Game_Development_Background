@@ -54,12 +54,22 @@ const routes: RouteRecordRaw[] = [
                 meta: { title: 'menu.gameDetail' }
             },
 
-            // ── 玩家 & 代理 ─────────────────────────────
+            // ── 平台分析 ──────────────────────────────────
+            {
+                path: 'platforms',
+                name: 'Platforms',
+                component: () => import('../views/Platforms/Index.vue'),
+                meta: { title: 'menu.platforms' }
+            },
+            {
+                path: 'platforms/:id',
+                name: 'PlatformDetail',
+                component: () => import('../views/Platforms/Detail.vue'),
+                meta: { title: 'menu.platformDetail' }
+            },
             {
                 path: 'agents',
-                name: 'Agents',
-                component: () => import('../views/Agents/Index.vue'),
-                meta: { title: 'menu.agents' }
+                redirect: '/platforms'
             },
             {
                 path: 'players',

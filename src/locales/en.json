@@ -112,6 +112,8 @@
         "aggregators": "Aggregators",
         "aggregatorDetail": "Aggregator Detail",
         "agents": "Agent Analytics",
+        "platforms": "Platform Analytics",
+        "platformDetail": "Platform Detail",
         "aggregatorGroup": "Aggregator",
         "playerAndAgent": "Players & Agents",
         "overview": "Overview",

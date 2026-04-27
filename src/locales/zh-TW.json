@@ -119,6 +119,8 @@
         "aggregators": "聚合商管理",
         "aggregatorDetail": "聚合商詳情",
         "agents": "代理分析",
+        "platforms": "平台分析",
+        "platformDetail": "平台詳情",
         "aggregatorGroup": "聚合商",
         "playerAndAgent": "玩家 & 代理"
     },

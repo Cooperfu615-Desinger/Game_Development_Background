@@ -5,10 +5,12 @@ import type { MenuOption } from 'naive-ui'
 import { NIcon } from 'naive-ui'
 import {
     DashboardOutlined,
+    HubOutlined,
     SportsEsportsOutlined,
+    GroupsOutlined,
     PeopleAltOutlined,
     AccountBalanceWalletOutlined,
-    ReceiptLongOutlined,
+    CompareArrowsOutlined,
     SwapHorizOutlined,
     SettingsOutlined,
     VpnKeyOutlined,
@@ -18,6 +20,7 @@ import {
 const renderIcon = (icon: Component) => () => h(NIcon, null, { default: () => h(icon) })
 
 export const menuOptions = (t: (key: string) => string): MenuOption[] => [
+    // ── 概覽 ──────────────────────────────────────────
     {
         type: 'group',
         label: t('menu.overview'),
@@ -30,6 +33,22 @@ export const menuOptions = (t: (key: string) => string): MenuOption[] => [
             }
         ]
     },
+
+    // ── 聚合商 ────────────────────────────────────────
+    {
+        type: 'group',
+        label: t('menu.aggregatorGroup'),
+        key: 'aggregator-group',
+        children: [
+            {
+                label: () => h(RouterLink, { to: '/aggregators' }, { default: () => t('menu.aggregators') }),
+                key: 'Aggregators',
+                icon: renderIcon(HubOutlined)
+            }
+        ]
+    },
+
+    // ── 遊戲管理 ──────────────────────────────────────
     {
         type: 'group',
         label: t('menu.gameManagement'),
@@ -39,6 +58,20 @@ export const menuOptions = (t: (key: string) => string): MenuOption[] => [
                 label: () => h(RouterLink, { to: '/games' }, { default: () => t('menu.games') }),
                 key: 'Games',
                 icon: renderIcon(SportsEsportsOutlined)
+            }
+        ]
+    },
+
+    // ── 玩家 & 代理 ───────────────────────────────────
+    {
+        type: 'group',
+        label: t('menu.playerAndAgent'),
+        key: 'player-agent-group',
+        children: [
+            {
+                label: () => h(RouterLink, { to: '/agents' }, { default: () => t('menu.agents') }),
+                key: 'Agents',
+                icon: renderIcon(GroupsOutlined)
             },
             {
                 label: () => h(RouterLink, { to: '/players' }, { default: () => t('menu.players') }),
@@ -47,6 +80,8 @@ export const menuOptions = (t: (key: string) => string): MenuOption[] => [
             }
         ]
     },
+
+    // ── 財務 ──────────────────────────────────────────
     {
         type: 'group',
         label: t('menu.finance'),
@@ -58,17 +93,19 @@ export const menuOptions = (t: (key: string) => string): MenuOption[] => [
                 icon: renderIcon(AccountBalanceWalletOutlined)
             },
             {
+                label: () => h(RouterLink, { to: '/finance/reconciliation' }, { default: () => t('menu.reconciliation') }),
+                key: 'Reconciliation',
+                icon: renderIcon(CompareArrowsOutlined)
+            },
+            {
                 label: () => h(RouterLink, { to: '/finance/transactions' }, { default: () => t('menu.transactions') }),
                 key: 'Transactions',
                 icon: renderIcon(SwapHorizOutlined)
-            },
-            {
-                label: () => h(RouterLink, { to: '/finance/invoices' }, { default: () => t('menu.invoices') }),
-                key: 'Invoices',
-                icon: renderIcon(ReceiptLongOutlined)
             }
         ]
     },
+
+    // ── 系統管理 ──────────────────────────────────────
     {
         type: 'group',
         label: t('menu.system'),

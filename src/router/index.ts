@@ -18,13 +18,29 @@ const routes: RouteRecordRaw[] = [
         component: () => import('../layouts/MainLayout.vue'),
         meta: { requiresAuth: true },
         children: [
+            // ── 儀表板 ──────────────────────────────────
             {
                 path: 'dashboard',
                 name: 'Dashboard',
                 component: () => import('../views/Dashboard/Index.vue'),
                 meta: { title: 'menu.dashboard' }
             },
-            // Games
+
+            // ── 聚合商管理 ──────────────────────────────
+            {
+                path: 'aggregators',
+                name: 'Aggregators',
+                component: () => import('../views/Aggregators/Index.vue'),
+                meta: { title: 'menu.aggregators' }
+            },
+            {
+                path: 'aggregators/:id',
+                name: 'AggregatorDetail',
+                component: () => import('../views/Aggregators/Detail.vue'),
+                meta: { title: 'menu.aggregatorDetail' }
+            },
+
+            // ── 遊戲管理 ────────────────────────────────
             {
                 path: 'games',
                 name: 'Games',
@@ -37,14 +53,22 @@ const routes: RouteRecordRaw[] = [
                 component: () => import('../views/Games/Detail.vue'),
                 meta: { title: 'menu.gameDetail' }
             },
-            // Players
+
+            // ── 玩家 & 代理 ─────────────────────────────
+            {
+                path: 'agents',
+                name: 'Agents',
+                component: () => import('../views/Agents/Index.vue'),
+                meta: { title: 'menu.agents' }
+            },
             {
                 path: 'players',
                 name: 'Players',
                 component: () => import('../views/Players/Index.vue'),
                 meta: { title: 'menu.players' }
             },
-            // Finance
+
+            // ── 財務 ────────────────────────────────────
             {
                 path: 'finance/settlements',
                 name: 'Settlements',
@@ -52,18 +76,24 @@ const routes: RouteRecordRaw[] = [
                 meta: { title: 'menu.settlements' }
             },
             {
+                path: 'finance/reconciliation',
+                name: 'Reconciliation',
+                component: () => import('../views/Finance/Reconciliation.vue'),
+                meta: { title: 'menu.reconciliation' }
+            },
+            {
                 path: 'finance/transactions',
                 name: 'Transactions',
                 component: () => import('../views/Finance/Transactions.vue'),
                 meta: { title: 'menu.transactions' }
             },
+            // 向下相容舊路由
             {
                 path: 'finance/invoices',
-                name: 'Invoices',
-                component: () => import('../views/Finance/Invoices.vue'),
-                meta: { title: 'menu.invoices' }
+                redirect: '/finance/reconciliation'
             },
-            // Settings
+
+            // ── 系統設置 ────────────────────────────────
             {
                 path: 'settings',
                 name: 'Settings',

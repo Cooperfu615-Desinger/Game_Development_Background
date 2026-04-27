@@ -106,15 +106,21 @@
         "integrationInfo": "介接資訊",
         "games": "遊戲管理",
         "gameDetail": "遊戲詳情",
-        "players": "玩家分析",
+        "players": "玩家列表",
         "settlements": "結算報表",
         "transactions": "交易記錄",
         "invoices": "發票管理",
+        "reconciliation": "對帳確認",
         "settings": "系統設置",
         "apiKeys": "API 密鑰",
         "permissions": "權限管理",
         "finance": "財務結算",
-        "system": "系統管理"
+        "system": "系統管理",
+        "aggregators": "聚合商管理",
+        "aggregatorDetail": "聚合商詳情",
+        "agents": "代理分析",
+        "aggregatorGroup": "聚合商",
+        "playerAndAgent": "玩家 & 代理"
     },
     "layout": {
         "masterAdmin": "👑 Master Admin",

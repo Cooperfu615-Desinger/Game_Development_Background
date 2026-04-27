@@ -8,8 +8,9 @@ export interface UserInfo {
 }
 
 export const useAuthStore = defineStore('auth', () => {
-    const token = useStorage<string | null>('auth_token', null)
-    const userInfo = useStorage<UserInfo | null>('auth_user', null)
+    // sessionStorage：關閉瀏覽器或換瀏覽器後 token 失效，強制重新登入
+    const token = useStorage<string | null>('auth_token', null, sessionStorage)
+    const userInfo = useStorage<UserInfo | null>('auth_user', null, sessionStorage)
 
     const isAuthenticated = computed(() => !!token.value)
 

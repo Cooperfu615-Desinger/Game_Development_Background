@@ -4,6 +4,7 @@ import { gameHandlers } from './games'
 import { playerHandlers } from './players'
 import { financeHandlers } from './finance'
 import { settingsHandlers } from './settings'
+import { aggregatorsHandlers } from './aggregators'
 
 export const handlers = [
     ...authHandlers,
@@ -11,5 +12,6 @@ export const handlers = [
     ...gameHandlers,
     ...playerHandlers,
     ...financeHandlers,
-    ...settingsHandlers
+    ...settingsHandlers,
+    ...aggregatorsHandlers,
 ]

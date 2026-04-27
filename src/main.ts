@@ -9,7 +9,13 @@ import './plugins/echarts'
 
 async function prepareApp() {
     const { worker } = await import('./mocks/browser')
-    await worker.start({ onUnhandledRequest: 'bypass' })
+    await worker.start({
+        onUnhandledRequest: 'bypass',
+        serviceWorker: {
+            // BASE_URL 在本地是 '/'，GitHub Pages 是 '/Game_Development_Background/'
+            url: import.meta.env.BASE_URL + 'mockServiceWorker.js'
+        }
+    })
 }
 
 const app = createApp(App)

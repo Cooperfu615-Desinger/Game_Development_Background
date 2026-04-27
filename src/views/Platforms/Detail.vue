@@ -2,20 +2,20 @@
 <script setup lang="ts">
 import { NIcon, NTag, NCard, NBreadcrumb, NBreadcrumbItem } from 'naive-ui'
 import { GroupsOutlined } from '@vicons/material'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { usePlatformDetail } from '@/composables/usePlatformDetail'
 import PlatformStatCards from './components/PlatformStatCards.vue'
 import PlatformTrendChart from './components/PlatformTrendChart.vue'
 import PlatformPlayerTable from './components/PlatformPlayerTable.vue'
 
 const route = useRoute()
-const router = useRouter()
 const platformId = route.params.id as string
 
 const {
     platform, stats, trendData, players, total,
     period, search, page,
     loadingStats, loadingTrend, loadingPlayers,
+    // loadingPlatform intentionally omitted — platform header renders immediately with null-safe fallback text
 } = usePlatformDetail(platformId)
 
 const periodOptions = [
@@ -28,7 +28,7 @@ const periodOptions = [
     <div class="flex flex-col gap-6">
         <!-- Breadcrumb -->
         <n-breadcrumb>
-            <n-breadcrumb-item @click="router.push('/platforms')" style="cursor:pointer">
+            <n-breadcrumb-item href="/platforms">
                 平台分析
             </n-breadcrumb-item>
             <n-breadcrumb-item>{{ platform?.name ?? platformId }}</n-breadcrumb-item>

@@ -115,9 +115,7 @@
         "platforms": "Platform Analytics",
         "platformDetail": "Platform Detail",
         "aggregatorGroup": "Aggregator",
-        "playerAndAgent": "Players & Agents",
-        "overview": "Overview",
-        "gameManagement": "Game Management"
+        "playerAndAgent": "Players & Agents"
     },
     "layout": {
         "masterAdmin": "👑 Master Admin",

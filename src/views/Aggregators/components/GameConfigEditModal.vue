@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import {
-    NModal, NButton, NSpace, NSwitch, NDataTable,
+    NModal, NCard, NButton, NSpace, NSwitch, NDataTable,
     NSelect, NInputNumber, NTag, NDivider, useMessage
 } from 'naive-ui'
 import type { DataTableColumns } from 'naive-ui'
@@ -136,67 +136,72 @@ import { h } from 'vue'
     <n-modal
         :show="show"
         :mask-closable="false"
-        preset="card"
-        style="width: 700px"
         @update:show="$emit('update:show', $event)"
     >
-        <template #header>
-            <span v-if="config">
-                {{ config.gameName }}
-                <n-tag size="small" class="ml-2" :bordered="false">
-                    {{ config.category === 'slot' ? '老虎機' : config.category === 'crash' ? 'Crash' : '棋牌' }}
-                </n-tag>
-            </span>
-        </template>
+        <n-card
+            style="width: 700px"
+            :bordered="false"
+            role="dialog"
+            aria-modal="true"
+        >
+            <template #header>
+                <span v-if="config">
+                    {{ config.gameName }}
+                    <n-tag size="small" class="ml-2" :bordered="false">
+                        {{ config.category === 'slot' ? '老虎機' : config.category === 'crash' ? 'Crash' : '棋牌' }}
+                    </n-tag>
+                </span>
+            </template>
 
-        <div v-if="config" class="flex flex-col gap-4">
-            <!-- 開放開關 -->
-            <div class="flex items-center gap-3">
-                <span class="text-sm font-medium">對此聚合商開放</span>
-                <n-switch v-model:value="localEnabled" />
+            <div v-if="config" class="flex flex-col gap-4">
+                <!-- 開放開關 -->
+                <div class="flex items-center gap-3">
+                    <span class="text-sm font-medium">對此聚合商開放</span>
+                    <n-switch v-model:value="localEnabled" />
+                </div>
+
+                <n-divider class="my-0" />
+
+                <!-- 幣別 Bet Range 表格 -->
+                <div>
+                    <p class="text-sm font-medium mb-2">幣別投注範圍設定</p>
+                    <n-data-table
+                        :columns="rangeColumns"
+                        :data="localRanges"
+                        :row-key="(r: BetRangeCurrency) => r.currency"
+                        size="small"
+                        :pagination="false"
+                    />
+                </div>
+
+                <!-- 新增幣別 -->
+                <div class="flex items-center gap-2">
+                    <n-select
+                        v-model:value="addCurrency"
+                        :options="availableCurrencies"
+                        placeholder="選擇幣別"
+                        class="w-36"
+                        size="small"
+                        :disabled="availableCurrencies.length === 0"
+                    />
+                    <n-button
+                        size="small"
+                        :disabled="!addCurrency"
+                        @click="handleAddCurrency"
+                    >
+                        + 新增幣別
+                    </n-button>
+                </div>
             </div>
 
-            <n-divider class="my-0" />
+            <n-divider class="my-4" />
 
-            <!-- 幣別 Bet Range 表格 -->
-            <div>
-                <p class="text-sm font-medium mb-2">幣別投注範圍設定</p>
-                <n-data-table
-                    :columns="rangeColumns"
-                    :data="localRanges"
-                    :row-key="(r: BetRangeCurrency) => r.currency"
-                    size="small"
-                    :pagination="false"
-                />
-            </div>
-
-            <!-- 新增幣別 -->
-            <div class="flex items-center gap-2">
-                <n-select
-                    v-model:value="addCurrency"
-                    :options="availableCurrencies"
-                    placeholder="選擇幣別"
-                    class="w-36"
-                    size="small"
-                    :disabled="availableCurrencies.length === 0"
-                />
-                <n-button
-                    size="small"
-                    :disabled="!addCurrency"
-                    @click="handleAddCurrency"
-                >
-                    + 新增幣別
-                </n-button>
-            </div>
-        </div>
-
-        <template #footer>
             <n-space justify="end">
                 <n-button @click="$emit('update:show', false)">取消</n-button>
                 <n-button type="primary" :loading="saving" @click="handleSave">
                     儲存配置
                 </n-button>
             </n-space>
-        </template>
+        </n-card>
     </n-modal>
 </template>

@@ -71,11 +71,11 @@ export function usePlatformDetail(platformId: string) {
     }
 
     // period 變更：重置頁碼，重新拉取全部數據
+    // 注意：page.value = 1 會觸發下方 watch([search, page]) → fetchPlayers()，勿重複呼叫
     watch(period, () => {
         page.value = 1
         fetchStats()
         fetchTrend()
-        fetchPlayers()
     })
 
     // 搜尋或換頁：只重取玩家列表

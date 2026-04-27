@@ -141,8 +141,6 @@
         "account": "帳號",
         "password": "密碼",
         "submit": "登入",
-        "subtitle": "B2B 遊戲聚合平台",
-        "appName": "Games Aggregator Backend",
         "placeholderUsername": "請輸入帳號",
         "placeholderPassword": "請輸入密碼",
         "quickLogin": "快速登入",

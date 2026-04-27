@@ -181,9 +181,11 @@ export const platformHandlers = [
     // GET /api/platforms/:id/trend — 趨勢圖
     http.get('/api/platforms/:id/trend', async ({ params, request }) => {
         await delay(350)
+        const id = params.id as string
+        if (!STATS_STORE[id]) return HttpResponse.json({ message: 'Not found' }, { status: 404 })
         const url = new URL(request.url)
         const period = (url.searchParams.get('period') ?? 'month') as 'week' | 'month'
-        const trend = generateTrend(params.id as string, period)
+        const trend = generateTrend(id, period)
         return HttpResponse.json(trend)
     }),
 

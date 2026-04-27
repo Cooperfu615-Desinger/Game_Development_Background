@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import {
     useMessage,
-    NCard, NForm, NFormItem, NInput, NButton, NText
+    NCard, NForm, NFormItem, NInput, NButton, NText, NDivider
 } from 'naive-ui'
 import { useAuthStore } from '../../stores/auth'
 import { useI18n } from 'vue-i18n'
@@ -23,13 +23,10 @@ const rules = computed(() => ({
     password: { required: true, message: t('form.required', { field: t('login.password') }), trigger: 'blur' }
 }))
 
-const handleLogin = async () => {
+const doLogin = async () => {
+    loading.value = true
     try {
-        await formRef.value?.validate()
-        loading.value = true
-
         const result = await authStore.login(model.value.username, model.value.password)
-
         if (result.success) {
             message.success(t('login.success'))
             const redirect = route.query.redirect as string | undefined
@@ -37,17 +34,30 @@ const handleLogin = async () => {
         } else {
             message.error(result.message || t('login.failed'))
         }
-    } catch {
-        // validation error
     } finally {
         loading.value = false
     }
 }
 
-// Demo quick fill
-const quickFill = () => {
-    model.value.username = 'developer'
-    model.value.password = 'dev123'
+const handleLogin = async () => {
+    try {
+        await formRef.value?.validate()
+        await doLogin()
+    } catch {
+        // validation error
+    }
+}
+
+// 快速登入：直接填入帳密並送出，不需手動按登入
+const QUICK_USERS = [
+    { label: '👑 總管理員', username: 'admin',     password: 'admin123' },
+    { label: '🔧 技術',     username: 'tech',      password: 'tech123'  },
+    { label: '📋 PM',       username: 'pm',        password: 'pm123'    },
+]
+
+const quickLogin = async (username: string, password: string) => {
+    model.value = { username, password }
+    await doLogin()
 }
 </script>
 
@@ -99,9 +109,18 @@ const quickFill = () => {
             </n-form>
 
             <template #footer>
-                <div class="text-center">
-                    <n-button text size="small" class="opacity-40" @click="quickFill">
-                        Demo: developer / dev123
+                <n-divider class="my-2">
+                    <n-text depth="3" class="text-xs">快速登入（Demo 用）</n-text>
+                </n-divider>
+                <div class="flex gap-2 justify-center">
+                    <n-button
+                        v-for="u in QUICK_USERS"
+                        :key="u.username"
+                        size="small"
+                        :loading="loading"
+                        @click="quickLogin(u.username, u.password)"
+                    >
+                        {{ u.label }}
                     </n-button>
                 </div>
             </template>

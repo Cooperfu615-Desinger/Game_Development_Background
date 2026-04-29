@@ -2,13 +2,14 @@
 <script setup lang="ts">
 import { NIcon, NTag, NCard, NBreadcrumb, NBreadcrumbItem } from 'naive-ui'
 import { GroupsOutlined } from '@vicons/material'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { usePlatformDetail } from '@/composables/usePlatformDetail'
 import PlatformStatCards from './components/PlatformStatCards.vue'
 import PlatformTrendChart from './components/PlatformTrendChart.vue'
 import PlatformPlayerTable from './components/PlatformPlayerTable.vue'
 
 const route = useRoute()
+const router = useRouter()
 const platformId = route.params.id as string
 
 const {
@@ -28,7 +29,7 @@ const periodOptions = [
     <div class="flex flex-col gap-6">
         <!-- Breadcrumb -->
         <n-breadcrumb>
-            <n-breadcrumb-item href="/platforms">
+            <n-breadcrumb-item class="cursor-pointer" @click="router.push('/platforms')">
                 平台分析
             </n-breadcrumb-item>
             <n-breadcrumb-item>{{ platform?.name ?? platformId }}</n-breadcrumb-item>

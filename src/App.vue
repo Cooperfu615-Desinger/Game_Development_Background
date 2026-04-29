@@ -41,6 +41,7 @@ const themeOverrides = {
   },
   Card: {
     color: '#141B2D',
+    colorModal: '#141B2D',
     borderColor: '#1E3054',
   },
 }

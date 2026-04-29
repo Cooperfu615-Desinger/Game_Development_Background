@@ -717,6 +717,14 @@
   border-color: var(--color-border-default) !important;
 }
 
+/* NModal 內的卡片（Naive UI 透過 VLazyTeleport teleport 到 body，
+   CSS 變數繼承鏈斷裂，需明確設定不透明背景） */
+.n-modal-body-wrapper .n-card,
+.n-card.n-modal {
+  background: #141B2D !important;
+  background-color: #141B2D !important;
+}
+
 /* Data table */
 .n-data-table-th {
   font-family: var(--font-heading) !important;

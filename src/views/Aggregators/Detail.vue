@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { NCard, NIcon, NBreadcrumb, NBreadcrumbItem, useMessage } from 'naive-ui'
 import { HubOutlined } from '@vicons/material'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useAggregatorDetail } from '@/composables/useAggregatorDetail'
 import AggregatorInfoCard from './components/AggregatorInfoCard.vue'
 import GameConfigTable from './components/GameConfigTable.vue'
@@ -10,6 +10,7 @@ import GameConfigEditModal from './components/GameConfigEditModal.vue'
 import type { AggregatorGameConfig, BetRangeCurrency } from '@/types/aggregator'
 
 const route = useRoute()
+const router = useRouter()
 const message = useMessage()
 const aggregatorId = route.params.id as string
 
@@ -49,7 +50,7 @@ const handleSave = async (
     <div class="flex flex-col gap-6">
         <!-- Breadcrumb -->
         <n-breadcrumb>
-            <n-breadcrumb-item href="/aggregators">聚合商管理</n-breadcrumb-item>
+            <n-breadcrumb-item class="cursor-pointer" @click="router.push('/aggregators')">聚合商管理</n-breadcrumb-item>
             <n-breadcrumb-item>{{ aggregator?.name ?? aggregatorId }}</n-breadcrumb-item>
         </n-breadcrumb>
 

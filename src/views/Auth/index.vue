@@ -83,12 +83,6 @@ const submitLabel = computed(() => (loading.value ? t('login.authenticating') : 
 
 <template>
     <div class="login-page">
-        <!-- Ambient gradient orbs（深色才明顯，淺色淡化） -->
-        <div class="login-orbs" aria-hidden="true">
-            <div class="login-orb login-orb-blue" />
-            <div class="login-orb login-orb-indigo" />
-        </div>
-
         <!-- Login card -->
         <div class="login-card">
             <header class="login-header">
@@ -165,32 +159,6 @@ const submitLabel = computed(() => (loading.value ? t('login.authenticating') : 
     justify-content: center;
     background: var(--hig-bg-base);
     overflow: hidden;
-}
-
-/* Ambient gradient orbs */
-.login-orbs {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-}
-.login-orb {
-    position: absolute;
-    width: 24rem;
-    height: 24rem;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.15;
-}
-.login-orb-blue {
-    top: 20%;
-    left: 18%;
-    background: var(--hig-blue);
-}
-.login-orb-indigo {
-    bottom: 18%;
-    right: 18%;
-    background: var(--hig-indigo);
 }
 
 /* Card */

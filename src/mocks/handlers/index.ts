@@ -11,6 +11,7 @@ import { platformHandlers } from './platforms'
 import { reportAdminHandlers } from './reportAdmin'
 import { riskAdminHandlers } from './riskAdmin'
 import { systemAdminHandlers } from './systemAdmin'
+import { jackpotAdminHandlers } from './jackpotAdmin'
 
 export const handlers = [
     ...authHandlers,
@@ -26,4 +27,5 @@ export const handlers = [
     ...reportAdminHandlers,
     ...riskAdminHandlers,
     ...systemAdminHandlers,
+    ...jackpotAdminHandlers,
 ]

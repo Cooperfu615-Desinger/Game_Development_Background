@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import {
-    NCard, NForm, NFormItem, NSwitch, NSelect,
-    NDivider, NTag, NSpace
-} from 'naive-ui'
+import Select from 'primevue/select'
+import ToggleSwitch from 'primevue/toggleswitch'
+import Tag from 'primevue/tag'
 import { useI18n } from 'vue-i18n'
 
 const { locale } = useI18n()
 
 const langOptions = [
     { label: '繁體中文', value: 'zh-TW' },
-    { label: 'English', value: 'en' }
+    { label: 'English', value: 'en' },
 ]
 
 const handleLangChange = (val: string) => {
@@ -18,69 +17,107 @@ const handleLangChange = (val: string) => {
     localStorage.setItem('locale', val)
 }
 
-// 通知設定（本地狀態，無需 API）
+// 通知設定（本地狀態）
 const notifications = ref({
     settlementReady: true,
     invoiceDue: true,
     gameStatusChange: false,
-    loginAlert: true
+    loginAlert: true,
 })
 </script>
 
 <template>
-    <div class="flex flex-col gap-6 max-w-2xl">
-        <h1 class="text-2xl font-bold">系統設置</h1>
+    <div class="hig-page max-w-2xl">
+        <header class="hig-page-header">
+            <h1 class="hig-page-title">
+                <i class="pi pi-cog" />
+                系統設置
+            </h1>
+        </header>
 
         <!-- 語言設定 -->
-        <n-card title="語言設定">
-            <n-form label-placement="left" :label-width="120">
-                <n-form-item label="介面語言">
-                    <n-select
-                        :value="locale"
+        <section class="hig-card">
+            <header class="hig-card-header">
+                <h2 class="hig-card-title">語言設定</h2>
+            </header>
+            <div class="hig-card-body">
+                <div class="setting-row">
+                    <label for="lang-select">介面語言</label>
+                    <Select
+                        id="lang-select"
+                        :model-value="locale"
                         :options="langOptions"
-                        class="w-48"
-                        @update:value="handleLangChange"
+                        option-label="label"
+                        option-value="value"
+                        class="w-56"
+                        @update:model-value="handleLangChange"
                     />
-                </n-form-item>
-            </n-form>
-        </n-card>
+                </div>
+            </div>
+        </section>
 
         <!-- 通知設定 -->
-        <n-card title="通知設定">
-            <n-form label-placement="left" :label-width="160">
-                <n-form-item label="結算完成通知">
-                    <n-switch v-model:value="notifications.settlementReady" />
-                </n-form-item>
-                <n-form-item label="發票到期提醒">
-                    <n-switch v-model:value="notifications.invoiceDue" />
-                </n-form-item>
-                <n-form-item label="遊戲狀態變更">
-                    <n-switch v-model:value="notifications.gameStatusChange" />
-                </n-form-item>
-                <n-form-item label="異地登入警示">
-                    <n-switch v-model:value="notifications.loginAlert" />
-                </n-form-item>
-            </n-form>
-        </n-card>
+        <section class="hig-card">
+            <header class="hig-card-header">
+                <h2 class="hig-card-title">通知設定</h2>
+            </header>
+            <div class="hig-card-body">
+                <div class="setting-row">
+                    <label>結算完成通知</label>
+                    <ToggleSwitch v-model="notifications.settlementReady" />
+                </div>
+                <div class="setting-row">
+                    <label>發票到期提醒</label>
+                    <ToggleSwitch v-model="notifications.invoiceDue" />
+                </div>
+                <div class="setting-row">
+                    <label>遊戲狀態變更</label>
+                    <ToggleSwitch v-model="notifications.gameStatusChange" />
+                </div>
+                <div class="setting-row">
+                    <label>異地登入警示</label>
+                    <ToggleSwitch v-model="notifications.loginAlert" />
+                </div>
+            </div>
+        </section>
 
         <!-- 系統資訊 -->
-        <n-card title="系統資訊">
-            <n-space vertical>
-                <div class="flex items-center justify-between">
-                    <span class="opacity-60">版本</span>
-                    <n-tag :bordered="false" size="small">v0.1.0 Prototype</n-tag>
+        <section class="hig-card">
+            <header class="hig-card-header">
+                <h2 class="hig-card-title">系統資訊</h2>
+            </header>
+            <div class="hig-card-body">
+                <div class="hig-row">
+                    <span class="hig-row-label">版本</span>
+                    <Tag severity="secondary" value="v0.1.0 Prototype" />
                 </div>
-                <n-divider class="!my-2" />
-                <div class="flex items-center justify-between">
-                    <span class="opacity-60">API 模式</span>
-                    <n-tag type="warning" :bordered="false" size="small">MSW Mock</n-tag>
+                <div class="hig-row">
+                    <span class="hig-row-label">API 模式</span>
+                    <Tag severity="warn" value="MSW Mock" />
                 </div>
-                <n-divider class="!my-2" />
-                <div class="flex items-center justify-between">
-                    <span class="opacity-60">框架</span>
-                    <span class="text-sm opacity-60">Vue 3 + Naive UI + Vite</span>
+                <div class="hig-row">
+                    <span class="hig-row-label">框架</span>
+                    <span class="hig-row-value">Vue 3 + PrimeVue + Vite</span>
                 </div>
-            </n-space>
-        </n-card>
+            </div>
+        </section>
     </div>
 </template>
+
+<style scoped>
+.setting-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    gap: 1rem;
+}
+.setting-row + .setting-row {
+    border-top: 1px solid var(--hig-border-subtle);
+}
+.setting-row label {
+    color: var(--hig-text-primary);
+    font-size: 0.9375rem;
+    font-weight: 500;
+}
+</style>

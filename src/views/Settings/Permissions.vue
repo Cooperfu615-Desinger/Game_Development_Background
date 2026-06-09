@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted, h } from 'vue'
-import { NCard, NDataTable, NTag, NSpace, NSkeleton } from 'naive-ui'
-import type { DataTableColumns } from 'naive-ui'
+import { ref, onMounted } from 'vue'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import Tag from 'primevue/tag'
+import Skeleton from 'primevue/skeleton'
 
 interface Permission {
     id: string
@@ -11,35 +13,24 @@ interface Permission {
 }
 
 const PERM_LABELS: Record<string, string> = {
-    read: '讀取', write: '寫入', delete: '刪除',
-    manage: '管理', finance: '財務'
+    read: '讀取',
+    write: '寫入',
+    delete: '刪除',
+    manage: '管理',
+    finance: '財務',
 }
 
-const PERM_TYPES: Record<string, 'default' | 'info' | 'success' | 'warning' | 'error'> = {
-    read: 'default', write: 'info', delete: 'error',
-    manage: 'warning', finance: 'success'
+// 對應 PrimeVue Tag 的 severity
+const PERM_SEVERITY: Record<string, 'success' | 'info' | 'warn' | 'danger' | 'secondary'> = {
+    read: 'secondary',
+    write: 'info',
+    delete: 'danger',
+    manage: 'warn',
+    finance: 'success',
 }
 
 const permissions = ref<Permission[]>([])
 const loading = ref(false)
-
-const columns: DataTableColumns<Permission> = [
-    { title: '角色', key: 'role', width: 120 },
-    { title: '說明', key: 'description' },
-    {
-        title: '權限', key: 'permissions',
-        render: (row) => h(NSpace, { size: 'small' }, {
-            default: () => row.permissions.map(p =>
-                h(NTag, {
-                    key: p,
-                    type: PERM_TYPES[p] ?? 'default',
-                    size: 'small',
-                    bordered: false
-                }, { default: () => PERM_LABELS[p] ?? p })
-            )
-        })
-    }
-]
 
 onMounted(async () => {
     loading.value = true
@@ -54,17 +45,47 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="flex flex-col gap-4 max-w-3xl">
-        <h1 class="text-2xl font-bold">權限管理</h1>
+    <div class="hig-page max-w-3xl">
+        <header class="hig-page-header">
+            <h1 class="hig-page-title">
+                <i class="pi pi-shield" />
+                權限管理
+            </h1>
+        </header>
 
-        <n-card title="角色權限一覽">
-            <n-skeleton v-if="loading" :repeat="4" text />
-            <n-data-table
+        <section class="hig-card">
+            <header class="hig-card-header">
+                <h2 class="hig-card-title">角色權限一覽</h2>
+            </header>
+
+            <!-- Loading state -->
+            <div v-if="loading" class="hig-card-body">
+                <div class="flex flex-col gap-3">
+                    <Skeleton v-for="i in 4" :key="i" height="2.5rem" />
+                </div>
+            </div>
+
+            <!-- Data table -->
+            <DataTable
                 v-else
-                :columns="columns"
-                :data="permissions"
-                :pagination="false"
-            />
-        </n-card>
+                :value="permissions"
+                :pt="{ root: { class: 'border-0' } }"
+            >
+                <Column field="role" header="角色" style="width: 120px" />
+                <Column field="description" header="說明" />
+                <Column header="權限">
+                    <template #body="{ data }">
+                        <div class="flex flex-wrap gap-1.5">
+                            <Tag
+                                v-for="p in data.permissions"
+                                :key="p"
+                                :severity="PERM_SEVERITY[p] ?? 'secondary'"
+                                :value="PERM_LABELS[p] ?? p"
+                            />
+                        </div>
+                    </template>
+                </Column>
+            </DataTable>
+        </section>
     </div>
 </template>

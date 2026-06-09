@@ -155,3 +155,91 @@
     --hig-duration-slow: 0ms;
   }
 }
+
+/* ───────────────────────────────────────────────────────────── */
+/* Reusable Page Chrome — Apple HIG style                       */
+/* ───────────────────────────────────────────────────────────── */
+
+/* Page container — vertical stack, comfortable spacing */
+.hig-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Page header — title + actions */
+.hig-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.hig-page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--hig-text-primary);
+  margin: 0;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.hig-page-subtitle {
+  font-size: 0.875rem;
+  color: var(--hig-text-secondary);
+  margin: 0.25rem 0 0;
+}
+
+/* Card surface */
+.hig-card {
+  background: var(--hig-bg-surface);
+  border: 1px solid var(--hig-border-default);
+  border-radius: var(--hig-radius-card);
+  box-shadow: var(--hig-shadow-sm);
+  overflow: hidden;
+}
+
+.hig-card-header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--hig-border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.hig-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--hig-text-primary);
+  margin: 0;
+}
+
+.hig-card-body {
+  padding: 1.25rem;
+}
+
+/* Row in a list-style card (label/value pairs) */
+.hig-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--hig-border-subtle);
+  gap: 1rem;
+}
+.hig-row:last-child {
+  border-bottom: none;
+}
+.hig-row-label {
+  color: var(--hig-text-secondary);
+  font-size: 0.875rem;
+}
+.hig-row-value {
+  color: var(--hig-text-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+}

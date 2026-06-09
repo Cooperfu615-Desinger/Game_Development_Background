@@ -1,0 +1,157 @@
+/**
+ * Apple HIG Design Tokens
+ *
+ * 仿 macOS Sonoma / iCloud 設計語言的 CSS 變數
+ * 與既有 design-tokens.css（科幻風）並存於 Phase 1~4 過渡期
+ * Phase 5 清理 Naive UI 之後，此檔成為主視覺 token
+ *
+ * Naming convention: --hig-* 前綴避免與既有 token 衝突
+ */
+
+:root {
+  /* ─── Font Stack — Apple System UI ────────────────────────── */
+  --hig-font-sans:
+    -apple-system, BlinkMacSystemFont,
+    "SF Pro Text", "SF Pro Display",
+    "Segoe UI", Roboto,
+    "Noto Sans TC", "PingFang TC", "Microsoft JhengHei",
+    system-ui, sans-serif;
+
+  --hig-font-display:
+    -apple-system, BlinkMacSystemFont,
+    "SF Pro Display", "SF Pro Text",
+    "Segoe UI", Roboto,
+    "Noto Sans TC", system-ui, sans-serif;
+
+  --hig-font-mono:
+    "SF Mono", "JetBrains Mono", "Fira Code",
+    Menlo, Monaco, Consolas, monospace;
+
+  /* ─── Apple System Colors ─────────────────────────────────── */
+  /* Blue (Primary) */
+  --hig-blue:        #007AFF;
+  --hig-blue-hover:  #0064D1;
+  --hig-blue-active: #0050A4;
+
+  /* System semantic */
+  --hig-green:       #34C759;
+  --hig-orange:      #FF9500;
+  --hig-red:         #FF3B30;
+  --hig-yellow:      #FFCC00;
+  --hig-purple:      #AF52DE;
+  --hig-pink:        #FF2D55;
+  --hig-indigo:      #5856D6;
+  --hig-teal:        #5AC8FA;
+
+  /* ─── Light Mode Surfaces ─────────────────────────────────── */
+  --hig-bg-base:       #F2F2F7;   /* macOS Group Background */
+  --hig-bg-surface:    #FFFFFF;   /* Card */
+  --hig-bg-elevated:   #FFFFFF;
+  --hig-bg-sidebar:    rgba(246, 246, 248, 0.72);  /* 毛玻璃 sidebar */
+  --hig-bg-topbar:     rgba(255, 255, 255, 0.72);  /* 毛玻璃 topbar */
+  --hig-bg-overlay:    rgba(0, 0, 0, 0.35);
+  --hig-bg-fill:       rgba(120, 120, 128, 0.12);
+  --hig-bg-fill-hover: rgba(120, 120, 128, 0.18);
+
+  /* ─── Light Mode Text ──────────────────────────────────────── */
+  --hig-text-primary:   rgba(0, 0, 0, 0.85);
+  --hig-text-secondary: rgba(60, 60, 67, 0.6);
+  --hig-text-tertiary:  rgba(60, 60, 67, 0.3);
+  --hig-text-inverse:   #FFFFFF;
+
+  /* ─── Light Mode Borders ──────────────────────────────────── */
+  --hig-border-default: rgba(0, 0, 0, 0.08);
+  --hig-border-subtle:  rgba(0, 0, 0, 0.04);
+  --hig-border-strong:  rgba(0, 0, 0, 0.14);
+
+  /* ─── Radius — 偏圓潤 ─────────────────────────────────────── */
+  --hig-radius-sm:    6px;
+  --hig-radius-md:    10px;   /* Button */
+  --hig-radius-card:  12px;   /* Card */
+  --hig-radius-modal: 14px;   /* Dialog */
+  --hig-radius-pill:  999px;
+  --hig-radius-full:  9999px;
+
+  /* ─── Shadows — Apple 柔和漸層 ────────────────────────────── */
+  --hig-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --hig-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05),
+                   0 1px 2px rgba(0, 0, 0, 0.03);
+  --hig-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06),
+                   0 1px 4px rgba(0, 0, 0, 0.04);
+  --hig-shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.08),
+                   0 4px 12px rgba(0, 0, 0, 0.04);
+  --hig-shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.12),
+                   0 8px 24px rgba(0, 0, 0, 0.06);
+
+  /* ─── Blur — 毛玻璃 ───────────────────────────────────────── */
+  --hig-blur-sm:  blur(10px) saturate(180%);
+  --hig-blur-md:  blur(20px) saturate(180%);
+  --hig-blur-lg:  blur(40px) saturate(180%);
+
+  /* ─── Animation — Apple 平緩節奏 ──────────────────────────── */
+  --hig-ease:       cubic-bezier(0.4, 0, 0.2, 1);
+  --hig-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --hig-duration-fast:  150ms;
+  --hig-duration-base:  300ms;
+  --hig-duration-slow:  500ms;
+
+  /* ─── Spacing — 寬鬆 ──────────────────────────────────────── */
+  --hig-space-1:  4px;
+  --hig-space-2:  8px;
+  --hig-space-3:  12px;
+  --hig-space-4:  16px;
+  --hig-space-5:  20px;
+  --hig-space-6:  24px;
+  --hig-space-8:  32px;
+  --hig-space-10: 40px;
+  --hig-space-12: 48px;
+}
+
+/* ─── Dark Mode ─────────────────────────────────────────────── */
+.app-dark {
+  /* Surfaces */
+  --hig-bg-base:       #000000;   /* macOS Dark Mode 系統色 */
+  --hig-bg-surface:    #1C1C1E;   /* Card */
+  --hig-bg-elevated:   #2C2C2E;
+  --hig-bg-sidebar:    rgba(28, 28, 30, 0.72);
+  --hig-bg-topbar:     rgba(28, 28, 30, 0.72);
+  --hig-bg-overlay:    rgba(0, 0, 0, 0.6);
+  --hig-bg-fill:       rgba(120, 120, 128, 0.24);
+  --hig-bg-fill-hover: rgba(120, 120, 128, 0.36);
+
+  /* Text */
+  --hig-text-primary:   rgba(255, 255, 255, 0.92);
+  --hig-text-secondary: rgba(235, 235, 245, 0.6);
+  --hig-text-tertiary:  rgba(235, 235, 245, 0.3);
+  --hig-text-inverse:   #000000;
+
+  /* Borders */
+  --hig-border-default: rgba(255, 255, 255, 0.1);
+  --hig-border-subtle:  rgba(255, 255, 255, 0.06);
+  --hig-border-strong:  rgba(255, 255, 255, 0.16);
+
+  /* Dark Mode 用更高亮的藍 */
+  --hig-blue:        #0A84FF;
+  --hig-blue-hover:  #409CFF;
+  --hig-blue-active: #6BB3FF;
+
+  /* Shadows — Dark Mode 用更深的陰影 */
+  --hig-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --hig-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5),
+                   0 1px 2px rgba(0, 0, 0, 0.3);
+  --hig-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.6),
+                   0 1px 4px rgba(0, 0, 0, 0.3);
+  --hig-shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.7),
+                   0 4px 12px rgba(0, 0, 0, 0.4);
+  --hig-shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.8),
+                   0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* ─── Reduced Motion ────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --hig-duration-fast: 0ms;
+    --hig-duration-base: 0ms;
+    --hig-duration-slow: 0ms;
+  }
+}

@@ -1,11 +1,13 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import naive from 'naive-ui'
 import router from './router'
 import './style.css'
 import App from './App.vue'
 import i18n from './i18n'
 import './plugins/echarts'
+import { setupPrimeVue } from './plugins/primevue'
 
 async function prepareApp() {
     const { worker } = await import('./mocks/browser')
@@ -19,9 +21,12 @@ async function prepareApp() {
 }
 
 const app = createApp(App)
-app.use(createPinia())
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
+app.use(pinia)
 app.use(router)
-app.use(naive)
+app.use(naive)         // 過渡期保留，Phase 5 移除
+setupPrimeVue(app)     // 新框架，與 Naive UI 並存
 app.use(i18n)
 
 prepareApp().then(() => {

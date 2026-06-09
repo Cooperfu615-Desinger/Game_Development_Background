@@ -108,6 +108,26 @@ const routes: RouteRecordRaw[] = [
                 meta: { title: 'menu.players' }
             },
 
+            // ── 交易明細 ────────────────────────────────
+            {
+                path: 'orders',
+                name: 'Orders',
+                component: () => import('../views/Orders/Index.vue'),
+                meta: { title: 'menu.orders' }
+            },
+            {
+                path: 'orders/abnormal',
+                name: 'OrdersAbnormal',
+                component: () => import('../views/Orders/Abnormal.vue'),
+                meta: { title: 'menu.ordersAbnormal' }
+            },
+            {
+                path: 'transactions/abnormal',
+                name: 'TransactionsAbnormal',
+                component: () => import('../views/Transactions/Abnormal.vue'),
+                meta: { title: 'menu.transactionsAbnormal' }
+            },
+
             // ── 財務 ────────────────────────────────────
             {
                 path: 'finance/settlements',

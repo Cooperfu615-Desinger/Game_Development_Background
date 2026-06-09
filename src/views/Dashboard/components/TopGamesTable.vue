@@ -1,62 +1,68 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { NCard, NDataTable, NTag } from 'naive-ui'
-import type { DataTableColumns } from 'naive-ui'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import Tag from 'primevue/tag'
+import Skeleton from 'primevue/skeleton'
 import type { TopGame } from '@/types/dashboard'
 
-const props = defineProps<{
+defineProps<{
     games: TopGame[]
     loading: boolean
 }>()
 
-const rankColors: Record<number, 'warning' | 'info' | 'default'> = {
-    1: 'warning',
-    2: 'info',
-    3: 'default'
+// 對應 PrimeVue Tag severity（rank 1=warn / 2=info / 3+=secondary）
+const rankSeverity = (rank: number): 'warn' | 'info' | 'secondary' => {
+    if (rank === 1) return 'warn'
+    if (rank === 2) return 'info'
+    return 'secondary'
 }
-
-const columns = computed<DataTableColumns<TopGame>>(() => [
-    {
-        title: '排名',
-        key: 'rank',
-        width: 60,
-        render: (row) => {
-            const type = rankColors[row.rank] ?? 'default'
-            return h(NTag, { type, size: 'small', bordered: false }, { default: () => `#${row.rank}` })
-        }
-    },
-    {
-        title: '遊戲名稱',
-        key: 'name',
-        ellipsis: true
-    },
-    {
-        title: '活躍玩家',
-        key: 'activePlayers',
-        sorter: (a, b) => a.activePlayers - b.activePlayers,
-        render: (row) => row.activePlayers.toLocaleString()
-    },
-    {
-        title: '營收佔比',
-        key: 'revenueShare',
-        sorter: (a, b) => a.revenueShare - b.revenueShare,
-        render: (row) => `${row.revenueShare.toFixed(1)}%`
-    }
-])
-</script>
-
-<script lang="ts">
-import { h } from 'vue'
 </script>
 
 <template>
-    <n-card title="熱門遊戲 TOP 5" class="h-[360px]">
-        <n-data-table
-            :columns="columns"
-            :data="games"
-            :loading="loading"
-            :pagination="false"
+    <section class="hig-card games-card">
+        <header class="hig-card-header">
+            <h3 class="hig-card-title">熱門遊戲 TOP 5</h3>
+        </header>
+
+        <!-- Loading state -->
+        <div v-if="loading" class="hig-card-body">
+            <div class="flex flex-col gap-2">
+                <Skeleton v-for="i in 5" :key="i" height="2.5rem" />
+            </div>
+        </div>
+
+        <!-- Data table -->
+        <DataTable
+            v-else
+            :value="games"
             size="small"
-        />
-    </n-card>
+            sort-mode="single"
+            :pt="{ root: { class: 'border-0' } }"
+        >
+            <Column header="排名" style="width: 70px">
+                <template #body="{ data }">
+                    <Tag :severity="rankSeverity(data.rank)" :value="`#${data.rank}`" />
+                </template>
+            </Column>
+            <Column field="name" header="遊戲名稱" :pt="{ headerCell: { style: 'min-width: 6rem' } }" />
+            <Column field="activePlayers" header="活躍玩家" sortable>
+                <template #body="{ data }">{{ data.activePlayers.toLocaleString() }}</template>
+            </Column>
+            <Column field="revenueShare" header="營收佔比" sortable>
+                <template #body="{ data }">{{ data.revenueShare.toFixed(1) }}%</template>
+            </Column>
+        </DataTable>
+    </section>
 </template>
+
+<style scoped>
+.games-card {
+    height: 360px;
+    display: flex;
+    flex-direction: column;
+}
+.games-card :deep(.p-datatable-table-container) {
+    overflow-y: auto;
+    max-height: 290px;
+}
+</style>

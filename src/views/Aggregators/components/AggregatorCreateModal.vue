@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import {
-    NModal, NCard, NForm, NFormItem, NInput,
-    NButton, NSpace, NDivider, useMessage
-} from 'naive-ui'
-import type { FormInst, FormRules } from 'naive-ui'
+import { ref, reactive, watch } from 'vue'
+import Dialog from 'primevue/dialog'
+import InputText from 'primevue/inputtext'
+import Textarea from 'primevue/textarea'
+import Button from 'primevue/button'
+import { useToast } from 'primevue/usetoast'
 import type { CreateAggregatorPayload } from '@/types/aggregator'
 
 const props = defineProps<{ show: boolean; loading: boolean }>()
@@ -13,107 +13,164 @@ const emit = defineEmits<{
     (e: 'submit', payload: CreateAggregatorPayload): void
 }>()
 
-const message = useMessage()
-const formRef = ref<FormInst | null>(null)
-const form = ref<CreateAggregatorPayload>({
+const toast = useToast()
+
+const form = reactive<CreateAggregatorPayload>({
     name: '',
     code: '',
     apiEndpoint: '',
     description: '',
 })
 
-const rules: FormRules = {
-    name: [{ required: true, message: '請輸入聚合商名稱', trigger: 'blur' }],
-    code: [
-        { required: true, message: '請輸入唯一代碼', trigger: 'blur' },
-        { pattern: /^[a-z0-9-]+$/, message: '只允許小寫英文、數字、連字號', trigger: 'blur' },
-    ],
-    apiEndpoint: [
-        { required: true, message: '請輸入 API Endpoint', trigger: 'blur' },
-        { type: 'url', message: '請輸入有效的 URL 格式', trigger: 'blur' },
-    ],
+const errors = reactive({ name: '', code: '', apiEndpoint: '' })
+
+// Reset when reopened
+watch(
+    () => props.show,
+    (show) => {
+        if (show) {
+            form.name = ''
+            form.code = ''
+            form.apiEndpoint = ''
+            form.description = ''
+            errors.name = ''
+            errors.code = ''
+            errors.apiEndpoint = ''
+        }
+    }
+)
+
+const isValidUrl = (s: string) => {
+    try {
+        new URL(s)
+        return true
+    } catch {
+        return false
+    }
 }
 
-const isVisible = computed({
-    get: () => props.show,
-    set: (v) => emit('update:show', v),
-})
+const validate = (): boolean => {
+    errors.name = ''
+    errors.code = ''
+    errors.apiEndpoint = ''
+
+    if (!form.name.trim()) errors.name = '請輸入聚合商名稱'
+    if (!form.code.trim()) {
+        errors.code = '請輸入唯一代碼'
+    } else if (!/^[a-z0-9-]+$/.test(form.code)) {
+        errors.code = '只允許小寫英文、數字、連字號'
+    }
+    if (!form.apiEndpoint.trim()) {
+        errors.apiEndpoint = '請輸入 API Endpoint'
+    } else if (!isValidUrl(form.apiEndpoint)) {
+        errors.apiEndpoint = '請輸入有效的 URL 格式'
+    }
+    return !errors.name && !errors.code && !errors.apiEndpoint
+}
 
 const handleSubmit = () => {
-    formRef.value?.validate(errors => {
-        if (errors) {
-            message.warning('請確認表單填寫正確')
-            return
-        }
-        emit('submit', { ...form.value })
-    })
+    if (!validate()) {
+        toast.add({ severity: 'warn', summary: '請確認表單填寫正確', life: 2000 })
+        return
+    }
+    emit('submit', { ...form })
 }
 
-const handleClose = () => {
-    form.value = { name: '', code: '', apiEndpoint: '', description: '' }
-    emit('update:show', false)
-}
+const close = () => emit('update:show', false)
 </script>
 
 <template>
-    <n-modal
-        :show="isVisible"
-        :mask-closable="false"
-        @update:show="emit('update:show', $event)"
+    <Dialog
+        :visible="show"
+        modal
+        header="新增聚合商"
+        :style="{ width: '32rem' }"
+        :draggable="false"
+        :closable="false"
+        :close-on-escape="false"
+        @update:visible="(v) => !v && close()"
     >
-        <n-card
-            title="新增聚合商"
-            style="width: 520px"
-            :bordered="false"
-            role="dialog"
-            aria-modal="true"
-        >
-            <n-form ref="formRef" :model="form" :rules="rules" label-placement="top">
-                <n-form-item label="聚合商名稱" path="name">
-                    <n-input
-                        v-model:value="form.name"
-                        placeholder="例如：自家聚合商"
-                        clearable
-                    />
-                </n-form-item>
+        <div class="flex flex-col gap-4">
+            <!-- 名稱 -->
+            <div class="field">
+                <label for="agg-name">聚合商名稱 <span class="required">*</span></label>
+                <InputText
+                    id="agg-name"
+                    v-model="form.name"
+                    placeholder="例如：自家聚合商"
+                    :invalid="!!errors.name"
+                    fluid
+                />
+                <small v-if="errors.name" class="error">{{ errors.name }}</small>
+            </div>
 
-                <n-form-item label="唯一代碼" path="code">
-                    <n-input
-                        v-model:value="form.code"
-                        placeholder="例如：self、partner-a"
-                        clearable
-                    />
-                    <template #feedback>
-                        <span class="text-xs text-gray-500">只允許小寫英文、數字、連字號（-）</span>
-                    </template>
-                </n-form-item>
+            <!-- 唯一代碼 -->
+            <div class="field">
+                <label for="agg-code">唯一代碼 <span class="required">*</span></label>
+                <InputText
+                    id="agg-code"
+                    v-model="form.code"
+                    placeholder="例如：self、partner-a"
+                    :invalid="!!errors.code"
+                    fluid
+                />
+                <small v-if="errors.code" class="error">{{ errors.code }}</small>
+                <small v-else class="hint">只允許小寫英文、數字、連字號（-）</small>
+            </div>
 
-                <n-form-item label="API Endpoint" path="apiEndpoint">
-                    <n-input
-                        v-model:value="form.apiEndpoint"
-                        placeholder="https://api.example.com/v1"
-                        clearable
-                    />
-                </n-form-item>
+            <!-- API Endpoint -->
+            <div class="field">
+                <label for="agg-endpoint">API Endpoint <span class="required">*</span></label>
+                <InputText
+                    id="agg-endpoint"
+                    v-model="form.apiEndpoint"
+                    placeholder="https://api.example.com/v1"
+                    :invalid="!!errors.apiEndpoint"
+                    fluid
+                />
+                <small v-if="errors.apiEndpoint" class="error">{{ errors.apiEndpoint }}</small>
+            </div>
 
-                <n-form-item label="備註說明（選填）" path="description">
-                    <n-input
-                        v-model:value="form.description"
-                        type="textarea"
-                        :rows="3"
-                        placeholder="備註此聚合商的用途或對接計劃..."
-                    />
-                </n-form-item>
-            </n-form>
+            <!-- 備註 -->
+            <div class="field">
+                <label for="agg-desc">備註說明（選填）</label>
+                <Textarea
+                    id="agg-desc"
+                    v-model="form.description"
+                    :rows="3"
+                    placeholder="備註此聚合商的用途或對接計劃..."
+                    fluid
+                />
+            </div>
+        </div>
 
-            <n-divider class="my-4" />
-
-            <n-space justify="end">
-                <n-button @click="handleClose">取消</n-button>
-                <n-button type="primary" :loading="loading" @click="handleSubmit">
-                    建立並前往配置
-                </n-button>
-            </n-space>
-        </n-card>
-    </n-modal>
+        <template #footer>
+            <Button label="取消" severity="secondary" outlined @click="close" />
+            <Button label="建立並前往配置" :loading="loading" @click="handleSubmit" />
+        </template>
+    </Dialog>
 </template>
+
+<style scoped>
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+.field label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--hig-text-primary);
+}
+.required {
+    color: var(--hig-red);
+}
+.error {
+    color: var(--hig-red);
+    font-size: 0.75rem;
+}
+.hint {
+    color: var(--hig-text-tertiary);
+    font-size: 0.75rem;
+}
+</style>

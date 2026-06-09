@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import {
-    NModal, NCard, NButton, NSpace, NSwitch, NDataTable,
-    NSelect, NInputNumber, NTag, NDivider, useMessage
-} from 'naive-ui'
-import type { DataTableColumns } from 'naive-ui'
+import Dialog from 'primevue/dialog'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import Tag from 'primevue/tag'
+import Select from 'primevue/select'
+import InputNumber from 'primevue/inputnumber'
+import ToggleSwitch from 'primevue/toggleswitch'
+import Button from 'primevue/button'
+import Divider from 'primevue/divider'
+import { useToast } from 'primevue/usetoast'
 import type { AggregatorGameConfig, BetRangeCurrency } from '@/types/aggregator'
 import { MASTER_LIMITS, SUPPORTED_CURRENCIES } from '@/types/aggregator'
 
@@ -18,24 +23,29 @@ const emit = defineEmits<{
     (e: 'save', gameId: string, patch: { enabled: boolean; betRanges: BetRangeCurrency[] }): void
 }>()
 
-const message = useMessage()
+const toast = useToast()
 
-// ── 本地編輯狀態 ───────────────────────────────────────────────────────────
+// ── 本地編輯狀態 ───────────────────────────────────────────
 const localEnabled = ref(false)
 const localRanges = ref<BetRangeCurrency[]>([])
 const addCurrency = ref<string | null>(null)
 
-watch(() => props.config, (c) => {
-    if (!c) return
-    localEnabled.value = c.enabled
-    localRanges.value = c.betRanges.map(r => ({ ...r }))
-}, { immediate: true })
+watch(
+    () => props.config,
+    (c) => {
+        if (!c) return
+        localEnabled.value = c.enabled
+        localRanges.value = c.betRanges.map((r) => ({ ...r }))
+        addCurrency.value = null
+    },
+    { immediate: true }
+)
 
-// ── 可新增幣別（排除已有的）─────────────────────────────────────────────────
+// ── 可新增幣別 ─────────────────────────────────────────────
 const availableCurrencies = computed(() =>
     SUPPORTED_CURRENCIES
-        .filter(c => !localRanges.value.some(r => r.currency === c))
-        .map(c => ({ label: c, value: c }))
+        .filter((c) => !localRanges.value.some((r) => r.currency === c))
+        .map((c) => ({ label: c, value: c }))
 )
 
 const handleAddCurrency = () => {
@@ -51,75 +61,22 @@ const handleAddCurrency = () => {
 }
 
 const handleRemoveCurrency = (currency: string) => {
-    localRanges.value = localRanges.value.filter(r => r.currency !== currency)
+    localRanges.value = localRanges.value.filter((r) => r.currency !== currency)
 }
 
-// ── 表格欄位 ───────────────────────────────────────────────────────────────
-const rangeColumns = computed<DataTableColumns<BetRangeCurrency>>(() => [
-    { title: '幣別', key: 'currency', width: 80,
-      render: r => r.currency },
-    { title: '最小投注', key: 'minBet', width: 140,
-      render: r => {
-          const master = MASTER_LIMITS[r.currency]
-          return h(NInputNumber, {
-              value: r.minBet,
-              min: master?.minBet ?? 0,
-              max: r.maxBet,
-              size: 'small',
-              style: 'width: 110px',
-              onUpdateValue: (v: number | null) => { if (v !== null) r.minBet = v }
-          })
-      }
-    },
-    { title: '最大投注', key: 'maxBet', width: 140,
-      render: r => {
-          const master = MASTER_LIMITS[r.currency]
-          return h(NInputNumber, {
-              value: r.maxBet,
-              min: r.minBet,
-              max: master?.maxBet ?? 999999,
-              size: 'small',
-              style: 'width: 110px',
-              onUpdateValue: (v: number | null) => { if (v !== null) r.maxBet = v }
-          })
-      }
-    },
-    { title: '最大彩金', key: 'maxWin', width: 160,
-      render: r => {
-          const master = MASTER_LIMITS[r.currency]
-          return h(NInputNumber, {
-              value: r.maxWin,
-              min: r.maxBet,
-              max: master?.maxWin ?? 9999999,
-              size: 'small',
-              style: 'width: 130px',
-              onUpdateValue: (v: number | null) => { if (v !== null) r.maxWin = v }
-          })
-      }
-    },
-    { title: '上限參考', key: 'master', width: 160,
-      render: r => {
-          const m = MASTER_LIMITS[r.currency]
-          if (!m) return '—'
-          return h('span', { class: 'text-xs text-gray-400' },
-              `≤ ${m.maxBet} / ${m.maxWin}`)
-      }
-    },
-    { title: '', key: 'del', width: 60,
-      render: r => h(NButton, {
-          size: 'tiny', type: 'error', text: true,
-          onClick: () => handleRemoveCurrency(r.currency)
-      }, { default: () => '移除' })
-    },
-])
+const categoryLabel = (cat: AggregatorGameConfig['category']) =>
+    cat === 'slot' ? '老虎機' : cat === 'crash' ? 'Crash' : '棋牌'
 
-// ── 儲存 ───────────────────────────────────────────────────────────────────
+// ── 儲存 ───────────────────────────────────────────────────
 const handleSave = () => {
     if (!props.config) return
-    // 驗證每個幣別的 min < max
-    const invalid = localRanges.value.find(r => r.minBet >= r.maxBet)
+    const invalid = localRanges.value.find((r) => r.minBet >= r.maxBet)
     if (invalid) {
-        message.warning(`${invalid.currency}：最小投注必須小於最大投注`)
+        toast.add({
+            severity: 'warn',
+            summary: `${invalid.currency}：最小投注必須小於最大投注`,
+            life: 2500,
+        })
         return
     }
     emit('save', props.config.gameId, {
@@ -128,80 +85,143 @@ const handleSave = () => {
     })
 }
 
-// h 函式需要在 <script setup> 範圍內使用
-import { h } from 'vue'
+const close = () => emit('update:show', false)
 </script>
 
 <template>
-    <n-modal
-        :show="show"
-        :mask-closable="false"
-        @update:show="$emit('update:show', $event)"
+    <Dialog
+        :visible="show"
+        modal
+        :style="{ width: '44rem' }"
+        :draggable="false"
+        :closable="false"
+        :close-on-escape="false"
+        @update:visible="(v) => !v && close()"
     >
-        <n-card
-            style="width: 700px"
-            :bordered="false"
-            role="dialog"
-            aria-modal="true"
-        >
-            <template #header>
-                <span v-if="config">
-                    {{ config.gameName }}
-                    <n-tag size="small" class="ml-2" :bordered="false">
-                        {{ config.category === 'slot' ? '老虎機' : config.category === 'crash' ? 'Crash' : '棋牌' }}
-                    </n-tag>
-                </span>
-            </template>
+        <template #header>
+            <div v-if="config" class="flex items-center gap-2">
+                <span class="font-semibold">{{ config.gameName }}</span>
+                <Tag severity="secondary" :value="categoryLabel(config.category)" />
+            </div>
+        </template>
 
-            <div v-if="config" class="flex flex-col gap-4">
-                <!-- 開放開關 -->
-                <div class="flex items-center gap-3">
-                    <span class="text-sm font-medium">對此聚合商開放</span>
-                    <n-switch v-model:value="localEnabled" />
-                </div>
-
-                <n-divider class="my-0" />
-
-                <!-- 幣別 Bet Range 表格 -->
-                <div>
-                    <p class="text-sm font-medium mb-2">幣別投注範圍設定</p>
-                    <n-data-table
-                        :columns="rangeColumns"
-                        :data="localRanges"
-                        :row-key="(r: BetRangeCurrency) => r.currency"
-                        size="small"
-                        :pagination="false"
-                    />
-                </div>
-
-                <!-- 新增幣別 -->
-                <div class="flex items-center gap-2">
-                    <n-select
-                        v-model:value="addCurrency"
-                        :options="availableCurrencies"
-                        placeholder="選擇幣別"
-                        class="w-36"
-                        size="small"
-                        :disabled="availableCurrencies.length === 0"
-                    />
-                    <n-button
-                        size="small"
-                        :disabled="!addCurrency"
-                        @click="handleAddCurrency"
-                    >
-                        + 新增幣別
-                    </n-button>
-                </div>
+        <div v-if="config" class="flex flex-col gap-4">
+            <!-- 開放開關 -->
+            <div class="flex items-center gap-3">
+                <span class="text-sm font-medium">對此聚合商開放</span>
+                <ToggleSwitch v-model="localEnabled" />
             </div>
 
-            <n-divider class="my-4" />
+            <Divider class="my-0" />
 
-            <n-space justify="end">
-                <n-button @click="$emit('update:show', false)">取消</n-button>
-                <n-button type="primary" :loading="saving" @click="handleSave">
-                    儲存配置
-                </n-button>
-            </n-space>
-        </n-card>
-    </n-modal>
+            <!-- 幣別 Bet Range 表格 -->
+            <div>
+                <p class="text-sm font-medium mb-2">幣別投注範圍設定</p>
+                <DataTable
+                    :value="localRanges"
+                    data-key="currency"
+                    size="small"
+                    :pt="{ root: { class: 'border-1 rounded' } }"
+                >
+                    <Column field="currency" header="幣別" style="width: 80px" />
+
+                    <Column header="最小投注" style="width: 140px">
+                        <template #body="{ data, index }">
+                            <InputNumber
+                                v-model="localRanges[index].minBet"
+                                :min="MASTER_LIMITS[data.currency]?.minBet ?? 0"
+                                :max="localRanges[index].maxBet"
+                                :pt="{ root: { class: 'w-28' } }"
+                                show-buttons
+                                button-layout="horizontal"
+                                size="small"
+                            />
+                        </template>
+                    </Column>
+
+                    <Column header="最大投注" style="width: 140px">
+                        <template #body="{ data, index }">
+                            <InputNumber
+                                v-model="localRanges[index].maxBet"
+                                :min="localRanges[index].minBet"
+                                :max="MASTER_LIMITS[data.currency]?.maxBet ?? 999999"
+                                :pt="{ root: { class: 'w-28' } }"
+                                show-buttons
+                                button-layout="horizontal"
+                                size="small"
+                            />
+                        </template>
+                    </Column>
+
+                    <Column header="最大彩金" style="width: 160px">
+                        <template #body="{ data, index }">
+                            <InputNumber
+                                v-model="localRanges[index].maxWin"
+                                :min="localRanges[index].maxBet"
+                                :max="MASTER_LIMITS[data.currency]?.maxWin ?? 9999999"
+                                :pt="{ root: { class: 'w-32' } }"
+                                show-buttons
+                                button-layout="horizontal"
+                                size="small"
+                            />
+                        </template>
+                    </Column>
+
+                    <Column header="上限參考" style="width: 150px">
+                        <template #body="{ data }">
+                            <span v-if="MASTER_LIMITS[data.currency]" class="text-xs text-tertiary">
+                                ≤ {{ MASTER_LIMITS[data.currency].maxBet }}
+                                / {{ MASTER_LIMITS[data.currency].maxWin }}
+                            </span>
+                            <span v-else class="text-tertiary">—</span>
+                        </template>
+                    </Column>
+
+                    <Column style="width: 70px">
+                        <template #body="{ data }">
+                            <Button
+                                label="移除"
+                                severity="danger"
+                                text
+                                size="small"
+                                @click="handleRemoveCurrency(data.currency)"
+                            />
+                        </template>
+                    </Column>
+                </DataTable>
+            </div>
+
+            <!-- 新增幣別 -->
+            <div class="flex items-center gap-2">
+                <Select
+                    v-model="addCurrency"
+                    :options="availableCurrencies"
+                    option-label="label"
+                    option-value="value"
+                    placeholder="選擇幣別"
+                    :disabled="availableCurrencies.length === 0"
+                    class="w-36"
+                />
+                <Button
+                    label="+ 新增幣別"
+                    severity="secondary"
+                    outlined
+                    size="small"
+                    :disabled="!addCurrency"
+                    @click="handleAddCurrency"
+                />
+            </div>
+        </div>
+
+        <template #footer>
+            <Button label="取消" severity="secondary" outlined @click="close" />
+            <Button label="儲存配置" :loading="saving" @click="handleSave" />
+        </template>
+    </Dialog>
 </template>
+
+<style scoped>
+.text-tertiary {
+    color: var(--hig-text-tertiary);
+}
+</style>

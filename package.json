@@ -17,6 +17,7 @@
     "@types/nprogress": "^0.2.3",
     "@vueuse/core": "^14.1.0",
     "big.js": "^7.0.1",
+    "chart.js": "^4.5.1",
     "date-fns": "^4.1.0",
     "echarts": "^6.0.0",
     "msw": "^2.12.7",

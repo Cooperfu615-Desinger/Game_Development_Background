@@ -8,6 +8,7 @@ import { financeHandlers } from './finance'
 import { settingsHandlers } from './settings'
 import { aggregatorsHandlers } from './aggregators'
 import { platformHandlers } from './platforms'
+import { reportAdminHandlers } from './reportAdmin'
 
 export const handlers = [
     ...authHandlers,
@@ -20,4 +21,5 @@ export const handlers = [
     ...settingsHandlers,
     ...aggregatorsHandlers,
     ...platformHandlers,
+    ...reportAdminHandlers,
 ]

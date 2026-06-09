@@ -74,6 +74,19 @@ export function buildSakaiMenu(t: Composer['t']): MenuGroup[] {
             ],
         },
 
+        // ── 報表總覽（V3） ──────────────────────────────────
+        {
+            label: t('menu.reportGroup'),
+            items: [
+                { label: t('menu.reportsOverview'), icon: 'pi pi-fw pi-chart-pie', to: '/reports' },
+                { label: t('menu.reportsMerchants'), icon: 'pi pi-fw pi-building', to: '/reports/merchants' },
+                { label: t('menu.reportsAgents'), icon: 'pi pi-fw pi-sitemap', to: '/reports/agents' },
+                { label: t('menu.reportsGames'), icon: 'pi pi-fw pi-th-large', to: '/reports/games' },
+                { label: t('menu.reportsRtp'), icon: 'pi pi-fw pi-percentage', to: '/reports/rtp' },
+                { label: t('menu.settlementList'), icon: 'pi pi-fw pi-file-check', to: '/settlements' },
+            ],
+        },
+
         // ── 財務 ────────────────────────────────────────────
         {
             label: t('menu.finance'),

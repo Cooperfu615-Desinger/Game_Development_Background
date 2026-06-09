@@ -128,6 +128,52 @@ const routes: RouteRecordRaw[] = [
                 meta: { title: 'menu.transactionsAbnormal' }
             },
 
+            // ── 報表 ─────────────────────────────────────
+            {
+                path: 'reports',
+                name: 'ReportsOverview',
+                component: () => import('../views/Reports/Overview.vue'),
+                meta: { title: 'menu.reportsOverview' }
+            },
+            {
+                path: 'reports/merchants',
+                name: 'ReportsMerchants',
+                component: () => import('../views/Reports/Merchants.vue'),
+                meta: { title: 'menu.reportsMerchants' }
+            },
+            {
+                path: 'reports/agents',
+                name: 'ReportsAgents',
+                component: () => import('../views/Reports/Agents.vue'),
+                meta: { title: 'menu.reportsAgents' }
+            },
+            {
+                path: 'reports/games',
+                name: 'ReportsGames',
+                component: () => import('../views/Reports/Games.vue'),
+                meta: { title: 'menu.reportsGames' }
+            },
+            {
+                path: 'reports/rtp',
+                name: 'ReportsRtp',
+                component: () => import('../views/Reports/Rtp.vue'),
+                meta: { title: 'menu.reportsRtp' }
+            },
+
+            // ── 結算單（V3） ──────────────────────────────
+            {
+                path: 'settlements',
+                name: 'SettlementsV3',
+                component: () => import('../views/Settlements/Index.vue'),
+                meta: { title: 'menu.settlementList' }
+            },
+            {
+                path: 'settlements/:id',
+                name: 'SettlementDetail',
+                component: () => import('../views/Settlements/Detail.vue'),
+                meta: { title: 'menu.settlementDetail' }
+            },
+
             // ── 財務 ────────────────────────────────────
             {
                 path: 'finance/settlements',

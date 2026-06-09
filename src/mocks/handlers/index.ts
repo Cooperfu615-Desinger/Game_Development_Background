@@ -10,6 +10,7 @@ import { aggregatorsHandlers } from './aggregators'
 import { platformHandlers } from './platforms'
 import { reportAdminHandlers } from './reportAdmin'
 import { riskAdminHandlers } from './riskAdmin'
+import { systemAdminHandlers } from './systemAdmin'
 
 export const handlers = [
     ...authHandlers,
@@ -24,4 +25,5 @@ export const handlers = [
     ...platformHandlers,
     ...reportAdminHandlers,
     ...riskAdminHandlers,
+    ...systemAdminHandlers,
 ]

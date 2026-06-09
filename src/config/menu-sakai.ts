@@ -110,13 +110,18 @@ export function buildSakaiMenu(t: Composer['t']): MenuGroup[] {
             ],
         },
 
-        // ── 系統管理 ────────────────────────────────────────
+        // ── 系統管理（V1 完整版） ────────────────────────────
         {
             label: t('menu.system'),
             items: [
+                { label: t('menu.systemAdmins'), icon: 'pi pi-fw pi-users', to: '/system/admins' },
+                { label: t('menu.systemRoles'), icon: 'pi pi-fw pi-lock', to: '/system/roles' },
+                { label: t('menu.systemLogs'), icon: 'pi pi-fw pi-history', to: '/system/logs' },
+                { label: t('menu.systemApprovals'), icon: 'pi pi-fw pi-check-circle', to: '/system/approvals' },
+                { label: t('menu.systemCurrencies'), icon: 'pi pi-fw pi-dollar', to: '/system/currencies' },
+                { label: t('menu.systemLanguages'), icon: 'pi pi-fw pi-language', to: '/system/languages' },
                 { label: t('menu.settings'), icon: 'pi pi-fw pi-cog', to: '/settings' },
                 { label: t('menu.apiKeys'), icon: 'pi pi-fw pi-key', to: '/settings/api-keys' },
-                { label: t('menu.permissions'), icon: 'pi pi-fw pi-shield', to: '/settings/permissions' },
             ],
         },
     ]

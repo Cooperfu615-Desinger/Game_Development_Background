@@ -174,6 +174,44 @@ const routes: RouteRecordRaw[] = [
                 meta: { title: 'menu.settlementDetail' }
             },
 
+            // ── 風控中心（V3） ────────────────────────────
+            {
+                path: 'risk',
+                name: 'RiskOverview',
+                component: () => import('../views/Risk/Overview.vue'),
+                meta: { title: 'menu.riskOverview' }
+            },
+            {
+                path: 'risk/alerts',
+                name: 'RiskAlerts',
+                component: () => import('../views/Risk/Alerts.vue'),
+                meta: { title: 'menu.riskAlerts' }
+            },
+            {
+                path: 'risk/rules',
+                name: 'RiskRules',
+                component: () => import('../views/Risk/Rules.vue'),
+                meta: { title: 'menu.riskRules' }
+            },
+            {
+                path: 'risk/rule-builder',
+                name: 'RiskRuleBuilder',
+                component: () => import('../views/Risk/RuleBuilder.vue'),
+                meta: { title: 'menu.riskRuleBuilder' }
+            },
+            {
+                path: 'risk/cases',
+                name: 'RiskCases',
+                component: () => import('../views/Risk/Cases.vue'),
+                meta: { title: 'menu.riskCases' }
+            },
+            {
+                path: 'risk/actions',
+                name: 'RiskActions',
+                component: () => import('../views/Risk/Actions.vue'),
+                meta: { title: 'menu.riskActions' }
+            },
+
             // ── 財務 ────────────────────────────────────
             {
                 path: 'finance/settlements',

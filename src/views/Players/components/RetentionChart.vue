@@ -1,51 +1,67 @@
 <script setup lang="ts">
-import { computed, h } from 'vue'
-import { NCard, NDataTable, NSkeleton, NTag } from 'naive-ui'
-import type { DataTableColumns } from 'naive-ui'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import Tag from 'primevue/tag'
+import Skeleton from 'primevue/skeleton'
 import type { RetentionData } from '@/types/player'
 
-const props = defineProps<{
+defineProps<{
     data: RetentionData[]
     loading: boolean
 }>()
 
-const trendTag = (v: number) => {
-    const type = v >= 40 ? 'success' : v >= 20 ? 'warning' : 'error'
-    return h(NTag, { type, size: 'small', bordered: false }, { default: () => `${v.toFixed(1)}%` })
-}
-
-const columns = computed<DataTableColumns<RetentionData>>(() => [
-    { title: '遊戲', key: 'label' },
-    {
-        title: 'D1 留存',
-        key: 'd1',
-        sorter: (a, b) => a.d1 - b.d1,
-        render: (row) => trendTag(row.d1)
-    },
-    {
-        title: 'D7 留存',
-        key: 'd7',
-        sorter: (a, b) => a.d7 - b.d7,
-        render: (row) => trendTag(row.d7)
-    },
-    {
-        title: 'D30 留存',
-        key: 'd30',
-        sorter: (a, b) => a.d30 - b.d30,
-        render: (row) => trendTag(row.d30)
-    }
-])
+type Severity = 'success' | 'warn' | 'danger'
+const retentionSeverity = (v: number): Severity =>
+    v >= 40 ? 'success' : v >= 20 ? 'warn' : 'danger'
 </script>
 
 <template>
-    <n-card title="留存率報表" class="h-[360px]">
-        <n-skeleton v-if="loading" :repeat="5" text />
-        <n-data-table
+    <section class="hig-card retention-card">
+        <header class="hig-card-header">
+            <h3 class="hig-card-title">留存率報表</h3>
+        </header>
+
+        <div v-if="loading" class="hig-card-body">
+            <div class="flex flex-col gap-2">
+                <Skeleton v-for="i in 5" :key="i" height="2rem" />
+            </div>
+        </div>
+
+        <DataTable
             v-else
-            :columns="columns"
-            :data="data"
-            :pagination="false"
+            :value="data"
             size="small"
-        />
-    </n-card>
+            sort-mode="single"
+            :pt="{ root: { class: 'border-0' } }"
+        >
+            <Column field="label" header="遊戲" />
+            <Column field="d1" header="D1 留存" sortable>
+                <template #body="{ data }">
+                    <Tag :severity="retentionSeverity(data.d1)" :value="`${data.d1.toFixed(1)}%`" />
+                </template>
+            </Column>
+            <Column field="d7" header="D7 留存" sortable>
+                <template #body="{ data }">
+                    <Tag :severity="retentionSeverity(data.d7)" :value="`${data.d7.toFixed(1)}%`" />
+                </template>
+            </Column>
+            <Column field="d30" header="D30 留存" sortable>
+                <template #body="{ data }">
+                    <Tag :severity="retentionSeverity(data.d30)" :value="`${data.d30.toFixed(1)}%`" />
+                </template>
+            </Column>
+        </DataTable>
+    </section>
 </template>
+
+<style scoped>
+.retention-card {
+    height: 360px;
+    display: flex;
+    flex-direction: column;
+}
+.retention-card :deep(.p-datatable-table-container) {
+    overflow-y: auto;
+    max-height: 290px;
+}
+</style>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NCard, NSkeleton } from 'naive-ui'
+import Skeleton from 'primevue/skeleton'
 import VChart from 'vue-echarts'
 import type { EChartsOption } from 'echarts'
 
@@ -10,10 +10,25 @@ defineProps<{
 </script>
 
 <template>
-    <n-card title="ARPU 趨勢（近 30 天）" class="h-[360px]">
-        <div class="h-[280px]">
-            <n-skeleton v-if="loading" class="h-full" />
-            <v-chart v-else :option="option" autoresize class="h-full w-full" />
+    <section class="hig-card arpu-card">
+        <header class="hig-card-header">
+            <h3 class="hig-card-title">ARPU 趨勢（近 30 天）</h3>
+        </header>
+        <div class="hig-card-body chart-body">
+            <Skeleton v-if="loading" width="100%" height="100%" />
+            <VChart v-else :option="option" autoresize class="h-full w-full" />
         </div>
-    </n-card>
+    </section>
 </template>
+
+<style scoped>
+.arpu-card {
+    height: 360px;
+    display: flex;
+    flex-direction: column;
+}
+.chart-body {
+    flex: 1 1 auto;
+    min-height: 0;
+}
+</style>

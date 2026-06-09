@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { NDataTable, NInput, NPagination } from 'naive-ui'
-import type { DataTableColumns } from 'naive-ui'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import InputText from 'primevue/inputtext'
 import type { PlatformPlayer } from '@/types/platform'
 
 const props = defineProps<{
@@ -23,72 +23,63 @@ const fmtMoney = (n: number) =>
 
 const fmtDate = (iso: string) => new Date(iso).toLocaleDateString('zh-TW')
 
-const columns = computed<DataTableColumns<PlatformPlayer>>(() => {
-    const base: DataTableColumns<PlatformPlayer> = [
-        {
-            title: '玩家 ID',
-            key: 'playerId',
-            render: (row) => row.playerId,
-        },
-        {
-            title: '累計流水',
-            key: 'totalTurnover',
-            render: (row) => fmtMoney(row.totalTurnover),
-            sorter: (a, b) => a.totalTurnover - b.totalTurnover,
-        },
-        {
-            title: '本期流水',
-            key: 'periodTurnover',
-            render: (row) => fmtMoney(row.periodTurnover),
-            sorter: (a, b) => a.periodTurnover - b.periodTurnover,
-        },
-        {
-            title: '最後活躍',
-            key: 'lastActiveAt',
-            render: (row) => fmtDate(row.lastActiveAt),
-        },
-    ]
+const PAGE_SIZE = 20
 
-    if (props.hasAgentSystem) {
-        base.splice(1, 0, {
-            title: 'AgentID',
-            key: 'agentId',
-            render: (row) => row.agentId ?? '—',
-        })
-    }
-
-    return base
-})
+const onPage = (e: { page: number }) => {
+    emit('update:page', e.page + 1)
+}
 </script>
 
 <template>
     <div class="flex flex-col gap-4">
-        <div class="flex justify-between items-center">
-            <span class="text-sm text-gray-400">共 {{ total }} 位玩家</span>
-            <n-input
-                :value="search"
-                placeholder="搜尋玩家 ID..."
-                clearable
+        <div class="flex justify-between items-center flex-wrap gap-2">
+            <span class="text-sm text-secondary">共 {{ total }} 位玩家</span>
+            <InputText
+                :model-value="search"
+                placeholder="搜尋玩家 ID…"
                 class="w-56"
-                @update:value="emit('update:search', $event)"
+                @update:model-value="emit('update:search', $event ?? '')"
             />
         </div>
 
-        <n-data-table
-            :columns="columns"
-            :data="players"
+        <DataTable
+            :value="players"
             :loading="loading"
-            :pagination="false"
-            :row-key="(r: PlatformPlayer) => r.playerId"
+            data-key="playerId"
             size="small"
-        />
+            sort-mode="single"
+            paginator
+            lazy
+            :rows="PAGE_SIZE"
+            :total-records="total"
+            :first="(page - 1) * PAGE_SIZE"
+            @page="onPage"
+        >
+            <Column field="playerId" header="玩家 ID" />
 
-        <div class="flex justify-end">
-            <n-pagination
-                :page="page"
-                :page-count="Math.ceil(total / 20)"
-                @update:page="emit('update:page', $event)"
-            />
-        </div>
+            <Column v-if="hasAgentSystem" header="AgentID">
+                <template #body="{ data }">
+                    {{ data.agentId ?? '—' }}
+                </template>
+            </Column>
+
+            <Column field="totalTurnover" header="累計流水" sortable>
+                <template #body="{ data }">{{ fmtMoney(data.totalTurnover) }}</template>
+            </Column>
+
+            <Column field="periodTurnover" header="本期流水" sortable>
+                <template #body="{ data }">{{ fmtMoney(data.periodTurnover) }}</template>
+            </Column>
+
+            <Column field="lastActiveAt" header="最後活躍">
+                <template #body="{ data }">{{ fmtDate(data.lastActiveAt) }}</template>
+            </Column>
+        </DataTable>
     </div>
 </template>
+
+<style scoped>
+.text-secondary {
+    color: var(--hig-text-secondary);
+}
+</style>

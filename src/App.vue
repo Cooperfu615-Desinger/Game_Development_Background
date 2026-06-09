@@ -12,20 +12,9 @@ const naiveTheme = computed(() => isDarkTheme.value ? darkTheme : null)
 
 const { locale } = useI18n()
 
-// Theme Overrides — Neon Cyan (aligned with design-tokens.css)
-const themeOverrides = {
-  common: {
-    primaryColor: '#00D4FF',
-    primaryColorHover: '#33DDFF',
-    primaryColorPressed: '#00AACC',
-    primaryColorSuppl: '#003D4D',
-    borderRadius: '8px',
-    fontFamily: "Rajdhani, 'Noto Sans TC', system-ui, sans-serif",
-  },
-  Button: {
-    textColorPrimary: '#0A0E1A',
-    fontWeight: '600',
-  },
+// Theme Overrides — Dark 模式套科幻 Cyan；Light 模式只覆寫共通（字體 + 主色）
+// 暗色專屬色票（Menu/DataTable/Card）只在 dark 時注入，Light 模式讓 Naive UI 用內建配色
+const darkComponentOverrides = {
   Menu: {
     itemColorActive: 'rgba(0, 212, 255, 0.12)',
     itemTextColorActive: '#00D4FF',
@@ -46,6 +35,22 @@ const themeOverrides = {
     borderColor: '#1E3054',
   },
 }
+
+const themeOverrides = computed(() => ({
+  common: {
+    primaryColor: '#00D4FF',
+    primaryColorHover: '#33DDFF',
+    primaryColorPressed: '#00AACC',
+    primaryColorSuppl: '#003D4D',
+    borderRadius: '8px',
+    fontFamily: "Rajdhani, 'Noto Sans TC', system-ui, sans-serif",
+  },
+  Button: {
+    textColorPrimary: '#0A0E1A',
+    fontWeight: '600',
+  },
+  ...(isDarkTheme.value ? darkComponentOverrides : {}),
+}))
 
 const naiveLocale = computed(() => {
   return locale.value === 'zh-TW' ? zhTW : enUS

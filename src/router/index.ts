@@ -212,6 +212,32 @@ const routes: RouteRecordRaw[] = [
                 meta: { title: 'menu.riskActions' }
             },
 
+            // ── 獎池管理（V4） ─────────────────────────────
+            {
+                path: 'jackpots',
+                name: 'Jackpots',
+                component: () => import('../views/Jackpot/Index.vue'),
+                meta: { title: 'menu.jackpotList' }
+            },
+            {
+                path: 'jackpots/settings',
+                name: 'JackpotSettings',
+                component: () => import('../views/Jackpot/Settings.vue'),
+                meta: { title: 'menu.jackpotSettings' }
+            },
+            {
+                path: 'jackpots/transactions',
+                name: 'JackpotTransactions',
+                component: () => import('../views/Jackpot/Transactions.vue'),
+                meta: { title: 'menu.jackpotTransactions' }
+            },
+            {
+                path: 'jackpots/payouts',
+                name: 'JackpotPayouts',
+                component: () => import('../views/Jackpot/Payouts.vue'),
+                meta: { title: 'menu.jackpotPayouts' }
+            },
+
             // ── 系統管理（V1 完整版） ────────────────────
             {
                 path: 'system/admins',

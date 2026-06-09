@@ -87,6 +87,17 @@ export function buildSakaiMenu(t: Composer['t']): MenuGroup[] {
             ],
         },
 
+        // ── 獎池管理（V4） ──────────────────────────────────
+        {
+            label: t('menu.jackpotGroup'),
+            items: [
+                { label: t('menu.jackpotList'), icon: 'pi pi-fw pi-star', to: '/jackpots' },
+                { label: t('menu.jackpotSettings'), icon: 'pi pi-fw pi-cog', to: '/jackpots/settings' },
+                { label: t('menu.jackpotTransactions'), icon: 'pi pi-fw pi-history', to: '/jackpots/transactions' },
+                { label: t('menu.jackpotPayouts'), icon: 'pi pi-fw pi-send', to: '/jackpots/payouts' },
+            ],
+        },
+
         // ── 風控中心（V3） ──────────────────────────────────
         {
             label: t('menu.riskGroup'),

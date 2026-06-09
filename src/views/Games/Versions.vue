@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue';
+import { computed, reactive, ref, onMounted } from 'vue';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import InputText from 'primevue/inputtext';
@@ -11,7 +11,6 @@ import SectionCard from '@/components/ui/SectionCard.vue';
 import StatusTag from '@/components/ui/StatusTag.vue';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
-import { expandDemoRows } from '@/utils/demoRows';
 
 type VersionRow = {
   id: string;
@@ -40,68 +39,19 @@ const filters = reactive({
 const selectedVersion = ref<VersionRow | null>(null);
 const detailVisible = ref(false);
 
-const versionRows = reactive<VersionRow[]>(expandDemoRows([
-  {
-    id: 'REL-20260520-001',
-    game: 'Fortune Tiger',
-    version: 'v2.4.1',
-    assetVersion: 'asset-2026.05',
-    status: '已發布',
-    releaseType: '正式發布',
-    releaseAt: '2026-05-20 03:30:00',
-    scope: '全部正式商戶',
-    affectedMerchants: 18,
-    rollbackTarget: 'v2.4.0',
-    owner: 'Game Tech',
-    summary: '優化載入速度與錢包回呼容錯。',
-    changeLog: ['修正 H5 首次載入偶發白屏', '補強錢包回呼逾時重試', '更新繁中與英文素材']
-  },
-  {
-    id: 'REL-20260518-002',
-    game: 'Royal Spin',
-    version: 'v1.9.8',
-    assetVersion: 'asset-2026.04',
-    status: '維護中',
-    releaseType: '修補發布',
-    releaseAt: '2026-05-18 02:00:00',
-    scope: '指定商戶',
-    affectedMerchants: 12,
-    rollbackTarget: 'v1.9.7',
-    owner: 'Platform Team',
-    summary: '修補錢包回調壓測問題，目前仍在維護排程內。',
-    changeLog: ['調整交易重送節流', '補上維護公告文案', '更新 TWD 幣別素材']
-  },
-  {
-    id: 'REL-20260516-003',
-    game: 'Baccarat Pro',
-    version: 'v3.1.0-beta',
-    assetVersion: 'asset-2026.05-beta',
-    status: '測試中',
-    releaseType: '測試發布',
-    releaseAt: '2026-05-16 15:20:00',
-    scope: '測試商戶',
-    affectedMerchants: 5,
-    rollbackTarget: 'v3.0.9',
-    owner: 'Table Game Team',
-    summary: '新版桌台流程進入 QA 驗收。',
-    changeLog: ['新增桌台狀態同步', '調整 Web 版路由', '補泰文素材']
-  },
-  {
-    id: 'REL-20260512-004',
-    game: 'Crash Rocket',
-    version: 'v0.8.3',
-    assetVersion: 'asset-2026.05-dev',
-    status: '待審核',
-    releaseType: '預發布',
-    releaseAt: '2026-05-12 18:45:00',
-    scope: '內部測試',
-    affectedMerchants: 0,
-    rollbackTarget: '-',
-    owner: 'Game Lab',
-    summary: '等待版本審核與數值驗收後才可進入測試商戶。',
-    changeLog: ['新增倍率動畫', '調整 Web/H5 共用入口', '補越南文素材']
+const versionRows = reactive<VersionRow[]>([]);
+const loading = ref(true);
+
+onMounted(async () => {
+  try {
+    const res = await fetch('/api/games/v2/versions');
+    const data: VersionRow[] = await res.json();
+    versionRows.splice(0, versionRows.length, ...data);
+  } finally {
+    loading.value = false;
   }
-], 60));
+});
+
 
 const gameOptions = computed(() => ['全部遊戲', ...Array.from(new Set(versionRows.map((row) => row.game)))]);
 const statusOptions = ['全部狀態', '已發布', '測試中', '維護中', '待審核', '已回滾'];
@@ -195,6 +145,7 @@ function openDetail(row: VersionRow) {
     <SectionCard class="merchant-table-card version-table-card">
       <DataTable
         :value="versionRows"
+        :loading="loading"
         scrollable
         paginator
         :rows="10"

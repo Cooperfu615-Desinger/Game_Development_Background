@@ -6,7 +6,7 @@
     單款遊戲只「套用模板」，RTP 與版本在其他子頁管理。
 -->
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, ref, onMounted } from 'vue'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import InputText from 'primevue/inputtext'
@@ -17,31 +17,38 @@ import DatePicker from 'primevue/datepicker'
 import ToggleSwitch from 'primevue/toggleswitch'
 import { SectionCard } from '@/components/ui'
 
-function timeAt(hour: number, minute = 0) {
-    const v = new Date()
-    v.setHours(hour, minute, 0, 0)
-    return v
-}
+const maintenanceTemplates = reactive<any[]>([])
 
-const maintenanceTemplates = reactive([
-    { name: '每日例行維護', cycle: '每日', day: '每日', start: timeAt(3), end: timeAt(4), scope: '全部遊戲', enabled: true },
-    { name: '每週版本窗口', cycle: '每週', day: '週三', start: timeAt(2), end: timeAt(5), scope: '指定遊戲', enabled: true },
-    { name: '每月結算維護', cycle: '每月', day: '每月 1 日', start: timeAt(1), end: timeAt(3), scope: '全部遊戲', enabled: false },
-])
+const limitTemplates = reactive<any[]>([])
 
-const limitTemplates = reactive([
-    { name: '標準限額', currencies: ['USDT', 'USD'], minBet: 1, maxBet: 5000, maxPayout: 100000, enabled: true },
-    { name: '低風險限額', currencies: ['TWD', 'USDT'], minBet: 1, maxBet: 1000, maxPayout: 30000, enabled: true },
-    { name: '高額限額', currencies: ['USDT', 'USD'], minBet: 10, maxBet: 20000, maxPayout: 500000, enabled: true },
-    { name: 'VIP 限額', currencies: ['USDT'], minBet: 50, maxBet: 50000, maxPayout: 1000000, enabled: false },
-])
+const baseSettings = reactive<any>({
+    gameTypes: [],
+    platforms: [],
+    languages: [],
+    defaultMaintenanceCycle: '',
+    requireApprovalForProduction: false,
+})
 
-const baseSettings = reactive({
-    gameTypes: ['老虎機', '桌遊', '小遊戲', '真人'],
-    platforms: ['H5', 'Web'],
-    languages: ['繁中', '英文'],
-    defaultMaintenanceCycle: '每日',
-    requireApprovalForProduction: true,
+const loading = ref(true)
+
+onMounted(async () => {
+    try {
+        const res = await fetch('/api/games/v2/settings')
+        const data = await res.json()
+        maintenanceTemplates.splice(
+            0,
+            maintenanceTemplates.length,
+            ...data.maintenanceTemplates.map((t: any) => ({
+                ...t,
+                start: new Date(t.start),
+                end: new Date(t.end),
+            }))
+        )
+        limitTemplates.splice(0, limitTemplates.length, ...data.limitTemplates)
+        Object.assign(baseSettings, data.baseSettings)
+    } finally {
+        loading.value = false
+    }
 })
 
 const cycleOptions = ['每日', '每週', '每月', '指定日期']
@@ -92,7 +99,7 @@ const languageOptions = ['繁中', '英文', '泰文', '越南文']
                 </div>
             </template>
 
-            <DataTable :value="maintenanceTemplates" data-key="name" table-style="min-width: 56rem">
+            <DataTable :value="maintenanceTemplates" :loading="loading" data-key="name" table-style="min-width: 56rem">
                 <Column field="name" header="模板名稱" style="width: 12rem; min-width: 12rem">
                     <template #body="{ data }">
                         <InputText v-model="data.name" fluid />
@@ -146,7 +153,7 @@ const languageOptions = ['繁中', '英文', '泰文', '越南文']
                 </div>
             </template>
 
-            <DataTable :value="limitTemplates" data-key="name" table-style="min-width: 60rem">
+            <DataTable :value="limitTemplates" :loading="loading" data-key="name" table-style="min-width: 60rem">
                 <Column field="name" header="模板名稱" style="width: 10rem; min-width: 10rem">
                     <template #body="{ data }">
                         <InputText v-model="data.name" fluid />

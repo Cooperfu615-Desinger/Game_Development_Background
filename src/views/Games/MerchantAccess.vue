@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue';
+import { computed, reactive, ref, onMounted } from 'vue';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import InputText from 'primevue/inputtext';
@@ -15,7 +15,6 @@ import SectionCard from '@/components/ui/SectionCard.vue';
 import StatusTag from '@/components/ui/StatusTag.vue';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
-import { expandDemoRows } from '@/utils/demoRows';
 
 type AccessRow = {
   id: string;
@@ -47,72 +46,19 @@ const selectedAccess = ref<AccessRow | null>(null);
 const detailVisible = ref(false);
 const editVisible = ref(false);
 
-const accessRows = reactive<AccessRow[]>(expandDemoRows([
-  {
-    id: 'ACC-001',
-    merchant: 'Golden Dragon',
-    agent: 'Asia Master',
-    game: 'Fortune Tiger',
-    gameType: '老虎機',
-    environment: '正式',
-    enabled: true,
-    status: '啟用',
-    limitTemplates: ['標準限額', '高額限額'],
-    rtpMode: '沿用遊戲預設',
-    launchUrl: 'https://launch.example.com/fortune-tiger',
-    updatedAt: '2026-05-20 11:30:00',
-    pendingReview: false,
-    note: '正式商戶主要遊戲。'
-  },
-  {
-    id: 'ACC-002',
-    merchant: 'LuckyPlay',
-    agent: 'Prime Network',
-    game: 'Royal Spin',
-    gameType: '老虎機',
-    environment: '正式',
-    enabled: false,
-    status: '維護中',
-    limitTemplates: ['低風險限額'],
-    rtpMode: '沿用遊戲預設',
-    launchUrl: 'https://launch.example.com/royal-spin',
-    updatedAt: '2026-05-20 02:00:00',
-    pendingReview: false,
-    note: '等待維護結束後恢復入口。'
-  },
-  {
-    id: 'ACC-003',
-    merchant: 'Nova Gaming',
-    agent: 'Nova Agent',
-    game: 'Baccarat Pro',
-    gameType: '桌遊',
-    environment: '測試',
-    enabled: true,
-    status: '測試中',
-    limitTemplates: ['標準限額'],
-    rtpMode: '商戶專屬版本',
-    launchUrl: 'https://launch.example.com/baccarat-pro',
-    updatedAt: '2026-05-18 16:20:00',
-    pendingReview: true,
-    note: '等待測試商戶驗收。'
-  },
-  {
-    id: 'ACC-004',
-    merchant: 'Royal H5',
-    agent: 'Royal Partner',
-    game: 'Crash Rocket',
-    gameType: '小遊戲',
-    environment: '測試',
-    enabled: false,
-    status: '待審核',
-    limitTemplates: ['高額限額', 'VIP 限額'],
-    rtpMode: '待審核版本',
-    launchUrl: 'https://launch.example.com/crash-rocket',
-    updatedAt: '2026-05-12 18:45:00',
-    pendingReview: true,
-    note: '需完成版本與數值審核。'
+const accessRows = reactive<AccessRow[]>([]);
+const loading = ref(true);
+
+onMounted(async () => {
+  try {
+    const res = await fetch('/api/games/v2/merchant-access');
+    const data: AccessRow[] = await res.json();
+    accessRows.splice(0, accessRows.length, ...data);
+  } finally {
+    loading.value = false;
   }
-], 60));
+});
+
 
 const merchantOptions = computed(() => ['全部商戶', ...Array.from(new Set(accessRows.map((row) => row.merchant)))]);
 const gameOptions = computed(() => ['全部遊戲', ...Array.from(new Set(accessRows.map((row) => row.game)))]);
@@ -219,6 +165,7 @@ function openEdit(row: AccessRow) {
     <SectionCard class="merchant-table-card access-table-card">
       <DataTable
         :value="accessRows"
+        :loading="loading"
         scrollable
         paginator
         :rows="10"

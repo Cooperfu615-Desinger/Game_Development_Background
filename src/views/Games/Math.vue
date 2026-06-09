@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue';
+import { computed, reactive, ref, onMounted } from 'vue';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import InputText from 'primevue/inputtext';
@@ -14,7 +14,6 @@ import SectionCard from '@/components/ui/SectionCard.vue';
 import StatusTag from '@/components/ui/StatusTag.vue';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
-import { expandDemoRows } from '@/utils/demoRows';
 
 type MathRow = {
   id: string;
@@ -45,72 +44,19 @@ const selectedMath = ref<MathRow | null>(null);
 const detailVisible = ref(false);
 const reviewVisible = ref(false);
 
-const mathRows = reactive<MathRow[]>(expandDemoRows([
-  {
-    id: 'MATH-FT-9650',
-    game: 'Fortune Tiger',
-    version: 'RTP 96.50%',
-    theoreticalRtp: 96.5,
-    actualRtp: 97.18,
-    deviation: 0.68,
-    volatility: '中高',
-    status: '已生效',
-    effectiveScope: '全部正式商戶',
-    sampleBets: 1288042,
-    reviewNo: 'APR-20260518-011',
-    reviewer: 'Risk Lead',
-    updatedAt: '2026-05-20 10:00:00',
-    note: '實際 RTP 在容許區間內。'
-  },
-  {
-    id: 'MATH-RS-9580',
-    game: 'Royal Spin',
-    version: 'RTP 95.80%',
-    theoreticalRtp: 95.8,
-    actualRtp: 101.42,
-    deviation: 5.62,
-    volatility: '中',
-    status: '觀察中',
-    effectiveScope: '指定商戶',
-    sampleBets: 284120,
-    reviewNo: 'APR-20260519-004',
-    reviewer: 'Math Ops',
-    updatedAt: '2026-05-20 09:15:00',
-    note: '維護期間樣本偏少，需持續觀察。'
-  },
-  {
-    id: 'MATH-BC-9810',
-    game: 'Baccarat Pro',
-    version: 'RTP 98.10%',
-    theoreticalRtp: 98.1,
-    actualRtp: 97.72,
-    deviation: -0.38,
-    volatility: '低',
-    status: '測試中',
-    effectiveScope: '測試商戶',
-    sampleBets: 93122,
-    reviewNo: 'APR-20260516-007',
-    reviewer: 'QA Reviewer',
-    updatedAt: '2026-05-18 16:40:00',
-    note: '等待 QA 驗收與長週期樣本。'
-  },
-  {
-    id: 'MATH-CR-9720',
-    game: 'Crash Rocket',
-    version: 'RTP 97.20%',
-    theoreticalRtp: 97.2,
-    actualRtp: 111.86,
-    deviation: 14.66,
-    volatility: '高',
-    status: '待審核',
-    effectiveScope: '內部測試',
-    sampleBets: 15480,
-    reviewNo: 'APR-20260520-018',
-    reviewer: '-',
-    updatedAt: '2026-05-20 12:30:00',
-    note: '高波動樣本不足，需補模擬結果後再審核。'
+const mathRows = reactive<MathRow[]>([]);
+const loading = ref(true);
+
+onMounted(async () => {
+  try {
+    const res = await fetch('/api/games/v2/math');
+    const data: MathRow[] = await res.json();
+    mathRows.splice(0, mathRows.length, ...data);
+  } finally {
+    loading.value = false;
   }
-], 60));
+});
+
 
 const gameOptions = computed(() => ['全部遊戲', ...Array.from(new Set(mathRows.map((row) => row.game)))]);
 const statusOptions = ['全部狀態', '已生效', '觀察中', '測試中', '待審核', '已封存'];
@@ -269,6 +215,7 @@ function deviationLabel(value: number) {
     <SectionCard class="merchant-table-card math-table-card">
       <DataTable
         :value="mathRows"
+        :loading="loading"
         scrollable
         paginator
         :rows="10"

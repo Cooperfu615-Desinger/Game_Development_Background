@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue';
+import { computed, reactive, ref, onMounted } from 'vue';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import InputText from 'primevue/inputtext';
@@ -11,7 +11,6 @@ import Dialog from 'primevue/dialog';
 import SectionCard from '@/components/ui/SectionCard.vue';
 import StatusTag from '@/components/ui/StatusTag.vue';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
-import { expandDemoRows } from '@/utils/demoRows';
 
 type AssetRow = {
   id: string;
@@ -42,83 +41,19 @@ const selectedAsset = ref<AssetRow | null>(null);
 const detailVisible = ref(false);
 const uploadVisible = ref(false);
 
-const assetRows = reactive<AssetRow[]>(expandDemoRows([
-  {
-    id: 'AST-FT-ICON-ZH-001',
-    game: 'Fortune Tiger',
-    type: 'Icon',
-    locale: '繁中',
-    version: 'asset-2026.05',
-    size: '512 x 512',
-    fileSize: '184 KB',
-    status: '已發布',
-    relatedVersion: 'v2.4.1',
-    updatedAt: '2026-05-20 03:10:00',
-    owner: 'Design Ops',
-    palette: 'asset-preview--gold',
-    note: '新版品牌 icon，已隨 v2.4.1 發布。'
-  },
-  {
-    id: 'AST-FT-BANNER-EN-002',
-    game: 'Fortune Tiger',
-    type: 'Banner',
-    locale: '英文',
-    version: 'asset-2026.05',
-    size: '1920 x 640',
-    fileSize: '780 KB',
-    status: '已發布',
-    relatedVersion: 'v2.4.1',
-    updatedAt: '2026-05-20 03:12:00',
-    owner: 'Design Ops',
-    palette: 'asset-preview--blue',
-    note: '英文 Banner，供 Web 與 H5 共用。'
-  },
-  {
-    id: 'AST-RS-LOADING-ZH-003',
-    game: 'Royal Spin',
-    type: 'Loading',
-    locale: '繁中',
-    version: 'asset-2026.04',
-    size: '1080 x 1080',
-    fileSize: '430 KB',
-    status: '維護中',
-    relatedVersion: 'v1.9.8',
-    updatedAt: '2026-05-18 02:00:00',
-    owner: 'Platform Team',
-    palette: 'asset-preview--green',
-    note: '配合維護公告更新載入圖。'
-  },
-  {
-    id: 'AST-BC-TABLE-TH-004',
-    game: 'Baccarat Pro',
-    type: 'Table Skin',
-    locale: '泰文',
-    version: 'asset-2026.05-beta',
-    size: '2048 x 1024',
-    fileSize: '1.2 MB',
-    status: '測試中',
-    relatedVersion: 'v3.1.0-beta',
-    updatedAt: '2026-05-16 15:10:00',
-    owner: 'Table Game Team',
-    palette: 'asset-preview--violet',
-    note: '泰文桌台素材等待 QA 驗收。'
-  },
-  {
-    id: 'AST-CR-BANNER-VI-005',
-    game: 'Crash Rocket',
-    type: 'Banner',
-    locale: '越南文',
-    version: 'asset-2026.05-dev',
-    size: '1920 x 640',
-    fileSize: '910 KB',
-    status: '待審核',
-    relatedVersion: 'v0.8.3',
-    updatedAt: '2026-05-12 18:20:00',
-    owner: 'Game Lab',
-    palette: 'asset-preview--red',
-    note: '越南文 Banner 待產品確認文案。'
+const assetRows = reactive<AssetRow[]>([]);
+const loading = ref(true);
+
+onMounted(async () => {
+  try {
+    const res = await fetch('/api/games/v2/assets');
+    const data: AssetRow[] = await res.json();
+    assetRows.splice(0, assetRows.length, ...data);
+  } finally {
+    loading.value = false;
   }
-], 60));
+});
+
 
 const gameOptions = computed(() => ['全部遊戲', ...Array.from(new Set(assetRows.map((row) => row.game)))]);
 const typeOptions = ['全部類型', 'Icon', 'Banner', 'Loading', 'Table Skin'];
@@ -218,6 +153,7 @@ function openDetail(row: AssetRow) {
     <SectionCard class="merchant-table-card asset-table-card">
       <DataTable
         :value="assetRows"
+        :loading="loading"
         scrollable
         paginator
         :rows="10"

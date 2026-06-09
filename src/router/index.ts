@@ -212,6 +212,44 @@ const routes: RouteRecordRaw[] = [
                 meta: { title: 'menu.riskActions' }
             },
 
+            // ── 系統管理（V1 完整版） ────────────────────
+            {
+                path: 'system/admins',
+                name: 'SystemAdmins',
+                component: () => import('../views/System/Admins.vue'),
+                meta: { title: 'menu.systemAdmins' }
+            },
+            {
+                path: 'system/roles',
+                name: 'SystemRoles',
+                component: () => import('../views/System/Roles.vue'),
+                meta: { title: 'menu.systemRoles' }
+            },
+            {
+                path: 'system/logs',
+                name: 'SystemLogs',
+                component: () => import('../views/System/Logs.vue'),
+                meta: { title: 'menu.systemLogs' }
+            },
+            {
+                path: 'system/approvals',
+                name: 'SystemApprovals',
+                component: () => import('../views/System/Approvals.vue'),
+                meta: { title: 'menu.systemApprovals' }
+            },
+            {
+                path: 'system/currencies',
+                name: 'SystemCurrencies',
+                component: () => import('../views/System/Currencies.vue'),
+                meta: { title: 'menu.systemCurrencies' }
+            },
+            {
+                path: 'system/languages',
+                name: 'SystemLanguages',
+                component: () => import('../views/System/Languages.vue'),
+                meta: { title: 'menu.systemLanguages' }
+            },
+
             // ── 財務 ────────────────────────────────────
             {
                 path: 'finance/settlements',

@@ -87,6 +87,19 @@ export function buildSakaiMenu(t: Composer['t']): MenuGroup[] {
             ],
         },
 
+        // ── 風控中心（V3） ──────────────────────────────────
+        {
+            label: t('menu.riskGroup'),
+            items: [
+                { label: t('menu.riskOverview'), icon: 'pi pi-fw pi-shield', to: '/risk' },
+                { label: t('menu.riskAlerts'), icon: 'pi pi-fw pi-bell', to: '/risk/alerts' },
+                { label: t('menu.riskRules'), icon: 'pi pi-fw pi-code', to: '/risk/rules' },
+                { label: t('menu.riskRuleBuilder'), icon: 'pi pi-fw pi-sliders-v', to: '/risk/rule-builder' },
+                { label: t('menu.riskCases'), icon: 'pi pi-fw pi-folder-open', to: '/risk/cases' },
+                { label: t('menu.riskActions'), icon: 'pi pi-fw pi-history', to: '/risk/actions' },
+            ],
+        },
+
         // ── 財務 ────────────────────────────────────────────
         {
             label: t('menu.finance'),

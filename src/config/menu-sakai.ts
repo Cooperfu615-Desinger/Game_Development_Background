@@ -47,6 +47,11 @@ export function buildSakaiMenu(t: Composer['t']): MenuGroup[] {
             label: t('menu.gameManagement'),
             items: [
                 { label: t('menu.games'), icon: 'pi pi-fw pi-th-large', to: '/games' },
+                { label: t('menu.gameSettings'), icon: 'pi pi-fw pi-cog', to: '/games/settings' },
+                { label: t('menu.gameMath'), icon: 'pi pi-fw pi-percentage', to: '/games/math' },
+                { label: t('menu.gameVersions'), icon: 'pi pi-fw pi-history', to: '/games/versions' },
+                { label: t('menu.gameAssets'), icon: 'pi pi-fw pi-images', to: '/games/assets' },
+                { label: t('menu.gameMerchantAccess'), icon: 'pi pi-fw pi-sliders-h', to: '/games/merchant-access' },
             ],
         },
 

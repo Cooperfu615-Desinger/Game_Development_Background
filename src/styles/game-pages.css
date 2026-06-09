@@ -1,0 +1,258 @@
+/**
+ * Game pages shared utilities
+ *
+ * Class names copied from reference demo, re-implemented with --hig-* tokens.
+ * Used by GameSettings / GameMath / GameVersions / GameAssets /
+ * MerchantGameAccess pages (and future modules following the same pattern).
+ */
+
+/* ─── Page stack ──────────────────────────────────────────── */
+.page-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* ─── Field (12-col grid form units) ──────────────────────── */
+.field {
+    display: grid;
+    min-width: 0;
+    gap: 0.375rem;
+}
+
+.field label {
+    color: var(--hig-text-secondary);
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.field > .p-inputtext,
+.field > .p-select,
+.field > .p-multiselect,
+.field > .p-inputnumber,
+.field > .p-datepicker,
+.field > .p-textarea {
+    width: 100%;
+}
+
+.field-span-3   { grid-column: span 3; }
+.field-span-4   { grid-column: span 4; }
+.field-span-6   { grid-column: span 6; }
+.field-span-12  { grid-column: span 12; }
+
+.field-wide  { grid-column: 1 / -1; }
+
+.switch-field .dialog-switch-control {
+    display: flex;
+    align-items: center;
+    height: 2.5rem;
+}
+
+/* ─── Dialog form ────────────────────────────────────────── */
+.dialog-form-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 0.875rem 1rem;
+}
+
+.dialog-section {
+    display: grid;
+    gap: 0.625rem;
+    min-width: 0;
+}
+
+.dialog-section h3 {
+    margin: 0;
+    color: var(--hig-text-primary);
+    font-size: 0.9375rem;
+    font-weight: 700;
+}
+
+.dialog-section-note {
+    margin: -0.25rem 0 0.125rem;
+    color: var(--hig-text-secondary);
+    font-size: 0.8125rem;
+    line-height: 1.45;
+}
+
+.dialog-title-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.dialog-title-block h2,
+.dialog-title-block h3 {
+    margin: 0;
+    color: var(--hig-text-primary);
+}
+
+.dialog-footer-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.entity-dialog {
+    width: min(960px, calc(100vw - 32px));
+}
+
+.entity-dialog-body {
+    display: grid;
+    gap: 1rem;
+}
+
+.dialog-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.875rem;
+}
+
+.dialog-detail-grid > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.75rem;
+    background: var(--hig-bg-fill);
+    border-radius: var(--hig-radius-md);
+    min-width: 0;
+}
+
+.dialog-detail-grid span {
+    color: var(--hig-text-secondary);
+    font-size: 0.75rem;
+}
+
+.dialog-detail-grid strong {
+    color: var(--hig-text-primary);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+/* ─── Detail grid (3-col stat strip) ─────────────────────── */
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.875rem 1rem;
+}
+
+.detail-grid > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.875rem 1rem;
+    background: var(--hig-bg-fill);
+    border-radius: var(--hig-radius-md);
+    min-width: 0;
+}
+
+.detail-grid span {
+    color: var(--hig-text-secondary);
+    font-size: 0.75rem;
+}
+
+.detail-grid strong {
+    color: var(--hig-text-primary);
+    font-size: 1rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.detail-field-wide {
+    grid-column: 1 / -1;
+}
+
+/* ─── Table cell alignment ────────────────────────────────── */
+.agent-table-cell-center { text-align: center; }
+.agent-table-cell-right  { text-align: right; }
+
+/* ─── Settings overview (3-col strip of metric cards) ───── */
+.settings-overview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.settings-overview-grid article {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem 1.125rem;
+    background: var(--hig-bg-fill);
+    border-radius: var(--hig-radius-md);
+}
+
+.settings-overview-grid span {
+    color: var(--hig-text-secondary);
+    font-size: 0.75rem;
+}
+
+.settings-overview-grid strong {
+    color: var(--hig-text-primary);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.settings-overview-grid small {
+    color: var(--hig-text-tertiary);
+    font-size: 0.6875rem;
+    margin-top: 0.125rem;
+}
+
+/* ─── Filter grid (compact 4-col) ─────────────────────────── */
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.filter-keyword { grid-column: span 2; }
+
+.filter-actions {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    grid-column: span 2;
+    justify-content: flex-end;
+}
+
+/* ─── Link-style text ─────────────────────────────────────── */
+.linkish {
+    color: var(--hig-blue);
+    cursor: pointer;
+    text-decoration: none;
+}
+.linkish:hover {
+    text-decoration: underline;
+}
+
+/* ─── Responsive ──────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .detail-grid,
+    .settings-overview-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .dialog-form-grid {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+    .field-span-4 { grid-column: span 6; }
+    .field-span-3 { grid-column: span 6; }
+    .filter-grid { grid-template-columns: 1fr 1fr; }
+    .filter-keyword { grid-column: span 2; }
+    .filter-actions { grid-column: span 2; justify-content: flex-start; }
+}
+
+@media (max-width: 580px) {
+    .detail-grid,
+    .settings-overview-grid,
+    .dialog-detail-grid {
+        grid-template-columns: 1fr;
+    }
+    .dialog-form-grid {
+        grid-template-columns: 1fr;
+    }
+    .field-span-3,
+    .field-span-4,
+    .field-span-6 { grid-column: span 1; }
+}

@@ -4,6 +4,8 @@
 @import './assets/apple-hig-tokens.css';
 /* PrimeVue Icons */
 @import 'primeicons/primeicons.css';
+/* Game pages shared utilities (from reference demo, mapped to --hig-*) */
+@import './styles/game-pages.css';
 
 @tailwind base;
 @tailwind components;

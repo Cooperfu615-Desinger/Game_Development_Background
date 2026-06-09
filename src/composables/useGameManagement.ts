@@ -1,14 +1,15 @@
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useMessage, useDialog } from 'naive-ui'
+import { useToast } from 'primevue/usetoast'
+import { useConfirm } from 'primevue/useconfirm'
 import type { Game, GameFilter } from '@/types/game'
 import { exportToCSV } from '@/utils/csvExport'
 
 export function useGameManagement() {
     const route = useRoute()
     const router = useRouter()
-    const message = useMessage()
-    const dialog = useDialog()
+    const toast = useToast()
+    const confirm = useConfirm()
 
     // ── 狀態 ──────────────────────────────────────
     const games = ref<Game[]>([])
@@ -76,32 +77,36 @@ export function useGameManagement() {
     const toggleStatus = (game: Game) => {
         const next: Game['status'] = game.status === 'active' ? 'inactive' : 'active'
         const label = next === 'active' ? '上架' : '下架'
-        dialog.warning({
-            title: `確認${label}`,
-            content: `確定要將「${game.name}」${label}嗎？`,
-            positiveText: '確認',
-            negativeText: '取消',
-            onPositiveClick: async () => {
+        confirm.require({
+            header: `確認${label}`,
+            message: `確定要將「${game.name}」${label}嗎？`,
+            icon: 'pi pi-exclamation-triangle',
+            acceptLabel: '確認',
+            rejectLabel: '取消',
+            rejectProps: { severity: 'secondary', outlined: true },
+            accept: async () => {
                 const ok = await updateGame(game.id, { status: next })
-                if (ok) message.success(`已${label}：${game.name}`)
-                else message.error('操作失敗，請重試')
-            }
+                if (ok) toast.add({ severity: 'success', summary: `已${label}：${game.name}`, life: 1500 })
+                else toast.add({ severity: 'error', summary: '操作失敗，請重試', life: 2500 })
+            },
         })
     }
 
     const batchToggle = (status: Game['status']) => {
         if (!selectedIds.value.length) return
         const label = status === 'active' ? '上架' : '下架'
-        dialog.warning({
-            title: `批量${label}`,
-            content: `確定要將選取的 ${selectedIds.value.length} 個遊戲${label}嗎？`,
-            positiveText: '確認',
-            negativeText: '取消',
-            onPositiveClick: async () => {
-                await Promise.all(selectedIds.value.map(id => updateGame(id, { status })))
-                message.success(`已批量${label} ${selectedIds.value.length} 個遊戲`)
+        confirm.require({
+            header: `批量${label}`,
+            message: `確定要將選取的 ${selectedIds.value.length} 個遊戲${label}嗎？`,
+            icon: 'pi pi-exclamation-triangle',
+            acceptLabel: '確認',
+            rejectLabel: '取消',
+            rejectProps: { severity: 'secondary', outlined: true },
+            accept: async () => {
+                await Promise.all(selectedIds.value.map((id) => updateGame(id, { status })))
+                toast.add({ severity: 'success', summary: `已批量${label} ${selectedIds.value.length} 個遊戲`, life: 2000 })
                 selectedIds.value = []
-            }
+            },
         })
     }
 
@@ -115,9 +120,9 @@ export function useGameManagement() {
             rtp: 'RTP (%)',
             version: '版本',
             activeUsers: '活躍玩家',
-            publishedAt: '上架時間'
+            publishedAt: '上架時間',
         })
-        message.success('CSV 已匯出')
+        toast.add({ severity: 'success', summary: 'CSV 已匯出', life: 1500 })
     }
 
     const resetFilters = () => {

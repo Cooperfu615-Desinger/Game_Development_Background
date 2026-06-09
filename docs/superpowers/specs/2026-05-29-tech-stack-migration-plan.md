@@ -253,29 +253,41 @@ Sakai 是 PrimeVue 官方提供的 admin 模板，包含：
 
 ---
 
-## 九、需要你拍板的執行細節
+## 九、執行細節（已定案）
 
-開始前還有幾項小決策：
+| 項目 | 決定 |
+|---|---|
+| **catalog-driven 範圍** | **B. 混合** — 重複性 CRUD 頁面用通用 view，特殊頁面客製 |
+| **圖示** | **C. 並存** — PrimeIcons + `@vicons/material` 漸進替換 |
+| **主題風格** | **Apple HIG** — 仿 macOS Sonoma / iCloud 風格，毛玻璃 + Apple Blue (`#007AFF`) |
+| **執行模式** | **A. 按 Phase 順序執行** — 每個 Phase 結束視覺驗收 |
 
-1. **是否要全面 catalog-driven**：
-   - A. 全面照搬參考 demo 模式（CRUD 頁面都用通用 view）
-   - B. 只對「未來會大量重複」的頁面用（例如管理員、幣別、語系），其他保留客製
-   - 💡 建議 B，先求穩
+### Apple HIG 主題技術細節
 
-2. **PrimeIcons vs `@vicons/material` 保留哪個**：
-   - A. 全用 PrimeIcons（跟參考 demo 一致）
-   - B. 保留 `@vicons/material`（我們現有圖示繼續用）
-   - C. 並存（同樣 0 成本）
-   - 💡 建議 C，圖示可漸進替換
+| 元素 | 實作 |
+|---|---|
+| 字體 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", system-ui` |
+| 主色 | `#007AFF` Apple Blue |
+| 強調色 | `#34C759` Green / `#FF9500` Orange / `#FF3B30` Red |
+| 圓角 | Card 12px、Button 10px、Modal 14px |
+| 毛玻璃 | `backdrop-filter: blur(20px) saturate(180%)` |
+| 陰影 | `0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.06)` |
+| 半透明 | Topbar/Sidebar 用 `rgba(255,255,255,0.72)` + blur |
+| 動畫 | 0.3s cubic-bezier(0.4, 0, 0.2, 1) |
 
-3. **Sakai 主題色**：
-   - 維持「科幻 Cyan」（保留現有風格）
-   - 還是改成參考 demo 的「藍綠 Teal」配色？
-   - 💡 建議維持科幻 Cyan，這是我們的辨識度
+### 套件清單（鎖版本前綴）
 
-4. **執行模式**：
-   - A. 我（Claude）按 Phase 1→5 順序執行，每個 Phase 結束你驗收
-   - B. 用 subagent-driven 自動跑完所有 Phase，最後一次驗收
-   - 💡 建議 A，UI 改動需要視覺驗收，subagent 看不見
+```bash
+# 主框架
+npm i primevue@^4 @primeuix/themes primeicons tailwindcss-primeui
 
-請逐項回覆，定案後我會立即進入 Phase 0 + Phase 1。
+# 狀態管理
+npm i pinia pinia-plugin-persistedstate
+
+# 註：Sakai 5 使用 @primeuix/themes（非 @primevue/themes）
+# 註：tailwindcss-primeui 讓 Tailwind 與 PrimeVue tokens 整合
+```
+
+### 保留套件
+
+`naive-ui`、`@vicons/material`、`echarts`、`vue-echarts`、`msw`、`@faker-js/faker` 全部保留，遷移期間並存。

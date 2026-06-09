@@ -1,10 +1,13 @@
 /** @type {import('tailwindcss').Config} */
+import tailwindcssPrimeui from 'tailwindcss-primeui'
+
 export default {
   content: [
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
-  darkMode: 'class',
+  // 用 .app-dark class 切深色（與 PrimeVue darkModeSelector 一致）
+  darkMode: ['class', '.app-dark'],
   theme: {
     extend: {
       // ─── Colors ───────────────────────────────────────────────
@@ -244,5 +247,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [tailwindcssPrimeui],
 }

@@ -1,0 +1,356 @@
+/**
+ * Sakai Layout Styles — Apple HIG Edition
+ *
+ * 從 Sakai 5 SCSS 移植成純 CSS，並套上 Apple HIG 設計語言：
+ *   - 毛玻璃 Topbar + Sidebar
+ *   - SF Pro 字體棧
+ *   - Apple Blue 強調色
+ *   - 圓潤圓角（10~12px）
+ *   - 柔和陰影
+ *   - 平緩動畫
+ *
+ * 使用 --hig-* 變數（定義於 apple-hig-tokens.css）
+ */
+
+/* ─── Layout wrapper ─────────────────────────────────────── */
+.layout-wrapper {
+    min-height: 100vh;
+    background: var(--hig-bg-base);
+    color: var(--hig-text-primary);
+    font-family: var(--hig-font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Topbar — 毛玻璃 ───────────────────────────────────── */
+.layout-topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4rem;
+    padding: 0 2rem;
+    background: var(--hig-bg-topbar);
+    backdrop-filter: var(--hig-blur-md);
+    -webkit-backdrop-filter: var(--hig-blur-md);
+    border-bottom: 1px solid var(--hig-border-default);
+    z-index: 997;
+    display: flex;
+    align-items: center;
+    transition: left var(--hig-duration-base) var(--hig-ease);
+}
+
+.layout-topbar-logo-container {
+    display: flex;
+    align-items: center;
+    min-width: 4rem;
+}
+
+.layout-topbar-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: none;
+    border-radius: var(--hig-radius-md);
+    background: transparent;
+    color: var(--hig-text-primary);
+    cursor: pointer;
+    transition:
+        background-color var(--hig-duration-fast) var(--hig-ease),
+        transform var(--hig-duration-fast) var(--hig-ease);
+}
+
+.layout-topbar-action:hover {
+    background: var(--hig-bg-fill);
+}
+
+.layout-topbar-action:active {
+    transform: scale(0.96);
+}
+
+.layout-topbar-action i {
+    font-size: 1.125rem;
+}
+
+.layout-topbar-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.layout-topbar-user {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-left: 0.75rem;
+    margin-left: 0.25rem;
+    border-left: 1px solid var(--hig-border-default);
+}
+
+.layout-topbar-user-text {
+    text-align: right;
+    line-height: 1.2;
+}
+
+.layout-topbar-user-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--hig-text-primary);
+}
+
+.layout-topbar-user-role {
+    font-size: 0.75rem;
+    color: var(--hig-text-secondary);
+}
+
+.layout-topbar-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--hig-radius-full);
+    background: var(--hig-blue);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    user-select: none;
+}
+
+@media (max-width: 991px) {
+    .layout-topbar {
+        padding: 0 1rem;
+    }
+    .layout-topbar-user-text {
+        display: none;
+    }
+}
+
+/* ─── Sidebar — 毛玻璃 ─────────────────────────────────── */
+.layout-sidebar {
+    position: fixed;
+    top: 5rem;
+    left: 1rem;
+    width: 17rem;
+    height: calc(100vh - 6rem);
+    padding: 1rem 0.75rem;
+    background: var(--hig-bg-sidebar);
+    backdrop-filter: var(--hig-blur-md);
+    -webkit-backdrop-filter: var(--hig-blur-md);
+    border: 1px solid var(--hig-border-default);
+    border-radius: var(--hig-radius-card);
+    box-shadow: var(--hig-shadow-md);
+    z-index: 999;
+    overflow-y: auto;
+    user-select: none;
+    transition:
+        transform var(--hig-duration-base) var(--hig-ease),
+        left var(--hig-duration-base) var(--hig-ease);
+}
+
+.layout-sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--hig-border-subtle);
+}
+
+.layout-sidebar-brand-icon {
+    color: var(--hig-blue);
+    font-size: 1.25rem;
+}
+
+.layout-sidebar-brand-text {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--hig-text-primary);
+    letter-spacing: -0.01em;
+}
+
+/* ─── Menu ──────────────────────────────────────────────── */
+.layout-menu {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.layout-root-menuitem > .layout-menuitem-root-text {
+    margin: 0.75rem 0.75rem 0.25rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: var(--hig-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.layout-root-menuitem > a {
+    display: none;
+}
+
+.layout-menu ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.layout-menu ul a {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.5rem 0.75rem;
+    margin: 0.125rem 0;
+    border-radius: var(--hig-radius-md);
+    color: var(--hig-text-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition:
+        background-color var(--hig-duration-fast) var(--hig-ease),
+        color var(--hig-duration-fast) var(--hig-ease);
+    cursor: pointer;
+}
+
+.layout-menu ul a .layout-menuitem-icon {
+    font-size: 1rem;
+    width: 1rem;
+    text-align: center;
+    color: var(--hig-text-secondary);
+    transition: color var(--hig-duration-fast) var(--hig-ease);
+}
+
+.layout-menu ul a:hover {
+    background: var(--hig-bg-fill);
+}
+
+.layout-menu ul a:hover .layout-menuitem-icon {
+    color: var(--hig-text-primary);
+}
+
+.layout-menu ul a.active-route {
+    background: color-mix(in srgb, var(--hig-blue) 12%, transparent);
+    color: var(--hig-blue);
+    font-weight: 600;
+}
+
+.layout-menu ul a.active-route .layout-menuitem-icon {
+    color: var(--hig-blue);
+}
+
+.layout-submenu-toggler {
+    margin-left: auto;
+    font-size: 0.75rem;
+    transition: transform var(--hig-duration-base) var(--hig-ease);
+}
+
+.layout-menu li.active-menuitem > a .layout-submenu-toggler {
+    transform: rotate(180deg);
+}
+
+.layout-submenu {
+    overflow: hidden;
+    border-radius: var(--hig-radius-md);
+}
+
+.layout-submenu li a {
+    padding-left: 1.75rem;
+}
+
+/* Transitions */
+.layout-submenu-enter-from,
+.layout-submenu-leave-to {
+    max-height: 0;
+}
+
+.layout-submenu-enter-to,
+.layout-submenu-leave-from {
+    max-height: 600px;
+}
+
+.layout-submenu-leave-active {
+    transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+}
+
+.layout-submenu-enter-active {
+    transition: max-height 0.5s ease-in-out;
+}
+
+/* ─── Main Container ────────────────────────────────────── */
+.layout-main-container {
+    margin-left: 19rem;            /* sidebar 寬 + 間距 */
+    margin-top: 4rem;              /* topbar 高 */
+    padding: 1.5rem 2rem;
+    min-height: calc(100vh - 4rem);
+    transition: margin-left var(--hig-duration-base) var(--hig-ease);
+    display: flex;
+    flex-direction: column;
+}
+
+.layout-main {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+/* ─── Footer ────────────────────────────────────────────── */
+.layout-footer {
+    margin-top: 2rem;
+    padding: 1rem 0;
+    text-align: center;
+    color: var(--hig-text-tertiary);
+    font-size: 0.75rem;
+    border-top: 1px solid var(--hig-border-subtle);
+}
+
+/* ─── Mobile mask ──────────────────────────────────────── */
+.layout-mask {
+    position: fixed;
+    inset: 0;
+    background: var(--hig-bg-overlay);
+    z-index: 998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--hig-duration-base) var(--hig-ease);
+}
+
+/* ─── Sidebar Collapsed State (static-inactive) ─────────── */
+.layout-static.layout-static-inactive .layout-sidebar {
+    transform: translateX(calc(-100% - 1rem));
+}
+
+.layout-static.layout-static-inactive .layout-main-container {
+    margin-left: 0;
+    padding-left: 2rem;
+}
+
+/* ─── Mobile ────────────────────────────────────────────── */
+@media (max-width: 991px) {
+    .layout-sidebar {
+        transform: translateX(calc(-100% - 1rem));
+    }
+    .layout-main-container {
+        margin-left: 0;
+        padding: 1rem;
+    }
+    .layout-mobile-active .layout-sidebar {
+        transform: translateX(0);
+    }
+    .layout-mobile-active .layout-mask {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+/* ─── Reduced motion ───────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .layout-topbar,
+    .layout-sidebar,
+    .layout-main-container,
+    .layout-menu ul a,
+    .layout-topbar-action {
+        transition: none;
+    }
+}

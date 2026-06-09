@@ -23,3 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Reference templates (Sakai etc.) — read-only, do not track
+_reference/
+
+# Local Claude Code settings
+.claude/

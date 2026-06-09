@@ -3,11 +3,12 @@ import { darkTheme } from 'naive-ui'
 import { NConfigProvider, NMessageProvider, NDialogProvider, NGlobalStyle, zhTW, dateZhTW, enUS, dateEnUS } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import { computed } from 'vue'
+import { useSakaiLayout } from './layouts/sakai/useSakaiLayout'
 
-// Lead Dev Note:
-// Using NConfigProvider to enforce Dark Theme globally.
-// NMessageProvider is required for useMessage() composable.
-// NGlobalStyle handles global style resets from Naive UI.
+// Phase 2: Naive UI theme follows Sakai Layout's dark mode toggle
+// Phase 5: This block will be removed entirely along with Naive UI
+const { isDarkTheme } = useSakaiLayout()
+const naiveTheme = computed(() => isDarkTheme.value ? darkTheme : null)
 
 const { locale } = useI18n()
 
@@ -56,11 +57,11 @@ const naiveDateLocale = computed(() => {
 </script>
 
 <template>
-  <n-config-provider :theme="darkTheme" :theme-overrides="themeOverrides" :locale="naiveLocale" :date-locale="naiveDateLocale">
+  <n-config-provider :theme="naiveTheme" :theme-overrides="themeOverrides" :locale="naiveLocale" :date-locale="naiveDateLocale">
     <n-global-style />
     <n-dialog-provider>
       <n-message-provider>
-        <div class="min-h-screen bg-[#0A0E1A] text-white">
+        <div class="min-h-screen">
           <router-view />
         </div>
       </n-message-provider>

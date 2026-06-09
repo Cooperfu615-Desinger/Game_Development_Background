@@ -658,31 +658,36 @@
 }
 
 /* ─── Naive UI Overrides ───────────────────────── */
-
-/* Sider background */
-.n-layout-sider {
+/*
+ * 全部覆寫都用 .app-dark 作前綴 — Light 模式下不套用，
+ * 讓 Naive UI 的內建 light theme 自然呈現。
+ * Phase 5 移除 Naive UI 後，這整段都會清掉。
+ *
+ * 註：NModal 把 modal 內容 teleport 到 <body>，逃出 .app-dark 作用域。
+ *     為了讓 modal 卡片在 dark 模式下也維持深色，html 標籤改用 .app-dark
+ *     class（已透過 useSakaiLayout 處理）。.app-dark .n-modal-body-wrapper
+ *     選擇器因 .app-dark 在 <html> 上，所以可以命中 teleport 到 body 的元素。
+ */
+.app-dark .n-layout-sider {
   background: var(--color-bg-sidebar) !important;
   border-right: 1px solid var(--color-border-default) !important;
 }
 
-/* Header */
-.n-layout-header {
+.app-dark .n-layout-header {
   background: rgba(8, 12, 24, 0.9) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
   border-bottom: 1px solid var(--color-border-default) !important;
 }
 
-/* Naive menu item active highlight */
-.n-menu .n-menu-item-content.n-menu-item-content--selected {
+.app-dark .n-menu .n-menu-item-content.n-menu-item-content--selected {
   background: rgba(0, 212, 255, 0.08) !important;
 }
-.n-menu .n-menu-item-content.n-menu-item-content--selected::before {
+.app-dark .n-menu .n-menu-item-content.n-menu-item-content--selected::before {
   background: rgba(0, 212, 255, 0.08) !important;
 }
 
-/* Naive UI menu active left indicator */
-.n-menu .n-menu-item-content.n-menu-item-content--selected::after {
+.app-dark .n-menu .n-menu-item-content.n-menu-item-content--selected::after {
   content: '';
   position: absolute;
   left: 0;
@@ -693,44 +698,37 @@
   border-radius: 0 2px 2px 0;
   box-shadow: 0 0 8px var(--color-primary-glow);
 }
-.n-menu .n-menu-item-content {
+.app-dark .n-menu .n-menu-item-content {
   position: relative;
 }
 
-/* Naive UI dropdown menus */
-.n-dropdown-menu {
+.app-dark .n-dropdown-menu {
   background: var(--color-bg-elevated) !important;
   border: 1px solid var(--color-border-default) !important;
   box-shadow: var(--shadow-dropdown) !important;
 }
 
-/* Footer */
-.n-layout-footer {
+.app-dark .n-layout-footer {
   background: var(--color-bg-base) !important;
   border-top: 1px solid var(--color-border-subtle) !important;
 }
 
-/* Layout content area */
-.n-layout-scroll-container {
+.app-dark .n-layout-scroll-container {
   background: transparent !important;
 }
 
-/* Naive UI card */
-.n-card {
+.app-dark .n-card {
   background: var(--color-bg-card) !important;
   border-color: var(--color-border-default) !important;
 }
 
-/* NModal 內的卡片（Naive UI 透過 VLazyTeleport teleport 到 body，
-   CSS 變數繼承鏈斷裂，需明確設定不透明背景） */
-.n-modal-body-wrapper .n-card,
-.n-card.n-modal {
+.app-dark .n-modal-body-wrapper .n-card,
+.app-dark .n-card.n-modal {
   background: #141B2D !important;
   background-color: #141B2D !important;
 }
 
-/* Data table */
-.n-data-table-th {
+.app-dark .n-data-table-th {
   font-family: var(--font-heading) !important;
   letter-spacing: 0.08em !important;
   text-transform: uppercase !important;

@@ -1,14 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* ─── Design Tokens ─────────────────────────── */
+/* ─── Imports — 必須在 @tailwind 之前（CSS 規範） ─────────── */
 @import './assets/design-tokens.css';
 /* Apple HIG tokens — Phase 1~4 與舊 token 並存，Phase 5 後成主視覺 */
 @import './assets/apple-hig-tokens.css';
-
-/* ─── PrimeVue Icons ────────────────────────── */
+/* PrimeVue Icons */
 @import 'primeicons/primeicons.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* ─── Base Reset & Global Defaults ─────────────── */
 @layer base {

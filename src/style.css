@@ -32,29 +32,17 @@
     color: var(--color-text-primary);
     background-color: var(--color-bg-base);
     min-height: 100vh;
-    /* Ambient glow orbs + subtle dot grid */
+  }
+
+  /* Sci-fi background effects (orbs + dot grid) only in dark mode.
+     CRT scan-line removed entirely (was visually jarring with Apple HIG). */
+  .app-dark body {
     background-image:
       radial-gradient(ellipse 70% 60% at 10% 65%, rgba(0, 212, 255, 0.04) 0%, transparent 65%),
       radial-gradient(ellipse 55% 45% at 90% 10%, rgba(168, 85, 247, 0.04) 0%, transparent 65%),
       radial-gradient(circle, rgba(0, 212, 255, 0.07) 1px, transparent 1px);
     background-size: auto, auto, 28px 28px;
     background-attachment: fixed, fixed, fixed;
-  }
-
-  /* CRT scan-line texture — very subtle, applied globally */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 9998;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 2px,
-      rgba(0, 0, 0, 0.035) 2px,
-      rgba(0, 0, 0, 0.035) 3px
-    );
   }
 
   /* Monospace for numbers in tables/stats */

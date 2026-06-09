@@ -64,6 +64,16 @@ export function buildSakaiMenu(t: Composer['t']): MenuGroup[] {
             ],
         },
 
+        // ── 交易明細 ────────────────────────────────────────
+        {
+            label: t('menu.orderGroup'),
+            items: [
+                { label: t('menu.orders'), icon: 'pi pi-fw pi-ticket', to: '/orders' },
+                { label: t('menu.ordersAbnormal'), icon: 'pi pi-fw pi-exclamation-triangle', to: '/orders/abnormal' },
+                { label: t('menu.transactionsAbnormal'), icon: 'pi pi-fw pi-replay', to: '/transactions/abnormal' },
+            ],
+        },
+
         // ── 財務 ────────────────────────────────────────────
         {
             label: t('menu.finance'),

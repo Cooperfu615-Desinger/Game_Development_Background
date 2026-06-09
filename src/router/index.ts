@@ -48,6 +48,36 @@ const routes: RouteRecordRaw[] = [
                 meta: { title: 'menu.games' }
             },
             {
+                path: 'games/settings',
+                name: 'GameSettings',
+                component: () => import('../views/Games/Settings.vue'),
+                meta: { title: 'menu.gameSettings' }
+            },
+            {
+                path: 'games/math',
+                name: 'GameMath',
+                component: () => import('../views/Games/Math.vue'),
+                meta: { title: 'menu.gameMath' }
+            },
+            {
+                path: 'games/versions',
+                name: 'GameVersions',
+                component: () => import('../views/Games/Versions.vue'),
+                meta: { title: 'menu.gameVersions' }
+            },
+            {
+                path: 'games/assets',
+                name: 'GameAssets',
+                component: () => import('../views/Games/Assets.vue'),
+                meta: { title: 'menu.gameAssets' }
+            },
+            {
+                path: 'games/merchant-access',
+                name: 'GameMerchantAccess',
+                component: () => import('../views/Games/MerchantAccess.vue'),
+                meta: { title: 'menu.gameMerchantAccess' }
+            },
+            {
                 path: 'games/:id',
                 name: 'GameDetail',
                 component: () => import('../views/Games/Detail.vue'),

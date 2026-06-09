@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { ref, onMounted, h } from 'vue'
-import {
-    NCard, NDataTable, NTag, NButton, NModal,
-    NForm, NFormItem, NInput, NSpace, NIcon,
-    useMessage, useDialog
-} from 'naive-ui'
-import type { DataTableColumns } from 'naive-ui'
-import { ContentCopyRound } from '@vicons/material'
+import { ref, onMounted } from 'vue'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import Tag from 'primevue/tag'
+import Button from 'primevue/button'
+import Dialog from 'primevue/dialog'
+import InputText from 'primevue/inputtext'
+import Toast from 'primevue/toast'
+import ConfirmDialog from 'primevue/confirmdialog'
+import { useToast } from 'primevue/usetoast'
+import { useConfirm } from 'primevue/useconfirm'
 
 interface ApiKey {
     id: string
@@ -17,74 +20,50 @@ interface ApiKey {
     status: 'active' | 'revoked'
 }
 
-const message = useMessage()
-const dialog = useDialog()
+const toast = useToast()
+const confirm = useConfirm()
 
 const apiKeys = ref<ApiKey[]>([])
 const loading = ref(false)
+
+// ─── Create modal ───────────────────────────────────────
 const showModal = ref(false)
 const newKeyName = ref('')
 const creating = ref(false)
 
+// ─── Helpers ────────────────────────────────────────────
 const formatDate = (iso: string | null) =>
     iso ? new Date(iso).toLocaleDateString('zh-TW') : '從未使用'
 
-const maskKey = (key: string) =>
-    key.slice(0, 10) + '••••••••••••••••' + key.slice(-4)
+const maskKey = (key: string) => key.slice(0, 10) + '••••••••••••••••' + key.slice(-4)
 
-const copyKey = (key: string) => {
-    navigator.clipboard.writeText(key)
-    message.success('已複製到剪貼簿')
+const copyKey = async (key: string) => {
+    try {
+        await navigator.clipboard.writeText(key)
+        toast.add({ severity: 'success', summary: '已複製到剪貼簿', life: 1500 })
+    } catch {
+        toast.add({ severity: 'error', summary: '無法存取剪貼簿', life: 2500 })
+    }
 }
 
 const revokeKey = (k: ApiKey) => {
-    dialog.warning({
-        title: '撤銷 API 密鑰',
-        content: `確定要撤銷「${k.name}」嗎？此操作無法復原。`,
-        positiveText: '撤銷',
-        negativeText: '取消',
-        onPositiveClick: async () => {
+    confirm.require({
+        message: `確定要撤銷「${k.name}」嗎？此操作無法復原。`,
+        header: '撤銷 API 密鑰',
+        icon: 'pi pi-exclamation-triangle',
+        rejectLabel: '取消',
+        acceptLabel: '撤銷',
+        rejectProps: { severity: 'secondary', outlined: true },
+        acceptProps: { severity: 'danger' },
+        accept: async () => {
             await fetch(`/api/settings/api-keys/${k.id}`, { method: 'DELETE' })
             k.status = 'revoked'
-            message.success('已撤銷')
-        }
+            toast.add({ severity: 'success', summary: '已撤銷', life: 1500 })
+        },
     })
 }
 
-const columns: DataTableColumns<ApiKey> = [
-    { title: '名稱', key: 'name' },
-    {
-        title: 'API Key', key: 'key',
-        render: (row) => h(NSpace, { align: 'center', size: 'small' }, {
-            default: () => [
-                h('span', { class: 'font-mono text-xs' }, maskKey(row.key)),
-                row.status === 'active'
-                    ? h(NButton, {
-                        text: true, size: 'tiny',
-                        onClick: () => copyKey(row.key)
-                    }, { icon: () => h(NIcon, null, { default: () => h(ContentCopyRound) }) })
-                    : null
-            ]
-        })
-    },
-    {
-        title: '狀態', key: 'status', width: 90,
-        render: (row) => h(NTag, {
-            type: row.status === 'active' ? 'success' : 'default',
-            size: 'small', bordered: false
-        }, { default: () => row.status === 'active' ? '使用中' : '已撤銷' })
-    },
-    { title: '建立時間', key: 'createdAt', width: 120, render: (row) => formatDate(row.createdAt) },
-    { title: '最後使用', key: 'lastUsedAt', width: 120, render: (row) => formatDate(row.lastUsedAt) },
-    {
-        title: '操作', key: 'actions', width: 80,
-        render: (row) => h(NButton, {
-            size: 'tiny', type: 'error', disabled: row.status === 'revoked',
-            onClick: () => revokeKey(row)
-        }, { default: () => '撤銷' })
-    }
-]
-
+// ─── API ────────────────────────────────────────────────
 const fetchKeys = async () => {
     loading.value = true
     try {
@@ -103,60 +82,124 @@ const createKey = async () => {
         const res = await fetch('/api/settings/api-keys', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: newKeyName.value })
+            body: JSON.stringify({ name: newKeyName.value }),
         })
         const json = await res.json()
         apiKeys.value.unshift(json.data)
         showModal.value = false
         newKeyName.value = ''
-        message.success('API 密鑰已建立')
+        toast.add({ severity: 'success', summary: 'API 密鑰已建立', life: 2000 })
     } finally {
         creating.value = false
     }
+}
+
+const handleCloseModal = () => {
+    showModal.value = false
+    newKeyName.value = ''
 }
 
 onMounted(fetchKeys)
 </script>
 
 <template>
-    <div class="flex flex-col gap-4 max-w-4xl">
-        <div class="flex items-center justify-between">
-            <h1 class="text-2xl font-bold">API 密鑰管理</h1>
-            <n-button type="primary" @click="showModal = true">+ 新增密鑰</n-button>
-        </div>
+    <div class="hig-page max-w-4xl">
+        <header class="hig-page-header">
+            <h1 class="hig-page-title">
+                <i class="pi pi-key" />
+                API 密鑰管理
+            </h1>
+            <Button label="新增密鑰" icon="pi pi-plus" @click="showModal = true" />
+        </header>
 
-        <n-card>
-            <n-data-table
-                :columns="columns"
-                :data="apiKeys"
+        <section class="hig-card">
+            <DataTable
+                :value="apiKeys"
                 :loading="loading"
-                :pagination="false"
-            />
-        </n-card>
+                :pt="{ root: { class: 'border-0' } }"
+            >
+                <Column field="name" header="名稱" />
+                <Column header="API Key">
+                    <template #body="{ data }">
+                        <div class="flex items-center gap-2">
+                            <code class="apikey-mono">{{ maskKey(data.key) }}</code>
+                            <Button
+                                v-if="data.status === 'active'"
+                                icon="pi pi-copy"
+                                text
+                                rounded
+                                size="small"
+                                aria-label="複製 API 密鑰"
+                                @click="copyKey(data.key)"
+                            />
+                        </div>
+                    </template>
+                </Column>
+                <Column header="狀態" style="width: 100px">
+                    <template #body="{ data }">
+                        <Tag
+                            :severity="data.status === 'active' ? 'success' : 'secondary'"
+                            :value="data.status === 'active' ? '使用中' : '已撤銷'"
+                        />
+                    </template>
+                </Column>
+                <Column field="createdAt" header="建立時間" style="width: 130px">
+                    <template #body="{ data }">{{ formatDate(data.createdAt) }}</template>
+                </Column>
+                <Column field="lastUsedAt" header="最後使用" style="width: 130px">
+                    <template #body="{ data }">{{ formatDate(data.lastUsedAt) }}</template>
+                </Column>
+                <Column header="操作" style="width: 100px">
+                    <template #body="{ data }">
+                        <Button
+                            label="撤銷"
+                            severity="danger"
+                            size="small"
+                            outlined
+                            :disabled="data.status === 'revoked'"
+                            @click="revokeKey(data)"
+                        />
+                    </template>
+                </Column>
+            </DataTable>
+        </section>
 
-        <!-- 建立 Modal -->
-        <n-modal
-            v-model:show="showModal"
-            preset="card"
-            title="建立 API 密鑰"
-            class="w-[420px]"
-            :mask-closable="false"
+        <!-- Create dialog -->
+        <Dialog
+            :visible="showModal"
+            modal
+            header="建立 API 密鑰"
+            :style="{ width: '24rem' }"
+            :draggable="false"
+            :closable="false"
+            @update:visible="(v) => !v && handleCloseModal()"
         >
-            <n-form label-placement="left" :label-width="80">
-                <n-form-item label="名稱">
-                    <n-input
-                        v-model:value="newKeyName"
-                        placeholder="例：Production Key"
-                        @keydown.enter="createKey"
-                    />
-                </n-form-item>
-            </n-form>
+            <div class="flex flex-col gap-2">
+                <label for="key-name" class="text-sm font-medium">名稱</label>
+                <InputText
+                    id="key-name"
+                    v-model="newKeyName"
+                    placeholder="例：Production Key"
+                    fluid
+                    @keydown.enter="createKey"
+                />
+            </div>
             <template #footer>
-                <n-space justify="end">
-                    <n-button @click="showModal = false">取消</n-button>
-                    <n-button type="primary" :loading="creating" @click="createKey">建立</n-button>
-                </n-space>
+                <Button label="取消" severity="secondary" outlined @click="handleCloseModal" />
+                <Button label="建立" :loading="creating" @click="createKey" />
             </template>
-        </n-modal>
+        </Dialog>
+
+        <Toast position="top-right" />
+        <ConfirmDialog />
     </div>
 </template>
+
+<style scoped>
+.apikey-mono {
+    font-family: var(--hig-font-mono);
+    font-size: 0.8125rem;
+    color: var(--hig-text-secondary);
+    letter-spacing: 0.02em;
+}
+</style>

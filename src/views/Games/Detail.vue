@@ -1,15 +1,28 @@
 <script setup lang="ts">
-import { NCard, NText } from 'naive-ui'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
 </script>
 
 <template>
-  <div>
-    <h1 class="text-2xl font-bold mb-6">遊戲詳情 #{{ route.params.id }}</h1>
-    <n-card>
-      <n-text depth="3">Game Detail — Week 3 實作</n-text>
-    </n-card>
-  </div>
+    <div class="hig-page">
+        <header class="hig-page-header">
+            <h1 class="hig-page-title">
+                <i class="pi pi-th-large" />
+                遊戲詳情 #{{ route.params.id }}
+            </h1>
+        </header>
+
+        <section class="hig-card">
+            <div class="hig-card-body">
+                <p class="text-secondary">Game Detail — 待 Phase 6 用新技術棧實作</p>
+            </div>
+        </section>
+    </div>
 </template>
+
+<style scoped>
+.text-secondary {
+    color: var(--hig-text-secondary);
+}
+</style>

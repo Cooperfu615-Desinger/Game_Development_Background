@@ -1,6 +1,6 @@
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useMessage } from 'naive-ui'
+import { useToast } from 'primevue/usetoast'
 import Big from 'big.js'
 import { exportToCSV } from '@/utils/csvExport'
 import type {
@@ -66,7 +66,7 @@ export function useSettlements() {
 export function useTransactions() {
     const route = useRoute()
     const router = useRouter()
-    const message = useMessage()
+    const toast = useToast()
 
     const transactions = ref<Transaction[]>([])
     const total = ref(0)
@@ -115,7 +115,7 @@ export function useTransactions() {
             id: 'ID', betId: 'Bet ID', playerId: '玩家 ID', playerName: '玩家名稱',
             gameName: '遊戲', type: '類型', amount: '金額', currency: '幣別', createdAt: '時間'
         })
-        message.success('CSV 已匯出')
+        toast.add({ severity: 'success', summary: 'CSV 已匯出', life: 1500 })
     }
 
     watch(filters, () => { syncToUrl(); fetch() }, { deep: true, immediate: true })

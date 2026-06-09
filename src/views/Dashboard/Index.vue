@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { NButton, NIcon } from 'naive-ui'
-import { RefreshOutlined } from '@vicons/material'
+import Button from 'primevue/button'
 import { useDashboard } from '@/composables/useDashboard'
 import StatCard from './components/StatCard.vue'
 import RevenueTrendChart from './components/RevenueTrendChart.vue'
@@ -15,28 +14,38 @@ const {
     loadingChart,
     loadingGames,
     changePeriod,
-    refreshAll
+    refreshAll,
 } = useDashboard()
 
 const formatRevenue = (v: number) =>
-    new Intl.NumberFormat('zh-TW', { style: 'currency', currency: 'TWD', maximumFractionDigits: 0 }).format(v)
+    new Intl.NumberFormat('zh-TW', {
+        style: 'currency',
+        currency: 'TWD',
+        maximumFractionDigits: 0,
+    }).format(v)
 </script>
 
 <template>
-    <div class="flex flex-col gap-6">
+    <div class="hig-page">
         <!-- Header -->
-        <div class="flex items-center justify-between">
-            <div class="ds-page-header flex-1 mr-4">
-                <h1>儀表板</h1>
-                <p>即時監控 · 遊戲平台總覽</p>
+        <header class="hig-page-header">
+            <div>
+                <h1 class="hig-page-title">
+                    <i class="pi pi-home" />
+                    儀表板
+                </h1>
+                <p class="hig-page-subtitle">即時監控 · 遊戲平台總覽</p>
             </div>
-            <n-button size="small" @click="refreshAll" :loading="loadingStats">
-                <template #icon>
-                    <n-icon><RefreshOutlined /></n-icon>
-                </template>
-                重新整理
-            </n-button>
-        </div>
+            <Button
+                label="重新整理"
+                icon="pi pi-refresh"
+                severity="secondary"
+                outlined
+                size="small"
+                :loading="loadingStats"
+                @click="refreshAll"
+            />
+        </header>
 
         <!-- Stat Cards -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -77,10 +86,7 @@ const formatRevenue = (v: number) =>
                 :loading="loadingChart"
                 @change-period="changePeriod"
             />
-            <TopGamesTable
-                :games="topGames"
-                :loading="loadingGames"
-            />
+            <TopGamesTable :games="topGames" :loading="loadingGames" />
         </div>
     </div>
 </template>

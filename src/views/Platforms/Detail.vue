@@ -1,8 +1,9 @@
-<!-- src/views/Platforms/Detail.vue -->
 <script setup lang="ts">
-import { NIcon, NTag, NCard, NBreadcrumb, NBreadcrumbItem } from 'naive-ui'
-import { GroupsOutlined } from '@vicons/material'
+import Breadcrumb from 'primevue/breadcrumb'
+import Tag from 'primevue/tag'
+import SelectButton from 'primevue/selectbutton'
 import { useRoute, useRouter } from 'vue-router'
+import { computed } from 'vue'
 import { usePlatformDetail } from '@/composables/usePlatformDetail'
 import PlatformStatCards from './components/PlatformStatCards.vue'
 import PlatformTrendChart from './components/PlatformTrendChart.vue'
@@ -13,65 +14,92 @@ const router = useRouter()
 const platformId = route.params.id as string
 
 const {
-    platform, stats, trendData, players, total,
-    period, search, page,
-    loadingStats, loadingTrend, loadingPlayers,
-    // loadingPlatform intentionally omitted — platform header renders immediately with null-safe fallback text
+    platform,
+    stats,
+    trendData,
+    players,
+    total,
+    period,
+    search,
+    page,
+    loadingStats,
+    loadingTrend,
+    loadingPlayers,
 } = usePlatformDetail(platformId)
 
 const periodOptions = [
     { label: '本週', value: 'week' },
     { label: '本月', value: 'month' },
 ]
+
+const breadcrumbHome = { icon: 'pi pi-home', route: '/' }
+const breadcrumbItems = computed(() => [
+    { label: '平台分析', route: '/platforms' },
+    { label: platform.value?.name ?? platformId },
+])
+
+const onBreadcrumbItemClick = (item: { route?: string }) => {
+    if (item.route) router.push(item.route)
+}
+
+const onPeriodChange = (v: 'week' | 'month' | null) => {
+    if (v) period.value = v
+}
+
+const onSearchUpdate = (v: string) => {
+    search.value = v
+    page.value = 1
+}
 </script>
 
 <template>
-    <div class="flex flex-col gap-6">
+    <div class="hig-page">
         <!-- Breadcrumb -->
-        <n-breadcrumb>
-            <n-breadcrumb-item class="cursor-pointer" @click="router.push('/platforms')">
-                平台分析
-            </n-breadcrumb-item>
-            <n-breadcrumb-item>{{ platform?.name ?? platformId }}</n-breadcrumb-item>
-        </n-breadcrumb>
+        <Breadcrumb
+            :model="breadcrumbItems"
+            :home="breadcrumbHome"
+            :pt="{ root: { class: 'border-0 px-0 bg-transparent' } }"
+        >
+            <template #item="{ item }">
+                <span
+                    class="breadcrumb-link"
+                    :class="{ 'cursor-pointer': item.route }"
+                    @click="onBreadcrumbItemClick(item)"
+                >
+                    {{ item.label }}
+                </span>
+            </template>
+        </Breadcrumb>
 
         <!-- Header -->
-        <div class="flex items-center justify-between flex-wrap gap-3">
-            <div class="flex items-center gap-3">
-                <n-icon size="24"><GroupsOutlined /></n-icon>
-                <h1 class="text-2xl font-bold">{{ platform?.name ?? '平台詳情' }}</h1>
-                <n-tag
+        <header class="hig-page-header">
+            <div class="flex items-center gap-3 flex-wrap">
+                <h1 class="hig-page-title">
+                    <i class="pi pi-users" />
+                    {{ platform?.name ?? '平台詳情' }}
+                </h1>
+                <Tag
                     v-if="platform"
-                    :type="platform.status === 'active' ? 'success' : 'default'"
-                    size="small"
-                    round
-                >
-                    {{ platform.status === 'active' ? '● 對接中' : '● 未對接' }}
-                </n-tag>
-                <n-tag
+                    :severity="platform.status === 'active' ? 'success' : 'secondary'"
+                    :value="platform.status === 'active' ? '● 對接中' : '● 未對接'"
+                    rounded
+                />
+                <Tag
                     v-if="platform"
-                    :type="platform.hasAgentSystem ? 'info' : 'default'"
-                    size="small"
-                >
-                    {{ platform.hasAgentSystem ? '有代理系統' : '無代理系統' }}
-                </n-tag>
+                    :severity="platform.hasAgentSystem ? 'info' : 'secondary'"
+                    :value="platform.hasAgentSystem ? '有代理系統' : '無代理系統'"
+                />
             </div>
 
-            <!-- 週 / 月 Toggle -->
-            <div class="flex rounded overflow-hidden border border-gray-600">
-                <button
-                    v-for="opt in periodOptions"
-                    :key="opt.value"
-                    class="px-3 py-1 text-sm transition-colors"
-                    :class="period === opt.value
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-transparent text-gray-400 hover:text-white'"
-                    @click="period = opt.value as 'week' | 'month'"
-                >
-                    {{ opt.label }}
-                </button>
-            </div>
-        </div>
+            <SelectButton
+                :model-value="period"
+                :options="periodOptions"
+                option-label="label"
+                option-value="value"
+                :allow-empty="false"
+                @update:model-value="onPeriodChange"
+            />
+        </header>
 
         <!-- 8 個數字卡 -->
         <PlatformStatCards :stats="stats" :loading="loadingStats" />
@@ -80,17 +108,32 @@ const periodOptions = [
         <PlatformTrendChart :data="trendData" :loading="loadingTrend" />
 
         <!-- 玩家列表 -->
-        <n-card title="玩家列表">
-            <PlatformPlayerTable
-                :players="players"
-                :total="total"
-                :loading="loadingPlayers"
-                :has-agent-system="platform?.hasAgentSystem ?? false"
-                :search="search"
-                :page="page"
-                @update:search="search = $event; page = 1"
-                @update:page="page = $event"
-            />
-        </n-card>
+        <section class="hig-card">
+            <header class="hig-card-header">
+                <h2 class="hig-card-title">玩家列表</h2>
+            </header>
+            <div class="hig-card-body">
+                <PlatformPlayerTable
+                    :players="players"
+                    :total="total"
+                    :loading="loadingPlayers"
+                    :has-agent-system="platform?.hasAgentSystem ?? false"
+                    :search="search"
+                    :page="page"
+                    @update:search="onSearchUpdate"
+                    @update:page="(v) => (page = v)"
+                />
+            </div>
+        </section>
     </div>
 </template>
+
+<style scoped>
+.breadcrumb-link {
+    color: var(--hig-text-secondary);
+    transition: color var(--hig-duration-fast) var(--hig-ease);
+}
+.breadcrumb-link.cursor-pointer:hover {
+    color: var(--hig-blue);
+}
+</style>

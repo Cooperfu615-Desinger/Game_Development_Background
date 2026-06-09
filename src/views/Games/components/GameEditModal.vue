@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
-import {
-    NModal, NForm, NFormItem, NInput, NInputNumber,
-    NButton, NSpace
-} from 'naive-ui'
-import type { FormInst } from 'naive-ui'
+import { ref, reactive, watch } from 'vue'
+import Dialog from 'primevue/dialog'
+import InputText from 'primevue/inputtext'
+import InputNumber from 'primevue/inputnumber'
+import Textarea from 'primevue/textarea'
+import Button from 'primevue/button'
 import type { Game } from '@/types/game'
 
 const props = defineProps<{
@@ -17,86 +17,124 @@ const emit = defineEmits<{
     (e: 'save', id: string, patch: Partial<Game>): void
 }>()
 
-const formRef = ref<FormInst | null>(null)
 const saving = ref(false)
 
-const model = ref({ name: '', rtp: 95, description: '' })
+const model = reactive({ name: '', rtp: 95, description: '' })
+const errors = reactive({ name: '', rtp: '' })
 
-watch(() => props.game, (g) => {
-    if (g) {
-        model.value = { name: g.name, rtp: g.rtp, description: g.description ?? '' }
-    }
-}, { immediate: true })
+watch(
+    () => props.game,
+    (g) => {
+        if (g) {
+            model.name = g.name
+            model.rtp = g.rtp
+            model.description = g.description ?? ''
+            errors.name = ''
+            errors.rtp = ''
+        }
+    },
+    { immediate: true }
+)
 
-const rules = computed(() => ({
-    name: { required: true, message: '請輸入遊戲名稱', trigger: 'blur' },
-    rtp: {
-        required: true,
-        type: 'number' as const,
-        min: 80,
-        max: 99,
-        message: 'RTP 需介於 80 ~ 99',
-        trigger: 'blur'
-    }
-}))
+const validate = (): boolean => {
+    errors.name = ''
+    errors.rtp = ''
+    if (!model.name.trim()) errors.name = '請輸入遊戲名稱'
+    if (model.rtp < 80 || model.rtp > 99) errors.rtp = 'RTP 需介於 80 ~ 99'
+    return !errors.name && !errors.rtp
+}
 
 const handleSave = async () => {
-    try {
-        await formRef.value?.validate()
-        if (!props.game) return
-        saving.value = true
-        emit('save', props.game.id, {
-            name: model.value.name,
-            rtp: model.value.rtp,
-            description: model.value.description
-        })
-        emit('update:show', false)
-    } catch {
-        // validation error
-    } finally {
-        saving.value = false
-    }
+    if (!validate() || !props.game) return
+    saving.value = true
+    emit('save', props.game.id, {
+        name: model.name,
+        rtp: model.rtp,
+        description: model.description,
+    })
+    emit('update:show', false)
+    saving.value = false
 }
+
+const close = () => emit('update:show', false)
 </script>
 
 <template>
-    <n-modal
-        :show="show"
-        @update:show="emit('update:show', $event)"
-        preset="card"
-        :title="`編輯遊戲：${game?.name ?? ''}`"
-        class="w-[480px]"
-        :mask-closable="false"
+    <Dialog
+        :visible="show"
+        modal
+        :header="`編輯遊戲：${game?.name ?? ''}`"
+        :style="{ width: '30rem' }"
+        :draggable="false"
+        :closable="false"
+        :close-on-escape="false"
+        @update:visible="(v) => !v && close()"
     >
-        <n-form ref="formRef" :model="model" :rules="rules" label-placement="left" :label-width="80">
-            <n-form-item label="遊戲名稱" path="name">
-                <n-input v-model:value="model.name" placeholder="請輸入遊戲名稱" />
-            </n-form-item>
-            <n-form-item label="RTP (%)" path="rtp">
-                <n-input-number
-                    v-model:value="model.rtp"
+        <div class="flex flex-col gap-4">
+            <div class="field">
+                <label for="game-name">遊戲名稱 <span class="required">*</span></label>
+                <InputText
+                    id="game-name"
+                    v-model="model.name"
+                    placeholder="請輸入遊戲名稱"
+                    :invalid="!!errors.name"
+                    fluid
+                />
+                <small v-if="errors.name" class="error">{{ errors.name }}</small>
+            </div>
+
+            <div class="field">
+                <label for="game-rtp">RTP (%) <span class="required">*</span></label>
+                <InputNumber
+                    id="game-rtp"
+                    v-model="model.rtp"
                     :min="80"
                     :max="99"
-                    :precision="1"
+                    :min-fraction-digits="1"
+                    :max-fraction-digits="1"
                     :step="0.1"
-                    class="w-full"
+                    show-buttons
+                    :invalid="!!errors.rtp"
+                    fluid
                 />
-            </n-form-item>
-            <n-form-item label="描述" path="description">
-                <n-input
-                    v-model:value="model.description"
-                    type="textarea"
+                <small v-if="errors.rtp" class="error">{{ errors.rtp }}</small>
+            </div>
+
+            <div class="field">
+                <label for="game-desc">描述</label>
+                <Textarea
+                    id="game-desc"
+                    v-model="model.description"
                     :rows="3"
                     placeholder="選填"
+                    fluid
                 />
-            </n-form-item>
-        </n-form>
+            </div>
+        </div>
 
         <template #footer>
-            <n-space justify="end">
-                <n-button @click="emit('update:show', false)">取消</n-button>
-                <n-button type="primary" :loading="saving" @click="handleSave">儲存</n-button>
-            </n-space>
+            <Button label="取消" severity="secondary" outlined @click="close" />
+            <Button label="儲存" :loading="saving" @click="handleSave" />
         </template>
-    </n-modal>
+    </Dialog>
 </template>
+
+<style scoped>
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+.field label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--hig-text-primary);
+}
+.required {
+    color: var(--hig-red);
+}
+.error {
+    color: var(--hig-red);
+    font-size: 0.75rem;
+}
+</style>

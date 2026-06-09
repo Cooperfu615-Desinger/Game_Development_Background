@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import { computed, h } from 'vue'
-import { NDataTable, NTag, NSwitch, NButton, NSpace } from 'naive-ui'
-import type { DataTableColumns } from 'naive-ui'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import Tag from 'primevue/tag'
+import ToggleSwitch from 'primevue/toggleswitch'
+import Button from 'primevue/button'
 import type { AggregatorGameConfig } from '@/types/aggregator'
 
-const props = defineProps<{
+defineProps<{
     configs: AggregatorGameConfig[]
     loading: boolean
     updatingGame: string | null
 }>()
+
 const emit = defineEmits<{
     (e: 'toggle-enabled', gameId: string, enabled: boolean): void
     (e: 'edit', config: AggregatorGameConfig): void
@@ -16,70 +19,93 @@ const emit = defineEmits<{
 
 const categoryLabel = (cat: AggregatorGameConfig['category']) =>
     cat === 'slot' ? '老虎機' : cat === 'crash' ? 'Crash' : '棋牌'
-const categoryType = (cat: AggregatorGameConfig['category']) =>
-    cat === 'slot' ? 'info' as const : cat === 'crash' ? 'warning' as const : 'default' as const
 
-const columns = computed<DataTableColumns<AggregatorGameConfig>>(() => [
-    {
-        title: '遊戲', key: 'gameName', width: 200,
-        render: row => h('div', [
-            h('p', { class: 'font-medium text-sm' }, row.gameName),
-            h('p', { class: 'text-xs text-gray-500' }, row.gameId),
-        ])
-    },
-    {
-        title: '類型', key: 'category', width: 90,
-        render: row => h(NTag, {
-            type: categoryType(row.category), size: 'small', bordered: false
-        }, { default: () => categoryLabel(row.category) })
-    },
-    {
-        title: '開放', key: 'enabled', width: 80,
-        render: row => h(NSwitch, {
-            value: row.enabled,
-            size: 'small',
-            loading: props.updatingGame === row.gameId,
-            onUpdateValue: (v: boolean) => emit('toggle-enabled', row.gameId, v),
-        })
-    },
-    {
-        title: '已配置幣別', key: 'betRanges', width: 160,
-        render: row => {
-            if (!row.enabled || row.betRanges.length === 0)
-                return h('span', { class: 'text-gray-400 text-sm' }, '— 尚未配置')
-            return h(NSpace, { size: 4 }, {
-                default: () => row.betRanges.map(r =>
-                    h(NTag, { size: 'tiny', bordered: false }, { default: () => r.currency })
-                )
-            })
-        }
-    },
-    {
-        title: 'USDT 投注範圍', key: 'usdtRange', width: 170,
-        render: row => {
-            const usdt = row.betRanges.find(r => r.currency === 'USDT')
-            if (!usdt) return h('span', { class: 'text-gray-400 text-sm' }, '—')
-            return h('span', { class: 'text-sm font-mono' },
-                `$${usdt.minBet} ~ $${usdt.maxBet}`)
-        }
-    },
-    {
-        title: '操作', key: 'action', width: 80, fixed: 'right',
-        render: row => h(NButton, {
-            size: 'small', text: true, type: 'primary',
-            onClick: () => emit('edit', row)
-        }, { default: () => '編輯' })
-    },
-])
+type Severity = 'info' | 'warn' | 'secondary'
+const categorySeverity = (cat: AggregatorGameConfig['category']): Severity =>
+    cat === 'slot' ? 'info' : cat === 'crash' ? 'warn' : 'secondary'
 </script>
 
 <template>
-    <n-data-table
-        :columns="columns"
-        :data="configs"
+    <DataTable
+        :value="configs"
         :loading="loading"
-        :row-key="(row: AggregatorGameConfig) => row.gameId"
-        :pagination="false"
-        scroll-x="780"
-    />
+        data-key="gameId"
+        :pt="{ root: { class: 'border-0' } }"
+    >
+        <Column header="遊戲" style="min-width: 12rem">
+            <template #body="{ data }">
+                <div>
+                    <p class="font-medium text-sm">{{ data.gameName }}</p>
+                    <p class="text-xs text-secondary">{{ data.gameId }}</p>
+                </div>
+            </template>
+        </Column>
+
+        <Column header="類型" style="width: 90px">
+            <template #body="{ data }">
+                <Tag
+                    :severity="categorySeverity(data.category)"
+                    :value="categoryLabel(data.category)"
+                />
+            </template>
+        </Column>
+
+        <Column header="開放" style="width: 80px">
+            <template #body="{ data }">
+                <ToggleSwitch
+                    :model-value="data.enabled"
+                    :disabled="updatingGame === data.gameId"
+                    @update:model-value="(v) => emit('toggle-enabled', data.gameId, v)"
+                />
+            </template>
+        </Column>
+
+        <Column header="已配置幣別" style="min-width: 11rem">
+            <template #body="{ data }">
+                <div v-if="!data.enabled || data.betRanges.length === 0">
+                    <span class="text-sm text-tertiary">— 尚未配置</span>
+                </div>
+                <div v-else class="flex flex-wrap gap-1">
+                    <Tag
+                        v-for="r in data.betRanges"
+                        :key="r.currency"
+                        :value="r.currency"
+                        severity="secondary"
+                    />
+                </div>
+            </template>
+        </Column>
+
+        <Column header="USDT 投注範圍" style="width: 170px">
+            <template #body="{ data }">
+                <template v-if="data.betRanges.find((r: { currency: string }) => r.currency === 'USDT')">
+                    <span class="text-sm font-mono">
+                        ${{ data.betRanges.find((r: { currency: string }) => r.currency === 'USDT').minBet }}
+                        ~ ${{ data.betRanges.find((r: { currency: string }) => r.currency === 'USDT').maxBet }}
+                    </span>
+                </template>
+                <span v-else class="text-sm text-tertiary">—</span>
+            </template>
+        </Column>
+
+        <Column header="操作" style="width: 80px">
+            <template #body="{ data }">
+                <Button
+                    label="編輯"
+                    text
+                    size="small"
+                    @click="emit('edit', data)"
+                />
+            </template>
+        </Column>
+    </DataTable>
 </template>
+
+<style scoped>
+.text-secondary {
+    color: var(--hig-text-secondary);
+}
+.text-tertiary {
+    color: var(--hig-text-tertiary);
+}
+</style>

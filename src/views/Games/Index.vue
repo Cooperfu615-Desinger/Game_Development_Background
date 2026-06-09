@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { NButton, NSpace, NIcon, useMessage } from 'naive-ui'
-import { FileDownloadOutlined, SportsEsportsOutlined } from '@vicons/material'
+import Button from 'primevue/button'
+import Toast from 'primevue/toast'
+import { useToast } from 'primevue/usetoast'
 import { useGameManagement } from '@/composables/useGameManagement'
 import type { Game } from '@/types/game'
 import GameFilterBar from './components/GameFilterBar.vue'
@@ -9,11 +10,19 @@ import GameTable from './components/GameTable.vue'
 import GameDetailDrawer from './components/GameDetailDrawer.vue'
 import GameEditModal from './components/GameEditModal.vue'
 
-const message = useMessage()
+const toast = useToast()
 
 const {
-    games, total, loading, filters, selectedIds,
-    toggleStatus, batchToggle, updateGame, exportCSV, resetFilters
+    games,
+    total,
+    loading,
+    filters,
+    selectedIds,
+    toggleStatus,
+    batchToggle,
+    updateGame,
+    exportCSV,
+    resetFilters,
 } = useGameManagement()
 
 // Drawer & Modal state
@@ -34,40 +43,45 @@ const handleEdit = (game: Game) => {
 
 const handleSave = async (id: string, patch: Partial<Game>) => {
     const ok = await updateGame(id, patch)
-    if (ok) message.success('已儲存')
-    else message.error('儲存失敗')
+    if (ok) toast.add({ severity: 'success', summary: '已儲存', life: 1500 })
+    else toast.add({ severity: 'error', summary: '儲存失敗', life: 2500 })
 }
 </script>
 
 <template>
-    <div class="flex flex-col gap-4">
+    <div class="hig-page">
         <!-- Header -->
-        <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <n-icon size="24"><SportsEsportsOutlined /></n-icon>
-                <h1 class="text-2xl font-bold">遊戲管理</h1>
-            </div>
-            <n-space>
-                <n-button
+        <header class="hig-page-header">
+            <h1 class="hig-page-title">
+                <i class="pi pi-th-large" />
+                遊戲管理
+            </h1>
+            <div class="flex items-center gap-2 flex-wrap">
+                <Button
                     v-if="selectedIds.length"
+                    :label="`批量上架 (${selectedIds.length})`"
+                    severity="secondary"
+                    outlined
+                    size="small"
                     @click="batchToggle('active')"
-                >
-                    批量上架 ({{ selectedIds.length }})
-                </n-button>
-                <n-button
+                />
+                <Button
                     v-if="selectedIds.length"
+                    :label="`批量下架 (${selectedIds.length})`"
+                    severity="secondary"
+                    outlined
+                    size="small"
                     @click="batchToggle('inactive')"
-                >
-                    批量下架 ({{ selectedIds.length }})
-                </n-button>
-                <n-button @click="exportCSV">
-                    <template #icon>
-                        <n-icon><FileDownloadOutlined /></n-icon>
-                    </template>
-                    匯出 CSV
-                </n-button>
-            </n-space>
-        </div>
+                />
+                <Button
+                    label="匯出 CSV"
+                    icon="pi pi-download"
+                    severity="secondary"
+                    outlined
+                    @click="exportCSV"
+                />
+            </div>
+        </header>
 
         <!-- Filter Bar -->
         <GameFilterBar
@@ -78,17 +92,19 @@ const handleSave = async (id: string, patch: Partial<Game>) => {
         />
 
         <!-- Table -->
-        <GameTable
-            :games="games"
-            :total="total"
-            :loading="loading"
-            :filters="filters"
-            @update:filters="filters = $event"
-            @view="handleView"
-            @edit="handleEdit"
-            @toggle-status="toggleStatus"
-            @update:selected="selectedIds = $event"
-        />
+        <section class="hig-card">
+            <GameTable
+                :games="games"
+                :total="total"
+                :loading="loading"
+                :filters="filters"
+                @update:filters="filters = $event"
+                @view="handleView"
+                @edit="handleEdit"
+                @toggle-status="toggleStatus"
+                @update:selected="selectedIds = $event"
+            />
+        </section>
 
         <!-- Detail Drawer -->
         <GameDetailDrawer
@@ -103,5 +119,7 @@ const handleSave = async (id: string, patch: Partial<Game>) => {
             :game="activeGame"
             @save="handleSave"
         />
+
+        <Toast position="top-right" />
     </div>
 </template>

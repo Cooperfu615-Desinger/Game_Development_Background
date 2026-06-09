@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { computed, h } from 'vue'
-import { NDataTable, NTag, NButton, NSwitch, NSpace } from 'naive-ui'
-import type { DataTableColumns, DataTableRowKey } from 'naive-ui'
+import { ref, watch } from 'vue'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import Tag from 'primevue/tag'
+import ToggleSwitch from 'primevue/toggleswitch'
+import Button from 'primevue/button'
 import type { Game, GameFilter } from '@/types/game'
 
 const props = defineProps<{
@@ -20,87 +23,80 @@ const emit = defineEmits<{
 }>()
 
 const categoryLabel: Record<Game['category'], string> = {
-    slot: '老虎機', table: '桌遊', live: '真人', fishing: '捕魚'
+    slot: '老虎機',
+    table: '桌遊',
+    live: '真人',
+    fishing: '捕魚',
 }
 
-const columns = computed<DataTableColumns<Game>>(() => [
-    { type: 'selection', width: 48 },
-    {
-        title: '遊戲名稱',
-        key: 'name',
-        sorter: (a, b) => a.name.localeCompare(b.name),
-        ellipsis: { tooltip: true }
-    },
-    {
-        title: '類別',
-        key: 'category',
-        width: 90,
-        render: (row) => h(NTag, { size: 'small', bordered: false }, { default: () => categoryLabel[row.category] })
-    },
-    {
-        title: 'RTP',
-        key: 'rtp',
-        width: 90,
-        sorter: (a, b) => a.rtp - b.rtp,
-        render: (row) => `${row.rtp.toFixed(1)}%`
-    },
-    {
-        title: '活躍玩家',
-        key: 'activeUsers',
-        width: 110,
-        sorter: (a, b) => a.activeUsers - b.activeUsers,
-        render: (row) => row.activeUsers.toLocaleString()
-    },
-    {
-        title: '版本',
-        key: 'version',
-        width: 80
-    },
-    {
-        title: '狀態',
-        key: 'status',
-        width: 90,
-        sorter: (a, b) => Number(a.status === 'active') - Number(b.status === 'active'),
-        render: (row) => h(NSwitch, {
-            value: row.status === 'active',
-            size: 'small',
-            onUpdateValue: () => emit('toggle-status', row)
-        })
-    },
-    {
-        title: '操作',
-        key: 'actions',
-        width: 130,
-        render: (row) => h(NSpace, { size: 'small' }, {
-            default: () => [
-                h(NButton, { size: 'tiny', onClick: () => emit('view', row) }, { default: () => '詳情' }),
-                h(NButton, { size: 'tiny', type: 'primary', onClick: () => emit('edit', row) }, { default: () => '編輯' })
-            ]
-        })
+// ─── Selection ─────────────────────────────────────────
+const selectedRows = ref<Game[]>([])
+watch(selectedRows, (rows) => {
+    emit('update:selected', rows.map((r) => r.id))
+})
+// Clear selection when game list changes (page change, filter change)
+watch(
+    () => props.games,
+    () => {
+        selectedRows.value = []
     }
-])
+)
 
-const handleChecked = (keys: DataTableRowKey[]) => {
-    emit('update:selected', keys as string[])
+const onPage = (e: { page: number }) => {
+    emit('update:filters', { ...props.filters, page: e.page + 1 })
 }
-
-const pagination = computed(() => ({
-    page: props.filters.page,
-    pageSize: props.filters.pageSize,
-    itemCount: props.total,
-    showSizePicker: false,
-    onChange: (page: number) => emit('update:filters', { ...props.filters, page })
-}))
 </script>
 
 <template>
-    <n-data-table
-        :columns="columns"
-        :data="games"
+    <DataTable
+        v-model:selection="selectedRows"
+        :value="games"
         :loading="loading"
-        :pagination="pagination"
-        :row-key="(row: Game) => row.id"
-        remote
-        @update:checked-row-keys="handleChecked"
-    />
+        data-key="id"
+        sort-mode="single"
+        paginator
+        lazy
+        :rows="filters.pageSize"
+        :total-records="total"
+        :first="(filters.page - 1) * filters.pageSize"
+        @page="onPage"
+    >
+        <Column selection-mode="multiple" header-style="width: 3rem" />
+
+        <Column field="name" header="遊戲名稱" sortable :pt="{ headerCell: { style: 'min-width: 10rem' } }" />
+
+        <Column header="類別" style="width: 90px">
+            <template #body="{ data }">
+                <Tag severity="secondary" :value="categoryLabel[data.category]" />
+            </template>
+        </Column>
+
+        <Column field="rtp" header="RTP" sortable style="width: 100px">
+            <template #body="{ data }">{{ data.rtp.toFixed(1) }}%</template>
+        </Column>
+
+        <Column field="activeUsers" header="活躍玩家" sortable style="width: 120px">
+            <template #body="{ data }">{{ data.activeUsers.toLocaleString() }}</template>
+        </Column>
+
+        <Column field="version" header="版本" style="width: 90px" />
+
+        <Column field="status" header="狀態" sortable style="width: 90px">
+            <template #body="{ data }">
+                <ToggleSwitch
+                    :model-value="data.status === 'active'"
+                    @update:model-value="emit('toggle-status', data)"
+                />
+            </template>
+        </Column>
+
+        <Column header="操作" style="width: 150px">
+            <template #body="{ data }">
+                <div class="flex gap-1">
+                    <Button label="詳情" size="small" text @click="emit('view', data)" />
+                    <Button label="編輯" size="small" @click="emit('edit', data)" />
+                </div>
+            </template>
+        </Column>
+    </DataTable>
 </template>

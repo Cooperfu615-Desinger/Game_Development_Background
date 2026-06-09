@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { NInput, NSelect, NButton } from 'naive-ui'
+import InputText from 'primevue/inputtext'
+import Select from 'primevue/select'
+import Button from 'primevue/button'
 import type { GameFilter } from '@/types/game'
 
 const props = defineProps<{ filters: GameFilter; loading: boolean }>()
@@ -13,41 +15,50 @@ const update = (patch: Partial<GameFilter>) => {
 }
 
 const statusOptions = [
-    { label: '全部狀態', value: undefined },
+    { label: '全部狀態', value: null },
     { label: '上架中', value: 'active' },
-    { label: '已下架', value: 'inactive' }
+    { label: '已下架', value: 'inactive' },
 ]
 
 const categoryOptions = [
-    { label: '全部類別', value: undefined },
+    { label: '全部類別', value: null },
     { label: '老虎機', value: 'slot' },
     { label: '桌遊', value: 'table' },
     { label: '真人', value: 'live' },
-    { label: '捕魚', value: 'fishing' }
+    { label: '捕魚', value: 'fishing' },
 ]
 </script>
 
 <template>
     <div class="flex flex-wrap gap-3 items-center">
-        <n-input
-            :value="filters.search"
-            placeholder="搜尋遊戲名稱..."
-            clearable
+        <InputText
+            :model-value="filters.search"
+            placeholder="搜尋遊戲名稱…"
             class="w-56"
-            @update:value="update({ search: $event ?? '' })"
+            @update:model-value="(v) => update({ search: v ?? '' })"
         />
-        <n-select
-            :value="filters.status"
+        <Select
+            :model-value="filters.status ?? null"
             :options="statusOptions"
+            option-label="label"
+            option-value="value"
             class="w-36"
-            @update:value="update({ status: $event })"
+            @update:model-value="(v) => update({ status: v ?? undefined })"
         />
-        <n-select
-            :value="filters.category"
+        <Select
+            :model-value="filters.category ?? null"
             :options="categoryOptions"
+            option-label="label"
+            option-value="value"
             class="w-36"
-            @update:value="update({ category: $event })"
+            @update:model-value="(v) => update({ category: v ?? undefined })"
         />
-        <n-button @click="emit('reset')" :disabled="loading">重置</n-button>
+        <Button
+            label="重置"
+            severity="secondary"
+            outlined
+            :disabled="loading"
+            @click="emit('reset')"
+        />
     </div>
 </template>

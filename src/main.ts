@@ -1,7 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
-import naive from 'naive-ui'
 import router from './router'
 import './style.css'
 import App from './App.vue'
@@ -25,8 +24,7 @@ const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 app.use(pinia)
 app.use(router)
-app.use(naive)         // 過渡期保留，Phase 5 移除
-setupPrimeVue(app)     // 新框架，與 Naive UI 並存
+setupPrimeVue(app)
 app.use(i18n)
 
 prepareApp().then(() => {

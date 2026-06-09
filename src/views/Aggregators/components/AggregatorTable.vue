@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { computed, h } from 'vue'
-import { NDataTable, NTag, NSwitch, NButton, NSpace } from 'naive-ui'
-import type { DataTableColumns } from 'naive-ui'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import Tag from 'primevue/tag'
+import ToggleSwitch from 'primevue/toggleswitch'
+import Button from 'primevue/button'
 import { useRouter } from 'vue-router'
 import type { Aggregator, AggregatorFilter } from '@/types/aggregator'
 
@@ -19,77 +21,100 @@ const emit = defineEmits<{
 
 const router = useRouter()
 
-const connectionTag = (s: Aggregator['connectionStatus']) => {
-    if (s === 'connected')    return { type: 'success' as const, label: '已連線' }
-    if (s === 'disconnected') return { type: 'error'   as const, label: '離線'   }
-    return                           { type: 'warning' as const, label: '待確認' }
+type Severity = 'success' | 'danger' | 'warn' | 'info' | 'secondary'
+const connectionMeta = (s: Aggregator['connectionStatus']): { severity: Severity; label: string } => {
+    if (s === 'connected') return { severity: 'success', label: '已連線' }
+    if (s === 'disconnected') return { severity: 'danger', label: '離線' }
+    return { severity: 'warn', label: '待確認' }
 }
 
-const columns = computed<DataTableColumns<Aggregator>>(() => [
-    {
-        title: '聚合商名稱', key: 'name', width: 160,
-        render: row => h('div', [
-            h('p', { class: 'font-medium' }, row.name),
-            h('p', { class: 'text-xs text-gray-500 mt-0.5' }, row.code),
-        ])
-    },
-    {
-        title: '串接狀態', key: 'connectionStatus', width: 110,
-        render: row => {
-            const t = connectionTag(row.connectionStatus)
-            return h(NTag, { type: t.type, size: 'small', round: true }, { default: () => t.label })
-        }
-    },
-    {
-        title: '啟用狀態', key: 'status', width: 100,
-        render: row => h(NSwitch, {
-            value: row.status === 'active',
-            size: 'small',
-            onUpdateValue: () => emit('toggle-status', row.id, row.status),
-        })
-    },
-    {
-        title: '已開放遊戲', key: 'gameCount', width: 120,
-        render: row => h('span', `${row.gameCount} / ${row.totalGames}`)
-    },
-    {
-        title: 'API Endpoint', key: 'apiEndpoint', ellipsis: { tooltip: true },
-        render: row => h('span', { class: 'text-xs text-gray-400 font-mono' }, row.apiEndpoint)
-    },
-    {
-        title: '建立時間', key: 'createdAt', width: 120,
-        render: row => h('span', { class: 'text-xs' }, row.createdAt.slice(0, 10))
-    },
-    {
-        title: '操作', key: 'action', width: 80, fixed: 'right',
-        render: row => h(NSpace, {}, {
-            default: () => [
-                h(NButton, {
-                    size: 'small', text: true, type: 'primary',
-                    onClick: () => router.push(`/aggregators/${row.id}`)
-                }, { default: () => '詳情' })
-            ]
-        })
-    },
-])
+const onPage = (e: { page: number; rows: number }) => {
+    emit('update:filters', { ...props.filters, page: e.page + 1 })
+}
 
-const pagination = computed(() => ({
-    page: props.filters.page,
-    pageSize: props.filters.pageSize,
-    itemCount: props.total,
-    showSizePicker: false,
-    onChange: (page: number) => emit('update:filters', { ...props.filters, page }),
-}))
+const onSwitchChange = (row: Aggregator) => {
+    emit('toggle-status', row.id, row.status)
+}
 </script>
 
 <template>
-    <n-data-table
-        :columns="columns"
-        :data="aggregators"
+    <DataTable
+        :value="aggregators"
         :loading="loading"
-        :pagination="pagination"
-        :row-key="(row: Aggregator) => row.id"
-        remote
-        scroll-x="800"
-    />
+        :rows="filters.pageSize"
+        :total-records="total"
+        :first="(filters.page - 1) * filters.pageSize"
+        paginator
+        lazy
+        data-key="id"
+        @page="onPage"
+    >
+        <Column header="聚合商名稱" style="min-width: 11rem">
+            <template #body="{ data }">
+                <div>
+                    <p class="font-medium">{{ data.name }}</p>
+                    <p class="text-xs text-secondary mt-0.5">{{ data.code }}</p>
+                </div>
+            </template>
+        </Column>
+
+        <Column header="串接狀態" style="width: 110px">
+            <template #body="{ data }">
+                <Tag
+                    :severity="connectionMeta(data.connectionStatus).severity"
+                    :value="connectionMeta(data.connectionStatus).label"
+                    rounded
+                />
+            </template>
+        </Column>
+
+        <Column header="啟用狀態" style="width: 100px">
+            <template #body="{ data }">
+                <ToggleSwitch
+                    :model-value="data.status === 'active'"
+                    @update:model-value="onSwitchChange(data)"
+                />
+            </template>
+        </Column>
+
+        <Column header="已開放遊戲" style="width: 120px">
+            <template #body="{ data }">
+                <span class="font-mono text-sm">{{ data.gameCount }} / {{ data.totalGames }}</span>
+            </template>
+        </Column>
+
+        <Column header="API Endpoint" style="min-width: 14rem">
+            <template #body="{ data }">
+                <span
+                    class="text-xs font-mono text-secondary truncate block max-w-full"
+                    :title="data.apiEndpoint"
+                >
+                    {{ data.apiEndpoint }}
+                </span>
+            </template>
+        </Column>
+
+        <Column header="建立時間" style="width: 120px">
+            <template #body="{ data }">
+                <span class="text-xs">{{ data.createdAt.slice(0, 10) }}</span>
+            </template>
+        </Column>
+
+        <Column header="操作" style="width: 80px" :pt="{ headerCell: { class: 'text-right' } }">
+            <template #body="{ data }">
+                <Button
+                    label="詳情"
+                    text
+                    size="small"
+                    @click="router.push(`/aggregators/${data.id}`)"
+                />
+            </template>
+        </Column>
+    </DataTable>
 </template>
+
+<style scoped>
+.text-secondary {
+    color: var(--hig-text-secondary);
+}
+</style>

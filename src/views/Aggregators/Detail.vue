@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { NCard, NIcon, NBreadcrumb, NBreadcrumbItem, useMessage } from 'naive-ui'
-import { HubOutlined } from '@vicons/material'
+import Breadcrumb from 'primevue/breadcrumb'
+import Toast from 'primevue/toast'
+import { useToast } from 'primevue/usetoast'
 import { useRoute, useRouter } from 'vue-router'
 import { useAggregatorDetail } from '@/composables/useAggregatorDetail'
 import AggregatorInfoCard from './components/AggregatorInfoCard.vue'
@@ -11,16 +12,30 @@ import type { AggregatorGameConfig, BetRangeCurrency } from '@/types/aggregator'
 
 const route = useRoute()
 const router = useRouter()
-const message = useMessage()
+const toast = useToast()
 const aggregatorId = route.params.id as string
 
 const {
-    aggregator, gameConfigs,
-    loadingInfo, loadingGames, updatingGame,
-    toggleGameEnabled, updateGameConfig,
+    aggregator,
+    gameConfigs,
+    loadingInfo,
+    loadingGames,
+    updatingGame,
+    toggleGameEnabled,
+    updateGameConfig,
 } = useAggregatorDetail(aggregatorId)
 
-// ── 編輯彈窗 ───────────────────────────────────────────────────────────────
+const breadcrumbHome = { icon: 'pi pi-home', route: '/' }
+const breadcrumbItems = [
+    { label: '聚合商管理', route: '/aggregators' },
+    { label: aggregator.value?.name ?? aggregatorId },
+]
+
+const onBreadcrumbItemClick = (item: { route?: string }) => {
+    if (item.route) router.push(item.route)
+}
+
+// ── 編輯彈窗 ───────────────────────────────────────────
 const showEdit = ref(false)
 const editingConfig = ref<AggregatorGameConfig | null>(null)
 const saving = ref(false)
@@ -38,38 +53,52 @@ const handleSave = async (
     const ok = await updateGameConfig(gameId, patch)
     saving.value = false
     if (ok) {
-        message.success('配置已儲存')
+        toast.add({ severity: 'success', summary: '配置已儲存', life: 1500 })
         showEdit.value = false
     } else {
-        message.error('儲存失敗，請重試')
+        toast.add({ severity: 'error', summary: '儲存失敗，請重試', life: 2500 })
     }
 }
 </script>
 
 <template>
-    <div class="flex flex-col gap-6">
+    <div class="hig-page">
         <!-- Breadcrumb -->
-        <n-breadcrumb>
-            <n-breadcrumb-item class="cursor-pointer" @click="router.push('/aggregators')">聚合商管理</n-breadcrumb-item>
-            <n-breadcrumb-item>{{ aggregator?.name ?? aggregatorId }}</n-breadcrumb-item>
-        </n-breadcrumb>
+        <Breadcrumb
+            :model="breadcrumbItems"
+            :home="breadcrumbHome"
+            :pt="{ root: { class: 'border-0 px-0 bg-transparent' } }"
+        >
+            <template #item="{ item }">
+                <span
+                    class="breadcrumb-link"
+                    :class="{ 'cursor-pointer': item.route }"
+                    @click="onBreadcrumbItemClick(item)"
+                >
+                    {{ item.label }}
+                </span>
+            </template>
+        </Breadcrumb>
 
         <!-- Header -->
-        <div class="flex items-center gap-2">
-            <n-icon size="24"><HubOutlined /></n-icon>
-            <h1 class="text-2xl font-bold">{{ aggregator?.name ?? '聚合商詳情' }}</h1>
-        </div>
+        <header class="hig-page-header">
+            <h1 class="hig-page-title">
+                <i class="pi pi-share-alt" />
+                {{ aggregator?.name ?? '聚合商詳情' }}
+            </h1>
+        </header>
 
         <!-- 基本資訊 -->
         <AggregatorInfoCard :aggregator="aggregator" :loading="loadingInfo" />
 
         <!-- 遊戲配置表格 -->
-        <n-card title="遊戲配置 & Bet Range">
-            <template #header-extra>
-                <span class="text-sm text-gray-400">
+        <section class="hig-card">
+            <header class="hig-card-header">
+                <h2 class="hig-card-title">遊戲配置 & Bet Range</h2>
+                <span class="text-sm text-secondary">
                     已開放 {{ aggregator?.gameCount ?? 0 }} / {{ aggregator?.totalGames ?? 0 }} 款
                 </span>
-            </template>
+            </header>
             <GameConfigTable
                 :configs="gameConfigs"
                 :loading="loadingGames"
@@ -77,7 +106,7 @@ const handleSave = async (
                 @toggle-enabled="toggleGameEnabled"
                 @edit="handleEdit"
             />
-        </n-card>
+        </section>
 
         <!-- 編輯彈窗 -->
         <GameConfigEditModal
@@ -86,5 +115,20 @@ const handleSave = async (
             :saving="saving"
             @save="handleSave"
         />
+
+        <Toast position="top-right" />
     </div>
 </template>
+
+<style scoped>
+.breadcrumb-link {
+    color: var(--hig-text-secondary);
+    transition: color var(--hig-duration-fast) var(--hig-ease);
+}
+.breadcrumb-link.cursor-pointer:hover {
+    color: var(--hig-blue);
+}
+.text-secondary {
+    color: var(--hig-text-secondary);
+}
+</style>

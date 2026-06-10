@@ -56,6 +56,27 @@ type AbnormalOrderRow = {
     suggestion: string
 }
 
+// From TransactionListView.vue
+type TransactionRow = {
+    id: string
+    orderId: string
+    merchant: string
+    playerId: string
+    type: string
+    amount: string
+    transactionCurrency: string
+    walletCurrency: string
+    status: string
+    apiCode: string
+    retryCount: number
+    time: string
+    nextRetryAt: string
+    walletMode: string
+    request: string
+    response: string
+    note: string
+}
+
 // From AbnormalTransactionsView.vue
 type AbnormalTransactionRow = {
     caseId: string
@@ -277,6 +298,123 @@ const SEED_ABNORMAL_ORDERS: AbnormalOrderRow[] = expandDemoRows([
     },
 ], 60)
 
+const SEED_TRANSACTIONS: TransactionRow[] = expandDemoRows([
+    {
+        id: 'TX-WLT-20260520-88421',
+        orderId: 'ORD-20260520-88421',
+        merchant: 'Golden Dragon',
+        playerId: 'player_8831',
+        type: '派彩',
+        amount: 'USDT 88,420.00',
+        transactionCurrency: 'USDT',
+        walletCurrency: 'USDT',
+        status: '已完成',
+        apiCode: '200',
+        retryCount: 0,
+        time: '2026-05-20 10:42:18',
+        nextRetryAt: '-',
+        walletMode: '轉帳錢包',
+        request: '{"merchant":"MER-001","playerId":"player_8831","amount":88420,"currency":"USDT","type":"payout"}',
+        response: '{"code":200,"message":"success","walletBalance":183020.45}',
+        note: '對應 Jackpot 派發，交易已完成並回寫注單。',
+    },
+    {
+        id: 'TX-WLT-20260520-55102',
+        orderId: 'ORD-20260520-55102',
+        merchant: 'LuckyPlay',
+        playerId: 'player_2109',
+        type: '派彩',
+        amount: 'TWD 126,000.00',
+        transactionCurrency: 'TWD',
+        walletCurrency: 'TWD',
+        status: '重試中',
+        apiCode: '504',
+        retryCount: 3,
+        time: '2026-05-20 11:09:14',
+        nextRetryAt: '2026-05-20 11:14:14',
+        walletMode: '轉帳錢包',
+        request: '{"merchant":"MER-002","playerId":"player_2109","amount":126000,"currency":"TWD","type":"payout"}',
+        response: '{"code":504,"message":"wallet timeout","retryable":true}',
+        note: '錢包 API 逾時，系統依重試策略排程中。',
+    },
+    {
+        id: 'TX-WLT-20260519-77218',
+        orderId: 'ORD-20260519-77218',
+        merchant: 'Nova Gaming',
+        playerId: 'player_4420',
+        type: '扣款',
+        amount: 'USD 4,800.00',
+        transactionCurrency: 'USD',
+        walletCurrency: 'USD',
+        status: '已完成',
+        apiCode: '200',
+        retryCount: 0,
+        time: '2026-05-19 22:16:03',
+        nextRetryAt: '-',
+        walletMode: '單一錢包',
+        request: '{"merchant":"MER-003","playerId":"player_4420","amount":4800,"currency":"USD","type":"bet"}',
+        response: '{"code":200,"message":"success","walletBalance":5200}',
+        note: '一般投注扣款，無異常。',
+    },
+    {
+        id: 'TX-WLT-20260518-32004',
+        orderId: 'ORD-20260518-32004',
+        merchant: 'Royal H5',
+        playerId: 'player_7780',
+        type: '扣款',
+        amount: 'USDT 3,500.00',
+        transactionCurrency: 'USDT',
+        walletCurrency: 'USDT',
+        status: '人工處理',
+        apiCode: '409',
+        retryCount: 2,
+        time: '2026-05-18 19:44:29',
+        nextRetryAt: '-',
+        walletMode: '轉帳錢包',
+        request: '{"merchant":"MER-004","playerId":"player_7780","amount":3500,"currency":"USDT","type":"bet"}',
+        response: '{"code":409,"message":"duplicate transaction detected","retryable":false}',
+        note: '錢包回覆重複交易，已停止自動重試並等待人工確認。',
+    },
+    {
+        id: 'TX-TRF-20260518-11890',
+        orderId: '-',
+        merchant: 'Golden Dragon',
+        playerId: 'player_8831',
+        type: '轉入',
+        amount: 'USDT 20,000.00',
+        transactionCurrency: 'USDT',
+        walletCurrency: 'USDT',
+        status: '已完成',
+        apiCode: '200',
+        retryCount: 0,
+        time: '2026-05-18 15:20:10',
+        nextRetryAt: '-',
+        walletMode: '轉帳錢包',
+        request: '{"merchant":"MER-001","playerId":"player_8831","amount":20000,"currency":"USDT","type":"transfer_in"}',
+        response: '{"code":200,"message":"success","transferBalance":20000}',
+        note: '玩家由商戶錢包轉入遊戲錢包，建立可投注餘額。',
+    },
+    {
+        id: 'TX-TRF-20260518-11904',
+        orderId: '-',
+        merchant: 'Golden Dragon',
+        playerId: 'player_8831',
+        type: '轉出',
+        amount: 'USDT -12,500.00',
+        transactionCurrency: 'USDT',
+        walletCurrency: 'USDT',
+        status: '已完成',
+        apiCode: '200',
+        retryCount: 0,
+        time: '2026-05-18 16:03:42',
+        nextRetryAt: '-',
+        walletMode: '轉帳錢包',
+        request: '{"merchant":"MER-001","playerId":"player_8831","amount":12500,"currency":"USDT","type":"transfer_out"}',
+        response: '{"code":200,"message":"success","transferBalance":7500}',
+        note: '玩家由遊戲錢包轉出回商戶錢包，非注單交易但需納入對帳。',
+    },
+], 60)
+
 const SEED_ABNORMAL_TXS: AbnormalTransactionRow[] = expandDemoRows([
     {
         caseId: 'ATX-20260520-001',
@@ -376,6 +514,10 @@ export const orderAdminHandlers = [
     http.get('/api/orders/v2/abnormal', async () => {
         await delay(250)
         return HttpResponse.json(SEED_ABNORMAL_ORDERS)
+    }),
+    http.get('/api/transactions/v2/list', async () => {
+        await delay(250)
+        return HttpResponse.json(SEED_TRANSACTIONS)
     }),
     http.get('/api/transactions/v2/abnormal', async () => {
         await delay(250)

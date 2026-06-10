@@ -114,6 +114,7 @@
         "players": "玩家列表",
         "orderGroup": "交易明細",
         "orders": "下注明細",
+        "transactionList": "交易紀錄",
         "ordersAbnormal": "異常注單",
         "transactionsAbnormal": "異常交易",
         "reportGroup": "報表總覽",

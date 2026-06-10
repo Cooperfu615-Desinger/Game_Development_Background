@@ -7,6 +7,8 @@ import { playerHandlers } from './players'
 import { financeHandlers } from './finance'
 import { settingsHandlers } from './settings'
 import { aggregatorsHandlers } from './aggregators'
+import { agentAdminHandlers } from './agentAdmin'
+import { merchantAdminHandlers } from './merchantAdmin'
 import { platformHandlers } from './platforms'
 import { reportAdminHandlers } from './reportAdmin'
 import { riskAdminHandlers } from './riskAdmin'
@@ -23,6 +25,8 @@ export const handlers = [
     ...financeHandlers,
     ...settingsHandlers,
     ...aggregatorsHandlers,
+    ...agentAdminHandlers,
+    ...merchantAdminHandlers,
     ...platformHandlers,
     ...reportAdminHandlers,
     ...riskAdminHandlers,

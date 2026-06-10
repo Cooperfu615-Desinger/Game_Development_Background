@@ -151,7 +151,13 @@
         "platforms": "Platform Analytics",
         "platformDetail": "Platform Detail",
         "aggregatorGroup": "Aggregator",
-        "playerAndAgent": "Players & Agents"
+        "playerAndAgent": "Players & Agents",
+        "agentGroup": "Agents",
+        "agentList": "Agent List",
+        "agentSettings": "Agent Settings",
+        "merchantGroup": "Merchants",
+        "merchantList": "Merchant List",
+        "merchantSettings": "Merchant Settings"
     },
     "layout": {
         "masterAdmin": "👑 Master Admin",

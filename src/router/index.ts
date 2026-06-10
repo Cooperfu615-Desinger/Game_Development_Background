@@ -97,9 +97,30 @@ const routes: RouteRecordRaw[] = [
                 component: () => import('../views/Platforms/Detail.vue'),
                 meta: { title: 'menu.platformDetail' }
             },
+            // ── 代理 / 商戶管理 ──────────────────────────
             {
                 path: 'agents',
-                redirect: '/platforms'
+                name: 'AgentList',
+                component: () => import('@/views/Agents/Index.vue'),
+                meta: { title: 'menu.agentList' }
+            },
+            {
+                path: 'agents/settings',
+                name: 'AgentSettings',
+                component: () => import('@/views/Agents/Settings.vue'),
+                meta: { title: 'menu.agentSettings' }
+            },
+            {
+                path: 'merchants',
+                name: 'MerchantList',
+                component: () => import('@/views/Merchants/Index.vue'),
+                meta: { title: 'menu.merchantList' }
+            },
+            {
+                path: 'merchants/settings',
+                name: 'MerchantSettings',
+                component: () => import('@/views/Merchants/Settings.vue'),
+                meta: { title: 'menu.merchantSettings' }
             },
             {
                 path: 'players',
@@ -132,6 +153,18 @@ const routes: RouteRecordRaw[] = [
                 name: 'TransactionsAbnormal',
                 component: () => import('../views/Transactions/Abnormal.vue'),
                 meta: { title: 'menu.transactionsAbnormal' }
+            },
+            {
+                path: 'orders/:id',
+                name: 'OrderDetail',
+                component: () => import('@/views/Detail/EntityDetail.vue'),
+                meta: { title: 'menu.orders' }
+            },
+            {
+                path: 'transactions/:id',
+                name: 'TransactionDetail',
+                component: () => import('@/views/Detail/EntityDetail.vue'),
+                meta: { title: 'menu.transactionList' }
             },
 
             // ── 報表 ─────────────────────────────────────

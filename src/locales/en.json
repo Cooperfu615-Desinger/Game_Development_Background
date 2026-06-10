@@ -108,6 +108,7 @@
         "players": "Player List",
         "orderGroup": "Orders & Transactions",
         "orders": "Bet Orders",
+        "transactionList": "Transactions",
         "ordersAbnormal": "Abnormal Orders",
         "transactionsAbnormal": "Abnormal Transactions",
         "reportGroup": "Reports",

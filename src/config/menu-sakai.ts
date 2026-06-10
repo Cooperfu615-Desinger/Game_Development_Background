@@ -69,6 +69,7 @@ export function buildSakaiMenu(t: Composer['t']): MenuGroup[] {
             label: t('menu.orderGroup'),
             items: [
                 { label: t('menu.orders'), icon: 'pi pi-fw pi-ticket', to: '/orders' },
+                { label: t('menu.transactionList'), icon: 'pi pi-fw pi-wallet', to: '/transactions' },
                 { label: t('menu.ordersAbnormal'), icon: 'pi pi-fw pi-exclamation-triangle', to: '/orders/abnormal' },
                 { label: t('menu.transactionsAbnormal'), icon: 'pi pi-fw pi-replay', to: '/transactions/abnormal' },
             ],

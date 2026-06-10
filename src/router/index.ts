@@ -116,6 +116,12 @@ const routes: RouteRecordRaw[] = [
                 meta: { title: 'menu.orders' }
             },
             {
+                path: 'transactions',
+                name: 'TransactionList',
+                component: () => import('@/views/Transactions/Index.vue'),
+                meta: { title: 'menu.transactionList' }
+            },
+            {
                 path: 'orders/abnormal',
                 name: 'OrdersAbnormal',
                 component: () => import('../views/Orders/Abnormal.vue'),

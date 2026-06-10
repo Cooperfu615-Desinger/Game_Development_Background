@@ -1,5 +1,5 @@
 import { http, HttpResponse, delay } from 'msw'
-import { expandDemoRows } from '@/utils/demoRows'
+import { expandDemoRows, rebaseDemoDates } from '@/utils/demoRows'
 
 // ──────────────────────────────────────────────────────────────
 // Types (copied verbatim from the demo .vue files)
@@ -401,11 +401,11 @@ export const jackpotAdminHandlers = [
     }),
     http.get('/api/jackpot/v2/settings', async () => {
         await delay(200)
-        return HttpResponse.json({
+        return HttpResponse.json(rebaseDemoDates({
             settings: SEED_SETTINGS,
             ruleTemplates: SEED_RULE_TEMPLATES,
             scheduleTemplates: SEED_SCHEDULE_TEMPLATES,
-        })
+        }))
     }),
     http.get('/api/jackpot/v2/transactions', async () => {
         await delay(250)

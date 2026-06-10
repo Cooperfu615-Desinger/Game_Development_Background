@@ -1,5 +1,5 @@
 import { http, HttpResponse, delay } from 'msw'
-import { expandDemoRows } from '@/utils/demoRows'
+import { expandDemoRows, rebaseDemoDates } from '@/utils/demoRows'
 
 // ──────────────────────────────────────────────────────────────
 // Types (copied verbatim from the demo .vue files)
@@ -807,7 +807,7 @@ export const systemAdminHandlers = [
     }),
     http.get('/api/system/v2/roles', async () => {
         await delay(200)
-        return HttpResponse.json(SEED_ROLES)
+        return HttpResponse.json(rebaseDemoDates(SEED_ROLES))
     }),
     http.get('/api/system/v2/logs', async () => {
         await delay(300)
@@ -819,10 +819,10 @@ export const systemAdminHandlers = [
     }),
     http.get('/api/system/v2/currencies', async () => {
         await delay(150)
-        return HttpResponse.json(SEED_CURRENCIES)
+        return HttpResponse.json(rebaseDemoDates(SEED_CURRENCIES))
     }),
     http.get('/api/system/v2/languages', async () => {
         await delay(150)
-        return HttpResponse.json(SEED_LANGUAGES)
+        return HttpResponse.json(rebaseDemoDates(SEED_LANGUAGES))
     }),
 ]

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { computed } from 'vue'
 import { useStorage } from '@vueuse/core'
+import { tokenForPortal, type PortalType } from '@/services/auth/mockToken'
 
 export interface UserInfo {
     name: string
@@ -14,6 +15,10 @@ export const useAuthStore = defineStore('auth', () => {
 
     const isAuthenticated = computed(() => !!token.value)
 
+    const applyMockIdentity = (portal: PortalType) => {
+        token.value = tokenForPortal(portal)
+    }
+
     const login = async (username: string, password: string): Promise<{ success: boolean; message?: string }> => {
         try {
             const response = await fetch('/api/login', {
@@ -25,7 +30,7 @@ export const useAuthStore = defineStore('auth', () => {
             const data = await response.json()
 
             if (data.success) {
-                token.value = data.token
+                applyMockIdentity('supplier')
                 userInfo.value = { name: data.name, email: data.email }
                 return { success: true }
             } else {
@@ -47,6 +52,7 @@ export const useAuthStore = defineStore('auth', () => {
         userInfo,
         isAuthenticated,
         login,
-        logout
+        logout,
+        applyMockIdentity
     }
 })

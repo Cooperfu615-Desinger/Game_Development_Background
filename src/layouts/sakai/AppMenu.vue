@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { buildSakaiMenu } from '@/config/menu-sakai'
+import { buildMenuForPortal } from '@/config/menu-sakai'
+import { usePortalStore } from '@/stores/portal'
 import AppMenuItem from './AppMenuItem.vue'
 
 const { t } = useI18n()
-const model = computed(() => buildSakaiMenu(t))
+const portal = usePortalStore()
+const model = computed(() => buildMenuForPortal(t, portal.currentType))
 </script>
 
 <template>

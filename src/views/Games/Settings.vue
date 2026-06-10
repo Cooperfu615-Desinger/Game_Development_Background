@@ -7,6 +7,7 @@
 -->
 <script setup lang="ts">
 import { reactive, ref, onMounted } from 'vue'
+import { api } from '@/services/apiClient'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import InputText from 'primevue/inputtext'
@@ -33,8 +34,7 @@ const loading = ref(true)
 
 onMounted(async () => {
     try {
-        const res = await fetch('/api/games/v2/settings')
-        const data = await res.json()
+        const data = await api.get<any>('/api/games/v2/settings')
         maintenanceTemplates.splice(
             0,
             maintenanceTemplates.length,

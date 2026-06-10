@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive, ref, onMounted } from 'vue';
+import { api } from '@/services/apiClient';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import InputText from 'primevue/inputtext';
@@ -53,8 +54,7 @@ const loading = ref(true);
 
 onMounted(async () => {
   try {
-    const res = await fetch('/api/games/v2/merchant-access');
-    const data: AccessRow[] = await res.json();
+    const data = await api.get<AccessRow[]>('/api/games/v2/merchant-access');
     accessRows.splice(0, accessRows.length, ...data);
   } finally {
     loading.value = false;

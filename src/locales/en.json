@@ -20,6 +20,8 @@
         "reset": "Reset",
         "action": "Action",
         "status": "Status",
+        "403": "Forbidden",
+        "404": "Page Not Found",
         "subscription": {
             "title": "Provider Subscriptions",
             "revenueShare": "Revenue Share (%)",

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive, ref, onMounted } from 'vue';
+import { api } from '@/services/apiClient';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import InputText from 'primevue/inputtext';
@@ -59,8 +60,8 @@ const loading = ref(true);
 
 onMounted(async () => {
   try {
-    const res = await fetch('/api/system/v2/currencies');
-    currencyRows.splice(0, currencyRows.length, ...await res.json());
+    const data = await api.get<CurrencyRow[]>('/api/system/v2/currencies');
+    currencyRows.splice(0, currencyRows.length, ...data);
   } finally {
     loading.value = false;
   }

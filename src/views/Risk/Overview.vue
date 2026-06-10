@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive, ref, onMounted } from 'vue';
+import { api } from '@/services/apiClient';
 import { useRouter } from 'vue-router';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
@@ -59,8 +60,7 @@ const loading = ref(true);
 
 onMounted(async () => {
   try {
-    const res = await fetch('/api/risk/v2/overview');
-    const data = await res.json();
+    const data = await api.get<any>('/api/risk/v2/overview');
     pendingAlerts.splice(0, pendingAlerts.length, ...(data.pendingAlerts ?? []));
     ruleHealthRows.splice(0, ruleHealthRows.length, ...(data.ruleHealthRows ?? []));
   } finally {

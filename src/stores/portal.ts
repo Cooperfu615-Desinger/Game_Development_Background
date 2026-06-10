@@ -11,6 +11,10 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import type { PortalType, PortalDefinition } from '@/types/portal'
+import { useAuthStore } from '@/stores/auth'
+import { usePermissionStore } from '@/stores/permission'
+import { PORTAL_IDENTITIES } from '@/services/auth/mockToken'
+import router from '@/router'
 
 export const usePortalStore = defineStore(
     'portal',
@@ -30,8 +34,18 @@ export const usePortalStore = defineStore(
         })
 
         // ─── Actions ──────────────────────────────────────────
-        const switchPortal = (type: PortalType) => {
+        // 同步 portal 狀態（token / role / currentType），不導頁 —
+        // 供 router.beforeEach 在 deep-link 進入 /agent/* 時使用，避免打斷當前導航。
+        const syncPortal = (type: PortalType) => {
             currentType.value = type
+            useAuthStore().applyMockIdentity(type)
+            usePermissionStore().switchRole(PORTAL_IDENTITIES[type].role)
+        }
+
+        const switchPortal = (type: PortalType) => {
+            syncPortal(type)
+            const home = type === 'supplier' ? '/dashboard' : `/${type}/dashboard`
+            router.push(home).catch(() => {})
         }
 
         const reset = () => {
@@ -42,6 +56,7 @@ export const usePortalStore = defineStore(
             portals,
             currentType,
             current,
+            syncPortal,
             switchPortal,
             reset,
         }

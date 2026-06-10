@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive, ref, onMounted } from 'vue';
+import { api } from '@/services/apiClient';
 import { useRouter } from 'vue-router';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
@@ -55,8 +56,8 @@ const loading = ref(true);
 
 onMounted(async () => {
   try {
-    const res = await fetch('/api/jackpot/v2/list');
-    jackpotRows.splice(0, jackpotRows.length, ...await res.json());
+    const data = await api.get<JackpotRow[]>('/api/jackpot/v2/list');
+    jackpotRows.splice(0, jackpotRows.length, ...data);
   } finally {
     loading.value = false;
   }

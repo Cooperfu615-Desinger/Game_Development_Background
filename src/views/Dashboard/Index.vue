@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive, ref, onMounted } from 'vue';
+import { api } from '@/services/apiClient';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Select from 'primevue/select';
@@ -70,16 +71,16 @@ const loadingMerchants = ref(true);
 
 onMounted(async () => {
   try {
-    const [kpiRes, trendRes, rankRes, riskRes] = await Promise.all([
-      fetch('/api/dashboard/v2/kpis'),
-      fetch('/api/dashboard/v2/revenue-trend'),
-      fetch('/api/dashboard/v2/merchant-rank'),
-      fetch('/api/dashboard/v2/risk-alerts')
+    const [kpiData, trendData, rankData, riskData] = await Promise.all([
+      api.get<DashboardKpi[]>('/api/dashboard/v2/kpis'),
+      api.get<RevenueTrendRow[]>('/api/dashboard/v2/revenue-trend'),
+      api.get<MerchantRankRow[]>('/api/dashboard/v2/merchant-rank'),
+      api.get<RiskAlertRow[]>('/api/dashboard/v2/risk-alerts')
     ]);
-    kpis.splice(0, kpis.length, ...await kpiRes.json());
-    revenueRows.splice(0, revenueRows.length, ...await trendRes.json());
-    topMerchantRows.splice(0, topMerchantRows.length, ...await rankRes.json());
-    latestRiskRows.splice(0, latestRiskRows.length, ...await riskRes.json());
+    kpis.splice(0, kpis.length, ...kpiData);
+    revenueRows.splice(0, revenueRows.length, ...trendData);
+    topMerchantRows.splice(0, topMerchantRows.length, ...rankData);
+    latestRiskRows.splice(0, latestRiskRows.length, ...riskData);
   } finally {
     loadingMerchants.value = false;
   }

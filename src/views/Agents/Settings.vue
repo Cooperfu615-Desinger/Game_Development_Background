@@ -96,7 +96,7 @@ const agentSections: AgentSection[] = [
     fields: [
       { key: 'code', label: '代理代號', type: 'text', helper: '正式建立後不建議修改。' },
       { key: 'name', label: '代理名稱', type: 'text' },
-      { key: 'parentAgent', label: '上級代理', type: 'select', options: ['無', 'AG-001 星河代理', 'AG-003 Global Partner'] },
+      { key: 'parentAgent', label: '上級代理', type: 'select', options: ['無', 'AG-001 Asia Master', 'AG-003 Global Partner'] },
       { key: 'status', label: '代理狀態', type: 'select', options: ['啟用', '測試中', '待審核', '停用'] },
       { key: 'enabled', label: '啟用代理', type: 'switch', helper: '停用不會刪除資料，只停止後續營運操作。' },
       { key: 'testMode', label: '測試模式', type: 'switch' }

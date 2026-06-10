@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Skeleton from 'primevue/skeleton'
 import VChart from 'vue-echarts'
+import '@/plugins/echarts'
 import type { EChartsOption } from 'echarts'
 
 defineProps<{

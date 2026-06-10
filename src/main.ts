@@ -5,7 +5,7 @@ import router from './router'
 import './style.css'
 import App from './App.vue'
 import i18n from './i18n'
-import './plugins/echarts'
+// echarts 註冊已移到使用它的元件（Platforms/Players），不進首屏 bundle
 import { setupPrimeVue } from './plugins/primevue'
 
 async function prepareApp() {

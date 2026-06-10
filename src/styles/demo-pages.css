@@ -2110,7 +2110,7 @@
   padding: 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: rgba(255,255,255,.92);
+  background: var(--surface);
   box-shadow: var(--shadow);
   backdrop-filter: blur(12px);
 }

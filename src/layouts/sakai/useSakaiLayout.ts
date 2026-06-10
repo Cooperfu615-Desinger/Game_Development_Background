@@ -47,7 +47,7 @@ const persisted = readPersisted()
 
 // ─── State — module-level shared ───────────────────────────────────────────
 const layoutConfig = reactive<LayoutConfig>({
-    darkTheme: persisted.darkTheme ?? true,   // 預設深色（搭配現有 dark Naive UI 頁面）
+    darkTheme: persisted.darkTheme ?? false,  // 預設亮色（對齊參考 demo；demo-pages.css 為亮色設計）
     menuMode: 'static',
 })
 

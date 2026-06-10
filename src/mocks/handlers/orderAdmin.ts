@@ -1,5 +1,6 @@
 import { http, HttpResponse, delay } from 'msw'
 import { expandDemoRows } from '@/utils/demoRows'
+import { scopeRows } from '@/mocks/scope'
 
 // ──────────────────────────────────────────────────────────────
 // Types (copied verbatim from the demo .vue files)
@@ -507,20 +508,20 @@ const SEED_ABNORMAL_TXS: AbnormalTransactionRow[] = expandDemoRows([
 // ──────────────────────────────────────────────────────────────
 
 export const orderAdminHandlers = [
-    http.get('/api/orders/v2/list', async () => {
+    http.get('/api/orders/v2/list', async ({ request }) => {
         await delay(250)
-        return HttpResponse.json(SEED_ORDERS)
+        return HttpResponse.json(scopeRows(request, SEED_ORDERS, { merchantKey: 'merchant' }))
     }),
-    http.get('/api/orders/v2/abnormal', async () => {
+    http.get('/api/orders/v2/abnormal', async ({ request }) => {
         await delay(250)
-        return HttpResponse.json(SEED_ABNORMAL_ORDERS)
+        return HttpResponse.json(scopeRows(request, SEED_ABNORMAL_ORDERS, { merchantKey: 'merchant' }))
     }),
-    http.get('/api/transactions/v2/list', async () => {
+    http.get('/api/transactions/v2/list', async ({ request }) => {
         await delay(250)
-        return HttpResponse.json(SEED_TRANSACTIONS)
+        return HttpResponse.json(scopeRows(request, SEED_TRANSACTIONS, { merchantKey: 'merchant' }))
     }),
-    http.get('/api/transactions/v2/abnormal', async () => {
+    http.get('/api/transactions/v2/abnormal', async ({ request }) => {
         await delay(250)
-        return HttpResponse.json(SEED_ABNORMAL_TXS)
+        return HttpResponse.json(scopeRows(request, SEED_ABNORMAL_TXS, { merchantKey: 'merchant' }))
     }),
 ]

@@ -1,5 +1,6 @@
 import { http, HttpResponse, delay } from 'msw'
 import { expandDemoRows } from '@/utils/demoRows'
+import { scopeRows } from '@/mocks/scope'
 
 // ──────────────────────────────────────────────────────────────
 // Types (fields copied verbatim from the demo merchantRows seed)
@@ -179,8 +180,8 @@ const SEED_LIST: MerchantRow[] = expandDemoRows([
 // ──────────────────────────────────────────────────────────────
 
 export const merchantAdminHandlers = [
-    http.get('/api/merchants/v2/list', async () => {
+    http.get('/api/merchants/v2/list', async ({ request }) => {
         await delay(250)
-        return HttpResponse.json(SEED_LIST)
+        return HttpResponse.json(scopeRows(request, SEED_LIST, { agentKey: 'agent', merchantKey: 'code' }))
     }),
 ]

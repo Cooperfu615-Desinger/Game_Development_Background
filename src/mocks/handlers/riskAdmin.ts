@@ -1,5 +1,6 @@
 import { http, HttpResponse, delay } from 'msw'
 import { expandDemoRows, rebaseDemoDates } from '@/utils/demoRows'
+import { scopeRows } from '@/mocks/scope'
 
 // ──────────────────────────────────────────────────────────────
 // Types (copied verbatim from the demo .vue files)
@@ -627,17 +628,17 @@ export const riskAdminHandlers = [
             ruleHealthRows: SEED_RULE_HEALTH,
         }))
     }),
-    http.get('/api/risk/v2/alerts', async () => {
+    http.get('/api/risk/v2/alerts', async ({ request }) => {
         await delay(250)
-        return HttpResponse.json(SEED_ALERTS)
+        return HttpResponse.json(scopeRows(request, SEED_ALERTS, { merchantKey: 'merchant' }))
     }),
     http.get('/api/risk/v2/rules', async () => {
         await delay(250)
         return HttpResponse.json(SEED_RULES)
     }),
-    http.get('/api/risk/v2/cases', async () => {
+    http.get('/api/risk/v2/cases', async ({ request }) => {
         await delay(250)
-        return HttpResponse.json(SEED_CASES)
+        return HttpResponse.json(scopeRows(request, SEED_CASES, { merchantKey: 'merchant' }))
     }),
     http.get('/api/risk/v2/actions', async () => {
         await delay(250)

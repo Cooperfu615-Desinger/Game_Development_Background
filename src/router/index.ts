@@ -133,6 +133,18 @@ const routes: RouteRecordRaw[] = [
                 component: () => import('../views/Transactions/Abnormal.vue'),
                 meta: { title: 'menu.transactionsAbnormal' }
             },
+            {
+                path: 'orders/:id',
+                name: 'OrderDetail',
+                component: () => import('@/views/Detail/EntityDetail.vue'),
+                meta: { title: 'menu.orders' }
+            },
+            {
+                path: 'transactions/:id',
+                name: 'TransactionDetail',
+                component: () => import('@/views/Detail/EntityDetail.vue'),
+                meta: { title: 'menu.transactionList' }
+            },
 
             // ── 報表 ─────────────────────────────────────
             {

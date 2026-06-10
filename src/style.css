@@ -6,6 +6,8 @@
 @import 'primeicons/primeicons.css';
 /* Game pages shared utilities (from reference demo, mapped to --hig-*) */
 @import './styles/game-pages.css';
+/* Demo 頁面級樣式整包移植（腳本產生，排除 chrome 與 game-pages.css 同名 selector） */
+@import './styles/demo-pages.css';
 
 @tailwind base;
 @tailwind components;

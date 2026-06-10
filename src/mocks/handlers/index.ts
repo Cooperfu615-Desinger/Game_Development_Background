@@ -1,5 +1,5 @@
 import { authHandlers } from './auth'
-import { dashboardHandlers } from './dashboard'
+import { dashboardAdminHandlers } from './dashboardAdmin'
 import { gameHandlers } from './games'
 import { gameAdminHandlers } from './gameAdmin'
 import { orderAdminHandlers } from './orderAdmin'
@@ -15,7 +15,7 @@ import { jackpotAdminHandlers } from './jackpotAdmin'
 
 export const handlers = [
     ...authHandlers,
-    ...dashboardHandlers,
+    ...dashboardAdminHandlers,
     ...gameHandlers,
     ...gameAdminHandlers,
     ...orderAdminHandlers,

@@ -5,6 +5,7 @@ import ConfirmDialog from 'primevue/confirmdialog'
 import { useSakaiLayout } from './useSakaiLayout'
 import AppTopbar from './AppTopbar.vue'
 import AppSidebar from './AppSidebar.vue'
+import AppBreadcrumb from './AppBreadcrumb.vue'
 import AppFooter from './AppFooter.vue'
 import './sakai-layout.css'
 
@@ -26,6 +27,7 @@ const containerClass = computed(() => ({
 
         <div class="layout-main-container">
             <main class="layout-main">
+                <AppBreadcrumb />
                 <router-view />
             </main>
             <AppFooter />

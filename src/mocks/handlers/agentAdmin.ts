@@ -26,7 +26,7 @@ type AgentRow = {
 const SEED_LIST: AgentRow[] = [
     {
         code: 'AG-001',
-        name: '星河代理',
+        name: 'Asia Master',
         parentAgent: '-',
         contact: 'Iris Chen',
         merchantCount: 12,

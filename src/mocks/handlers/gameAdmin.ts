@@ -33,6 +33,35 @@ type BaseSettings = {
     requireApprovalForProduction: boolean
 }
 
+// From Index.vue (game list, demo gameRows shape)
+type GameRow = {
+    code: string
+    name: string
+    type: string
+    status: string
+    environmentMode: string
+    platform: string[]
+    currencies: string[]
+    languages: string[]
+    version: string
+    mathVersion: string
+    rtp: string
+    volatility: string
+    merchantCount: number
+    visibleMerchants: string[]
+    limitTemplates: string[]
+    defaultLimitTemplate: string
+    minBet: number
+    maxBet: number
+    maintenance: boolean
+    maintenanceStart: string
+    maintenanceEnd: string
+    technicalOwner: string
+    packageId: string
+    assetVersion: string
+    note: string
+}
+
 // From Math.vue
 type MathRow = {
     id: string
@@ -135,6 +164,117 @@ const BASE_SETTINGS: BaseSettings = {
     defaultMaintenanceCycle: '每日',
     requireApprovalForProduction: true,
 }
+
+const SEED_GAMES: GameRow[] = [
+    {
+        code: 'GAME-001',
+        name: 'Fortune Tiger',
+        type: '老虎機',
+        status: '上架',
+        environmentMode: '正式',
+        platform: ['H5', 'Web'],
+        currencies: ['USDT', 'USD'],
+        languages: ['繁中', '英文'],
+        version: 'v2.4.1',
+        mathVersion: 'RTP 96.50%',
+        rtp: '96.50%',
+        volatility: '中高',
+        merchantCount: 18,
+        visibleMerchants: ['MER-001 Golden Dragon', 'MER-002 LuckyPlay', 'MER-003 Nova Gaming'],
+        limitTemplates: ['標準限額', '高額限額'],
+        defaultLimitTemplate: '標準限額',
+        minBet: 1,
+        maxBet: 5000,
+        maintenance: false,
+        maintenanceStart: '',
+        maintenanceEnd: '',
+        technicalOwner: 'Game Tech',
+        packageId: 'fortune-tiger-h5',
+        assetVersion: 'asset-2026.05',
+        note: '正式版本穩定',
+    },
+    {
+        code: 'GAME-002',
+        name: 'Royal Spin',
+        type: '老虎機',
+        status: '維護中',
+        environmentMode: '正式',
+        platform: ['H5'],
+        currencies: ['TWD', 'USDT'],
+        languages: ['繁中'],
+        version: 'v1.9.8',
+        mathVersion: 'RTP 95.80%',
+        rtp: '95.80%',
+        volatility: '中',
+        merchantCount: 12,
+        visibleMerchants: ['MER-001 Golden Dragon', 'MER-002 LuckyPlay', 'MER-004 Royal H5'],
+        limitTemplates: ['低風險限額', '標準限額'],
+        defaultLimitTemplate: '低風險限額',
+        minBet: 5,
+        maxBet: 3000,
+        maintenance: true,
+        maintenanceStart: '2026-05-20T02:00:00',
+        maintenanceEnd: '2026-05-20T04:00:00',
+        technicalOwner: 'Platform Team',
+        packageId: 'royal-spin-h5',
+        assetVersion: 'asset-2026.04',
+        note: '錢包回調壓測中',
+    },
+    {
+        code: 'GAME-003',
+        name: 'Baccarat Pro',
+        type: '桌遊',
+        status: '測試中',
+        environmentMode: '測試',
+        platform: ['Web'],
+        currencies: ['USD', 'USDT'],
+        languages: ['英文', '泰文'],
+        version: 'v3.1.0-beta',
+        mathVersion: 'RTP 98.10%',
+        rtp: '98.10%',
+        volatility: '低',
+        merchantCount: 5,
+        visibleMerchants: ['MER-003 Nova Gaming'],
+        limitTemplates: ['標準限額'],
+        defaultLimitTemplate: '標準限額',
+        minBet: 10,
+        maxBet: 10000,
+        maintenance: false,
+        maintenanceStart: '',
+        maintenanceEnd: '',
+        technicalOwner: 'Table Game Team',
+        packageId: 'baccarat-pro-web',
+        assetVersion: 'asset-2026.05-beta',
+        note: '等待 QA 驗收',
+    },
+    {
+        code: 'GAME-004',
+        name: 'Crash Rocket',
+        type: '小遊戲',
+        status: '待審核',
+        environmentMode: '測試',
+        platform: ['H5', 'Web'],
+        currencies: ['USDT'],
+        languages: ['繁中', '英文', '越南文'],
+        version: 'v0.8.3',
+        mathVersion: 'RTP 97.20%',
+        rtp: '97.20%',
+        volatility: '高',
+        merchantCount: 0,
+        visibleMerchants: [],
+        limitTemplates: ['高額限額', 'VIP 限額'],
+        defaultLimitTemplate: '高額限額',
+        minBet: 1,
+        maxBet: 2000,
+        maintenance: false,
+        maintenanceStart: '',
+        maintenanceEnd: '',
+        technicalOwner: 'Game Lab',
+        packageId: 'crash-rocket-beta',
+        assetVersion: 'asset-2026.05-dev',
+        note: '待數值審核',
+    },
+]
 
 const SEED_MATH: MathRow[] = [
     {
@@ -416,6 +556,11 @@ const SEED_ACCESS: AccessRow[] = [
 // ──────────────────────────────────────────────────────────────
 
 export const gameAdminHandlers = [
+    http.get('/api/games/v2/list', async () => {
+        await delay(250)
+        return HttpResponse.json(expandDemoRows(SEED_GAMES))
+    }),
+
     http.get('/api/games/v2/settings', async () => {
         await delay(200)
         return HttpResponse.json({

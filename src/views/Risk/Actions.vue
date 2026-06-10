@@ -11,6 +11,8 @@ import Dialog from 'primevue/dialog';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SectionCard from '@/components/ui/SectionCard.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
+import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
+import FilterCard from '@/components/ui/FilterCard.vue';
 
 type Severity = 'success' | 'info' | 'warn' | 'danger' | 'secondary';
 
@@ -124,21 +126,9 @@ function openDetail(row: RiskActionRow) {
 
 <template>
   <div class="page-stack risk-actions-page">
-    <div class="agent-summary-grid">
-      <article v-for="item in summaryCards" :key="item.label" class="agent-summary-card">
-        <span>{{ item.label }}</span>
-        <strong>{{ item.value }}</strong>
-        <small>{{ item.helper }}</small>
-      </article>
-    </div>
+    <SummaryCardGrid :cards="summaryCards" />
 
-    <SectionCard class="merchant-filter-card">
-      <template #header>
-        <div class="dialog-title-block">
-          <h2>查詢條件</h2>
-          <p>查詢風控告警、案件、規則與交易處置的不可竄改操作紀錄。</p>
-        </div>
-      </template>
+    <FilterCard title="查詢條件" description="查詢風控告警、案件、規則與交易處置的不可竄改操作紀錄。">
 
       <div class="trade-filter-grid">
         <div class="field trade-filter-keyword">
@@ -175,7 +165,7 @@ function openDetail(row: RiskActionRow) {
           <Button label="重置" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" />
         </div>
       </div>
-    </SectionCard>
+    </FilterCard>
 
     <div class="agent-command-bar">
       <div>

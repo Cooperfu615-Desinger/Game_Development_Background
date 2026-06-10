@@ -12,6 +12,8 @@ import CurrencyAmount from '@/components/ui/CurrencyAmount.vue';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SectionCard from '@/components/ui/SectionCard.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
+import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
+import FilterCard from '@/components/ui/FilterCard.vue';
 
 type Severity = 'success' | 'info' | 'warn' | 'danger' | 'secondary';
 
@@ -202,13 +204,7 @@ function resetFilters() {
 
 <template>
   <div class="page-stack reports-page game-report-page">
-    <SectionCard class="merchant-filter-card">
-      <template #header>
-        <div class="dialog-title-block">
-          <h2>查詢條件</h2>
-          <p>依時間、遊戲、商戶、類型、幣別與狀態查詢遊戲投注、派彩、GGR 與 RTP。</p>
-        </div>
-      </template>
+    <FilterCard title="查詢條件" description="依時間、遊戲、商戶、類型、幣別與狀態查詢遊戲投注、派彩、GGR 與 RTP。">
 
       <div class="trade-filter-grid">
         <DateTimeRangeField v-model="filters.range" class="trade-date-range" />
@@ -241,19 +237,9 @@ function resetFilters() {
           <Button label="重置" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" />
         </div>
       </div>
-    </SectionCard>
+    </FilterCard>
 
-    <section class="agent-summary-grid">
-      <article v-for="item in summaryCards" :key="item.label" class="agent-summary-card">
-        <div class="risk-overview-kpi-head">
-          <span class="agent-section-icon"><i :class="item.icon" /></span>
-          <Tag :value="item.label" :severity="item.severity" />
-        </div>
-        <span>{{ item.label }}</span>
-        <strong>{{ item.value }}</strong>
-        <small>{{ item.helper }}</small>
-      </article>
-    </section>
+    <SummaryCardGrid :cards="summaryCards" />
 
     <section class="risk-overview-chart-grid">
       <SectionCard class="chart-card chart-card-large">

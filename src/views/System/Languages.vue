@@ -15,6 +15,7 @@ import ProgressBar from 'primevue/progressbar';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SectionCard from '@/components/ui/SectionCard.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
+import FilterCard from '@/components/ui/FilterCard.vue';
 
 type Severity = 'success' | 'info' | 'warn' | 'danger' | 'secondary';
 type LanguageStatus = '啟用' | '停用' | '待審核';
@@ -257,13 +258,7 @@ function isWithinRange(value: string, range: [Date | null, Date | null]) {
       </SectionCard>
     </section>
 
-    <SectionCard class="merchant-filter-card">
-      <template #header>
-        <div class="dialog-title-block">
-          <h2>查詢條件</h2>
-          <p>查詢語系代碼、Portal 顯示、遊戲素材支援、翻譯覆蓋率與狀態。</p>
-        </div>
-      </template>
+    <FilterCard title="查詢條件" description="查詢語系代碼、Portal 顯示、遊戲素材支援、翻譯覆蓋率與狀態。">
 
       <div class="trade-filter-grid">
         <div class="field trade-filter-keyword">
@@ -288,7 +283,7 @@ function isWithinRange(value: string, range: [Date | null, Date | null]) {
           <Button label="重置" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" />
         </div>
       </div>
-    </SectionCard>
+    </FilterCard>
 
     <div class="agent-command-bar">
       <div>

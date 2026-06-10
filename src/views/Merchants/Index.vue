@@ -17,6 +17,8 @@ import StatusTag from '@/components/ui/StatusTag.vue';
 import CurrencyAmount from '@/components/ui/CurrencyAmount.vue';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
+import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
+import FilterCard from '@/components/ui/FilterCard.vue';
 
 type MerchantRow = Record<string, unknown>;
 type DialogMode = 'view' | 'edit' | 'create';
@@ -260,21 +262,9 @@ function confirmDisableMerchant() {
 
 <template>
   <div class="page-stack merchant-list-page">
-    <div class="agent-summary-grid">
-      <article v-for="item in merchantSummary" :key="item.label" class="agent-summary-card">
-        <span>{{ item.label }}</span>
-        <strong>{{ item.value }}</strong>
-        <small>{{ item.helper }}</small>
-      </article>
-    </div>
+    <SummaryCardGrid :cards="merchantSummary" />
 
-    <SectionCard class="merchant-filter-card">
-      <template #header>
-        <div class="dialog-title-block">
-          <h2>查詢條件</h2>
-          <p>查詢商戶基本資料、環境模式、API 狀態、錢包類型與支援幣別。</p>
-        </div>
-      </template>
+    <FilterCard title="查詢條件" description="查詢商戶基本資料、環境模式、API 狀態、錢包類型與支援幣別。">
       <div class="merchant-filter-grid">
         <template v-for="field in merchantFilters" :key="field.key">
           <DateTimeRangeField
@@ -294,7 +284,7 @@ function confirmDisableMerchant() {
           <Button label="重置" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" />
         </div>
       </div>
-    </SectionCard>
+    </FilterCard>
 
     <div class="toolbar-row">
       <span><Badge :value="rows.length" severity="info" /> 筆商戶</span>

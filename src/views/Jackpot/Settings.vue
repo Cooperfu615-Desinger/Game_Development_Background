@@ -12,6 +12,7 @@ import SelectButton from 'primevue/selectbutton';
 import SectionCard from '@/components/ui/SectionCard.vue';
 import StatusTag from '@/components/ui/StatusTag.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
+import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
 
 type RuleTemplate = {
   id: string;
@@ -106,13 +107,7 @@ function openRule(row?: RuleTemplate) {
 
 <template>
   <div class="page-stack jackpot-settings-page">
-    <div class="agent-summary-grid">
-      <article v-for="item in summaryCards" :key="item.label" class="agent-summary-card">
-        <span>{{ item.label }}</span>
-        <strong>{{ item.value }}</strong>
-        <small>{{ item.helper }}</small>
-      </article>
-    </div>
+    <SummaryCardGrid :cards="summaryCards" />
 
     <SectionCard>
       <template #header>

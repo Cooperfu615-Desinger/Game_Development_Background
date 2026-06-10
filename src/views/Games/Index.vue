@@ -17,6 +17,8 @@ import SectionCard from '@/components/ui/SectionCard.vue';
 import StatusTag from '@/components/ui/StatusTag.vue';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
+import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
+import FilterCard from '@/components/ui/FilterCard.vue';
 
 type GameRow = Record<string, unknown>;
 type DialogMode = 'view' | 'edit' | 'create';
@@ -292,13 +294,7 @@ function confirmMaintenance() {
 
 <template>
   <div class="page-stack game-list-page">
-    <div class="agent-summary-grid">
-      <article v-for="item in gameSummary" :key="item.label" class="agent-summary-card">
-        <span>{{ item.label }}</span>
-        <strong>{{ item.value }}</strong>
-        <small>{{ item.helper }}</small>
-      </article>
-    </div>
+    <SummaryCardGrid :cards="gameSummary" />
 
     <section class="technical-owner-banner">
       <i class="pi pi-code" />
@@ -308,13 +304,7 @@ function confirmMaintenance() {
       </div>
     </section>
 
-    <SectionCard class="merchant-filter-card">
-      <template #header>
-        <div class="dialog-title-block">
-          <h2>查詢條件</h2>
-          <p>查詢遊戲主檔、環境模式、上下架狀態、維護狀態與支援平台。</p>
-        </div>
-      </template>
+    <FilterCard title="查詢條件" description="查詢遊戲主檔、環境模式、上下架狀態、維護狀態與支援平台。">
       <div class="merchant-filter-grid">
         <template v-for="field in gameFilters" :key="field.key">
           <DateTimeRangeField
@@ -334,7 +324,7 @@ function confirmMaintenance() {
           <Button label="重置" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" />
         </div>
       </div>
-    </SectionCard>
+    </FilterCard>
 
     <div class="agent-command-bar">
       <div>

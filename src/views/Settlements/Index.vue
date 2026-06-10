@@ -14,6 +14,8 @@ import CurrencyAmount from '@/components/ui/CurrencyAmount.vue';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SectionCard from '@/components/ui/SectionCard.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
+import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
+import FilterCard from '@/components/ui/FilterCard.vue';
 
 type SettlementStatus = '待對帳' | '對帳中' | '待審核' | '已鎖定' | '爭議中';
 type Severity = 'success' | 'info' | 'warn' | 'danger' | 'secondary';
@@ -164,13 +166,7 @@ function resetFilters() {
 
 <template>
   <div class="page-stack settlements-page">
-    <SectionCard class="merchant-filter-card">
-      <template #header>
-        <div class="dialog-title-block">
-          <h2>查詢條件</h2>
-          <p>查詢商戶、代理、週期、幣別、分潤、調整項與鎖定狀態。</p>
-        </div>
-      </template>
+    <FilterCard title="查詢條件" description="查詢商戶、代理、週期、幣別、分潤、調整項與鎖定狀態。">
 
       <div class="trade-filter-grid">
         <div class="field trade-filter-keyword">
@@ -203,19 +199,9 @@ function resetFilters() {
           <Button label="重置" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" />
         </div>
       </div>
-    </SectionCard>
+    </FilterCard>
 
-    <section class="agent-summary-grid">
-      <article v-for="item in summaryCards" :key="item.label" class="agent-summary-card">
-        <div class="risk-overview-kpi-head">
-          <span class="agent-section-icon"><i :class="item.icon" /></span>
-          <Tag :value="item.label" :severity="item.severity" />
-        </div>
-        <span>{{ item.label }}</span>
-        <strong>{{ item.value }}</strong>
-        <small>{{ item.helper }}</small>
-      </article>
-    </section>
+    <SummaryCardGrid :cards="summaryCards" />
 
     <div class="toolbar-row">
       <div class="section-count">

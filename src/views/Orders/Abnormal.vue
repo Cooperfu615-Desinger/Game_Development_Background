@@ -15,6 +15,8 @@ import StatusTag from '@/components/ui/StatusTag.vue';
 import CurrencyAmount from '@/components/ui/CurrencyAmount.vue';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
+import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
+import FilterCard from '@/components/ui/FilterCard.vue';
 
 type AbnormalOrderRow = {
   caseId: string;
@@ -134,21 +136,9 @@ function openClose(row: AbnormalOrderRow) {
 
 <template>
   <div class="page-stack abnormal-orders-page">
-    <div class="agent-summary-grid">
-      <article v-for="item in summaryCards" :key="item.label" class="agent-summary-card">
-        <span>{{ item.label }}</span>
-        <strong>{{ item.value }}</strong>
-        <small>{{ item.helper }}</small>
-      </article>
-    </div>
+    <SummaryCardGrid :cards="summaryCards" />
 
-    <SectionCard class="merchant-filter-card">
-      <template #header>
-        <div class="dialog-title-block">
-          <h2>查詢條件</h2>
-          <p>查詢異常注單、退款補單、風控覆核與處理狀態。</p>
-        </div>
-      </template>
+    <FilterCard title="查詢條件" description="查詢異常注單、退款補單、風控覆核與處理狀態。">
 
       <div class="trade-filter-grid">
         <div class="field trade-filter-keyword">
@@ -185,7 +175,7 @@ function openClose(row: AbnormalOrderRow) {
           <Button label="重置" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" />
         </div>
       </div>
-    </SectionCard>
+    </FilterCard>
 
     <div class="agent-command-bar">
       <div>

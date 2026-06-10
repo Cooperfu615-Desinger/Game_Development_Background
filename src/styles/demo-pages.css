@@ -13,6 +13,7 @@
   --app-bg: #f6f8f7;
   --surface: rgba(255, 255, 255, 0.92);
   --surface-strong: #ffffff;
+  --surface-subtle: #fbfcfd;
   --surface-muted: #f0f5f3;
   --border: #dfe7e2;
   --text: #1f2933;
@@ -299,17 +300,17 @@
 }
 
 .dashboard-health-card--success i {
-  background: color-mix(in srgb, var(--success) 12%, #ffffff);
+  background: color-mix(in srgb, var(--success) 12%, var(--surface-strong));
   color: var(--success);
 }
 
 .dashboard-health-card--warning i {
-  background: color-mix(in srgb, var(--warning) 12%, #ffffff);
+  background: color-mix(in srgb, var(--warning) 12%, var(--surface-strong));
   color: var(--warning);
 }
 
 .dashboard-health-card--danger i {
-  background: color-mix(in srgb, var(--danger) 12%, #ffffff);
+  background: color-mix(in srgb, var(--danger) 12%, var(--surface-strong));
   color: var(--danger);
 }
 
@@ -345,7 +346,7 @@
   padding: 11px 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: #fbfcfd;
+  background: var(--surface-subtle);
 }
 
 .dashboard-note-list i {
@@ -1115,7 +1116,7 @@
   max-width: 42px;
   min-height: 18px;
   border-radius: 8px 8px 3px 3px;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--primary) 88%, #fff), var(--accent));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--primary) 88%, var(--surface-strong)), var(--accent));
 }
 
 .rtp-trend-bar small,
@@ -1591,7 +1592,7 @@
 }
 
 .agent-token--level.p-tag {
-  background: color-mix(in srgb, var(--accent) 12%, #ffffff);
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface-strong));
   color: var(--accent);
 }
 
@@ -2020,7 +2021,7 @@
   padding: 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: #fbfcfd;
+  background: var(--surface-subtle);
 }
 
 .settlement-money-grid span {
@@ -2080,7 +2081,7 @@
   padding: 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: #fbfcfd;
+  background: var(--surface-subtle);
 }
 
 .settlement-step p {
@@ -2403,7 +2404,7 @@
   height: 7px;
   overflow: hidden;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--border) 66%, #ffffff);
+  background: color-mix(in srgb, var(--border) 66%, var(--surface-strong));
 }
 
 .language-coverage-bar .p-progressbar-value {
@@ -2516,7 +2517,7 @@
   padding: 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: #fbfcfd;
+  background: var(--surface-subtle);
 }
 
 .system-role-meta-grid span {
@@ -2570,7 +2571,7 @@
   padding: 4px 8px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: #fbfcfd;
+  background: var(--surface-subtle);
 }
 
 .permission-checkbox-cell.active {
@@ -2607,7 +2608,7 @@
   overflow: auto;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: #fbfcfd;
+  background: var(--surface-subtle);
   font-size: var(--font-sm);
 }
 
@@ -2661,7 +2662,7 @@
   padding: 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: #fbfcfd;
+  background: var(--surface-subtle);
 }
 
 .permission-granted-head h3 {
@@ -2863,7 +2864,7 @@
   width: 40px;
   height: 40px;
   border-radius: var(--radius);
-  background: color-mix(in srgb, var(--danger) 12%, white);
+  background: color-mix(in srgb, var(--danger) 12%, var(--surface-strong));
   color: var(--danger);
   font-size: 18px;
 }
@@ -2919,7 +2920,7 @@
   padding: 12px;
   border: 1px solid color-mix(in srgb, var(--danger) 24%, var(--border));
   border-radius: var(--radius);
-  background: color-mix(in srgb, var(--danger) 7%, #ffffff);
+  background: color-mix(in srgb, var(--danger) 7%, var(--surface-strong));
 }
 
 .disable-agent-warning i {
@@ -2928,7 +2929,7 @@
   width: 32px;
   height: 32px;
   border-radius: var(--radius);
-  background: color-mix(in srgb, var(--danger) 12%, #ffffff);
+  background: color-mix(in srgb, var(--danger) 12%, var(--surface-strong));
   color: var(--danger);
   font-size: var(--font-md);
 }
@@ -2960,7 +2961,7 @@
   padding: 10px 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: #fbfcfd;
+  background: var(--surface-subtle);
 }
 
 .disable-agent-summary span {
@@ -3042,7 +3043,7 @@
 }
 
 .p-datatable .p-datatable-thead > tr > th {
-  background: #f8fafc;
+  background: var(--surface-subtle);
   color: var(--muted);
   font-size: var(--font-sm);
   font-weight: 800;
@@ -3584,4 +3585,31 @@
   .settlement-detail-actions > div {
     grid-template-columns: 1fr;
   }
+}
+
+/* ─── Dark Mode 覆蓋（Phase B4）──────────────────────────────────
+ * demo 原為純亮色設計，:root token 皆亮色值。Sakai chrome 與
+ * SectionCard 走 --hig-* token 已有深色版；本區塊把 demo 自有的
+ * 通用 token remap 成深色（對齊 --hig-* 深色面板），讓所有移植頁面
+ * 的 summary 卡 / 健康卡 / chart-box / note-list / risk-row /
+ * 巢狀背景 / color-mix tint 一併適配。寫死的白色 literal 已先
+ * token 化（#fbfcfd→--surface-subtle、color-mix 白底→--surface-strong）。
+ */
+html.app-dark {
+  --app-bg: #000000;
+  --surface: rgba(28, 28, 30, 0.92);
+  --surface-strong: #1c1c1e;   /* = --hig-bg-surface（卡片） */
+  --surface-subtle: #2c2c2e;   /* = --hig-bg-elevated（巢狀列/備註） */
+  --surface-muted: #2c2c2e;
+  --border: rgba(255, 255, 255, 0.12);
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(235, 235, 245, 0.6);
+  --navy: rgba(235, 235, 245, 0.85);
+  --primary: #0a84ff;          /* = --hig-blue（深色用高亮藍） */
+  --primary-soft: rgba(10, 132, 255, 0.18);
+  --accent: #3ba89b;           /* teal 提亮以維持深色對比 */
+  --success: #30d158;
+  --danger: #ff6961;
+  --warning: #ff9f0a;
+  --shadow: 0 18px 46px rgba(0, 0, 0, 0.55);
 }

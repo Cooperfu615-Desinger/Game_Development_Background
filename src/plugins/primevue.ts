@@ -72,18 +72,23 @@ const AppleHIG = definePreset(Aura, {
             },
             dark: {
                 surface: {
-                    0:   '#1C1C1E',    // Card / Modal 基底
-                    50:  '#2C2C2E',
-                    100: '#3A3A3C',
-                    200: '#48484A',
-                    300: '#636366',
-                    400: '#8E8E93',
-                    500: '#AEAEB2',
-                    600: '#C7C7CC',
-                    700: '#D1D1D6',
-                    800: '#E5E5EA',
-                    900: '#F2F2F7',
-                    950: '#FFFFFF',
+                    // 方向必須與 Aura 一致：0=最亮、950=最深。
+                    // Aura dark 把 content.background 映到 {surface.900}、
+                    // formField.background 映到 {surface.950}，故卡片/輸入框取
+                    // 高 index 的深色。先前此 scale 寫反（0=深、950=白）→ 輸入框
+                    // 變白底白字。
+                    0:   '#FFFFFF',
+                    50:  '#F2F2F7',
+                    100: '#E5E5EA',
+                    200: '#D1D1D6',
+                    300: '#C7C7CC',
+                    400: '#AEAEB2',
+                    500: '#8E8E93',
+                    600: '#636366',
+                    700: '#48484A',
+                    800: '#2C2C2E',
+                    900: '#1C1C1E',    // content.background — 卡片 / Modal / 表格
+                    950: '#000000',    // formField.background — 輸入框（macOS 深色系統底）
                 },
                 primary: {
                     color: '{primary.400}',
@@ -102,13 +107,14 @@ export function setupPrimeVue(app: App) {
         theme: {
             preset: AppleHIG,
             options: {
-                // 用 .app-dark class 切換深色模式
+                // 用 .app-dark class 切換深色模式（PrimeVue 只能正確生成純
+                // class 選擇器；帶 html/:root 前綴會被錯誤巢狀成 `& :root` 而失效）。
                 darkModeSelector: '.app-dark',
-                // CSS Layer 順序：Tailwind base 在 PrimeVue 之前，utilities 在之後
-                cssLayer: {
-                    name: 'primevue',
-                    order: 'tailwind-base, primevue, tailwind-utilities',
-                },
+                // 不啟用 cssLayer：開啟時 PrimeVue 會把 token 同時輸出到
+                // @layer primevue 與 unlayered :root，unlayered 亮色 :root 因注入
+                // 順序在後而蓋掉深色 .app-dark → 深色完全失效（卡片/輸入框維持亮色）。
+                // 本專案的 Tailwind utility（flex/gap/grid/w-full）只用在純 div 與
+                // VChart，不落在 PrimeVue 元件上，故移除 cssLayer 無 utility 覆蓋衝突。
             },
         },
         ripple: true,

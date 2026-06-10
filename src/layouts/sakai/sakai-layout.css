@@ -354,3 +354,62 @@
         transition: none;
     }
 }
+
+/* ─── Phase A6 — Topbar 對齊 demo（identity / portal select）────── */
+.layout-topbar-identity {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0.5rem;
+    line-height: 1.25;
+}
+
+.layout-topbar-identity strong {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--hig-text-primary, #1f2933);
+}
+
+.layout-topbar-identity span {
+    font-size: 0.72rem;
+    color: var(--hig-text-secondary, #64707d);
+}
+
+.layout-portal-select {
+    width: 11rem;
+}
+
+.layout-portal-select .p-select-label {
+    font-size: 0.85rem;
+    padding-block: 0.4rem;
+}
+
+/* ─── Phase A6 — 頁面層級 breadcrumb + 標題（對齊 demo page-header）─ */
+.layout-page-header {
+    margin-bottom: 1rem;
+}
+
+.layout-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--hig-text-secondary, #64707d);
+    font-size: 0.78rem;
+}
+
+.layout-breadcrumbs i {
+    font-size: 0.7rem;
+}
+
+.layout-page-header h1 {
+    margin: 4px 0 0;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--hig-text-primary, #1f2933);
+}
+
+@media (max-width: 760px) {
+    .layout-topbar-identity span,
+    .layout-portal-select {
+        display: none;
+    }
+}

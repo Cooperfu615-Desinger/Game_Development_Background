@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { api } from '@/services/apiClient'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import Tag from 'primevue/tag'
@@ -67,8 +68,7 @@ const revokeKey = (k: ApiKey) => {
 const fetchKeys = async () => {
     loading.value = true
     try {
-        const res = await fetch('/api/settings/api-keys')
-        const json = await res.json()
+        const json = await api.get<{ data: { items: ApiKey[] } }>('/api/settings/api-keys')
         apiKeys.value = json.data.items
     } finally {
         loading.value = false
@@ -79,12 +79,7 @@ const createKey = async () => {
     if (!newKeyName.value.trim()) return
     creating.value = true
     try {
-        const res = await fetch('/api/settings/api-keys', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: newKeyName.value }),
-        })
-        const json = await res.json()
+        const json = await api.post<{ data: ApiKey }>('/api/settings/api-keys', { name: newKeyName.value })
         apiKeys.value.unshift(json.data)
         showModal.value = false
         newKeyName.value = ''

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive, ref, onMounted } from 'vue';
+import { api } from '@/services/apiClient';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import InputText from 'primevue/inputtext';
@@ -67,8 +68,7 @@ const loading = ref(true);
 
 onMounted(async () => {
   try {
-    const res = await fetch('/api/reports/v2/rtp');
-    const data: RtpRow[] = await res.json();
+    const data = await api.get<RtpRow[]>('/api/reports/v2/rtp');
     rtpRows.splice(0, rtpRows.length, ...data);
   } finally {
     loading.value = false;

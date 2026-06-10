@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive, ref, watch, onMounted } from 'vue';
+import { api } from '@/services/apiClient';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import InputText from 'primevue/inputtext';
@@ -162,8 +163,7 @@ const roleForm = reactive({
 
 onMounted(async () => {
   try {
-    const res = await fetch('/api/system/v2/roles');
-    roles.value = await res.json();
+    roles.value = await api.get<RoleRow[]>('/api/system/v2/roles');
     if (roles.value.length) selectedRole.value = roles.value[0];
   } finally {
     loading.value = false;

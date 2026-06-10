@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive, ref, onMounted } from 'vue';
+import { api } from '@/services/apiClient';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import InputText from 'primevue/inputtext';
@@ -59,8 +60,7 @@ const loading = ref(true);
 
 onMounted(async () => {
   try {
-    const res = await fetch('/api/jackpot/v2/settings');
-    const data = await res.json();
+    const data = await api.get<any>('/api/jackpot/v2/settings');
     if (data.settings) Object.assign(settings, data.settings);
     if (data.ruleTemplates) ruleTemplates.splice(0, ruleTemplates.length, ...data.ruleTemplates);
     if (data.scheduleTemplates) scheduleTemplates.splice(0, scheduleTemplates.length, ...data.scheduleTemplates);

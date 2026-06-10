@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive, ref, onMounted } from 'vue';
+import { api } from '@/services/apiClient';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import InputText from 'primevue/inputtext';
@@ -63,8 +64,7 @@ const loading = ref(true);
 
 onMounted(async () => {
   try {
-    const res = await fetch('/api/orders/v2/list');
-    const data: OrderRow[] = await res.json();
+    const data = await api.get<OrderRow[]>('/api/orders/v2/list');
     orderRows.splice(0, orderRows.length, ...data);
   } finally {
     loading.value = false;

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { api } from '@/services/apiClient'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import Tag from 'primevue/tag'
@@ -35,8 +36,7 @@ const loading = ref(false)
 onMounted(async () => {
     loading.value = true
     try {
-        const res = await fetch('/api/settings/permissions')
-        const json = await res.json()
+        const json = await api.get<{ data: { items: Permission[] } }>('/api/settings/permissions')
         permissions.value = json.data.items
     } finally {
         loading.value = false

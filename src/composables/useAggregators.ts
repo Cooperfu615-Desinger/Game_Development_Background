@@ -1,4 +1,5 @@
 import { ref, watch, onMounted } from 'vue'
+import { api } from '@/services/apiClient'
 import { useRouter } from 'vue-router'
 import type { Aggregator, AggregatorFilter, CreateAggregatorPayload } from '@/types/aggregator'
 
@@ -53,16 +54,11 @@ export function useAggregators() {
     const createAggregator = async (payload: CreateAggregatorPayload): Promise<boolean> => {
         creating.value = true
         try {
-            const res = await fetch('/api/aggregators', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
-            })
-            if (!res.ok) return false
-            const newAgg = await res.json() as Aggregator
-            // 導向詳情頁
+            const newAgg = await api.post<Aggregator>('/api/aggregators', payload)
             await router.push(`/aggregators/${newAgg.id}`)
             return true
+        } catch {
+            return false
         } finally {
             creating.value = false
         }

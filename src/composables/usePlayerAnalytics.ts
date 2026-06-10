@@ -1,4 +1,5 @@
 import { ref, shallowRef, watch, onMounted } from 'vue'
+import { api } from '@/services/apiClient'
 import { useRoute, useRouter } from 'vue-router'
 import type { EChartsOption } from 'echarts'
 import type { Player, PlayerFilter, OverviewStats, RetentionData } from '@/types/player'
@@ -57,8 +58,7 @@ export function usePlayerAnalytics() {
     const fetchRetention = async () => {
         loadingRetention.value = true
         try {
-            const res = await fetch('/api/analytics/retention')
-            const json = await res.json()
+            const json = await api.get<{ data: { items: RetentionData[] } }>('/api/analytics/retention')
             retentionData.value = json.data.items
         } finally {
             loadingRetention.value = false
@@ -68,8 +68,7 @@ export function usePlayerAnalytics() {
     const fetchArpu = async () => {
         loadingArpu.value = true
         try {
-            const res = await fetch('/api/analytics/arpu')
-            const json = await res.json()
+            const json = await api.get<{ data: { dates: string[]; arpu: number[] } }>('/api/analytics/arpu')
             arpuChartOption.value = buildArpuChart(json.data.dates, json.data.arpu)
         } finally {
             loadingArpu.value = false

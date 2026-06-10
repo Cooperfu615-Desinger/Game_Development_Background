@@ -2,8 +2,9 @@
 // Mock JWT 風格 token：base64url(header).base64url(payload).<固定簽章>
 // ⚠️ 明文、不加密、不驗章，僅供 demo / 交接示意。正式 token 由後端發放與驗證。
 
-export type PortalType = 'supplier' | 'agent' | 'merchant'
-export type DataScope = 'all' | 'own-agent-line' | 'own-merchant' | 'none'
+// 型別單一來源：自 @/types/portal 匯入並 re-export，避免重複宣告造成 union 失同步
+import type { PortalType, DataScope } from '@/types/portal'
+export type { PortalType, DataScope }
 
 export interface TokenPayload {
     sub: string

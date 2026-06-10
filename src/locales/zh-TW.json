@@ -20,6 +20,8 @@
         "reset": "重置",
         "action": "操作",
         "status": "狀態",
+        "403": "禁止存取",
+        "404": "頁面不存在",
         "subscription": {
             "title": "遊戲授權訂閱",
             "revenueShare": "商戶分潤比例 (%)",

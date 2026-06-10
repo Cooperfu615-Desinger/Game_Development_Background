@@ -158,7 +158,13 @@
         "platforms": "平台分析",
         "platformDetail": "平台詳情",
         "aggregatorGroup": "聚合商",
-        "playerAndAgent": "玩家 & 代理"
+        "playerAndAgent": "玩家 & 代理",
+        "agentGroup": "代理管理",
+        "agentList": "代理列表",
+        "agentSettings": "代理設定",
+        "merchantGroup": "商戶管理",
+        "merchantList": "商戶列表",
+        "merchantSettings": "商戶設定"
     },
     "layout": {
         "masterAdmin": "👑 Master Admin",

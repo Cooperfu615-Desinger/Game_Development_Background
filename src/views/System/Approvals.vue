@@ -12,6 +12,7 @@ import Dialog from 'primevue/dialog';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SectionCard from '@/components/ui/SectionCard.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
+import FilterCard from '@/components/ui/FilterCard.vue';
 
 type Severity = 'success' | 'info' | 'warn' | 'danger' | 'secondary';
 type ApprovalStatus = '待審核' | '已核准' | '已駁回' | '已取消';
@@ -196,13 +197,7 @@ function isWithinRange(value: string, range: [Date | null, Date | null]) {
       </SectionCard>
     </section>
 
-    <SectionCard class="merchant-filter-card">
-      <template #header>
-        <div class="dialog-title-block">
-          <h2>查詢條件</h2>
-          <p>查詢審核單、模組、申請人、狀態、優先級與申請時間。</p>
-        </div>
-      </template>
+    <FilterCard title="查詢條件" description="查詢審核單、模組、申請人、狀態、優先級與申請時間。">
 
       <div class="trade-filter-grid">
         <div class="field trade-filter-keyword">
@@ -235,7 +230,7 @@ function isWithinRange(value: string, range: [Date | null, Date | null]) {
           <Button label="重置" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" />
         </div>
       </div>
-    </SectionCard>
+    </FilterCard>
 
     <div class="agent-command-bar">
       <div>

@@ -15,6 +15,7 @@ import CurrencyAmount from '@/components/ui/CurrencyAmount.vue';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
 import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
+import FilterCard from '@/components/ui/FilterCard.vue';
 
 type OrderRow = {
   id: string;
@@ -119,13 +120,7 @@ function openMarkAbnormal(row: OrderRow) {
   <div class="page-stack orders-page">
     <SummaryCardGrid :cards="summaryCards" />
 
-    <SectionCard class="merchant-filter-card">
-      <template #header>
-        <div class="dialog-title-block">
-          <h2>查詢條件</h2>
-          <p>查詢注單、局號、商戶、玩家、遊戲、金額區間與投注時間。</p>
-        </div>
-      </template>
+    <FilterCard title="查詢條件" description="查詢注單、局號、商戶、玩家、遊戲、金額區間與投注時間。">
 
       <div class="trade-filter-grid">
         <div class="field trade-filter-keyword">
@@ -174,7 +169,7 @@ function openMarkAbnormal(row: OrderRow) {
           <Button label="重置" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" />
         </div>
       </div>
-    </SectionCard>
+    </FilterCard>
 
     <div class="agent-command-bar">
       <div>

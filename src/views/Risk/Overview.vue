@@ -11,6 +11,7 @@ import Chart from 'primevue/chart';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SectionCard from '@/components/ui/SectionCard.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
+import FilterCard from '@/components/ui/FilterCard.vue';
 
 type Severity = 'success' | 'info' | 'warn' | 'danger' | 'secondary';
 
@@ -209,13 +210,7 @@ function resetFilters() {
 
 <template>
   <div class="page-stack risk-overview-page">
-    <SectionCard class="merchant-filter-card">
-      <template #header>
-        <div class="dialog-title-block">
-          <h2>風控總覽</h2>
-          <p>彙整告警、案件、規則命中與處理效率，協助營運快速判斷今日風險狀態。</p>
-        </div>
-      </template>
+    <FilterCard title="風控總覽" description="彙整告警、案件、規則命中與處理效率，協助營運快速判斷今日風險狀態。">
 
       <div class="trade-filter-grid">
         <DateTimeRangeField v-model="filters.range" class="trade-date-range" />
@@ -240,7 +235,7 @@ function resetFilters() {
           <Button label="重置" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" />
         </div>
       </div>
-    </SectionCard>
+    </FilterCard>
 
     <section class="agent-summary-grid">
       <article v-for="item in kpiCards" :key="item.label" class="agent-summary-card risk-overview-kpi">

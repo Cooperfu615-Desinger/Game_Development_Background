@@ -15,6 +15,7 @@ import StatusTag from '@/components/ui/StatusTag.vue';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
 import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
+import FilterCard from '@/components/ui/FilterCard.vue';
 
 type MathRow = {
   id: string;
@@ -159,13 +160,7 @@ function deviationLabel(value: number) {
       </SectionCard>
     </section>
 
-    <SectionCard class="merchant-filter-card">
-      <template #header>
-        <div class="dialog-title-block">
-          <h2>查詢條件</h2>
-          <p>查詢數值版本、RTP 偏離、波動率、審核狀態與監控時間區間。</p>
-        </div>
-      </template>
+    <FilterCard title="查詢條件" description="查詢數值版本、RTP 偏離、波動率、審核狀態與監控時間區間。">
 
       <div class="math-filter-grid">
         <div class="field math-filter-keyword">
@@ -194,7 +189,7 @@ function deviationLabel(value: number) {
           <Button label="重置" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" />
         </div>
       </div>
-    </SectionCard>
+    </FilterCard>
 
     <div class="agent-command-bar">
       <div>

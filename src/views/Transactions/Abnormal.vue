@@ -15,6 +15,7 @@ import CurrencyAmount from '@/components/ui/CurrencyAmount.vue';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
 import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
+import FilterCard from '@/components/ui/FilterCard.vue';
 
 type AbnormalTransactionRow = {
   caseId: string;
@@ -120,13 +121,7 @@ function openClose(row: AbnormalTransactionRow) {
   <div class="page-stack abnormal-transactions-page">
     <SummaryCardGrid :cards="summaryCards" />
 
-    <SectionCard class="merchant-filter-card">
-      <template #header>
-        <div class="dialog-title-block">
-          <h2>查詢條件</h2>
-          <p>查詢錢包逾時、重複交易、轉帳差異、API 回應異常與處理狀態。</p>
-        </div>
-      </template>
+    <FilterCard title="查詢條件" description="查詢錢包逾時、重複交易、轉帳差異、API 回應異常與處理狀態。">
 
       <div class="trade-filter-grid">
         <div class="field trade-filter-keyword">
@@ -163,7 +158,7 @@ function openClose(row: AbnormalTransactionRow) {
           <Button label="重置" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" />
         </div>
       </div>
-    </SectionCard>
+    </FilterCard>
 
     <div class="agent-command-bar">
       <div>

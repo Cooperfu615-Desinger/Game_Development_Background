@@ -12,6 +12,7 @@ import Dialog from 'primevue/dialog';
 import Tree from 'primevue/tree';
 import SectionCard from '@/components/ui/SectionCard.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
+import FilterCard from '@/components/ui/FilterCard.vue';
 
 type Severity = 'success' | 'info' | 'warn' | 'danger' | 'secondary';
 type PermissionKey = 'menu' | 'view' | 'detail' | 'operate' | 'export' | 'sensitive' | 'approve';
@@ -454,13 +455,7 @@ function formatLimit(value: number) {
       </article>
     </section>
 
-    <SectionCard class="merchant-filter-card">
-      <template #header>
-        <div class="dialog-title-block">
-          <h2>查詢條件</h2>
-          <p>查詢角色、Portal、資料範圍與啟用狀態。</p>
-        </div>
-      </template>
+    <FilterCard title="查詢條件" description="查詢角色、Portal、資料範圍與啟用狀態。">
 
       <div class="trade-filter-grid">
         <div class="field trade-filter-keyword">
@@ -484,7 +479,7 @@ function formatLimit(value: number) {
           <Button label="重置" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" />
         </div>
       </div>
-    </SectionCard>
+    </FilterCard>
 
     <div class="system-role-layout">
       <SectionCard class="merchant-table-card system-role-list-card">

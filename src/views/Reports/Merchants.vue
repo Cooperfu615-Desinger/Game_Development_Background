@@ -13,6 +13,7 @@ import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SectionCard from '@/components/ui/SectionCard.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
 import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
+import FilterCard from '@/components/ui/FilterCard.vue';
 
 type Severity = 'success' | 'info' | 'warn' | 'danger' | 'secondary';
 
@@ -204,13 +205,7 @@ function resetFilters() {
 
 <template>
   <div class="page-stack reports-page merchant-report-page">
-    <SectionCard class="merchant-filter-card">
-      <template #header>
-        <div class="dialog-title-block">
-          <h2>查詢條件</h2>
-          <p>依時間、商戶、代理、錢包、幣別與結算狀態查詢 Bet / Win / GGR / RTP / 應收。</p>
-        </div>
-      </template>
+    <FilterCard title="查詢條件" description="依時間、商戶、代理、錢包、幣別與結算狀態查詢 Bet / Win / GGR / RTP / 應收。">
 
       <div class="trade-filter-grid">
         <DateTimeRangeField v-model="filters.range" class="trade-date-range" />
@@ -243,7 +238,7 @@ function resetFilters() {
           <Button label="重置" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" />
         </div>
       </div>
-    </SectionCard>
+    </FilterCard>
 
     <SummaryCardGrid :cards="summaryCards" />
 

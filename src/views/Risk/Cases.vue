@@ -13,6 +13,7 @@ import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SectionCard from '@/components/ui/SectionCard.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
 import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
+import FilterCard from '@/components/ui/FilterCard.vue';
 
 type Severity = 'success' | 'info' | 'warn' | 'danger' | 'secondary';
 
@@ -196,13 +197,7 @@ function confirmClose() {
   <div class="page-stack risk-cases-page">
     <SummaryCardGrid :cards="summaryCards" />
 
-    <SectionCard class="merchant-filter-card">
-      <template #header>
-        <div class="dialog-title-block">
-          <h2>查詢條件</h2>
-          <p>查詢風控案件、風險類型、處理狀態、關聯告警與處理人。</p>
-        </div>
-      </template>
+    <FilterCard title="查詢條件" description="查詢風控案件、風險類型、處理狀態、關聯告警與處理人。">
 
       <div class="trade-filter-grid">
         <div class="field trade-filter-keyword">
@@ -235,7 +230,7 @@ function confirmClose() {
           <Button label="重置" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" />
         </div>
       </div>
-    </SectionCard>
+    </FilterCard>
 
     <div class="agent-command-bar">
       <div>

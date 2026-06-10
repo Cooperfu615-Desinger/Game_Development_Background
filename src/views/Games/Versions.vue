@@ -12,6 +12,7 @@ import StatusTag from '@/components/ui/StatusTag.vue';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
 import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
+import FilterCard from '@/components/ui/FilterCard.vue';
 
 type VersionRow = {
   id: string;
@@ -89,13 +90,7 @@ function openDetail(row: VersionRow) {
   <div class="page-stack game-versions-page">
     <SummaryCardGrid :cards="summaryCards" />
 
-    <SectionCard class="merchant-filter-card">
-      <template #header>
-        <div class="dialog-title-block">
-          <h2>查詢條件</h2>
-          <p>查詢遊戲版本、發布狀態、發布類型與影響範圍。</p>
-        </div>
-      </template>
+    <FilterCard title="查詢條件" description="查詢遊戲版本、發布狀態、發布類型與影響範圍。">
 
       <div class="version-filter-grid">
         <div class="field version-filter-keyword">
@@ -124,7 +119,7 @@ function openDetail(row: VersionRow) {
           <Button label="重置" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" />
         </div>
       </div>
-    </SectionCard>
+    </FilterCard>
 
     <div class="agent-command-bar">
       <div>

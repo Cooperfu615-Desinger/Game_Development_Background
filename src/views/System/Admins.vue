@@ -14,6 +14,7 @@ import Dialog from 'primevue/dialog';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SectionCard from '@/components/ui/SectionCard.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
+import FilterCard from '@/components/ui/FilterCard.vue';
 
 type AdminStatus = '啟用' | '停用' | '鎖定' | '待啟用';
 type Severity = 'success' | 'info' | 'warn' | 'danger' | 'secondary';
@@ -256,13 +257,7 @@ function tagSeverity(value: string): Severity {
       </article>
     </section>
 
-    <SectionCard class="merchant-filter-card">
-      <template #header>
-        <div class="dialog-title-block">
-          <h2>查詢條件</h2>
-          <p>查詢管理員帳號、Portal、群組、資料範圍、2FA 與狀態。</p>
-        </div>
-      </template>
+    <FilterCard title="查詢條件" description="查詢管理員帳號、Portal、群組、資料範圍、2FA 與狀態。">
 
       <div class="trade-filter-grid">
         <div class="field trade-filter-keyword">
@@ -295,7 +290,7 @@ function tagSeverity(value: string): Severity {
           <Button label="重置" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" />
         </div>
       </div>
-    </SectionCard>
+    </FilterCard>
 
     <div class="toolbar-row">
       <span class="table-count"><Badge :value="filteredRows.length" severity="info" /> 筆管理員</span>

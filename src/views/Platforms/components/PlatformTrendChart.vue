@@ -2,6 +2,7 @@
 import { shallowRef, watch } from 'vue'
 import Skeleton from 'primevue/skeleton'
 import VChart from 'vue-echarts'
+import '@/plugins/echarts'
 import type { EChartsOption } from 'echarts'
 import type { TrendPoint } from '@/types/platform'
 

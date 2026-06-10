@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Skeleton from 'primevue/skeleton'
 import VChart from 'vue-echarts'
+import '@/plugins/echarts'
 import { usePlayerAnalytics } from '@/composables/usePlayerAnalytics'
 import RetentionChart from './components/RetentionChart.vue'
 import ArpuChart from './components/ArpuChart.vue'

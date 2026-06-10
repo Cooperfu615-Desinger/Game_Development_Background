@@ -14,6 +14,7 @@ import SectionCard from '@/components/ui/SectionCard.vue';
 import StatusTag from '@/components/ui/StatusTag.vue';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
+import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
 
 type MathRow = {
   id: string;
@@ -118,13 +119,7 @@ function deviationLabel(value: number) {
 
 <template>
   <div class="page-stack game-math-page">
-    <div class="agent-summary-grid">
-      <article v-for="item in summaryCards" :key="item.label" class="agent-summary-card">
-        <span>{{ item.label }}</span>
-        <strong>{{ item.value }}</strong>
-        <small>{{ item.helper }}</small>
-      </article>
-    </div>
+    <SummaryCardGrid :cards="summaryCards" />
 
     <section class="math-monitor-grid">
       <SectionCard>

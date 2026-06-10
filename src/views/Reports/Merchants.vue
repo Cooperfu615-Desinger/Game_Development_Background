@@ -12,6 +12,7 @@ import CurrencyAmount from '@/components/ui/CurrencyAmount.vue';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SectionCard from '@/components/ui/SectionCard.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
+import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
 
 type Severity = 'success' | 'info' | 'warn' | 'danger' | 'secondary';
 
@@ -244,17 +245,7 @@ function resetFilters() {
       </div>
     </SectionCard>
 
-    <section class="agent-summary-grid">
-      <article v-for="item in summaryCards" :key="item.label" class="agent-summary-card">
-        <div class="risk-overview-kpi-head">
-          <span class="agent-section-icon"><i :class="item.icon" /></span>
-          <Tag :value="item.label" :severity="item.severity" />
-        </div>
-        <span>{{ item.label }}</span>
-        <strong>{{ item.value }}</strong>
-        <small>{{ item.helper }}</small>
-      </article>
-    </section>
+    <SummaryCardGrid :cards="summaryCards" />
 
     <section class="risk-overview-chart-grid">
       <SectionCard class="chart-card chart-card-large">

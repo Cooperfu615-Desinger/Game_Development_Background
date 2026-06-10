@@ -11,6 +11,7 @@ import Dialog from 'primevue/dialog';
 import SectionCard from '@/components/ui/SectionCard.vue';
 import StatusTag from '@/components/ui/StatusTag.vue';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
+import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
 
 type AssetRow = {
   id: string;
@@ -90,13 +91,7 @@ function openDetail(row: AssetRow) {
 
 <template>
   <div class="page-stack game-assets-page">
-    <div class="agent-summary-grid">
-      <article v-for="item in summaryCards" :key="item.label" class="agent-summary-card">
-        <span>{{ item.label }}</span>
-        <strong>{{ item.value }}</strong>
-        <small>{{ item.helper }}</small>
-      </article>
-    </div>
+    <SummaryCardGrid :cards="summaryCards" />
 
     <SectionCard class="merchant-filter-card">
       <template #header>

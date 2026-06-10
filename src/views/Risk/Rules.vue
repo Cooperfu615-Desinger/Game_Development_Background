@@ -12,6 +12,7 @@ import Badge from 'primevue/badge';
 import Dialog from 'primevue/dialog';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SectionCard from '@/components/ui/SectionCard.vue';
+import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
 
 type Severity = 'success' | 'info' | 'warn' | 'danger' | 'secondary';
 
@@ -155,13 +156,7 @@ function confirmDisable() {
 
 <template>
   <div class="page-stack risk-rules-page">
-    <div class="agent-summary-grid">
-      <article v-for="item in summaryCards" :key="item.label" class="agent-summary-card">
-        <span>{{ item.label }}</span>
-        <strong>{{ item.value }}</strong>
-        <small>{{ item.helper }}</small>
-      </article>
-    </div>
+    <SummaryCardGrid :cards="summaryCards" />
 
     <SectionCard class="merchant-filter-card">
       <template #header>

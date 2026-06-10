@@ -15,6 +15,7 @@ import StatusTag from '@/components/ui/StatusTag.vue';
 import CurrencyAmount from '@/components/ui/CurrencyAmount.vue';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
+import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
 
 type JackpotRow = {
   code: string;
@@ -99,13 +100,7 @@ function openArchive(row: JackpotRow) {
 
 <template>
   <div class="page-stack jackpot-list-page">
-    <div class="agent-summary-grid">
-      <article v-for="item in summaryCards" :key="item.label" class="agent-summary-card">
-        <span>{{ item.label }}</span>
-        <strong>{{ item.value }}</strong>
-        <small>{{ item.helper }}</small>
-      </article>
-    </div>
+    <SummaryCardGrid :cards="summaryCards" />
 
     <SectionCard class="merchant-filter-card">
       <template #header>

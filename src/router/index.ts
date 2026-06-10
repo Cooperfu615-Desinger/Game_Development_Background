@@ -1,9 +1,22 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
+import { portalRoutes } from './portalRoutes'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 NProgress.configure({ showSpinner: false })
+
+// 共用頁（agent / merchant 前綴可達）— C1 取主要共用頁；C2 再加 Portal 專屬頁
+const SHARED_DEFS = [
+    { path: 'dashboard', name: 'dashboard', component: () => import('@/views/Dashboard/Index.vue'), titleKey: 'menu.dashboard' },
+    { path: 'merchants', name: 'merchants', component: () => import('@/views/Merchants/Index.vue'), titleKey: 'menu.merchantList' },
+    { path: 'games', name: 'games', component: () => import('@/views/Games/Index.vue'), titleKey: 'menu.games' },
+    { path: 'orders', name: 'orders', component: () => import('@/views/Orders/Index.vue'), titleKey: 'menu.orders' },
+    { path: 'transactions', name: 'transactions', component: () => import('@/views/Transactions/Index.vue'), titleKey: 'menu.transactionList' },
+    { path: 'reports', name: 'reports', component: () => import('@/views/Reports/Overview.vue'), titleKey: 'menu.reportsOverview' },
+    { path: 'settlements', name: 'settlements', component: () => import('@/views/Settlements/Index.vue'), titleKey: 'menu.settlementList' },
+    { path: 'risk', name: 'risk', component: () => import('@/views/Risk/Overview.vue'), titleKey: 'menu.riskOverview' },
+]
 
 const routes: RouteRecordRaw[] = [
     // ================== ROOT REDIRECT ==================
@@ -358,7 +371,11 @@ const routes: RouteRecordRaw[] = [
                 name: 'Permissions',
                 component: () => import('../views/Settings/Permissions.vue'),
                 meta: { title: 'menu.permissions' }
-            }
+            },
+
+            // ── Portal 前綴路由（agent / merchant 共用頁）──────────
+            ...portalRoutes('agent', SHARED_DEFS),
+            ...portalRoutes('merchant', SHARED_DEFS),
         ]
     },
 
@@ -376,6 +393,14 @@ const routes: RouteRecordRaw[] = [
         name: 'DesignSystem',
         component: () => import('../views/DesignSystem.vue'),
         meta: { title: 'Design System' }
+    },
+
+    // ================== FORBIDDEN ==================
+    {
+        path: '/403',
+        name: 'Forbidden',
+        component: () => import('../views/Error/403.vue'),
+        meta: { title: 'common.403' }
     },
 
     // ================== FALLBACK ==================
@@ -411,6 +436,25 @@ router.beforeEach(async (to, _from, next) => {
 
     if (!isAuthenticated) {
         return next(`/login?redirect=${to.fullPath}`)
+    }
+
+    // Portal deep-link 同步（不導頁，避免打斷當前導航）
+    const portalMeta = to.meta.portal as 'supplier' | 'agent' | 'merchant' | undefined
+    if (portalMeta) {
+        const { usePortalStore } = await import('../stores/portal')
+        const portalStore = usePortalStore()
+        if (portalStore.currentType !== portalMeta) {
+            portalStore.syncPortal(portalMeta)
+        }
+    }
+
+    // 權限守衛機制（C1 共用頁未設 meta.permission，僅建立機制 + /403 目標）
+    const need = to.meta.permission as string | undefined
+    if (need) {
+        const { usePermissionStore } = await import('../stores/permission')
+        if (!usePermissionStore().hasPermission(need)) {
+            return next('/403')
+        }
     }
 
     next()

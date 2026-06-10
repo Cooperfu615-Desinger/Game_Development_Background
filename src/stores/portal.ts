@@ -34,13 +34,16 @@ export const usePortalStore = defineStore(
         })
 
         // ─── Actions ──────────────────────────────────────────
-        const switchPortal = (type: PortalType) => {
+        // 同步 portal 狀態（token / role / currentType），不導頁 —
+        // 供 router.beforeEach 在 deep-link 進入 /agent/* 時使用，避免打斷當前導航。
+        const syncPortal = (type: PortalType) => {
             currentType.value = type
-            // 換發該 portal 內建身份的 mock token
             useAuthStore().applyMockIdentity(type)
-            // 設定對應角色（沿用既有 switchRole；roleId 取自內建身份）
             usePermissionStore().switchRole(PORTAL_IDENTITIES[type].role)
-            // 導向該 portal 首頁（agent/merchant 前綴路由於 Task 7 掛上）
+        }
+
+        const switchPortal = (type: PortalType) => {
+            syncPortal(type)
             const home = type === 'supplier' ? '/dashboard' : `/${type}/dashboard`
             router.push(home).catch(() => {})
         }
@@ -53,6 +56,7 @@ export const usePortalStore = defineStore(
             portals,
             currentType,
             current,
+            syncPortal,
             switchPortal,
             reset,
         }

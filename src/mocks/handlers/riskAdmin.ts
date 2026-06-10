@@ -1,5 +1,5 @@
 import { http, HttpResponse, delay } from 'msw'
-import { expandDemoRows } from '@/utils/demoRows'
+import { expandDemoRows, rebaseDemoDates } from '@/utils/demoRows'
 
 // ──────────────────────────────────────────────────────────────
 // Types (copied verbatim from the demo .vue files)
@@ -622,10 +622,10 @@ const SEED_ACTIONS: RiskActionRow[] = expandDemoRows([
 export const riskAdminHandlers = [
     http.get('/api/risk/v2/overview', async () => {
         await delay(250)
-        return HttpResponse.json({
+        return HttpResponse.json(rebaseDemoDates({
             pendingAlerts: SEED_PENDING_ALERTS,
             ruleHealthRows: SEED_RULE_HEALTH,
-        })
+        }))
     }),
     http.get('/api/risk/v2/alerts', async () => {
         await delay(250)

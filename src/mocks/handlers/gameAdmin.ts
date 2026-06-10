@@ -1,5 +1,5 @@
 import { http, HttpResponse, delay } from 'msw'
-import { expandDemoRows } from '@/utils/demoRows'
+import { expandDemoRows, rebaseDemoDates } from '@/utils/demoRows'
 
 // ──────────────────────────────────────────────────────────────
 // Types (copied verbatim from the .vue files)
@@ -563,11 +563,11 @@ export const gameAdminHandlers = [
 
     http.get('/api/games/v2/settings', async () => {
         await delay(200)
-        return HttpResponse.json({
+        return HttpResponse.json(rebaseDemoDates({
             maintenanceTemplates: SEED_MAINTENANCE,
             limitTemplates: SEED_LIMITS,
             baseSettings: BASE_SETTINGS,
-        })
+        }))
     }),
 
     http.get('/api/games/v2/math', async () => {

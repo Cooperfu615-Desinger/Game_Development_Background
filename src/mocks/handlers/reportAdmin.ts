@@ -1,5 +1,5 @@
 import { http, HttpResponse, delay } from 'msw'
-import { expandDemoRows } from '@/utils/demoRows'
+import { expandDemoRows, rebaseDemoDates } from '@/utils/demoRows'
 
 // ──────────────────────────────────────────────────────────────
 // Types (copied from the demo .vue files)
@@ -700,9 +700,9 @@ export const reportAdminHandlers = [
         await delay(200)
         // Return the seed object — for demo, just return the same object regardless of id.
         // Override id field so frontend sees the requested id.
-        return HttpResponse.json({
+        return HttpResponse.json(rebaseDemoDates({
             ...SEED_SETTLEMENT_DETAIL,
             id: params.id,
-        })
+        }))
     }),
 ]

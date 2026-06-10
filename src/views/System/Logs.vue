@@ -37,8 +37,7 @@ interface SystemLogRow {
 const allOption = '全部';
 const now = new Date();
 const startDate = new Date(now);
-// mock seed 日期為固定值，範圍太窄會把資料全濾掉（demo 原本 14 天）
-startDate.setDate(now.getDate() - 90);
+startDate.setDate(now.getDate() - 14);
 startDate.setHours(0, 0, 0, 0);
 now.setHours(23, 59, 59, 0);
 

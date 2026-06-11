@@ -46,17 +46,21 @@ async function show(doc: DocEntry) {
     loading.value = true
     loadError.value = false
     try {
-        html.value = await marked.parse(await doc.load())
+        const content = await doc.load()
+        if (activeSlug.value !== doc.slug) return // 已切到別份文件，丟棄過期結果
+        html.value = await marked.parse(content)
     } catch {
+        if (activeSlug.value !== doc.slug) return
         loadError.value = true
         html.value = ''
     } finally {
-        loading.value = false
+        if (activeSlug.value === doc.slug) loading.value = false
     }
 }
 
 function select(slug: string) {
     if (slug === activeSlug.value) return
+    // spec 決策：用 replace，切換文件不堆歷史紀錄
     router.replace(`/docs/${slug}`)
 }
 
@@ -64,6 +68,7 @@ function select(slug: string) {
 watch(
     () => route.params.slug,
     (slug) => {
+        if (!route.path.startsWith('/docs')) return // 離開本頁時不要再載
         const doc = docs.find((d) => d.slug === slug) ?? docs[0]
         if (doc && doc.slug !== activeSlug.value) show(doc)
     },
@@ -230,12 +235,12 @@ watch(
     border: 1px solid var(--hig-border-default);
     padding: 0.375rem 0.75rem;
     font-size: 0.8125rem;
-    white-space: nowrap;
 }
 .markdown-body :deep(th) {
     background: var(--hig-bg-fill);
     font-weight: 600;
     text-align: left;
+    white-space: nowrap;
 }
 .markdown-body :deep(tr:nth-child(even) td) {
     background: var(--hig-bg-surface);

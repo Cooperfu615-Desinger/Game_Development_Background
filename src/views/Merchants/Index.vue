@@ -20,6 +20,7 @@ import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
 import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
 import FilterCard from '@/components/ui/FilterCard.vue';
+import { rowMatches } from '@/utils/filterRows';
 
 type MerchantRow = Record<string, unknown>;
 type DialogMode = 'view' | 'edit' | 'create';
@@ -78,6 +79,19 @@ const merchantFilters: PageField[] = [
   { key: 'currency', label: '支援幣別', type: 'select', options: merchantCurrencyOptions },
   { key: 'createdAt', label: '建立時間', type: 'dateRange' }
 ];
+
+const filteredRows = computed(() => rows.filter((row) => rowMatches(row, {
+  keyword: { value: filters.keyword, fields: ['code', 'name', 'agent'] },
+  selects: [
+    { value: filters.agent, match: (r) => String(r.agent) === filters.agent },
+    { value: filters.status, match: (r) => String(r.status) === filters.status },
+    { value: filters.environmentMode, match: (r) => String(r.environmentMode ?? '測試') === filters.environmentMode },
+    { value: filters.apiStatus, match: (r) => String(r.apiStatus) === filters.apiStatus },
+    { value: filters.walletType, match: (r) => String(r.walletType) === filters.walletType },
+    { value: filters.currency, match: (r) => (Array.isArray(r.currencies) ? r.currencies.map(String) : [String(r.defaultCurrency ?? '')]).includes(String(filters.currency)) },
+  ],
+  dateRange: { value: filters.createdAt, field: 'createdAt' },
+})));
 
 const merchantSummary = computed(() => {
   const active = rows.filter((row) => row.status === '啟用').length;
@@ -299,7 +313,7 @@ function confirmDisableMerchant() {
     </FilterCard>
 
     <div class="toolbar-row">
-      <span><Badge :value="rows.length" severity="info" /> 筆商戶</span>
+      <span><Badge :value="filteredRows.length" severity="info" /> 筆商戶</span>
       <div>
         <Button label="新增商戶" icon="pi pi-plus" @click="openDialog('create')" />
         <Button label="欄位設定" icon="pi pi-sliders-h" severity="secondary" outlined />
@@ -309,7 +323,7 @@ function confirmDisableMerchant() {
 
     <SectionCard class="merchant-table-card">
       <DataTable
-        :value="rows"
+        :value="filteredRows"
         :loading="loading"
         scrollable
         paginator

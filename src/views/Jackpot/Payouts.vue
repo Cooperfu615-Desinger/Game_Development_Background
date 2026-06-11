@@ -15,6 +15,7 @@ import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
 import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
 import FilterCard from '@/components/ui/FilterCard.vue';
+import { rowMatches } from '@/utils/filterRows';
 
 type PayoutRow = {
   id: string;
@@ -75,6 +76,17 @@ const summaryCards = computed(() => {
   ];
 });
 
+const filteredPayouts = computed(() => payoutRows.filter((row) => rowMatches(row, {
+  keyword: { value: filters.keyword, fields: ['id', 'playerId', 'orderId'] },
+  selects: [
+    { value: filters.jackpot, match: (r) => String(r.jackpot) === filters.jackpot },
+    { value: filters.merchant, match: (r) => String(r.merchant) === filters.merchant },
+    { value: filters.status, match: (r) => String(r.status) === filters.status },
+    { value: filters.currency, match: (r) => String(r.currency) === filters.currency },
+  ],
+  dateRange: { value: filters.payoutAt, field: 'payoutAt' },
+})));
+
 function resetFilters() {
   filters.keyword = '';
   filters.jackpot = '全部獎池';
@@ -131,7 +143,7 @@ function openDetail(row: PayoutRow) {
 
     <div class="agent-command-bar">
       <div>
-        <span class="table-count"><Badge :value="payoutRows.length" severity="info" /> 筆派發</span>
+        <span class="table-count"><Badge :value="filteredPayouts.length" severity="info" /> 筆派發</span>
         <p>派發紀錄不可刪除；高額、失敗、逾時派發需保留審核與操作紀錄。</p>
       </div>
       <div class="agent-command-actions">
@@ -141,7 +153,7 @@ function openDetail(row: PayoutRow) {
 
     <SectionCard class="merchant-table-card jackpot-table-card">
       <DataTable
-        :value="payoutRows"
+        :value="filteredPayouts"
         :loading="loading"
         scrollable
         paginator

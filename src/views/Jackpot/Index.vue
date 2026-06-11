@@ -18,6 +18,7 @@ import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
 import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
 import FilterCard from '@/components/ui/FilterCard.vue';
+import { rowMatches } from '@/utils/filterRows';
 
 type JackpotRow = {
   code: string;
@@ -80,6 +81,16 @@ const summaryCards = computed(() => {
   ];
 });
 
+const filteredJackpots = computed(() => jackpotRows.filter((row) => rowMatches(row, {
+  keyword: { value: filters.keyword, fields: ['code', 'name'] },
+  selects: [
+    { value: filters.status, match: (r) => String(r.status) === filters.status },
+    { value: filters.currency, match: (r) => String(r.currency) === filters.currency },
+    { value: filters.type, match: (r) => String(r.type) === filters.type },
+  ],
+  dateRange: { value: filters.updatedAt, field: 'updatedAt' },
+})));
+
 function resetFilters() {
   filters.keyword = '';
   filters.status = '全部狀態';
@@ -137,7 +148,7 @@ function openArchive(row: JackpotRow) {
 
     <div class="agent-command-bar">
       <div>
-        <span class="table-count"><Badge :value="jackpotRows.length" severity="info" /> 個獎池</span>
+        <span class="table-count"><Badge :value="filteredJackpots.length" severity="info" /> 個獎池</span>
         <p>獎池不可硬刪除；金額、累積比例與派發規則修改需保留審核與操作紀錄。</p>
       </div>
       <div class="agent-command-actions">
@@ -149,7 +160,7 @@ function openArchive(row: JackpotRow) {
 
     <SectionCard class="merchant-table-card jackpot-table-card">
       <DataTable
-        :value="jackpotRows"
+        :value="filteredJackpots"
         :loading="loading"
         scrollable
         paginator

@@ -20,6 +20,7 @@ import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
 import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
 import FilterCard from '@/components/ui/FilterCard.vue';
+import { rowMatches } from '@/utils/filterRows';
 
 type GameRow = Record<string, unknown>;
 type DialogMode = 'view' | 'edit' | 'create';
@@ -80,6 +81,17 @@ const gameFilters: PageField[] = [
   { key: 'platform', label: '支援平台', type: 'select', options: gamePlatformOptions },
   { key: 'createdAt', label: '建立時間', type: 'dateRange' }
 ];
+
+const filteredRows = computed(() => rows.filter((row) => rowMatches(row, {
+  keyword: { value: filters.keyword, fields: ['code', 'name'] },
+  selects: [
+    { value: filters.type, match: (r) => String(r.type) === filters.type },
+    { value: filters.status, match: (r) => String(r.status) === filters.status },
+    { value: filters.environmentMode, match: (r) => String(r.environmentMode ?? '測試') === filters.environmentMode },
+    { value: filters.platform, match: (r) => (Array.isArray(r.platform) ? r.platform.map(String) : [String(r.platform ?? '')]).includes(String(filters.platform)) },
+  ],
+  dateRange: { value: filters.createdAt, field: 'createdAt' },
+})));
 
 const gameSummary = computed(() => {
   const live = rows.filter((row) => row.status === '上架').length;
@@ -329,7 +341,7 @@ function confirmMaintenance() {
 
     <div class="agent-command-bar">
       <div>
-        <span class="table-count"><Badge :value="rows.length" severity="info" /> 款遊戲</span>
+        <span class="table-count"><Badge :value="filteredRows.length" severity="info" /> 款遊戲</span>
         <p>遊戲不可硬刪除；正式環境上下架、維護與數值版本變更需保留操作紀錄。</p>
       </div>
       <div class="agent-command-actions">
@@ -342,7 +354,7 @@ function confirmMaintenance() {
 
     <SectionCard class="merchant-table-card">
       <DataTable
-        :value="rows"
+        :value="filteredRows"
         :loading="loading"
         scrollable
         paginator

@@ -16,6 +16,7 @@ import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
 import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
 import FilterCard from '@/components/ui/FilterCard.vue';
+import { rowMatches } from '@/utils/filterRows';
 
 type JackpotTransactionRow = {
   id: string;
@@ -89,6 +90,17 @@ const flowSummary = computed(() => {
   ];
 });
 
+const filteredTransactions = computed(() => transactionRows.filter((row) => rowMatches(row, {
+  keyword: { value: filters.keyword, fields: ['id', 'relatedNo'] },
+  selects: [
+    { value: filters.jackpot, match: (r) => String(r.jackpot) === filters.jackpot },
+    { value: filters.merchant, match: (r) => String(r.merchant) === filters.merchant },
+    { value: filters.type, match: (r) => String(r.type) === filters.type },
+    { value: filters.currency, match: (r) => String(r.currency) === filters.currency },
+  ],
+  dateRange: { value: filters.occurredAt, field: 'occurredAt' },
+})));
+
 function resetFilters() {
   filters.keyword = '';
   filters.jackpot = '全部獎池';
@@ -160,7 +172,7 @@ function openDetail(row: JackpotTransactionRow) {
 
     <div class="agent-command-bar">
       <div>
-        <span class="table-count"><Badge :value="transactionRows.length" severity="info" /> 筆流水</span>
+        <span class="table-count"><Badge :value="filteredTransactions.length" severity="info" /> 筆流水</span>
         <p>獎池流水不可硬刪除；正式環境人工回補、扣減與比例調整需送審。</p>
       </div>
       <div class="agent-command-actions">
@@ -170,7 +182,7 @@ function openDetail(row: JackpotTransactionRow) {
 
     <SectionCard class="merchant-table-card jackpot-table-card">
       <DataTable
-        :value="transactionRows"
+        :value="filteredTransactions"
         :loading="loading"
         scrollable
         paginator

@@ -17,6 +17,7 @@ import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
 import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
 import FilterCard from '@/components/ui/FilterCard.vue';
+import { rowMatches } from '@/utils/filterRows';
 
 type TransactionRow = {
   id: string;
@@ -88,6 +89,23 @@ const summaryCards = computed(() => {
     { label: '人工處理', value: String(manual), helper: '停止自動重試，需營運確認' }
   ];
 });
+
+const lc = (value: unknown) => String(value ?? '').trim().toLowerCase();
+
+const filteredTransactions = computed(() => transactionRows.filter((row) => rowMatches(row, {
+  selects: [
+    { value: filters.transactionId, match: (r) => String(r.id).toLowerCase().includes(lc(filters.transactionId)) },
+    { value: filters.orderId, match: (r) => String(r.orderId).toLowerCase().includes(lc(filters.orderId)) },
+    { value: filters.playerId, match: (r) => String(r.playerId).toLowerCase().includes(lc(filters.playerId)) },
+    { value: filters.merchant, match: (r) => String(r.merchant) === filters.merchant },
+    { value: filters.type, match: (r) => String(r.type) === filters.type },
+    { value: filters.status, match: (r) => String(r.status) === filters.status },
+    { value: filters.currency, match: (r) => String(r.transactionCurrency) === filters.currency || String(r.walletCurrency) === filters.currency },
+    { value: filters.apiCode, match: (r) => String(r.apiCode) === filters.apiCode },
+    { value: filters.retrying, match: (r) => (filters.retrying === '重試中' ? Number(r.retryCount) > 0 : Number(r.retryCount) === 0) },
+  ],
+  dateRange: { value: filters.time, field: 'time' },
+})));
 
 function resetFilters() {
   filters.transactionId = '';
@@ -172,7 +190,7 @@ function openManual(row: TransactionRow) {
 
     <div class="agent-command-bar">
       <div>
-        <span class="table-count"><Badge :value="transactionRows.length" severity="info" /> 筆交易</span>
+        <span class="table-count"><Badge :value="filteredTransactions.length" severity="info" /> 筆交易</span>
         <p>交易不可刪除或直接改寫；重送、人工標記與 API Trace 都會保留操作紀錄。</p>
       </div>
       <div class="agent-command-actions">
@@ -182,7 +200,7 @@ function openManual(row: TransactionRow) {
 
     <SectionCard class="merchant-table-card trade-table-card">
       <DataTable
-        :value="transactionRows"
+        :value="filteredTransactions"
         :loading="loading"
         scrollable
         paginator

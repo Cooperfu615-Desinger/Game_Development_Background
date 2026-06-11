@@ -172,13 +172,40 @@ export function buildSakaiMenu(t: Composer['t']): MenuGroup[] {
     ]
 }
 
-// 各 Portal 可見的選單群組（C1 以群組為單位篩；C2 再加 Portal 專屬條目）
+// 各 Portal 可見的共用選單群組（白名單過濾）
 const AGENT_ALLOW = ['overview', 'merchantGroup', 'gameManagement', 'orderGroup', 'reportGroup']
 const MERCHANT_ALLOW = ['overview', 'merchantGroup', 'gameManagement', 'orderGroup', 'reportGroup', 'riskGroup']
+
+// Portal 專屬條目（連結用前綴路徑，指向 Spec 1 佔位頁 / Spec 2 真實頁）
+// 群組 label 用獨立 key（menu.agentSelf / menu.merchantSelf），不重用 menu.agentGroup/merchantGroup，避免與既有群組撞名
+function agentPortalGroups(t: Composer['t']): MenuGroup[] {
+    return [{
+        key: 'agentSelf',
+        label: t('menu.agentSelf'),
+        items: [
+            { label: t('menu.commissions'), icon: 'pi pi-fw pi-percentage', to: '/agent/commissions' },
+            { label: t('menu.subAccounts'), icon: 'pi pi-fw pi-users', to: '/agent/sub-accounts' },
+        ],
+    }]
+}
+
+function merchantPortalGroups(t: Composer['t']): MenuGroup[] {
+    return [{
+        key: 'merchantSelf',
+        label: t('menu.merchantSelf'),
+        items: [
+            { label: t('menu.merchantProfile'), icon: 'pi pi-fw pi-id-card', to: '/merchant/profile' },
+            { label: t('menu.apiWallet'), icon: 'pi pi-fw pi-wallet', to: '/merchant/api-wallet' },
+            { label: t('menu.subAccounts'), icon: 'pi pi-fw pi-users', to: '/merchant/sub-accounts' },
+        ],
+    }]
+}
 
 export function buildMenuForPortal(t: Composer['t'], portal: PortalType): MenuGroup[] {
     const full = buildSakaiMenu(t)
     if (portal === 'supplier') return full
     const allow = portal === 'agent' ? AGENT_ALLOW : MERCHANT_ALLOW
-    return full.filter((g) => g.key !== undefined && allow.includes(g.key))
+    const filtered = full.filter((g) => g.key !== undefined && allow.includes(g.key))
+    const extra = portal === 'agent' ? agentPortalGroups(t) : merchantPortalGroups(t)
+    return [...filtered, ...extra]
 }

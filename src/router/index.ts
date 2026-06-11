@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 import { portalRoutes, type PortalRouteDef } from './portalRoutes'
+import i18n from '@/i18n'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
@@ -500,8 +501,11 @@ router.beforeEach(async (to, _from, next) => {
 
 router.afterEach((to) => {
     NProgress.done()
-    const title = to.meta.title ? `${String(to.meta.title)} - Game Dev Dashboard` : 'Game Dev Dashboard'
-    document.title = title
+    // meta.title 是 i18n key（如 menu.dashboard）；直接塞分頁標題會露出原始
+    // key（QA L-1）。改用 i18n 翻譯，key 不存在時 vue-i18n 會回傳原字串。
+    const titleKey = to.meta.title ? String(to.meta.title) : ''
+    const translated = titleKey ? i18n.global.t(titleKey) : ''
+    document.title = translated ? `${translated} - Game Dev Dashboard` : 'Game Dev Dashboard'
 })
 
 export default router

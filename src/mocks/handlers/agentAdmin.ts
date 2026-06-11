@@ -1,5 +1,6 @@
 import { http, HttpResponse, delay } from 'msw'
 import { expandDemoRows } from '@/utils/demoRows'
+import { scopeRows } from '@/mocks/scope'
 
 // ──────────────────────────────────────────────────────────────
 // Types (copied verbatim from the demo agentRows shape)
@@ -87,6 +88,33 @@ const SEED_LIST: AgentRow[] = [
 ]
 
 // ──────────────────────────────────────────────────────────────
+// 佣金報表（C2 Spec 2）— type + seed
+// 固定 6 筆（不 expandDemoRows）：all=6 / own-agent-line(Asia Master)=3 / own-merchant=0
+// ──────────────────────────────────────────────────────────────
+
+type CommissionRow = {
+    period: string
+    agent: string
+    merchant: string
+    bet: number
+    ggr: number
+    commissionType: string
+    commissionRate: number
+    commission: number
+    currency: string
+    settlementStatus: string
+}
+
+const SEED_COMMISSIONS: CommissionRow[] = [
+    { period: '2026-05', agent: 'Asia Master', merchant: 'Golden Dragon', bet: 1286800, ggr: 74400, commissionType: 'GGR', commissionRate: 0.08, commission: 5952, currency: 'USDT', settlementStatus: '待審核' },
+    { period: '2026-05', agent: 'Asia Master', merchant: 'Dragon Club', bet: 736500, ggr: 42220, commissionType: 'GGR', commissionRate: 0.08, commission: 3377.6, currency: 'USDT', settlementStatus: '待對帳' },
+    { period: '2026-04', agent: 'Asia Master', merchant: 'Golden Dragon', bet: 1102300, ggr: 61800, commissionType: 'GGR', commissionRate: 0.08, commission: 4944, currency: 'USDT', settlementStatus: '已鎖定' },
+    { period: '2026-05', agent: 'Prime Network', merchant: 'LuckyPlay', bet: 8842000, ggr: 666000, commissionType: 'Turnover', commissionRate: 0.015, commission: 132630, currency: 'TWD', settlementStatus: '對帳中' },
+    { period: '2026-05', agent: 'Nova Agent', merchant: 'Nova Gaming', bet: 316400, ggr: 21480, commissionType: 'GGR', commissionRate: 0.06, commission: 1288.8, currency: 'USD', settlementStatus: '已鎖定' },
+    { period: '2026-05', agent: 'Royal Partner', merchant: 'Royal H5', bet: 542000, ggr: -27200, commissionType: 'GGR', commissionRate: 0.05, commission: -1360, currency: 'USDT', settlementStatus: '爭議中' },
+]
+
+// ──────────────────────────────────────────────────────────────
 // Handlers
 // ──────────────────────────────────────────────────────────────
 
@@ -94,5 +122,9 @@ export const agentAdminHandlers = [
     http.get('/api/agents/v2/list', async () => {
         await delay(250)
         return HttpResponse.json(expandDemoRows(SEED_LIST))
+    }),
+    http.get('/api/agents/v2/commissions', async ({ request }) => {
+        await delay(250)
+        return HttpResponse.json(scopeRows(request, SEED_COMMISSIONS, { agentKey: 'agent' }))
     }),
 ]

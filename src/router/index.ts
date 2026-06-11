@@ -16,19 +16,35 @@ const SHARED_DEFS: PortalRouteDef[] = [
     { path: 'reports', name: 'reports', component: () => import('@/views/Reports/Overview.vue'), titleKey: 'menu.reportsOverview' },
     { path: 'settlements', name: 'settlements', component: () => import('@/views/Settlements/Index.vue'), titleKey: 'menu.settlementList' },
     { path: 'risk', name: 'risk', component: () => import('@/views/Risk/Overview.vue'), titleKey: 'menu.riskOverview' },
+    // ── 以下為 C2 Spec 2（H#3）補的 sub-page，覆蓋 agent/merchant 選單全部共用條目 ──
+    { path: 'merchants/settings', name: 'merchants-settings', component: () => import('@/views/Merchants/Settings.vue'), titleKey: 'menu.merchantSettings' },
+    { path: 'games/settings', name: 'games-settings', component: () => import('@/views/Games/Settings.vue'), titleKey: 'menu.gameSettings' },
+    { path: 'games/math', name: 'games-math', component: () => import('@/views/Games/Math.vue'), titleKey: 'menu.gameMath' },
+    { path: 'games/versions', name: 'games-versions', component: () => import('@/views/Games/Versions.vue'), titleKey: 'menu.gameVersions' },
+    { path: 'games/assets', name: 'games-assets', component: () => import('@/views/Games/Assets.vue'), titleKey: 'menu.gameAssets' },
+    { path: 'games/merchant-access', name: 'games-merchant-access', component: () => import('@/views/Games/MerchantAccess.vue'), titleKey: 'menu.gameMerchantAccess' },
+    { path: 'orders/abnormal', name: 'orders-abnormal', component: () => import('@/views/Orders/Abnormal.vue'), titleKey: 'menu.ordersAbnormal' },
+    { path: 'transactions/abnormal', name: 'transactions-abnormal', component: () => import('@/views/Transactions/Abnormal.vue'), titleKey: 'menu.transactionsAbnormal' },
+    { path: 'reports/merchants', name: 'reports-merchants', component: () => import('@/views/Reports/Merchants.vue'), titleKey: 'menu.reportsMerchants' },
+    { path: 'reports/agents', name: 'reports-agents', component: () => import('@/views/Reports/Agents.vue'), titleKey: 'menu.reportsAgents' },
+    { path: 'reports/games', name: 'reports-games', component: () => import('@/views/Reports/Games.vue'), titleKey: 'menu.reportsGames' },
+    { path: 'reports/rtp', name: 'reports-rtp', component: () => import('@/views/Reports/Rtp.vue'), titleKey: 'menu.reportsRtp' },
+    { path: 'risk/alerts', name: 'risk-alerts', component: () => import('@/views/Risk/Alerts.vue'), titleKey: 'menu.riskAlerts' },
+    { path: 'risk/rules', name: 'risk-rules', component: () => import('@/views/Risk/Rules.vue'), titleKey: 'menu.riskRules' },
+    { path: 'risk/rule-builder', name: 'risk-rule-builder', component: () => import('@/views/Risk/RuleBuilder.vue'), titleKey: 'menu.riskRuleBuilder' },
+    { path: 'risk/cases', name: 'risk-cases', component: () => import('@/views/Risk/Cases.vue'), titleKey: 'menu.riskCases' },
+    { path: 'risk/actions', name: 'risk-actions', component: () => import('@/views/Risk/Actions.vue'), titleKey: 'menu.riskActions' },
 ]
-
-const placeholder = () => import('@/views/_Placeholder/PortalPagePlaceholder.vue')
 
 // Portal 專屬頁（Spec 1 指向佔位頁；Spec 2 換真實頁）
 const AGENT_ONLY_DEFS: PortalRouteDef[] = [
-    { path: 'commissions', name: 'commissions', component: placeholder, titleKey: 'menu.commissions', permission: 'commissions.view' },
-    { path: 'sub-accounts', name: 'sub-accounts', component: placeholder, titleKey: 'menu.subAccounts', permission: 'sub-accounts.view' },
+    { path: 'commissions', name: 'commissions', component: () => import('@/views/Agent/Commissions.vue'), titleKey: 'menu.commissions', permission: 'commissions.view' },
+    { path: 'sub-accounts', name: 'sub-accounts', component: () => import('@/views/Portal/SubAccounts.vue'), titleKey: 'menu.subAccounts', permission: 'sub-accounts.view' },
 ]
 const MERCHANT_ONLY_DEFS: PortalRouteDef[] = [
-    { path: 'profile', name: 'profile', component: placeholder, titleKey: 'menu.merchantProfile', permission: 'merchant-profile.view' },
-    { path: 'api-wallet', name: 'api-wallet', component: placeholder, titleKey: 'menu.apiWallet', permission: 'api-wallet.view' },
-    { path: 'sub-accounts', name: 'sub-accounts', component: placeholder, titleKey: 'menu.subAccounts', permission: 'sub-accounts.view' },
+    { path: 'profile', name: 'profile', component: () => import('@/views/Merchant/Profile.vue'), titleKey: 'menu.merchantProfile', permission: 'merchant-profile.view' },
+    { path: 'api-wallet', name: 'api-wallet', component: () => import('@/views/Merchant/ApiWallet.vue'), titleKey: 'menu.apiWallet', permission: 'api-wallet.view' },
+    { path: 'sub-accounts', name: 'sub-accounts', component: () => import('@/views/Portal/SubAccounts.vue'), titleKey: 'menu.subAccounts', permission: 'sub-accounts.view' },
 ]
 
 const routes: RouteRecordRaw[] = [

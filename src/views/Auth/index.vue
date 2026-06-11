@@ -78,6 +78,11 @@ const quickLogin = async (username: string, password: string) => {
     await doLogin()
 }
 
+const openDocs = () => {
+    // hash mode：resolve().href = '#/docs'（相對 URL，對當前頁解析），本機與 GitHub Pages 皆正確
+    window.open(router.resolve('/docs').href, '_blank')
+}
+
 const submitLabel = computed(() => (loading.value ? t('login.authenticating') : t('login.submit')))
 </script>
 
@@ -142,6 +147,13 @@ const submitLabel = computed(() => (loading.value ? t('login.authenticating') : 
                     outlined
                     :disabled="loading"
                     @click="quickLogin(u.username, u.password)"
+                />
+                <Button
+                    :label="t('login.docs')"
+                    size="small"
+                    severity="secondary"
+                    outlined
+                    @click="openDocs"
                 />
             </div>
         </div>

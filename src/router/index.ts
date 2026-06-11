@@ -424,6 +424,14 @@ const routes: RouteRecordRaw[] = [
         meta: { title: 'Design System' }
     },
 
+    // ================== 公開文件（交接文件檢視，免登入） ==================
+    {
+        path: '/docs/:slug?',
+        name: 'HandoffDocs',
+        component: () => import('../views/Docs/Index.vue'),
+        meta: { title: 'menu.handoffDocs' }
+    },
+
     // ================== FORBIDDEN ==================
     {
         path: '/403',
@@ -454,12 +462,13 @@ router.beforeEach(async (to, _from, next) => {
 
     const isAuthenticated = authStore.isAuthenticated
     const isLoginPath = to.path === '/login'
+    const isPublicDocs = to.path.startsWith('/docs')
 
     if (isLoginPath && isAuthenticated) {
         return next('/dashboard')
     }
 
-    if (isLoginPath || to.name === 'NotFound') {
+    if (isLoginPath || isPublicDocs || to.name === 'NotFound') {
         return next()
     }
 

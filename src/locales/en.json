@@ -60,6 +60,7 @@
     },
     "menu": {
         "dashboard": "Dashboard",
+        "handoffDocs": "Handoff Docs",
         "agentManagement": "Agent Management",
         "merchant": "Merchant",
         "gameCenter": "Game Center",
@@ -185,7 +186,8 @@
         "account": "Account",
         "password": "Password",
         "submit": "Login",
-        "subtitle": "Admin Management System"
+        "subtitle": "Admin Management System",
+        "docs": "📚 Handoff Docs"
     },
     "columns": {
         "id": "ID",

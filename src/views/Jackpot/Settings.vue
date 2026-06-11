@@ -265,31 +265,31 @@ function openRule(row?: RuleTemplate) {
         <section class="dialog-section">
           <h3>規則內容</h3>
           <div class="dialog-form-grid">
-            <div class="field">
+            <div class="field field-span-4">
               <label>規則名稱</label>
               <InputText v-model="selectedRule.name" fluid />
             </div>
-            <div class="field">
+            <div class="field field-span-4">
               <label>獎池類型</label>
               <Select v-model="selectedRule.type" :options="['全域累積', '每日派發', '小額累積', '指定商戶']" fluid />
             </div>
-            <div class="field">
+            <div class="field field-span-4">
               <label>幣別</label>
               <Select v-model="selectedRule.currency" :options="currencyOptions" fluid />
             </div>
-            <div class="field">
+            <div class="field field-span-4">
               <label>觸發方式</label>
               <Select v-model="selectedRule.triggerMode" :options="triggerOptions" fluid />
             </div>
-            <div class="field">
+            <div class="field field-span-4">
               <label>累積比例</label>
               <InputNumber v-model="selectedRule.contributionRate" suffix="%" :min="0" :max="100" :min-fraction-digits="2" :max-fraction-digits="2" fluid />
             </div>
-            <div class="field">
+            <div class="field field-span-4">
               <label>派發上限</label>
               <InputNumber v-model="selectedRule.payoutCap" mode="decimal" :min="0" fluid />
             </div>
-            <div class="field switch-field">
+            <div class="field switch-field field-span-4">
               <label>需審核</label>
               <ToggleSwitch v-model="selectedRule.reviewRequired" />
             </div>

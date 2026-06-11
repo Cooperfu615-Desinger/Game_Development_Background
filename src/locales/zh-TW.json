@@ -60,6 +60,7 @@
     },
     "menu": {
         "dashboard": "儀表板",
+        "handoffDocs": "交接文件",
         "agentManagement": "代理管理",
         "merchant": "商戶管理",
         "gameCenter": "遊戲中心",
@@ -201,7 +202,8 @@
         "success": "登入成功",
         "failed": "帳號或密碼錯誤",
         "appName": "Game Developer Dashboard",
-        "subtitle": "遊戲開發商管理後台"
+        "subtitle": "遊戲開發商管理後台",
+        "docs": "📚 交接文件"
     },
     "columns": {
         "id": "ID",

@@ -8,11 +8,13 @@
 
 ---
 
-## 已套 scope 的端點（7 個）
+## 已套 scope 的端點（9 個：C1 7 個 + C2 Spec 2 新增 2 個）
 
-| endpoint | method | 所需 permission | C1 scope 行為 |
+| endpoint | method | 所需 permission | scope 行為 |
 |---|---|---|---|
-| `/api/merchants/v2/list` | GET | `merchants.view` | scope 過濾（agentKey:`agent` / merchantKey:`code`）：all / own-agent-line / own-merchant |
+| `/api/merchants/v2/list` | GET | `merchants.view` | scope 過濾（agentKey:`agent` / merchantKey:`code`）：all / own-agent-line / own-merchant。**C2 Spec 2 起亦作 merchant self-view 來源**（商戶資料 / API錢包 取首筆；憑證在 list 列為已知 trade-off，見 backend.md） |
+| `/api/agents/v2/commissions` | GET | `commissions.view` | **C2 新增**。scope 過濾（agentKey:`agent`）：own-agent-line 留 `agent==='Asia Master'`（6→3）；own-merchant 空 |
+| `/api/sub-accounts/v2/list` | GET | `sub-accounts.view` | **C2 新增**。scope 過濾（agentKey:`agent` / merchantKey:`merchant`）：own-agent-line 9→3；own-merchant 9→4；各 portal 只見自己 |
 | `/api/orders/v2/list` | GET | `orders.view` | scope 過濾（merchantKey:`merchant`）：own-merchant 過濾；own-agent-line pass-through |
 | `/api/orders/v2/abnormal` | GET | `orders.view` | scope 過濾（merchantKey:`merchant`）：own-merchant 子集；own-agent-line pass-through |
 | `/api/transactions/v2/list` | GET | `transactions.view` | scope 過濾（merchantKey:`merchant`）：own-merchant 過濾；own-agent-line pass-through |

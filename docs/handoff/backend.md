@@ -54,6 +54,18 @@ C1 的 `src/mocks/scope.ts` 提供 `scopeRows(request, rows, { agentKey?, mercha
 
 > 重點：order / risk 類端點在 `own-agent-line`（agent 身份）下是 **pass-through**，因為這些資料列沒有 `agent` 欄位可比對。這是 C1 的已知簡化，正式後端必須補上（見第 5 節）。
 
+### C2 Spec 2 新增 / 複用端點
+
+| endpoint | 過濾鍵 | own-agent-line | own-merchant |
+|---|---|---|---|
+| `GET /api/agents/v2/commissions`（新） | `agentKey:'agent'` | `agent==='Asia Master'`（6 筆中留 3） | 空（無 agentKey 命中、列無 code 欄位） |
+| `GET /api/sub-accounts/v2/list`（新） | `agentKey:'agent'`,`merchantKey:'merchant'` | `agent==='Asia Master'`（9 筆中留 3） | `merchant==='Golden Dragon'`（9 筆中留 4） |
+| `GET /api/merchants/v2/list`（self-view 複用，取首筆） | 同 C1（agentKey:`agent`/merchantKey:`code`） | 依 `merchant.agent` 過濾 | 1 筆（MER-001）；商戶資料 / API錢包 兩頁取 `rows[0]` |
+
+> **self-view 複用 trade-off**：merchant 商戶資料 / API錢包 直接複用 own-merchant scope 後的 `/api/merchants/v2/list` 首筆。該 list 列含憑證（`apiKey`/`secretKey`/`walletApi`/`callbackUrl`），supplier(all) 下會回含 secret 的多筆——**正式後端必須把憑證移到專屬 own-merchant scoped 端點（如 `/api/merchant/v2/credentials`），不可放在 list**。前端 secret 顯示用 `SensitiveValue` 遮罩（UI 層，非安全邊界）。
+> **commissions own-agent-line**：mock 採 `agent` 欄位直接比對 actorName；sub-agent 線遞迴為真後端 TODO（同第 5 節 order/risk 註記）。
+> **sub-accounts 設計**：子帳號＝該 actor 帳號下的操作員。agent 列只帶 `agent`（`merchant:''`）、merchant 列只帶 `merchant`（`agent:''`），使 scopeRows 乾淨切分、空字串不會誤配。
+
 ### C1 未套 scope 的端點
 
 以下端點在 C1 **完全未套用 scope**（pass-through），正式後端需依相關性自行套用：

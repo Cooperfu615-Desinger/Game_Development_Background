@@ -154,20 +154,21 @@
 ### 處置表
 | 項 | Wave | 處置 | Root cause（已查證） |
 |---|---|---|---|
-| M-3 tooltip 未註冊 | 1 | 修：plugins 註冊 PrimeVue `Tooltip` directive | `src/plugins/primevue.ts` 未 `app.directive('tooltip', Tooltip)` |
-| L-1 標題原始 key | 1 | 修：afterEach 用 `t(meta.title)` | `router/index.ts:503` 直接 `String(to.meta.title)` |
-| L-4 切 Portal 顯示名沒變 | 1 | 修：topbar 顯示名綁 token actorName | `AppTopbar.vue:17` 綁 `authStore.userInfo.name`（登入寫死） |
-| L-5 Dashboard 硬編 Supplier Portal | 1 | 修：描述依 portalStore 動態化 | `Dashboard/Index.vue` 篩選卡描述硬編 |
-| C-1 MSW debug log 刷屏 | 1 | 修：gating/移除 mock 日誌（含雙倍輸出） | MSW handler 自訂 logger |
-| L-6 管理員 KPI 數字打架 | 1 | 修：對齊 seed（啟用 30≠40） | systemAdmin seed 不一致 |
-| L-2 changeLanguage 缺 key | 1 | **Moot**（語言切換器移除後不需要） | — |
+| ✅ M-3 tooltip 未註冊 | 1 | 修：plugins 註冊 PrimeVue `Tooltip` directive | `src/plugins/primevue.ts` 未 `app.directive('tooltip', Tooltip)` |
+| ✅ L-1 標題原始 key | 1 | 修：afterEach 用 `i18n.global.t(meta.title)` | `router/index.ts:503` 直接 `String(to.meta.title)` |
+| ✅ L-4 切 Portal 顯示名沒變 | 1 | 修：topbar 顯示名綁 `decodeToken(token).actorName` | `AppTopbar.vue:17` 綁 `authStore.userInfo.name`（登入寫死） |
+| ✅ L-5 Dashboard 硬編 Supplier Portal | 1 | 修：描述綁 `portalStore.current.label` 動態化 | `Dashboard/Index.vue` 篩選卡描述硬編 |
+| ✅ C-1 MSW debug log 刷屏 | 1 | 修：`worker.start({ quiet: true })`（MSW 內建日誌，非自訂 logger） | MSW 內建逐請求 log |
+| ✅ L-6 管理員 KPI 數字打架 | 1 | 修：鎖定帳號 2FA→false，使 2FA 啟用數 30=啟用數 30 | systemAdmin seed 不一致 |
+| ✅ L-2 changeLanguage 缺 key | 1 | **Moot**（語言切換器已移除） | — |
+| ✅ 移除語言切換器 | 1 | 移除 topbar 地球鈕入口 + 刪 `LanguageSwitcher.vue`（i18n 基礎設施/zh-TW 保留） | M-4 決議連帶 |
 | M-1 查詢未過濾 | 2 | 修：複製現有 `filteredRows` 樣板 | 5 頁 DataTable 綁原始 `rows`（Merchants/Agents/Games + Portal/SubAccounts + Agent/Commissions）；**另查 orders/transactions/jackpot** |
 | M-5 新增遊戲 dialog 欄位重疊 | 2 | 修：該列 grid 欄寬/span | 狀態下拉溢出壓到環境模式欄 |
 | L-9 環境切換無二次確認 | 2 | 修：查為何沒觸發、補確認彈窗 | 商戶編輯流程 |
 | M-2 深連結 token 競態 | 2 | 修：beforeEach 在 fetch 前同步 token | onMounted fetch 早於 syncPortal 重簽 |
 | M-1b stub 按鈕 | 2 | 能接的接、不能接的標「即將推出」+disable | 新增數值版本/建立審核單/欄位設定 無 handler |
-| M-4 全站 i18n | — | **不做**；移除語言切換器 | 頁面硬編 zh-TW |
-| L-3 語言鈕只翻導覽 | — | 隨 M-4／切換器移除而 moot | 併入 M-4 |
+| ✅ M-4 全站 i18n | — | **不做**；語言切換器已移除（Wave 1） | 頁面硬編 zh-TW |
+| ✅ L-3 語言鈕只翻導覽 | — | 隨切換器移除而 moot（Wave 1） | 併入 M-4 |
 | L-7 敏感值還原跨 dialog 保留 | 3 | 選做：關閉時重置遮罩 | UX |
 | L-8 列表無錯誤狀態 | 3 | 選做（低優先，mock 環境） | 無 error/retry UI |
 | C-2 seed 名稱重複 | 3 | 選做：分散 seed 名稱 | mock cosmetic |

@@ -1,6 +1,18 @@
 # Game Developer Dashboard — Design System
 
-> 現代科幻風格，深色優先，面向遊戲運營人員的後台設計規範
+> ⚠️ **歷史文件(2026-04)**:本文件為專案早期(Naive UI 期、tech 遷移前)的紀錄,
+> 部分內容已不反映現況。**現行架構與交接請以 [`docs/handoff/`](./handoff/) 為準**
+> (C1 Portal 架構、C2 Portal 專屬實頁已上線)。本文保留作歷史參考。
+
+> **現況更正(2026-06-11)**:本文描述的「科幻深色」設計系統(霓虹藍 `#00D4FF` 主色、
+> 深色優先、光暈邊框)已是 **legacy-only**,不再是現行規範。現行設計系統為:
+> - **技術棧**:PrimeVue 4 **Apple HIG preset**(基於 Aura 覆寫,見 `src/plugins/primevue.ts`),Naive UI 已移除
+> - **主題**:**light 預設**(仿 macOS / iCloud 風格),深色以 `.app-dark` class 切換;主色為 Apple Blue `#007AFF`(非 `#00D4FF`)
+> - **頁面樣式**:demo-pages.css port(`src/styles/demo-pages.css`)
+>
+> 以下章節(配色、排版、組件、動畫)均為科幻舊系統的規範,僅供歷史參考。
+
+> 現代科幻風格，深色優先，面向遊戲運營人員的後台設計規範(— 舊版定位)
 
 ---
 

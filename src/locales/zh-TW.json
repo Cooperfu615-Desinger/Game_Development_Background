@@ -55,7 +55,8 @@
         "submit": "送出",
         "reason": "原因/理由",
         "confirmStatusChange": "⚠️ 確認變更狀態",
-        "confirmStatusMsg": "確定嗎？此操作可能會影響到所有下游商戶。"
+        "confirmStatusMsg": "確定嗎？此操作可能會影響到所有下游商戶。",
+        "c2Placeholder": "此頁面將於 Phase C2 Spec 2 實作"
     },
     "menu": {
         "dashboard": "儀表板",
@@ -166,7 +167,13 @@
         "agentSettings": "代理設定",
         "merchantGroup": "商戶管理",
         "merchantList": "商戶列表",
-        "merchantSettings": "商戶設定"
+        "merchantSettings": "商戶設定",
+        "agentSelf": "代理專區",
+        "merchantSelf": "商戶專區",
+        "commissions": "佣金報表",
+        "subAccounts": "子帳號",
+        "merchantProfile": "商戶資料",
+        "apiWallet": "API 與錢包"
     },
     "layout": {
         "masterAdmin": "👑 Master Admin",

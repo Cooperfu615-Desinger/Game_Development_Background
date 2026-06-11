@@ -7,7 +7,6 @@ import { useSakaiLayout } from './useSakaiLayout'
 import { useAuthStore } from '@/stores/auth'
 import { usePortalStore } from '@/stores/portal'
 import { decodeToken } from '@/services/auth/mockToken'
-import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 
 const { toggleMenu, toggleDarkMode, isDarkTheme } = useSakaiLayout()
 const router = useRouter()
@@ -69,9 +68,6 @@ const handleLogout = () => {
             >
                 <i :class="['pi', isDarkTheme ? 'pi-sun' : 'pi-moon']" />
             </button>
-
-            <!-- Language switcher -->
-            <LanguageSwitcher />
 
             <!-- User info + logout -->
             <div class="layout-topbar-user">

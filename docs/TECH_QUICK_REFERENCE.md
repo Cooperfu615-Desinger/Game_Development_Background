@@ -6,20 +6,29 @@
 
 ## 📦 依賴版本快查表
 
+> 對齊 `package.json`(2026-06-11)。UI 框架已從 Naive UI 遷移到 **PrimeVue 4(Apple HIG preset)**。
+
 ```
-Vue 3                  3.5.24
-TypeScript             5.9.3
-Vite                   7.2.4
-Naive UI               2.43.2
-Tailwind CSS           3.4.17
-Pinia                  3.0.4
-Vue Router             4.6.4
-Vue i18n               11.2.8
-ECharts                6.0.0
-big.js                 7.0.1
-date-fns               4.1.0
-MSW                    2.12.7
-@vueuse/core           14.1.0
+Vue 3                        ^3.5.24
+TypeScript                   ~5.9.3
+Vite                         ^7.2.4
+PrimeVue 4                   ^4.5.5   (Apple HIG preset，基於 Aura 覆寫)
+@primeuix/themes             ^2.0.3
+primeicons                   ^7.0.0
+tailwindcss-primeui          ^0.6.1
+Tailwind CSS                 ^3.4.17
+Pinia                        ^3.0.4
+pinia-plugin-persistedstate  ^4.7.1
+Vue Router                   ^4.6.4
+Vue i18n                     ^11.2.8
+ECharts                      ^6.0.0   (+ vue-echarts ^8.0.1)
+Chart.js                     ^4.5.1   (PrimeVue <Chart> 元件使用)
+big.js                       ^7.0.1
+date-fns                     ^4.1.0
+MSW                          ^2.12.7
+@vueuse/core                 ^14.1.0
+@faker-js/faker              ^10.2.0
+nprogress                    ^0.2.0
 ```
 
 ---
@@ -65,35 +74,56 @@ src/
 
 ---
 
-## 🎨 Naive UI 常用組件
+## 🎨 PrimeVue 4 常用組件
+
+> 元件採各檔局部 import(非全域註冊);主題設定見 `src/plugins/primevue.ts`(Apple HIG preset)。
 
 ```vue
-<!-- 表格 -->
-<n-data-table :columns="columns" :data="data" />
+<script setup lang="ts">
+// 每個元件在使用的 .vue 檔內 import
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import Button from 'primevue/button'
+import Dialog from 'primevue/dialog'
+import Select from 'primevue/select'
+import InputText from 'primevue/inputtext'
+import InputNumber from 'primevue/inputnumber'
+import DatePicker from 'primevue/datepicker'
+import Tag from 'primevue/tag'
+import { useToast } from 'primevue/usetoast'
 
-<!-- 輸入框 -->
-<n-input v-model:value="text" />
-<n-input-number v-model:value="number" />
+const toast = useToast()
+</script>
 
-<!-- 選擇器 -->
-<n-select v-model:value="selected" :options="options" />
-<n-date-picker v-model:value="date" />
+<template>
+  <!-- 表格 -->
+  <DataTable :value="rows" paginator :rows="10">
+    <Column field="name" header="名稱" sortable />
+    <Column field="status" header="狀態" />
+  </DataTable>
 
-<!-- 按鈕 -->
-<n-button type="primary">保存</n-button>
+  <!-- 輸入框 -->
+  <InputText v-model="text" />
+  <InputNumber v-model="number" />
 
-<!-- 卡片 -->
-<n-card title="標題">內容</n-card>
+  <!-- 選擇器 -->
+  <Select v-model="selected" :options="options" option-label="label" option-value="value" />
+  <DatePicker v-model="date" />
 
-<!-- 模態框 -->
-<n-modal v-model:show="showModal">內容</n-modal>
+  <!-- 按鈕 -->
+  <Button label="保存" severity="primary" />
 
-<!-- 訊息提示 -->
-<n-message>信息</n-message>
-<n-notification>通知</n-notification>
+  <!-- 對話框 -->
+  <Dialog v-model:visible="showDialog" modal header="標題">內容</Dialog>
 
-<!-- 標籤 -->
-<n-tag type="success">成功</n-tag>
+  <!-- 標籤 -->
+  <Tag severity="success" value="成功" />
+</template>
+```
+
+```typescript
+// Toast 訊息(ToastService 已在 setupPrimeVue 全域註冊)
+toast.add({ severity: 'success', summary: '已保存', life: 3000 })
 ```
 
 ---
@@ -341,6 +371,30 @@ const option = {
 <v-chart :option="option" style="height: 300px" />
 ```
 
+> echarts 註冊已移到使用它的元件內(不進首屏 bundle),見 `src/main.ts` 註解。
+
+---
+
+## 📈 Chart.js(PrimeVue Chart 元件)
+
+```vue
+<script setup lang="ts">
+import Chart from 'primevue/chart'
+
+const chartData = {
+  labels: ['Mon', 'Tue', 'Wed'],
+  datasets: [{ label: '營收', data: [120, 200, 150] }]
+}
+const chartOptions = { responsive: true, maintainAspectRatio: false }
+</script>
+
+<template>
+  <Chart type="line" :data="chartData" :options="chartOptions" style="height: 300px" />
+</template>
+```
+
+> 專案中 ECharts 與 Chart.js 並存:複雜互動圖表用 ECharts,一般統計圖用 PrimeVue `<Chart>`。
+
 ---
 
 ## 💰 精確計算 (big.js)
@@ -389,8 +443,8 @@ startOfMonth(new Date())
 ### ✅ 必須做
 
 ```vue
-<!-- 使用 Naive UI 組件 -->
-<n-button type="primary">按鈕</n-button>
+<!-- 使用 PrimeVue 組件 -->
+<Button label="按鈕" severity="primary" />
 
 <!-- 使用 Tailwind 樣式 -->
 <div class="p-4 bg-white rounded-lg shadow-md"></div>
@@ -467,7 +521,7 @@ git pull origin main
 | Vite 文件監聽不工作 | 重啟開發服務器或檢查 WSL2 配置 |
 | MSW Mock 未生效 | 檢查 `main.ts` 中的初始化邏輯 |
 | 樣式未應用 | 檢查 Tailwind class 名是否正確拼寫 |
-| Naive UI 主題未應用 | 檢查 `NConfigProvider` 是否正確包裹 |
+| PrimeVue 主題/深色模式未生效 | 檢查 `src/plugins/primevue.ts`(darkModeSelector 為 `.app-dark`,勿啟用 cssLayer) |
 | i18n 文本未翻譯 | 檢查 `locales/` 目錄結構是否完整 |
 
 ---
@@ -503,5 +557,5 @@ npm run preview
 
 ---
 
-**最後更新**: 2026-03-31
+**最後更新**: 2026-06-11(對齊 PrimeVue 4 Apple HIG 現況;現行架構與 API 契約以 [`docs/handoff/`](./handoff/) 為準)
 **印刷版本**: 建議列印並貼在工位旁邊 📌

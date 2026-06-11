@@ -2,12 +2,34 @@
 
 **專案名稱**: Aggregator → 博弈遊戲開發商的總控後台
 **生成時間**: 2026-03-31
-**文檔版本**: 1.0.0
+**文檔版本**: 1.1.0(2026-06-11 對齊現況)
 
 ---
 
-## 🎯 快速導航
+## 📌 現況快照(2026-06-11)
 
+> **現行架構與 API 契約以 [`docs/handoff/`](./handoff/) 三份文件為準**;本索引其餘導覽的 2026-04 頂層文件為**歷史參考**(Naive UI 期、tech 遷移前)。
+
+已上線階段(皆部署到 GitHub Pages):
+
+| 階段 | 內容 | 參考 |
+|------|------|------|
+| **Phase A + B** | 設計系統遷移到 PrimeVue 4(Apple HIG preset,light 預設);Naive UI 已移除 | — |
+| **Phase C1** | Portal / Scope / Permission 架構(多 portal 入口 + 權限框架) | merge `6a2ca81` |
+| **Phase C2**(Spec 1 + Spec 2) | Portal 專屬實頁(商戶資料 / API 錢包 / 佣金 / 子帳號)+ scoped API 端點 | merge `f0834e8` |
+
+### 現行交接權威來源(docs/handoff/)
+
+1. **[handoff/frontend.md](./handoff/frontend.md)** — 前端現行架構(PrimeVue 4、Portal 架構、頁面與路由)
+2. **[handoff/backend.md](./handoff/backend.md)** — 後端交接(資料模型、scope 規則)
+3. **[handoff/api-contract.md](./handoff/api-contract.md)** — API 契約(端點、scope、回傳格式)
+
+---
+
+## 🎯 快速導航(歷史參考 — 2026-04 文件)
+
+> ⚠️ 以下導覽的頂層文件為專案早期(2026-04、Naive UI 期)紀錄,部分內容已不反映現況;現行架構請先讀上方 [`docs/handoff/`](./handoff/)。
+>
 > 如果你只有 10 分鐘，點擊你的角色下的第一個文檔
 
 ### 👨‍💼 產品經理 / 項目管理
@@ -198,7 +220,7 @@
 | 依賴版本表 | 所有 npm 包版本 | 偶爾 |
 | 常用命令 | npm/git 命令速查 | 每天 |
 | 目錄結構 | src/ 目錄一覽 | 開發初期 |
-| Naive UI 組件 | 常用組件代碼 | 每天 |
+| PrimeVue 4 組件 | 常用組件代碼 | 每天 |
 | Tailwind CSS | 常用樣式類 | 每天 |
 | 路由配置 | 路由設置范例 | 一次 |
 | Pinia 模式 | Store 寫法范例 | 一次 |
@@ -457,6 +479,6 @@ git push origin main
 
 **祝你的新項目開發順利！🚀**
 
-**文檔版本**: 1.0.0
-**最後更新**: 2026-03-31
-**下一次審查**: 2026-06-30
+**文檔版本**: 1.1.0
+**最後更新**: 2026-06-11(加現況快照 + handoff 導覽;歷史導覽保留)
+**下一次審查**: 2026-09-30

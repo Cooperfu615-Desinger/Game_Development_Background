@@ -79,7 +79,7 @@ const quickLogin = async (username: string, password: string) => {
 }
 
 const openDocs = () => {
-    // hash mode：resolve().href = `${base}#/docs`，本機與 GitHub Pages 皆正確
+    // hash mode：resolve().href = '#/docs'（相對 URL，對當前頁解析），本機與 GitHub Pages 皆正確
     window.open(router.resolve('/docs').href, '_blank')
 }
 

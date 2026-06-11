@@ -2,9 +2,9 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** 把 C2「Portal 專屬頁」這條支線的地基鋪完整——補 `apiClient.patch`、選單能 append Portal 專屬條目、新增 Portal 專屬 permission key、首次啟用 `meta.permission` 守衛、Portal 專屬路由（指向佔位頁）、supplier 補 `meta.portal`——讓「選單 → 路由 → 守衛 → 頁面」鏈在三 Portal 完整且可驗證。**不放任何 Spec 2 頁面內容。**
+**Goal:** 把 C2「Portal 專屬頁」這條支線的地基鋪完整——補 `apiClient.patch`、選單能 append Portal 專屬條目（獨立群組 label）、新增 Portal 專屬 permission key、首次啟用 `meta.permission` 守衛、Portal 專屬路由（指向佔位頁）——讓「選單 → 路由 → 守衛 → 頁面」鏈在三 Portal 完整且可驗證。**純加法、不改任何既有導航行為；不放任何 Spec 2 頁面內容。**
 
-**Architecture:** 站在 C1 既成接縫上。`portalRoutes(portal, defs)` factory 擴充支援 `meta.permission`；新增 `AGENT_ONLY_DEFS`/`MERCHANT_ONLY_DEFS`（全指向共用佔位頁）餵同一 factory；`buildMenuForPortal` 改為「過濾 + append」；`MOCK_ROLES` 加 Portal 專屬 key；supplier 在 MainLayout 父路由補一次 `meta.portal`，靠 vue-router 子覆蓋父讓前綴頁不受影響。
+**Architecture:** 站在 C1 既成接縫上。`portalRoutes(portal, defs)` factory 擴充支援 `meta.permission`；新增 `AGENT_ONLY_DEFS`/`MERCHANT_ONLY_DEFS`（全指向共用佔位頁）餵同一 factory；`buildMenuForPortal` 改為「過濾 + append（獨立群組 label，避免與既有群組撞名）」；`MOCK_ROLES` 加 Portal 專屬 key。**H#3（supplier `meta.portal` + 共用選單連結改前綴）整包延到 Spec 2**，故 Spec 1 不動既有導航。
 
 **Tech Stack:** Vue 3 + TS + Pinia + vue-router(hash) + PrimeVue + MSW + Vite。**本專案無單元測試框架**。
 
@@ -16,7 +16,7 @@ node node_modules/vue-tsc/bin/vue-tsc.js --noEmit; echo "tsc exit: $?"          
 
 **分支：** `feat/phase-c2-portal-foundation`（spec 已 commit 在此分支）。
 
-**執行順序與相依：** 1（patch，獨立）→ 2（佔位頁＋i18n）→ 3（權限 key）→ 4（factory＋路由＋supplier meta.portal）→ 5（選單 append）→ 6（全鏈瀏覽器驗證）。Task 4 依賴 2、3；Task 5 依賴 2、4；Task 6 依賴全部。
+**執行順序與相依：** 1（patch，獨立）→ 2（佔位頁＋i18n）→ 3（權限 key）→ 4（factory＋Portal 專屬路由）→ 5（選單 append）→ 6（全鏈瀏覽器驗證）。Task 4 依賴 2、3；Task 5 依賴 2、4；Task 6 依賴全部。
 
 ---
 
@@ -27,11 +27,11 @@ node node_modules/vue-tsc/bin/vue-tsc.js --noEmit; echo "tsc exit: $?"          
 
 **修改**
 - `src/services/apiClient.ts` — `api.patch`
-- `src/locales/zh-TW.json` / `src/locales/en.json` — +4 menu key、+1 common key
+- `src/locales/zh-TW.json` / `src/locales/en.json` — +6 menu key、+1 common key
 - `src/stores/permission.ts` — agent/merchant 角色 +新 permission key
 - `src/router/portalRoutes.ts` — `PortalRouteDef.permission` → meta
-- `src/router/index.ts` — `AGENT_ONLY_DEFS`/`MERCHANT_ONLY_DEFS` + 展開 + MainLayout `meta.portal`
-- `src/config/menu-sakai.ts` — `buildMenuForPortal` 過濾 + append
+- `src/router/index.ts` — `AGENT_ONLY_DEFS`/`MERCHANT_ONLY_DEFS` + 展開（**不動** MainLayout meta）
+- `src/config/menu-sakai.ts` — `buildMenuForPortal` 過濾 + append（獨立群組 label）
 
 ---
 
@@ -111,9 +111,11 @@ const portal = computed(() => (route.meta.portal as string | undefined) ?? '')
 
 - [ ] **Step 2: 加 menu i18n key（zh-TW）**
 
-`src/locales/zh-TW.json` 的 `menu` 物件內，新增 4 個 key（接在任一既有 menu key 後，注意逗號）：
+`src/locales/zh-TW.json` 的 `menu` 物件內，新增 6 個 key（接在任一既有 menu key 後，注意逗號）。前兩個是**獨立群組標籤**（不重用 `menu.agentGroup`/`menu.merchantGroup`，避免 merchant 出現兩個「商戶管理」）：
 
 ```json
+"agentSelf": "代理專區",
+"merchantSelf": "商戶專區",
 "commissions": "佣金報表",
 "subAccounts": "子帳號",
 "merchantProfile": "商戶資料",
@@ -131,6 +133,8 @@ const portal = computed(() => (route.meta.portal as string | undefined) ?? '')
 `src/locales/en.json` 的 `menu` 物件內：
 
 ```json
+"agentSelf": "Agent Zone",
+"merchantSelf": "Merchant Zone",
 "commissions": "Commissions",
 "subAccounts": "Sub-Accounts",
 "merchantProfile": "Merchant Profile",
@@ -214,11 +218,13 @@ git commit -m "feat(c2): agent/merchant 角色新增 Portal 專屬 permission ke
 
 ---
 
-## Task 4: portalRoutes factory 支援 permission + Portal 專屬路由 + supplier meta.portal
+## Task 4: portalRoutes factory 支援 permission + Portal 專屬路由
 
 **Files:**
 - Modify: `src/router/portalRoutes.ts:7-21`
-- Modify: `src/router/index.ts:10-19`（SHARED_DEFS 區塊附近加 ONLY_DEFS）、`:29-33`（MainLayout meta）、`:377-378`（展開）
+- Modify: `src/router/index.ts:10-19`（SHARED_DEFS 區塊附近加 ONLY_DEFS）、`:377-378`（展開）
+
+> **不動** MainLayout 父路由的 meta（H#3 supplier `meta.portal` 整包延到 Spec 2，見 spec §七）。Spec 1 為純加法、不改既有導航行為。
 
 - [ ] **Step 1: factory 加 `permission`**
 
@@ -275,21 +281,7 @@ const MERCHANT_ONLY_DEFS = [
 ]
 ```
 
-- [ ] **Step 3: MainLayout 父路由補 `meta.portal`**
-
-`src/router/index.ts` 的 MainLayout 路由（`path: '/'`、`component: MainLayout`）：
-
-```ts
-    {
-        path: '/',
-        component: () => import('../layouts/MainLayout.vue'),
-        meta: { requiresAuth: true, portal: 'supplier' },
-        children: [
-```
-
-> vue-router 子覆蓋父：supplier 子頁繼承 `portal:'supplier'`；agent/merchant 前綴頁由 factory 自帶 portal，覆蓋父值。
-
-- [ ] **Step 4: 展開 Portal 專屬路由**
+- [ ] **Step 3: 展開 Portal 專屬路由**
 
 `src/router/index.ts` children 內既有兩行：
 
@@ -305,7 +297,7 @@ const MERCHANT_ONLY_DEFS = [
             ...portalRoutes('merchant', [...SHARED_DEFS, ...MERCHANT_ONLY_DEFS]),
 ```
 
-- [ ] **Step 5: build + tsc 驗證**
+- [ ] **Step 4: build + tsc 驗證**
 
 ```bash
 node node_modules/vite/bin/vite.js build > /tmp/build.log 2>&1; tail -3 /tmp/build.log
@@ -313,7 +305,7 @@ node node_modules/vue-tsc/bin/vue-tsc.js --noEmit; echo "tsc exit: $?"
 ```
 預期：`✓ built in`、tsc exit 0（兩個 `sub-accounts` 因 factory 加 portal 前綴而 route name 不衝突）。
 
-- [ ] **Step 6: 路由註冊抽查（瀏覽器 console）**
+- [ ] **Step 5: 路由註冊抽查（瀏覽器 console）**
 
 preview → 登入後 console 執行（證明路由 + meta.permission 已註冊）：
 
@@ -323,11 +315,11 @@ preview → 登入後 console 執行（證明路由 + meta.permission 已註冊�
 ```
 > 若 `$router` 不可得，改在後續 Task 6 用導航方式驗證。預期每條 meta 含 `portal` 與對應 `permission`。
 
-- [ ] **Step 7: Commit**
+- [ ] **Step 6: Commit**
 
 ```bash
 git add src/router/portalRoutes.ts src/router/index.ts
-git commit -m "feat(c2): portalRoutes 支援 meta.permission + Portal 專屬路由（佔位頁）+ supplier meta.portal"
+git commit -m "feat(c2): portalRoutes 支援 meta.permission + Portal 專屬路由（指向佔位頁）"
 ```
 
 ---
@@ -347,10 +339,11 @@ const AGENT_ALLOW = ['overview', 'merchantGroup', 'gameManagement', 'orderGroup'
 const MERCHANT_ALLOW = ['overview', 'merchantGroup', 'gameManagement', 'orderGroup', 'reportGroup', 'riskGroup']
 
 // Portal 專屬條目（連結用前綴路徑，指向 Spec 1 佔位頁 / Spec 2 真實頁）
+// 群組 label 用獨立 key（menu.agentSelf / menu.merchantSelf），不重用 menu.agentGroup/merchantGroup，避免與既有群組撞名
 function agentPortalGroups(t: Composer['t']): MenuGroup[] {
     return [{
         key: 'agentSelf',
-        label: t('menu.agentGroup'),
+        label: t('menu.agentSelf'),
         items: [
             { label: t('menu.commissions'), icon: 'pi pi-fw pi-percentage', to: '/agent/commissions' },
             { label: t('menu.subAccounts'), icon: 'pi pi-fw pi-users', to: '/agent/sub-accounts' },
@@ -361,7 +354,7 @@ function agentPortalGroups(t: Composer['t']): MenuGroup[] {
 function merchantPortalGroups(t: Composer['t']): MenuGroup[] {
     return [{
         key: 'merchantSelf',
-        label: t('menu.merchantGroup'),
+        label: t('menu.merchantSelf'),
         items: [
             { label: t('menu.merchantProfile'), icon: 'pi pi-fw pi-id-card', to: '/merchant/profile' },
             { label: t('menu.apiWallet'), icon: 'pi pi-fw pi-wallet', to: '/merchant/api-wallet' },
@@ -380,7 +373,7 @@ export function buildMenuForPortal(t: Composer['t'], portal: PortalType): MenuGr
 }
 ```
 
-> 群組標籤沿用既有 `menu.agentGroup`/`menu.merchantGroup`，只用 Task 2 新增的葉節點 key。新群組 `key` 不在 ALLOW 也無妨（append 不經過濾）。
+> 群組標籤用 Task 2 新增的獨立 key（`menu.agentSelf`/`menu.merchantSelf`），**不重用** `menu.agentGroup`/`menu.merchantGroup`——否則 merchant（`MERCHANT_ALLOW` 已含 `merchantGroup`）會出現兩個「商戶管理」群組。新群組 `key`（`agentSelf`/`merchantSelf`）不在 ALLOW 也無妨（append 不經過濾）。
 
 - [ ] **Step 2: build + tsc 驗證**
 
@@ -424,9 +417,9 @@ Topbar 切 **merchant**：
 - 逐一點 → `#/merchant/profile`、`#/merchant/api-wallet`、`#/merchant/sub-accounts` 佔位頁渲染、標題正確、console 無 error。
 （merchant 角色具 `merchant-profile.view`/`api-wallet.view`/`sub-accounts.view`。）
 
-- [ ] **Step 4: H#3 半修驗證 — 切回 supplier**
+- [ ] **Step 4: 切回 supplier（Topbar 切換器，C1 既有正常行為）**
 
-Topbar 切回 **supplier** → 自動導 supplier 首頁、選單復位為完整 supplier 版、Topbar 身份復位。再隨意點一個 supplier 頁，確認 portal 狀態維持 supplier（不卡在前一 portal）。
+Topbar 切回 **supplier** → 自動導 supplier 首頁、選單復位為完整 supplier 版、Topbar 身份復位、專屬群組消失。這是 C1 `switchPortal` 既有行為，Spec 1 未改動導航（H#3 整包延 Spec 2）。
 
 - [ ] **Step 5: 反向（守衛 DENY → /403）**
 
@@ -454,16 +447,16 @@ location.hash = '#/agent/commissions'   // portalMeta==='agent'===currentType �
 
 ## Self-Review 結果
 
-- **Spec 覆蓋**：§3.1 patch→Task1；§3.2 佔位頁→Task2；§3.8 i18n→Task2；§3.3 權限 key→Task3；§3.4 factory permission→Task4 Step1；§3.5 專屬 defs→Task4 Step2/4；§3.6 supplier meta.portal→Task4 Step3；§3.7 選單 append→Task5；§四 鏈驗證→Task6。✓ 全覆蓋。
+- **Spec 覆蓋**：§3.1 patch→Task1；§3.2 佔位頁→Task2；§3.7 i18n→Task2；§3.3 權限 key→Task3；§3.4 factory permission→Task4 Step1；§3.5 專屬 defs→Task4 Step2/3；§3.6 選單 append→Task5；§四 鏈驗證→Task6。✓ 全覆蓋（H#3 supplier meta.portal 已移出 Spec 1）。
 - **Placeholder 掃描**：佔位頁是**刻意**的 Spec 1 產物（§3.2 約束純展示），非計畫 placeholder；其餘步驟皆附完整程式碼 / 指令。
-- **型別 / 命名一致**：`PortalRouteDef.permission`、`AGENT_ONLY_DEFS`/`MERCHANT_ONLY_DEFS`、`placeholder`、`agentPortalGroups`/`merchantPortalGroups`、permission key（`commissions.view`/`sub-accounts.view`/`merchant-profile.view`/`api-wallet.view`）、i18n key（`menu.commissions`/`menu.subAccounts`/`menu.merchantProfile`/`menu.apiWallet`/`common.c2Placeholder`）跨 Task 一致。
-- **風險**：兩個 `sub-accounts` 由 factory portal 前綴去重；MainLayout `meta.portal` 由 vue-router 子覆蓋父確保前綴頁不受影響；守衛 deny 用「同 portal 不 re-sync」精準觸發，皆已於 spec §六 列明。
+- **型別 / 命名一致**：`PortalRouteDef.permission`、`AGENT_ONLY_DEFS`/`MERCHANT_ONLY_DEFS`、`placeholder`、`agentPortalGroups`/`merchantPortalGroups`、permission key（`commissions.view`/`sub-accounts.view`/`merchant-profile.view`/`api-wallet.view`）、i18n key（`menu.agentSelf`/`menu.merchantSelf`/`menu.commissions`/`menu.subAccounts`/`menu.merchantProfile`/`menu.apiWallet`/`common.c2Placeholder`）跨 Task 一致。
+- **風險**：兩個 `sub-accounts` 由 factory portal 前綴去重；append 群組用獨立 label key 避免 merchant 雙「商戶管理」；守衛 deny 用「同 portal 不 re-sync」精準觸發；皆已於 spec §六 列明。Spec 1 純加法、不動既有導航。
 
 ## 明確不做（重申）
 
 - 不做 Spec 2 任何頁面內容 / 新 MSW 端點 / seed。
 - 不做 H#1 backtick / `window.fetch` → `api.*` 大遷移。
-- 不把共用頁選單連結改前綴路徑（H#3 另一半，留 Spec 2）。
+- **不動 supplier `meta.portal`、不改共用頁選單連結（H#3 整包延 Spec 2）**；Spec 1 不改任何既有導航行為。
 - 不 merge、不 push main、不部署。
 
 ## 執行交接

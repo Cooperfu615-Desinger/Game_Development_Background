@@ -14,9 +14,8 @@ C1 已把「身份 → token → apiClient → MSW scope → 路由/選單 RBAC�
 - `buildMenuForPortal` 只會「**過濾** supplier 完整選單」，無法 append 各 Portal 專屬條目。
 - `portalRoutes` factory 不會帶 `meta.permission`，C1 的 `/403` 守衛機制因此**從未被任何頁面啟用**。
 - `apiClient` 缺 `patch`（C1 H#1 記載）。
-- supplier 路由無 `meta.portal`，切回 supplier 時 portal 狀態不會復位（C1 H#3 的一半）。
 
-**Spec 1 目標**：把上述四點補齊，讓「**選單條目 → 前綴路由 → 權限守衛 → 頁面**」這條鏈在三 Portal 下完整且可驗證地跑起來——但路由先指向**佔位頁**，真實頁面內容留給 Spec 2。
+**Spec 1 目標**：把上述補齊，讓「**選單條目 → 前綴路由 → 權限守衛 → 頁面**」這條鏈在三 Portal 下完整且可驗證地跑起來——但路由先指向**佔位頁**，真實頁面內容留給 Spec 2。**Spec 1 維持純加法、不改任何既有導航行為**（H#3 supplier `meta.portal` 整包延到 Spec 2，理由見 §七）。
 
 ### 目標（Goals）
 
@@ -24,15 +23,14 @@ C1 已把「身份 → token → apiClient → MSW scope → 路由/選單 RBAC�
 2. `buildMenuForPortal` 升級為「**過濾 + append Portal 專屬條目**」。
 3. `MOCK_ROLES` 新增 Portal 專屬 permission key，掛到 agent / merchant 角色。
 4. `portalRoutes` factory 支援 `meta.permission`；新增「Portal 專屬路由 defs」餵同一 factory；**首次啟用** C1 的 `/403` 守衛。
-5. supplier 路由補 `meta.portal='supplier'`（收 C1 H#3 半個缺口）。
-6. 一個共用**佔位頁**元件，讓上述鏈在 build + 瀏覽器皆可驗證。
+5. 一個共用**佔位頁**元件，讓上述鏈在 build + 瀏覽器皆可驗證。
 
 ### 非目標（Non-Goals，屬 Spec 2 或之後）
 
 - Spec 2 任何頁面實作內容（佣金報表、子帳號、商戶資料、API錢包 等真實 UI / 資料）。
 - 任何新 MSW 端點 / seed。
 - C1 H#1 的 backtick / `window.fetch` → `api.*` 大遷移（接真後端開驗章前再單獨一票；mock 不會 401）。
-- C1 H#3 的另一半：把**共用頁**選單連結從絕對 supplier 路徑改成前綴路徑（留 Spec 2）。
+- **C1 H#3 整包**（supplier 路由補 `meta.portal` + 共用頁選單連結改前綴路徑）→ 整組移到 Spec 2，理由見 §七。
 - merge / push main / 部署（皆由人決定）。
 
 ---
@@ -150,29 +148,7 @@ children 內展開（與既有 `portalRoutes('agent'/'merchant', SHARED_DEFS)` �
 
 > 路由 `name` 由 factory 加 portal 前綴（`agent-sub-accounts` / `merchant-sub-accounts`），故兩個 `sub-accounts` 不衝突。
 
-### 3.6 supplier 路由補 `meta.portal`（C1 H#3 半修）— `src/router/index.ts`
-
-不逐一改 ~50 條 supplier 子路由，而是在 **MainLayout 父路由**設一次：
-
-```ts
-{
-    path: '/',
-    component: () => import('../layouts/MainLayout.vue'),
-    meta: { requiresAuth: true, portal: 'supplier' },   // ← 加 portal
-    children: [ ... ]
-}
-```
-
-**vue-router meta 合併語意**：`to.meta` 由 matched 陣列（父→子）合併，子記錄同 key 覆蓋父。故：
-
-- supplier 子路由（無自帶 portal）→ 繼承父的 `portal: 'supplier'`。
-- agent/merchant 前綴路由（factory 設 `portal: 'agent'/'merchant'`）→ 覆蓋父 → 仍是各自 portal。
-
-效果：導到任何 supplier 頁時 `to.meta.portal==='supplier'`，`beforeEach` 會 `syncPortal('supplier')` 復位身份/角色，解決 sticky-portal（切回 supplier 不再卡在前一個 portal）。
-
-> **已知行為變更（在範圍內、需 reviewer 知悉）**：agent/merchant 選單中的**共用頁條目**目前仍是絕對 supplier 路徑（如 `/merchants`，H#3 另一半）。補完 supplier `meta.portal` 後，從 agent/merchant 點這些共用條目會 `syncPortal('supplier')`、復位成 supplier。這正是「絕對 supplier 路徑＝supplier 語境」的一致解讀；把共用條目改指前綴路徑屬 Spec 2。
-
-### 3.7 `buildMenuForPortal` 升級為「過濾 + append」— `src/config/menu-sakai.ts`
+### 3.6 `buildMenuForPortal` 升級為「過濾 + append」— `src/config/menu-sakai.ts`
 
 維持既有「群組 key 白名單過濾」，於過濾結果後 **append 各 Portal 專屬群組**（連結用前綴路徑）：
 
@@ -180,7 +156,7 @@ children 內展開（與既有 `portalRoutes('agent'/'merchant', SHARED_DEFS)` �
 function agentPortalGroups(t: Composer['t']): MenuGroup[] {
     return [{
         key: 'agentSelf',
-        label: t('menu.agentGroup'),   // 沿用既有「代理管理」群組標籤
+        label: t('menu.agentSelf'),   // 獨立群組標籤「代理專區」，避免與既有群組撞名
         items: [
             { label: t('menu.commissions'), icon: 'pi pi-fw pi-percentage', to: '/agent/commissions' },
             { label: t('menu.subAccounts'), icon: 'pi pi-fw pi-users', to: '/agent/sub-accounts' },
@@ -191,7 +167,7 @@ function agentPortalGroups(t: Composer['t']): MenuGroup[] {
 function merchantPortalGroups(t: Composer['t']): MenuGroup[] {
     return [{
         key: 'merchantSelf',
-        label: t('menu.merchantGroup'),  // 沿用既有「商戶管理」群組標籤
+        label: t('menu.merchantSelf'),  // 獨立群組標籤「商戶專區」，避免與 merchantGroup 撞名
         items: [
             { label: t('menu.merchantProfile'), icon: 'pi pi-fw pi-id-card', to: '/merchant/profile' },
             { label: t('menu.apiWallet'), icon: 'pi pi-fw pi-wallet', to: '/merchant/api-wallet' },
@@ -210,14 +186,16 @@ export function buildMenuForPortal(t: Composer['t'], portal: PortalType): MenuGr
 }
 ```
 
-> 群組標籤沿用既有 i18n（`menu.agentGroup`/`menu.merchantGroup`），只新增**葉節點**標籤 key。新群組 `key`（`agentSelf`/`merchantSelf`）不在 ALLOW 白名單也無妨——它們是 append 上去的，不經過濾。
+> **群組標籤用獨立 key**（`menu.agentSelf`/`menu.merchantSelf`），**不重用** `menu.agentGroup`/`menu.merchantGroup`——因 `MERCHANT_ALLOW` 已含 `merchantGroup`，過濾後選單本就有「商戶管理」群組；若 append 群組也叫「商戶管理」會出現兩個同名群組。新群組 `key`（`agentSelf`/`merchantSelf`）不在 ALLOW 白名單也無妨——它們是 append 上去的，不經過濾。
 
-### 3.8 新增 i18n key — `src/locales/{zh-TW,en}.json`
+### 3.7 新增 i18n key — `src/locales/{zh-TW,en}.json`
 
-`menu` 區塊新增 4 個 key（兩語系都加）：
+`menu` 區塊新增 6 個 key（兩語系都加）：
 
 | key | zh-TW | en |
 |---|---|---|
+| `menu.agentSelf` | 代理專區 | Agent Zone |
+| `menu.merchantSelf` | 商戶專區 | Merchant Zone |
 | `menu.commissions` | 佣金報表 | Commissions |
 | `menu.subAccounts` | 子帳號 | Sub-Accounts |
 | `menu.merchantProfile` | 商戶資料 | Merchant Profile |
@@ -244,7 +222,7 @@ export function buildMenuForPortal(t: Composer['t'], portal: PortalType): MenuGr
 2. **瀏覽器正向（守衛 PASS 路徑）**：preview → 登入（supplier）→ Topbar 切 **agent**：
    - 選單出現「佣金報表 / 子帳號」；點之 → URL `#/agent/commissions`、`#/agent/sub-accounts`，佔位頁渲染、頁名正確、Topbar 身份 Asia Master、console 無 error（agent 角色有 `commissions.view`/`sub-accounts.view`，守衛放行）。
    - 切 **merchant**：選單出現「商戶資料 / API與錢包 / 子帳號」；點之 → `#/merchant/profile`、`#/merchant/api-wallet`、`#/merchant/sub-accounts` 佔位頁渲染（merchant 角色有對應 3 個 key）。
-   - 切回 **supplier**：因 supplier `meta.portal` 已補，身份/選單復位為 supplier 完整版（驗 H#3 半修）。
+   - 切回 **supplier**：用 Topbar 切換器（`switchPortal`→`syncPortal`，C1 既有正常行為）→ 身份/選單復位為 supplier 完整版。Spec 1 不引入任何新的導航復位機制。
 
 3. **瀏覽器反向（守衛 DENY 路徑，證明 `/403` 真的會擋）**：
    利用 C1 既成事實——`beforeEach` 只在 `currentType !== portalMeta` 時才 `syncPortal`（**同 portal 內導航不會重置角色**）。在 console：
@@ -270,9 +248,9 @@ export function buildMenuForPortal(t: Composer['t'], portal: PortalType): MenuGr
 - `src/services/apiClient.ts`（+`patch`）
 - `src/stores/permission.ts`（agent/merchant 角色 +新 key）
 - `src/router/portalRoutes.ts`（`PortalRouteDef.permission` + meta）
-- `src/router/index.ts`（AGENT/MERCHANT_ONLY_DEFS + 展開 + MainLayout `meta.portal`）
+- `src/router/index.ts`（AGENT/MERCHANT_ONLY_DEFS + 展開；**不動** MainLayout meta）
 - `src/config/menu-sakai.ts`（過濾 + append 專屬群組）
-- `src/locales/zh-TW.json`、`src/locales/en.json`（+5 key）
+- `src/locales/zh-TW.json`、`src/locales/en.json`（+7 key：6 menu + 1 common）
 
 **不動**：`mockToken.ts`、`scope.ts`、`portal.ts`、`auth.ts`（皆已就緒，本 Spec 只依賴不修改）。
 
@@ -283,8 +261,7 @@ export function buildMenuForPortal(t: Composer['t'], portal: PortalType): MenuGr
 | 風險 | 緩解 |
 |---|---|
 | 兩個 `sub-accounts` route 同名衝突 | factory 加 portal 前綴（`agent-sub-accounts` / `merchant-sub-accounts`），不衝突 |
-| MainLayout 加 `meta.portal` 誤改 agent/merchant 前綴頁的 portal | vue-router 子覆蓋父，前綴頁 factory 已自帶 portal，覆蓋父值；已於 §3.6 論證 |
-| supplier `meta.portal` 改變共用頁選單點擊行為 | 在範圍內的預期改變，§3.6 已標註；共用條目改前綴路徑屬 Spec 2 |
+| merchant 出現兩個「商戶管理」群組 | append 群組改用獨立 label key（`menu.merchantSelf`「商戶專區」），不重用 `menu.merchantGroup`；§3.6 已標註 |
 | 守衛 deny 路徑在 app 內因 auto-sync 難觸發 | §4 反向驗證利用「同 portal 不 re-sync」精準觸發 `/403`，不需改 C1 行為 |
 | 新增 menu key 漏某語系 → 顯示 raw key | Task 內兩語系同步加，build 後瀏覽器抽查標籤為中文/英文非 key |
 | 佔位頁引入 Spec 2 依賴 | 佔位頁限定純展示、零 store / 零 fetch；§3.2 約束 |
@@ -293,5 +270,7 @@ export function buildMenuForPortal(t: Composer['t'], portal: PortalType): MenuGr
 
 ## 七、Spec 1 / Spec 2 邊界
 
-- **Spec 1（本文件）**：鋪線——`patch`、選單 append、權限 key、`meta.permission` 守衛首啟、Portal 專屬路由（指佔位頁）、supplier `meta.portal`。產物：可 build、可瀏覽器驗證的完整「選單→路由→守衛→佔位頁」鏈。
-- **Spec 2（後續）**：把 5 個佔位頁換成真實頁（佣金報表 / 子帳號 / 商戶資料 / API錢包），含所需新 MSW 端點 / seed / scope；並（視需要）把共用頁選單連結改前綴路徑（H#3 另一半）。
+- **Spec 1（本文件）**：純加法鋪線——`patch`、選單 append（獨立群組 label）、權限 key、`meta.permission` 守衛首啟、Portal 專屬路由（指佔位頁）。**不改任何既有導航行為**。產物：可 build、可瀏覽器驗證的完整「選單→路由→守衛→佔位頁」鏈。
+- **Spec 2（後續）**：(1) 把 5 個佔位頁換成真實頁（佣金報表 / 子帳號 / 商戶資料 / API錢包），含所需新 MSW 端點 / seed / scope；(2) **C1 H#3 整包**——supplier 路由補 `meta.portal` **且同時**把共用頁選單連結改成前綴路徑。
+
+> **為何 H#3 整包延到 Spec 2（reviewer 共識）**：若 Spec 1 只補 supplier `meta.portal` 而不同時改共用頁選單連結，會產生一個方向相反的中間狀態——在 merchant/agent portal 點共用條目（絕對路徑如 `/merchants`）會 `syncPortal('supplier')` 復位成 super-admin token、看到全部資料，等於對「展示 scope/權限」的交付物示範「從受限 portal 一鍵逃逸到全權限」。兩半必須一起做才安全，故整包移到 Spec 2。切回 supplier 用 Topbar 切換器（`switchPortal`）本就正常，不需要 `meta.portal`。

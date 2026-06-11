@@ -6,6 +6,7 @@ import Select from 'primevue/select'
 import { useSakaiLayout } from './useSakaiLayout'
 import { useAuthStore } from '@/stores/auth'
 import { usePortalStore } from '@/stores/portal'
+import { decodeToken } from '@/services/auth/mockToken'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 
 const { toggleMenu, toggleDarkMode, isDarkTheme } = useSakaiLayout()
@@ -14,7 +15,11 @@ const authStore = useAuthStore()
 const portalStore = usePortalStore()
 const { t } = useI18n()
 
-const userName = computed(() => authStore.userInfo?.name ?? 'Developer')
+// 顯示名綁當前 token 的 actorName，切 Portal 即時更新（QA L-4）。
+// userInfo.name 只在登入時寫死，切 Portal 不會變。token 缺失時退回登入名。
+const userName = computed(
+    () => decodeToken(authStore.token)?.actorName ?? authStore.userInfo?.name ?? 'Developer'
+)
 const userInitial = computed(() => userName.value.charAt(0).toUpperCase())
 
 const handleLogout = () => {

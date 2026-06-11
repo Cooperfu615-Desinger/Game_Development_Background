@@ -18,17 +18,15 @@ const SHARED_DEFS: PortalRouteDef[] = [
     { path: 'risk', name: 'risk', component: () => import('@/views/Risk/Overview.vue'), titleKey: 'menu.riskOverview' },
 ]
 
-const placeholder = () => import('@/views/_Placeholder/PortalPagePlaceholder.vue')
-
 // Portal 專屬頁（Spec 1 指向佔位頁；Spec 2 換真實頁）
 const AGENT_ONLY_DEFS: PortalRouteDef[] = [
     { path: 'commissions', name: 'commissions', component: () => import('@/views/Agent/Commissions.vue'), titleKey: 'menu.commissions', permission: 'commissions.view' },
-    { path: 'sub-accounts', name: 'sub-accounts', component: placeholder, titleKey: 'menu.subAccounts', permission: 'sub-accounts.view' },
+    { path: 'sub-accounts', name: 'sub-accounts', component: () => import('@/views/Portal/SubAccounts.vue'), titleKey: 'menu.subAccounts', permission: 'sub-accounts.view' },
 ]
 const MERCHANT_ONLY_DEFS: PortalRouteDef[] = [
     { path: 'profile', name: 'profile', component: () => import('@/views/Merchant/Profile.vue'), titleKey: 'menu.merchantProfile', permission: 'merchant-profile.view' },
     { path: 'api-wallet', name: 'api-wallet', component: () => import('@/views/Merchant/ApiWallet.vue'), titleKey: 'menu.apiWallet', permission: 'api-wallet.view' },
-    { path: 'sub-accounts', name: 'sub-accounts', component: placeholder, titleKey: 'menu.subAccounts', permission: 'sub-accounts.view' },
+    { path: 'sub-accounts', name: 'sub-accounts', component: () => import('@/views/Portal/SubAccounts.vue'), titleKey: 'menu.subAccounts', permission: 'sub-accounts.view' },
 ]
 
 const routes: RouteRecordRaw[] = [

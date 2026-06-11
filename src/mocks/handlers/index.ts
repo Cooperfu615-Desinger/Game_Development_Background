@@ -14,6 +14,7 @@ import { reportAdminHandlers } from './reportAdmin'
 import { riskAdminHandlers } from './riskAdmin'
 import { systemAdminHandlers } from './systemAdmin'
 import { jackpotAdminHandlers } from './jackpotAdmin'
+import { subAccountAdminHandlers } from './subAccountAdmin'
 
 export const handlers = [
     ...authHandlers,
@@ -32,4 +33,5 @@ export const handlers = [
     ...riskAdminHandlers,
     ...systemAdminHandlers,
     ...jackpotAdminHandlers,
+    ...subAccountAdminHandlers,
 ]

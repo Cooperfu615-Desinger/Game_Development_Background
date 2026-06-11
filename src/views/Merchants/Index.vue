@@ -316,8 +316,8 @@ function confirmDisableMerchant() {
       <span><Badge :value="filteredRows.length" severity="info" /> 筆商戶</span>
       <div>
         <Button label="新增商戶" icon="pi pi-plus" @click="openDialog('create')" />
-        <Button label="欄位設定" icon="pi pi-sliders-h" severity="secondary" outlined />
-        <Button label="匯出" icon="pi pi-download" severity="secondary" outlined />
+        <Button label="欄位設定" icon="pi pi-sliders-h" severity="secondary" outlined disabled v-tooltip.top="'即將推出'" />
+        <Button label="匯出" icon="pi pi-download" severity="secondary" outlined disabled v-tooltip.top="'即將推出'" />
       </div>
     </div>
 

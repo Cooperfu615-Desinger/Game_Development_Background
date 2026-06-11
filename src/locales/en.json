@@ -55,7 +55,8 @@
         "submit": "Submit",
         "reason": "Reason",
         "confirmStatusChange": "⚠️ Confirm Status Change",
-        "confirmStatusMsg": "Are you sure? This action may impact all downstream merchants."
+        "confirmStatusMsg": "Are you sure? This action may impact all downstream merchants.",
+        "c2Placeholder": "This page will be implemented in Phase C2 Spec 2"
     },
     "menu": {
         "dashboard": "Dashboard",
@@ -159,7 +160,13 @@
         "agentSettings": "Agent Settings",
         "merchantGroup": "Merchants",
         "merchantList": "Merchant List",
-        "merchantSettings": "Merchant Settings"
+        "merchantSettings": "Merchant Settings",
+        "agentSelf": "Agent Zone",
+        "merchantSelf": "Merchant Zone",
+        "commissions": "Commissions",
+        "subAccounts": "Sub-Accounts",
+        "merchantProfile": "Merchant Profile",
+        "apiWallet": "API & Wallet"
     },
     "layout": {
         "masterAdmin": "👑 Master Admin",

@@ -17,6 +17,7 @@ import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
 import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
 import FilterCard from '@/components/ui/FilterCard.vue';
+import { rowMatches } from '@/utils/filterRows';
 
 type OrderRow = {
   id: string;
@@ -90,6 +91,23 @@ const summaryCards = computed(() => {
     { label: '資料規則', value: '不可刪改', helper: '原始投注與派彩金額不可直接修改' }
   ];
 });
+
+const toAmount = (value: unknown) => Number(String(value ?? '').replace(/[^0-9.-]/g, ''));
+
+const filteredOrders = computed(() => orderRows.filter((row) => rowMatches(row, {
+  keyword: { value: filters.keyword, fields: ['id', 'roundId', 'playerId'] },
+  selects: [
+    { value: filters.merchant, match: (r) => String(r.merchant) === filters.merchant },
+    { value: filters.game, match: (r) => String(r.game) === filters.game },
+    { value: filters.gameType, match: (r) => String(r.gameType) === filters.gameType },
+    { value: filters.status, match: (r) => String(r.status) === filters.status },
+    { value: filters.currency, match: (r) => String(r.currency) === filters.currency },
+    { value: filters.abnormal, match: (r) => String(r.riskStatus) === filters.abnormal },
+    { value: filters.minAmount, match: (r) => toAmount(r.betAmount) >= Number(filters.minAmount) },
+    { value: filters.maxAmount, match: (r) => toAmount(r.betAmount) <= Number(filters.maxAmount) },
+  ],
+  dateRange: { value: filters.betAt, field: 'betAt' },
+})));
 
 function resetFilters() {
   filters.keyword = '';
@@ -173,7 +191,7 @@ function openMarkAbnormal(row: OrderRow) {
 
     <div class="agent-command-bar">
       <div>
-        <span class="table-count"><Badge :value="orderRows.length" severity="info" /> 筆注單</span>
+        <span class="table-count"><Badge :value="filteredOrders.length" severity="info" /> 筆注單</span>
         <p>原始注單不可新增、刪除或直接修改金額；退款、補單與異常標記需進審核流程。</p>
       </div>
       <div class="agent-command-actions">
@@ -183,7 +201,7 @@ function openMarkAbnormal(row: OrderRow) {
 
     <SectionCard class="merchant-table-card trade-table-card">
       <DataTable
-        :value="orderRows"
+        :value="filteredOrders"
         :loading="loading"
         scrollable
         paginator

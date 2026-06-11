@@ -11,6 +11,7 @@ import Button from 'primevue/button';
 import Tag from 'primevue/tag';
 import Badge from 'primevue/badge';
 import Dialog from 'primevue/dialog';
+import { useToast } from 'primevue/usetoast';
 import SectionCard from '@/components/ui/SectionCard.vue';
 import StatusTag from '@/components/ui/StatusTag.vue';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
@@ -106,6 +107,21 @@ function openReview(row?: MathRow) {
   reviewVisible.value = true;
 }
 
+const toast = useToast();
+
+// 建立審核單：demo 環境不持久化，至少給操作回饋（QA M-1b：原本只關窗、無 toast）
+function submitReview() {
+  reviewVisible.value = false;
+  toast.add({
+    severity: 'success',
+    summary: '審核單已建立',
+    detail: selectedMath.value
+      ? `${selectedMath.value.game} ${selectedMath.value.version} 數值異動已送審（demo）`
+      : '數值異動已送審（demo）',
+    life: 3000,
+  });
+}
+
 function deviationSeverity(row: MathRow) {
   const abs = Math.abs(row.deviation);
   if (abs >= 10) return 'danger';
@@ -197,8 +213,8 @@ function deviationLabel(value: number) {
         <p>已生效數值不可直接修改；需複製新版本、模擬、送審後生效。</p>
       </div>
       <div class="agent-command-actions">
-        <Button label="新增數值版本" icon="pi pi-plus" />
-        <Button label="匯出" icon="pi pi-download" severity="secondary" outlined />
+        <Button label="新增數值版本" icon="pi pi-plus" disabled v-tooltip.top="'即將推出'" />
+        <Button label="匯出" icon="pi pi-download" severity="secondary" outlined disabled v-tooltip.top="'即將推出'" />
       </div>
     </div>
 
@@ -290,7 +306,7 @@ function deviationLabel(value: number) {
       <template #footer>
         <div class="dialog-footer-actions">
           <Button label="關閉" severity="secondary" outlined @click="detailVisible = false" />
-          <Button label="複製新版本" icon="pi pi-copy" severity="secondary" outlined />
+          <Button label="複製新版本" icon="pi pi-copy" severity="secondary" outlined disabled v-tooltip.top="'即將推出'" />
           <Button label="送審" icon="pi pi-send" @click="selectedMath && openReview(selectedMath)" />
         </div>
       </template>
@@ -331,7 +347,7 @@ function deviationLabel(value: number) {
 
       <template #footer>
         <Button label="取消" severity="secondary" outlined @click="reviewVisible = false" />
-        <Button label="建立審核單" icon="pi pi-check" @click="reviewVisible = false" />
+        <Button label="建立審核單" icon="pi pi-check" @click="submitReview" />
       </template>
     </Dialog>
   </div>

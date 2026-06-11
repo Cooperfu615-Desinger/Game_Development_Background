@@ -18,6 +18,7 @@ import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
 import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
 import FilterCard from '@/components/ui/FilterCard.vue';
+import { rowMatches } from '@/utils/filterRows';
 
 type AbnormalOrderRow = {
   caseId: string;
@@ -96,6 +97,19 @@ const summaryCards = computed(() => {
     { label: '高風險', value: String(highRisk), helper: '高額派彩或結果不一致' }
   ];
 });
+
+const filteredAbnormal = computed(() => abnormalRows.filter((row) => rowMatches(row, {
+  keyword: { value: filters.keyword, fields: ['caseId', 'orderId', 'playerId'] },
+  selects: [
+    { value: filters.merchant, match: (r) => String(r.merchant) === filters.merchant },
+    { value: filters.game, match: (r) => String(r.game) === filters.game },
+    { value: filters.abnormalType, match: (r) => String(r.abnormalType) === filters.abnormalType },
+    { value: filters.processStatus, match: (r) => String(r.processStatus) === filters.processStatus },
+    { value: filters.riskLevel, match: (r) => String(r.riskLevel) === filters.riskLevel },
+    { value: filters.actionType, match: (r) => String(r.actionType) === filters.actionType },
+  ],
+  dateRange: { value: filters.occurredAt, field: 'occurredAt' },
+})));
 
 function resetFilters() {
   filters.keyword = '';
@@ -179,7 +193,7 @@ function openClose(row: AbnormalOrderRow) {
 
     <div class="agent-command-bar">
       <div>
-        <span class="table-count"><Badge :value="abnormalRows.length" severity="info" /> 筆異常注單</span>
+        <span class="table-count"><Badge :value="filteredAbnormal.length" severity="info" /> 筆異常注單</span>
         <p>注單不可刪除或直接改寫；退款、補單、風控標記與結案都會留下審核與操作紀錄。</p>
       </div>
       <div class="agent-command-actions">
@@ -189,7 +203,7 @@ function openClose(row: AbnormalOrderRow) {
 
     <SectionCard class="merchant-table-card trade-table-card">
       <DataTable
-        :value="abnormalRows"
+        :value="filteredAbnormal"
         :loading="loading"
         scrollable
         paginator

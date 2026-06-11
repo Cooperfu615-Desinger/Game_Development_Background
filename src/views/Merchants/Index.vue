@@ -20,6 +20,7 @@ import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
 import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
 import FilterCard from '@/components/ui/FilterCard.vue';
+import { rowMatches } from '@/utils/filterRows';
 
 type MerchantRow = Record<string, unknown>;
 type DialogMode = 'view' | 'edit' | 'create';
@@ -78,6 +79,19 @@ const merchantFilters: PageField[] = [
   { key: 'currency', label: '支援幣別', type: 'select', options: merchantCurrencyOptions },
   { key: 'createdAt', label: '建立時間', type: 'dateRange' }
 ];
+
+const filteredRows = computed(() => rows.filter((row) => rowMatches(row, {
+  keyword: { value: filters.keyword, fields: ['code', 'name', 'agent'] },
+  selects: [
+    { value: filters.agent, match: (r) => String(r.agent) === filters.agent },
+    { value: filters.status, match: (r) => String(r.status) === filters.status },
+    { value: filters.environmentMode, match: (r) => String(r.environmentMode ?? '測試') === filters.environmentMode },
+    { value: filters.apiStatus, match: (r) => String(r.apiStatus) === filters.apiStatus },
+    { value: filters.walletType, match: (r) => String(r.walletType) === filters.walletType },
+    { value: filters.currency, match: (r) => (Array.isArray(r.currencies) ? r.currencies.map(String) : [String(r.defaultCurrency ?? '')]).includes(String(filters.currency)) },
+  ],
+  dateRange: { value: filters.createdAt, field: 'createdAt' },
+})));
 
 const merchantSummary = computed(() => {
   const active = rows.filter((row) => row.status === '啟用').length;
@@ -222,7 +236,18 @@ function switchDialogToEdit() {
   activeMerchantPanel.value = 'basic';
 }
 
+const saveConfirmVisible = ref(false);
+const editingProductionMerchant = computed(() => selectedRow.value?.environmentMode === '正式');
+const saveConfirmTitle = computed(() => (dialogMode.value === 'create' ? '確認建立商戶' : '確認儲存變更'));
+
+// 編輯/建立商戶按「儲存變更／建立商戶」時先彈二次確認（QA L-9：原本 saveDialog
+// 直接關閉、無任何確認）。正式環境商戶再加強警語。
+function requestSaveMerchant() {
+  saveConfirmVisible.value = true;
+}
+
 function saveDialog() {
+  saveConfirmVisible.value = false;
   dialogVisible.value = false;
 }
 
@@ -288,17 +313,17 @@ function confirmDisableMerchant() {
     </FilterCard>
 
     <div class="toolbar-row">
-      <span><Badge :value="rows.length" severity="info" /> 筆商戶</span>
+      <span><Badge :value="filteredRows.length" severity="info" /> 筆商戶</span>
       <div>
         <Button label="新增商戶" icon="pi pi-plus" @click="openDialog('create')" />
-        <Button label="欄位設定" icon="pi pi-sliders-h" severity="secondary" outlined />
-        <Button label="匯出" icon="pi pi-download" severity="secondary" outlined />
+        <Button label="欄位設定" icon="pi pi-sliders-h" severity="secondary" outlined disabled v-tooltip.top="'即將推出'" />
+        <Button label="匯出" icon="pi pi-download" severity="secondary" outlined disabled v-tooltip.top="'即將推出'" />
       </div>
     </div>
 
     <SectionCard class="merchant-table-card">
       <DataTable
-        :value="rows"
+        :value="filteredRows"
         :loading="loading"
         scrollable
         paginator
@@ -652,7 +677,7 @@ function confirmDisableMerchant() {
             v-else
             :label="dialogMode === 'create' ? '建立商戶' : '儲存變更'"
             icon="pi pi-check"
-            @click="saveDialog"
+            @click="requestSaveMerchant"
           />
         </div>
       </template>
@@ -726,6 +751,31 @@ function confirmDisableMerchant() {
           icon="pi pi-check"
           :severity="pendingEnvironmentMode === '正式' ? 'danger' : 'secondary'"
           @click="confirmEnvironmentMode"
+        />
+      </template>
+    </Dialog>
+
+    <Dialog v-model:visible="saveConfirmVisible" modal dismissable-mask :header="saveConfirmTitle" class="environment-confirm-dialog">
+      <div class="environment-confirm-content">
+        <div class="environment-confirm-icon">
+          <i class="pi pi-exclamation-triangle" />
+        </div>
+        <div v-if="selectedRow">
+          <strong>{{ dialogMode === 'create' ? '確認建立此商戶？' : `確認儲存「${selectedRow.name || selectedRow.code}」的變更？` }}</strong>
+          <p v-if="editingProductionMerchant">
+            此商戶為<b>正式環境</b>，變更 API、錢包、RTP、分潤或結算設定會即時影響正式營運與報表，並需保留操作紀錄供稽核。
+          </p>
+          <p v-else>送出後即套用此商戶設定變更；測試環境不納入正式結算。</p>
+        </div>
+      </div>
+
+      <template #footer>
+        <Button label="取消" severity="secondary" outlined @click="saveConfirmVisible = false" />
+        <Button
+          :label="dialogMode === 'create' ? '確認建立' : '確認儲存'"
+          icon="pi pi-check"
+          :severity="editingProductionMerchant ? 'danger' : 'primary'"
+          @click="saveDialog"
         />
       </template>
     </Dialog>

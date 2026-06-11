@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 import { portalRoutes, type PortalRouteDef } from './portalRoutes'
 import i18n from '@/i18n'
+import { decodeToken } from '@/services/auth/mockToken'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
@@ -480,9 +481,17 @@ router.beforeEach(async (to, _from, next) => {
     // Portal deep-link 同步（不導頁，避免打斷當前導航）
     const portalMeta = to.meta.portal as 'supplier' | 'agent' | 'merchant' | undefined
     if (portalMeta) {
-        const { usePortalStore } = await import('../stores/portal')
+        const [{ usePortalStore }, { useAuthStore }] = await Promise.all([
+            import('../stores/portal'),
+            import('../stores/auth'),
+        ])
         const portalStore = usePortalStore()
-        if (portalStore.currentType !== portalMeta) {
+        const tokenPortal = decodeToken(useAuthStore().token)?.portal
+        // 不只看 currentType：deep-link / 冷重載時 currentType 可能已是目標 portal
+        // （持久化於 localStorage），但 token 仍是前一身份（sessionStorage），兩者可
+        // desync。此時列表 onMounted 會帶舊 token fetch → 短暫 over-scope（QA M-2）。
+        // 只要 token 的 portal claim 與目標不符就在 next() 前同步重簽，確保 fetch 對齊。
+        if (portalStore.currentType !== portalMeta || tokenPortal !== portalMeta) {
             portalStore.syncPortal(portalMeta)
         }
     }

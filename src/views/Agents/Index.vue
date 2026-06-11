@@ -18,6 +18,7 @@ import StatusTag from '@/components/ui/StatusTag.vue';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
 import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
+import { rowMatches } from '@/utils/filterRows';
 
 type DialogMode = 'view' | 'edit' | 'create';
 type AgentDialogPanel = 'basic' | 'account' | 'commercial' | 'permission';
@@ -88,6 +89,17 @@ const agentFilters: PageField[] = [
   { key: 'commissionType', label: '佣金類型', type: 'select', options: agentCommissionOptions },
   { key: 'createdAt', label: '建立時間', type: 'dateRange' }
 ];
+
+const filteredRows = computed(() => rows.filter((row) => rowMatches(row, {
+  keyword: { value: filters.keyword, fields: ['code', 'name', 'contact'] },
+  selects: [
+    { value: filters.agentName, match: (r) => `${r.code} ${r.name}` === filters.agentName },
+    { value: filters.status, match: (r) => String(r.status) === filters.status },
+    { value: filters.settlementCurrency, match: (r) => String(r.settlementCurrency) === filters.settlementCurrency },
+    { value: filters.commissionType, match: (r) => String(r.commissionType) === filters.commissionType },
+  ],
+  dateRange: { value: filters.createdAt, field: 'createdAt' },
+})));
 
 const agentSummary = computed(() => {
   const active = rows.filter((row) => row.status === '啟用').length;
@@ -299,7 +311,7 @@ function addRow() {
 
     <div class="agent-command-bar">
       <div>
-        <span class="table-count"><Badge :value="rows.length" severity="info" /> 筆代理</span>
+        <span class="table-count"><Badge :value="filteredRows.length" severity="info" /> 筆代理</span>
         <p>代理不可硬刪除；查看、編輯與新增皆以彈窗處理，不離開列表脈絡。</p>
       </div>
       <div class="agent-command-actions">
@@ -311,7 +323,7 @@ function addRow() {
 
     <SectionCard class="agent-table-card">
       <DataTable
-        :value="rows"
+        :value="filteredRows"
         :loading="loading"
         scrollable
         paginator

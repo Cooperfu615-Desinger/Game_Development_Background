@@ -17,6 +17,7 @@ import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import SensitiveValue from '@/components/ui/SensitiveValue.vue';
 import SummaryCardGrid from '@/components/ui/SummaryCardGrid.vue';
 import FilterCard from '@/components/ui/FilterCard.vue';
+import { rowMatches } from '@/utils/filterRows';
 
 type AbnormalTransactionRow = {
   caseId: string;
@@ -88,6 +89,19 @@ const summaryCards = computed(() => {
     { label: '轉帳差異', value: String(transferDiff), helper: '轉入轉出與錢包入帳差異' }
   ];
 });
+
+const filteredAbnormal = computed(() => abnormalRows.filter((row) => rowMatches(row, {
+  keyword: { value: filters.keyword, fields: ['caseId', 'transactionId', 'orderId', 'playerId'] },
+  selects: [
+    { value: filters.merchant, match: (r) => String(r.merchant) === filters.merchant },
+    { value: filters.type, match: (r) => String(r.type) === filters.type },
+    { value: filters.abnormalType, match: (r) => String(r.abnormalType) === filters.abnormalType },
+    { value: filters.status, match: (r) => String(r.status) === filters.status },
+    { value: filters.apiCode, match: (r) => String(r.apiCode) === filters.apiCode },
+    { value: filters.assignee, match: (r) => String(r.assignee) === filters.assignee },
+  ],
+  dateRange: { value: filters.occurredAt, field: 'occurredAt' },
+})));
 
 function resetFilters() {
   filters.keyword = '';
@@ -162,7 +176,7 @@ function openClose(row: AbnormalTransactionRow) {
 
     <div class="agent-command-bar">
       <div>
-        <span class="table-count"><Badge :value="abnormalRows.length" severity="info" /> 筆異常交易</span>
+        <span class="table-count"><Badge :value="filteredAbnormal.length" severity="info" /> 筆異常交易</span>
         <p>異常交易不可直接改寫原始資料；重送、人工處理與結案都必須留下 API Trace 與操作紀錄。</p>
       </div>
       <div class="agent-command-actions">
@@ -172,7 +186,7 @@ function openClose(row: AbnormalTransactionRow) {
 
     <SectionCard class="merchant-table-card trade-table-card">
       <DataTable
-        :value="abnormalRows"
+        :value="filteredAbnormal"
         :loading="loading"
         scrollable
         paginator

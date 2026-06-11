@@ -162,11 +162,11 @@
 | ✅ L-6 管理員 KPI 數字打架 | 1 | 修：鎖定帳號 2FA→false，使 2FA 啟用數 30=啟用數 30 | systemAdmin seed 不一致 |
 | ✅ L-2 changeLanguage 缺 key | 1 | **Moot**（語言切換器已移除） | — |
 | ✅ 移除語言切換器 | 1 | 移除 topbar 地球鈕入口 + 刪 `LanguageSwitcher.vue`（i18n 基礎設施/zh-TW 保留） | M-4 決議連帶 |
-| M-1 查詢未過濾 | 2 | 修：複製現有 `filteredRows` 樣板 | 5 頁 DataTable 綁原始 `rows`（Merchants/Agents/Games + Portal/SubAccounts + Agent/Commissions）；**另查 orders/transactions/jackpot** |
-| M-5 新增遊戲 dialog 欄位重疊 | 2 | 修：該列 grid 欄寬/span | 狀態下拉溢出壓到環境模式欄 |
-| L-9 環境切換無二次確認 | 2 | 修：查為何沒觸發、補確認彈窗 | 商戶編輯流程 |
-| M-2 深連結 token 競態 | 2 | 修：beforeEach 在 fetch 前同步 token | onMounted fetch 早於 syncPortal 重簽 |
-| M-1b stub 按鈕 | 2 | 能接的接、不能接的標「即將推出」+disable | 新增數值版本/建立審核單/欄位設定 無 handler |
+| ✅ M-1 查詢未過濾 | 2 | 修：共用 `src/utils/filterRows.ts`，10 頁加 `filteredRows` 並改綁表格＋計數 badge | 列表綁原始 `rows`。實作頁：Merchants/Agents/Games＋Orders/Transactions(含 Abnormal)＋Jackpot Index/Payouts/Transactions。**註：Portal/SubAccounts 與 Agent/Commissions 無篩選卡（純表格），無「查詢」可接 → 未動** |
+| ✅ M-5 新增遊戲 dialog 欄位重疊 | 2 | 修：補定義缺漏的 `field-span-2/5` CSS（含響應式） | 狀態/類型/名稱用了未定義的 span class → 退回單格寬，fluid Select 溢出 |
+| ✅ L-9 環境切換無二次確認 | 2 | 修：商戶編輯/建立「儲存」前補確認彈窗（正式環境加強警語） | 環境切換 toggle 早有確認；缺的是 saveDialog 直接關閉、無儲存確認 |
+| ✅ M-2 深連結 token 競態 | 2 | 修：beforeEach 一併檢查 token portal claim，不符即在 fetch 前重簽 | 冷載入時 currentType(持久化) 可能已等於目標但 token 仍舊身份 |
+| ✅ M-1b stub 按鈕 | 2 | 範圍 A（核准，限 QA 兩頁）：新增數值版本/匯出/複製新版本/欄位設定 標「即將推出」+disable；建立審核單接成真 toast | 全站查詢鈕無 handler 為既有設計（裝飾）；其他頁匯出/欄位設定不在範圍 |
 | ✅ M-4 全站 i18n | — | **不做**；語言切換器已移除（Wave 1） | 頁面硬編 zh-TW |
 | ✅ L-3 語言鈕只翻導覽 | — | 隨切換器移除而 moot（Wave 1） | 併入 M-4 |
 | L-7 敏感值還原跨 dialog 保留 | 3 | 選做：關閉時重置遮罩 | UX |

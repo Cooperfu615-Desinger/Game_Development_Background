@@ -22,7 +22,7 @@ const placeholder = () => import('@/views/_Placeholder/PortalPagePlaceholder.vue
 
 // Portal 專屬頁（Spec 1 指向佔位頁；Spec 2 換真實頁）
 const AGENT_ONLY_DEFS: PortalRouteDef[] = [
-    { path: 'commissions', name: 'commissions', component: placeholder, titleKey: 'menu.commissions', permission: 'commissions.view' },
+    { path: 'commissions', name: 'commissions', component: () => import('@/views/Agent/Commissions.vue'), titleKey: 'menu.commissions', permission: 'commissions.view' },
     { path: 'sub-accounts', name: 'sub-accounts', component: placeholder, titleKey: 'menu.subAccounts', permission: 'sub-accounts.view' },
 ]
 const MERCHANT_ONLY_DEFS: PortalRouteDef[] = [

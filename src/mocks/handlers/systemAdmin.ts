@@ -274,7 +274,9 @@ const SEED_ADMINS: AdminRow[] = expandDemoRows([
         portal: 'Supplier Portal',
         groups: ['風控人員'],
         dataScope: '全部資料',
-        twoFactor: true,
+        // 鎖定帳號 2FA 設為 false，使「已啟用 2FA」總數對齊「啟用」總數
+        // （6 基底列 ×10 展開：啟用=30，原本 2FA=40 → 卡片數字打架，QA L-6）
+        twoFactor: false,
         status: '鎖定',
         lastLogin: '2026-05-19 15:11:28',
         createdAt: '2026-04-02 16:05:00',

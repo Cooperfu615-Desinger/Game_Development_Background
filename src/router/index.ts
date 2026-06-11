@@ -1,13 +1,13 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
-import { portalRoutes } from './portalRoutes'
+import { portalRoutes, type PortalRouteDef } from './portalRoutes'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 NProgress.configure({ showSpinner: false })
 
 // 共用頁（agent / merchant 前綴可達）— C1 取主要共用頁；C2 再加 Portal 專屬頁
-const SHARED_DEFS = [
+const SHARED_DEFS: PortalRouteDef[] = [
     { path: 'dashboard', name: 'dashboard', component: () => import('@/views/Dashboard/Index.vue'), titleKey: 'menu.dashboard' },
     { path: 'merchants', name: 'merchants', component: () => import('@/views/Merchants/Index.vue'), titleKey: 'menu.merchantList' },
     { path: 'games', name: 'games', component: () => import('@/views/Games/Index.vue'), titleKey: 'menu.games' },
@@ -16,6 +16,19 @@ const SHARED_DEFS = [
     { path: 'reports', name: 'reports', component: () => import('@/views/Reports/Overview.vue'), titleKey: 'menu.reportsOverview' },
     { path: 'settlements', name: 'settlements', component: () => import('@/views/Settlements/Index.vue'), titleKey: 'menu.settlementList' },
     { path: 'risk', name: 'risk', component: () => import('@/views/Risk/Overview.vue'), titleKey: 'menu.riskOverview' },
+]
+
+const placeholder = () => import('@/views/_Placeholder/PortalPagePlaceholder.vue')
+
+// Portal 專屬頁（Spec 1 指向佔位頁；Spec 2 換真實頁）
+const AGENT_ONLY_DEFS: PortalRouteDef[] = [
+    { path: 'commissions', name: 'commissions', component: placeholder, titleKey: 'menu.commissions', permission: 'commissions.view' },
+    { path: 'sub-accounts', name: 'sub-accounts', component: placeholder, titleKey: 'menu.subAccounts', permission: 'sub-accounts.view' },
+]
+const MERCHANT_ONLY_DEFS: PortalRouteDef[] = [
+    { path: 'profile', name: 'profile', component: placeholder, titleKey: 'menu.merchantProfile', permission: 'merchant-profile.view' },
+    { path: 'api-wallet', name: 'api-wallet', component: placeholder, titleKey: 'menu.apiWallet', permission: 'api-wallet.view' },
+    { path: 'sub-accounts', name: 'sub-accounts', component: placeholder, titleKey: 'menu.subAccounts', permission: 'sub-accounts.view' },
 ]
 
 const routes: RouteRecordRaw[] = [
@@ -374,8 +387,8 @@ const routes: RouteRecordRaw[] = [
             },
 
             // ── Portal 前綴路由（agent / merchant 共用頁）──────────
-            ...portalRoutes('agent', SHARED_DEFS),
-            ...portalRoutes('merchant', SHARED_DEFS),
+            ...portalRoutes('agent', [...SHARED_DEFS, ...AGENT_ONLY_DEFS]),
+            ...portalRoutes('merchant', [...SHARED_DEFS, ...MERCHANT_ONLY_DEFS]),
         ]
     },
 

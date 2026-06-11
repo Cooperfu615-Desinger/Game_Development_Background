@@ -201,11 +201,24 @@ function merchantPortalGroups(t: Composer['t']): MenuGroup[] {
     }]
 }
 
+// 把共用群組 item 的 to 由 /x 改寫成 /${portal}/x（遞迴）；附加的 self 群組已是前綴路徑、不經此函式
+function prefixMenuItem(item: MenuItem, portal: PortalType): MenuItem {
+    const next: MenuItem = { ...item }
+    // 只動內部路由 to；url-only（外部連結）item 無 to，第一個條件即跳過
+    if (item.to && item.to.startsWith('/')) next.to = `/${portal}${item.to}`
+    if (item.items) next.items = item.items.map((c) => prefixMenuItem(c, portal))
+    return next
+}
+
+function prefixGroups(groups: MenuGroup[], portal: PortalType): MenuGroup[] {
+    return groups.map((g) => ({ ...g, items: g.items.map((it) => prefixMenuItem(it, portal)) }))
+}
+
 export function buildMenuForPortal(t: Composer['t'], portal: PortalType): MenuGroup[] {
     const full = buildSakaiMenu(t)
     if (portal === 'supplier') return full
     const allow = portal === 'agent' ? AGENT_ALLOW : MERCHANT_ALLOW
-    const filtered = full.filter((g) => g.key !== undefined && allow.includes(g.key))
+    const filtered = prefixGroups(full.filter((g) => g.key !== undefined && allow.includes(g.key)), portal)
     const extra = portal === 'agent' ? agentPortalGroups(t) : merchantPortalGroups(t)
     return [...filtered, ...extra]
 }

@@ -1116,7 +1116,8 @@
   max-width: 42px;
   min-height: 18px;
   border-radius: 8px 8px 3px 3px;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--primary) 88%, var(--surface-strong)), var(--accent));
+  /* 亮藍漸層：淺藍 → 系統亮藍（--hig-blue 亮/暗模式自動切換） */
+  background: linear-gradient(180deg, color-mix(in srgb, var(--hig-blue) 55%, #ffffff), var(--hig-blue));
 }
 
 .rtp-trend-bar small,
@@ -1149,7 +1150,8 @@
   background: var(--surface-strong);
 }
 
-.math-review-panel span {
+/* 只染統計列的 span，別掃到 PrimeVue Button 內部的 label/icon span */
+.math-review-panel > div span {
   color: var(--muted);
   font-size: var(--font-sm);
   font-weight: 750;

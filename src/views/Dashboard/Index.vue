@@ -12,6 +12,9 @@ import SectionCard from '@/components/ui/SectionCard.vue';
 import CurrencyAmount from '@/components/ui/CurrencyAmount.vue';
 import DateTimeRangeField from '@/components/ui/DateTimeRangeField.vue';
 import StatusTag from '@/components/ui/StatusTag.vue';
+import { usePortalStore } from '@/stores/portal';
+
+const portalStore = usePortalStore();
 
 type DashboardKpi = {
   label: string;
@@ -148,7 +151,7 @@ const operationalNotes = [
       <template #header>
         <div class="dialog-title-block">
           <h2>營運篩選</h2>
-          <p>依目前 Supplier Portal dataScope 查詢代理、商戶、幣別與遊戲類型。</p>
+          <p>依目前 {{ portalStore.current.label }} dataScope 查詢代理、商戶、幣別與遊戲類型。</p>
         </div>
       </template>
       <div class="filter-grid dashboard-filter">

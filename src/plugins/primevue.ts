@@ -13,6 +13,7 @@ import type { App } from 'vue'
 import PrimeVue from 'primevue/config'
 import ConfirmationService from 'primevue/confirmationservice'
 import ToastService from 'primevue/toastservice'
+import Tooltip from 'primevue/tooltip'
 import { definePreset } from '@primeuix/themes'
 import Aura from '@primeuix/themes/aura'
 
@@ -121,4 +122,7 @@ export function setupPrimeVue(app: App) {
     })
     app.use(ConfirmationService)
     app.use(ToastService)
+    // v-tooltip 指令需全域註冊，否則各頁 hover 提示失效並噴
+    // [Vue warn]: Failed to resolve directive: tooltip（QA M-3）
+    app.directive('tooltip', Tooltip)
 }

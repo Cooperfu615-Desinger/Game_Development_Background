@@ -27,7 +27,7 @@ const AGENT_ONLY_DEFS: PortalRouteDef[] = [
 ]
 const MERCHANT_ONLY_DEFS: PortalRouteDef[] = [
     { path: 'profile', name: 'profile', component: () => import('@/views/Merchant/Profile.vue'), titleKey: 'menu.merchantProfile', permission: 'merchant-profile.view' },
-    { path: 'api-wallet', name: 'api-wallet', component: placeholder, titleKey: 'menu.apiWallet', permission: 'api-wallet.view' },
+    { path: 'api-wallet', name: 'api-wallet', component: () => import('@/views/Merchant/ApiWallet.vue'), titleKey: 'menu.apiWallet', permission: 'api-wallet.view' },
     { path: 'sub-accounts', name: 'sub-accounts', component: placeholder, titleKey: 'menu.subAccounts', permission: 'sub-accounts.view' },
 ]
 

@@ -169,9 +169,20 @@
 | ✅ M-1b stub 按鈕 | 2 | 範圍 A（核准，限 QA 兩頁）：新增數值版本/匯出/複製新版本/欄位設定 標「即將推出」+disable；建立審核單接成真 toast | 全站查詢鈕無 handler 為既有設計（裝飾）；其他頁匯出/欄位設定不在範圍 |
 | ✅ M-4 全站 i18n | — | **不做**；語言切換器已移除（Wave 1） | 頁面硬編 zh-TW |
 | ✅ L-3 語言鈕只翻導覽 | — | 隨切換器移除而 moot（Wave 1） | 併入 M-4 |
-| L-7 敏感值還原跨 dialog 保留 | 3 | 選做：關閉時重置遮罩 | UX |
-| L-8 列表無錯誤狀態 | 3 | 選做（低優先，mock 環境） | 無 error/retry UI |
-| C-2 seed 名稱重複 | 3 | 選做：分散 seed 名稱 | mock cosmetic |
+| ✅ L-7 敏感值還原跨 dialog 保留 | 3 | 修：SensitiveValue 於綁定值變更/unmount 時重置遮罩（元件層雙保險） | 還原態未重置（現行 dialog 已銷毀內容自然重置，本修硬化重用情境） |
+| ⏸ L-8 列表無錯誤狀態 | 3 | **延後**（待真後端接上時做 error/retry UI；mock 環境下無真實 fetch 失敗路徑，做了也無從觸發驗證） | 無 error/retry UI |
+| ✅ C-2 seed 名稱重複 | 3 | 修：merchant seed 名稱池依 index 分散（agent 視角 15 筆名稱全異） | seed name 循環不變；scope 用 agent/code 不受影響 |
 | C-3 MSW desync | — | 不修（環境，已記交接文件） | — |
 
 — 報告結束。QA session 未改任何程式碼、未 commit。Disposition 由主 session 於 2026-06-11 依使用者決議補上。
+
+---
+
+## 修正結案（2026-06-12，fix session）
+
+三波修正全數執行完畢並部署：
+- **Wave 1**：M-3 / L-1 / L-4 / L-5 / C-1 / L-6 ＋ 移除語言切換器（連帶 L-2 / L-3 / M-4 moot）
+- **Wave 2**：M-1（10 頁查詢篩選）/ M-5 / L-9 / M-2 / M-1b（核准範圍 A）
+- **Wave 3**：C-2 / L-7
+
+**最終狀態**：所有可處置項已清；**L-8 刻意延後**（待真後端接上時做 error/retry UI，mock 環境無真實 fetch 失敗路徑可驗）；C-3 為環境現象不修。每波皆 `vite build` + `vue-tsc --noEmit` + preview 實證後 `merge --no-ff` 回 main 並部署 GitHub Pages 綠燈。

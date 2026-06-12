@@ -11,6 +11,7 @@ const modules = import.meta.glob<string>('../../../docs/handoff/*.md', {
 
 // 已知文件給固定標題與順序；未來新增的檔案以檔名為標題、字母序排後
 const KNOWN: Record<string, { title: string; order: number }> = {
+    'project-status': { title: '專案現況總覽', order: 0 },
     'frontend': { title: '前端交接', order: 1 },
     'backend': { title: '後端交接', order: 2 },
     'api-contract': { title: 'API 契約總表', order: 3 },

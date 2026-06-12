@@ -6,7 +6,7 @@
         <SensitiveValue value="sk_live_xxxxxxxxxx" />
 -->
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch, onUnmounted } from 'vue'
 import Button from 'primevue/button'
 
 const props = defineProps<{ value: string }>()
@@ -14,6 +14,16 @@ const props = defineProps<{ value: string }>()
 const visible = ref(false)
 const copied = ref(false)
 const maskedValue = '••••••••••••'
+
+// QA L-7：已還原（明文）狀態不可跨開關/重用保留。
+//   1) 綁定值變更時重置 → 同一元件實例被另一筆資料重用時不會殘留前一筆明文。
+//   2) unmount 時重置 → dialog 關閉若銷毀內容，下次掛載即為遮罩態（雙保險）。
+function resetMask() {
+    visible.value = false
+    copied.value = false
+}
+watch(() => props.value, resetMask)
+onUnmounted(resetMask)
 
 const canCopy = computed(() => Boolean(props.value && props.value !== '-'))
 

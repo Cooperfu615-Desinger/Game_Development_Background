@@ -44,6 +44,18 @@ type MerchantRow = {
 // Seed data (verbatim from demo mock.ts merchantRows)
 // ──────────────────────────────────────────────────────────────
 
+// 商戶名稱池（QA C-2）：expandDemoRows 把 4 筆基底循環成 60 筆時只變動 id/數字、
+// 不變 name，使 base[0]（Golden Dragon / agent=Asia Master）的 15 個複本全叫
+// Golden Dragon。改用名稱池依陣列 index 分散：agent 群落在 index 0,4,8,…,56（步進 4），
+// 與池長 15 互質 → 15 筆殘差全異 → 每個 agent 視角下 15 筆名稱皆不同。
+// 前 4 個沿用原 demo 名稱（含 index 0 = Golden Dragon，與 merchant token actorName 對齊）。
+// 只改 name，不動 agent/code → scope 過濾（agentKey:'agent' / merchantKey:'code'）不受影響。
+const MERCHANT_NAME_POOL = [
+    'Golden Dragon', 'LuckyPlay', 'Nova Gaming', 'Royal H5', 'Silver Phoenix',
+    'Jade Palace', 'Thunder Spin', 'Ocean Star', 'Crimson Lotus', 'Imperial Win',
+    'Neon Tiger', 'Azure Fortune', 'Mystic Reels', 'Diamond Crown', 'Sunset Jackpot',
+]
+
 const SEED_LIST: MerchantRow[] = expandDemoRows([
     {
         code: 'MER-001',
@@ -173,7 +185,10 @@ const SEED_LIST: MerchantRow[] = expandDemoRows([
         contact: 'Alex Wang',
         note: '回呼設定待審核',
     },
-], 60)
+], 60).map((row, index) => ({
+    ...row,
+    name: MERCHANT_NAME_POOL[index % MERCHANT_NAME_POOL.length]!,
+}))
 
 // ──────────────────────────────────────────────────────────────
 // Handlers

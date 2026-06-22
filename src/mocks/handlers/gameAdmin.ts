@@ -158,7 +158,7 @@ const SEED_LIMITS: LimitTemplate[] = [
 ]
 
 const BASE_SETTINGS: BaseSettings = {
-    gameTypes: ['桌遊', '即時遊戲', '運動'],
+    gameTypes: ['老虎機', '棋牌', '真人', '漁機', '迷你遊戲'],
     platforms: ['H5', 'Web'],
     languages: ['繁中', '英文'],
     defaultMaintenanceCycle: '每日',
@@ -167,7 +167,7 @@ const BASE_SETTINGS: BaseSettings = {
 
 const SEED_GAMES: GameRow[] = [
     {
-        code: 'GAME-001', name: '百家樂', type: '桌遊',
+        code: 'GAME-001', name: '百家樂', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 98.90%', rtp: '98.90%', volatility: '低',
@@ -177,7 +177,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'baccarat-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-002', name: '百家樂 P2P', type: '桌遊',
+        code: 'GAME-002', name: '百家樂 P2P', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 99.00%', rtp: '99.00%', volatility: '低',
@@ -187,7 +187,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'baccarat-p2p-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-003', name: '龍虎', type: '桌遊',
+        code: 'GAME-003', name: '龍虎', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 96.60%', rtp: '96.60%', volatility: '中低',
@@ -197,7 +197,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'dragon-tiger-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-004', name: '牛牛', type: '桌遊',
+        code: 'GAME-004', name: '牛牛', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD', 'TWD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 97.00%', rtp: '97.00%', volatility: '中低',
@@ -207,7 +207,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'niuniu-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-005', name: '加勒比海撲克', type: '桌遊',
+        code: 'GAME-005', name: '加勒比海撲克', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 94.80%', rtp: '94.80%', volatility: '中低',
@@ -217,7 +217,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'caribbean-poker-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-006', name: '推筒子', type: '桌遊',
+        code: 'GAME-006', name: '推筒子', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'TWD'], languages: ['繁中'],
         version: 'v1.0.0', mathVersion: 'RTP 97.00%', rtp: '97.00%', volatility: '低',
@@ -227,7 +227,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'tuitongzi-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-007', name: '牌九', type: '桌遊',
+        code: 'GAME-007', name: '牌九', type: '迷你遊戲',
         status: '測試中', environmentMode: '測試',
         platform: ['H5'], currencies: ['USDT'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 97.30%', rtp: '97.30%', volatility: '中低',
@@ -237,7 +237,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'paigow-h5', assetVersion: 'asset-2026.05', note: '上線審核中',
     },
     {
-        code: 'GAME-008', name: '迷你21點', type: '桌遊',
+        code: 'GAME-008', name: '迷你21點', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 99.00%', rtp: '99.00%', volatility: '低',
@@ -247,7 +247,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'mini-bj-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-009', name: '視訊撲克', type: '桌遊',
+        code: 'GAME-009', name: '視訊撲克', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 99.50%', rtp: '99.50%', volatility: '低',
@@ -257,7 +257,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'video-poker-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-010', name: 'Crash', type: '即時遊戲',
+        code: 'GAME-010', name: 'Crash', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 99.00%', rtp: '99.00%', volatility: '中',
@@ -267,7 +267,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'crash-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-011', name: 'Plinko', type: '即時遊戲',
+        code: 'GAME-011', name: 'Plinko', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 97.00%', rtp: '97.00%', volatility: '中',
@@ -277,7 +277,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'plinko-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-012', name: 'Tower', type: '即時遊戲',
+        code: 'GAME-012', name: 'Tower', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 99.00%', rtp: '99.00%', volatility: '中',
@@ -287,7 +287,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'tower-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-013', name: 'Mines', type: '即時遊戲',
+        code: 'GAME-013', name: 'Mines', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 99.00%', rtp: '99.00%', volatility: '中',
@@ -297,7 +297,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'mines-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-014', name: 'HiLo', type: '即時遊戲',
+        code: 'GAME-014', name: 'HiLo', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 97.00%', rtp: '97.00%', volatility: '中',
@@ -307,7 +307,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'hilo-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-015', name: 'Limbo', type: '即時遊戲',
+        code: 'GAME-015', name: 'Limbo', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 97.00%', rtp: '97.00%', volatility: '中',
@@ -317,7 +317,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'limbo-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-016', name: 'Flip', type: '即時遊戲',
+        code: 'GAME-016', name: 'Flip', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD', 'TWD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 99.00%', rtp: '99.00%', volatility: '低',
@@ -327,7 +327,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'flip-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-017', name: 'Wheel', type: '即時遊戲',
+        code: 'GAME-017', name: 'Wheel', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 97.00%', rtp: '97.00%', volatility: '中',
@@ -337,7 +337,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'wheel-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-018', name: 'Pump', type: '即時遊戲',
+        code: 'GAME-018', name: 'Pump', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 98.00%', rtp: '98.00%', volatility: '中',
@@ -347,7 +347,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'pump-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-019', name: 'Keno', type: '即時遊戲',
+        code: 'GAME-019', name: 'Keno', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 97.00%', rtp: '97.00%', volatility: '中',
@@ -357,7 +357,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'keno-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-020', name: 'Dice', type: '即時遊戲',
+        code: 'GAME-020', name: 'Dice', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 98.00%', rtp: '98.00%', volatility: '中',
@@ -367,7 +367,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'dice-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-021', name: '大小', type: '即時遊戲',
+        code: 'GAME-021', name: '大小', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD', 'TWD'], languages: ['繁中'],
         version: 'v1.0.0', mathVersion: 'RTP 97.20%', rtp: '97.20%', volatility: '低',
@@ -377,7 +377,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'dice-size-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-022', name: '猜顏色', type: '即時遊戲',
+        code: 'GAME-022', name: '猜顏色', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'TWD'], languages: ['繁中'],
         version: 'v1.0.0', mathVersion: 'RTP 97.00%', rtp: '97.00%', volatility: '低',
@@ -387,7 +387,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'color-guess-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-023', name: 'Zoo', type: '即時遊戲',
+        code: 'GAME-023', name: 'Zoo', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 98.00%', rtp: '98.00%', volatility: '中',
@@ -397,7 +397,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'zoo-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-024', name: 'Chicken Road', type: '即時遊戲',
+        code: 'GAME-024', name: 'Chicken Road', type: '迷你遊戲',
         status: '維護中', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 99.00%', rtp: '99.00%', volatility: '中',
@@ -407,7 +407,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'chicken-h5', assetVersion: 'asset-2026.05', note: '熱更新中',
     },
     {
-        code: 'GAME-025', name: 'Packs', type: '即時遊戲',
+        code: 'GAME-025', name: 'Packs', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 97.00%', rtp: '97.00%', volatility: '中',
@@ -417,7 +417,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'packs-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-026', name: 'Three Pick', type: '即時遊戲',
+        code: 'GAME-026', name: 'Three Pick', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 97.00%', rtp: '97.00%', volatility: '中',
@@ -427,7 +427,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'three-pick-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-027', name: '射龍門', type: '即時遊戲',
+        code: 'GAME-027', name: '射龍門', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'TWD'], languages: ['繁中'],
         version: 'v1.0.0', mathVersion: 'RTP 97.00%', rtp: '97.00%', volatility: '中',
@@ -437,7 +437,7 @@ const SEED_GAMES: GameRow[] = [
         technicalOwner: 'Game Tech', packageId: 'shoot-dragon-gate-h5', assetVersion: 'asset-2026.05', note: '',
     },
     {
-        code: 'GAME-028', name: '籃球投籃機', type: '運動',
+        code: 'GAME-028', name: '籃球投籃機', type: '迷你遊戲',
         status: '上架', environmentMode: '正式',
         platform: ['H5', 'Web'], currencies: ['USDT', 'USD'], languages: ['繁中', '英文'],
         version: 'v1.0.0', mathVersion: 'RTP 96.00%', rtp: '96.00%', volatility: '高',

@@ -64,7 +64,7 @@ onMounted(async () => {
 });
 
 const gameStatusOptions = ['全部狀態', '上架', '測試中', '維護中', '待審核', '下架'];
-const gameTypeOptions = ['全部類型', '老虎機', '桌遊', '小遊戲', '真人'];
+const gameTypeOptions = ['全部類型', '桌遊', '即時遊戲', '運動'];
 const gamePlatformOptions = ['全部平台', 'H5', 'Web', 'App'];
 const gameEnvironmentOptions = ['全部環境', '測試', '正式'];
 const gameMerchantOptions = ['MER-001 Golden Dragon', 'MER-002 LuckyPlay', 'MER-003 Nova Gaming', 'MER-004 Royal H5'];

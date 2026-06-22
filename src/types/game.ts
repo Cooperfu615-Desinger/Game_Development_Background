@@ -6,8 +6,14 @@ export interface Game {
     rtp: number
     activeUsers: number
     publishedAt: string
-    category: 'slot' | 'table' | 'live' | 'fishing'
+    category: 'table' | 'instant' | 'sport'
     description?: string
+    chipDenominations?: number[]
+    minBet?: number
+    maxBetRatio?: number
+    betZoneCount?: number
+    singleBetOnly?: boolean
+    payoutModel?: string
 }
 
 export interface GameFilter {

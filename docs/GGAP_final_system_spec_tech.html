@@ -1,0 +1,878 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GGAP 遊戲聚合後台｜最終系統規格與技術文件</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172033;
+      --muted: #64748b;
+      --line: #dbe3ef;
+      --soft: #f6f8fb;
+      --panel: #ffffff;
+      --brand: #007f8f;
+      --brand-2: #10b981;
+      --warn: #b45309;
+      --danger: #b91c1c;
+      --code: #111827;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", Arial, sans-serif;
+      color: var(--ink);
+      background: #eef3f8;
+      line-height: 1.72;
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      background: var(--panel);
+      min-height: 100vh;
+      box-shadow: 0 24px 80px rgba(15, 23, 42, .12);
+    }
+
+    header.cover {
+      padding: 56px 64px 40px;
+      color: #fff;
+      background:
+        linear-gradient(135deg, rgba(0, 127, 143, .96), rgba(16, 185, 129, .88)),
+        linear-gradient(45deg, #0f172a, #111827);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      padding: 4px 10px;
+      border: 1px solid rgba(255,255,255,.42);
+      border-radius: 999px;
+      font-size: 13px;
+      letter-spacing: .02em;
+    }
+
+    h1, h2, h3, h4 { line-height: 1.28; margin: 0; }
+    h1 { margin-top: 22px; font-size: 36px; letter-spacing: .02em; }
+    h2 {
+      margin-top: 48px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--line);
+      font-size: 26px;
+      color: #0f172a;
+    }
+    h3 { margin-top: 32px; font-size: 20px; color: #0f766e; }
+    h4 { margin-top: 22px; font-size: 16px; color: #334155; }
+    p { margin: 10px 0; }
+
+    .cover p { max-width: 880px; color: rgba(255,255,255,.88); }
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 32px;
+    }
+    .meta div {
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(15, 23, 42, .16);
+      border-radius: 10px;
+    }
+    .meta strong { display: block; font-size: 12px; color: rgba(255,255,255,.72); }
+    .meta span { display: block; margin-top: 4px; font-weight: 700; }
+
+    main { padding: 36px 64px 80px; }
+    .notice, .rule, .warning, .success {
+      margin: 18px 0;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--soft);
+    }
+    .rule { border-left: 5px solid var(--brand); }
+    .success { border-left: 5px solid var(--brand-2); }
+    .warning { border-left: 5px solid var(--warn); background: #fff8ed; }
+
+    .toc {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 24px;
+      padding: 18px;
+      background: var(--soft);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+    .toc a { color: var(--brand); text-decoration: none; font-weight: 700; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px;
+      font-size: 14px;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 10px 12px;
+      vertical-align: top;
+    }
+    th {
+      background: #eaf5f5;
+      color: #0f3f46;
+      text-align: left;
+      white-space: nowrap;
+    }
+    tr:nth-child(even) td { background: #fbfdff; }
+    code {
+      padding: 2px 5px;
+      border-radius: 5px;
+      color: var(--code);
+      background: #edf2f7;
+      font-family: Consolas, Monaco, monospace;
+      font-size: .94em;
+    }
+    pre {
+      overflow: auto;
+      padding: 14px 16px;
+      border-radius: 10px;
+      background: #0f172a;
+      color: #dbeafe;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    ul, ol { padding-left: 22px; }
+    li + li { margin-top: 4px; }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .card {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+    }
+    .card h4 { margin-top: 0; }
+    .tag {
+      display: inline-block;
+      margin: 2px 4px 2px 0;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #e6fffa;
+      color: #047857;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .muted { color: var(--muted); }
+    .break { page-break-before: always; }
+
+    @media (max-width: 820px) {
+      header.cover, main { padding-left: 24px; padding-right: 24px; }
+      .meta, .toc, .grid-2 { grid-template-columns: 1fr; }
+      h1 { font-size: 30px; }
+      table { display: block; overflow-x: auto; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .page { box-shadow: none; max-width: none; }
+      header.cover { background: #0f766e !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      a { color: inherit; text-decoration: none; }
+      h2 { page-break-after: avoid; }
+      table, pre, .card, .notice, .rule, .warning { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="cover">
+      <span class="eyebrow">GGAP Final Specification</span>
+      <h1>GGAP 遊戲聚合後台<br />最終系統規格與技術文件</h1>
+
+      <div class="meta">
+        <div><strong>版本</strong><span>Final v1.3</span></div>
+        <div><strong>產出日期</strong><span>2026-07-09</span></div>
+        <div><strong>正式結算幣別</strong><span>USDT</span></div>
+        <div><strong>財務模型</strong><span>代理應收 + 供應商應付 + 平台毛利</span></div>
+      </div>
+    </header>
+
+    <main>
+      <section id="toc">
+        <h2>目錄</h2>
+        <div class="toc">
+          <a href="#scope">1. 文件範圍與優先規則</a>
+          <a href="#final-decisions">2. 最終定版核心決策</a>
+          <a href="#business-model">3. 商業與帳務模型</a>
+          <a href="#portals">4. 三入口與資料權限</a>
+          <a href="#architecture">5. 系統資訊架構</a>
+          <a href="#modules">6. 模組規格</a>
+          <a href="#rates">7. 費率與商戶報價規格</a>
+          <a href="#finance">8. 財務中心規格</a>
+          <a href="#technical">9. 技術架構與資料模型</a>
+          <a href="#api">10. API 與串接規格</a>
+          <a href="#batch">11. 批次、冪等與一致性</a>
+          <a href="#security">12. 安全、稽核與驗收</a>
+        </div>
+      </section>
+
+      <section id="scope">
+        <h2>1. 文件範圍與優先規則</h2>
+        <div class="rule">
+          <strong>文件目的：</strong>
+          本文件為 GGAP 遊戲聚合後台最終版交付規格，供 PM、RD、QA、營運、財務、風控與後端 API 串接使用。
+          若舊版文件或模組文字與本文件衝突，均以本文件為準。
+        </div>
+
+        <table>
+          <tr><th>項目</th><th>最終規格</th></tr>
+          <tr>
+            <td>產品定位</td>
+            <td>B2B 遊戲聚合平台後台，支援管理者、代理、商戶三種入口，集中管理供應商、遊戲、商戶、代理、會員、交易、帳務、品質與系統設定。</td>
+          </tr>
+          <tr>
+            <td>不包含內容</td>
+            <td>不描述演示前台、不描述 Demo 視覺畫面、不記錄臨時前端展示方案；僅保留正式系統邏輯與技術規格。</td>
+          </tr>
+          <tr>
+            <td>正式帳務幣別</td>
+            <td><code>settlement_currency = USDT</code>。所有正式對帳、日結、帳單、代理應收、供應商應付與平台毛利皆以 USDT 為準。</td>
+          </tr>
+          <tr>
+            <td>顯示幣別</td>
+            <td><code>display_currency</code> 只供商戶前台、會員幣別錢包、營運報表與明細參考，不作正式跨幣別結算依據。</td>
+          </tr>
+          <tr>
+            <td>商戶定位</td>
+            <td>商戶是真正接入 API、會員、錢包、遊戲權限與投注資料的營運主體；但不是 GGAP 平台正式收款主體。</td>
+          </tr>
+          <tr>
+            <td>代理定位</td>
+            <td>代理是 GGAP 平台正式應收與結算主體。代理底下可有下級代理與商戶，最多三級代理。</td>
+          </tr>
+          <tr>
+            <td>供應商定位</td>
+            <td>供應商是 GGAP 平台自行處理的成本與應付主體，不與代理或商戶形成直接帳務關係。</td>
+          </tr>
+        </table>
+      </section>
+
+      <section id="final-decisions">
+        <h2>2. 最終定版核心決策</h2>
+        <table>
+          <tr><th>決策</th><th>定版內容</th><th>影響範圍</th></tr>
+          <tr>
+            <td>供應商結算拆分</td>
+            <td>供應商結算不可依 <code>agent_id</code> 作主維度；正式維度為 <code>provider_id + settlement_currency + period</code>，可選加 <code>game_type</code> 或 <code>provider_rate_version</code>。</td>
+            <td>財務中心、供應商帳務、帳單、資料表、API。</td>
+          </tr>
+          <tr>
+            <td>代理結算主體</td>
+            <td>平台只對代理正式收款。代理結算維度為 <code>agent_id + settlement_currency + period</code>，明細可展開商戶、下級代理、供應商與顯示幣別。</td>
+            <td>代理帳務、代理帳單、下級代理結算、商戶結算。</td>
+          </tr>
+          <tr>
+            <td>商戶不作平台正式帳務主體</td>
+            <td>系統可計算商戶應向代理繳交的金額，但此資訊應歸在代理帳務內的「商戶結算」，不是新增獨立平台商戶帳務。</td>
+            <td>商戶管理、代理帳務、報表。</td>
+          </tr>
+          <tr>
+            <td>代理最多三級</td>
+            <td>代理層級固定為 L1 / L2 / L3。L1 可新增 L2，L2 可新增 L3，L3 不可再新增下級代理。正式對 GGAP 結算可歸集到 L1 或平台直營代理。</td>
+            <td>代理管理、資料權限、代理後台、帳務彙總。</td>
+          </tr>
+          <tr>
+            <td>費率位置</td>
+            <td>供應商成本費率放在供應商管理；代理費率放在代理管理；商戶報價放在商戶綁定代理或商戶設定內。三者可依供應商覆寫，未覆寫則使用預設費率。</td>
+            <td>供應商管理、代理管理、商戶管理、代理帳務、平台毛利。</td>
+          </tr>
+          <tr>
+            <td>錢包模式</td>
+            <td>供應商側只認 GGAP 單一 USDT 錢包；商戶側可使用 Seamless Wallet 或 Transfer Wallet；Transfer Wallet 由 GGAP 內部帳本處理。</td>
+            <td>Wallet Router、交易中心、會員管理、轉點紀錄。</td>
+          </tr>
+          <tr>
+            <td>匯率與日結</td>
+            <td>每日北京時間 00:00 產生公告匯率；01:00 結算 T-1 帳期。日結後匯率快照、結算金額與帳單來源鎖定。</td>
+            <td>匯率管理、日結、報表、帳單、交易快照。</td>
+          </tr>
+        </table>
+
+        <div class="warning">
+          <strong>重要修正：</strong>
+          舊文件中若出現「結算維度：<code>agent_id + provider_id + settlement_currency + period</code>」應拆成兩種：
+          供應商結算使用 <code>provider_id + settlement_currency + period</code>；
+          代理結算使用 <code>agent_id + settlement_currency + period</code>，其中 <code>provider_id</code> 只作代理費率套用與明細分析，不代表代理與供應商直接掛鉤。
+        </div>
+      </section>
+
+      <section id="business-model">
+        <h2>3. 商業與帳務模型</h2>
+        <h3>3.1 商業鏈路</h3>
+        <pre>供應商
+  ↑  平台自行處理供應商成本、對帳與付款
+GGAP 平台
+  ↓  平台對代理收款，正式帳務主體為代理
+代理 L1
+  ↓  可下開 L2 / L3，也可直接綁商戶
+代理 L2 / L3
+  ↓
+商戶
+  ↓  真正接入 API、會員、錢包、遊戲與投注
+會員</pre>
+
+        <h3>3.2 兩條正式財務線</h3>
+        <table>
+          <tr><th>財務線</th><th>對象</th><th>主維度</th><th>說明</th></tr>
+          <tr>
+            <td>平台 ↔ 供應商</td>
+            <td>供應商應付</td>
+            <td><code>provider_id + settlement_currency + period</code></td>
+            <td>平台根據供應商報表、平台 Provider 交易快照、供應商合約與成本費率計算應付供應商金額。</td>
+          </tr>
+          <tr>
+            <td>平台 ↔ 代理</td>
+            <td>代理應收</td>
+            <td><code>agent_id + settlement_currency + period</code></td>
+            <td>平台根據代理樹底下商戶產生的 GGR、代理費率、調帳與服務費計算代理應收。</td>
+          </tr>
+          <tr>
+            <td>代理內部</td>
+            <td>下級代理結算、商戶結算</td>
+            <td><code>parent_agent_id + child_agent_id / merchant_id + period</code></td>
+            <td>用於算出 L1 應向下級代理或商戶收多少；屬代理帳務展開，不形成 GGAP 對商戶正式應收。</td>
+          </tr>
+          <tr>
+            <td>平台內部</td>
+            <td>平台毛利</td>
+            <td><code>period + provider_id + agent_id + settlement_currency</code></td>
+            <td>把代理收入線與供應商成本線拉在一起作管理分析，非正式對外帳單主體。</td>
+          </tr>
+        </table>
+
+        <h3>3.3 利潤來源</h3>
+        <table>
+          <tr><th>來源</th><th>公式</th><th>備註</th></tr>
+          <tr>
+            <td>供應商與代理差額</td>
+            <td><code>agent_receivable - provider_cost</code></td>
+            <td>例如供應商成本 4%，平台給代理 7%，差額 3% 為主要毛利來源。</td>
+          </tr>
+          <tr>
+            <td>匯率服務費</td>
+            <td><code>max(base_usdt_amount, 0) × exchange_fee_rate</code></td>
+            <td>MVP 預設 0.5%。只對正向應收計算，負 GGR 不收取。</td>
+          </tr>
+          <tr>
+            <td>調帳與其他成本</td>
+            <td><code>adjustment_amount - activity_cost - other_cost</code></td>
+            <td>活動成本、人工調帳、補償、特殊合約都需進入平台毛利分析。</td>
+          </tr>
+        </table>
+
+        <h3>3.4 核心公式</h3>
+        <table>
+          <tr><th>公式</th><th>說明</th></tr>
+          <tr><td><code>display_ggr = display_bet_amount - display_win_amount</code></td><td>原幣別 GGR，只作明細、商戶報表與營運參考。</td></tr>
+          <tr><td><code>base_usdt_amount = display_ggr ÷ base_rate</code></td><td><code>base_rate</code> 方向固定為 1 USDT = N display currency。</td></tr>
+          <tr><td><code>service_fee_amount = max(base_usdt_amount, 0) × exchange_fee_rate</code></td><td>匯率服務費僅對正向金額計算。</td></tr>
+          <tr><td><code>final_settlement_usdt = base_usdt_amount + service_fee_amount</code></td><td>日結後正式 USDT 金額。</td></tr>
+          <tr><td><code>agent_receivable = max(final_settlement_usdt, 0) × agent_rate + adjustment</code></td><td>GGAP 對代理的正式應收。</td></tr>
+          <tr><td><code>merchant_receivable_to_agent = max(final_settlement_usdt, 0) × merchant_quote_rate + adjustment</code></td><td>商戶應向代理繳交的金額，屬代理帳務明細。</td></tr>
+          <tr><td><code>provider_payable = provider_ggr_usdt × provider_cost_rate + fixed_fee + adjustment</code></td><td>供應商正式應付，應依供應商報表或 Provider 交易快照計算，不直接由代理日結產生。</td></tr>
+          <tr><td><code>platform_margin = agent_receivable - provider_payable + exchange_service_fee - adjustment - activity_cost</code></td><td>平台毛利管理報表。</td></tr>
+        </table>
+      </section>
+
+      <section id="portals">
+        <h2>4. 三入口與資料權限</h2>
+        <table>
+          <tr><th>入口</th><th>角色</th><th>資料範圍</th><th>主要用途</th><th>預設首頁</th></tr>
+          <tr>
+            <td>管理者後台</td>
+            <td><code>MASTER</code></td>
+            <td><code>global</code></td>
+            <td>平台全域管理：商戶、代理、供應商、遊戲、交易、財務、品質、系統、人員權限。</td>
+            <td><code>/admin/dashboard</code></td>
+          </tr>
+          <tr>
+            <td>代理後台</td>
+            <td><code>AGENT</code></td>
+            <td><code>agent_tree</code></td>
+            <td>看帳、管理下級代理、下開商戶、查看代理樹內商戶、投注與結算。</td>
+            <td><code>/agent/dashboard</code></td>
+          </tr>
+          <tr>
+            <td>商戶後台</td>
+            <td><code>MERCHANT</code></td>
+            <td><code>merchant_self</code></td>
+            <td>查看自身會員、投注情況、遊戲權限、報表、錢包狀態與 API 串接文件。</td>
+            <td><code>/merchant/dashboard</code></td>
+          </tr>
+        </table>
+
+        <div class="grid-2">
+          <div class="card">
+            <h4>代理入口應保留</h4>
+            <span class="tag">代理總覽</span>
+            <span class="tag">商戶管理</span>
+            <span class="tag">下級代理</span>
+            <span class="tag">代理帳務</span>
+            <span class="tag">下級代理結算</span>
+            <span class="tag">商戶結算</span>
+            <span class="tag">投注 / 報表</span>
+            <span class="tag">API 文件</span>
+            <p class="muted">代理不可看全平台供應商帳務、平台毛利、其他代理資料、其他商戶資料。</p>
+          </div>
+          <div class="card">
+            <h4>商戶入口應保留</h4>
+            <span class="tag">商戶總覽</span>
+            <span class="tag">會員管理</span>
+            <span class="tag">注單查詢</span>
+            <span class="tag">交易流水</span>
+            <span class="tag">我的遊戲</span>
+            <span class="tag">錢包 / 轉點紀錄</span>
+            <span class="tag">API 文件</span>
+            <p class="muted">商戶不可看到代理成本、代理對 GGAP 費率、供應商成本、平台毛利。</p>
+          </div>
+        </div>
+
+        <h3>4.1 Header 與 Token Claims</h3>
+        <table>
+          <tr><th>欄位</th><th>範例</th><th>規則</th></tr>
+          <tr><td><code>Authorization</code></td><td><code>Bearer xxx</code></td><td>正式授權以 token claims 為準。</td></tr>
+          <tr><td><code>X-GGAP-Portal</code></td><td><code>admin / agent / merchant</code></td><td>前端入口提示與除錯用。</td></tr>
+          <tr><td><code>X-GGAP-Role</code></td><td><code>MASTER / AGENT / MERCHANT</code></td><td>不可單靠 Header 授權。</td></tr>
+          <tr><td><code>X-GGAP-Data-Scope</code></td><td><code>global / agent_tree / merchant_self</code></td><td>後端 middleware 必須依 claims 實際限制資料。</td></tr>
+          <tr><td><code>X-GGAP-Agent-Id</code></td><td><code>AGT-DIRECT</code></td><td>代理或商戶所屬代理。</td></tr>
+          <tr><td><code>X-GGAP-Merchant-Id</code></td><td><code>OP-1001</code></td><td>商戶入口固定自身商戶。</td></tr>
+        </table>
+      </section>
+
+      <section id="architecture">
+        <h2>5. 系統資訊架構</h2>
+        <pre>GGAP
+├─ 總覽
+│  ├─ 儀錶板
+│  └─ 報表中心
+├─ 商務管理
+│  ├─ 商戶管理
+│  └─ 代理管理
+├─ 內容管理
+│  ├─ 供應商管理
+│  ├─ 遊戲管理
+│  ├─ 遊戲分組
+│  └─ 獎池與活動
+├─ 交易中心
+│  ├─ 會員管理
+│  ├─ 注單管理
+│  ├─ 交易流水
+│  ├─ Wallet Router
+│  ├─ 轉帳錢包轉點紀錄
+│  └─ 補單 / 重送
+├─ 財務中心
+│  ├─ 供應商帳務
+│  ├─ 代理帳務
+│  │  ├─ 代理應收
+│  │  ├─ 下級代理結算
+│  │  └─ 商戶結算
+│  ├─ 平台毛利
+│  ├─ 匯率管理
+│  ├─ 帳單管理
+│  └─ 調帳紀錄
+├─ 品質中心
+│  ├─ 風控管理
+│  ├─ 監控告警
+│  └─ 操作紀錄
+└─ 系統管理
+   ├─ 開發者中心
+   ├─ 系統設定
+   └─ 人員與權限</pre>
+      </section>
+
+      <section id="modules">
+        <h2>6. 模組規格</h2>
+
+        <h3>6.1 商戶管理</h3>
+        <table>
+          <tr><th>項目</th><th>規格</th></tr>
+          <tr>
+            <td>定位</td>
+            <td>商戶是真正串接 API、管理會員、錢包模式、遊戲權限與投注資料的營運主體；所有商戶必須綁定代理。</td>
+          </tr>
+          <tr>
+            <td>新增流程</td>
+            <td>基本資料 → 代理歸屬 → API 設定 → 錢包與幣別 → 遊戲權限 → 商戶報價 → 確認送出。</td>
+          </tr>
+          <tr>
+            <td>主要欄位</td>
+            <td><code>merchant_id</code>、<code>merchant_code</code>、<code>merchant_name</code>、<code>agent_id</code>、<code>agent_path</code>、<code>wallet_mode</code>、<code>display_currencies</code>、<code>settlement_currency</code>、<code>callback_url</code>、<code>ip_whitelist</code>、<code>status</code>。</td>
+          </tr>
+          <tr>
+            <td>錢包</td>
+            <td>支援 Seamless Wallet 與 Transfer Wallet。Transfer Wallet 需有內部帳本與會員轉點紀錄。</td>
+          </tr>
+          <tr>
+            <td>商戶報價</td>
+            <td>綁定代理時帶入代理費率，可依每個供應商設定商戶報價；未指定則使用統一服務費率或商戶預設加成。</td>
+          </tr>
+          <tr>
+            <td>操作</td>
+            <td>查看、編輯、啟用、停用、凍結、重置 API Secret、測試 Callback、設定遊戲權限、轉移代理、建立商戶後台帳號、查看操作紀錄。</td>
+          </tr>
+        </table>
+
+        <h3>6.2 代理管理</h3>
+        <table>
+          <tr><th>項目</th><th>規格</th></tr>
+          <tr><td>層級</td><td>最多三級：L1 / L2 / L3。L3 不可新增代理。需防止循環引用與跨樹移動。</td></tr>
+          <tr><td>正式收款</td><td>GGAP 正式對代理收款。若 L2 / L3 存在，系統可將正式收款對象歸集到 L1 或平台直營代理，並在代理帳務中展開下級代理結算。</td></tr>
+          <tr><td>新增流程</td><td>基本資料 → 上級代理 → 代理層級 → 可用供應商 → 費率設定 → 帳號權限 → 確認。</td></tr>
+          <tr><td>費率</td><td>代理建立時設定預設費率；可依每個供應商覆寫。供應商成本只作參考與毛利試算，不代表代理與供應商直接結算。</td></tr>
+          <tr><td>操作</td><td>查看、編輯、啟用、停用、凍結、建立下級代理、綁定商戶、設定費率、查看代理帳務、查看下級代理結算、查看商戶結算。</td></tr>
+        </table>
+
+        <h3>6.3 供應商管理</h3>
+        <table>
+          <tr><th>項目</th><th>規格</th></tr>
+          <tr><td>定位</td><td>供應商是平台成本帳主體，由 GGAP 自行對帳與付款，不直接掛代理或商戶。</td></tr>
+          <tr><td>新增流程</td><td>基本資料 → API 設定 → 遊戲同步 → 交易設定 → 幣別語系 → 地區限制 → 成本費率 → 測試環境。</td></tr>
+          <tr><td>成本費率</td><td>接入供應商時即可填入成本費率，可依遊戲類型、供應商費率版本、生效時間設定。</td></tr>
+          <tr><td>負 GGR</td><td>可設定保留到下期或清零，並需與供應商合約版本一起保存。</td></tr>
+          <tr><td>維護</td><td>供應商與遊戲都需支援一次性、每週、每月維護排程；維護期間影響 Launch 與遊戲可見狀態。</td></tr>
+          <tr><td>操作</td><td>查看、編輯、啟用、停用、維護、同步遊戲、測試 API、查看供應商帳務、查看操作紀錄。</td></tr>
+        </table>
+
+        <h3>6.4 遊戲管理與遊戲分組</h3>
+        <table>
+          <tr><th>模組</th><th>規格</th></tr>
+          <tr>
+            <td>遊戲管理</td>
+            <td>管理遊戲主檔、供應商、類型、RTP、支援幣別語系、上下架、維護排程、商戶授權、地區限制。維護支援固定每週或每月。</td>
+          </tr>
+          <tr>
+            <td>遊戲分組</td>
+            <td>建立遊戲包、類型分組、供應商分組、商戶專屬分組與活動分組；分組只影響展示與授權，不改變 Provider API 或正式交易流水。</td>
+          </tr>
+          <tr>
+            <td>獎池與活動</td>
+            <td>MVP 可先保留資料結構與入口；正式活動成本需能進平台毛利。</td>
+          </tr>
+        </table>
+
+        <h3>6.5 交易中心</h3>
+        <table>
+          <tr><th>模組</th><th>規格</th></tr>
+          <tr><td>會員管理</td><td>會員錢包唯一鍵為 <code>merchant_id + merchant_player_id + display_currency</code>。商戶需自行依幣別切分會員錢包。</td></tr>
+          <tr><td>注單管理</td><td>查詢 Provider Round、注單 ID、交易 ID、會員、商戶、代理、Provider、遊戲、Wallet 模式、雙幣別金額與狀態。</td></tr>
+          <tr><td>交易流水</td><td>保存 Bet、Win、Rollback、Refund、Transfer In、Transfer Out 等交易；必須保存 idempotency key、request/response、trace_id。</td></tr>
+          <tr><td>Wallet Router</td><td>依商戶 wallet_mode 分流 Seamless Callback 或 Transfer Wallet Ledger。Provider 不知道商戶錢包模式。</td></tr>
+          <tr><td>轉點紀錄</td><td>Transfer Wallet 必須有會員轉入、轉出、投注扣款、派彩加款、回滾與餘額變化紀錄。</td></tr>
+          <tr><td>補單 / 重送</td><td>處理 Provider Timeout、Merchant Callback Timeout、狀態不一致、Rollback 找不到原交易等異常。</td></tr>
+        </table>
+
+        <h3>6.6 品質中心</h3>
+        <table>
+          <tr><th>模組</th><th>規格</th></tr>
+          <tr><td>風控管理</td><td>設定商戶、會員、遊戲、金額、頻率、IP、設備、異常贏分、負餘額等規則。</td></tr>
+          <tr><td>監控告警</td><td>監控 Launch、Provider、Wallet Callback、交易失敗率、延遲、匯率異常、日結失敗、批次失敗。</td></tr>
+          <tr><td>操作紀錄</td><td>所有高風險操作需記錄 operator、role、portal、module、before/after、reason、ip、trace_id。</td></tr>
+        </table>
+
+        <h3>6.7 系統管理與開發者中心</h3>
+        <table>
+          <tr><th>模組</th><th>規格</th></tr>
+          <tr><td>開發者中心</td><td>放置 API 文件、簽名規則、Callback 範例、錯誤碼、Sandbox 測試、Callback 測試、IP 白名單與 Secret 重置入口。</td></tr>
+          <tr><td>系統設定</td><td>管理時區、幣別、匯率來源、告警門檻、交易重試、日結時間、資料保留、匯出限制。</td></tr>
+          <tr><td>人員與權限</td><td>支援功能權限、資料權限、角色、職級、2FA、登入安全與審核流程。</td></tr>
+        </table>
+      </section>
+
+      <section id="rates">
+        <h2>7. 費率與商戶報價規格</h2>
+        <h3>7.1 費率層級</h3>
+        <table>
+          <tr><th>層級</th><th>設定位置</th><th>用途</th><th>可否依供應商覆寫</th></tr>
+          <tr>
+            <td>供應商成本費率</td>
+            <td>供應商管理</td>
+            <td>平台計算供應商成本與平台毛利。</td>
+            <td>可，並可依遊戲類型或版本。</td>
+          </tr>
+          <tr>
+            <td>代理費率</td>
+            <td>代理管理</td>
+            <td>平台向代理收款的費率。新增代理時即可決定給此代理的價格。</td>
+            <td>可，未指定則使用代理預設費率。</td>
+          </tr>
+          <tr>
+            <td>商戶報價</td>
+            <td>商戶管理 / 綁定代理</td>
+            <td>代理要向商戶收多少。系統只作代理帳務內的商戶結算，不形成平台對商戶應收。</td>
+            <td>可，未指定則使用商戶預設加成或統一服務費率。</td>
+          </tr>
+          <tr>
+            <td>匯率服務費率</td>
+            <td>匯率管理 / 代理設定</td>
+            <td>多顯示幣別換算 USDT 時另計的結算服務費，MVP 預設 0.5%。</td>
+            <td>可依代理或合約調整。</td>
+          </tr>
+        </table>
+
+        <h3>7.2 範例</h3>
+        <table>
+          <tr><th>供應商</th><th>供應商成本</th><th>GGAP 給 L1 代理費率</th><th>L1 給商戶報價</th><th>平台差額</th><th>代理差額</th></tr>
+          <tr><td>PG Soft</td><td>4%</td><td>7%</td><td>8%</td><td>3%</td><td>1%</td></tr>
+          <tr><td>JILI</td><td>5%</td><td>8.5%</td><td>9.2%</td><td>3.5%</td><td>0.7%</td></tr>
+          <tr><td>Evolution</td><td>6%</td><td>10%</td><td>10.8%</td><td>4%</td><td>0.8%</td></tr>
+        </table>
+      </section>
+
+      <section id="finance">
+        <h2>8. 財務中心規格</h2>
+        <h3>8.1 財務中心模組</h3>
+        <table>
+          <tr><th>模組</th><th>主體</th><th>主要內容</th></tr>
+          <tr>
+            <td>供應商帳務</td>
+            <td>供應商</td>
+            <td>供應商成本、供應商對帳、供應商應付帳單、供應商付款紀錄。不得以代理或商戶作正式帳務主體。</td>
+          </tr>
+          <tr>
+            <td>代理帳務</td>
+            <td>代理</td>
+            <td>代理應收、日結明細、帳單、收款紀錄、帳務差異、下級代理結算、商戶結算。</td>
+          </tr>
+          <tr>
+            <td>平台毛利</td>
+            <td>平台內部</td>
+            <td>代理應收、供應商成本、匯率服務費、調帳、活動成本、毛利試算。</td>
+          </tr>
+          <tr>
+            <td>匯率管理</td>
+            <td>幣別</td>
+            <td>幣別設定、每日匯率、服務費率、交易匯率快照、匯率異常告警。</td>
+          </tr>
+          <tr>
+            <td>帳單管理</td>
+            <td>代理 / 供應商</td>
+            <td>代理應收帳單、供應商應付帳單。使用 <code>target_type + target_id</code> 避免主體混淆。</td>
+          </tr>
+          <tr>
+            <td>調帳紀錄</td>
+            <td>帳期 / 對象</td>
+            <td>所有人工補正、費率修正、差異處理與帳務調整，需保留原因與審核紀錄。</td>
+          </tr>
+        </table>
+
+        <h3>8.2 代理帳務內部頁籤</h3>
+        <table>
+          <tr><th>頁籤</th><th>內容</th></tr>
+          <tr><td>基本資料</td><td>帳期、正式收款代理、代理層級、結算幣別、狀態、應收摘要。</td></tr>
+          <tr><td>日結明細</td><td>依日期、供應商、商戶、顯示幣別展開，用於套用不同代理費率。</td></tr>
+          <tr><td>帳單</td><td>代理應收帳單、付款狀態、付款證明、核銷狀態。</td></tr>
+          <tr><td>收款紀錄</td><td>代理付款、入帳、沖帳與未收金額。</td></tr>
+          <tr><td>帳務差異</td><td>代理確認差異、調帳、補單、Carry Forward。</td></tr>
+          <tr><td>下級代理結算</td><td>計算 L1 對 L2、L2 對 L3 的應收或分潤，不形成供應商帳。</td></tr>
+          <tr><td>商戶結算</td><td>計算代理應向商戶收多少，作為代理報表與帳務依據。</td></tr>
+          <tr><td>操作紀錄</td><td>帳務產生、確認、調整、開帳、鎖帳、收款與匯出紀錄。</td></tr>
+        </table>
+      </section>
+
+      <section id="technical" class="break">
+        <h2>9. 技術架構與資料模型</h2>
+        <h3>9.1 核心架構</h3>
+        <pre>Merchant / Agent / Admin Portal
+  ↓ API Gateway + Auth Middleware
+GGAP Core API
+  ├─ Provider Adapter
+  ├─ Wallet Router
+  │  ├─ Seamless Merchant Wallet Adapter
+  │  └─ Transfer Wallet Ledger
+  ├─ Transaction Service
+  ├─ Bet Record Service
+  ├─ FX Rate Service
+  ├─ Daily Trade Summary
+  ├─ Agent Settlement Service
+  ├─ Provider Settlement Service
+  ├─ Invoice Service
+  ├─ Platform Margin Service
+  └─ Audit / Trace Service</pre>
+
+        <h3>9.2 核心資料表</h3>
+        <table>
+          <tr><th>資料表</th><th>用途</th><th>關鍵欄位</th></tr>
+          <tr><td><code>merchant</code></td><td>商戶主檔</td><td><code>merchant_id</code>、<code>agent_id</code>、<code>wallet_mode</code>、<code>display_currencies</code>、<code>settlement_currency</code>、<code>status</code></td></tr>
+          <tr><td><code>agent</code></td><td>代理主檔</td><td><code>agent_id</code>、<code>level</code>、<code>parent_agent_id</code>、<code>root_agent_id</code>、<code>settlement_currency</code>、<code>status</code></td></tr>
+          <tr><td><code>provider</code></td><td>供應商主檔</td><td><code>provider_id</code>、<code>provider_currency=USDT</code>、<code>cost_rate</code>、<code>negative_ggr_policy</code></td></tr>
+          <tr><td><code>agent_provider_rate</code></td><td>代理費率</td><td><code>agent_id</code>、<code>provider_id</code>、<code>agent_rate</code>、<code>effective_at</code>、<code>expired_at</code></td></tr>
+          <tr><td><code>merchant_provider_quote</code></td><td>商戶報價</td><td><code>merchant_id</code>、<code>agent_id</code>、<code>provider_id</code>、<code>merchant_quote_rate</code>、<code>effective_at</code></td></tr>
+          <tr><td><code>player_account</code></td><td>會員幣別錢包</td><td><code>merchant_id + merchant_player_id + display_currency</code></td></tr>
+          <tr><td><code>game_session</code></td><td>遊戲 Session</td><td><code>session_id</code>、<code>display_currency</code>、<code>wallet_mode</code>、<code>exchange_rate_id</code></td></tr>
+          <tr><td><code>transaction</code></td><td>交易流水</td><td><code>transaction_id</code>、<code>display_amount</code>、<code>settlement_amount</code>、<code>idempotency_key</code>、<code>trace_id</code></td></tr>
+          <tr><td><code>bet_record</code></td><td>注單 / Round</td><td><code>round_id</code>、<code>bet_amount</code>、<code>win_amount</code>、<code>display_ggr</code>、<code>settlement_ggr</code></td></tr>
+          <tr><td><code>transfer_wallet_account</code></td><td>轉帳錢包餘額</td><td><code>merchant_id</code>、<code>player_id</code>、<code>display_currency</code>、<code>available_balance</code></td></tr>
+          <tr><td><code>transfer_wallet_ledger</code></td><td>轉帳錢包流水</td><td><code>ledger_id</code>、<code>direction</code>、<code>before_balance</code>、<code>after_balance</code>、<code>idempotency_key</code></td></tr>
+          <tr><td><code>exchange_rate_daily</code></td><td>每日公告匯率</td><td><code>rate_date</code>、<code>display_currency</code>、<code>base_rate</code>、<code>exchange_fee_rate</code>、<code>status</code></td></tr>
+          <tr><td><code>daily_trade_summary</code></td><td>交易日結明細快照</td><td><code>settlement_date</code>、<code>agent_id</code>、<code>merchant_id</code>、<code>provider_id</code>、<code>display_currency</code>、<code>final_settlement_usdt</code></td></tr>
+          <tr><td><code>agent_settlement</code></td><td>代理應收日結</td><td><code>agent_id</code>、<code>settlement_currency</code>、<code>period</code>、<code>agent_receivable</code></td></tr>
+          <tr><td><code>provider_settlement</code></td><td>供應商應付日結</td><td><code>provider_id</code>、<code>settlement_currency</code>、<code>period</code>、<code>provider_payable</code></td></tr>
+          <tr><td><code>invoice</code></td><td>帳單主檔</td><td><code>invoice_type</code>、<code>target_type</code>、<code>target_id</code>、<code>period</code>、<code>final_amount</code>、<code>payment_status</code></td></tr>
+          <tr><td><code>audit_log</code></td><td>操作稽核</td><td><code>trace_id</code>、<code>operator_id</code>、<code>module_code</code>、<code>before_data</code>、<code>after_data</code>、<code>reason</code></td></tr>
+        </table>
+
+        <h3>9.3 Invoice 拆分</h3>
+        <pre>invoice
+├─ invoice_id
+├─ invoice_type: AGENT_RECEIVABLE | PROVIDER_PAYABLE
+├─ target_type: AGENT | PROVIDER
+├─ target_id
+├─ period
+├─ settlement_currency
+├─ final_amount
+└─ payment_status
+
+agent_invoice_detail
+├─ invoice_id
+├─ agent_id
+├─ child_agent_id
+├─ merchant_id
+├─ provider_id
+├─ display_currency
+├─ final_settlement_usdt
+└─ receivable_amount
+
+provider_invoice_detail
+├─ invoice_id
+├─ provider_id
+├─ game_type / provider_rate_version
+├─ provider_ggr
+├─ provider_cost
+└─ adjustment_amount</pre>
+      </section>
+
+      <section id="api">
+        <h2>10. API 與串接規格</h2>
+        <h3>10.1 共用 Response</h3>
+        <pre>{
+  "code": 0,
+  "message": "OK",
+  "data": {},
+  "trace_id": "trace-20260709-000001"
+}</pre>
+
+        <h3>10.2 入口與 Auth</h3>
+        <table>
+          <tr><th>Method</th><th>Path</th><th>用途</th></tr>
+          <tr><td>POST</td><td><code>/api/v2/auth/login</code></td><td>登入，回傳 token、role、portal、data_scope、agent_id、merchant_id。</td></tr>
+          <tr><td>GET</td><td><code>/api/v2/auth/me</code></td><td>重新取得目前使用者與權限。</td></tr>
+          <tr><td>POST</td><td><code>/api/v2/auth/logout</code></td><td>登出與 token 失效。</td></tr>
+        </table>
+
+        <h3>10.3 管理者端 API</h3>
+        <table>
+          <tr><th>Prefix</th><th>主要 API</th></tr>
+          <tr><td><code>/api/v2/admin/merchants</code></td><td>商戶列表、新增、詳情、編輯、狀態、遊戲授權、商戶報價。</td></tr>
+          <tr><td><code>/api/v2/admin/agents</code></td><td>代理列表、新增、三級代理、代理費率、代理樹、狀態。</td></tr>
+          <tr><td><code>/api/v2/admin/providers</code></td><td>供應商管理、成本費率、負 GGR、API 設定、遊戲同步。</td></tr>
+          <tr><td><code>/api/v2/admin/games</code></td><td>遊戲管理、維護排程、RTP、上下架、商戶授權。</td></tr>
+          <tr><td><code>/api/v2/admin/transactions</code></td><td>會員、注單、流水、補單、Wallet Router、轉點紀錄。</td></tr>
+          <tr><td><code>/api/v2/admin/finance</code></td><td>供應商帳務、代理帳務、平台毛利、匯率、帳單、調帳。</td></tr>
+          <tr><td><code>/api/v2/admin/quality</code></td><td>風控、監控告警、操作紀錄。</td></tr>
+          <tr><td><code>/api/v2/admin/system</code></td><td>人員、權限、設定、審計。</td></tr>
+          <tr><td><code>/api/v2/admin/developer</code></td><td>API 文件、Callback 測試、錯誤碼。</td></tr>
+        </table>
+
+        <h3>10.4 代理與商戶端 API</h3>
+        <table>
+          <tr><th>角色</th><th>Prefix</th><th>主要 API</th></tr>
+          <tr><td>代理</td><td><code>/api/v2/agent</code></td><td>總覽、下級代理、商戶管理、代理帳務、下級代理結算、商戶結算、報表、遊戲、API 文件。</td></tr>
+          <tr><td>商戶</td><td><code>/api/v2/merchant</code></td><td>總覽、會員、注單、交易流水、我的遊戲、錢包、轉點紀錄、報表、API 文件。</td></tr>
+          <tr><td>共用</td><td><code>/api/v2/portal</code></td><td>代理 / 商戶共用開發者中心、Callback 測試、Secret 輪換、IP 白名單。</td></tr>
+        </table>
+
+        <h3>10.5 遊戲與錢包接口</h3>
+        <table>
+          <tr><th>接口</th><th>方向</th><th>用途</th><th>必要規則</th></tr>
+          <tr><td>Launch Game</td><td>Merchant → GGAP</td><td>建立遊戲 Session</td><td>帶入 <code>display_currency</code>，建立 <code>exchange_rate_id</code> 快照。</td></tr>
+          <tr><td>Bet / Win</td><td>Provider → GGAP</td><td>扣款 / 派彩</td><td>Provider 金額以 USDT；GGAP 內部保存雙幣別與冪等鍵。</td></tr>
+          <tr><td>Merchant Wallet Callback</td><td>GGAP → Merchant</td><td>Seamless 錢包扣加款</td><td>MVP Callback 金額模式預設 USDT。</td></tr>
+          <tr><td>Transfer In / Out</td><td>Merchant → GGAP</td><td>轉帳錢包轉入 / 轉出</td><td>寫入 transfer_wallet_ledger，不直接覆蓋歷史。</td></tr>
+          <tr><td>Rollback / Refund</td><td>Provider → GGAP</td><td>回滾與退款</td><td>需找到原交易，否則進補單 / 異常流程。</td></tr>
+        </table>
+      </section>
+
+      <section id="batch">
+        <h2>11. 批次、冪等與一致性</h2>
+        <h3>11.1 每日匯率批次</h3>
+        <ol>
+          <li>每日北京時間 00:00 執行。</li>
+          <li>讀取啟用中的 display_currency。</li>
+          <li>呼叫第三方匯率 API，產生 <code>exchange_rate_daily</code>。</li>
+          <li>若 API 失敗，重試；仍失敗則沿用上一筆有效匯率並告警。</li>
+          <li>波動超過門檻需進入待確認，不可自動覆蓋已鎖定帳期。</li>
+        </ol>
+
+        <h3>11.2 每日日結批次</h3>
+        <ol>
+          <li>每日北京時間 01:00 執行，帳期為 T-1 00:00:00 至 23:59:59。</li>
+          <li>先建立 <code>daily_trade_summary</code>，依代理、商戶、供應商、顯示幣別彙總交易。</li>
+          <li>產生 <code>agent_settlement</code>，作為代理應收與下級代理 / 商戶結算來源。</li>
+          <li>產生或更新平台毛利分析資料。</li>
+          <li><strong>供應商正式帳單不可直接由代理日結來源產生</strong>，需由 <code>provider_settlement</code> 根據 Provider 交易快照、供應商報表與供應商費率計算。</li>
+          <li>日結完成後鎖定 batch，後續差異需走調帳或下一期修正。</li>
+        </ol>
+
+        <h3>11.3 冪等規範</h3>
+        <table>
+          <tr><th>場景</th><th>唯一鍵</th><th>規則</th></tr>
+          <tr><td>Provider 交易</td><td><code>provider_id + provider_transaction_id</code></td><td>重送時返回原結果，不重複扣加款。</td></tr>
+          <tr><td>商戶 Callback</td><td><code>merchant_id + idempotency_key + transaction_type</code></td><td>保存 request / response。</td></tr>
+          <tr><td>Transfer Wallet</td><td><code>account_id + idempotency_key</code></td><td>餘額更新需使用交易鎖或樂觀鎖。</td></tr>
+          <tr><td>日結批次</td><td><code>batch_id + period + dimension</code></td><td>同一帳期同一維度不得產生多筆生效結算。</td></tr>
+          <tr><td>調帳</td><td><code>adjustment_id</code></td><td>不得直接改歷史交易，只能新增調帳、補單或 reversal。</td></tr>
+        </table>
+      </section>
+
+      <section id="security">
+        <h2>12. 安全、稽核與驗收</h2>
+        <h3>12.1 安全規格</h3>
+        <table>
+          <tr><th>項目</th><th>規格</th></tr>
+          <tr><td>API 安全</td><td>HMAC-SHA256 或 RSA 簽名、時間戳、防重放、IP 白名單、API Key / Secret。</td></tr>
+          <tr><td>敏感資料</td><td>Password、API Secret、2FA Secret、Token 不可明文儲存或寫入 Log，只可遮罩或重置。</td></tr>
+          <tr><td>高風險操作</td><td>匯率覆蓋、費率異動、補單、重送、調帳、鎖帳、重置 Secret 需輸入原因，可要求 2FA 或審核。</td></tr>
+          <tr><td>資料權限</td><td>MASTER 全域；AGENT 僅代理樹；MERCHANT 僅自身商戶。後端必須以 token claims 強制限制。</td></tr>
+          <tr><td>金額精度</td><td>DB 使用 DECIMAL 或整數最小單位；API 金額建議以字串傳輸；不可用 float / double 處理財務。</td></tr>
+        </table>
+
+        <h3>12.2 驗收清單</h3>
+        <table>
+          <tr><th>類別</th><th>驗收項目</th></tr>
+          <tr><td>帳務模型</td><td>供應商帳務未掛代理或商戶作為正式主體；代理帳務包含下級代理與商戶結算展開。</td></tr>
+          <tr><td>代理層級</td><td>L1 / L2 / L3 正確限制，L3 不可新增代理，代理樹資料不可跨權限查詢。</td></tr>
+          <tr><td>商戶新增</td><td>商戶必須綁定代理；代理入口只能在自身代理樹新增商戶；商戶報價可依供應商設定。</td></tr>
+          <tr><td>供應商管理</td><td>供應商接入時可設定成本費率與負 GGR 政策；供應商結算維度正確。</td></tr>
+          <tr><td>交易流水</td><td>每筆交易保存 display_currency、display_amount、settlement_currency、settlement_amount、exchange_rate_id。</td></tr>
+          <tr><td>Transfer Wallet</td><td>Transfer In / Out、Bet、Win、Rollback 均產生 ledger，before / after balance 正確。</td></tr>
+          <tr><td>匯率批次</td><td>00:00 產生公告匯率；異常重試與告警；日結不因後續匯率更新重算。</td></tr>
+          <tr><td>日結批次</td><td>01:00 依 T-1 匯率產生交易快照、代理日結與平台毛利分析；供應商正式帳務獨立產生。</td></tr>
+          <tr><td>API 串接</td><td>所有列表支援分頁、排序、篩選；所有回應包含 code、message、data、trace_id。</td></tr>
+          <tr><td>稽核</td><td>所有費率、匯率、補單、調帳、鎖帳與 Secret 操作具 before/after、reason、operator、trace_id。</td></tr>
+        </table>
+
+        <div class="success">
+          <strong>最終結論：</strong>
+          GGAP 正式模型為「供應商成本帳」與「代理收入帳」完全拆分；
+          商戶是真正接入與營運主體，但商戶應收只作代理帳務展開；
+          平台毛利才把代理應收、供應商成本、匯率服務費與調帳合併分析。
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

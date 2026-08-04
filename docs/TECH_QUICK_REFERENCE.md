@@ -1,561 +1,218 @@
-# 技術快速查閱卡片 (Quick Reference)
+# 技術快速查閱
 
-**快速查閱版本** - 適合在開發過程中快速找到答案
+> 更新日期：2026-08-04
+> 適用範圍：Provider Portal 原型
 
----
+本文件只整理目前實際使用的前端工具與工作方式。產品責任邊界請以 `docs/handoff/` 與最新 Provider 規格為準。
 
-## 📦 依賴版本快查表
+## 1. 技術棧
 
-> 對齊 `package.json`(2026-06-11)。UI 框架已從 Naive UI 遷移到 **PrimeVue 4(Apple HIG preset)**。
+| 類別 | 技術 |
+|---|---|
+| Framework | Vue 3.5 + TypeScript |
+| Build | Vite 7 |
+| UI | PrimeVue 4、PrimeIcons、`@primeuix/themes` |
+| CSS | Tailwind CSS 3、`tailwindcss-primeui` |
+| State | Pinia 3、`pinia-plugin-persistedstate` |
+| Router | Vue Router 4，Hash history |
+| i18n | Vue I18n 11，主要語系為 zh-TW |
+| Charts | ECharts / vue-echarts、Chart.js / PrimeVue Chart |
+| Mock | MSW 2、faker |
+| Utility | `big.js`、`date-fns`、VueUse |
+| Deploy | GitHub Pages，GitHub Actions |
 
-```
-Vue 3                        ^3.5.24
-TypeScript                   ~5.9.3
-Vite                         ^7.2.4
-PrimeVue 4                   ^4.5.5   (Apple HIG preset，基於 Aura 覆寫)
-@primeuix/themes             ^2.0.3
-primeicons                   ^7.0.0
-tailwindcss-primeui          ^0.6.1
-Tailwind CSS                 ^3.4.17
-Pinia                        ^3.0.4
-pinia-plugin-persistedstate  ^4.7.1
-Vue Router                   ^4.6.4
-Vue i18n                     ^11.2.8
-ECharts                      ^6.0.0   (+ vue-echarts ^8.0.1)
-Chart.js                     ^4.5.1   (PrimeVue <Chart> 元件使用)
-big.js                       ^7.0.1
-date-fns                     ^4.1.0
-MSW                          ^2.12.7
-@vueuse/core                 ^14.1.0
-@faker-js/faker              ^10.2.0
-nprogress                    ^0.2.0
-```
+`package.json` 的 package name 仍是歷史名稱 `aggregator-core`，不代表目前產品定位；若要修改需另立版本變更。
 
----
-
-## 🔧 常用命令速查
+## 2. 常用命令
 
 ```bash
-# 開發
-npm run dev                    # 啟動開發服務器 (Port 5173)
-
-# 構建
-npm run build                  # 生產構建
-npm run type-check             # TypeScript 類型檢查
-
-# 預覽
-npm run preview                # 預覽構建結果
-
-# 安裝依賴
-npm install --legacy-peer-deps # 老版本相容安裝
-```
-
----
-
-## 📁 目錄結構速查
-
-```
-src/
-├── views/          頁面視圖
-├── components/     Vue 組件
-├── composables/    業務邏輯 ⭐
-├── stores/         Pinia 狀態
-├── types/          TypeScript 型別
-├── router/         路由配置
-├── mocks/          Mock API
-├── locales/        i18n 翻譯
-├── layouts/        頁面佈局
-├── utils/          工具函數
-├── plugins/        插件配置
-├── config/         配置文件
-├── assets/         靜態資源
-└── styles/         全局樣式
-```
-
----
-
-## 🎨 PrimeVue 4 常用組件
-
-> 元件採各檔局部 import(非全域註冊);主題設定見 `src/plugins/primevue.ts`(Apple HIG preset)。
-
-```vue
-<script setup lang="ts">
-// 每個元件在使用的 .vue 檔內 import
-import DataTable from 'primevue/datatable'
-import Column from 'primevue/column'
-import Button from 'primevue/button'
-import Dialog from 'primevue/dialog'
-import Select from 'primevue/select'
-import InputText from 'primevue/inputtext'
-import InputNumber from 'primevue/inputnumber'
-import DatePicker from 'primevue/datepicker'
-import Tag from 'primevue/tag'
-import { useToast } from 'primevue/usetoast'
-
-const toast = useToast()
-</script>
-
-<template>
-  <!-- 表格 -->
-  <DataTable :value="rows" paginator :rows="10">
-    <Column field="name" header="名稱" sortable />
-    <Column field="status" header="狀態" />
-  </DataTable>
-
-  <!-- 輸入框 -->
-  <InputText v-model="text" />
-  <InputNumber v-model="number" />
-
-  <!-- 選擇器 -->
-  <Select v-model="selected" :options="options" option-label="label" option-value="value" />
-  <DatePicker v-model="date" />
-
-  <!-- 按鈕 -->
-  <Button label="保存" severity="primary" />
-
-  <!-- 對話框 -->
-  <Dialog v-model:visible="showDialog" modal header="標題">內容</Dialog>
-
-  <!-- 標籤 -->
-  <Tag severity="success" value="成功" />
-</template>
-```
-
-```typescript
-// Toast 訊息(ToastService 已在 setupPrimeVue 全域註冊)
-toast.add({ severity: 'success', summary: '已保存', life: 3000 })
-```
-
----
-
-## 📐 Tailwind CSS 常用類
-
-```html
-<!-- 尺寸 -->
-<div class="w-full h-screen p-4 m-2"></div>
-
-<!-- 顏色 -->
-<div class="bg-blue-500 text-white border-gray-200"></div>
-
-<!-- 佈局 -->
-<div class="flex justify-center items-center space-y-4"></div>
-<div class="grid grid-cols-3 gap-4"></div>
-
-<!-- 響應式 -->
-<div class="md:w-1/2 lg:w-1/3 xl:w-1/4"></div>
-
-<!-- 陰影與邊框 -->
-<div class="shadow-md rounded-lg border border-gray-200"></div>
-
-<!-- 文字 -->
-<div class="text-lg font-bold text-center underline"></div>
-```
-
----
-
-## 🔗 路由配置
-
-```typescript
-// src/router/index.ts
-const routes = [
-  {
-    path: '/login',
-    component: () => import('@/views/Auth/Login.vue'),
-    meta: { requiresAuth: false }
-  },
-  {
-    path: '/',
-    component: MainLayout,
-    meta: { requiresAuth: true },
-    children: [
-      {
-        path: 'dashboard',
-        component: () => import('@/views/Dashboard/Index.vue'),
-        meta: { title: '儀表板' }
-      }
-    ]
-  }
-]
-```
-
----
-
-## 💾 Pinia 狀態管理
-
-```typescript
-// src/stores/game.ts
-import { defineStore } from 'pinia'
-import { ref } from 'vue'
-
-export const useGameStore = defineStore('game', () => {
-  // 狀態
-  const games = ref([])
-  const loading = ref(false)
-
-  // 方法
-  const fetchGames = async () => {
-    loading.value = true
-    // API 調用
-    loading.value = false
-  }
-
-  return {
-    games,
-    loading,
-    fetchGames
-  }
-})
-
-// 在組件中使用
-const gameStore = useGameStore()
-```
-
----
-
-## 🧠 Composables 模式
-
-```typescript
-// src/composables/useGameManagement.ts
-import { ref, computed, onMounted } from 'vue'
-
-export function useGameManagement() {
-  const games = ref([])
-  const loading = ref(false)
-  const searchText = ref('')
-
-  const filteredGames = computed(() => {
-    return games.value.filter(game =>
-      game.name.includes(searchText.value)
-    )
-  })
-
-  const fetchGames = async () => {
-    loading.value = true
-    try {
-      const response = await fetch('/api/games')
-      games.value = await response.json()
-    } finally {
-      loading.value = false
-    }
-  }
-
-  onMounted(() => {
-    fetchGames()
-  })
-
-  return {
-    games,
-    loading,
-    searchText,
-    filteredGames,
-    fetchGames
-  }
-}
-
-// 在組件中使用
-const { games, loading, fetchGames } = useGameManagement()
-```
-
----
-
-## 📝 TypeScript 型別定義
-
-```typescript
-// src/types/game.ts
-
-export interface Game {
-  id: string
-  name: string
-  status: 'active' | 'inactive'
-  version: string
-  rtp: number
-  publishedAt: Date
-  activeUsers: number
-}
-
-export interface GameFilter {
-  status?: 'active' | 'inactive'
-  search?: string
-  page?: number
-}
-
-export type GameStatus = 'active' | 'inactive' | 'maintenance'
-```
-
----
-
-## 🌐 多語言 i18n
-
-```typescript
-// src/locales/zh-TW/common.ts
-export default {
-  save: '保存',
-  delete: '刪除',
-  confirm: '確認',
-  cancel: '取消'
-}
-
-// 在組件中使用
-<template>
-  <button>{{ $t('common.save') }}</button>
-</template>
-```
-
----
-
-## 🔐 認證 & 路由守衛
-
-```typescript
-// src/router/index.ts
-router.beforeEach((to, from, next) => {
-  const authStore = useAuthStore()
-
-  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-    next('/login')
-  } else {
-    next()
-  }
-})
-```
-
----
-
-## 📡 Mock API 設置
-
-```typescript
-// src/mocks/handlers.ts
-import { http, HttpResponse } from 'msw'
-
-export const handlers = [
-  http.get('/api/games', () => {
-    return HttpResponse.json({
-      code: 0,
-      data: [...]
-    })
-  }),
-
-  http.post('/api/games', async ({ request }) => {
-    const body = await request.json()
-    return HttpResponse.json({
-      code: 0,
-      data: { id: '1', ...body }
-    }, { status: 201 })
-  })
-]
-```
-
----
-
-## 📊 ECharts 基本設置
-
-```typescript
-import * as echarts from 'echarts'
-
-const option = {
-  xAxis: {
-    type: 'category',
-    data: ['Mon', 'Tue', 'Wed']
-  },
-  yAxis: {
-    type: 'value'
-  },
-  series: [
-    {
-      data: [120, 200, 150],
-      type: 'line'
-    }
-  ]
-}
-
-// 在 Vue 組件中使用 vue-echarts
-<v-chart :option="option" style="height: 300px" />
-```
-
-> echarts 註冊已移到使用它的元件內(不進首屏 bundle),見 `src/main.ts` 註解。
-
----
-
-## 📈 Chart.js(PrimeVue Chart 元件)
-
-```vue
-<script setup lang="ts">
-import Chart from 'primevue/chart'
-
-const chartData = {
-  labels: ['Mon', 'Tue', 'Wed'],
-  datasets: [{ label: '營收', data: [120, 200, 150] }]
-}
-const chartOptions = { responsive: true, maintainAspectRatio: false }
-</script>
-
-<template>
-  <Chart type="line" :data="chartData" :options="chartOptions" style="height: 300px" />
-</template>
-```
-
-> 專案中 ECharts 與 Chart.js 並存:複雜互動圖表用 ECharts,一般統計圖用 PrimeVue `<Chart>`。
-
----
-
-## 💰 精確計算 (big.js)
-
-```typescript
-import Big from 'big.js'
-
-// ❌ 禁止
-const total = 0.1 + 0.2  // 0.30000000000000004
-
-// ✅ 推薦
-const total = new Big(0.1).plus(0.2).toString()  // "0.3"
-
-// 其他操作
-new Big(100).minus(30)      // 減法
-new Big(10).times(5)        // 乘法
-new Big(100).div(3)         // 除法
-new Big(99.999).toFixed(2)  // 四舍五入
-```
-
----
-
-## 📅 日期處理 (date-fns)
-
-```typescript
-import { format, parseISO, addDays, startOfMonth } from 'date-fns'
-import { zhCN } from 'date-fns/locale'
-
-// 格式化
-format(new Date(), 'yyyy-MM-dd', { locale: zhCN })
-
-// 解析
-parseISO('2026-03-31')
-
-// 日期運算
-addDays(new Date(), 7)
-
-// 月初/月末
-startOfMonth(new Date())
-```
-
----
-
-## 🎯 開發規範速查
-
-### ✅ 必須做
-
-```vue
-<!-- 使用 PrimeVue 組件 -->
-<Button label="按鈕" severity="primary" />
-
-<!-- 使用 Tailwind 樣式 -->
-<div class="p-4 bg-white rounded-lg shadow-md"></div>
-
-<!-- 邏輯分離到 composables -->
-const { items, loading, fetch } = useMyLogic()
-
-<!-- URL 驅動狀態 -->
-const { tab } = useRoute().query
-
-<!-- TypeScript 嚴格模式 -->
-interface User {
-  id: string
-  name: string
-}
-```
-
-### ❌ 禁止做
-
-```vue
-<!-- 禁止: 手寫 hex color -->
-<div style="color: #FF0000">❌</div>
-
-<!-- 禁止: 自定義 CSS 佈局 -->
-<style scoped>
-.custom { width: 100px; }  /* ❌ 用 Tailwind 替代 */
-</style>
-
-<!-- 禁止: div 手刻按鈕 -->
-<div @click="handler" class="cursor-pointer">❌</div>
-
-<!-- 禁止: 邏輯在組件中 -->
-const items = ref([])
-const loading = ref(false)
-const fetch = async () => { ... }  /* ❌ 應在 composable */
-
-<!-- 禁止: 使用 any 型別 -->
-const data: any = ...  // ❌
-```
-
----
-
-## 📋 常用 Git 命令
-
-```bash
-# 創建新分支
-git checkout -b feature/game-management
-
-# 查看狀態
-git status
-
-# 提交代碼
-git add .
-git commit -m "feat: add game management page"
-
-# 推送分支
-git push origin feature/game-management
-
-# 創建 Pull Request
-gh pr create --title "Add game management" --body "..."
-
-# 同步主分支
-git pull origin main
-```
-
----
-
-## 🐛 常見問題速查
-
-| 問題 | 解決方案 |
-|------|--------|
-| `npm install` 失敗 | 使用 `npm install --legacy-peer-deps` |
-| TypeScript 編譯錯誤 | 運行 `npm run type-check` 查詳細錯誤 |
-| Vite 文件監聽不工作 | 重啟開發服務器或檢查 WSL2 配置 |
-| MSW Mock 未生效 | 檢查 `main.ts` 中的初始化邏輯 |
-| 樣式未應用 | 檢查 Tailwind class 名是否正確拼寫 |
-| PrimeVue 主題/深色模式未生效 | 檢查 `src/plugins/primevue.ts`(darkModeSelector 為 `.app-dark`,勿啟用 cssLayer) |
-| i18n 文本未翻譯 | 檢查 `locales/` 目錄結構是否完整 |
-
----
-
-## 🚀 部署命令
-
-```bash
-# Vercel 部署
-npm install -g vercel
-vercel login
-vercel
-
-# 環境變數
-VITE_API_BASE_URL=https://api.example.com
-VITE_USE_MOCK=false
-
-# 本地預構建
+npm install
+npm run dev
 npm run build
+npm run type-check
 npm run preview
 ```
 
----
+目前沒有獨立 lint 或 unit test script。文件或原型變更至少執行：
 
-## 📞 緊急聯絡清單
+```bash
+npm run build
+npm run type-check
+```
 
-| 角色 | 聯絡 | 用途 |
-|------|------|------|
-| Tech Lead | @architect | 架構決策、Code Review |
-| Frontend Lead | @frontend-lead | 前端問題、PR 審核 |
-| Product Manager | @pm | 需求澄清、優先級 |
-| DevOps | @devops | 部署、環境配置 |
-| Backend Lead | @backend-lead | API 集成、規範同步 |
+## 3. 目錄結構
 
----
+```text
+src/
+├── api/             舊版 API 型別或服務
+├── assets/          靜態資源
+├── components/      共用 UI 與圖表元件
+├── composables/     頁面資料與業務邏輯
+├── config/          導覽與應用設定
+├── layouts/         MainLayout、Sakai layout
+├── locales/         zh-TW 翻譯
+├── mocks/            MSW browser、handlers、mock data
+├── plugins/          PrimeVue 等 plugin 初始化
+├── router/           Vue Router 與 portal route factory
+├── services/         apiClient、mock auth
+├── stores/           Pinia stores
+├── styles/           全域樣式
+├── types/            TypeScript 型別
+├── utils/            共用工具
+└── views/            頁面 view
+```
 
-**最後更新**: 2026-06-11(對齊 PrimeVue 4 Apple HIG 現況;現行架構與 API 契約以 [`docs/handoff/`](./handoff/) 為準)
-**印刷版本**: 建議列印並貼在工位旁邊 📌
+文件：
+
+```text
+docs/
+├── GGAP_final_system_spec_tech.html  GGAP 平台外部規格
+├── PROJECT_TRANSFER_INDEX.md         文件入口
+├── TECH_QUICK_REFERENCE.md           本文件
+├── handoff/                          現行工程交接
+└── archive/                          歷史文件備查
+```
+
+## 4. PrimeVue 使用方式
+
+元件依目前專案模式在頁面中使用；新增頁面請優先採用 PrimeVue，不要引入已封存文件中的 Naive UI 寫法。
+
+```vue
+<script setup lang="ts">
+import Button from 'primevue/button'
+import Column from 'primevue/column'
+import DataTable from 'primevue/datatable'
+import Dialog from 'primevue/dialog'
+import InputNumber from 'primevue/inputnumber'
+import InputText from 'primevue/inputtext'
+import Select from 'primevue/select'
+import Tag from 'primevue/tag'
+</script>
+
+<template>
+  <DataTable :value="rows" paginator :rows="20">
+    <Column field="game_name" header="遊戲" sortable />
+    <Column field="bet_points" header="投注點數" />
+  </DataTable>
+  <InputText v-model="search" />
+  <InputNumber v-model="amount" />
+  <Select v-model="selected" :options="options" option-label="label" option-value="value" />
+  <Tag value="已上架" severity="success" />
+  <Button label="儲存" severity="primary" />
+  <Dialog v-model:visible="visible" modal header="詳情">內容</Dialog>
+</template>
+```
+
+## 5. API client
+
+```ts
+import { api } from '@/services/apiClient'
+
+const games = await api.get<GameRow[]>('/api/provider/v1/games')
+await api.patch('/api/provider/v1/games/game-001', { status: 'published' })
+```
+
+目前 `api` 支援：`get`、`post`、`put`、`patch`、`del`。
+
+- 自動從 `authStore.token` 附加 bearer token。
+- JSON body 自動序列化。
+- 非 2xx 拋出錯誤。
+- 回應直接解析 JSON，不自動包裝 `{ code, data }`。
+- `/api/provider/v1/*` 目前是 Provider API 草案；實際 mock 仍有許多舊 `/api/*` 路徑。
+
+新增頁面請優先使用 `api.*`，不要直接使用 `fetch`。若暫時必須直接呼叫，需在 handoff 文件記錄，並在真後端接入前完成遷移。
+
+## 6. Provider 資料使用原則
+
+- 不在前端建立 Provider 以外的代理商、商戶或會員主檔。
+- Game Round 是遊戲紀錄主體，不建立 Game Session 導覽。
+- 點數與 USDT 使用字串或 decimal 處理，避免 JavaScript 浮點誤差。
+- 報表主要顯示遊戲商點數，同時保留 USDT 展開與匯出欄位。
+- 金額計算使用 `big.js`。
+- 時間統計預設使用 `settled_at`；`started_at` 可為空。
+
+```ts
+import Big from 'big.js'
+
+const averageBet = new Big(totalBetPoints).div(betCount || 1).toFixed(2)
+const perPlayerBet = new Big(totalBetPoints).div(playerCount || 1).toFixed(2)
+```
+
+## 7. 狀態與互動
+
+列表頁應具備：
+
+- loading 狀態
+- empty 狀態
+- error / retry 狀態
+- 分頁、排序與篩選
+- 需要變更時的確認與成功 / 失敗通知
+
+遊戲狀態、Game Round 狀態、通知已讀狀態等應使用明確的 union type，不要在頁面散落任意字串。
+
+```ts
+export type GameStatus = 'draft' | 'published' | 'unpublished' | 'maintenance' | 'retired'
+export type GameType = 'slots' | 'crash' | 'table'
+export type RoundStatus = 'settled' | 'cancelled' | 'rollback'
+```
+
+以上 Provider 狀態名稱仍需與後端確認後才可視為正式契約。
+
+## 8. 路由與導覽
+
+目前路由與 `src/config/menu-sakai.ts` 仍是舊版三 Portal 原型。下一階段目標導覽為：
+
+```text
+總覽
+遊戲管理
+數據與報表
+遊戲商財務
+遊戲監控與風控
+GGAP 對接
+通知中心
+官網管理
+系統設定
+```
+
+調整導覽時，頁面可以先使用空白或佔位內容，但路由名稱、權限 key、文件說明要同步更新。
+
+## 9. Mock API
+
+MSW handler 位於 `src/mocks/handlers/`，共用註冊在 `src/mocks/handlers/index.ts`。
+
+```ts
+import { http, HttpResponse } from 'msw'
+
+export const providerHandlers = [
+  http.get('/api/provider/v1/games', () => {
+    return HttpResponse.json([])
+  }),
+]
+```
+
+Mock 只用於展示載入、篩選、分頁與互動。它不能取代後端的 provider_id 隔離、權限、冪等、金額精度與 audit log。
+
+## 10. 圖表與日期
+
+- 複雜互動圖表可使用 ECharts。
+- 一般統計圖可使用 PrimeVue `Chart` / Chart.js。
+- 金額不要直接用 JavaScript `number` 做多次加減。
+- API 時間以 ISO 8601 為主；畫面格式化可使用 `date-fns`。
+- 報表查詢應清楚標示時區與時間區間，預設統計時間為 `settled_at`。
+
+## 11. 檔案與文件規則
+
+- 新增 Provider 產品規格放在 `docs/` 現行區，不放入 `docs/archive/`。
+- 舊規格不直接覆寫；失效內容移至 archive 並更新 `PROJECT_TRANSFER_INDEX.md`。
+- GGAP HTML 保持為外部平台參考，不將 Provider Portal 細節直接寫入其中。
+- 避免新增只描述舊 supplier / agent / merchant 的頁面、API 或型別。
+
+## 12. 部署
+
+push `main` 後由 `.github/workflows/deploy.yml` 部署 GitHub Pages。部署前執行：
+
+```bash
+npm run build
+npm run type-check
+git status --short
+```

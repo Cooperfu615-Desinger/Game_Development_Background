@@ -1,114 +1,148 @@
-# API 契約總表（Phase C1）
+# API 契約總表：Provider Portal 工作草案
 
-本表是全部 mock 端點的單一索引：每個端點對應的 **method**、**所需 permission**、以及 **C1 的 scope 行為**。
+> 狀態日期：2026-08-04
+> 契約狀態：前端原型可用；Provider 正式 API 尚待 GGAP 與後端確認
 
-- 「所需 permission」依第 4 節的角色權限推導（list 類給合理的 view 權限，mutation 給 create/edit/lock 等；無對應的權限以 `—` 標示）。這是建議值，供後端做 API 層授權時參照。
-- 「C1 scope 行為」：已套 scope 的 7 個端點標明過濾鍵與行為；其餘標「C1 未套 scope（pass-through）」。
-- 路徑中的 `:id` / `:gameId` 為路徑參數。
+本文件分開記錄「目前前端 mock 的傳輸方式」與「新版 Provider API 的目標資源」。目標路徑、欄位與錯誤格式在後端確認前，不得視為正式 API。
 
----
+## 1. 目前前端傳輸層
 
-## 已套 scope 的端點（9 個：C1 7 個 + C2 Spec 2 新增 2 個）
+入口：`src/services/apiClient.ts`
 
-| endpoint | method | 所需 permission | scope 行為 |
+| 方法 | 實作 | 說明 |
+|---|---|---|
+| `api.get<T>(path)` | 已有 | GET，附加 mock bearer token |
+| `api.post<T>(path, body?)` | 已有 | JSON body |
+| `api.put<T>(path, body?)` | 已有 | JSON body |
+| `api.patch<T>(path, body?)` | 已有 | JSON body |
+| `api.del<T>(path)` | 已有 | DELETE |
+
+目前行為：
+
+- 使用 `authStore.token` 時附上 `Authorization: Bearer <token>`。
+- 非 2xx 回應拋出錯誤。
+- 回應直接解析 JSON；沒有自動套用 `{ code, data }` 包裝。
+- MSW 只在本地原型攔截 `/api/*`。
+- 一些舊頁面仍使用原生 `fetch`，正式後端接入前需完成遷移與錯誤狀態處理。
+
+## 2. 舊版 mock API 分類
+
+以下路徑是目前原型的歷史資料來源，不是新版 Provider API 契約：
+
+| 類別 | 目前路徑範例 | 新版處理 |
+|---|---|---|
+| 舊 Portal | `/api/agents/*`、`/api/merchants/*`、`/api/sub-accounts/*` | 不列為 Provider 主要資源 |
+| 聚合平台 | `/api/aggregators/*`、`/api/platforms/*` | 改為 GGAP 對接狀態與連線資源 |
+| 會員分析 | `/api/players/*`、`/api/analytics/*` | 由 Game Round 脈絡提供統計，不建立 Provider 會員主檔 |
+| 舊交易 | `/api/orders/*`、`/api/transactions/*` | 改為 Game Round 與遊戲商財務資料 |
+| 舊結算 | `/api/finance/*`、`/api/settlements/*` | 重新定義為遊戲商財務；平台結算留在 GGAP |
+| 舊獎池 | `/api/jackpot/*` | 目前不建立獨立 Provider 模組 |
+| 遊戲 | `/api/games/*` | 保留概念，改成 Provider 遊戲主資料資源 |
+| 報表 | `/api/reports/*`、`/api/dashboard/*` | 改成 Provider Game Round 聚合 |
+
+## 3. Provider API 目標資源草案
+
+以下是供前後端討論的工作契約，`/api/provider/v1` 只是暫定命名：
+
+| method | path | 用途 | 狀態 |
 |---|---|---|---|
-| `/api/merchants/v2/list` | GET | `merchants.view` | scope 過濾（agentKey:`agent` / merchantKey:`code`）：all / own-agent-line / own-merchant。**C2 Spec 2 起亦作 merchant self-view 來源**（商戶資料 / API錢包 取首筆；憑證在 list 列為已知 trade-off，見 backend.md） |
-| `/api/agents/v2/commissions` | GET | `commissions.view` | **C2 新增**。scope 過濾（agentKey:`agent`）：own-agent-line 留 `agent==='Asia Master'`（6→3）；own-merchant 空 |
-| `/api/sub-accounts/v2/list` | GET | `sub-accounts.view` | **C2 新增**。scope 過濾（agentKey:`agent` / merchantKey:`merchant`）：own-agent-line 9→3；own-merchant 9→4；各 portal 只見自己 |
-| `/api/orders/v2/list` | GET | `orders.view` | scope 過濾（merchantKey:`merchant`）：own-merchant 過濾；own-agent-line pass-through |
-| `/api/orders/v2/abnormal` | GET | `orders.view` | scope 過濾（merchantKey:`merchant`）：own-merchant 子集；own-agent-line pass-through |
-| `/api/transactions/v2/list` | GET | `transactions.view` | scope 過濾（merchantKey:`merchant`）：own-merchant 過濾；own-agent-line pass-through |
-| `/api/transactions/v2/abnormal` | GET | `transactions.view` | scope 過濾（merchantKey:`merchant`）：own-merchant 子集；own-agent-line pass-through |
-| `/api/risk/v2/alerts` | GET | `risk.view` | scope 過濾（merchantKey:`merchant`）：own-merchant 過濾；own-agent-line pass-through |
-| `/api/risk/v2/cases` | GET | `risk.view` | scope 過濾（merchantKey:`merchant`）：own-merchant 過濾；own-agent-line pass-through |
+| GET | `/api/provider/v1/games` | 遊戲主資料列表 | 待確認 |
+| GET | `/api/provider/v1/games/:id` | 遊戲詳情、版本、資產、規則 | 待確認 |
+| PATCH | `/api/provider/v1/games/:id` | 遊戲全域資料或上下架狀態 | 待確認 |
+| GET | `/api/provider/v1/game-rounds` | Game Round 分頁查詢 | 待確認 |
+| GET | `/api/provider/v1/game-rounds/:id` | Game Round 明細 | 待確認 |
+| GET | `/api/provider/v1/reports/game-rounds` | 時間 × 代理商 × 遊戲聚合 | 待確認 |
+| GET | `/api/provider/v1/finance/summary` | 遊戲商財務統計 | 待確認 |
+| GET | `/api/provider/v1/monitoring/alerts` | 遊戲、請求、結算異常 | 待確認 |
+| GET | `/api/provider/v1/notifications` | 通知列表 | 待確認 |
+| PATCH | `/api/provider/v1/notifications/:id/read` | 標示通知已讀 | 待確認 |
 
----
+Provider Portal 不需要自行提供代理商、商戶、會員錢包與平台結算 API。
 
-## 其餘端點（C1 未套 scope）
+## 4. 共用查詢參數草案
 
-### GET
+列表與報表資源預計共用以下參數，實際名稱待確認：
 
-| endpoint | method | 所需 permission | C1 scope 行為 |
-|---|---|---|---|
-| `/api/agents/v2/list` | GET | `agents.view` | C1 未套 scope（pass-through） |
-| `/api/aggregators` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/aggregators/:id` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/aggregators/:id/games` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/analytics/arpu` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/analytics/overview` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/analytics/retention` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/dashboard/v2/kpis` | GET | `dashboard.view` | C1 未套 scope（聚合，best-effort pass-through） |
-| `/api/dashboard/v2/merchant-rank` | GET | `dashboard.view` | C1 未套 scope（聚合，best-effort pass-through） |
-| `/api/dashboard/v2/revenue-trend` | GET | `dashboard.view` | C1 未套 scope（聚合，best-effort pass-through） |
-| `/api/dashboard/v2/risk-alerts` | GET | `dashboard.view` | C1 未套 scope（聚合，best-effort pass-through） |
-| `/api/finance/invoices` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/finance/settlements` | GET | `settlements.view` | C1 未套 scope（pass-through） |
-| `/api/finance/settlements/:id` | GET | `settlements.view` | C1 未套 scope（pass-through） |
-| `/api/finance/transactions` | GET | `transactions.view` | C1 未套 scope（pass-through） |
-| `/api/games` | GET | `games.view` | C1 未套 scope（pass-through） |
-| `/api/games/:id` | GET | `games.view` | C1 未套 scope（pass-through） |
-| `/api/games/v2/assets` | GET | `games.view` | C1 未套 scope（pass-through） |
-| `/api/games/v2/list` | GET | `games.view` | C1 未套 scope（pass-through） |
-| `/api/games/v2/math` | GET | `games.view` | C1 未套 scope（pass-through） |
-| `/api/games/v2/merchant-access` | GET | `games.view` | C1 未套 scope（pass-through） |
-| `/api/games/v2/settings` | GET | `games.view` | C1 未套 scope（pass-through） |
-| `/api/games/v2/versions` | GET | `games.view` | C1 未套 scope（pass-through） |
-| `/api/jackpot/v2/list` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/jackpot/v2/payouts` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/jackpot/v2/settings` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/jackpot/v2/transactions` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/platforms` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/platforms/:id` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/platforms/:id/players` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/platforms/:id/stats` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/platforms/:id/trend` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/players` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/players/:id` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/reports/v2/agents` | GET | `reports.view` | C1 未套 scope（聚合，best-effort pass-through） |
-| `/api/reports/v2/games` | GET | `reports.view` | C1 未套 scope（聚合，best-effort pass-through） |
-| `/api/reports/v2/merchants` | GET | `reports.view` | C1 未套 scope（聚合，best-effort pass-through） |
-| `/api/reports/v2/overview` | GET | `reports.view` | C1 未套 scope（聚合，best-effort pass-through） |
-| `/api/reports/v2/rtp` | GET | `reports.view` | C1 未套 scope（聚合，best-effort pass-through） |
-| `/api/risk/v2/actions` | GET | `risk.view` | C1 未套 scope（pass-through） |
-| `/api/risk/v2/overview` | GET | `risk.view` | C1 未套 scope（聚合，best-effort pass-through） |
-| `/api/risk/v2/rules` | GET | `risk.view` | C1 未套 scope（pass-through） |
-| `/api/settings/api-keys` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/settings/permissions` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/settlements/v2/detail/:id` | GET | `settlements.view` | C1 未套 scope（pass-through） |
-| `/api/settlements/v2/list` | GET | `settlements.view` | C1 未套 scope（pass-through） |
-| `/api/system/v2/admins` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/system/v2/approvals` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/system/v2/currencies` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/system/v2/languages` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/system/v2/logs` | GET | `—` | C1 未套 scope（pass-through） |
-| `/api/system/v2/roles` | GET | `—` | C1 未套 scope（pass-through） |
+| 參數 | 說明 |
+|---|---|
+| `page` / `page_size` | 分頁，後端應限制最大筆數 |
+| `from` / `to` | 時間區間；報表預設使用 `settled_at` |
+| `game_id` | 遊戲篩選 |
+| `game_type` | slots、crash、table 等 |
+| `agent_id` | GGAP 傳入的代理商脈絡篩選 |
+| `member_id` | 需要查單一會員時使用，不代表 Provider 會員主檔 |
+| `status` | Game Round 或遊戲狀態 |
+| `sort` / `order` | 排序欄位與方向 |
 
-### POST
+## 5. Game Round 回應欄位草案
 
-| endpoint | method | 所需 permission | C1 scope 行為 |
-|---|---|---|---|
-| `/api/login` | POST | `—`（公開：登入端點） | C1 未套 scope（pass-through） |
-| `/api/settings/api-keys` | POST | `—`（建議 `settings` 類管理權限） | C1 未套 scope（pass-through） |
-| `/api/aggregators` | POST | `—` | C1 未套 scope（pass-through） |
+### 識別與 GGAP 脈絡
 
-### PATCH
+```json
+{
+  "round_id": "round-001",
+  "external_round_id": "ggap-round-001",
+  "provider_id": "provider-001",
+  "game_id": "game-001",
+  "game_name": "Example Slot",
+  "game_type": "slots",
+  "agent_id": "agent-001",
+  "merchant_id": "merchant-001",
+  "member_id": "member-001",
+  "currency": "USDT"
+}
+```
 
-| endpoint | method | 所需 permission | C1 scope 行為 |
-|---|---|---|---|
-| `/api/aggregators/:id/games/:gameId` | PATCH | `—` | C1 未套 scope（pass-through） |
-| `/api/aggregators/:id/status` | PATCH | `—` | C1 未套 scope（pass-through） |
-| `/api/games/:id` | PATCH | `games.edit` | C1 未套 scope（pass-through） |
+### 金額、規則與時間
 
-### DELETE
+```json
+{
+  "bet_points": "100.00",
+  "win_points": "80.00",
+  "net_points": "-20.00",
+  "bet_usdt": "1.00",
+  "win_usdt": "0.80",
+  "net_usdt": "-0.20",
+  "conversion_rule_id": "rule-001",
+  "started_at": null,
+  "settled_at": "2026-08-04T10:00:00Z",
+  "status": "settled"
+}
+```
 
-| endpoint | method | 所需 permission | C1 scope 行為 |
-|---|---|---|---|
-| `/api/settings/api-keys/:id` | DELETE | `—`（建議 `settings` 類管理權限） | C1 未套 scope（pass-through） |
+金額建議以字串或 decimal 傳輸，避免 JavaScript 浮點誤差。點數與 USDT 必須保存當次使用的換算規則版本。
 
----
+## 6. 報表指標契約草案
 
-## 補充說明
+預設聚合維度：時間、代理商、遊戲。
 
-- **scope 行為的權威定義**見 `backend.md`（含過濾鍵對照、own-agent-line 在 order/risk 端點為 pass-through 的原因、aggregate 端點需依 scope 重算）。
-- **未遷移 token 的呼叫**見 `frontend.md` 的已知限制 H#1：部分前端呼叫（含上表中 aggregators、platforms、players、finance、analytics 相關端點，及 api-keys DELETE / aggregators PATCH）目前仍用原生 `fetch`、**不帶 bearer token**。啟用真 auth 前必須遷移到 `api.*`，否則會 401；其中 PATCH 需在 `apiClient` 補 `patch` 方法。
-- 「所需 permission」為依角色矩陣推導的建議值，非程式中既有設定（C1 路由未設 `meta.permission`）。後端應以此為基準在 API 層強制授權。
+| 指標 | 定義 |
+|---|---|
+| 投注筆數 | 符合條件且有效結算的 Game Round 數量 |
+| 玩家人數 | `member_id` 不重複數 |
+| 投注總額 | `bet_points` 加總；USDT 顯示 `bet_usdt` 加總 |
+| 平均投注額 | 投注總額 ÷ 投注筆數 |
+| 人均投注額 | 投注總額 ÷ 不重複玩家人數 |
+| 輸贏 | 依正式定義計算 `win_points` 或淨輸贏 |
+| GGR | 依 Provider 核准的正負方向定義 |
+
+Provider 報表不回傳 GGAP 對帳狀態；對帳由財務或 GGAP 另行處理。報表匯出必須同時提供點數與 USDT 欄位。
+
+## 7. 寫入一致性與錯誤處理
+
+- Game Round 建立 / 結算必須接受冪等鍵，重試不得重複入帳。
+- `external_round_id` 與 Provider `round_id` 的唯一性規則需確認。
+- 失敗、取消、退款、回滾資料不可直接混入有效投注統計。
+- API 錯誤至少需要 HTTP status、穩定 error code、可讀 message、request id。
+- 分頁、排序與時間區間必須由後端驗證，避免查詢無上限。
+- 修改遊戲狀態、規則、限紅與換算規則需留下 audit log。
+
+## 8. 待後端確認清單
+
+- 正式 base URL、版本策略與認證方式。
+- Provider / GGAP 的簽章、回呼與重試規則。
+- Game Round 狀態機與退款 / 回滾行為。
+- 點數最小精度、USDT 匯率來源與換算四捨五入規則。
+- `net_points`、GGR 的定義與正負方向。
+- 代理商、商戶、會員欄位是否需要保存快照。
+- 多人 Crash / 棋牌的共享局號與參與者欄位。

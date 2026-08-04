@@ -1,130 +1,138 @@
-# 後端交接文件（Phase C1：Token / Scope / Permission 契約）
+# 後端交接文件：Provider Portal 與 GGAP 邊界
 
-本文件給實作真實後端的工程師。C1 用 mock token + MSW 模擬了「身份簽發」與「資料 scope 過濾」；本文件把這些模擬背後的**契約**寫清楚，讓後端可以原樣實作。
+> 狀態日期：2026-08-04
+> 文件狀態：Provider 邊界草案，待後端與 GGAP 對接團隊確認
 
----
+本專案目前沒有真實後端；`src/mocks/` 只模擬前端流程。GGAP 的平台開發在另一個專案進行，本文件先整理遊戲商 Provider Portal 需要的後端責任與對接缺口。
 
-## 1. Token Payload 契約
+## 1. 系統責任邊界
 
-C1 的 mock token 是 `base64url(header).base64url(payload).mocksig` 格式（明文、不驗章，僅 demo）。正式後端需發放並驗證真 JWT，但 **payload 欄位契約應保持一致**，前端與 scope 過濾都依賴這些欄位。
+### Provider Portal / 遊戲商後端負責
 
-| 欄位 | 型別 | 說明 |
-|---|---|---|
-| `sub` | `string` | 使用者 ID |
-| `portal` | `'supplier' \| 'agent' \| 'merchant'` | 所屬 portal |
-| `role` | `string` | 角色 ID（對應第 4 節權限矩陣） |
-| `dataScope` | `'all' \| 'own-agent-line' \| 'own-merchant' \| 'none'` | 資料可見範圍（驅動第 2 節 scope 過濾） |
-| `actorId` | `string` | 租戶 ID（例：`SUP-001` / `AG-001` / `MER-001`） |
-| `actorName` | `string` | 顯示名稱，**同時是過濾鍵**（見第 3 節擁有權鍵對照） |
-| `iat` | `number` | 簽發時間（mock 中為固定常數，確保建置可重現） |
-| `exp` | `number` | 過期時間（mock 中為固定常數） |
+- Provider 自己的遊戲主資料、遊戲類型、版本與資產
+- 遊戲規則、RTP、遊戲商點數、限紅與點數換算規則
+- 遊戲全域上架、下架、維護與版本狀態
+- 接收 GGAP 傳入的遊戲請求脈絡
+- 建立不可任意改寫的 Game Round 紀錄
+- 由 Game Round 產生遊戲數據、遊戲商財務與風控報表
+- Provider 使用者、角色、權限、通知與官網內容
 
-> mock 將 `iat` / `exp` 設為固定常數以保持建置結果確定性；正式環境應使用真實時間並驗證過期。
+### GGAP 負責
 
-### 三個內建身份（mock）
+- 代理商、商戶、會員、平台錢包與平台交易
+- GGAP 自己的代理商幣別與金額換算
+- 平台側財務、結算與對帳
+- 針對已上架遊戲，依代理商個別開啟 / 關閉
+- 聚合多家 Provider 的平台級報表
 
-| portal | sub | role | dataScope | actorId | actorName |
-|---|---|---|---|---|---|
-| supplier | `user-sup-001` | `role-super-admin` | `all` | `SUP-001` | 供應商管理員 |
-| agent | `user-agent-001` | `role-agent-user` | `own-agent-line` | `AG-001` | Asia Master |
-| merchant | `user-merchant-001` | `role-merchant-user` | `own-merchant` | `MER-001` | Golden Dragon |
+Provider 不應建立平台會員錢包，也不應要求 Provider Portal 管理代理商與商戶主資料。
 
----
+## 2. GGAP 依據與目前缺口
 
-## 2. 各 endpoint 的 scope 過濾規則
+`docs/GGAP_final_system_spec_tech.html` 是 GGAP 平台的系統依據，涵蓋 GGAP Admin、Agent、Merchant 與 Provider Adapter 等平台側設計。
 
-C1 的 `src/mocks/scope.ts` 提供 `scopeRows(request, rows, { agentKey?, merchantKey? })`：讀 `Authorization` → `decodeToken` → 依 `dataScope` 過濾。通用規則：
+目前仍缺少 Provider Portal 對接契約，至少需要補齊：
 
-- `all` → 回傳全部資料列。
-- `none` → 回傳 `[]`。
-- `own-agent-line` → 保留 `row[agentKey] === actorName`；若 handler 未傳 `agentKey` → **pass-through（不過濾）並 `console.warn`**。
-- `own-merchant` → 保留 `row[merchantKey] === actorName` **或**（`'code' in row` 且 `row.code === actorId`）。
+1. GGAP 如何呼叫 Provider 的遊戲清單與遊戲啟動 / 結算接口。
+2. Provider 如何識別 GGAP、代理商、商戶與會員。
+3. USDT 與 Provider 點數的換算欄位與精度。
+4. Game Round 的唯一識別、冪等鍵、重試與補單規則。
+5. Provider 上架狀態與 GGAP 代理商開關狀態如何分離。
+6. 錯誤、逾時、回呼、簽章與重放攻擊防護。
+7. Provider 報表與 GGAP 平台報表的欄位對應方式。
 
-下表是 C1 已套用 scope 的 7 個端點，含過濾欄位與各身份在瀏覽器中驗證到的實際列數（supplier / agent / merchant）：
+## 3. Provider 身份與資料範圍
 
-| endpoint | 過濾鍵 | own-agent-line 行為 | own-merchant 行為 | supplier | agent | merchant |
-|---|---|---|---|---|---|---|
-| `GET /api/merchants/v2/list` | `agentKey:'agent'`, `merchantKey:'code'` | 依 `merchant.agent` 過濾 | 依 `merchant.code` 過濾 | 60 | 15 | 1 |
-| `GET /api/orders/v2/list` | `merchantKey:'merchant'` | pass-through（資料無 agent 欄位） | 依 `order.merchant` 過濾 | 60 | 60 | 15 |
-| `GET /api/orders/v2/abnormal` | `merchantKey:'merchant'` | pass-through | Golden Dragon 子集 | 全部 | pass-through | 子集 |
-| `GET /api/transactions/v2/list` | `merchantKey:'merchant'` | pass-through | 依 `transaction.merchant` 過濾 | 60 | 60 | 30 |
-| `GET /api/transactions/v2/abnormal` | `merchantKey:'merchant'` | pass-through | Golden Dragon 子集 | 全部 | pass-through | 子集 |
-| `GET /api/risk/v2/alerts` | `merchantKey:'merchant'` | pass-through | 依 `merchant` 過濾 | 60 | 60 | 24 |
-| `GET /api/risk/v2/cases` | `merchantKey:'merchant'` | pass-through | 依 `merchant` 過濾 | 60 | 60 | 24 |
+目前 mock token 的 `supplier / agent / merchant` 三 Portal 欄位只供舊原型使用，正式 Provider token 不應沿用這個模型。
 
-> 重點：order / risk 類端點在 `own-agent-line`（agent 身份）下是 **pass-through**，因為這些資料列沒有 `agent` 欄位可比對。這是 C1 的已知簡化，正式後端必須補上（見第 5 節）。
+目標 token 欄位草案：
 
-### C2 Spec 2 新增 / 複用端點
-
-| endpoint | 過濾鍵 | own-agent-line | own-merchant |
-|---|---|---|---|
-| `GET /api/agents/v2/commissions`（新） | `agentKey:'agent'` | `agent==='Asia Master'`（6 筆中留 3） | 空（無 agentKey 命中、列無 code 欄位） |
-| `GET /api/sub-accounts/v2/list`（新） | `agentKey:'agent'`,`merchantKey:'merchant'` | `agent==='Asia Master'`（9 筆中留 3） | `merchant==='Golden Dragon'`（9 筆中留 4） |
-| `GET /api/merchants/v2/list`（self-view 複用，取首筆） | 同 C1（agentKey:`agent`/merchantKey:`code`） | 依 `merchant.agent` 過濾 | 1 筆（MER-001）；商戶資料 / API錢包 兩頁取 `rows[0]` |
-
-> **self-view 複用 trade-off**：merchant 商戶資料 / API錢包 直接複用 own-merchant scope 後的 `/api/merchants/v2/list` 首筆。該 list 列含憑證（`apiKey`/`secretKey`/`walletApi`/`callbackUrl`），supplier(all) 下會回含 secret 的多筆——**正式後端必須把憑證移到專屬 own-merchant scoped 端點（如 `/api/merchant/v2/credentials`），不可放在 list**。前端 secret 顯示用 `SensitiveValue` 遮罩（UI 層，非安全邊界）。
-> **commissions own-agent-line**：mock 採 `agent` 欄位直接比對 actorName；sub-agent 線遞迴為真後端 TODO（同第 5 節 order/risk 註記）。
-> **sub-accounts 設計**：子帳號＝該 actor 帳號下的操作員。agent 列只帶 `agent`（`merchant:''`）、merchant 列只帶 `merchant`（`agent:''`），使 scopeRows 乾淨切分、空字串不會誤配。
-
-### C1 未套 scope 的端點
-
-以下端點在 C1 **完全未套用 scope**（pass-through），正式後端需依相關性自行套用：
-risk overview / rules / actions、dashboard/\*、reports/\*（聚合，best-effort pass-through，後端需依 scope 重算）、jackpot/\*、games/\*、system/\*、settings/\*、platforms/\*、players/\*、finance/\*、aggregators/\*。
-
----
-
-## 3. 擁有權鍵對照（關鍵）
-
-scope 過濾用 token 的 `actorName` / `actorId` 去比對資料列欄位。對齊關係如下：
-
-| 身份 | 比對來源 | 對應資料欄位 |
-|---|---|---|
-| agent（Asia Master） | `actorName === 'Asia Master'` | `merchant.agent` |
-| merchant（Golden Dragon） | `actorId === 'MER-001'` | `merchant.code` |
-| merchant（Golden Dragon） | `actorName === 'Golden Dragon'` | order / risk 資料列的 `merchant` 欄位 |
-
-為了讓比對成立，C1 把 agent 的 `actorName` 從原本的「星河代理」**改名為 `Asia Master`**，使其與 `merchant.agent` 欄位的值對齊（`AG-001` = Asia Master）。後端在設計資料模型時，需確保「身份識別值」與「資料列上的擁有權欄位」一致，否則 scope 過濾會全數落空（回傳空集或全集）。
-
----
-
-## 4. 權限矩陣（RBAC）
-
-C1 在 `src/stores/permission.ts` 定義 `MOCK_ROLES`。`hasPermission` 處理 `'*'` 萬用字元（`role-super-admin` 擁有全部權限）。
-
-| role id | label | permissions | dataScope |
-|---|---|---|---|
-| `role-super-admin` | 總管理員 | `['*']`（全部） | `all` |
-| `role-operations` | 營運人員 | `dashboard.view`, `merchants.view/create/edit`, `agents.view/edit`, `games.view/edit`, `orders.view`, `transactions.view`, `reports.view/export` | `all` |
-| `role-finance` | 財務人員 | `dashboard.view`, `reports.view/export`, `settlements.view/create/lock`, `reconciliation.view`, `transactions.view` | `all` |
-| `role-risk` | 風控人員 | `dashboard.view`, `risk.view/handle`, `orders.view`, `orders.mark-abnormal`, `transactions.view` | `all` |
-| `role-agent-user` | 代理使用者 | `dashboard.view`, `merchants.view`, `reports.view`, `commissions.view` | `own-agent-line` |
-| `role-merchant-user` | 商戶使用者 | `dashboard.view`, `orders.view`, `transactions.view`, `reports.view`, `settlements.view` | `own-merchant` |
-
-> 表中 `a/b/c` 為簡寫，例如 `merchants.view/create/edit` = `merchants.view`、`merchants.create`、`merchants.edit`。
-
-後端應以 token 的 `role` 解析出該角色的權限集合，並在 API 層做授權檢查（不要只依賴前端 gating——前端 gating 只是 UX，不是安全邊界）。
-
----
-
-## 5. Mock → 真後端對照
-
-| C1 在 MSW / mock 模擬了什麼 | 正式後端需實作什麼 |
+| 欄位 | 說明 |
 |---|---|
-| `scope.ts` 讀 token 的 `dataScope` 對記憶體資料列過濾 | 在資料查詢層依 `dataScope` 加 WHERE 條件 / row-level security |
-| `own-merchant` 用 `actorName`/`actorId` 比對 `merchant`/`code` | 用真正的租戶外鍵關聯過濾 |
-| `own-agent-line` 對 order / risk 端點 = **pass-through** | **需實作 merchant→agent-line 成員關係解析**：先找出該 agent 線下的所有 merchant，再用 merchant 集合過濾 order / risk 資料。這是 C1 沒做、後端必做的 TODO |
-| aggregate 端點（reports / dashboard）= best-effort pass-through | **依 scope 重新計算聚合值**（不能只過濾再回傳已算好的總數，否則數字會錯） |
-| 未套 scope 的端點（第 2 節清單）= 直接回全量 | 依業務相關性決定是否套 scope，並實作之 |
-| mock token 明文、不驗章 | 發放並驗證真 JWT（簽章、過期、撤銷） |
+| `sub` | Provider 使用者 ID |
+| `provider_id` | 所屬遊戲商 ID |
+| `role` | Provider 內部角色 |
+| `permissions` | 後端授權用權限集合 |
+| `iat` / `exp` | 簽發與過期時間 |
+| `jti` | 可選，用於撤銷與追蹤 |
 
----
+資料查詢以 `provider_id` 為必要隔離條件。代理商、商戶、會員欄位只作為 Game Round 的 GGAP 業務脈絡，不代表 Provider 可以管理這些主體。
 
-## 6. 安全須知
+## 4. Game Round 資料模型草案
 
-- **Mock token 不可當真 auth**：payload 為 base64 明文、簽章是字面值 `mocksig`、從不驗證。任何人都能偽造。正式環境必須由後端簽發並在每個請求驗證真 JWT。
-- **前端 gating 不是安全邊界**：`hasPermission` 與 scope 在 C1 都跑在瀏覽器/MSW 端。正式環境的授權與資料過濾**必須在後端強制**，前端的對應邏輯只用於 UX。
-- **token 覆蓋缺口**：C1 仍有部分前端呼叫未帶 token（見 `frontend.md` H#1）。後端啟用真 auth 後，這些呼叫會 401，需前端先完成遷移。
+Game Round 是 Provider 的主要業務紀錄；不建立 Game Session 作為獨立模組。
 
----
+### 必要識別與脈絡
 
-相關文件：API client 與頁面取數見 `frontend.md`；端點 × 權限 × scope 總表見 `api-contract.md`。
+| 欄位 | 說明 |
+|---|---|
+| `round_id` | Provider 端唯一局號 |
+| `external_round_id` | GGAP 傳入的局號或請求識別 |
+| `provider_id` | 遊戲商隔離鍵 |
+| `game_id` / `game_name` | 遊戲識別與顯示名稱 |
+| `game_type` | slots、crash、table 等 |
+| `agent_id` | GGAP 代理商識別，可為快照欄位 |
+| `merchant_id` | 若 GGAP 脈絡有提供，可為快照欄位 |
+| `member_id` | GGAP 會員識別，不由 Provider 建立會員主檔 |
+| `currency` | GGAP 標準幣別，現階段以 USDT 為主 |
+
+### 金額與時間
+
+| 欄位 | 說明 |
+|---|---|
+| `bet_points` | Provider 遊戲點數投注額 |
+| `win_points` | Provider 遊戲點數派彩額 |
+| `net_points` | 依 Provider 定義的淨輸贏或 GGR 方向 |
+| `bet_usdt` / `win_usdt` / `net_usdt` | 對應換算值，需保存換算規則版本 |
+| `conversion_rule_id` | 使用的點數 / USDT 換算規則 |
+| `started_at` | 棋牌或多人玩法可使用；slots / 單人 Crash 可為空 |
+| `settled_at` | 結算完成時間，報表主要時間欄位 |
+| `status` | settled、cancelled、rollback 等，實際值待確認 |
+
+同一筆 Game Round 的點數與 USDT 應保存當時的換算結果，不應只在查詢時套用最新規則。
+
+## 5. 報表資料原則
+
+- Provider 報表以遊戲商點數為主要顯示值，USDT 作為次要顯示與匯出欄位。
+- 主要維度是時間、代理商、遊戲；代理商與會員只作為 GGAP 傳入的分析脈絡。
+- 主要指標：投注筆數、玩家人數、投注總額、平均投注額、人均投注額、輸贏、GGR。
+- `settled_at` 是預設統計時間；未結算、失敗、重複、回滾資料需依狀態規則排除。
+- 平均投注額 = 投注總額 ÷ 投注筆數。
+- 人均投注額 = 投注總額 ÷ 不重複玩家人數。
+- 不在 Provider 報表加入 GGAP 對帳狀態；對帳由財務或 GGAP 端執行。
+
+## 6. 建議的 Provider API 資源
+
+以下路徑是整理用的目標草案，尚未代表 GGAP 已核准的正式路徑：
+
+| 資源 | 目的 |
+|---|---|
+| `GET /api/provider/v1/games` | Provider 遊戲主資料列表 |
+| `GET /api/provider/v1/games/:id` | 遊戲詳情、規則、版本、資產 |
+| `PATCH /api/provider/v1/games/:id` | 遊戲全域狀態或主資料更新 |
+| `GET /api/provider/v1/game-rounds` | Game Round 明細查詢 |
+| `GET /api/provider/v1/game-rounds/:id` | Game Round 詳情 |
+| `GET /api/provider/v1/reports/game-rounds` | 時間 × 代理商 × 遊戲聚合 |
+| `GET /api/provider/v1/finance/summary` | 遊戲商財務彙總 |
+| `GET /api/provider/v1/monitoring/alerts` | 遊戲與對接監控告警 |
+| `GET /api/provider/v1/notifications` | Provider 通知中心 |
+| `PATCH /api/provider/v1/notifications/:id/read` | 通知已讀 |
+
+正式後端需在實作前確認命名、分頁、排序、權限、錯誤格式與版本策略。
+
+## 7. 安全與一致性要求
+
+- 正式環境使用後端簽發與驗證的 JWT 或等效 token；mock token 不可沿用。
+- 所有 Provider 查詢必須由後端強制套用 `provider_id` 隔離。
+- Game Round 建立與結算需要冪等鍵，重試不得產生重複投注。
+- 修改遊戲上下架、規則、限紅與換算規則應留下操作者與版本紀錄。
+- API 不應把 secret、私鑰或完整敏感憑證放在一般列表回傳。
+- 報表聚合必須在後端依查詢條件重新計算，不可直接回傳未套範圍的總數。
+
+## 8. 待確認事項
+
+- Provider 點數的最小精度與 USDT 換算方向。
+- `net_points` 的正負定義，以及 GGR 是否另存欄位。
+- Crash / 棋牌未結算、取消、退款與回滾的狀態流程。
+- GGAP 會提供哪些代理商 / 商戶 / 會員欄位，以及是否需要快照保存。
+- 多人玩法的共享局號與參與者模型。

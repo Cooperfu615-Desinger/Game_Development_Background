@@ -27,12 +27,12 @@
 - [`handoff/backend.md`](./handoff/backend.md)
 - [`handoff/api-contract.md`](./handoff/api-contract.md)
 
-> 上述交接文件目前仍保留舊版架構內容，後續需配合 Provider Portal 方向重新整理；在完成前，應視為過渡性文件。
+> 上述交接文件已依 Provider Portal 方向整理，並將「目前原型實況」與「目標規格草案」分開標示。正式 API 與資料欄位仍需由後端與 GGAP 對接團隊核准。
 
 ### 3. 技術參考
 
 - [`TECH_QUICK_REFERENCE.md`](./TECH_QUICK_REFERENCE.md)
-  - 前端技術棧、常用指令、目錄與元件使用方式。
+  - 目前前端技術棧、常用指令、目錄、API client 與 Provider 開發原則。
   - 若與實際程式碼不一致，以程式碼與最新交接文件為準。
 
 ## 待建立的現行產品規格

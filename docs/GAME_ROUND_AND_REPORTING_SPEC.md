@@ -39,6 +39,7 @@
 | `member_id` | 是 | GGAP 會員識別，不建立 Provider 會員主檔 |
 | `currency` | 是 | 對接標準，現階段為 `USDT` |
 | `request_id` | 是 | 請求冪等與追蹤識別 |
+| `environment` | 是 | `production`、`demo`、`test`，用於資料隔離 |
 
 ### 3.2 金額與規則
 
@@ -76,6 +77,13 @@ settled -> rollback（只允許明確的補償 / 回滾流程）
 - 只有有效 `settled` Game Round 進入一般投注與輸贏報表。
 - `cancelled`、重複、失敗或回滾資料需依正式財務規則排除或另列。
 - 不直接刪除已保存的 Game Round；修正需留下事件與 audit log。
+
+### 4.1 環境資料隔離
+
+- `production` Game Round 進入正式遊戲商數據與財務報表。
+- `demo` Game Round 可以實際遊玩，但只能進入 DEMO / 沙盒資料與獨立統計，不得混入正式財務或 GGAP 正式結算。
+- `test` Game Round 只供測試與健康監控，預設不進入正式財務報表。
+- `round_id` 與 `external_round_id` 的唯一性需包含環境識別，避免不同環境重複局號互相覆蓋。
 
 ## 5. 明細與報表關係
 
@@ -153,3 +161,4 @@ settled -> rollback（只允許明確的補償 / 回滾流程）
 - Game Round 保存期限與查詢期限。
 - 會員 ID 是否需要遮罩或欄位權限。
 - 報表時區、最大查詢區間與匯出上限。
+- DEMO 使用的沙盒點數 / 錢包來源，以及 DEMO 是否需要獨立的遊戲統計報表。

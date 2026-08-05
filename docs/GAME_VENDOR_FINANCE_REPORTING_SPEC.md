@@ -69,6 +69,9 @@ Provider 財務報表的資料來源是 Provider 保存的 Game Round；GGAP 的
 ## 5. 統計時間與資料範圍
 
 - 預設使用 `settled_at`。
+- 正式財務報表預設只統計 `environment=production`。
+- DEMO 可實際遊玩，但其 Game Round 應獨立顯示，不能混入正式投注、輸贏或 GGR。
+- 測試環境資料只供測試與監控，不能進入正式財務統計。
 - 只有有效結算的 Game Round 進入一般財務彙總。
 - 取消、失敗、重複、回滾資料需依狀態另列或排除。
 - 匯總查詢必須套用 Provider 隔離與使用者權限。
@@ -133,3 +136,4 @@ Provider Portal 的責任是產出一致、可追溯的 Provider 數據；實際
 - 報表資料快照與重算策略。
 - 匯出格式（CSV、XLSX）與單次上限。
 - 財務月結或日結是否需要鎖定版本。
+- DEMO 是否需要獨立的財務樣式報表，以及其沙盒點數的顯示方式。

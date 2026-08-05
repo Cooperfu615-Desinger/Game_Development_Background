@@ -91,7 +91,27 @@ Provider 回傳或保存：
 
 Provider Portal 只控制第一種；可以檢視第二種的同步結果，但不應把它當作 Provider 全域狀態。
 
-## 5. 金額與精度
+## 5. 環境與版本啟用
+
+三個環境的對接責任不同：
+
+| 環境 | 是否接 GGAP 正式平台 | 是否可實際遊玩 | 版本責任 |
+|---|---:|---:|---|
+| 正式環境 | 是 | 是 | 技術部署，Provider 啟用 |
+| 官網 DEMO | 否，使用 DEMO / 沙盒服務 | 是 | 技術部署，Provider 啟用 |
+| 測試環境 | 否 | 依測試環境而定 | 前後端 / DevOps 部署，Portal 只讀監控 |
+
+DEMO 不得使用 GGAP 正式會員錢包、正式代理商帳務或正式結算。DEMO 的遊戲請求、遊戲結果與 Game Round 必須帶有明確環境識別，避免混入正式資料。
+
+Provider Portal 的版本啟用不是程式部署：
+
+1. 技術團隊先完成版本建置與環境部署。
+2. Provider 在遊戲管理的「環境與發布」頁查看可啟用版本。
+3. Provider 針對正式或 DEMO 環境啟用指定版本。
+4. 系統留下操作者、版本、環境、時間與啟用結果。
+5. 若 GGAP 同步失敗，Provider 看到同步錯誤，但不直接修改 GGAP 代理商開關。
+
+## 6. 金額與精度
 
 - GGAP 與 Provider 的標準對接幣別為 USDT。
 - Provider 點數換算規則由 Provider 擁有，需有 `conversion_rule_id` 或等效版本欄位。
@@ -99,7 +119,7 @@ Provider Portal 只控制第一種；可以檢視第二種的同步結果，但�
 - Provider 回傳的 USDT 是該次遊戲結果依當時規則換算的結果，不是日後用最新規則重算。
 - GGAP 下游代理商 / 商戶金額換算，不回寫為 Provider 點數規則。
 
-## 6. 錯誤、重試與冪等
+## 7. 錯誤、重試與冪等
 
 Provider 與 GGAP 需共同確認以下規則：
 
@@ -115,7 +135,7 @@ Provider 與 GGAP 需共同確認以下規則：
 
 錯誤回應至少需要 HTTP status、穩定 `error_code`、訊息、`request_id` 與可判斷是否重試的 `retryable`。
 
-## 7. 安全要求
+## 8. 安全要求
 
 - 使用正式 JWT 或雙向簽章，不沿用目前 mock token。
 - 每次請求驗證來源、簽章、時間戳與重放風險。
@@ -123,7 +143,7 @@ Provider 與 GGAP 需共同確認以下規則：
 - 不在一般遊戲列表或 Game Round 列表回傳 secret、私鑰或完整敏感憑證。
 - 保存對接請求、回應、錯誤與操作者 audit log。
 
-## 8. 待確認清單
+## 9. 待確認清單
 
 - 正式 base URL、API version 與認證方式。
 - GGAP 提供的代理商、商戶與會員欄位名稱。
@@ -131,3 +151,4 @@ Provider 與 GGAP 需共同確認以下規則：
 - Game Round 的取消、退款、回滾與補單流程。
 - USDT 精度、點數精度與四捨五入方向。
 - 多人玩法的共享 round 與參與者資料。
+- DEMO 使用的沙盒點數 / 錢包來源，以及 DEMO 報表是否需要獨立呈現。

@@ -56,11 +56,15 @@ DEMO 可以實際遊玩，但必須使用隔離的 DEMO / 沙盒資料，不得�
 
 ### 3.3 數據與報表
 
-- Game Round 明細
-- 代理商 × 遊戲彙總
+- 正式遊戲紀錄（單筆 Game Round）
+- 正式代理商 × 遊戲彙總
 - 遊戲統計
 - RTP / 遊戲健康統計
 - 報表匯出
+
+正式遊戲紀錄頁只查詢正式環境，一列代表一筆 Game Round；詳細欄位、查詢、排序與匯出規則見 [`GAME_ROUND_RECORDS_SPEC.md`](./GAME_ROUND_RECORDS_SPEC.md)。
+
+DEMO 使用統計與 QA / 送測紀錄後續獨立製作，不與正式遊戲紀錄或正式彙總報表合併。
 
 報表主要顯示 Provider 點數，可展開 USDT；不顯示 GGAP 對帳匹配狀態。
 

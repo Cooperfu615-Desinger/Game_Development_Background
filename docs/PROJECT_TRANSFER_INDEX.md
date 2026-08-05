@@ -1,6 +1,6 @@
 # 遊戲商 Provider Portal 文件索引
 
-> 文件版本：2.2.0
+> 文件版本：2.3.0
 > 更新日期：2026-08-05
 > 文件狀態：Provider Portal 方向整理中
 
@@ -37,6 +37,8 @@
   - Provider 與 GGAP 的資料脈絡、同步、啟動、結算與安全草案。
 - [`GAME_ROUND_AND_REPORTING_SPEC.md`](./GAME_ROUND_AND_REPORTING_SPEC.md)
   - Game Round、遊戲紀錄、時間、狀態、點數 / USDT 與報表公式。
+- [`GAME_ROUND_RECORDS_SPEC.md`](./GAME_ROUND_RECORDS_SPEC.md)
+  - 正式環境單筆遊戲紀錄頁的欄位、查詢、排序、詳情與 Excel / CSV 匯出。
 - [`GAME_VENDOR_FINANCE_REPORTING_SPEC.md`](./GAME_VENDOR_FINANCE_REPORTING_SPEC.md)
   - 遊戲商財務報表、顯示、匯出與對帳責任邊界。
 - [`NOTIFICATION_SPEC.md`](./NOTIFICATION_SPEC.md)

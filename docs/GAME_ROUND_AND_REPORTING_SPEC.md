@@ -82,7 +82,7 @@ settled -> rollback（只允許明確的補償 / 回滾流程）
 
 - `production` Game Round 進入正式遊戲商數據與財務報表。
 - `demo` Game Round 可以實際遊玩，但只能進入 DEMO / 沙盒資料與獨立統計，不得混入正式財務或 GGAP 正式結算。
-- `test` Game Round 只供測試與健康監控，預設不進入正式財務報表。
+- `test` / QA Game Round 只供送測版本驗證與測試查詢，預設不進入正式財務報表。
 - `round_id` 與 `external_round_id` 的唯一性需包含環境識別，避免不同環境重複局號互相覆蓋。
 
 ## 5. 明細與報表關係
@@ -92,7 +92,7 @@ settled -> rollback（只允許明確的補償 / 回滾流程）
 可查詢單筆紀錄，至少顯示：
 
 - 遊戲、玩法、局號與狀態
-- 代理商、商戶、會員脈絡
+- 代理商與會員脈絡；`merchant_id` 若因 GGAP 追蹤需要保存，屬後端隱藏快照，不作為 Provider UI、查詢或報表維度
 - 開始時間（若有）與結算時間
 - 點數投注、派彩、淨值
 - USDT 投注、派彩、淨值

@@ -180,6 +180,7 @@
         "providerWebsite": "Website Management",
         "providerSettings": "System Settings",
         "gameRounds": "Game Round & Reports",
+        "providerGameRounds": "Production Game Rounds",
         "providerFinanceOverview": "Finance Overview",
         "providerMonitoringOverview": "Monitoring Overview",
         "providerGgapOverview": "Integration Status",

@@ -220,12 +220,9 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'reports',
                 name: 'ReportsOverview',
-                component: () => import('../views/Provider/Placeholder.vue'),
+                component: () => import('../views/Reports/ProviderGameRounds.vue'),
                 meta: {
-                    title: 'menu.providerReports',
-                    providerPlaceholder: {
-                        description: 'Game Round 明細、代理商 × 遊戲聚合與 Provider 指標將在此集中。',
-                    },
+                    title: 'menu.providerGameRounds',
                 }
             },
             {

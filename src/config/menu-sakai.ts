@@ -55,7 +55,7 @@ export function buildProviderMenu(t: Composer['t']): MenuGroup[] {
             key: 'providerReports',
             label: t('menu.providerReports'),
             items: [
-                { label: t('menu.gameRounds'), icon: 'pi pi-fw pi-list', to: '/reports' },
+                { label: t('menu.providerGameRounds'), icon: 'pi pi-fw pi-list', to: '/reports' },
             ],
         },
         {

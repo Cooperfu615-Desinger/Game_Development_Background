@@ -1,7 +1,7 @@
 # 遊戲商 Provider Portal 文件索引
 
-> 文件版本：2.1.0
-> 更新日期：2026-08-04
+> 文件版本：2.2.0
+> 更新日期：2026-08-05
 > 文件狀態：Provider Portal 方向整理中
 
 ## 閱讀前提
@@ -43,6 +43,8 @@
   - 通知類型、觸發、已讀、權限與站內通知中心。
 - [`PROVIDER_PORTAL_NAVIGATION_SPEC.md`](./PROVIDER_PORTAL_NAVIGATION_SPEC.md)
   - 左側導覽、頁面範圍、舊功能移除與第一階段原型調整方式。
+- [`GAME_LIST_SPEC.md`](./GAME_LIST_SPEC.md)
+  - 遊戲列表欄位、環境狀態、Release 摘要、RTP Tips、篩選與互動方向。
 
 > 以上文件目前是 Provider Portal 工作規格。產品方向已確認的內容可作為原型調整依據；API 路徑、欄位精度、狀態碼與正式權限仍需後端與 GGAP 對接團隊核准。
 

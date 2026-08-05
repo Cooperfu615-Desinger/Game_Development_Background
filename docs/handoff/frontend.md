@@ -5,6 +5,8 @@
 
 本文件說明目前前端實際結構、目前仍存在的舊原型邊界，以及下一階段調整原型時應遵循的方向。
 
+產品範圍與導覽依據：[`PROVIDER_PORTAL_SPEC.md`](../PROVIDER_PORTAL_SPEC.md)、[`PROVIDER_PORTAL_NAVIGATION_SPEC.md`](../PROVIDER_PORTAL_NAVIGATION_SPEC.md)。
+
 ## 1. 前端定位
 
 前端是遊戲商的 Provider Portal 原型，不負責實作 GGAP 的代理商、商戶或會員後台。現有程式仍保留三 Portal 代碼，這些內容只代表歷史原型，不代表新版產品範圍。

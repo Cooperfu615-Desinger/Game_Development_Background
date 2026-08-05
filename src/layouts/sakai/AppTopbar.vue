@@ -2,16 +2,13 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import Select from 'primevue/select'
 import { useSakaiLayout } from './useSakaiLayout'
 import { useAuthStore } from '@/stores/auth'
-import { usePortalStore } from '@/stores/portal'
 import { decodeToken } from '@/services/auth/mockToken'
 
 const { toggleMenu, toggleDarkMode, isDarkTheme } = useSakaiLayout()
 const router = useRouter()
 const authStore = useAuthStore()
-const portalStore = usePortalStore()
 const { t } = useI18n()
 
 // 顯示名綁當前 token 的 actorName，切 Portal 即時更新（QA L-4）。
@@ -38,25 +35,14 @@ const handleLogout = () => {
                 <i class="pi pi-bars" />
             </button>
             <div class="layout-topbar-identity">
-                <strong>{{ portalStore.current.label }}</strong>
-                <span>{{ portalStore.current.description }}</span>
+                <strong>{{ t('menu.providerPortal') }}</strong>
+                <span>{{ t('menu.providerPortalDescription') }}</span>
             </div>
         </div>
 
         <div class="layout-topbar-actions">
-            <!-- Portal switcher：切換即連動 token / 角色 / 選單 / 導頁 -->
-            <Select
-                :model-value="portalStore.currentType"
-                :options="portalStore.portals"
-                option-label="label"
-                option-value="type"
-                @update:model-value="portalStore.switchPortal"
-                class="layout-portal-select"
-                aria-label="切換 Portal"
-            />
-
-            <!-- Notifications（視覺對齊 demo，功能屬通知中心 V4） -->
-            <button class="layout-topbar-action" aria-label="通知">
+            <!-- 通知中心先保留入口，實際未讀資料於通知模組接入時補上。 -->
+            <button class="layout-topbar-action" aria-label="通知" @click="router.push('/notifications')">
                 <i class="pi pi-bell" />
             </button>
 
@@ -73,7 +59,7 @@ const handleLogout = () => {
             <div class="layout-topbar-user">
                 <div class="layout-topbar-user-text">
                     <div class="layout-topbar-user-name">{{ userName }}</div>
-                    <div class="layout-topbar-user-role">Game Developer</div>
+                    <div class="layout-topbar-user-role">{{ t('menu.providerPortal') }}</div>
                 </div>
                 <div class="layout-topbar-avatar" :title="userName">
                     {{ userInitial }}

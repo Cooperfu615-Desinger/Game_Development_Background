@@ -94,17 +94,28 @@
 - `src/mocks/` 只模擬前端流程，不是正式 API 實作。
 - `src/stores/portal.ts`、`src/stores/auth.ts` 仍包含三 Portal 與 mock identity，後續需要改為 Provider 身份模型。
 - `src/config/menu-sakai.ts` 仍是舊版選單，下一階段會先調整導覽列，其他頁面先維持空白或佔位狀態。
-- `docs/GGAP_final_system_spec_tech.html` 是 GGAP 平台依據；Provider Portal 的對接契約需另行建立，不能直接把 GGAP Admin Portal 規格當成遊戲商畫面規格。
+- `docs/GGAP_final_system_spec_tech.html` 是 GGAP 平台依據；Provider Portal 的補充對接契約見 `docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md`，不能直接把 GGAP Admin Portal 規格當成遊戲商畫面規格。
 
-## 6. 下一階段優先工作
+## 6. 現行產品規格
 
-1. 完成新版 Provider Portal 導覽列與路由範圍。
-2. 建立 Provider Portal 產品與功能規格。
-3. 建立 Provider 與 GGAP 的對接契約。
-4. 定義 Game Round、點數 / USDT 與報表指標。
+- [`docs/PROVIDER_PORTAL_SPEC.md`](../PROVIDER_PORTAL_SPEC.md)
+- [`docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md`](../PROVIDER_GGAP_INTEGRATION_CONTRACT.md)
+- [`docs/GAME_ROUND_AND_REPORTING_SPEC.md`](../GAME_ROUND_AND_REPORTING_SPEC.md)
+- [`docs/GAME_VENDOR_FINANCE_REPORTING_SPEC.md`](../GAME_VENDOR_FINANCE_REPORTING_SPEC.md)
+- [`docs/NOTIFICATION_SPEC.md`](../NOTIFICATION_SPEC.md)
+- [`docs/PROVIDER_PORTAL_NAVIGATION_SPEC.md`](../PROVIDER_PORTAL_NAVIGATION_SPEC.md)
+
+上述文件是目前的工作規格。已確認的產品方向可直接作為原型調整依據；正式 API、狀態碼、精度與權限仍需後端 / GGAP 對接確認。
+
+## 7. 下一階段優先工作
+
+1. 依導覽規格完成新版 Provider Portal 導覽列與路由骨架。
+2. 與 GGAP 對接團隊確認 Provider API、身份、冪等與錯誤契約。
+3. 確認 Game Round、點數 / USDT、GGR 與報表指標的正式定義。
+4. 依通知規格建立站內通知中心。
 5. 再依核准規格調整原型頁面與 mock API。
 
-## 7. 驗證與啟動
+## 8. 驗證與啟動
 
 ```bash
 npm run dev

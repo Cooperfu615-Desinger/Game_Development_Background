@@ -5,6 +5,8 @@
 
 本專案目前沒有真實後端；`src/mocks/` 只模擬前端流程。GGAP 的平台開發在另一個專案進行，本文件先整理遊戲商 Provider Portal 需要的後端責任與對接缺口。
 
+產品範圍、對接與資料規格：[`PROVIDER_PORTAL_SPEC.md`](../PROVIDER_PORTAL_SPEC.md)、[`PROVIDER_GGAP_INTEGRATION_CONTRACT.md`](../PROVIDER_GGAP_INTEGRATION_CONTRACT.md)、[`GAME_ROUND_AND_REPORTING_SPEC.md`](../GAME_ROUND_AND_REPORTING_SPEC.md)。
+
 ## 1. 系統責任邊界
 
 ### Provider Portal / 遊戲商後端負責
@@ -31,7 +33,7 @@ Provider 不應建立平台會員錢包，也不應要求 Provider Portal 管理
 
 `docs/GGAP_final_system_spec_tech.html` 是 GGAP 平台的系統依據，涵蓋 GGAP Admin、Agent、Merchant 與 Provider Adapter 等平台側設計。
 
-目前仍缺少 Provider Portal 對接契約，至少需要補齊：
+Provider Portal 對接工作契約已建立於 [`PROVIDER_GGAP_INTEGRATION_CONTRACT.md`](../PROVIDER_GGAP_INTEGRATION_CONTRACT.md)；目前仍需由 GGAP 與後端團隊確認以下正式內容：
 
 1. GGAP 如何呼叫 Provider 的遊戲清單與遊戲啟動 / 結算接口。
 2. Provider 如何識別 GGAP、代理商、商戶與會員。

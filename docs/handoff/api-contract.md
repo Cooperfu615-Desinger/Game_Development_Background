@@ -5,6 +5,8 @@
 
 本文件分開記錄「目前前端 mock 的傳輸方式」與「新版 Provider API 的目標資源」。目標路徑、欄位與錯誤格式在後端確認前，不得視為正式 API。
 
+相關產品與資料規格：[`PROVIDER_GGAP_INTEGRATION_CONTRACT.md`](../PROVIDER_GGAP_INTEGRATION_CONTRACT.md)、[`GAME_ROUND_AND_REPORTING_SPEC.md`](../GAME_ROUND_AND_REPORTING_SPEC.md)、[`GAME_VENDOR_FINANCE_REPORTING_SPEC.md`](../GAME_VENDOR_FINANCE_REPORTING_SPEC.md)。
+
 ## 1. 目前前端傳輸層
 
 入口：`src/services/apiClient.ts`

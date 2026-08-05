@@ -8,13 +8,13 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { buildSakaiMenu } from '@/config/menu-sakai'
+import { buildProviderMenu } from '@/config/menu-sakai'
 
 const route = useRoute()
 const { t } = useI18n()
 
 const located = computed(() => {
-    const menu = buildSakaiMenu(t)
+    const menu = buildProviderMenu(t)
     for (const group of menu) {
         const item = group.items.find((entry) => entry.to === route.path)
         if (item) return { group: group.label, page: item.label }

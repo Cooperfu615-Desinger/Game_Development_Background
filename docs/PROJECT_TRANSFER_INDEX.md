@@ -1,6 +1,6 @@
 # 遊戲商 Provider Portal 文件索引
 
-> 文件版本：2.0.0
+> 文件版本：2.1.0
 > 更新日期：2026-08-04
 > 文件狀態：Provider Portal 方向整理中
 
@@ -18,7 +18,7 @@
 - [`GGAP_final_system_spec_tech.html`](./GGAP_final_system_spec_tech.html)
   - GGAP 平台的系統、業務、資料、API、財務與安全規格。
   - 此文件是 GGAP 端的參考依據，不等同於遊戲商 Provider Portal 規格。
-  - Provider Portal 所需的對接契約仍需另行整理。
+  - Provider Portal 對接補充契約見 [`PROVIDER_GGAP_INTEGRATION_CONTRACT.md`](./PROVIDER_GGAP_INTEGRATION_CONTRACT.md)。
 
 ### 2. 專案交接文件
 
@@ -29,24 +29,32 @@
 
 > 上述交接文件已依 Provider Portal 方向整理，並將「目前原型實況」與「目標規格草案」分開標示。正式 API 與資料欄位仍需由後端與 GGAP 對接團隊核准。
 
-### 3. 技術參考
+### 3. 現行產品規格
+
+- [`PROVIDER_PORTAL_SPEC.md`](./PROVIDER_PORTAL_SPEC.md)
+  - Provider Portal 定位、責任邊界、功能範圍與驗收方向。
+- [`PROVIDER_GGAP_INTEGRATION_CONTRACT.md`](./PROVIDER_GGAP_INTEGRATION_CONTRACT.md)
+  - Provider 與 GGAP 的資料脈絡、同步、啟動、結算與安全草案。
+- [`GAME_ROUND_AND_REPORTING_SPEC.md`](./GAME_ROUND_AND_REPORTING_SPEC.md)
+  - Game Round、遊戲紀錄、時間、狀態、點數 / USDT 與報表公式。
+- [`GAME_VENDOR_FINANCE_REPORTING_SPEC.md`](./GAME_VENDOR_FINANCE_REPORTING_SPEC.md)
+  - 遊戲商財務報表、顯示、匯出與對帳責任邊界。
+- [`NOTIFICATION_SPEC.md`](./NOTIFICATION_SPEC.md)
+  - 通知類型、觸發、已讀、權限與站內通知中心。
+- [`PROVIDER_PORTAL_NAVIGATION_SPEC.md`](./PROVIDER_PORTAL_NAVIGATION_SPEC.md)
+  - 左側導覽、頁面範圍、舊功能移除與第一階段原型調整方式。
+
+> 以上文件目前是 Provider Portal 工作規格。產品方向已確認的內容可作為原型調整依據；API 路徑、欄位精度、狀態碼與正式權限仍需後端與 GGAP 對接團隊核准。
+
+### 4. 技術參考
 
 - [`TECH_QUICK_REFERENCE.md`](./TECH_QUICK_REFERENCE.md)
   - 目前前端技術棧、常用指令、目錄、API client 與 Provider 開發原則。
   - 若與實際程式碼不一致，以程式碼與最新交接文件為準。
 
-## 待建立的現行產品規格
+## 文件使用提醒
 
-以下文件是目前整理階段的主要缺口，後續應建立並加入本索引：
-
-1. Provider Portal 產品與功能規格
-2. Provider 與 GGAP 對接契約
-3. Game Round 與遊戲紀錄規格
-4. 遊戲商財務與報表指標定義
-5. 通知中心規格
-6. Provider Portal 導覽列與頁面範圍規格
-
-在上述文件完成前，不應直接沿用封存區內舊有的玩家、代理商、商戶、獎池或平台管理規格。
+Provider Portal 工作規格完成後，仍不應直接沿用封存區內舊有的玩家、代理商、商戶、獎池或平台管理規格。若工作規格與 GGAP 最新平台規格發生衝突，需先由產品、後端與 GGAP 對接團隊確認責任邊界。
 
 ## 封存文件
 

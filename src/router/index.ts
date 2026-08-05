@@ -66,8 +66,13 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'dashboard',
                 name: 'Dashboard',
-                component: () => import('../views/Dashboard/Index.vue'),
-                meta: { title: 'menu.dashboard' }
+                component: () => import('../views/Provider/Placeholder.vue'),
+                meta: {
+                    title: 'menu.providerOverview',
+                    providerPlaceholder: {
+                        description: 'Provider 遊戲、營運數據、健康狀態與待處理通知的總覽入口。',
+                    },
+                }
             },
 
             // ── 聚合商管理 ──────────────────────────────
@@ -215,8 +220,13 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'reports',
                 name: 'ReportsOverview',
-                component: () => import('../views/Reports/Overview.vue'),
-                meta: { title: 'menu.reportsOverview' }
+                component: () => import('../views/Provider/Placeholder.vue'),
+                meta: {
+                    title: 'menu.providerReports',
+                    providerPlaceholder: {
+                        description: 'Game Round 明細、代理商 × 遊戲聚合與 Provider 指標將在此集中。',
+                    },
+                }
             },
             {
                 path: 'reports/merchants',
@@ -295,6 +305,52 @@ const routes: RouteRecordRaw[] = [
                 meta: { title: 'menu.riskActions' }
             },
 
+            // ── Provider 目標模組骨架 ───────────────────────
+            {
+                path: 'monitoring',
+                name: 'ProviderMonitoring',
+                component: () => import('../views/Provider/Placeholder.vue'),
+                meta: {
+                    title: 'menu.providerMonitoring',
+                    providerPlaceholder: {
+                        description: '遊戲健康、Game Round 異常、GGAP 請求與 Provider 風控告警。',
+                    },
+                }
+            },
+            {
+                path: 'ggap',
+                name: 'ProviderGgap',
+                component: () => import('../views/Provider/Placeholder.vue'),
+                meta: {
+                    title: 'menu.providerGgap',
+                    providerPlaceholder: {
+                        description: 'Provider 與 GGAP 之間的連線、目錄同步、請求、回呼與錯誤狀態。',
+                    },
+                }
+            },
+            {
+                path: 'notifications',
+                name: 'ProviderNotifications',
+                component: () => import('../views/Provider/Placeholder.vue'),
+                meta: {
+                    title: 'menu.providerNotifications',
+                    providerPlaceholder: {
+                        description: '集中處理 GGAP 對接、Game Round、財務、監控與安全通知。',
+                    },
+                }
+            },
+            {
+                path: 'website',
+                name: 'ProviderWebsite',
+                component: () => import('../views/Provider/Placeholder.vue'),
+                meta: {
+                    title: 'menu.providerWebsite',
+                    providerPlaceholder: {
+                        description: '管理遊戲商官網的遊戲展示、公告、內容區塊與發布狀態。',
+                    },
+                }
+            },
+
             // ── 獎池管理（V4） ─────────────────────────────
             {
                 path: 'jackpots',
@@ -361,6 +417,17 @@ const routes: RouteRecordRaw[] = [
 
             // ── 財務 ────────────────────────────────────
             {
+                path: 'finance',
+                name: 'ProviderFinance',
+                component: () => import('../views/Provider/Placeholder.vue'),
+                meta: {
+                    title: 'menu.providerFinance',
+                    providerPlaceholder: {
+                        description: 'Provider 點數、USDT、投注、輸贏與 GGR 的財務總覽入口。',
+                    },
+                }
+            },
+            {
                 path: 'finance/settlements',
                 name: 'Settlements',
                 component: () => import('../views/Finance/Settlements.vue'),
@@ -389,7 +456,7 @@ const routes: RouteRecordRaw[] = [
                 path: 'settings',
                 name: 'Settings',
                 component: () => import('../views/Settings/Index.vue'),
-                meta: { title: 'menu.settings' }
+                meta: { title: 'menu.providerSettings' }
             },
             {
                 path: 'settings/api-keys',

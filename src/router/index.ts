@@ -371,13 +371,26 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'website',
                 name: 'ProviderWebsite',
-                component: () => import('../views/Provider/Placeholder.vue'),
-                meta: {
-                    title: 'menu.providerWebsite',
-                    providerPlaceholder: {
-                        description: '管理遊戲商官網的遊戲展示、公告、內容區塊與發布狀態。',
-                    },
-                }
+                redirect: { name: 'GameWebsiteBanners' },
+                meta: { title: 'menu.providerWebsiteOverview' }
+            },
+            {
+                path: 'website/banners',
+                name: 'GameWebsiteBanners',
+                component: () => import('../views/GameWebsite/Banners.vue'),
+                meta: { title: 'menu.websiteBanners' }
+            },
+            {
+                path: 'website/content',
+                name: 'GameWebsiteContent',
+                component: () => import('../views/GameWebsite/Content.vue'),
+                meta: { title: 'menu.websiteContent' }
+            },
+            {
+                path: 'website/releases',
+                name: 'GameWebsiteReleases',
+                component: () => import('../views/GameWebsite/Releases.vue'),
+                meta: { title: 'menu.websiteReleases' }
             },
 
             // ── 獎池管理（V4） ─────────────────────────────

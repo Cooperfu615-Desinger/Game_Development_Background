@@ -80,7 +80,16 @@ export function buildProviderMenu(t: Composer['t']): MenuGroup[] {
             key: 'providerWebsite',
             label: t('menu.providerWebsite'),
             items: [
-                { label: t('menu.providerWebsiteOverview'), icon: 'pi pi-fw pi-globe', to: '/website' },
+                {
+                    label: t('menu.providerWebsiteOverview'),
+                    icon: 'pi pi-fw pi-globe',
+                    to: '/website',
+                    items: [
+                        { label: t('menu.websiteBanners'), icon: 'pi pi-fw pi-images', to: '/website/banners' },
+                        { label: t('menu.websiteContent'), icon: 'pi pi-fw pi-file-edit', to: '/website/content' },
+                        { label: t('menu.websiteReleases'), icon: 'pi pi-fw pi-history', to: '/website/releases' },
+                    ],
+                },
                 {
                     label: t('menu.gameLobby'),
                     icon: 'pi pi-fw pi-th-large',

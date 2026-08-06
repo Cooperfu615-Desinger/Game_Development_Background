@@ -14,6 +14,7 @@ import SectionCard from '@/components/ui/SectionCard.vue'
 import { api } from '@/services/apiClient'
 import type { ProviderGameRound, ProviderGameRoundListResponse, ProviderGameRoundStatus } from '@/types/gameRound'
 import { exportToCSV } from '@/utils/csvExport'
+import { compareProviderGameRounds, isProviderGameRoundSortField, type ProviderGameRoundSortField } from '@/utils/gameRoundSort'
 import { exportToXlsx, type XlsxColumn } from '@/utils/xlsxExport'
 
 type SortOrder = 'asc' | 'desc'
@@ -43,7 +44,7 @@ const toast = useToast()
 const pageSize = ref(10)
 const first = ref(0)
 const total = ref(0)
-const sortBy = ref('settled_at')
+const sortBy = ref<ProviderGameRoundSortField>('settled_at')
 const sortOrder = ref<SortOrder>('desc')
 const rows = ref<ProviderGameRound[]>([])
 const loading = ref(true)
@@ -92,11 +93,11 @@ const exportColumns: XlsxColumn[] = [
     { key: 'settled_at', label: '結算時間' },
     { key: 'updated_at', label: '最後更新時間' },
     { key: 'bet_points', label: '投注額（點數）' },
-    { key: 'win_points', label: '派彩額（點數）' },
-    { key: 'net_points', label: '玩家淨輸贏（點數）' },
+    { key: 'payout_points', label: '派彩額（點數）' },
+    { key: 'net_result_points', label: '玩家淨輸贏（點數）' },
     { key: 'bet_usdt', label: '投注額（USDT）' },
-    { key: 'win_usdt', label: '派彩額（USDT）' },
-    { key: 'net_usdt', label: '玩家淨輸贏（USDT）' },
+    { key: 'payout_usdt', label: '派彩額（USDT）' },
+    { key: 'net_result_usdt', label: '玩家淨輸贏（USDT）' },
     { key: 'conversion_rate', label: '換算比例（點／USDT）' },
     { key: 'conversion_rule_id', label: '換算規則版本' },
     { key: 'conversion_rule', label: '換算規則' },
@@ -132,8 +133,8 @@ function buildListPath(page = Math.floor(first.value / pageSize.value) + 1, size
     })
     const active = appliedFilters.value
     const [from, to] = active.dateRange
-    if (from) params.set('from', from.toISOString())
-    if (to) params.set('to', to.toISOString())
+    if (from) params.set('from', toApiBoundary(from, 'from'))
+    if (to) params.set('to', toApiBoundary(to, 'to'))
     if (active.gameQuery.trim()) params.set('game_query', active.gameQuery.trim())
     if (active.agentQuery.trim()) params.set('agent_query', active.agentQuery.trim())
     if (active.roundId.trim()) params.set('round_id', active.roundId.trim())
@@ -143,12 +144,18 @@ function buildListPath(page = Math.floor(first.value / pageSize.value) + 1, size
     return `/api/provider/v1/game-rounds?${params.toString()}`
 }
 
+function toApiBoundary(value: Date, boundary: 'from' | 'to') {
+    const normalized = new Date(value)
+    normalized.setMilliseconds(boundary === 'from' ? 0 : 999)
+    return normalized.toISOString()
+}
+
 async function loadRounds() {
     loading.value = true
     loadError.value = ''
     try {
         const response = await api.get<ProviderGameRoundListResponse>(buildListPath())
-        rows.value = response.items
+        rows.value = [...response.items].sort((left, right) => compareProviderGameRounds(left, right, sortBy.value, sortOrder.value))
         total.value = response.total
     } catch (error) {
         console.error('Failed to load provider game rounds:', error)
@@ -161,6 +168,11 @@ async function loadRounds() {
 }
 
 function applyFilters() {
+    const [from, to] = filters.dateRange
+    if (from && to && from.getTime() > to.getTime()) {
+        toast.add({ severity: 'warn', summary: '時間區間無效', detail: '起始時間不可晚於結束時間。', life: 2200 })
+        return
+    }
     appliedFilters.value = copyFilters(filters)
     first.value = 0
     loadRounds()
@@ -187,13 +199,13 @@ function handlePage(event: DataTablePageEvent) {
 }
 
 function handleSort(event: DataTableSortEvent) {
-    if (typeof event.sortField === 'string' && event.sortField) sortBy.value = event.sortField
+    if (typeof event.sortField === 'string' && isProviderGameRoundSortField(event.sortField)) sortBy.value = event.sortField
     sortOrder.value = event.sortOrder === 1 ? 'asc' : 'desc'
     first.value = 0
     loadRounds()
 }
 
-function requestSort(field: string) {
+function requestSort(field: ProviderGameRoundSortField) {
     if (sortBy.value === field) {
         sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc'
     } else {
@@ -204,7 +216,7 @@ function requestSort(field: string) {
     loadRounds()
 }
 
-function sortIcon(field: string) {
+function sortIcon(field: ProviderGameRoundSortField) {
     if (sortBy.value !== field) return 'pi pi-sort-alt'
     return sortOrder.value === 'asc' ? 'pi pi-sort-amount-up' : 'pi pi-sort-amount-down'
 }
@@ -226,8 +238,8 @@ async function openDetails(row: ProviderGameRound) {
 async function exportRounds(kind: ExportKind) {
     exportLoading.value = kind
     try {
-        const response = await api.get<ProviderGameRoundListResponse>(buildListPath(1, 1000))
-        const data = response.items.map(toExportRecord)
+        const rounds = await loadAllMatchingRounds()
+        const data = rounds.map(toExportRecord)
         if (!data.length) {
             toast.add({ severity: 'warn', summary: '沒有可匯出的資料', detail: '請先調整查詢條件。', life: 2200 })
             return
@@ -252,6 +264,23 @@ async function exportRounds(kind: ExportKind) {
     }
 }
 
+async function loadAllMatchingRounds() {
+    const exportPageSize = 5
+    const allRounds: ProviderGameRound[] = []
+    let page = 1
+    let expectedTotal = 0
+
+    do {
+        const response = await api.get<ProviderGameRoundListResponse>(buildListPath(page, exportPageSize))
+        allRounds.push(...response.items)
+        expectedTotal = response.total
+        page += 1
+        if (!response.items.length) break
+    } while (allRounds.length < expectedTotal)
+
+    return allRounds.sort((left, right) => compareProviderGameRounds(left, right, sortBy.value, sortOrder.value))
+}
+
 function toExportRecord(round: ProviderGameRound) {
     return {
         provider_id: round.provider_id,
@@ -273,11 +302,11 @@ function toExportRecord(round: ProviderGameRound) {
         settled_at: formatDateTime(round.settled_at),
         updated_at: formatDateTime(round.updated_at),
         bet_points: round.bet_points,
-        win_points: round.win_points,
-        net_points: round.net_points,
+        payout_points: round.payout_points,
+        net_result_points: round.net_result_points,
         bet_usdt: round.bet_usdt,
-        win_usdt: round.win_usdt,
-        net_usdt: round.net_usdt,
+        payout_usdt: round.payout_usdt,
+        net_result_usdt: round.net_result_usdt,
         conversion_rate: round.conversion_rate,
         conversion_rule_id: round.conversion_rule_id,
         conversion_rule: round.conversion_rule,
@@ -495,13 +524,13 @@ function statusClass(value: ProviderGameRoundStatus) {
                     <template #header><button class="rounds-sort-button" type="button" @click.stop="requestSort('bet_points')">投注額（點） <i :class="sortIcon('bet_points')" /></button></template>
                     <template #body="{ data }"><span class="round-amount">{{ formatAmount(data.bet_points) }}</span></template>
                 </Column>
-                <Column field="win_points" style="width: 126px; min-width: 126px">
-                    <template #header><button class="rounds-sort-button" type="button" @click.stop="requestSort('win_points')">派彩額（點） <i :class="sortIcon('win_points')" /></button></template>
-                    <template #body="{ data }"><span class="round-amount">{{ formatAmount(data.win_points) }}</span></template>
+                <Column field="payout_points" style="width: 126px; min-width: 126px">
+                    <template #header><button class="rounds-sort-button" type="button" @click.stop="requestSort('payout_points')">派彩額（點） <i :class="sortIcon('payout_points')" /></button></template>
+                    <template #body="{ data }"><span class="round-amount">{{ formatAmount(data.payout_points) }}</span></template>
                 </Column>
-                <Column field="net_points" style="width: 148px; min-width: 148px">
-                    <template #header><button class="rounds-sort-button" type="button" @click.stop="requestSort('net_points')">玩家淨輸贏（點） <i :class="sortIcon('net_points')" /></button></template>
-                    <template #body="{ data }"><span class="round-amount round-net" :class="{ 'round-net--negative': isNegative(data.net_points), 'round-net--positive': !isNegative(data.net_points) }">{{ formatSignedAmount(data.net_points) }}</span></template>
+                <Column field="net_result_points" style="width: 148px; min-width: 148px">
+                    <template #header><button class="rounds-sort-button" type="button" @click.stop="requestSort('net_result_points')">玩家淨輸贏（點） <i :class="sortIcon('net_result_points')" /></button></template>
+                    <template #body="{ data }"><span class="round-amount round-net" :class="{ 'round-net--negative': isNegative(data.net_result_points), 'round-net--positive': !isNegative(data.net_result_points) }">{{ formatSignedAmount(data.net_result_points) }}</span></template>
                 </Column>
                 <Column field="status" style="width: 116px; min-width: 116px">
                     <template #header><button class="rounds-sort-button" type="button" @click.stop="requestSort('status')">結算狀態 <i :class="sortIcon('status')" /></button></template>
@@ -563,8 +592,8 @@ function statusClass(value: ProviderGameRoundStatus) {
                         <div class="round-amount-table">
                             <div class="round-amount-table-row round-amount-table-head"><span>項目</span><span>Provider 點數</span><span>USDT</span></div>
                             <div class="round-amount-table-row"><span>投注額</span><strong>{{ formatAmount(selectedRound.bet_points) }}</strong><strong>{{ selectedRound.bet_usdt }} {{ selectedRound.currency }}</strong></div>
-                            <div class="round-amount-table-row"><span>派彩額</span><strong>{{ formatAmount(selectedRound.win_points) }}</strong><strong>{{ selectedRound.win_usdt }} {{ selectedRound.currency }}</strong></div>
-                            <div class="round-amount-table-row round-amount-table-net"><span>玩家淨輸贏</span><strong :class="{ 'round-net--negative': isNegative(selectedRound.net_points), 'round-net--positive': !isNegative(selectedRound.net_points) }">{{ formatSignedAmount(selectedRound.net_points) }}</strong><strong :class="{ 'round-net--negative': isNegative(selectedRound.net_usdt), 'round-net--positive': !isNegative(selectedRound.net_usdt) }">{{ formatSignedAmount(selectedRound.net_usdt) }} {{ selectedRound.currency }}</strong></div>
+                            <div class="round-amount-table-row"><span>派彩額</span><strong>{{ formatAmount(selectedRound.payout_points) }}</strong><strong>{{ selectedRound.payout_usdt }} {{ selectedRound.currency }}</strong></div>
+                            <div class="round-amount-table-row round-amount-table-net"><span>玩家淨輸贏</span><strong :class="{ 'round-net--negative': isNegative(selectedRound.net_result_points), 'round-net--positive': !isNegative(selectedRound.net_result_points) }">{{ formatSignedAmount(selectedRound.net_result_points) }}</strong><strong :class="{ 'round-net--negative': isNegative(selectedRound.net_result_usdt), 'round-net--positive': !isNegative(selectedRound.net_result_usdt) }">{{ formatSignedAmount(selectedRound.net_result_usdt) }} {{ selectedRound.currency }}</strong></div>
                         </div>
                         <div class="round-conversion-note"><i class="pi pi-calculator" /><div><strong>{{ selectedRound.conversion_rule_id }}</strong><span>{{ selectedRound.conversion_rule }}</span></div></div>
                     </section>

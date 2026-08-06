@@ -18,11 +18,11 @@ export interface ProviderGameRound {
     request_id: string
     environment: 'production'
     bet_points: string
-    win_points: string
-    net_points: string
+    payout_points: string
+    net_result_points: string
     bet_usdt: string
-    win_usdt: string
-    net_usdt: string
+    payout_usdt: string
+    net_result_usdt: string
     conversion_rule_id: string
     conversion_rate: string
     conversion_rule: string

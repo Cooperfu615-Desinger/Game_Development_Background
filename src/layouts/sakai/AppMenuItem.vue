@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useSakaiLayout } from './useSakaiLayout'
 import type { MenuItem } from '@/config/menu-sakai'
 
@@ -16,24 +16,35 @@ const props = withDefaults(
 )
 
 const { layoutState, isDesktop } = useSakaiLayout()
+const isExpanded = ref(false)
 
 const fullPath = computed(() => {
-    if (!props.item.to) return null
-    return props.parentPath ? props.parentPath + props.item.to : props.item.to
+    return props.item.to ?? props.parentPath
 })
 
 const isActive = computed(() => {
     if (props.item.items) {
-        return layoutState.activePath?.startsWith(props.item.to ?? '')
+        return Boolean(props.item.to && layoutState.activePath?.startsWith(props.item.to))
     }
     return layoutState.activePath === props.item.to
 })
 
+watch(
+    isActive,
+    (active) => {
+        isExpanded.value = active
+    },
+    { immediate: true }
+)
+
 const itemClick = (event: MouseEvent, item: MenuItem) => {
     if (item.items) {
-        if (isActive.value) {
-            layoutState.activePath = layoutState.activePath?.replace(item.to ?? '', '') ?? null
-        } else {
+        event.preventDefault()
+
+        // Route changes open the active group automatically, while a click
+        // can explicitly collapse or expand it without changing the route.
+        isExpanded.value = !isExpanded.value
+        if (isExpanded.value && !isActive.value) {
             layoutState.activePath = fullPath.value
             layoutState.menuHoverActive = true
         }
@@ -52,7 +63,7 @@ const onMouseEnter = () => {
 </script>
 
 <template>
-    <li :class="{ 'layout-root-menuitem': root, 'active-menuitem': isActive }">
+    <li :class="{ 'layout-root-menuitem': root, 'active-menuitem': isActive, 'expanded-menuitem': isExpanded }">
         <div v-if="root && item.visible !== false" class="layout-menuitem-root-text">
             {{ item.label }}
         </div>
@@ -62,6 +73,7 @@ const onMouseEnter = () => {
             v-if="(!item.to || item.items) && item.visible !== false"
             :href="item.url"
             :target="item.target"
+            :class="{ 'layout-menuitem-parent': item.items }"
             tabindex="0"
             @click="itemClick($event, item)"
             @mouseenter="onMouseEnter"
@@ -85,7 +97,7 @@ const onMouseEnter = () => {
         </router-link>
 
         <Transition v-if="item.items && item.visible !== false" name="layout-submenu">
-            <ul v-show="root ? true : isActive" class="layout-submenu">
+            <ul v-show="root ? true : isExpanded" :class="{ 'layout-submenu-nested': !root }" class="layout-submenu">
                 <AppMenuItem
                     v-for="child in item.items"
                     :key="child.label + '_' + (child.to ?? '')"

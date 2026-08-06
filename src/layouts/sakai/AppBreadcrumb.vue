@@ -8,31 +8,55 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { buildProviderMenu } from '@/config/menu-sakai'
+import { buildProviderMenu, type MenuItem } from '@/config/menu-sakai'
 
 const route = useRoute()
 const { t } = useI18n()
 
+const findMenuPath = (items: MenuItem[], target: string, ancestors: string[]): string[] | null => {
+    for (const item of items) {
+        const itemPath = [...ancestors, item.label]
+
+        // Search children first because a parent group and its first page can
+        // intentionally share the same route, such as /lobby.
+        if (item.items) {
+            const nestedPath = findMenuPath(item.items, target, itemPath)
+            if (nestedPath) return nestedPath
+        }
+
+        if (item.to === target) return itemPath
+    }
+
+    return null
+}
+
 const located = computed(() => {
     const menu = buildProviderMenu(t)
+
     for (const group of menu) {
-        const item = group.items.find((entry) => entry.to === route.path)
-        if (item) return { group: group.label, page: item.label }
+        const path = findMenuPath(group.items, route.path, [group.label])
+        if (path) {
+            return {
+                trail: path,
+                page: path[path.length - 1],
+            }
+        }
     }
+
     // 不在選單上的路由（詳情頁等）退回 meta.title
     const metaKey = route.meta.title as string | undefined
-    return { group: '', page: metaKey ? t(metaKey) : '' }
+    const page = metaKey ? t(metaKey) : ''
+    return { trail: page ? [page] : [], page }
 })
 </script>
 
 <template>
     <section v-if="located.page" class="layout-page-header">
         <div class="layout-breadcrumbs">
-            <template v-if="located.group">
-                <span>{{ located.group }}</span>
-                <i class="pi pi-angle-right" />
+            <template v-for="(crumb, index) in located.trail" :key="`${crumb}-${index}`">
+                <i v-if="index > 0" class="pi pi-angle-right" />
+                <span>{{ crumb }}</span>
             </template>
-            <span>{{ located.page }}</span>
         </div>
         <h1>{{ located.page }}</h1>
     </section>

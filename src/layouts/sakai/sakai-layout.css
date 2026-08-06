@@ -247,8 +247,12 @@
     transition: transform var(--hig-duration-base) var(--hig-ease);
 }
 
-.layout-menu li.active-menuitem > a .layout-submenu-toggler {
+.layout-menu li.expanded-menuitem > a .layout-submenu-toggler {
     transform: rotate(180deg);
+}
+
+.layout-menuitem-parent {
+    position: relative;
 }
 
 .layout-submenu {
@@ -258,6 +262,24 @@
 
 .layout-submenu li a {
     padding-left: 1.75rem;
+}
+
+.layout-submenu-nested {
+    margin: 0.15rem 0.5rem 0.45rem 0.75rem !important;
+    padding: 0.2rem 0 0.2rem 0.45rem !important;
+    border-left: 1px solid color-mix(in srgb, var(--hig-blue) 24%, var(--hig-border-subtle));
+    background: color-mix(in srgb, var(--hig-bg-fill) 46%, transparent);
+}
+
+.layout-submenu-nested li a {
+    padding: 0.42rem 0.55rem 0.42rem 0.8rem;
+    color: var(--hig-text-secondary);
+    font-size: 0.8125rem;
+}
+
+.layout-submenu-nested li a .layout-menuitem-icon {
+    width: 0.875rem;
+    font-size: 0.875rem;
 }
 
 /* Transitions */

@@ -2,7 +2,7 @@
  * Provider Portal 的 Sakai 導覽資料。
  *
  * 舊版原型仍保留 supplier / agent / merchant 三 Portal 的 route 與 view，
- * 但新版主要工作區只呈現 Provider 的九個工作群組。未列在此處的 legacy
+ * 但新版主要工作區只呈現 Provider 的八個工作群組。未列在此處的 legacy
  * route 仍可作為相容與遷移參考，不應再從主要導覽新增入口。
  */
 import type { Composer } from 'vue-i18n'
@@ -28,8 +28,9 @@ export interface MenuGroup {
 /**
  * Provider Portal 目標導覽。
  *
- * 每個群組先提供一個可進入的 route；尚未完成的模組由 route 顯示
- * ProviderPlaceholder，避免把舊平台語意誤當成新版產品能力。
+ * 各工作群組先提供清楚的入口；官網相關能力再依「遊戲官網／遊戲大廳」
+ * 分層，尚未完成的模組由 route 顯示 ProviderPlaceholder，避免把舊平台
+ * 語意誤當成新版產品能力。
  */
 export function buildProviderMenu(t: Composer['t']): MenuGroup[] {
     return [
@@ -38,17 +39,6 @@ export function buildProviderMenu(t: Composer['t']): MenuGroup[] {
             label: t('menu.providerOverview'),
             items: [
                 { label: t('menu.dashboard'), icon: 'pi pi-fw pi-home', to: '/dashboard' },
-            ],
-        },
-        {
-            key: 'providerGameLobby',
-            label: t('menu.gameLobby'),
-            items: [
-                { label: t('menu.lobbyOverview'), icon: 'pi pi-fw pi-home', to: '/lobby' },
-                { label: t('menu.lobbyGameList'), icon: 'pi pi-fw pi-th-large', to: '/lobby/games' },
-                { label: t('menu.lobbyGameManagement'), icon: 'pi pi-fw pi-sliders-h', to: '/lobby/management' },
-                { label: t('menu.lobbyDemoData'), icon: 'pi pi-fw pi-chart-bar', to: '/lobby/demo' },
-                { label: t('menu.lobbyPreview'), icon: 'pi pi-fw pi-desktop', to: '/lobby/preview' },
             ],
         },
         {
@@ -91,6 +81,18 @@ export function buildProviderMenu(t: Composer['t']): MenuGroup[] {
             label: t('menu.providerWebsite'),
             items: [
                 { label: t('menu.providerWebsiteOverview'), icon: 'pi pi-fw pi-globe', to: '/website' },
+                {
+                    label: t('menu.gameLobby'),
+                    icon: 'pi pi-fw pi-th-large',
+                    to: '/lobby',
+                    items: [
+                        { label: t('menu.lobbyOverview'), icon: 'pi pi-fw pi-home', to: '/lobby' },
+                        { label: t('menu.lobbyGameList'), icon: 'pi pi-fw pi-th-large', to: '/lobby/games' },
+                        { label: t('menu.lobbyGameManagement'), icon: 'pi pi-fw pi-sliders-h', to: '/lobby/management' },
+                        { label: t('menu.lobbyDemoData'), icon: 'pi pi-fw pi-chart-bar', to: '/lobby/demo' },
+                        { label: t('menu.lobbyPreview'), icon: 'pi pi-fw pi-desktop', to: '/lobby/preview' },
+                    ],
+                },
             ],
         },
         {

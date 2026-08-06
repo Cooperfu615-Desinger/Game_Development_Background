@@ -41,14 +41,14 @@ export function buildProviderMenu(t: Composer['t']): MenuGroup[] {
             ],
         },
         {
-            key: 'providerGames',
-            label: t('menu.providerGames'),
+            key: 'providerGameLobby',
+            label: t('menu.gameLobby'),
             items: [
-                { label: t('menu.games'), icon: 'pi pi-fw pi-th-large', to: '/games' },
-                { label: t('menu.gameSettings'), icon: 'pi pi-fw pi-sliders-h', to: '/games/settings' },
-                { label: t('menu.gameMath'), icon: 'pi pi-fw pi-percentage', to: '/games/math' },
-                { label: t('menu.gameVersions'), icon: 'pi pi-fw pi-history', to: '/games/versions' },
-                { label: t('menu.gameAssets'), icon: 'pi pi-fw pi-images', to: '/games/assets' },
+                { label: t('menu.lobbyOverview'), icon: 'pi pi-fw pi-home', to: '/lobby' },
+                { label: t('menu.lobbyGameList'), icon: 'pi pi-fw pi-th-large', to: '/lobby/games' },
+                { label: t('menu.lobbyGameManagement'), icon: 'pi pi-fw pi-sliders-h', to: '/lobby/management' },
+                { label: t('menu.lobbyDemoData'), icon: 'pi pi-fw pi-chart-bar', to: '/lobby/demo' },
+                { label: t('menu.lobbyPreview'), icon: 'pi pi-fw pi-desktop', to: '/lobby/preview' },
             ],
         },
         {

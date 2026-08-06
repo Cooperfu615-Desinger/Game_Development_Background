@@ -133,6 +133,38 @@ const routes: RouteRecordRaw[] = [
                 meta: { title: 'menu.gameDetail' }
             },
 
+            // ── 遊戲大廳 ─────────────────────────────────
+            {
+                path: 'lobby',
+                name: 'GameLobbyOverview',
+                component: () => import('@/views/GameLobby/Overview.vue'),
+                meta: { title: 'menu.lobbyOverview' }
+            },
+            {
+                path: 'lobby/games',
+                name: 'GameLobbyGames',
+                component: () => import('@/views/GameLobby/Games.vue'),
+                meta: { title: 'menu.lobbyGameList' }
+            },
+            {
+                path: 'lobby/management',
+                name: 'GameLobbyManagement',
+                component: () => import('@/views/GameLobby/Management.vue'),
+                meta: { title: 'menu.lobbyGameManagement' }
+            },
+            {
+                path: 'lobby/demo',
+                name: 'GameLobbyDemoData',
+                component: () => import('@/views/GameLobby/DemoData.vue'),
+                meta: { title: 'menu.lobbyDemoData' }
+            },
+            {
+                path: 'lobby/preview',
+                name: 'GameLobbyPreview',
+                component: () => import('@/views/GameLobby/Preview.vue'),
+                meta: { title: 'menu.lobbyPreview' }
+            },
+
             // ── 平台分析 ──────────────────────────────────
             {
                 path: 'platforms',

@@ -53,6 +53,7 @@ export function buildProviderMenu(t: Composer['t']): MenuGroup[] {
             label: t('menu.providerFinance'),
             items: [
                 { label: t('menu.providerFinanceOverview'), icon: 'pi pi-fw pi-chart-line', to: '/finance' },
+                { label: t('menu.providerFinanceAgentGames'), icon: 'pi pi-fw pi-sitemap', to: '/finance/agent-games' },
             ],
         },
         {

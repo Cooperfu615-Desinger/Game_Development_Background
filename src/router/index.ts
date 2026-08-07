@@ -467,6 +467,14 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
+                path: 'finance/agent-games',
+                name: 'ProviderFinanceAgentGames',
+                component: () => import('../views/Finance/AgentGames.vue'),
+                meta: {
+                    title: 'menu.providerFinanceAgentGames',
+                }
+            },
+            {
                 path: 'finance/settlements',
                 name: 'Settlements',
                 component: () => import('../views/Finance/Settlements.vue'),

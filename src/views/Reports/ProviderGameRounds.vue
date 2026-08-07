@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref } from 'vue'
 import Big from 'big.js'
+import { useRoute } from 'vue-router'
 import Button from 'primevue/button'
 import Column from 'primevue/column'
 import DataTable from 'primevue/datatable'
@@ -23,6 +24,7 @@ type ExportKind = 'csv' | 'xlsx'
 interface FilterState {
     dateRange: [Date | null, Date | null]
     gameQuery: string
+    gameType: ProviderGameRound['game_type'] | ''
     agentQuery: string
     roundId: string
     externalRoundId: string
@@ -41,6 +43,7 @@ interface DataTablePageEvent {
 }
 
 const toast = useToast()
+const route = useRoute()
 const pageSize = ref(10)
 const first = ref(0)
 const total = ref(0)
@@ -52,6 +55,7 @@ const loadError = ref('')
 const filters = reactive<FilterState>({
     dateRange: [null, null],
     gameQuery: '',
+    gameType: '',
     agentQuery: '',
     roundId: '',
     externalRoundId: '',
@@ -71,6 +75,13 @@ const statusOptions: Array<{ label: string; value: ProviderGameRoundStatus | '' 
     { label: '已取消', value: 'cancelled' },
     { label: '已回滾', value: 'rollback' },
     { label: '結算失敗', value: 'failed' },
+]
+
+const gameTypeOptions: Array<{ label: string; value: ProviderGameRound['game_type'] | '' }> = [
+    { label: '全部遊戲類型', value: '' },
+    { label: '老虎機', value: 'slots' },
+    { label: '單人 Crash', value: 'crash' },
+    { label: '棋牌', value: 'table' },
 ]
 
 const exportColumns: XlsxColumn[] = [
@@ -114,7 +125,10 @@ const resultDescription = computed(() => {
 
 const detailStatusDescription = computed(() => selectedRound.value?.status_description ?? '')
 
-onMounted(loadRounds)
+onMounted(() => {
+    hydrateFiltersFromRoute()
+    loadRounds()
+})
 
 function copyFilters(source: FilterState): FilterState {
     return {
@@ -136,12 +150,30 @@ function buildListPath(page = Math.floor(first.value / pageSize.value) + 1, size
     if (from) params.set('from', toApiBoundary(from, 'from'))
     if (to) params.set('to', toApiBoundary(to, 'to'))
     if (active.gameQuery.trim()) params.set('game_query', active.gameQuery.trim())
+    if (active.gameType) params.set('game_type', active.gameType)
     if (active.agentQuery.trim()) params.set('agent_query', active.agentQuery.trim())
     if (active.roundId.trim()) params.set('round_id', active.roundId.trim())
     if (active.externalRoundId.trim()) params.set('external_round_id', active.externalRoundId.trim())
     if (active.memberId.trim()) params.set('member_id', active.memberId.trim())
     if (active.status) params.set('status', active.status)
     return `/api/provider/v1/game-rounds?${params.toString()}`
+}
+
+function queryValue(key: string) {
+    const value = route.query[key]
+    return typeof value === 'string' ? value : ''
+}
+
+function hydrateFiltersFromRoute() {
+    const fromValue = queryValue('from')
+    const toValue = queryValue('to')
+    const from = fromValue ? new Date(fromValue) : null
+    const to = toValue ? new Date(toValue) : null
+    filters.dateRange = [from && !Number.isNaN(from.getTime()) ? from : null, to && !Number.isNaN(to.getTime()) ? to : null]
+    filters.gameQuery = queryValue('game_query')
+    filters.gameType = queryValue('game_type') as FilterState['gameType']
+    filters.agentQuery = queryValue('agent_query')
+    appliedFilters.value = copyFilters(filters)
 }
 
 function toApiBoundary(value: Date, boundary: 'from' | 'to') {
@@ -181,6 +213,7 @@ function applyFilters() {
 function resetFilters() {
     filters.dateRange = [null, null]
     filters.gameQuery = ''
+    filters.gameType = ''
     filters.agentQuery = ''
     filters.roundId = ''
     filters.externalRoundId = ''
@@ -399,6 +432,10 @@ function statusClass(value: ProviderGameRoundStatus) {
                 <div class="field">
                     <label for="round-agent-query">代理商名稱 / ID</label>
                     <InputText id="round-agent-query" v-model="filters.agentQuery" placeholder="搜尋代理商名稱或 ID" fluid @keyup.enter="applyFilters" />
+                </div>
+                <div class="field">
+                    <label for="round-game-type">遊戲類型</label>
+                    <Select id="round-game-type" v-model="filters.gameType" :options="gameTypeOptions" option-label="label" option-value="value" fluid />
                 </div>
                 <div class="field">
                     <label for="round-provider-id">Provider Game Round ID</label>

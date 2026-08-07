@@ -188,6 +188,7 @@
         "gameRounds": "Game Round & Reports",
         "providerGameRounds": "Production Game Rounds",
         "providerFinanceOverview": "Finance Overview",
+        "providerFinanceAgentGames": "Agent × Game Summary",
         "providerMonitoringOverview": "Monitoring Overview",
         "providerGgapOverview": "Integration Status",
         "providerNotificationsOverview": "All Notifications",

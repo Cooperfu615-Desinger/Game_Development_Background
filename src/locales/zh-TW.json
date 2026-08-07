@@ -195,6 +195,7 @@
         "gameRounds": "Game Round 與報表",
         "providerGameRounds": "正式遊戲紀錄",
         "providerFinanceOverview": "財務總覽",
+        "providerFinanceAgentGames": "代理商 × 遊戲彙總",
         "providerMonitoringOverview": "監控總覽",
         "providerGgapOverview": "對接狀態",
         "providerNotificationsOverview": "全部通知",

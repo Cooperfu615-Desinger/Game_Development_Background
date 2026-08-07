@@ -141,6 +141,7 @@ export const providerGameRoundHandlers = [
         const to = toValue ? new Date(toValue).getTime() : null
         const hasTimeFilter = from !== null || to !== null
         const gameQuery = (url.searchParams.get('game_query') ?? '').trim().toLowerCase()
+        const gameType = url.searchParams.get('game_type') as ProviderGameRound['game_type'] | null
         const agentQuery = (url.searchParams.get('agent_query') ?? '').trim().toLowerCase()
         const roundId = (url.searchParams.get('round_id') ?? '').trim()
         const externalRoundId = (url.searchParams.get('external_round_id') ?? '').trim()
@@ -150,6 +151,7 @@ export const providerGameRoundHandlers = [
         let filtered = mockGameRounds.filter((round) => {
             if (environment && environment !== 'production') return false
             if (gameQuery && !`${round.game_id} ${round.game_name}`.toLowerCase().includes(gameQuery)) return false
+            if (gameType && round.game_type !== gameType) return false
             if (agentQuery && !`${round.agent_id} ${round.agent_name}`.toLowerCase().includes(agentQuery)) return false
             if (roundId && round.round_id !== roundId) return false
             if (externalRoundId && round.external_round_id !== externalRoundId) return false

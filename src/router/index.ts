@@ -461,12 +461,9 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'finance',
                 name: 'ProviderFinance',
-                component: () => import('../views/Provider/Placeholder.vue'),
+                component: () => import('../views/Finance/Overview.vue'),
                 meta: {
                     title: 'menu.providerFinance',
-                    providerPlaceholder: {
-                        description: 'Provider 點數、USDT、投注、輸贏與 GGR 的財務總覽入口。',
-                    },
                 }
             },
             {

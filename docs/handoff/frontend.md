@@ -1,7 +1,7 @@
 # 前端交接文件：Provider Portal
 
 > 狀態日期：2026-08-07
-> 文件狀態：Provider Portal 第一輪導覽、Game Round、遊戲大廳與遊戲官網前端原型已建立；部分頁面與路由仍是舊版原型
+> 文件狀態：Provider Portal 第一輪導覽、Game Round、財務總覽、遊戲大廳與遊戲官網前端原型已建立；部分頁面與路由仍是舊版原型
 
 本文件說明目前前端實際結構、目前仍存在的舊原型邊界，以及下一階段調整原型時應遵循的方向。
 
@@ -34,6 +34,7 @@
 | `src/mocks/handlers/` | MSW mock API | 只供原型展示，不是正式 API 契約 |
 | `src/views/GameLobby/` | 遊戲大廳頁面與展示資料 | 已建立五個前端原型入口；正式資料與 DEMO API 待接 |
 | `src/views/GameWebsite/` | 遊戲官網頁面與展示資料 | 已建立三個前端原型入口；正式內容、素材與發布 API 待接 |
+| `src/views/Finance/Overview.vue` | 遊戲商財務總覽 | 已建立 `/finance` 原型；正式 Game Round 聚合、玩家去重與財務 API 待接 |
 | `src/views/Docs/` | 文件檢視器 | 目前主要載入 `docs/handoff/*.md` |
 
 ## 3. 目前路由實況
@@ -62,6 +63,7 @@
 目前已建立的 Provider 目標頁面：
 
 - `/reports`：Provider Game Round 明細，支援查詢、排序、分頁、詳情與 CSV / XLSX 匯出。
+- `/finance`：遊戲商財務總覽，包含時間 / 代理商 / 遊戲類型 / 遊戲篩選、八項統計卡片、兩組趨勢圖與遊戲表現排行。
 - `/lobby`、`/lobby/games`、`/lobby/management`、`/lobby/demo`、`/lobby/preview`：遊戲大廳五個前端原型入口。
 - `/website/banners`、`/website/content`、`/website/releases`：遊戲官網三個前端原型入口；`/website` 會導向 Banner 管理。
 
@@ -75,7 +77,7 @@
 | 遊戲管理 | 遊戲列表、詳情、數學、版本、資產、上下架 | 舊版 `Games` 頁面群仍保留；新版遊戲大廳另有獨立五頁原型 |
 | 數據與報表 | Game Round 明細、代理 × 遊戲聚合、遊戲統計 | 不再以平台 / 商戶報表作為主入口 |
 | 遊戲大廳 | 大廳總覽、遊戲清單、遊戲管理、DEMO 數據、大廳預覽 | 已建立 `/lobby/*` 五頁原型；後續接正式遊戲資料、狀態與 DEMO 數據 API |
-| 遊戲商財務 | 點數、USDT、投注、輸贏、GGR、財務彙總 | 不建立 Provider wallet；不把平台結算當成 Provider 帳務 |
+| 遊戲商財務 | `/finance` 財務總覽、代理商 × 遊戲彙總、Game Round 財務明細 | 財務總覽原型已建立；後續接正式聚合資料，不建立 Provider wallet，也不把平台結算當成 Provider 帳務 |
 | 遊戲監控與風控 | 異常 Game Round、遊戲健康、告警、風控紀錄 | 沿用 Risk 元件，但需改資料語意 |
 | GGAP 對接 | 連線、同步、請求、錯誤、回呼狀態 | 取代 `/aggregators` 的平台管理語意 |
 | 通知中心 | 站內通知列表、已讀、通知偏好 | 新增頁面與 topbar 通知入口 |
@@ -135,6 +137,8 @@ await api.patch('/api/provider/v1/games/game-001', { status: 'published' })
 - 報表是 Provider 自己整合的統計，不顯示 GGAP 對帳狀態。
 
 遊戲大廳 DEMO 數據中的 Session 只代表展示用的統計欄位，不建立獨立的 Game Session 模組。
+
+目前 `src/views/Finance/Overview.vue` 的財務總覽只使用正式環境 mock data。日期範圍與圖表粒度具備原型操作，正式版本仍需接入 Game Round 聚合 API，並由後端提供不重複玩家數、GGR 定義、USDT 換算結果與報表資料版本。詳細頁面規格見 [`GAME_VENDOR_FINANCE_OVERVIEW_SPEC.md`](../GAME_VENDOR_FINANCE_OVERVIEW_SPEC.md)。
 
 ## 8. 文件檢視器注意事項
 

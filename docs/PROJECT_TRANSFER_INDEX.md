@@ -41,6 +41,8 @@
   - 正式環境單筆遊戲紀錄頁的欄位、查詢、排序、詳情與 Excel / CSV 匯出。
 - [`GAME_VENDOR_FINANCE_REPORTING_SPEC.md`](./GAME_VENDOR_FINANCE_REPORTING_SPEC.md)
   - 遊戲商財務報表、顯示、匯出與對帳責任邊界。
+- [`GAME_VENDOR_FINANCE_OVERVIEW_SPEC.md`](./GAME_VENDOR_FINANCE_OVERVIEW_SPEC.md)
+  - 財務總覽頁面的查詢條件、統計卡片、趨勢圖、遊戲排行與原型限制。
 - [`NOTIFICATION_SPEC.md`](./NOTIFICATION_SPEC.md)
   - 通知類型、觸發、已讀、權限與站內通知中心。
 - [`PROVIDER_PORTAL_NAVIGATION_SPEC.md`](./PROVIDER_PORTAL_NAVIGATION_SPEC.md)

@@ -31,7 +31,7 @@
 
 ## 2. 目前原型狀態
 
-目前程式仍保留早期三 Portal legacy code，但主要工作區已切換為 Provider Portal 目標導覽，並完成 Game Round、遊戲大廳與遊戲官網的第一輪前端原型。它目前適合用於規格討論與畫面確認，不是正式營運系統。
+目前程式仍保留早期三 Portal legacy code，但主要工作區已切換為 Provider Portal 目標導覽，並完成 Game Round、遊戲商財務總覽、遊戲大廳與遊戲官網的第一輪前端原型。它目前適合用於規格討論與畫面確認，不是正式營運系統。
 
 | 項目 | 現況 |
 |---|---|
@@ -64,7 +64,7 @@
 | 遊戲管理 | 舊 `/games` 及數個子頁 | 保留 legacy route；新版大廳遊戲資料與公開狀態由 `/lobby/*` 原型承接 |
 | 遊戲大廳 | `/lobby`、`/lobby/games`、`/lobby/management`、`/lobby/demo`、`/lobby/preview` | 五頁前端原型已建立，後續接正式遊戲、狀態、DEMO 數據與素材 API |
 | 數據與報表 | `/reports` 已是 Provider Game Round 頁面；其他舊報表仍存在 | 持續確認 Game Round API、聚合報表與正式資料契約 |
-| 遊戲商財務 | 舊 `/finance`、`/settlements`、`/transactions` | 改為遊戲商自己的帳務與統計，不建立平台錢包 |
+| 遊戲商財務 | `/finance` 已建立財務總覽原型；舊 `/finance/settlements`、`/finance/reconciliation`、`/finance/transactions` 仍保留 | 財務總覽先完成畫面與規格骨架，後續接 Game Round 聚合、點數 / USDT 與正式 API；不建立平台錢包 |
 | 遊戲監控與風控 | `/risk` | 改為遊戲商遊戲、Game Round、異常與營運告警 |
 | GGAP 對接 | 舊 `/aggregators` | 改為 GGAP 連線、同步、請求與錯誤狀態檢視 |
 | 通知中心 | 尚未建立 | 必須建立，先以站內通知為主 |
@@ -99,6 +99,7 @@
 - `src/config/menu-sakai.ts` 已改為 Provider 目標導覽；「官方網站」底下分為「遊戲官網」與「遊戲大廳」，舊 legacy route 仍保留但不從主要導覽新增入口。
 - `src/views/GameLobby/` 已包含五個遊戲大廳原型頁、mock 資料與共用樣式。
 - `src/views/GameWebsite/` 已包含三個遊戲官網原型頁、四語系 mock 內容、Banner 單獨預覽與發布紀錄。
+- `src/views/Finance/Overview.vue` 已建立 `/finance` 財務總覽原型，包含查詢條件、八項統計卡片、兩組趨勢圖與遊戲表現排行。
 - `docs/GGAP_final_system_spec_tech.html` 是 GGAP 平台依據；Provider Portal 的補充對接契約見 `docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md`，不能直接把 GGAP Admin Portal 規格當成遊戲商畫面規格。
 
 ## 6. 現行產品規格
@@ -107,6 +108,7 @@
 - [`docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md`](../PROVIDER_GGAP_INTEGRATION_CONTRACT.md)
 - [`docs/GAME_ROUND_AND_REPORTING_SPEC.md`](../GAME_ROUND_AND_REPORTING_SPEC.md)
 - [`docs/GAME_VENDOR_FINANCE_REPORTING_SPEC.md`](../GAME_VENDOR_FINANCE_REPORTING_SPEC.md)
+- [`docs/GAME_VENDOR_FINANCE_OVERVIEW_SPEC.md`](../GAME_VENDOR_FINANCE_OVERVIEW_SPEC.md)
 - [`docs/NOTIFICATION_SPEC.md`](../NOTIFICATION_SPEC.md)
 - [`docs/PROVIDER_PORTAL_NAVIGATION_SPEC.md`](../PROVIDER_PORTAL_NAVIGATION_SPEC.md)
 - [`docs/GAME_LOBBY_SPEC.md`](../GAME_LOBBY_SPEC.md)
@@ -118,9 +120,10 @@
 
 1. 與 GGAP / 後端對接團隊確認 Provider API、身份、冪等、錯誤與權限契約。
 2. 將 Game Round 頁面接上正式資料，確認點數 / USDT、GGR 與報表指標的正式定義。
-3. 將遊戲大廳五頁接上正式遊戲資料、狀態、素材、YouTube 連結與 DEMO 數據。
-4. 將遊戲官網三頁接上正式內容、圖片、四語系與發布版本流程。
-5. 依通知規格把 `/notifications` placeholder 替換為站內通知中心。
+3. 將財務總覽接上 Game Round 聚合資料，確認日期篩選、不重複玩家數、GGR 與 USDT 規則。
+4. 將遊戲大廳五頁接上正式遊戲資料、狀態、素材、YouTube 連結與 DEMO 數據。
+5. 將遊戲官網三頁接上正式內容、圖片、四語系與發布版本流程。
+6. 依通知規格把 `/notifications` placeholder 替換為站內通知中心。
 
 ## 8. 驗證與啟動
 

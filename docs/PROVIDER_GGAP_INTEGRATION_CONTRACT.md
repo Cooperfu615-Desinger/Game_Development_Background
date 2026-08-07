@@ -1,7 +1,7 @@
 # Provider 與 GGAP 對接契約
 
 > 版本：0.1.0
-> 更新日期：2026-08-04
+> 更新日期：2026-08-06
 > 狀態：工作契約草案，需由 GGAP 與後端團隊核准
 
 本文件是 Provider Portal 對接 GGAP 的補充契約。GGAP 平台完整規格仍以 [`GGAP_final_system_spec_tech.html`](./GGAP_final_system_spec_tech.html) 為準；本文件不改寫 GGAP 平台規格。
@@ -72,12 +72,14 @@ Provider 回傳或保存：
 
 - `round_id`、`external_round_id`
 - 遊戲與 GGAP 脈絡快照
-- `bet_points`、`win_points`、`net_points`
-- `bet_usdt`、`win_usdt`、`net_usdt`
+- `bet_points`、`payout_points`、`net_result_points`
+- `bet_usdt`、`payout_usdt`、`net_result_usdt`
 - `conversion_rule_id`
 - `started_at`（可為空）與 `settled_at`
 - `status`
 - `request_id`、`provider_event_id`
+
+目前老虎機與單人 Crash 的單局淨輸贏定義為：`net_result = payout - bet`。GGR 是否與玩家淨輸贏相同，仍由 Provider 財務規格另行確認；欄位名稱必須與本節定義一致，不得另行使用舊版派彩或淨值命名。
 
 同一個外部請求重試時，Provider 必須以冪等鍵回傳相同結果，不可重複產生投注。
 

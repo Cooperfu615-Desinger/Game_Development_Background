@@ -1,8 +1,8 @@
 # 專案現況總覽 / Project Status
 
-> 狀態日期：2026-08-04
+> 狀態日期：2026-08-07
 > 目前分支：`main`
-> 文件狀態：Provider Portal 方向整理中
+> 文件狀態：Provider Portal 第一輪前端原型與工作規格已建立；正式 API、權限與後端資料契約待確認
 
 ## 1. 產品定位
 
@@ -16,7 +16,8 @@
 - 接收 GGAP 提供的代理商、會員與幣別脈絡
 - 保存完整 Game Round 與遊戲商點數 / USDT 資料
 - 遊戲數據、遊戲商財務、監控與風控報表
-- 遊戲商官網內容管理
+- 遊戲官網 Banner、法務內容、聯絡資訊與發布紀錄
+- 遊戲大廳公開遊戲資料、玩家狀態、DEMO 試玩與大廳預覽
 
 ### GGAP 負責
 
@@ -30,7 +31,7 @@
 
 ## 2. 目前原型狀態
 
-目前程式仍是早期三 Portal 原型，尚未完成 Provider Portal 導覽與責任邊界調整。它目前適合用於規格討論與畫面確認，不是正式營運系統。
+目前程式仍保留早期三 Portal legacy code，但主要工作區已切換為 Provider Portal 目標導覽，並完成 Game Round、遊戲大廳與遊戲官網的第一輪前端原型。它目前適合用於規格討論與畫面確認，不是正式營運系統。
 
 | 項目 | 現況 |
 |---|---|
@@ -41,9 +42,10 @@
 | Portal | 舊版 supplier / agent / merchant 三 Portal 架構仍在程式中 |
 | 遊戲資料 | 已有遊戲清單、詳情、數學、版本、資產等原型頁 |
 | 報表 | 已有舊版平台 / 代理 / 商戶導向報表，需重新定義為 Provider 報表 |
-| Game Round | 尚未建立正式的 Provider Game Round 資料模型與頁面 |
-| 通知中心 | 尚未建立，產品方向已確認需要 |
-| 官網管理 | 尚未建立現行 Provider Portal 頁面 |
+| Game Round | `/reports` 已建立 Provider Game Round 頁面，包含查詢、排序、分頁、詳情與 CSV / XLSX 匯出；正式 API 與資料契約仍待確認 |
+| 通知中心 | `/notifications` 已有導覽入口，目前仍是 Provider placeholder，通知功能尚未完成 |
+| 遊戲大廳 | 已建立 `/lobby`、`/lobby/games`、`/lobby/management`、`/lobby/demo`、`/lobby/preview` 五個前端原型頁 |
+| 遊戲官網 | 已建立 `/website/banners`、`/website/content`、`/website/releases` 三個前端原型頁；`/website` 會導向 Banner 管理 |
 
 ### 原型規模快照
 
@@ -59,13 +61,14 @@
 | 目標導覽 | 目前原型 | 後續處理 |
 |---|---|---|
 | 總覽 | `/dashboard` | 改為 Provider 指標與健康狀態 |
-| 遊戲管理 | `/games` 及數個子頁 | 保留並移除商戶控制語意，補上 Provider 遊戲狀態 |
-| 數據與報表 | `/reports`、舊平台 / 代理 / 商戶報表 | 改為 Game Round 聚合報表與明細查詢 |
+| 遊戲管理 | 舊 `/games` 及數個子頁 | 保留 legacy route；新版大廳遊戲資料與公開狀態由 `/lobby/*` 原型承接 |
+| 遊戲大廳 | `/lobby`、`/lobby/games`、`/lobby/management`、`/lobby/demo`、`/lobby/preview` | 五頁前端原型已建立，後續接正式遊戲、狀態、DEMO 數據與素材 API |
+| 數據與報表 | `/reports` 已是 Provider Game Round 頁面；其他舊報表仍存在 | 持續確認 Game Round API、聚合報表與正式資料契約 |
 | 遊戲商財務 | 舊 `/finance`、`/settlements`、`/transactions` | 改為遊戲商自己的帳務與統計，不建立平台錢包 |
 | 遊戲監控與風控 | `/risk` | 改為遊戲商遊戲、Game Round、異常與營運告警 |
 | GGAP 對接 | 舊 `/aggregators` | 改為 GGAP 連線、同步、請求與錯誤狀態檢視 |
 | 通知中心 | 尚未建立 | 必須建立，先以站內通知為主 |
-| 官網管理 | 尚未建立 | 後續建立遊戲商官網內容管理 |
+| 官方網站 | `官方網站 > 遊戲官網` 已有 Banner 管理、法務與聯絡資訊、發布與版本紀錄三頁原型；同群組下另有遊戲大廳 | 後續接正式內容、圖片、發布、版本與權限功能；公告與活動暫不納入 |
 | 系統設定 | `/system`、`/settings` | 保留，重新整理為 Provider 管理設定 |
 
 以下功能目前不列入新版主要導覽：代理商管理、商戶管理、會員管理、平台管理、獨立獎池管理、遊戲商自有活動。獎池與活動未來若有明確需求，再另立規格。
@@ -93,7 +96,9 @@
 - `src/services/apiClient.ts` 是目前 API 單一出口，支援 `get`、`post`、`put`、`patch`、`del`。
 - `src/mocks/` 只模擬前端流程，不是正式 API 實作。
 - `src/stores/portal.ts`、`src/stores/auth.ts` 仍包含三 Portal 與 mock identity，後續需要改為 Provider 身份模型。
-- `src/config/menu-sakai.ts` 仍是舊版選單，下一階段會先調整導覽列，其他頁面先維持空白或佔位狀態。
+- `src/config/menu-sakai.ts` 已改為 Provider 目標導覽；「官方網站」底下分為「遊戲官網」與「遊戲大廳」，舊 legacy route 仍保留但不從主要導覽新增入口。
+- `src/views/GameLobby/` 已包含五個遊戲大廳原型頁、mock 資料與共用樣式。
+- `src/views/GameWebsite/` 已包含三個遊戲官網原型頁、四語系 mock 內容、Banner 單獨預覽與發布紀錄。
 - `docs/GGAP_final_system_spec_tech.html` 是 GGAP 平台依據；Provider Portal 的補充對接契約見 `docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md`，不能直接把 GGAP Admin Portal 規格當成遊戲商畫面規格。
 
 ## 6. 現行產品規格
@@ -104,16 +109,18 @@
 - [`docs/GAME_VENDOR_FINANCE_REPORTING_SPEC.md`](../GAME_VENDOR_FINANCE_REPORTING_SPEC.md)
 - [`docs/NOTIFICATION_SPEC.md`](../NOTIFICATION_SPEC.md)
 - [`docs/PROVIDER_PORTAL_NAVIGATION_SPEC.md`](../PROVIDER_PORTAL_NAVIGATION_SPEC.md)
+- [`docs/GAME_LOBBY_SPEC.md`](../GAME_LOBBY_SPEC.md)
+- [`docs/GAME_WEBSITE_SPEC.md`](../GAME_WEBSITE_SPEC.md)
 
 上述文件是目前的工作規格。已確認的產品方向可直接作為原型調整依據；正式 API、狀態碼、精度與權限仍需後端 / GGAP 對接確認。
 
 ## 7. 下一階段優先工作
 
-1. 依導覽規格完成新版 Provider Portal 導覽列與路由骨架。
-2. 與 GGAP 對接團隊確認 Provider API、身份、冪等與錯誤契約。
-3. 確認 Game Round、點數 / USDT、GGR 與報表指標的正式定義。
-4. 依通知規格建立站內通知中心。
-5. 再依核准規格調整原型頁面與 mock API。
+1. 與 GGAP / 後端對接團隊確認 Provider API、身份、冪等、錯誤與權限契約。
+2. 將 Game Round 頁面接上正式資料，確認點數 / USDT、GGR 與報表指標的正式定義。
+3. 將遊戲大廳五頁接上正式遊戲資料、狀態、素材、YouTube 連結與 DEMO 數據。
+4. 將遊戲官網三頁接上正式內容、圖片、四語系與發布版本流程。
+5. 依通知規格把 `/notifications` placeholder 替換為站內通知中心。
 
 ## 8. 驗證與啟動
 
@@ -123,4 +130,4 @@ npm run build
 npm run type-check
 ```
 
-目前部署流程是 push 到 `main` 後由 GitHub Actions 部署 GitHub Pages。正式後端接入前，仍需完成真實登入、API 授權、錯誤狀態與資料權限驗證。
+目前部署流程是 push 到 `main` 後由 GitHub Actions 部署 GitHub Pages。正式後端接入前，仍需完成真實登入、API 授權、錯誤狀態、資料權限與內容發布權限驗證。

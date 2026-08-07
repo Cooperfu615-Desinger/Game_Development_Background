@@ -1,6 +1,6 @@
 # 後端交接文件：Provider Portal 與 GGAP 邊界
 
-> 狀態日期：2026-08-04
+> 狀態日期：2026-08-06
 > 文件狀態：Provider 邊界草案，待後端與 GGAP 對接團隊確認
 
 本專案目前沒有真實後端；`src/mocks/` 只模擬前端流程。GGAP 的平台開發在另一個專案進行，本文件先整理遊戲商 Provider Portal 需要的後端責任與對接缺口。
@@ -83,9 +83,9 @@ Game Round 是 Provider 的主要業務紀錄；不建立 Game Session 作為獨
 | 欄位 | 說明 |
 |---|---|
 | `bet_points` | Provider 遊戲點數投注額 |
-| `win_points` | Provider 遊戲點數派彩額 |
-| `net_points` | 依 Provider 定義的淨輸贏或 GGR 方向 |
-| `bet_usdt` / `win_usdt` / `net_usdt` | 對應換算值，需保存換算規則版本 |
+| `payout_points` | Provider 遊戲點數派彩額 |
+| `net_result_points` | 玩家淨輸贏點數；目前老虎機與單人 Crash 為 `payout_points - bet_points` |
+| `bet_usdt` / `payout_usdt` / `net_result_usdt` | 對應換算值，需保存換算規則版本 |
 | `conversion_rule_id` | 使用的點數 / USDT 換算規則 |
 | `started_at` | 棋牌或多人玩法可使用；slots / 單人 Crash 可為空 |
 | `settled_at` | 結算完成時間，報表主要時間欄位 |
@@ -134,7 +134,7 @@ Game Round 是 Provider 的主要業務紀錄；不建立 Game Session 作為獨
 ## 8. 待確認事項
 
 - Provider 點數的最小精度與 USDT 換算方向。
-- `net_points` 的正負定義，以及 GGR 是否另存欄位。
+- `net_result_points` 與 GGR 的關係，以及 GGR 是否另存欄位與其正負方向。
 - Crash / 棋牌未結算、取消、退款與回滾的狀態流程。
 - GGAP 會提供哪些代理商 / 商戶 / 會員欄位，以及是否需要快照保存。
 - 多人玩法的共享局號與參與者模型。

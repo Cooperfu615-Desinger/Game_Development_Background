@@ -1,7 +1,7 @@
 # 遊戲商財務與報表指標規格
 
 > 版本：0.1.0
-> 更新日期：2026-08-04
+> 更新日期：2026-08-06
 > 狀態：工作規格，報表呈現方向已確認
 
 ## 1. 產品定位
@@ -85,7 +85,7 @@ Provider 財務報表的資料來源是 Provider 保存的 Game Round；GGAP 的
 | USDT 投注總額 | `SUM(bet_usdt)` |
 | 平均投注額 | 投注總額 ÷ 投注筆數 |
 | 人均投注額 | 投注總額 ÷ 不重複玩家人數 |
-| 淨輸贏 | 依 Provider 核准的 `net_points` 定義 |
+| 淨輸贏 | `SUM(net_result_points)`；目前老虎機與單人 Crash 的單局公式為 `payout_points - bet_points` |
 | GGR | 依 Provider 核准的 GGR 定義 |
 
 若分母為 0，API 應回傳明確的 null / zero 語意，前端統一顯示 `-`，不可出現 Infinity 或 NaN。
@@ -131,7 +131,7 @@ Provider Portal 的責任是產出一致、可追溯的 Provider 數據；實際
 
 ## 10. 待確認事項
 
-- GGR 與淨輸贏的正式定義。
+- GGR 與 `net_result_points` 的關係、正式定義與正負方向。
 - 點數與 USDT 的精度、匯率 / 規則來源與四捨五入。
 - 報表資料快照與重算策略。
 - 匯出格式（CSV、XLSX）與單次上限。

@@ -1,8 +1,8 @@
 # Game Round 與遊戲紀錄 / 報表規格
 
 > 版本：0.1.0
-> 更新日期：2026-08-04
-> 狀態：工作規格，報表指標已確認方向、欄位仍待後端確認
+> 更新日期：2026-08-06
+> 狀態：工作規格，欄位命名與原型金額公式已確認，正式 API 仍待後端確認
 
 ## 1. 設計原則
 
@@ -46,11 +46,11 @@
 | 欄位 | 必填 | 說明 |
 |---|---:|---|
 | `bet_points` | 是 | Provider 點數投注額 |
-| `win_points` | 是 | Provider 點數派彩額 |
-| `net_points` | 是 | 淨輸贏或 GGR 使用的點數值，正負定義待確認 |
+| `payout_points` | 是 | Provider 點數派彩額 |
+| `net_result_points` | 是 | 玩家淨輸贏點數；目前老虎機與單人 Crash 為 `payout_points - bet_points` |
 | `bet_usdt` | 是 | 投注額換算值 |
-| `win_usdt` | 是 | 派彩額換算值 |
-| `net_usdt` | 是 | 淨值換算值 |
+| `payout_usdt` | 是 | 派彩額換算值 |
+| `net_result_usdt` | 是 | 依當次換算規則將 `net_result_points` 換算為 USDT；不可用已四捨五入的派彩與投注 USDT 再相減 |
 | `conversion_rule_id` | 是 | 當次使用的換算規則版本 |
 | `limit_rule_id` | 視需要 | 當次限紅或遊戲規則版本 |
 
@@ -118,7 +118,7 @@ settled -> rollback（只允許明確的補償 / 回滾流程）
 | 投注總額 | `SUM(bet_points)`，USDT 同理 |
 | 平均投注額 | 投注總額 ÷ 投注筆數 |
 | 人均投注額 | 投注總額 ÷ 不重複玩家人數 |
-| 輸贏 | 依正式定義使用 `win` 或 `net`，正負方向需固定 |
+| 玩家淨輸贏 | `SUM(net_result_points)`；USDT 使用 `SUM(net_result_usdt)` |
 | GGR | 依 Provider 核准的 GGR 定義計算 |
 
 筆數或玩家數為 0 時，平均值顯示 `-` 或 0 的規則需統一，不可讓前端自行決定。
@@ -156,7 +156,7 @@ settled -> rollback（只允許明確的補償 / 回滾流程）
 
 ## 10. 待確認事項
 
-- `net_points` 與 GGR 的正負方向。
+- `net_result_points` 與 GGR 的關係，以及 GGR 的正負方向。
 - 退款、回滾與補單是否以新 round 或事件表示。
 - Game Round 保存期限與查詢期限。
 - 會員 ID 是否需要遮罩或欄位權限。

@@ -1,8 +1,8 @@
 # 遊戲商 Provider Portal 文件索引
 
-> 文件版本：2.3.0
-> 更新日期：2026-08-05
-> 文件狀態：Provider Portal 方向整理中
+> 文件版本：2.4.0
+> 更新日期：2026-08-07
+> 文件狀態：Provider Portal 第一輪前端原型與工作規格已建立；正式 API、權限與資料契約待確認
 
 ## 閱讀前提
 
@@ -47,6 +47,10 @@
   - 左側導覽、頁面範圍、舊功能移除與第一階段原型調整方式。
 - [`GAME_LIST_SPEC.md`](./GAME_LIST_SPEC.md)
   - 遊戲列表欄位、環境狀態、Release 摘要、RTP Tips、篩選與互動方向。
+- [`GAME_LOBBY_SPEC.md`](./GAME_LOBBY_SPEC.md)
+  - 遊戲大廳五頁前端原型、三種玩家狀態、DEMO 數據、預覽與 Provider / GGAP 邊界。
+- [`GAME_WEBSITE_SPEC.md`](./GAME_WEBSITE_SPEC.md)
+  - 遊戲官網 Banner、法務與聯絡資訊、發布紀錄，以及公告 / 活動暫不納入的範圍。
 
 > 以上文件目前是 Provider Portal 工作規格。產品方向已確認的內容可作為原型調整依據；API 路徑、欄位精度、狀態碼與正式權限仍需後端與 GGAP 對接團隊核准。
 

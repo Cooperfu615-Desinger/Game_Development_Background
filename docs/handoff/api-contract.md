@@ -1,6 +1,6 @@
 # API 契約總表：Provider Portal 工作草案
 
-> 狀態日期：2026-08-04
+> 狀態日期：2026-08-06
 > 契約狀態：前端原型可用；Provider 正式 API 尚待 GGAP 與後端確認
 
 本文件分開記錄「目前前端 mock 的傳輸方式」與「新版 Provider API 的目標資源」。目標路徑、欄位與錯誤格式在後端確認前，不得視為正式 API。
@@ -100,11 +100,11 @@ Provider Portal 不需要自行提供代理商、商戶、會員錢包與平台�
 ```json
 {
   "bet_points": "100.00",
-  "win_points": "80.00",
-  "net_points": "-20.00",
+  "payout_points": "80.00",
+  "net_result_points": "-20.00",
   "bet_usdt": "1.00",
-  "win_usdt": "0.80",
-  "net_usdt": "-0.20",
+  "payout_usdt": "0.80",
+  "net_result_usdt": "-0.20",
   "conversion_rule_id": "rule-001",
   "started_at": null,
   "settled_at": "2026-08-04T10:00:00Z",
@@ -125,7 +125,7 @@ Provider Portal 不需要自行提供代理商、商戶、會員錢包與平台�
 | 投注總額 | `bet_points` 加總；USDT 顯示 `bet_usdt` 加總 |
 | 平均投注額 | 投注總額 ÷ 投注筆數 |
 | 人均投注額 | 投注總額 ÷ 不重複玩家人數 |
-| 輸贏 | 依正式定義計算 `win_points` 或淨輸贏 |
+| 玩家淨輸贏 | `net_result_points` 加總；目前老虎機與單人 Crash 的單局公式為 `payout_points - bet_points` |
 | GGR | 依 Provider 核准的正負方向定義 |
 
 Provider 報表不回傳 GGAP 對帳狀態；對帳由財務或 GGAP 另行處理。報表匯出必須同時提供點數與 USDT 欄位。
@@ -145,6 +145,6 @@ Provider 報表不回傳 GGAP 對帳狀態；對帳由財務或 GGAP 另行處�
 - Provider / GGAP 的簽章、回呼與重試規則。
 - Game Round 狀態機與退款 / 回滾行為。
 - 點數最小精度、USDT 匯率來源與換算四捨五入規則。
-- `net_points`、GGR 的定義與正負方向。
+- `net_result_points` 與 GGR 的關係、正式定義與正負方向。
 - 代理商、商戶、會員欄位是否需要保存快照。
 - 多人 Crash / 棋牌的共享局號與參與者欄位。

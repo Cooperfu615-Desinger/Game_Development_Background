@@ -198,7 +198,7 @@
         "providerMonitoringOverview": "Monitoring Overview",
         "providerMonitoringRiskReports": "Risk Reports",
         "providerMonitoringAlerts": "Risk Alerts / Handling",
-        "providerGgapOverview": "Integration Status",
+        "providerGgapOverview": "Integration Overview",
         "providerGgapCatalogSync": "Game Catalog Sync",
         "providerGgapRequests": "Requests & Callbacks",
         "providerGgapErrors": "Errors & Retries",

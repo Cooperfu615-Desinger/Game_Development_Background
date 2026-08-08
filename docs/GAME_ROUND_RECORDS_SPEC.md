@@ -1,4 +1,4 @@
-# Provider Portal 正式遊戲紀錄頁規格
+# Provider Portal 遊戲紀錄頁規格
 
 > 版本：0.1.0
 > 更新日期：2026-08-05
@@ -6,7 +6,7 @@
 
 ## 1. 頁面定位
 
-本頁是 Provider Portal 的「正式遊戲紀錄」頁面，資料來源為 Provider 保存的單筆 Game Round。
+本頁是 Provider Portal 的「遊戲紀錄」頁面，資料來源為 Provider 保存的單筆 Game Round。
 
 一列代表一筆 Game Round，不在本頁混合彙總統計、Demo 使用數據或 QA 測試數據。
 
@@ -42,7 +42,7 @@ Game Round 的資料模型、報表公式與跨功能原則，另見 [`GAME_ROUN
 - 棋牌特殊結算規則。
 - 多人玩法的共享局號與參與者資料。
 
-DEMO 與 QA 環境後續以獨立頁面或報表處理，不與正式遊戲紀錄混合。
+DEMO 與 QA 環境後續以獨立頁面或報表處理，不與遊戲紀錄混合。
 
 ## 3. 正式環境規則
 

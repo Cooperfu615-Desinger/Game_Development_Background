@@ -73,6 +73,8 @@ export function buildProviderMenu(t: Composer['t']): MenuGroup[] {
             label: t('menu.providerMonitoring'),
             items: [
                 { label: t('menu.providerMonitoringOverview'), icon: 'pi pi-fw pi-shield', to: '/monitoring' },
+                { label: t('menu.providerMonitoringRiskReports'), icon: 'pi pi-fw pi-chart-line', to: '/monitoring/risk-reports' },
+                { label: t('menu.providerMonitoringAlerts'), icon: 'pi pi-fw pi-bell', to: '/monitoring/alerts' },
             ],
         },
         {
@@ -80,6 +82,10 @@ export function buildProviderMenu(t: Composer['t']): MenuGroup[] {
             label: t('menu.providerGgap'),
             items: [
                 { label: t('menu.providerGgapOverview'), icon: 'pi pi-fw pi-link', to: '/ggap' },
+                { label: t('menu.providerGgapCatalogSync'), icon: 'pi pi-fw pi-sync', to: '/ggap/catalog-sync' },
+                { label: t('menu.providerGgapRequests'), icon: 'pi pi-fw pi-send', to: '/ggap/requests' },
+                { label: t('menu.providerGgapErrors'), icon: 'pi pi-fw pi-exclamation-triangle', to: '/ggap/errors' },
+                { label: t('menu.providerGgapSettings'), icon: 'pi pi-fw pi-cog', to: '/ggap/settings' },
             ],
         },
         {
@@ -87,6 +93,7 @@ export function buildProviderMenu(t: Composer['t']): MenuGroup[] {
             label: t('menu.providerNotifications'),
             items: [
                 { label: t('menu.providerNotificationsOverview'), icon: 'pi pi-fw pi-bell', to: '/notifications' },
+                { label: t('menu.providerNotificationPreferences'), icon: 'pi pi-fw pi-sliders-h', to: '/notifications/preferences' },
             ],
         },
         {

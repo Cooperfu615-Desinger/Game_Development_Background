@@ -205,7 +205,7 @@
         "providerMonitoringOverview": "監控總覽",
         "providerMonitoringRiskReports": "風控報表",
         "providerMonitoringAlerts": "風控告警／處理",
-        "providerGgapOverview": "對接狀態",
+        "providerGgapOverview": "對接總覽",
         "providerGgapCatalogSync": "遊戲目錄同步",
         "providerGgapRequests": "請求與回呼紀錄",
         "providerGgapErrors": "錯誤與重試",

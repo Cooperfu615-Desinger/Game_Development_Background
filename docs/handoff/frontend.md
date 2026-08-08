@@ -1,7 +1,7 @@
 # 前端交接文件：Provider Portal
 
 > 狀態日期：2026-08-08
-> 文件狀態：Provider Portal 第一至四階段導覽、頁面原型、Placeholder blueprint 與文件地圖已建立；正式 API、權限與資料契約待確認
+> 文件狀態：Provider Portal 第一至五階段導覽、頁面原型、Placeholder blueprint、文件地圖與整體驗證已完成；正式 API、權限與資料契約待確認
 
 本文件說明目前前端實際結構、目前仍存在的舊原型邊界，以及下一階段調整原型時應遵循的方向。
 

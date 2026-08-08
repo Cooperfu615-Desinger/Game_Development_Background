@@ -629,7 +629,7 @@ const routes: RouteRecordRaw[] = [
         path: '/login',
         name: 'Login',
         component: () => import('../views/Auth/index.vue'),
-        meta: { title: 'common.login' }
+        meta: { title: 'login.title' }
     },
 
     // ================== DEV ONLY ==================

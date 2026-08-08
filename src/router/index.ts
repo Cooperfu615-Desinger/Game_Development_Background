@@ -71,6 +71,7 @@ const routes: RouteRecordRaw[] = [
                     title: 'menu.providerOverview',
                     providerPlaceholder: {
                         description: 'Provider 遊戲、營運數據、健康狀態與待處理通知的總覽入口。',
+                        responsibility: '彙整 Provider 自有遊戲、營運摘要、健康狀態與通知入口，不管理 GGAP 平台資料。',
                     },
                 }
             },
@@ -104,6 +105,7 @@ const routes: RouteRecordRaw[] = [
                     title: 'menu.providerGameEnvironments',
                     providerPlaceholder: {
                         description: '管理正式、DEMO 與測試環境的版本狀態，以及已部署版本的發布入口。',
+                        responsibility: '呈現環境與已部署版本狀態，保留正式與 DEMO 啟用／停用流程入口；不負責建置與部署。',
                     },
                 }
             },
@@ -354,6 +356,7 @@ const routes: RouteRecordRaw[] = [
                     title: 'menu.providerMonitoring',
                     providerPlaceholder: {
                         description: '遊戲健康、Game Round 異常、GGAP 請求與 Provider 風控告警。',
+                        responsibility: '提供 Provider 遊戲服務與對接健康的監控入口，不取代 GGAP 平台級風控。',
                     },
                 }
             },
@@ -365,6 +368,7 @@ const routes: RouteRecordRaw[] = [
                     title: 'menu.providerMonitoringRiskReports',
                     providerPlaceholder: {
                         description: '查詢異常數據、風控趨勢與需要進一步檢視的遊戲營運紀錄。',
+                        responsibility: '聚合 Provider 端異常與風控報表檢視，不建立會員或代理商風控主檔。',
                     },
                 }
             },
@@ -376,6 +380,7 @@ const routes: RouteRecordRaw[] = [
                     title: 'menu.providerMonitoringAlerts',
                     providerPlaceholder: {
                         description: '查看風控告警、處理狀態與後續關閉遊戲或通知 GGAP 的操作入口。',
+                        responsibility: '承接 Provider 告警處理與營運應變入口，保留操作與通知流程位置。',
                     },
                 }
             },
@@ -387,6 +392,7 @@ const routes: RouteRecordRaw[] = [
                     title: 'menu.providerGgap',
                     providerPlaceholder: {
                         description: 'Provider 與 GGAP 之間的連線、目錄同步、請求、回呼與錯誤狀態。',
+                        responsibility: '提供 Provider 與 GGAP 對接健康的檢視入口，不管理 GGAP 平台帳務或代理商設定。',
                     },
                 }
             },
@@ -398,6 +404,7 @@ const routes: RouteRecordRaw[] = [
                     title: 'menu.providerGgapCatalogSync',
                     providerPlaceholder: {
                         description: '查看遊戲目錄同步狀態、最後同步時間與待處理的同步結果。',
+                        responsibility: '追蹤 Provider 遊戲目錄對 GGAP 的同步狀態與結果。',
                     },
                 }
             },
@@ -409,6 +416,7 @@ const routes: RouteRecordRaw[] = [
                     title: 'menu.providerGgapRequests',
                     providerPlaceholder: {
                         description: '追蹤啟動、結算與 Callback 的請求及回呼紀錄。',
+                        responsibility: '提供對接請求與回呼事件的查詢入口，保留 Game Round 追蹤脈絡。',
                     },
                 }
             },
@@ -420,6 +428,7 @@ const routes: RouteRecordRaw[] = [
                     title: 'menu.providerGgapErrors',
                     providerPlaceholder: {
                         description: '查看 GGAP 對接錯誤、重試次數、補送狀態與待處理事件。',
+                        responsibility: '聚合對接錯誤與重試狀態，保留補送與後續處理的工作入口。',
                     },
                 }
             },
@@ -431,6 +440,7 @@ const routes: RouteRecordRaw[] = [
                     title: 'menu.providerGgapSettings',
                     providerPlaceholder: {
                         description: '管理 API、Endpoint、憑證與遮罩後的對接設定展示。',
+                        responsibility: '呈現 Provider 對接設定與敏感憑證的遮罩狀態，不在原型階段保存正式密鑰。',
                     },
                 }
             },
@@ -442,6 +452,7 @@ const routes: RouteRecordRaw[] = [
                     title: 'menu.providerNotifications',
                     providerPlaceholder: {
                         description: '集中處理 GGAP 對接、Game Round、財務、監控與安全通知。',
+                        responsibility: '提供 Provider 內部通知的集中檢視入口，不取代外部郵件或 GGAP 平台通知。',
                     },
                 }
             },
@@ -453,6 +464,7 @@ const routes: RouteRecordRaw[] = [
                     title: 'menu.providerNotificationPreferences',
                     providerPlaceholder: {
                         description: '設定通知類型、嚴重度與 Provider 使用者的通知偏好入口。',
+                        responsibility: '管理 Provider 使用者對站內通知類型與嚴重度的偏好設定入口。',
                     },
                 }
             },
@@ -524,7 +536,7 @@ const routes: RouteRecordRaw[] = [
                 path: 'system/logs',
                 name: 'SystemLogs',
                 component: () => import('../views/System/Logs.vue'),
-                meta: { title: 'menu.systemLogs' }
+                meta: { title: 'menu.providerAuditLogs' }
             },
             {
                 path: 'system/approvals',
@@ -591,19 +603,19 @@ const routes: RouteRecordRaw[] = [
                 path: 'settings',
                 name: 'Settings',
                 component: () => import('../views/Settings/Index.vue'),
-                meta: { title: 'menu.providerSettings' }
+                meta: { title: 'menu.providerSettingsOverview' }
             },
             {
                 path: 'settings/api-keys',
                 name: 'ApiKeys',
                 component: () => import('../views/Settings/ApiKeys.vue'),
-                meta: { title: 'menu.apiKeys' }
+                meta: { title: 'menu.providerApiKeys' }
             },
             {
                 path: 'settings/permissions',
                 name: 'Permissions',
                 component: () => import('../views/Settings/Permissions.vue'),
-                meta: { title: 'menu.permissions' }
+                meta: { title: 'menu.providerUsersPermissions' }
             },
 
             // ── Portal 前綴路由（agent / merchant 共用頁）──────────

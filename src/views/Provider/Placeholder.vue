@@ -5,23 +5,34 @@ import { useRoute } from 'vue-router'
 
 interface PlaceholderMeta {
     description?: string
+    responsibility?: string
+    sections?: string[]
+    apiNote?: string
 }
 
 const route = useRoute()
 const { t } = useI18n()
+
+const placeholderMeta = computed<PlaceholderMeta>(() => {
+    const meta = route.meta.providerPlaceholder
+    return meta && typeof meta === 'object' ? (meta as PlaceholderMeta) : {}
+})
 
 const pageTitle = computed(() => {
     const titleKey = String(route.meta.title ?? 'menu.providerPortal')
     return t(titleKey)
 })
 
-const description = computed(() => {
-    const meta = route.meta.providerPlaceholder
-    if (meta && typeof meta === 'object' && 'description' in meta) {
-        return String((meta as PlaceholderMeta).description ?? '')
-    }
-    return 'Provider Portal 工作模組骨架已建立，後續將依核准規格接入資料與互動。'
+const description = computed(() => placeholderMeta.value.description || 'Provider Portal 工作模組骨架已建立，後續將依核准規格接入資料與互動。')
+
+const responsibility = computed(() => placeholderMeta.value.responsibility || `本頁先負責「${pageTitle.value}」的 Provider 工作入口與展示邊界，不承擔平台錢包、代理商、商戶、會員或平台結算管理。`)
+
+const contentSections = computed(() => {
+    const sections = placeholderMeta.value.sections?.filter(Boolean)
+    return sections?.length ? sections : ['摘要與狀態', '查詢條件與資料列表', '明細／操作入口']
 })
+
+const apiNote = computed(() => placeholderMeta.value.apiNote || '待確認正式 API、資料契約、權限、錯誤處理與資料空狀態後接入。')
 
 const foundationCards = [
     {
@@ -52,15 +63,56 @@ const foundationCards = [
             <div class="provider-placeholder-hero-content">
                 <div class="provider-placeholder-kicker">
                     <span class="provider-placeholder-mark"><i class="pi pi-bolt" /></span>
-                    <span>PROVIDER PORTAL / PHASE 1</span>
+                    <span>PROVIDER PORTAL / PROTOTYPE</span>
                 </div>
                 <h1 id="provider-placeholder-title">{{ pageTitle }}</h1>
                 <p>{{ description }}</p>
             </div>
             <div class="provider-placeholder-status">
                 <span class="provider-placeholder-status-dot" />
-                <span>導覽骨架已建立</span>
+                <span>Prototype / Mock data</span>
             </div>
+        </section>
+
+        <section class="provider-placeholder-context" aria-label="頁面資訊">
+            <article>
+                <span>功能說明</span>
+                <p>{{ description }}</p>
+            </article>
+            <article>
+                <span>頁面責任範圍</span>
+                <p>{{ responsibility }}</p>
+            </article>
+        </section>
+
+        <section class="provider-placeholder-blueprint" aria-labelledby="provider-placeholder-blueprint-title">
+            <div class="provider-placeholder-section-heading">
+                <div>
+                    <span class="provider-placeholder-next-label">PRIMARY CONTENT</span>
+                    <h2 id="provider-placeholder-blueprint-title">主要內容區塊</h2>
+                </div>
+                <span class="provider-placeholder-section-tag">MOCK VIEW</span>
+            </div>
+            <div class="provider-placeholder-blueprint-grid">
+                <article v-for="(section, index) in contentSections" :key="section" class="provider-placeholder-blueprint-card">
+                    <span class="provider-placeholder-blueprint-index">0{{ index + 1 }}</span>
+                    <div>
+                        <h3>{{ section }}</h3>
+                        <p>保留展示區塊與後續互動位置，正式資料接入前使用 Mock data 呈現。</p>
+                    </div>
+                    <i class="pi pi-arrow-up-right" />
+                </article>
+            </div>
+        </section>
+
+        <section class="provider-placeholder-empty" aria-label="空資料狀態">
+            <div class="provider-placeholder-empty-icon"><i class="pi pi-inbox" /></div>
+            <div>
+                <span class="provider-placeholder-next-label">EMPTY DATA STATE</span>
+                <h2>目前尚無可展示的正式資料</h2>
+                <p>這個狀態保留查詢、清除條件與重新載入的後續位置；目前不連接正式 API。</p>
+            </div>
+            <span class="provider-placeholder-empty-badge">待接資料</span>
         </section>
 
         <section class="provider-placeholder-cards" aria-label="Provider Portal foundation">
@@ -74,13 +126,13 @@ const foundationCards = [
 
         <section class="provider-placeholder-next">
             <div>
-                <span class="provider-placeholder-next-label">NEXT HANDOFF</span>
-                <h2>這個頁面先保留為清楚的工作入口</h2>
-                <p>下一階段會以 Game Round、Provider 點數 / USDT 與通知契約為基礎，逐步替換這個佔位狀態。</p>
+                <span class="provider-placeholder-next-label">NEXT API CONTRACT</span>
+                <h2>正式 API 與資料契約待接入</h2>
+                <p>{{ apiNote }}</p>
             </div>
             <div class="provider-placeholder-next-badge">
                 <i class="pi pi-arrow-right" />
-                <span>待規格核准</span>
+                <span>待正式資料</span>
             </div>
         </section>
     </div>
@@ -166,6 +218,161 @@ const foundationCards = [
     color: rgba(244, 251, 248, 0.8);
     font-size: 1rem;
     line-height: 1.75;
+}
+
+.provider-placeholder-context {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.provider-placeholder-context article,
+.provider-placeholder-blueprint,
+.provider-placeholder-empty {
+    border: 1px solid var(--hig-border-default);
+    border-radius: 1.1rem;
+    background: var(--hig-bg-surface);
+    box-shadow: var(--hig-shadow-sm);
+}
+
+.provider-placeholder-context article {
+    min-height: 8.5rem;
+    padding: 1.35rem 1.5rem;
+}
+
+.provider-placeholder-context span,
+.provider-placeholder-blueprint-card h3,
+.provider-placeholder-empty h2 {
+    color: var(--hig-text-primary);
+}
+
+.provider-placeholder-context span {
+    color: var(--hig-text-tertiary);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+}
+
+.provider-placeholder-context p {
+    margin: 0.7rem 0 0;
+    color: var(--hig-text-secondary);
+    line-height: 1.7;
+}
+
+.provider-placeholder-blueprint {
+    margin-top: 1rem;
+    padding: 1.5rem;
+}
+
+.provider-placeholder-section-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.provider-placeholder-section-heading h2 {
+    margin: 0.35rem 0 0;
+    color: var(--hig-text-primary);
+    font-size: 1.3rem;
+}
+
+.provider-placeholder-section-tag,
+.provider-placeholder-empty-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.45rem 0.65rem;
+    color: #12675d;
+    border: 1px solid #b6dfd0;
+    border-radius: 999px;
+    background: #effaf5;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.provider-placeholder-blueprint-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+.provider-placeholder-blueprint-card {
+    position: relative;
+    min-height: 8rem;
+    padding: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--hig-border-default);
+    border-radius: 0.9rem;
+    background: var(--hig-bg-surface-secondary, #f7faf9);
+}
+
+.provider-placeholder-blueprint-index {
+    display: inline-flex;
+    color: #2a9a83;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+}
+
+.provider-placeholder-blueprint-card h3 {
+    margin: 1rem 0 0.35rem;
+    font-size: 0.95rem;
+}
+
+.provider-placeholder-blueprint-card p {
+    max-width: 17rem;
+    margin: 0;
+    color: var(--hig-text-secondary);
+    font-size: 0.8rem;
+    line-height: 1.6;
+}
+
+.provider-placeholder-blueprint-card > i {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    color: #78b8a3;
+}
+
+.provider-placeholder-empty {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 1.25rem 1.5rem;
+    border-style: dashed;
+}
+
+.provider-placeholder-empty-icon {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    flex-shrink: 0;
+    place-items: center;
+    color: #12675d;
+    border-radius: 0.8rem;
+    background: #e4f6ef;
+    font-size: 1.15rem;
+}
+
+.provider-placeholder-empty h2 {
+    margin: 0.35rem 0;
+    font-size: 1rem;
+}
+
+.provider-placeholder-empty p {
+    margin: 0;
+    color: var(--hig-text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+.provider-placeholder-empty-badge {
+    margin-left: auto;
+    flex-shrink: 0;
 }
 
 .provider-placeholder-status {
@@ -280,6 +487,11 @@ const foundationCards = [
         grid-template-columns: 1fr;
     }
 
+    .provider-placeholder-context,
+    .provider-placeholder-blueprint-grid {
+        grid-template-columns: 1fr;
+    }
+
     .provider-placeholder-card {
         min-height: auto;
     }
@@ -287,6 +499,15 @@ const foundationCards = [
     .provider-placeholder-next {
         align-items: flex-start;
         flex-direction: column;
+    }
+
+    .provider-placeholder-empty {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .provider-placeholder-empty-badge {
+        margin-left: 0;
     }
 }
 </style>

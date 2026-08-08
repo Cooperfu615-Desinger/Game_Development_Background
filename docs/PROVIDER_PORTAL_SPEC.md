@@ -1,8 +1,8 @@
 # Provider Portal 產品與功能規格
 
-> 版本：0.1.0
-> 更新日期：2026-08-07
-> 狀態：工作規格，Provider Portal 方向與第一輪前端原型已建立；正式 API、權限與資料契約待確認
+> 版本：0.2.0
+> 更新日期：2026-08-08
+> 狀態：第一至四階段前端原型、頁面骨架與文件地圖已建立；正式 API、權限與資料契約待確認
 
 ## 1. 產品定位
 
@@ -44,17 +44,17 @@ Provider Portal 不建立 Provider 錢包，也不把代理商、商戶或會員
 
 ## 3. 功能範圍
 
-| 模組 | Provider Portal 責任 | 第一階段 |
+| 模組 | Provider Portal 責任 | 目前原型狀態 |
 |---|---|---|
-| 總覽 | Provider 遊戲、投注、GGR、告警與 GGAP 連線健康 | 保留 |
-| 遊戲管理 | 主資料、規則、數學、版本、資產、全域上下架 | 保留 |
-| 數據與報表 | Game Round 明細、代理商 × 遊戲聚合、遊戲統計 | 保留 |
-| 遊戲商財務 | 點數、USDT、投注、輸贏、GGR 與財務彙總 | 保留 |
-| 遊戲監控與風控 | 遊戲健康、異常局、請求失敗與風控告警 | 保留 |
-| GGAP 對接 | 連線、同步、請求、結算與錯誤狀態 | 保留 |
-| 通知中心 | 站內通知、已讀與通知偏好 | 保留 |
+| 總覽 | Provider 遊戲、投注、GGR、告警與 GGAP 連線健康 | Phase 3 mock blueprint |
+| 遊戲管理 | 主資料、規則、數學、版本、資產、全域上下架 | 既有頁面原型；環境與發布為 Placeholder blueprint |
+| 數據與報表 | 遊戲紀錄、Game Round 查詢與匯出 | `/reports` 遊戲紀錄原型已完成 |
+| 遊戲商財務 | 點數、USDT、投注、輸贏、GGR、財務總覽與代理商 × 遊戲彙總 | 財務總覽與代理商 × 遊戲彙總原型已完成 |
+| 遊戲監控與風控 | 遊戲健康、異常局、請求失敗與風控告警 | Phase 3 mock blueprint |
+| GGAP 對接 | 連線、同步、請求、結算與錯誤狀態 | Phase 3 mock blueprint |
+| 通知中心 | 站內通知、已讀與通知偏好 | Phase 3 mock blueprint |
 | 遊戲官網 | Banner、條款、隱私權、負責任遊戲、聯絡資訊與發布紀錄 | 已完成前端原型骨架，後續接正式內容、圖片、發布與權限 |
-| 遊戲大廳 | 遊戲公開資料、三種玩家狀態、DEMO 數據與完整大廳預覽 | 已完成五頁前端原型骨架，後續接正式遊戲、狀態、素材與 DEMO API |
+| 遊戲大廳 | 遊戲公開資料、三種玩家狀態、DEMO環境數據與完整大廳預覽 | 已完成五頁前端原型骨架，後續接正式遊戲、狀態、素材與 DEMO API |
 | 系統設定 | Provider 使用者、角色、權限、API key、操作紀錄 | 保留 |
 
 ### 3.1 目前前端原型成果
@@ -62,6 +62,8 @@ Provider Portal 不建立 Provider 錢包，也不把代理商、商戶或會員
 - `/reports` 已建立 Provider Game Round 明細頁原型，支援查詢、排序、分頁、詳情與 CSV / XLSX 匯出。
 - `/lobby`、`/lobby/games`、`/lobby/management`、`/lobby/demo`、`/lobby/preview` 已建立遊戲大廳五頁原型。
 - `/website/banners`、`/website/content`、`/website/releases` 已建立遊戲官網三頁原型，`/website` 會導向 Banner 管理。
+- `/dashboard`、`/games/environments`、`/monitoring/*`、`/ggap/*`、`/notifications/*` 已建立共用 Provider Placeholder 頁面骨架，依 route 顯示各模組的 mock blueprint、摘要卡、展示列表與空資料狀態。
+- 目前主要導覽共有 32 個可進入的內容頁，其中 20 個沿用既有功能原型，12 個使用 Provider Placeholder；完整頁面地圖見 [`PROVIDER_PORTAL_PAGE_MAP.md`](./PROVIDER_PORTAL_PAGE_MAP.md)。
 - 上述頁面目前以原型展示資料呈現，不代表正式 API、權限、狀態碼、精度與後端資料契約已定稿。
 
 ## 4. 已確認的核心原則
@@ -70,6 +72,7 @@ Provider Portal 不建立 Provider 錢包，也不把代理商、商戶或會員
 
 - Game Round 是主要業務紀錄單位。
 - 不建立獨立的 Game Session 導覽或報表。
+- 不建立獨立的 Game Round 財務明細頁；財務頁進入單筆資料時沿用「遊戲紀錄」頁面。
 - 老虎機與目前單人 Crash Game 以單筆結算完成的 Game Round 為主。
 - 棋牌可保留開始時間與結算時間。
 - 未來多人玩法才增加共享局號與參與者關係。
@@ -121,7 +124,7 @@ DEMO 遊戲雖然可以實際遊玩，但其 Game Round、點數與資料必須�
 
 跨機台 Jackpot 與活動未來若有需求，需另立規格，不直接恢復舊版模組。
 
-## 6. 第一階段驗收方向
+## 6. 目前原型驗收方向
 
 - 使用者能以 Provider 身份登入並只看自己的資料。
 - 可查看與管理遊戲主資料、全域上下架與維護狀態。
@@ -130,10 +133,18 @@ DEMO 遊戲雖然可以實際遊玩，但其 Game Round、點數與資料必須�
 - 可查看 GGAP 對接狀態與錯誤通知。
 - 可從通知中心查看、標示已讀並依權限處理通知。
 - 可進入遊戲官網的 Banner、法務與聯絡資訊、發布與版本紀錄原型。
-- 可進入遊戲大廳的總覽、遊戲清單、遊戲管理、DEMO 數據與大廳預覽原型。
+- 可進入遊戲大廳的總覽、遊戲清單、遊戲管理、DEMO環境數據與大廳預覽原型。
 - 舊代理商、商戶、會員與 Jackpot 頁面不出現在新版主要導覽。
 
-## 7. 待確認事項
+## 7. 目前頁面原型原則
+
+- 已完成的遊戲列表、遊戲紀錄、財務總覽、代理商 × 遊戲彙總、遊戲官網與遊戲大廳頁面保留既有內容。
+- 尚未具備正式內容的頁面先以共用 Provider Placeholder 呈現：頁面標題、功能說明、責任範圍、Prototype / Mock data 標示、預計內容區塊、展示資料、空資料狀態與 API 待接說明。
+- Prototype / Mock data 只用於確認資訊架構與欄位方向，不代表正式數字、狀態、權限或資料流。
+- 不在 Placeholder 階段新增平台錢包、商戶、會員、代理商管理、平台結算、平台對帳或活動功能。
+- 「DEMO環境數據」使用隔離 DEMO／沙盒資料，不進入遊戲紀錄與遊戲商財務。
+
+## 8. 待確認事項
 
 - Provider 內部角色與細部 permission key。
 - 遊戲狀態與 Game Round 狀態的正式枚舉值。

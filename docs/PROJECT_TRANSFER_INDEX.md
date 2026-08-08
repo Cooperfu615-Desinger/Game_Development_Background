@@ -1,8 +1,8 @@
 # 遊戲商 Provider Portal 文件索引
 
-> 文件版本：2.4.0
-> 更新日期：2026-08-07
-> 文件狀態：Provider Portal 第一輪前端原型與工作規格已建立；正式 API、權限與資料契約待確認
+> 文件版本：2.5.0
+> 更新日期：2026-08-08
+> 文件狀態：Provider Portal 第一至四階段前端原型、頁面骨架與文件地圖已建立；正式 API、權限與資料契約待確認
 
 ## 閱讀前提
 
@@ -43,14 +43,18 @@
   - 遊戲商財務報表、顯示、匯出與對帳責任邊界。
 - [`GAME_VENDOR_FINANCE_OVERVIEW_SPEC.md`](./GAME_VENDOR_FINANCE_OVERVIEW_SPEC.md)
   - 財務總覽頁面的查詢條件、統計卡片、趨勢圖、遊戲排行與原型限制。
+- [`GAME_VENDOR_FINANCE_AGENT_GAME_SPEC.md`](./GAME_VENDOR_FINANCE_AGENT_GAME_SPEC.md)
+  - 代理商 × 遊戲彙總、摘要區、欄位順序、Game Round 導入、自訂匯出、分頁與空資料狀態。
 - [`NOTIFICATION_SPEC.md`](./NOTIFICATION_SPEC.md)
   - 通知類型、觸發、已讀、權限與站內通知中心。
 - [`PROVIDER_PORTAL_NAVIGATION_SPEC.md`](./PROVIDER_PORTAL_NAVIGATION_SPEC.md)
   - 左側導覽、頁面範圍、舊功能移除與第一階段原型調整方式。
+- [`PROVIDER_PORTAL_PAGE_MAP.md`](./PROVIDER_PORTAL_PAGE_MAP.md)
+  - Provider Portal 完整導覽階層、32 個內容頁 route、頁面責任、預計內容、原型與 Placeholder 狀態、API 待辦與範圍邊界。
 - [`GAME_LIST_SPEC.md`](./GAME_LIST_SPEC.md)
   - 遊戲列表欄位、環境狀態、Release 摘要、RTP Tips、篩選與互動方向。
 - [`GAME_LOBBY_SPEC.md`](./GAME_LOBBY_SPEC.md)
-  - 遊戲大廳五頁前端原型、三種玩家狀態、DEMO 數據、預覽與 Provider / GGAP 邊界。
+  - 遊戲大廳五頁前端原型、三種玩家狀態、DEMO環境數據、預覽與 Provider / GGAP 邊界。
 - [`GAME_WEBSITE_SPEC.md`](./GAME_WEBSITE_SPEC.md)
   - 遊戲官網 Banner、法務與聯絡資訊、發布紀錄，以及公告 / 活動暫不納入的範圍。
 

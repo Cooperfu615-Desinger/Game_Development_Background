@@ -1,7 +1,7 @@
 # 前端交接文件：Provider Portal
 
-> 狀態日期：2026-08-07
-> 文件狀態：Provider Portal 第一輪導覽、Game Round、財務總覽、遊戲大廳與遊戲官網前端原型已建立；部分頁面與路由仍是舊版原型
+> 狀態日期：2026-08-08
+> 文件狀態：Provider Portal 第一至四階段導覽、頁面原型、Placeholder blueprint 與文件地圖已建立；正式 API、權限與資料契約待確認
 
 本文件說明目前前端實際結構、目前仍存在的舊原型邊界，以及下一階段調整原型時應遵循的方向。
 
@@ -36,6 +36,7 @@
 | `src/views/GameWebsite/` | 遊戲官網頁面與展示資料 | 已建立三個前端原型入口；正式內容、素材與發布 API 待接 |
 | `src/views/Finance/Overview.vue` | 遊戲商財務總覽 | 已建立 `/finance` 原型；正式 Game Round 聚合、玩家去重與財務 API 待接 |
 | `src/views/Finance/AgentGames.vue` | 代理商 × 遊戲彙總 | 已完成 `/finance/agent-games` 原型；正式 API、匯出服務與後續資料契約待接 |
+| `src/views/Provider/Placeholder.vue` | Provider Placeholder 共用頁面骨架 | 已為 12 個 route 配置群組專屬 mock blueprint；後續逐頁替換正式資料與互動 |
 | `src/views/Docs/` | 文件檢視器 | 目前主要載入 `docs/handoff/*.md` |
 
 ## 3. 目前路由實況
@@ -59,7 +60,7 @@
 - `/settings/*`
 - `/agent/*`、`/merchant/*`
 
-這些路由先不在本文件中宣告為新版已完成。下一階段應先調整側邊導覽與 Provider 路由，再逐步移除或改寫無關頁面。
+這些路由先不在本文件中宣告為新版主要導覽已完成。它們仍可作為相容或遷移參考，但不應再從 Provider 主要選單新增入口。
 
 目前已建立的 Provider 目標頁面：
 
@@ -68,23 +69,24 @@
 - `/finance/agent-games`：代理商 × 遊戲彙總，包含完整結果摘要、欄位排序、分頁、空資料狀態、自訂匯出欄位與導入 `/reports`。
 - `/lobby`、`/lobby/games`、`/lobby/management`、`/lobby/demo`、`/lobby/preview`：遊戲大廳五個前端原型入口。
 - `/website/banners`、`/website/content`、`/website/releases`：遊戲官網三個前端原型入口；`/website` 會導向 Banner 管理。
+- `/dashboard`、`/games/environments`、`/monitoring/*`、`/ggap/*`、`/notifications/*`：12 個 Provider Placeholder blueprint 入口，已包含各頁預計區塊、mock 摘要、展示列表、空資料狀態與 API 待接說明。
 
-上述頁面目前以原型展示資料呈現，正式 API、權限、狀態碼、精度與錯誤處理仍待確認。
+上述頁面目前以原型展示資料呈現，正式 API、權限、狀態碼、精度與錯誤處理仍待確認。完整頁面清單見 [`PROVIDER_PORTAL_PAGE_MAP.md`](../PROVIDER_PORTAL_PAGE_MAP.md)。
 
 ## 4. 目標導覽對應
 
 | Provider 導覽 | 頁面範圍 | 實作建議 |
 |---|---|---|
-| 總覽 | Provider 遊戲數、上架狀態、投注 / GGR、異常通知 | 先沿用 Dashboard 容器，資料改為 Provider 指標 |
-| 遊戲管理 | 遊戲列表、詳情、數學、版本、資產、上下架 | 舊版 `Games` 頁面群仍保留；新版遊戲大廳另有獨立五頁原型 |
-| 數據與報表 | Game Round 明細、代理 × 遊戲聚合、遊戲統計 | 不再以平台 / 商戶報表作為主入口 |
-| 遊戲大廳 | 大廳總覽、遊戲清單、遊戲管理、DEMO 數據、大廳預覽 | 已建立 `/lobby/*` 五頁原型；後續接正式遊戲資料、狀態與 DEMO 數據 API |
-| 遊戲商財務 | `/finance` 財務總覽、`/finance/agent-games` 代理商 × 遊戲彙總、Game Round 財務明細 | 財務總覽與代理商 × 遊戲彙總前端原型已完成；後續接正式聚合資料，不建立 Provider wallet，也不把平台結算當成 Provider 帳務 |
-| 遊戲監控與風控 | 異常 Game Round、遊戲健康、告警、風控紀錄 | 沿用 Risk 元件，但需改資料語意 |
-| GGAP 對接 | 連線、同步、請求、錯誤、回呼狀態 | 取代 `/aggregators` 的平台管理語意 |
-| 通知中心 | 站內通知列表、已讀、通知偏好 | 新增頁面與 topbar 通知入口 |
+| 總覽 | Provider 遊戲數、上架狀態、投注 / GGR、異常通知 | `/dashboard` 已有 mock blueprint；後續接 Provider 指標與健康 API |
+| 遊戲管理 | 遊戲列表、環境與發布、設定、數值、版本、素材 | 既有遊戲頁面保留；`/games/environments` 先使用 Placeholder blueprint |
+| 數據與報表 | `/reports` 遊戲紀錄、Provider 聚合報表 | 不再以平台 / 商戶報表作為主入口；不建立獨立 Game Round 財務明細 |
+| 遊戲大廳 | 大廳總覽、遊戲清單、遊戲管理、DEMO環境數據、大廳預覽 | 已建立 `/lobby/*` 五頁原型；後續接正式遊戲資料、狀態與 DEMO API |
+| 遊戲商財務 | `/finance` 財務總覽、`/finance/agent-games` 代理商 × 遊戲彙總 | 財務兩頁原型已完成；單筆 Game Round 沿用 `/reports` 遊戲紀錄，不建立第二套明細 |
+| 遊戲監控與風控 | 監控總覽、風控報表、風控告警／處理 | `/monitoring/*` 已建立群組專屬 Placeholder blueprint，後續接健康、異常與告警 API |
+| GGAP 對接 | 對接總覽、目錄同步、請求回呼、錯誤重試、對接設定 | `/ggap/*` 已建立群組專屬 Placeholder blueprint，取代 `/aggregators` 的平台管理語意 |
+| 通知中心 | 全部通知、通知偏好 | `/notifications/*` 已建立群組專屬 Placeholder blueprint，後續接站內通知 API |
 | 官方網站 | 遊戲官網 Banner、法務與聯絡資訊、發布與版本紀錄；遊戲大廳為同一主選單下的獨立子導覽 | 已建立 `/website/*` 三頁原型；公告與活動暫不納入現階段，與 GGAP 平台功能分離 |
-| 系統設定 | Provider 使用者、權限、API key、語系等 | 保留設定框架，重新定義 Provider 權限 |
+| 系統設定 | Provider 使用者、權限、API key、操作紀錄 | `/settings/*` 與 `/system/logs` 既有頁面保留，route title 已統一為 Provider 設定名稱 |
 
 ### 不應出現在 Provider 主要選單
 
@@ -138,9 +140,9 @@ await api.patch('/api/provider/v1/games/game-001', { status: 'published' })
 - 平均投注額、人均投注額等公式需由欄位旁 info tooltip 顯示。
 - 報表是 Provider 自己整合的統計，不顯示 GGAP 對帳狀態。
 
-遊戲大廳 DEMO 數據中的 Session 只代表展示用的統計欄位，不建立獨立的 Game Session 模組。
+遊戲大廳 DEMO環境數據中的 Session 只代表展示用的統計欄位，不建立獨立的 Game Session 模組。
 
-目前 `src/views/Finance/Overview.vue` 的財務總覽只使用正式環境 mock data。日期範圍與圖表粒度具備原型操作，正式版本仍需接入 Game Round 聚合 API，並由後端提供不重複玩家數、GGR 定義、USDT 換算結果與報表資料版本。詳細頁面規格見 [`GAME_VENDOR_FINANCE_OVERVIEW_SPEC.md`](../GAME_VENDOR_FINANCE_OVERVIEW_SPEC.md)。
+目前 `src/views/Finance/Overview.vue` 的財務總覽只使用正式環境 mock data。日期範圍與圖表粒度具備原型操作，正式版本仍需接入 Game Round 聚合 API，並由後端提供不重複玩家數、GGR 定義、USDT 換算結果與報表資料版本。詳細頁面規格見 [`GAME_VENDOR_FINANCE_OVERVIEW_SPEC.md`](../GAME_VENDOR_FINANCE_OVERVIEW_SPEC.md)。財務單筆資料沿用 `/reports` 遊戲紀錄，不另建財務明細頁。
 
 代理商 × 遊戲彙總的規格見 [`GAME_VENDOR_FINANCE_AGENT_GAME_SPEC.md`](../GAME_VENDOR_FINANCE_AGENT_GAME_SPEC.md)。目前已完成前端原型，承接財務總覽的近 7 日預設範圍與篩選條件，提供摘要、彙總列表、自訂匯出、分頁、空資料狀態，以及導入既有 `/reports` Game Round 明細頁的入口。正式 API、匯出服務與後續資料契約仍待接入確認。
 

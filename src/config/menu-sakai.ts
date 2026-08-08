@@ -2,7 +2,7 @@
  * Provider Portal 的 Sakai 導覽資料。
  *
  * 舊版原型仍保留 supplier / agent / merchant 三 Portal 的 route 與 view，
- * 但新版主要工作區只呈現 Provider 的八個工作群組。未列在此處的 legacy
+ * 但新版主要工作區只呈現 Provider 的九個工作群組。未列在此處的 legacy
  * route 仍可作為相容與遷移參考，不應再從主要導覽新增入口。
  */
 import type { Composer } from 'vue-i18n'
@@ -39,6 +39,18 @@ export function buildProviderMenu(t: Composer['t']): MenuGroup[] {
             label: t('menu.providerOverview'),
             items: [
                 { label: t('menu.dashboard'), icon: 'pi pi-fw pi-home', to: '/dashboard' },
+            ],
+        },
+        {
+            key: 'providerGames',
+            label: t('menu.providerGames'),
+            items: [
+                { label: t('menu.providerGameList'), icon: 'pi pi-fw pi-th-large', to: '/games' },
+                { label: t('menu.providerGameEnvironments'), icon: 'pi pi-fw pi-cloud', to: '/games/environments' },
+                { label: t('menu.providerGameSettings'), icon: 'pi pi-fw pi-sliders-h', to: '/games/settings' },
+                { label: t('menu.providerGameMath'), icon: 'pi pi-fw pi-calculator', to: '/games/math' },
+                { label: t('menu.providerGameVersions'), icon: 'pi pi-fw pi-code', to: '/games/versions' },
+                { label: t('menu.providerGameAssets'), icon: 'pi pi-fw pi-images', to: '/games/assets' },
             ],
         },
         {

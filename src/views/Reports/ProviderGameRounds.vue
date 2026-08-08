@@ -193,7 +193,7 @@ async function loadRounds() {
         console.error('Failed to load provider game rounds:', error)
         rows.value = []
         total.value = 0
-        loadError.value = '正式遊戲紀錄載入失敗，請重新載入。'
+        loadError.value = '遊戲紀錄載入失敗，請重新載入。'
     } finally {
         loading.value = false
     }
@@ -401,7 +401,7 @@ function statusClass(value: ProviderGameRoundStatus) {
         <header class="rounds-page-header">
             <div>
                 <span class="rounds-page-eyebrow">PROVIDER PORTAL / PRODUCTION RECORDS</span>
-                <h1>正式遊戲紀錄</h1>
+                <h1>遊戲紀錄</h1>
                 <p>每列代表一筆正式環境 Game Round；以 Provider 點數追蹤單局投注、派彩與玩家淨輸贏。</p>
             </div>
             <div class="rounds-production-badge">
@@ -485,7 +485,7 @@ function statusClass(value: ProviderGameRoundStatus) {
             <div v-else-if="!loading && rows.length === 0" class="rounds-state-panel">
                 <i class="pi pi-search" />
                 <div>
-                    <strong>找不到符合條件的正式遊戲紀錄</strong>
+                    <strong>找不到符合條件的遊戲紀錄</strong>
                     <p>請調整查詢條件或清除篩選內容。</p>
                 </div>
                 <Button label="清除條件" severity="secondary" outlined @click="resetFilters" />

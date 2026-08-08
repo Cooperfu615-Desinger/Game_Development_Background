@@ -16,7 +16,7 @@ const maxTrend = computed(() => Math.max(...demoGameRows.flatMap((row) => row.tr
         <header class="lobby-page-header">
             <div>
                 <span class="lobby-eyebrow">GAME LOBBY / DEMO ANALYTICS</span>
-                <h1>DEMO 數據</h1>
+                <h1>DEMO環境數據</h1>
                 <p>查看隨機 Demo 帳號在各款遊戲中的玩家數、投注額與遊玩時間，作為營運參考。</p>
             </div>
             <div class="lobby-segmented" aria-label="數據期間">

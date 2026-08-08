@@ -94,31 +94,42 @@ const routes: RouteRecordRaw[] = [
                 path: 'games',
                 name: 'Games',
                 component: () => import('../views/Games/Index.vue'),
-                meta: { title: 'menu.games' }
+                meta: { title: 'menu.providerGameList' }
+            },
+            {
+                path: 'games/environments',
+                name: 'GameEnvironments',
+                component: () => import('../views/Provider/Placeholder.vue'),
+                meta: {
+                    title: 'menu.providerGameEnvironments',
+                    providerPlaceholder: {
+                        description: '管理正式、DEMO 與測試環境的版本狀態，以及已部署版本的發布入口。',
+                    },
+                }
             },
             {
                 path: 'games/settings',
                 name: 'GameSettings',
                 component: () => import('../views/Games/Settings.vue'),
-                meta: { title: 'menu.gameSettings' }
+                meta: { title: 'menu.providerGameSettings' }
             },
             {
                 path: 'games/math',
                 name: 'GameMath',
                 component: () => import('../views/Games/Math.vue'),
-                meta: { title: 'menu.gameMath' }
+                meta: { title: 'menu.providerGameMath' }
             },
             {
                 path: 'games/versions',
                 name: 'GameVersions',
                 component: () => import('../views/Games/Versions.vue'),
-                meta: { title: 'menu.gameVersions' }
+                meta: { title: 'menu.providerGameVersions' }
             },
             {
                 path: 'games/assets',
                 name: 'GameAssets',
                 component: () => import('../views/Games/Assets.vue'),
-                meta: { title: 'menu.gameAssets' }
+                meta: { title: 'menu.providerGameAssets' }
             },
             {
                 path: 'games/merchant-access',
@@ -347,6 +358,28 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
+                path: 'monitoring/risk-reports',
+                name: 'ProviderRiskReports',
+                component: () => import('../views/Provider/Placeholder.vue'),
+                meta: {
+                    title: 'menu.providerMonitoringRiskReports',
+                    providerPlaceholder: {
+                        description: '查詢異常數據、風控趨勢與需要進一步檢視的遊戲營運紀錄。',
+                    },
+                }
+            },
+            {
+                path: 'monitoring/alerts',
+                name: 'ProviderRiskAlerts',
+                component: () => import('../views/Provider/Placeholder.vue'),
+                meta: {
+                    title: 'menu.providerMonitoringAlerts',
+                    providerPlaceholder: {
+                        description: '查看風控告警、處理狀態與後續關閉遊戲或通知 GGAP 的操作入口。',
+                    },
+                }
+            },
+            {
                 path: 'ggap',
                 name: 'ProviderGgap',
                 component: () => import('../views/Provider/Placeholder.vue'),
@@ -358,6 +391,50 @@ const routes: RouteRecordRaw[] = [
                 }
             },
             {
+                path: 'ggap/catalog-sync',
+                name: 'ProviderGgapCatalogSync',
+                component: () => import('../views/Provider/Placeholder.vue'),
+                meta: {
+                    title: 'menu.providerGgapCatalogSync',
+                    providerPlaceholder: {
+                        description: '查看遊戲目錄同步狀態、最後同步時間與待處理的同步結果。',
+                    },
+                }
+            },
+            {
+                path: 'ggap/requests',
+                name: 'ProviderGgapRequests',
+                component: () => import('../views/Provider/Placeholder.vue'),
+                meta: {
+                    title: 'menu.providerGgapRequests',
+                    providerPlaceholder: {
+                        description: '追蹤啟動、結算與 Callback 的請求及回呼紀錄。',
+                    },
+                }
+            },
+            {
+                path: 'ggap/errors',
+                name: 'ProviderGgapErrors',
+                component: () => import('../views/Provider/Placeholder.vue'),
+                meta: {
+                    title: 'menu.providerGgapErrors',
+                    providerPlaceholder: {
+                        description: '查看 GGAP 對接錯誤、重試次數、補送狀態與待處理事件。',
+                    },
+                }
+            },
+            {
+                path: 'ggap/settings',
+                name: 'ProviderGgapSettings',
+                component: () => import('../views/Provider/Placeholder.vue'),
+                meta: {
+                    title: 'menu.providerGgapSettings',
+                    providerPlaceholder: {
+                        description: '管理 API、Endpoint、憑證與遮罩後的對接設定展示。',
+                    },
+                }
+            },
+            {
                 path: 'notifications',
                 name: 'ProviderNotifications',
                 component: () => import('../views/Provider/Placeholder.vue'),
@@ -365,6 +442,17 @@ const routes: RouteRecordRaw[] = [
                     title: 'menu.providerNotifications',
                     providerPlaceholder: {
                         description: '集中處理 GGAP 對接、Game Round、財務、監控與安全通知。',
+                    },
+                }
+            },
+            {
+                path: 'notifications/preferences',
+                name: 'ProviderNotificationPreferences',
+                component: () => import('../views/Provider/Placeholder.vue'),
+                meta: {
+                    title: 'menu.providerNotificationPreferences',
+                    providerPlaceholder: {
+                        description: '設定通知類型、嚴重度與 Provider 使用者的通知偏好入口。',
                     },
                 }
             },

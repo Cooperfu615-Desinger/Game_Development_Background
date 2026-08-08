@@ -247,6 +247,8 @@ const sortedRows = computed(() => {
     })
 })
 
+const visibleRows = computed(() => sortedRows.value.slice(first.value, first.value + pageSize.value))
+
 const summary = computed(() => {
     const rows = filteredRows.value
     const totals = rows.reduce((result, row) => ({
@@ -510,22 +512,23 @@ function isNegative(value: number) {
                     <Button label="重置篩選" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" />
                 </div>
 
-                <div v-else class="agent-games-table-shell">
-                    <DataTable
-                        class="agent-games-data-table"
-                        :value="sortedRows"
-                        data-key="id"
-                        scrollable
-                        paginator
-                        :first="first"
-                        :rows="pageSize"
-                        :rows-per-page-options="[10, 20, 50]"
-                        paginator-template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink RowsPerPageDropdown"
-                        current-page-report-template="{first}-{last} / {totalRecords}"
-                        table-style="min-width: 1540px"
-                        @page="handlePage"
-                        @row-click="(event: DataTableRowEvent) => openRoundDetails(event.data)"
-                    >
+                <div v-else class="agent-games-table-stage">
+                    <div class="agent-games-table-shell">
+                        <DataTable
+                            class="agent-games-data-table"
+                            :value="sortedRows"
+                            data-key="id"
+                            scrollable
+                            paginator
+                            :first="first"
+                            :rows="pageSize"
+                            :rows-per-page-options="[10, 20, 50]"
+                            paginator-template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink RowsPerPageDropdown"
+                            current-page-report-template="{first}-{last} / {totalRecords}"
+                            table-style="min-width: 1692px"
+                            @page="handlePage"
+                            @row-click="(event: DataTableRowEvent) => openRoundDetails(event.data)"
+                        >
                         <Column frozen style="width: 216px; min-width: 216px">
                             <template #header><button v-tooltip.top="'GGAP 傳入的代理商 ID 與名稱；不含商戶維度。'" class="agent-games-sort-button" type="button" @click="requestSort('agentName')">代理商 <i :class="sortIcon('agentName')" /></button></template>
                             <template #body="{ data }"><div class="agent-games-identity-cell"><strong>{{ data.agentName }}</strong><small>{{ data.agentId }}</small></div></template>
@@ -570,11 +573,14 @@ function isNegative(value: number) {
                             <template #header><button v-tooltip.top="'人均投注額 = 投注總額 ÷ 不重複玩家人數。'" class="agent-games-sort-button" type="button" @click="requestSort('perPlayerBet')">人均投注額 <i :class="sortIcon('perPlayerBet')" /></button></template>
                             <template #body="{ data }"><div class="agent-games-money-cell"><strong>{{ data.perPlayerBet === null ? '—' : formatPoints(data.perPlayerBet) }}</strong><small>{{ data.perPlayerBetUsdt === null ? '—' : formatUsdt(data.perPlayerBetUsdt) }}</small></div></template>
                         </Column>
-                        <Column frozen align-frozen="right" style="width: 112px; min-width: 112px">
-                            <template #header><span class="agent-games-action-header">操作</span></template>
-                            <template #body="{ data }"><Button label="查看明細" icon="pi pi-arrow-up-right" text severity="secondary" @click.stop="openRoundDetails(data)" /></template>
-                        </Column>
-                    </DataTable>
+                        </DataTable>
+                    </div>
+                    <aside class="agent-games-action-rail" aria-label="操作">
+                        <div class="agent-games-action-header">操作</div>
+                        <div v-for="row in visibleRows" :key="row.id" class="agent-games-action-cell">
+                            <Button class="agent-games-action-button" label="查看明細" icon="pi pi-arrow-up-right" text severity="secondary" @click="openRoundDetails(row)" />
+                        </div>
+                    </aside>
                 </div>
             </SectionCard>
         </section>
@@ -707,7 +713,9 @@ function isNegative(value: number) {
 .agent-games-result-count { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--agent-games-muted); font-size: 0.72rem; white-space: nowrap; }
 .agent-games-result-count i { color: var(--agent-games-teal); }
 .agent-games-table-card { min-width: 0; padding: 0; overflow: hidden; }
+.agent-games-table-stage { position: relative; min-width: 0; padding-inline-end: 152px; }
 .agent-games-table-shell { min-width: 0; overflow: hidden; }
+.agent-games-table-shell :deep(.p-datatable-table-container) { max-width: 100%; overflow: auto; }
 .agent-games-data-table :deep(.p-datatable-thead > tr > th) { color: var(--agent-games-muted); background: var(--agent-games-soft); font-size: 0.7rem; }
 .agent-games-data-table :deep(.p-datatable-tbody > tr) { cursor: pointer; }
 .agent-games-data-table :deep(.p-datatable-tbody > tr:hover > td) { background: #f8fcfa; }
@@ -715,7 +723,10 @@ function isNegative(value: number) {
 .agent-games-data-table :deep(.p-frozen-column) { background: var(--hig-bg-surface); }
 .agent-games-sort-button { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; font-weight: 700; cursor: pointer; white-space: nowrap; }
 .agent-games-sort-button i { color: var(--agent-games-teal); font-size: 0.68rem; }
-.agent-games-action-header { color: var(--agent-games-muted); font-weight: 700; white-space: nowrap; }
+.agent-games-action-rail { position: absolute; inset-block-start: 0; inset-inline-end: 0; z-index: 2; width: 152px; background: var(--hig-bg-surface); border-left: 1px solid var(--hig-border-default); box-shadow: -0.45rem 0 1rem rgba(37, 87, 82, 0.05); }
+.agent-games-action-header { display: flex; height: 42.9375px; align-items: center; justify-content: center; border-bottom: 1px solid var(--hig-border-default); background: var(--agent-games-soft); color: var(--agent-games-muted); font-weight: 700; white-space: nowrap; }
+.agent-games-action-cell { display: flex; height: 64.0234px; align-items: center; justify-content: center; padding: 0.5rem; border-bottom: 1px solid var(--hig-border-subtle); min-width: 0; }
+.agent-games-action-button { max-width: 100%; white-space: nowrap; }
 .agent-games-identity-cell,
 .agent-games-money-cell,
 .agent-games-number-cell { display: grid; gap: 0.2rem; min-width: 0; }

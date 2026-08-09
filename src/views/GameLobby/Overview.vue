@@ -13,14 +13,6 @@ const topDemoGames = computed(() => [...demoGameRows].sort((a, b) => b.activePla
 
 <template>
     <div class="lobby-page page-stack">
-        <section class="lobby-hero">
-            <div class="lobby-hero-content">
-                <div class="lobby-hero-kicker"><i class="pi pi-sparkles" /> GAME LOBBY / OPERATIONS</div>
-                <h1>遊戲大廳營運總覽</h1>
-                <p>掌握遊戲推出狀態、Demo 使用熱度與目前公開內容，快速找到需要檢查或處理的遊戲。</p>
-            </div>
-        </section>
-
         <div class="lobby-stat-grid">
             <article class="lobby-stat-card">
                 <span>已推出遊戲</span>

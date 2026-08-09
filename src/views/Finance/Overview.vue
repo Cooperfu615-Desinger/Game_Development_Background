@@ -327,25 +327,6 @@ function formatDateRange(range: DateRange) {
 
 <template>
     <div class="finance-page page-stack">
-        <header class="finance-hero">
-            <div class="finance-hero-content">
-                <div class="finance-kicker"><span class="finance-kicker-mark"><i class="pi pi-chart-line" /></span> PROVIDER FINANCE / PRODUCTION</div>
-                <h1>財務總覽</h1>
-                <p>以 Provider 點數檢視正式環境的投注、派彩與遊戲表現；USDT 為每筆 Game Round 保存的換算結果對照。</p>
-            </div>
-            <div class="finance-hero-meta">
-                <span>本次查詢區間</span>
-                <strong>{{ currentRangeLabel }}</strong>
-                <small>{{ timezoneLabel }}</small>
-                <small>統計時間：<code>settled_at</code></small>
-            </div>
-        </header>
-
-        <div class="finance-prototype-banner" role="status">
-            <i class="pi pi-sparkles" />
-            <span><strong>Prototype / Mock data</strong>　目前僅展示正式環境財務總覽骨架，不接 API、不同步真實資料。</span>
-        </div>
-
         <SectionCard class="finance-filter-card">
             <template #header>
                 <div class="finance-section-heading">
@@ -525,56 +506,6 @@ function formatDateRange(range: DateRange) {
     --finance-deep: #102328;
 }
 
-.finance-hero {
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 2rem;
-    min-height: 15rem;
-    overflow: hidden;
-    padding: 2.1rem 2.25rem;
-    color: #f3fffb;
-    border: 1px solid rgba(20, 104, 104, 0.28);
-    border-radius: 1.35rem;
-    background:
-        radial-gradient(circle at 88% 12%, rgba(187, 246, 217, 0.32), transparent 24%),
-        radial-gradient(circle at 50% 120%, rgba(65, 155, 160, 0.3), transparent 42%),
-        linear-gradient(125deg, #102f3b 0%, #14545a 58%, #1a7870 100%);
-    box-shadow: 0 1.5rem 3.5rem rgba(15, 63, 67, 0.16);
-}
-
-.finance-hero::before {
-    position: absolute;
-    inset: 0;
-    opacity: 0.16;
-    background-image: linear-gradient(rgba(224, 255, 244, 0.16) 1px, transparent 1px), linear-gradient(90deg, rgba(224, 255, 244, 0.16) 1px, transparent 1px);
-    background-size: 2.15rem 2.15rem;
-    mask-image: linear-gradient(135deg, black 0%, transparent 72%);
-    content: '';
-}
-
-.finance-hero::after {
-    position: absolute;
-    top: -5rem;
-    right: 22%;
-    width: 16rem;
-    height: 16rem;
-    border: 1px solid rgba(223, 255, 245, 0.2);
-    border-radius: 50%;
-    box-shadow: 0 0 0 1.5rem rgba(223, 255, 245, 0.035), 0 0 0 3rem rgba(223, 255, 245, 0.025);
-    content: '';
-}
-
-.finance-hero-content,
-.finance-hero-meta {
-    position: relative;
-    z-index: 1;
-}
-
-.finance-hero-content { max-width: 50rem; }
-
-.finance-kicker,
 .finance-eyebrow {
     display: inline-flex;
     align-items: center;
@@ -585,49 +516,6 @@ function formatDateRange(range: DateRange) {
     letter-spacing: 0.16em;
 }
 
-.finance-kicker-mark {
-    display: grid;
-    width: 1.8rem;
-    height: 1.8rem;
-    place-items: center;
-    color: #10353d;
-    border-radius: 0.55rem;
-    background: #b7f2dc;
-}
-
-.finance-hero h1 {
-    margin: 1.2rem 0 0.6rem;
-    color: #fff;
-    font-size: clamp(2rem, 4vw, 3.35rem);
-    font-weight: 760;
-    letter-spacing: -0.055em;
-    line-height: 1.05;
-}
-
-.finance-hero p {
-    max-width: 44rem;
-    margin: 0;
-    color: rgba(243, 255, 251, 0.78);
-    font-size: 0.95rem;
-    line-height: 1.75;
-}
-
-.finance-hero-meta {
-    display: grid;
-    gap: 0.25rem;
-    min-width: 14rem;
-    padding: 1rem 1.1rem;
-    border: 1px solid rgba(183, 242, 220, 0.24);
-    border-radius: 0.95rem;
-    background: rgba(5, 31, 38, 0.26);
-}
-
-.finance-hero-meta span,
-.finance-hero-meta small { color: rgba(243, 255, 251, 0.68); font-size: 0.72rem; }
-.finance-hero-meta strong { color: #fff; font-size: 1.05rem; }
-.finance-hero-meta code { color: #c8f6e1; font-size: 0.72rem; }
-
-.finance-prototype-banner,
 .finance-inline-notice {
     display: flex;
     align-items: center;
@@ -640,9 +528,7 @@ function formatDateRange(range: DateRange) {
     font-size: 0.78rem;
 }
 
-.finance-prototype-banner strong { color: #9f513b; }
 .finance-inline-notice { margin-top: 1rem; padding-block: 0.65rem; border-color: var(--finance-line); background: var(--finance-soft); color: var(--finance-muted); }
-:global(html.app-dark) .finance-prototype-banner,
 :global(html.app-dark) .finance-inline-notice { border-color: rgba(240, 160, 128, 0.28); background: rgba(240, 160, 128, 0.08); color: #f0c0a8; }
 
 .finance-filter-card :deep(.section-card-head),
@@ -750,8 +636,6 @@ function formatDateRange(range: DateRange) {
 }
 
 @media (max-width: 640px) {
-    .finance-hero { align-items: flex-start; flex-direction: column; padding: 1.5rem; }
-    .finance-hero-meta { width: 100%; min-width: 0; }
     .finance-section-heading { align-items: stretch; flex-direction: column; }
     .finance-section-heading > .p-selectbutton,
     .finance-section-heading > .p-button { width: 100%; }

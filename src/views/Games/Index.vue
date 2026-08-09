@@ -286,18 +286,6 @@ function rtpTip(summary: RtpSummary | undefined) {
 
 <template>
     <div class="page-stack provider-games-page">
-        <header class="games-page-header">
-            <div>
-                <span class="games-page-eyebrow">PROVIDER GAME CATALOG</span>
-                <h1>遊戲列表</h1>
-                <p>快速查看所有遊戲在正式、DEMO 與測試環境的目前版本與狀態。</p>
-            </div>
-            <div class="games-page-meta">
-                <span>目前資料</span>
-                <strong>{{ rows.length }} 款遊戲</strong>
-            </div>
-        </header>
-
         <section class="games-stat-strip" aria-label="遊戲環境摘要">
             <div class="games-stat-item">
                 <span>正式上架</span>
@@ -585,60 +573,12 @@ function rtpTip(summary: RtpSummary | undefined) {
     padding-bottom: 2.5rem;
 }
 
-.games-page-header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 2rem;
-    padding: 0.35rem 0.25rem 1rem;
-}
-
 .games-page-eyebrow {
     display: inline-flex;
     color: #627a83;
     font-size: 0.68rem;
     font-weight: 800;
     letter-spacing: 0.16em;
-}
-
-.games-page-header h1 {
-    margin: 0.45rem 0 0.35rem;
-    color: #253a42;
-    font-size: clamp(1.75rem, 3vw, 2.4rem);
-    letter-spacing: -0.04em;
-}
-
-.games-page-header p {
-    max-width: 40rem;
-    margin: 0;
-    color: #6a7b82;
-    font-size: 0.9rem;
-}
-
-.games-page-meta {
-    min-width: 10rem;
-    padding: 0.8rem 1rem;
-    border: 1px solid #dfe8e5;
-    border-radius: 0.8rem;
-    background: #f5f9f7;
-    color: #58706d;
-    text-align: right;
-}
-
-.games-page-meta span,
-.games-page-meta strong {
-    display: block;
-}
-
-.games-page-meta span {
-    font-size: 0.72rem;
-    letter-spacing: 0.05em;
-}
-
-.games-page-meta strong {
-    margin-top: 0.2rem;
-    color: #295c56;
-    font-size: 1.1rem;
 }
 
 .games-stat-strip {

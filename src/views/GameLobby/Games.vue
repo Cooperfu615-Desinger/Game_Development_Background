@@ -18,18 +18,6 @@ const filteredGames = computed(() => {
 
 <template>
     <div class="lobby-page page-stack">
-        <header class="lobby-page-header">
-            <div>
-                <span class="lobby-eyebrow">GAME LOBBY / CATALOG</span>
-                <h1>遊戲清單</h1>
-                <p>檢視所有已納入遊戲大廳的遊戲、版號、上架時間與玩家可見狀態。</p>
-            </div>
-            <div class="lobby-page-meta">
-                <span>大廳遊戲</span>
-                <strong>{{ filteredGames.length }} / {{ lobbyGames.length }} 款</strong>
-            </div>
-        </header>
-
         <section class="lobby-panel">
             <div class="lobby-toolbar">
                 <div class="lobby-toolbar-actions" style="flex: 1; max-width: 34rem;">

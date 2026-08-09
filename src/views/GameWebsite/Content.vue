@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, reactive, ref, watch } from 'vue'
-import { RouterLink } from 'vue-router'
 import {
     websiteContact,
     websiteContent,
@@ -51,24 +50,6 @@ const publishContent = () => showNotice(`${activeTab.value.label} 已模擬發�
 
 <template>
     <div class="website-page">
-        <header class="website-page-header">
-            <div>
-                <div class="website-page-kicker">OFFICIAL WEBSITE / CONTENT</div>
-                <h1 class="website-page-title">法務與聯絡資訊</h1>
-                <p class="website-page-description">集中管理玩家看到的條款、政策、負責任遊戲與聯絡資訊。低頻更新內容以分區發布維持清楚的維護流程。</p>
-            </div>
-            <div class="website-header-actions">
-                <RouterLink class="website-button" :to="{ name: 'GameWebsiteBanners' }">
-                    <i class="pi pi-images" />
-                    Banner 管理
-                </RouterLink>
-                <RouterLink class="website-button" :to="{ name: 'GameWebsiteReleases' }">
-                    <i class="pi pi-history" />
-                    發布紀錄
-                </RouterLink>
-            </div>
-        </header>
-
         <div v-if="notice" class="website-notice" role="status">
             <i class="pi pi-check-circle" />
             <span>{{ notice }}</span>

@@ -405,25 +405,6 @@ function isNegative(value: number) {
 
 <template>
     <div class="agent-games-page page-stack">
-        <header class="agent-games-hero">
-            <div class="agent-games-hero-content">
-                <div class="agent-games-kicker"><span class="agent-games-kicker-mark"><i class="pi pi-sitemap" /></span> PROVIDER FINANCE / AGENT × GAME</div>
-                <h1>代理商 × 遊戲彙總</h1>
-                <p>以代理商與遊戲為聚合單位，檢視正式環境有效 Game Round 的投注、派彩、GGR 與活躍玩家規模。</p>
-            </div>
-            <div class="agent-games-hero-meta">
-                <span>目前查詢區間</span>
-                <strong>{{ currentRangeLabel }}</strong>
-                <small>{{ timezoneLabel }}</small>
-                <small>統計時間：<code>settled_at</code></small>
-            </div>
-        </header>
-
-        <div class="agent-games-prototype-banner" role="status">
-            <i class="pi pi-sparkles" />
-            <span><strong>Prototype / Mock data</strong>　僅展示 production 財務彙總骨架；不接正式 API、不同步或持久化真實資料。</span>
-        </div>
-
         <SectionCard class="agent-games-filter-card">
             <template #header>
                 <div class="agent-games-section-heading">
@@ -629,47 +610,7 @@ function isNegative(value: number) {
     padding-bottom: 2.75rem;
 }
 
-.agent-games-hero {
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 2rem;
-    overflow: hidden;
-    padding: 2.15rem 2.2rem;
-    border-radius: 1.45rem;
-    background: linear-gradient(115deg, #092d35 0%, #104f53 54%, #1b6765 100%);
-    box-shadow: 0 1.1rem 2.5rem rgba(13, 75, 73, 0.18);
-}
-
-.agent-games-hero::before,
-.agent-games-hero::after {
-    position: absolute;
-    border: 1px solid rgba(183, 242, 220, 0.14);
-    border-radius: 50%;
-    content: '';
-    pointer-events: none;
-}
-
-.agent-games-hero::before { width: 21rem; height: 21rem; right: 11%; bottom: -17rem; }
-.agent-games-hero::after { width: 12rem; height: 12rem; right: 2%; top: -8rem; }
-
-.agent-games-hero-content,
-.agent-games-hero-meta { position: relative; z-index: 1; }
-.agent-games-hero-content { max-width: 54rem; }
-.agent-games-kicker { display: flex; align-items: center; gap: 0.5rem; color: #b7f2dc; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.15em; }
-.agent-games-kicker-mark { display: grid; width: 1.8rem; height: 1.8rem; place-items: center; color: #10353d; border-radius: 0.55rem; background: #b7f2dc; }
-.agent-games-hero h1 { margin: 1.1rem 0 0.55rem; color: #fff; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 760; letter-spacing: -0.055em; line-height: 1.05; }
-.agent-games-hero p { max-width: 50rem; margin: 0; color: rgba(243, 255, 251, 0.78); font-size: 0.95rem; line-height: 1.75; }
-.agent-games-hero-meta { display: grid; gap: 0.25rem; min-width: 15rem; padding: 1rem 1.1rem; border: 1px solid rgba(183, 242, 220, 0.24); border-radius: 0.95rem; background: rgba(5, 31, 38, 0.26); }
-.agent-games-hero-meta span,
-.agent-games-hero-meta small { color: rgba(243, 255, 251, 0.68); font-size: 0.72rem; }
-.agent-games-hero-meta strong { color: #fff; font-size: 1.05rem; }
-.agent-games-hero-meta code { color: #c8f6e1; font-size: 0.72rem; }
-
-.agent-games-prototype-banner,
 .agent-games-inline-notice { display: flex; align-items: center; gap: 0.55rem; padding: 0.75rem 0.9rem; border: 1px solid #edd7c9; border-radius: 0.75rem; background: #fff8f2; color: #8d5c43; font-size: 0.78rem; }
-.agent-games-prototype-banner strong { color: #9f513b; }
 .agent-games-inline-notice { margin-top: 1rem; padding-block: 0.65rem; border-color: var(--agent-games-line); background: var(--agent-games-soft); color: var(--agent-games-muted); }
 .agent-games-filter-card :deep(.section-card-head) { margin-bottom: 1.1rem; }
 .agent-games-section-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; width: 100%; }
@@ -768,14 +709,11 @@ function isNegative(value: number) {
 }
 
 @media (max-width: 900px) {
-    .agent-games-hero { align-items: flex-start; flex-direction: column; }
-    .agent-games-hero-meta { width: 100%; min-width: 0; }
     .agent-games-results-toolbar { align-items: flex-start; flex-direction: column; }
     .agent-games-results-actions { width: 100%; justify-content: space-between; }
 }
 
 @media (max-width: 640px) {
-    .agent-games-hero { padding: 1.5rem; }
     .agent-games-section-heading { align-items: stretch; flex-direction: column; }
     .agent-games-filter-grid { grid-template-columns: 1fr; }
     .agent-games-filter-range,

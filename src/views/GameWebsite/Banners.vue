@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, reactive, ref, watch } from 'vue'
-import { RouterLink } from 'vue-router'
 import {
     websiteBanners,
     websiteLocales,
@@ -79,24 +78,6 @@ const publishBanner = () => showNotice('已模擬發布流程，正式 API 串�
 
 <template>
     <div class="website-page">
-        <header class="website-page-header">
-            <div>
-                <div class="website-page-kicker">OFFICIAL WEBSITE / BANNERS</div>
-                <h1 class="website-page-title">Banner 管理</h1>
-                <p class="website-page-description">管理官網推廣視覺與文案。Banner 可獨立預覽與發布，不需要開啟整體官網預覽。</p>
-            </div>
-            <div class="website-header-actions">
-                <RouterLink class="website-button" :to="{ name: 'GameWebsiteReleases' }">
-                    <i class="pi pi-history" />
-                    發布紀錄
-                </RouterLink>
-                <button class="website-button primary" type="button" @click="showNotice('新增 Banner 流程已預留，接入素材上傳 API 後啟用。')">
-                    <i class="pi pi-plus" />
-                    新增 Banner
-                </button>
-            </div>
-        </header>
-
         <div v-if="notice" class="website-notice" role="status">
             <i class="pi pi-check-circle" />
             <span>{{ notice }}</span>

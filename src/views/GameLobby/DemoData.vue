@@ -13,16 +13,12 @@ const maxTrend = computed(() => Math.max(...demoGameRows.flatMap((row) => row.tr
 
 <template>
     <div class="lobby-page page-stack">
-        <header class="lobby-page-header">
-            <div>
-                <span class="lobby-eyebrow">GAME LOBBY / DEMO ANALYTICS</span>
-                <h1>DEMO環境數據</h1>
-                <p>查看隨機 Demo 帳號在各款遊戲中的玩家數、投注額與遊玩時間，作為營運參考。</p>
-            </div>
+        <div class="lobby-toolbar">
+            <span class="lobby-helper">數據期間</span>
             <div class="lobby-segmented" aria-label="數據期間">
                 <button v-for="option in ['今日', '近 7 日', '近 30 日']" :key="option" :class="{ 'is-active': period === option }" type="button" @click="period = option">{{ option }}</button>
             </div>
-        </header>
+        </div>
 
         <div class="lobby-stat-grid">
             <article class="lobby-stat-card"><span>目前在線玩家</span><strong>{{ totalActivePlayers }}</strong><small>即時 Demo 帳號</small></article>

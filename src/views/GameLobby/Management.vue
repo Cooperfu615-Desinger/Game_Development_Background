@@ -48,18 +48,6 @@ function runCheck() {
 
 <template>
     <div class="lobby-page page-stack">
-        <header class="lobby-page-header">
-            <div>
-                <span class="lobby-eyebrow">GAME LOBBY / MANAGEMENT</span>
-                <h1>遊戲管理</h1>
-                <p>管理遊戲資料、公開內容、YouTube 影片連結與玩家看到的推出狀態。</p>
-            </div>
-            <div class="lobby-toolbar-actions">
-                <router-link class="lobby-button is-secondary" to="/lobby/preview">開啟大廳預覽 <i class="pi pi-external-link" /></router-link>
-                <button class="lobby-button" type="button" @click="saveDraft">儲存草稿</button>
-            </div>
-        </header>
-
         <section class="lobby-panel management-context">
             <div>
                 <span class="lobby-eyebrow">CURRENT GAME</span>
@@ -141,7 +129,7 @@ function runCheck() {
                         </ul>
                     </div>
                 </div>
-                <div class="lobby-toolbar management-footer-actions"><span class="lobby-helper">骨架階段先以本地狀態展示，正式版本會接入檢查結果與權限。</span><div class="lobby-toolbar-actions"><button class="lobby-button is-secondary" type="button" @click="runCheck">重新檢查</button><router-link class="lobby-button" :to="{ name: 'GameLobbyPreview', query: { gameId: selectedGame.id } }">預覽整個大廳</router-link></div></div>
+                <div class="lobby-toolbar management-footer-actions"><span class="lobby-helper">骨架階段先以本地狀態展示，正式版本會接入檢查結果與權限。</span><div class="lobby-toolbar-actions"><button class="lobby-button is-secondary" type="button" @click="runCheck">重新檢查</button><button class="lobby-button" type="button" @click="saveDraft">儲存草稿</button><router-link class="lobby-button" :to="{ name: 'GameLobbyPreview', query: { gameId: selectedGame.id } }">預覽整個大廳</router-link></div></div>
             </div>
         </section>
     </div>

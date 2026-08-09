@@ -17,22 +17,15 @@ const filteredGames = computed(() => category.value === '全部' ? lobbyGames : 
 
 <template>
     <div class="lobby-page page-stack">
-        <header class="lobby-page-header">
-            <div>
-                <span class="lobby-eyebrow">GAME LOBBY / FULL PREVIEW</span>
-                <h1>大廳預覽</h1>
-                <p>直接查看目前遊戲大廳的完整玩家端成果，不啟動正式遊戲。</p>
-            </div>
-            <div class="lobby-toolbar-actions">
-                <div class="lobby-segmented" aria-label="預覽資料版本">
-                    <button :class="{ 'is-active': dataMode === '正式版本' }" type="button" @click="dataMode = '正式版本'">正式版本</button>
-                    <button :class="{ 'is-active': dataMode === '編輯草稿' }" type="button" @click="dataMode = '編輯草稿'">編輯草稿</button>
-                </div>
-            </div>
-        </header>
-
         <section class="lobby-panel">
             <div class="lobby-toolbar">
+                <div class="lobby-toolbar-actions">
+                    <span class="lobby-helper">資料版本</span>
+                    <div class="lobby-segmented" aria-label="預覽資料版本">
+                        <button :class="{ 'is-active': dataMode === '正式版本' }" type="button" @click="dataMode = '正式版本'">正式版本</button>
+                        <button :class="{ 'is-active': dataMode === '編輯草稿' }" type="button" @click="dataMode = '編輯草稿'">編輯草稿</button>
+                    </div>
+                </div>
                 <div class="lobby-toolbar-actions">
                     <span class="lobby-helper">預覽裝置</span>
                     <div class="lobby-segmented">

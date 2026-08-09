@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { RouterLink } from 'vue-router'
 import { websiteReleases, websiteStatusClass, type WebsiteReleaseStatus } from './data'
 import './website.css'
 
@@ -26,24 +25,6 @@ const showNotice = (message: string) => {
 
 <template>
     <div class="website-page">
-        <header class="website-page-header">
-            <div>
-                <div class="website-page-kicker">OFFICIAL WEBSITE / RELEASES</div>
-                <h1 class="website-page-title">發布與版本紀錄</h1>
-                <p class="website-page-description">以簡單時間線追蹤 Banner、法務內容與聯絡資訊的發布狀態，不建立複雜的網站版本打包流程。</p>
-            </div>
-            <div class="website-header-actions">
-                <RouterLink class="website-button" :to="{ name: 'GameWebsiteBanners' }">
-                    <i class="pi pi-images" />
-                    Banner 管理
-                </RouterLink>
-                <button class="website-button primary" type="button" @click="showNotice('建立版本流程已預留，待正式發布 API 確認後啟用。')">
-                    <i class="pi pi-plus" />
-                    建立版本
-                </button>
-            </div>
-        </header>
-
         <div v-if="notice" class="website-notice" role="status">
             <i class="pi pi-check-circle" />
             <span>{{ notice }}</span>

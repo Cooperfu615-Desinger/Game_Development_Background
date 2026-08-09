@@ -398,21 +398,6 @@ function statusClass(value: ProviderGameRoundStatus) {
 
 <template>
     <div class="page-stack provider-rounds-page">
-        <header class="rounds-page-header">
-            <div>
-                <span class="rounds-page-eyebrow">PROVIDER PORTAL / PRODUCTION RECORDS</span>
-                <h1>遊戲紀錄</h1>
-                <p>每列代表一筆正式環境 Game Round；以 Provider 點數追蹤單局投注、派彩與玩家淨輸贏。</p>
-            </div>
-            <div class="rounds-production-badge">
-                <span class="rounds-production-dot" />
-                <div>
-                    <strong>正式環境</strong>
-                    <small>固定查詢 production</small>
-                </div>
-            </div>
-        </header>
-
         <section class="rounds-scope-rail" aria-label="資料範圍提示">
             <div><i class="pi pi-database" /><span>資料範圍</span><strong>Production only</strong></div>
             <div><i class="pi pi-calculator" /><span>金額邏輯</span><strong>淨輸贏 = 派彩額 − 投注額</strong></div>
@@ -648,17 +633,7 @@ function statusClass(value: ProviderGameRoundStatus) {
 
 <style scoped>
 .provider-rounds-page {
-    max-width: 1680px;
-    margin: 0 auto;
     padding-bottom: 2.5rem;
-}
-
-.rounds-page-header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 2rem;
-    padding: 0.35rem 0.25rem 1rem;
 }
 
 .rounds-page-eyebrow {
@@ -668,48 +643,6 @@ function statusClass(value: ProviderGameRoundStatus) {
     font-weight: 800;
     letter-spacing: 0.16em;
 }
-
-.rounds-page-header h1 {
-    margin: 0.45rem 0 0.35rem;
-    color: #253a42;
-    font-size: clamp(1.75rem, 3vw, 2.4rem);
-    letter-spacing: -0.04em;
-}
-
-.rounds-page-header p {
-    max-width: 50rem;
-    margin: 0;
-    color: #6a7b82;
-    font-size: 0.9rem;
-}
-
-.rounds-production-badge {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    min-width: 11rem;
-    padding: 0.75rem 1rem;
-    border: 1px solid #c8e4d9;
-    border-radius: 0.9rem;
-    background: #f3fbf7;
-    color: #1f6558;
-}
-
-.rounds-production-dot {
-    width: 0.65rem;
-    height: 0.65rem;
-    border-radius: 50%;
-    background: #2f9a6f;
-    box-shadow: 0 0 0 0.28rem rgba(47, 154, 111, 0.12);
-}
-
-.rounds-production-badge strong,
-.rounds-production-badge small {
-    display: block;
-}
-
-.rounds-production-badge strong { font-size: 0.85rem; }
-.rounds-production-badge small { margin-top: 0.14rem; color: #6a8b81; font-size: 0.7rem; }
 
 .rounds-scope-rail {
     display: grid;
@@ -854,8 +787,7 @@ function statusClass(value: ProviderGameRoundStatus) {
 }
 
 @media (max-width: 700px) {
-    .rounds-page-header, .rounds-list-toolbar { align-items: flex-start; flex-direction: column; }
-    .rounds-production-badge { width: 100%; }
+    .rounds-list-toolbar { align-items: flex-start; flex-direction: column; }
     .rounds-filter-grid { grid-template-columns: 1fr; }
     .rounds-filter-range { grid-column: auto; }
     .rounds-filter-actions { justify-content: stretch; }

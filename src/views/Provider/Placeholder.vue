@@ -40,6 +40,7 @@ interface PlaceholderBlueprint {
 
 const route = useRoute()
 const { t } = useI18n()
+const showPlaceholderHero = computed(() => route.name !== 'GameEnvironments')
 
 const placeholderMeta = computed<PlaceholderMeta>(() => {
     const meta = route.meta.providerPlaceholder
@@ -410,8 +411,8 @@ const foundationCards = [
 </script>
 
 <template>
-    <div class="provider-placeholder-page page-stack">
-        <section class="provider-placeholder-hero" aria-labelledby="provider-placeholder-title">
+    <div :class="['provider-placeholder-page', 'page-stack', { 'provider-placeholder-page--wide': route.name === 'GameEnvironments' }]">
+        <section v-if="showPlaceholderHero" class="provider-placeholder-hero" aria-labelledby="provider-placeholder-title">
             <div class="provider-placeholder-grid" aria-hidden="true" />
             <div class="provider-placeholder-hero-content">
                 <div class="provider-placeholder-kicker">
@@ -534,6 +535,10 @@ const foundationCards = [
     max-width: 1180px;
     margin: 0 auto;
     padding-bottom: 2rem;
+}
+
+.provider-placeholder-page--wide {
+    max-width: 1500px;
 }
 
 .provider-placeholder-hero {

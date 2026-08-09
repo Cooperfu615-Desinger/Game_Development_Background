@@ -1,7 +1,7 @@
 # 遊戲商 Provider Portal 文件索引
 
-> 文件版本：2.5.0
-> 更新日期：2026-08-08
+> 文件版本：2.6.0
+> 更新日期：2026-08-09
 > 文件狀態：Provider Portal 第一至五階段導覽、頁面原型、文件地圖與整體驗證已完成；正式 API、權限與資料契約待確認
 
 ## 閱讀前提
@@ -49,6 +49,8 @@
   - 通知類型、觸發、已讀、權限與站內通知中心。
 - [`PROVIDER_PORTAL_NAVIGATION_SPEC.md`](./PROVIDER_PORTAL_NAVIGATION_SPEC.md)
   - 左側導覽、頁面範圍、舊功能移除、原型階段成果與整體驗證結果。
+- [`PROVIDER_PORTAL_UI_LAYOUT_SPEC.md`](./PROVIDER_PORTAL_UI_LAYOUT_SPEC.md)
+  - Provider Portal 共用頁面寬度、Placeholder 說明區塊與響應式版型規則。
 - [`PROVIDER_PORTAL_PAGE_MAP.md`](./PROVIDER_PORTAL_PAGE_MAP.md)
   - Provider Portal 完整導覽階層、32 個內容頁 route、頁面責任、預計內容、原型與 Placeholder 狀態、API 待辦與範圍邊界。
 - [`GAME_LIST_SPEC.md`](./GAME_LIST_SPEC.md)

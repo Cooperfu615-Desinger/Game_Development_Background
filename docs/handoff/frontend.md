@@ -1,11 +1,11 @@
 # 前端交接文件：Provider Portal
 
-> 狀態日期：2026-08-08
+> 狀態日期：2026-08-09
 > 文件狀態：Provider Portal 第一至五階段導覽、頁面原型、Placeholder blueprint、文件地圖與整體驗證已完成；正式 API、權限與資料契約待確認
 
 本文件說明目前前端實際結構、目前仍存在的舊原型邊界，以及下一階段調整原型時應遵循的方向。
 
-產品範圍與導覽依據：[`PROVIDER_PORTAL_SPEC.md`](../PROVIDER_PORTAL_SPEC.md)、[`PROVIDER_PORTAL_NAVIGATION_SPEC.md`](../PROVIDER_PORTAL_NAVIGATION_SPEC.md)。
+產品範圍、導覽與版型依據：[`PROVIDER_PORTAL_SPEC.md`](../PROVIDER_PORTAL_SPEC.md)、[`PROVIDER_PORTAL_NAVIGATION_SPEC.md`](../PROVIDER_PORTAL_NAVIGATION_SPEC.md)、[`PROVIDER_PORTAL_UI_LAYOUT_SPEC.md`](../PROVIDER_PORTAL_UI_LAYOUT_SPEC.md)。
 
 ## 1. 前端定位
 
@@ -69,9 +69,14 @@
 - `/finance/agent-games`：代理商 × 遊戲彙總，包含完整結果摘要、欄位排序、分頁、空資料狀態、自訂匯出欄位與導入 `/reports`。
 - `/lobby`、`/lobby/games`、`/lobby/management`、`/lobby/demo`、`/lobby/preview`：遊戲大廳五個前端原型入口。
 - `/website/banners`、`/website/content`、`/website/releases`：遊戲官網三個前端原型入口；`/website` 會導向 Banner 管理。
-- `/dashboard`、`/games/environments`、`/monitoring/*`、`/ggap/*`、`/notifications/*`：12 個 Provider Placeholder blueprint 入口，已包含各頁預計區塊、mock 摘要、展示列表、空資料狀態與 API 待接說明。
+- `/dashboard`、`/games/environments`、`/monitoring/*`、`/ggap/*`、`/notifications/*`：12 個 Provider Placeholder blueprint 入口，依頁面成熟度顯示說明區塊、mock 摘要、展示列表、空資料狀態與 API 待接說明；監控總覽目前從五張摘要卡開始。
 
 上述頁面目前以原型展示資料呈現，正式 API、權限、狀態碼、精度與錯誤處理仍待確認。完整頁面清單見 [`PROVIDER_PORTAL_PAGE_MAP.md`](../PROVIDER_PORTAL_PAGE_MAP.md)。
+
+## 3.1 頁面版型
+
+- 1500px 寬版頁、無固定最大寬度頁與 Placeholder 說明區塊的使用規則，統一見 [`PROVIDER_PORTAL_UI_LAYOUT_SPEC.md`](../PROVIDER_PORTAL_UI_LAYOUT_SPEC.md)。
+- 新增頁面前先判斷內容型態與寬度類別；不要複製既有頁面的 `max-width`，也不要在已具備主要內容的頁面保留重複說明區塊。
 
 ## 4. 目標導覽對應
 

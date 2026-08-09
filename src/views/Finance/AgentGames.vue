@@ -605,8 +605,6 @@ function isNegative(value: number) {
     --agent-games-coral: #c9785e;
     --agent-games-line: #d9e8e3;
     --agent-games-soft: #f1f8f5;
-    max-width: 1720px;
-    margin: 0 auto;
     padding-bottom: 2.75rem;
 }
 

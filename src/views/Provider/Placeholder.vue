@@ -41,6 +41,7 @@ interface PlaceholderBlueprint {
 const route = useRoute()
 const { t } = useI18n()
 const showPlaceholderHero = computed(() => route.name !== 'GameEnvironments')
+const isMonitoringOverview = computed(() => route.name === 'ProviderMonitoring')
 
 const placeholderMeta = computed<PlaceholderMeta>(() => {
     const meta = route.meta.providerPlaceholder
@@ -411,8 +412,8 @@ const foundationCards = [
 </script>
 
 <template>
-    <div :class="['provider-placeholder-page', 'page-stack', { 'provider-placeholder-page--wide': route.name === 'GameEnvironments' }]">
-        <section v-if="showPlaceholderHero" class="provider-placeholder-hero" aria-labelledby="provider-placeholder-title">
+    <div :class="['provider-placeholder-page', 'page-stack', { 'provider-placeholder-page--wide': route.name === 'GameEnvironments' || isMonitoringOverview }]">
+        <section v-if="showPlaceholderHero && !isMonitoringOverview" class="provider-placeholder-hero" aria-labelledby="provider-placeholder-title">
             <div class="provider-placeholder-grid" aria-hidden="true" />
             <div class="provider-placeholder-hero-content">
                 <div class="provider-placeholder-kicker">
@@ -428,7 +429,7 @@ const foundationCards = [
             </div>
         </section>
 
-        <section class="provider-placeholder-context" aria-label="頁面資訊">
+        <section v-if="!isMonitoringOverview" class="provider-placeholder-context" aria-label="頁面資訊">
             <article>
                 <span>功能說明</span>
                 <p>{{ description }}</p>
@@ -439,7 +440,7 @@ const foundationCards = [
             </article>
         </section>
 
-        <section class="provider-placeholder-blueprint" aria-labelledby="provider-placeholder-blueprint-title">
+        <section v-if="!isMonitoringOverview" class="provider-placeholder-blueprint" aria-labelledby="provider-placeholder-blueprint-title">
             <div class="provider-placeholder-section-heading">
                 <div>
                     <span class="provider-placeholder-next-label">PRIMARY CONTENT</span>

@@ -489,8 +489,6 @@ function formatDateRange(range: DateRange) {
     --finance-blue: #4675a7;
     --finance-coral: #d98966;
     --finance-deep: #10343a;
-    max-width: 1400px;
-    margin: 0 auto;
     padding-bottom: 2rem;
     color: var(--finance-ink);
 }

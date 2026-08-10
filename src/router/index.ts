@@ -371,13 +371,9 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'monitoring/alerts',
                 name: 'ProviderRiskAlerts',
-                component: () => import('../views/Provider/Placeholder.vue'),
+                component: () => import('../views/Provider/RiskAlerts.vue'),
                 meta: {
                     title: 'menu.providerMonitoringAlerts',
-                    providerPlaceholder: {
-                        description: '查看風控告警、處理狀態與後續關閉遊戲或通知 GGAP 的操作入口。',
-                        responsibility: '承接 Provider 告警處理與營運應變入口，保留操作與通知流程位置。',
-                    },
                 }
             },
             {

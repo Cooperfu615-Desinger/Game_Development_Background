@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import Button from 'primevue/button'
 import Column from 'primevue/column'
 import DataTable from 'primevue/datatable'
@@ -106,6 +106,7 @@ interface PageEvent {
     rows?: number
 }
 
+const route = useRoute()
 const router = useRouter()
 const timezoneLabel = 'UTC+08:00 · Asia/Taipei'
 const now = new Date()
@@ -290,6 +291,7 @@ const appliedFilters = ref<FilterState>({ ...initialFilters, dateRange: cloneDat
 const advancedVisible = ref(false)
 const loading = ref(true)
 const loadError = ref('')
+const queryError = ref('')
 const selectedEvent = ref<RiskEvent | null>(null)
 const detailsVisible = ref(false)
 const first = ref(0)
@@ -485,6 +487,42 @@ function openDetails(event: RiskEvent) {
     detailsVisible.value = true
 }
 
+function queryValue(value: unknown) {
+    if (Array.isArray(value)) return typeof value[0] === 'string' ? value[0] : ''
+    return typeof value === 'string' ? value : ''
+}
+
+function openRiskEventFromQuery() {
+    const riskEventId = queryValue(route.query.risk_event_id)
+    if (!riskEventId) {
+        queryError.value = ''
+        return
+    }
+
+    const event = mockEvents.find((item) => item.riskEventId === riskEventId)
+    if (!event) {
+        selectedEvent.value = null
+        detailsVisible.value = false
+        queryError.value = `找不到指定的 Risk Event：${riskEventId}。請確認完整識別碼後再試。`
+        return
+    }
+
+    queryError.value = ''
+    if (appliedFilters.value.environment !== event.environment) {
+        draftFilters.environment = event.environment
+        appliedFilters.value = { ...appliedFilters.value, environment: event.environment }
+        first.value = 0
+    }
+    openDetails(event)
+}
+
+function clearRiskEventQuery() {
+    const nextQuery = { ...route.query }
+    delete nextQuery.risk_event_id
+    queryError.value = ''
+    router.replace({ query: nextQuery })
+}
+
 function goToAlerts(event: RiskEvent) {
     if (!event.alertId) return
     router.push({ path: '/monitoring/alerts', query: { alert_id: event.alertId, risk_event_id: event.riskEventId } })
@@ -507,12 +545,15 @@ function runMockExport() {
 
 onMounted(() => {
     window.setTimeout(() => { loading.value = false }, 300)
+    openRiskEventFromQuery()
 })
+
+watch(() => route.query.risk_event_id, openRiskEventFromQuery)
 </script>
 
 <template>
     <div class="risk-reports-page page-stack">
-        <section class="risk-report-control-card" aria-label="風控報表查詢範圍">
+        <section v-if="!queryError" class="risk-report-control-card" aria-label="風控報表查詢範圍">
             <div class="risk-report-control-heading">
                 <div>
                     <span class="risk-report-eyebrow">RISK EVENT REPORT</span>
@@ -548,7 +589,7 @@ onMounted(() => {
             </div>
         </section>
 
-        <section class="risk-report-summary-grid" aria-label="風控摘要">
+        <section v-if="!queryError" class="risk-report-summary-grid" aria-label="風控摘要">
             <article v-for="card in summaryCards" :key="card.key" class="risk-report-summary-card" :class="`risk-report-summary-card--${card.tone}`">
                 <div class="risk-report-summary-top">
                     <span><i :class="card.icon" />{{ card.label }}</span>
@@ -559,7 +600,9 @@ onMounted(() => {
             </article>
         </section>
 
-        <section class="risk-report-attention-section" aria-labelledby="risk-attention-title">
+        <div v-if="queryError" class="risk-report-state-panel risk-report-state-panel--error risk-report-query-error" role="alert"><i class="pi pi-exclamation-circle" /><div><strong>{{ queryError }}</strong><p>此頁未開啟其他事件，請確認 Risk Event ID 或返回風控告警／處理。</p></div><Button label="返回列表" icon="pi pi-arrow-left" severity="secondary" outlined @click="clearRiskEventQuery" /></div>
+
+        <section v-if="!queryError" class="risk-report-attention-section" aria-labelledby="risk-attention-title">
             <div class="risk-report-section-heading">
                 <div>
                     <span class="risk-report-eyebrow">PRIORITY QUEUE</span>
@@ -581,7 +624,7 @@ onMounted(() => {
             <div v-else class="risk-report-attention-empty"><div class="risk-report-empty-icon"><i class="pi pi-check-circle" /></div><div><strong>目前沒有需要優先關注的事件</strong><p>目前查詢範圍內沒有未關閉的 High／Critical Risk Event。</p></div></div>
         </section>
 
-        <FilterCard title="查詢條件" description="所有摘要、待關注異常與 Risk Event 列表均依目前套用的查詢條件同步更新。">
+        <FilterCard v-if="!queryError" title="查詢條件" description="所有摘要、待關注異常與 Risk Event 列表均依目前套用的查詢條件同步更新。">
             <template #default>
                 <div class="risk-report-filter-range-row">
                     <div class="risk-report-date-range-field"><span class="risk-report-field-label">自訂時間區間</span><DateTimeRangeField :model-value="draftFilters.dateRange" @update:model-value="handleCustomRange" /></div>
@@ -613,7 +656,7 @@ onMounted(() => {
             </template>
         </FilterCard>
 
-        <section class="risk-report-list-section" aria-labelledby="risk-list-title">
+        <section v-if="!queryError" class="risk-report-list-section" aria-labelledby="risk-list-title">
             <div class="risk-report-section-heading risk-report-list-heading">
                 <div><span class="risk-report-eyebrow">RISK EVENT LIST</span><h2 id="risk-list-title">Risk Event 列表</h2><p>{{ tableDescription }}</p></div>
                 <div class="risk-report-list-meta"><span><i class="pi pi-lock" />唯讀查詢</span><span><i class="pi pi-database" />{{ formatNumber(matchingRows.length) }} 筆結果</span><Button label="匯出" icon="pi pi-download" severity="secondary" outlined :disabled="matchingRows.length === 0" data-testid="risk-export-button" @click="openExport" /></div>

@@ -2,7 +2,7 @@
 
 > 版本：0.4.0
 > 更新日期：2026-08-10
-> 狀態：第一至五階段導覽、頁面原型、文件地圖與整體驗證已完成；正式 API、權限與資料契約待確認
+> 狀態：第一至六階段導覽、頁面原型、文件地圖與整體驗證已完成；正式 API、權限與資料契約待確認
 
 ## 1. 產品定位
 
@@ -50,7 +50,7 @@ Provider Portal 不建立 Provider 錢包，也不把代理商、商戶或會員
 | 遊戲管理 | 主資料、規則、數學、版本、資產、全域上下架 | 既有頁面原型；環境與發布為 Placeholder blueprint |
 | 數據與報表 | 遊戲紀錄、Game Round 查詢與匯出 | `/reports` 遊戲紀錄原型已完成 |
 | 遊戲商財務 | 點數、USDT、投注、輸贏、GGR、財務總覽與代理商 × 遊戲彙總 | 財務總覽與代理商 × 遊戲彙總原型已完成 |
-| 遊戲監控與風控 | 遊戲健康、異常局、請求失敗與風控告警 | Phase 3 mock blueprint |
+| 遊戲監控與風控 | 遊戲健康、異常局、請求失敗與風控告警 | 風控報表與風控告警／處理前端原型已完成；監控總覽仍為 mock blueprint |
 | GGAP 對接 | 連線、同步、請求、結算與錯誤狀態 | Phase 3 mock blueprint |
 | 通知中心 | 站內通知、已讀與通知偏好 | Phase 3 mock blueprint |
 | 遊戲官網 | Banner、條款、隱私權、負責任遊戲、聯絡資訊與發布紀錄 | 已完成前端原型骨架，後續接正式內容、圖片、發布與權限 |
@@ -62,8 +62,8 @@ Provider Portal 不建立 Provider 錢包，也不把代理商、商戶或會員
 - `/reports` 已建立 Provider Game Round 明細頁原型，支援查詢、排序、分頁、詳情與 CSV / XLSX 匯出。
 - `/lobby`、`/lobby/games`、`/lobby/management`、`/lobby/demo`、`/lobby/preview` 已建立遊戲大廳五頁原型。
 - `/website/banners`、`/website/content`、`/website/releases` 已建立遊戲官網三頁原型，`/website` 會導向 Banner 管理。
-- `/dashboard`、`/games/environments`、`/monitoring/*`、`/ggap/*`、`/notifications/*` 已建立共用 Provider Placeholder 頁面骨架，依 route 顯示各模組的 mock blueprint、摘要卡、展示列表與空資料狀態。
-- 目前主要導覽共有 32 個可進入的內容頁，其中 20 個沿用既有功能原型，12 個使用 Provider Placeholder；完整頁面地圖見 [`PROVIDER_PORTAL_PAGE_MAP.md`](./PROVIDER_PORTAL_PAGE_MAP.md)。
+- `/dashboard`、`/games/environments`、`/monitoring`、`/ggap/*`、`/notifications/*` 已建立共用 Provider Placeholder 頁面骨架；`/monitoring/risk-reports` 與 `/monitoring/alerts` 已由獨立內容頁承接。
+- 目前主要導覽共有 32 個可進入的內容頁，其中 22 個已有完整內容原型，10 個使用 Provider Placeholder；完整頁面地圖見 [`PROVIDER_PORTAL_PAGE_MAP.md`](./PROVIDER_PORTAL_PAGE_MAP.md)。
 - 上述頁面目前以原型展示資料呈現，不代表正式 API、權限、狀態碼、精度與後端資料契約已定稿。
 
 ## 4. 已確認的核心原則
@@ -139,7 +139,7 @@ DEMO 遊戲雖然可以實際遊玩，但其 Game Round、點數與資料必須�
 ## 7. 目前頁面原型原則
 
 - 已完成的遊戲列表、遊戲紀錄、財務總覽、代理商 × 遊戲彙總、遊戲官網與遊戲大廳頁面保留既有內容。
-- 尚未具備正式內容的頁面先以共用 Provider Placeholder 呈現：頁面標題、功能說明、責任範圍、Prototype / Mock data 標示、預計內容區塊、展示資料、空資料狀態與 API 待接說明。
+- 尚未具備正式內容的頁面先以共用 Provider Placeholder 呈現：頁面標題、功能說明、責任範圍、Prototype / Mock data 標示、預計內容區塊、展示資料、空資料狀態與 API 待接說明；風控報表與風控告警／處理已不再使用 Placeholder。
 - Placeholder 說明區塊依頁面成熟度使用；已完成主要內容規劃的頁面應直接從摘要卡、查詢、列表、圖表或操作內容開始，不重複顯示說明 Hero、頁面資訊與 blueprint。
 - 各頁外層寬度、1500px 寬版頁與無固定最大寬度頁的規則，統一依 [`PROVIDER_PORTAL_UI_LAYOUT_SPEC.md`](./PROVIDER_PORTAL_UI_LAYOUT_SPEC.md) 執行。
 - Prototype / Mock data 只用於確認資訊架構與欄位方向，不代表正式數字、狀態、權限或資料流。

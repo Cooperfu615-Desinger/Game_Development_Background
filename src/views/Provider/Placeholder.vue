@@ -40,8 +40,7 @@ interface PlaceholderBlueprint {
 
 const route = useRoute()
 const { t } = useI18n()
-const showPlaceholderHero = computed(() => route.name !== 'GameEnvironments')
-const isMonitoringOverview = computed(() => route.name === 'ProviderMonitoring')
+const hidePlaceholderIntro = computed(() => route.name === 'GameEnvironments' || route.name === 'ProviderMonitoring')
 
 const placeholderMeta = computed<PlaceholderMeta>(() => {
     const meta = route.meta.providerPlaceholder
@@ -412,8 +411,8 @@ const foundationCards = [
 </script>
 
 <template>
-    <div :class="['provider-placeholder-page', 'page-stack', { 'provider-placeholder-page--wide': route.name === 'GameEnvironments' || isMonitoringOverview }]">
-        <section v-if="showPlaceholderHero && !isMonitoringOverview" class="provider-placeholder-hero" aria-labelledby="provider-placeholder-title">
+    <div :class="['provider-placeholder-page', 'page-stack', { 'provider-placeholder-page--wide': route.name === 'GameEnvironments' || route.name === 'ProviderMonitoring', 'provider-placeholder-page--environment': route.name === 'GameEnvironments' }]">
+        <section v-if="!hidePlaceholderIntro" class="provider-placeholder-hero" aria-labelledby="provider-placeholder-title">
             <div class="provider-placeholder-grid" aria-hidden="true" />
             <div class="provider-placeholder-hero-content">
                 <div class="provider-placeholder-kicker">
@@ -429,7 +428,7 @@ const foundationCards = [
             </div>
         </section>
 
-        <section v-if="!isMonitoringOverview" class="provider-placeholder-context" aria-label="頁面資訊">
+        <section v-if="!hidePlaceholderIntro" class="provider-placeholder-context" aria-label="頁面資訊">
             <article>
                 <span>功能說明</span>
                 <p>{{ description }}</p>
@@ -440,7 +439,7 @@ const foundationCards = [
             </article>
         </section>
 
-        <section v-if="!isMonitoringOverview" class="provider-placeholder-blueprint" aria-labelledby="provider-placeholder-blueprint-title">
+        <section v-if="!hidePlaceholderIntro" class="provider-placeholder-blueprint" aria-labelledby="provider-placeholder-blueprint-title">
             <div class="provider-placeholder-section-heading">
                 <div>
                     <span class="provider-placeholder-next-label">PRIMARY CONTENT</span>
@@ -813,6 +812,16 @@ const foundationCards = [
     margin-top: 0.35rem;
     color: var(--hig-text-secondary);
     font-size: 0.75rem;
+}
+
+.provider-placeholder-page--environment .provider-placeholder-mock-stat {
+    min-height: 12.75rem;
+    padding: 1.25rem 1.35rem;
+}
+
+.provider-placeholder-page--environment .provider-placeholder-mock-stat strong {
+    margin-top: 1.1rem;
+    font-size: clamp(2rem, 3.2vw, 2.75rem);
 }
 
 .provider-placeholder-data-preview {

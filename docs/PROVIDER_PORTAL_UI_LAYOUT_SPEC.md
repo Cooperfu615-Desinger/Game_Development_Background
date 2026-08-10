@@ -59,7 +59,7 @@
 - 尚未開始討論內容的 Placeholder 頁面，可以保留三種區塊，作為規格討論與頁面範圍提示。
 - 已完成主要內容規劃，且頁面已有摘要卡、查詢條件、列表、圖表或操作內容時，應移除重複的 Hero、頁面資訊與主要內容區塊。
 - 實際報表頁應從主要工作內容開始，不要讓說明卡片排在報表資料之前。
-- 監控總覽目前採用此規則：移除三個說明區塊，從五張監控摘要卡開始；風控報表與風控告警／處理尚未完成詳細討論，暫時仍可保留 Placeholder blueprint。
+- 監控總覽與環境與發布目前採用此規則：移除說明區塊，直接從監控摘要卡或環境摘要資料開始；風控報表與風控告警／處理尚未完成詳細討論，暫時仍可保留 Placeholder blueprint。
 - 移除說明區塊時，不能一併移除摘要卡、資料列表、空資料狀態或後續 API 待接資訊，除非該頁規格另有決定。
 
 ## 4. 響應式要求
@@ -85,4 +85,3 @@
 - 財務總覽與代理商 × 遊戲彙總已移除頁面外層固定最大寬度：`src/views/Finance/Overview.vue`、`src/views/Finance/AgentGames.vue`。
 - 遊戲紀錄頁未設定額外頁面最大寬度：`src/views/Reports/ProviderGameRounds.vue`。
 - Placeholder 說明區塊與監控總覽路由判斷位於：`src/views/Provider/Placeholder.vue`。
-

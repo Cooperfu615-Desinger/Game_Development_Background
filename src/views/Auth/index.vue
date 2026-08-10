@@ -67,9 +67,9 @@ const handleLogin = async () => {
 
 // ─── Quick login demo users ─────────────────────────────
 const QUICK_USERS = [
-    { label: '👑 總管理員', username: 'admin', password: 'admin123' },
-    { label: '🔧 技術', username: 'tech', password: 'tech123' },
-    { label: '📋 PM', username: 'pm', password: 'pm123' },
+    { label: '總管理員', username: 'admin', password: 'admin123' },
+    { label: '技術', username: 'tech', password: 'tech123' },
+    { label: 'PM', username: 'pm', password: 'pm123' },
 ]
 
 const quickLogin = async (username: string, password: string) => {

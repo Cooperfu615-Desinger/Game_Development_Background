@@ -46,11 +46,11 @@ export function buildProviderMenu(t: Composer['t']): MenuGroup[] {
             label: t('menu.providerGames'),
             items: [
                 { label: t('menu.providerGameList'), icon: 'pi pi-fw pi-th-large', to: '/games' },
-                { label: t('menu.providerGameEnvironments'), icon: 'pi pi-fw pi-cloud', to: '/games/environments' },
+                { label: t('menu.providerGameVersions'), icon: 'pi pi-fw pi-code', to: '/games/versions' },
                 { label: t('menu.providerGameSettings'), icon: 'pi pi-fw pi-sliders-h', to: '/games/settings' },
                 { label: t('menu.providerGameMath'), icon: 'pi pi-fw pi-calculator', to: '/games/math' },
-                { label: t('menu.providerGameVersions'), icon: 'pi pi-fw pi-code', to: '/games/versions' },
                 { label: t('menu.providerGameAssets'), icon: 'pi pi-fw pi-images', to: '/games/assets' },
+                { label: t('menu.providerGameEnvironments'), icon: 'pi pi-fw pi-cloud', to: '/games/environments' },
             ],
         },
         {

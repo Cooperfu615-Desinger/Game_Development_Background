@@ -77,11 +77,11 @@ GGAP 對接
 | 頁面 | Route | 功能責任 | 預計顯示內容 | 原型狀態 | Placeholder | 後續 API／資料契約 |
 |---|---|---|---|---|---|---|
 | 遊戲列表 | `/games` | 管理 Provider 遊戲主資料與全域狀態 | 遊戲名稱、類型、版本、狀態、環境與操作 | 既有前端原型 | 否 | Provider games list、game status、environment summary |
-| 環境與發布 | `/games/environments` | 管理正式、DEMO、測試環境狀態與已部署版本啟用入口 | Production、DEMO、Test 狀態、版本、發布狀態與操作紀錄 | Phase 3 mock blueprint | 是 | Environment status、deployed versions、release action、audit event |
+| 遊戲版本 | `/games/versions` | 管理已建立的遊戲版本與啟用狀態 | 版本列表、版本狀態、環境啟用狀態與版本資訊 | 既有前端原型 | 否 | Game versions、deployment status、activation contract |
 | 遊戲設定 | `/games/settings` | 管理遊戲基本設定 | 遊戲基本資料、展示設定與 Provider 運營設定入口 | 既有前端原型 | 否 | Game settings schema、update contract、audit event |
 | 數值設定 | `/games/math` | 管理遊戲數學與數值規則入口 | RTP、點數規則、限紅、換算規則與規則版本 | 既有前端原型 | 否 | Math config、RTP、point rule、conversion rule |
-| 遊戲版本 | `/games/versions` | 管理已建立的遊戲版本與啟用狀態 | 版本列表、版本狀態、環境啟用狀態與版本資訊 | 既有前端原型 | 否 | Game versions、deployment status、activation contract |
 | 遊戲素材 | `/games/assets` | 管理遊戲展示與營運素材 | 圖片、影片、圖示、素材狀態與版本關聯 | 既有前端原型 | 否 | Asset metadata、storage reference、publish status |
+| 環境與發布 | `/games/environments` | 管理正式、DEMO、測試環境狀態與已部署版本啟用入口 | Production、DEMO、Test 狀態、版本、發布狀態與操作紀錄 | Phase 3 mock blueprint | 是 | Environment status、deployed versions、release action、audit event |
 
 ### 2.3 數據與報表
 

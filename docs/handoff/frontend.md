@@ -1,11 +1,11 @@
 # 前端交接文件：Provider Portal
 
-> 狀態日期：2026-08-09
+> 狀態日期：2026-08-10
 > 文件狀態：Provider Portal 第一至五階段導覽、頁面原型、Placeholder blueprint、文件地圖與整體驗證已完成；正式 API、權限與資料契約待確認
 
 本文件說明目前前端實際結構、目前仍存在的舊原型邊界，以及下一階段調整原型時應遵循的方向。
 
-產品範圍、導覽與版型依據：[`PROVIDER_PORTAL_SPEC.md`](../PROVIDER_PORTAL_SPEC.md)、[`PROVIDER_PORTAL_NAVIGATION_SPEC.md`](../PROVIDER_PORTAL_NAVIGATION_SPEC.md)、[`PROVIDER_PORTAL_UI_LAYOUT_SPEC.md`](../PROVIDER_PORTAL_UI_LAYOUT_SPEC.md)。
+產品範圍、導覽、版型與風控依據：[`PROVIDER_PORTAL_SPEC.md`](../PROVIDER_PORTAL_SPEC.md)、[`PROVIDER_PORTAL_NAVIGATION_SPEC.md`](../PROVIDER_PORTAL_NAVIGATION_SPEC.md)、[`PROVIDER_PORTAL_UI_LAYOUT_SPEC.md`](../PROVIDER_PORTAL_UI_LAYOUT_SPEC.md)、[`PROVIDER_RISK_CONTROL_SPEC.md`](../PROVIDER_RISK_CONTROL_SPEC.md)、[`PROVIDER_RISK_REPORT_SPEC.md`](../PROVIDER_RISK_REPORT_SPEC.md)、[`PROVIDER_RISK_ALERT_HANDLING_SPEC.md`](../PROVIDER_RISK_ALERT_HANDLING_SPEC.md)。
 
 ## 1. 前端定位
 
@@ -15,7 +15,7 @@
 
 - Provider 遊戲主資料、版本、資產、規則與上下架
 - Game Round 查詢與遊戲商財務 / 報表
-- 遊戲監控、異常與風控告警
+- 遊戲監控、異常與風控告警；事件定義與嚴重度依 [`PROVIDER_RISK_CONTROL_SPEC.md`](../PROVIDER_RISK_CONTROL_SPEC.md)
 - GGAP 對接狀態與通知
 - 遊戲官網與遊戲大廳內容管理
 - Provider 內部系統設定與權限

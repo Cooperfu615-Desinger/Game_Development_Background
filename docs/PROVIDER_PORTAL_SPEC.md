@@ -1,7 +1,7 @@
 # Provider Portal 產品與功能規格
 
-> 版本：0.3.0
-> 更新日期：2026-08-09
+> 版本：0.4.0
+> 更新日期：2026-08-10
 > 狀態：第一至五階段導覽、頁面原型、文件地圖與整體驗證已完成；正式 API、權限與資料契約待確認
 
 ## 1. 產品定位
@@ -143,6 +143,7 @@ DEMO 遊戲雖然可以實際遊玩，但其 Game Round、點數與資料必須�
 - Placeholder 說明區塊依頁面成熟度使用；已完成主要內容規劃的頁面應直接從摘要卡、查詢、列表、圖表或操作內容開始，不重複顯示說明 Hero、頁面資訊與 blueprint。
 - 各頁外層寬度、1500px 寬版頁與無固定最大寬度頁的規則，統一依 [`PROVIDER_PORTAL_UI_LAYOUT_SPEC.md`](./PROVIDER_PORTAL_UI_LAYOUT_SPEC.md) 執行。
 - Prototype / Mock data 只用於確認資訊架構與欄位方向，不代表正式數字、狀態、權限或資料流。
+- Provider 風控事件定義、自動緩解與隔離統一依 [`PROVIDER_RISK_CONTROL_SPEC.md`](./PROVIDER_RISK_CONTROL_SPEC.md)；頁面內容依 [`PROVIDER_RISK_REPORT_SPEC.md`](./PROVIDER_RISK_REPORT_SPEC.md) 與 [`PROVIDER_RISK_ALERT_HANDLING_SPEC.md`](./PROVIDER_RISK_ALERT_HANDLING_SPEC.md) 執行。
 - 不在 Placeholder 階段新增平台錢包、商戶、會員、代理商管理、平台結算、平台對帳或活動功能。
 - 「DEMO環境數據」使用隔離 DEMO／沙盒資料，不進入遊戲紀錄與遊戲商財務。
 

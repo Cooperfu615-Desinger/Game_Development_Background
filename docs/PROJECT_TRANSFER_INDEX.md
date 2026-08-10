@@ -1,7 +1,7 @@
 # 遊戲商 Provider Portal 文件索引
 
-> 文件版本：2.6.0
-> 更新日期：2026-08-09
+> 文件版本：2.8.0
+> 更新日期：2026-08-10
 > 文件狀態：Provider Portal 第一至五階段導覽、頁面原型、文件地圖與整體驗證已完成；正式 API、權限與資料契約待確認
 
 ## 閱讀前提
@@ -47,6 +47,12 @@
   - 代理商 × 遊戲彙總、摘要區、欄位順序、Game Round 導入、自訂匯出、分頁與空資料狀態。
 - [`NOTIFICATION_SPEC.md`](./NOTIFICATION_SPEC.md)
   - 通知類型、觸發、已讀、權限與站內通知中心。
+- [`PROVIDER_RISK_CONTROL_SPEC.md`](./PROVIDER_RISK_CONTROL_SPEC.md)
+  - Provider 風控責任、異常事件定義、Event ID、嚴重度、自動緩解、隔離與處理生命週期。
+- [`PROVIDER_RISK_REPORT_SPEC.md`](./PROVIDER_RISK_REPORT_SPEC.md)
+  - 風控報表的滾動時間、Production／DEMO、摘要卡、待關注異常、查詢、列表與 Risk Event 詳情。
+- [`PROVIDER_RISK_ALERT_HANDLING_SPEC.md`](./PROVIDER_RISK_ALERT_HANDLING_SPEC.md)
+  - 風控告警摘要、工作佇列、Alert 詳情、隔離／解除、GGAP 通知與處理狀態流轉。
 - [`PROVIDER_PORTAL_NAVIGATION_SPEC.md`](./PROVIDER_PORTAL_NAVIGATION_SPEC.md)
   - 左側導覽、頁面範圍、舊功能移除、原型階段成果與整體驗證結果。
 - [`PROVIDER_PORTAL_UI_LAYOUT_SPEC.md`](./PROVIDER_PORTAL_UI_LAYOUT_SPEC.md)

@@ -1,7 +1,7 @@
 # Provider 與 GGAP 對接契約
 
-> 版本：0.1.0
-> 更新日期：2026-08-06
+> 版本：0.3.0
+> 更新日期：2026-08-10
 > 狀態：工作契約草案，需由 GGAP 與後端團隊核准
 
 本文件是 Provider Portal 對接 GGAP 的補充契約。GGAP 平台完整規格仍以 [`GGAP_final_system_spec_tech.html`](./GGAP_final_system_spec_tech.html) 為準；本文件不改寫 GGAP 平台規格。
@@ -79,6 +79,8 @@ Provider 回傳或保存：
 - `status`
 - `request_id`、`provider_event_id`
 
+`provider_event_id` 是 Provider 與 GGAP 對接事件的識別碼，主要用於 Callback 重送去重，不等同於 Provider 風控事件的 `risk_event_id`。風控事件規則見 [`PROVIDER_RISK_CONTROL_SPEC.md`](./PROVIDER_RISK_CONTROL_SPEC.md)。
+
 目前老虎機與單人 Crash 的單局淨輸贏定義為：`net_result = payout - bet`。GGR 是否與玩家淨輸贏相同，仍由 Provider 財務規格另行確認；欄位名稱必須與本節定義一致，不得另行使用舊版派彩或淨值命名。
 
 同一個外部請求重試時，Provider 必須以冪等鍵回傳相同結果，不可重複產生投注。
@@ -137,7 +139,46 @@ Provider 與 GGAP 需共同確認以下規則：
 
 錯誤回應至少需要 HTTP status、穩定 `error_code`、訊息、`request_id` 與可判斷是否重試的 `retryable`。
 
-## 8. 安全要求
+## 8. 風控隔離與 GGAP 通知
+
+Provider 因遊戲服務或資料異常執行的隔離，是 Provider 全域遊戲狀態控制，不等於 GGAP 對個別代理商設定的遊戲開關。正式環境發生隔離、解除隔離或自動緩解失敗時，Provider 應通知 GGAP，讓 GGAP 能停止新的遊戲啟動並保留一致的營運狀態。
+
+### 8.1 對接行為
+
+- 隔離只拒絕指定範圍的新 Launch；既有 Game Round 的 Settle、Callback 與必要重試仍須完成。
+- Provider 應使用核准且版本化的風控規則決定是否隔離，不得只依嚴重度直接停機。
+- Provider 解除隔離前必須完成健康檢查與授權覆核，解除後同樣通知 GGAP，不得靜默恢復。
+- GGAP 收到通知後的代理商與玩家端行為，需由正式對接契約確認；不得由 Provider Portal 假設或直接修改 GGAP 代理商設定。
+
+建議事件名稱暫定為 `provider_game_isolated`、`provider_game_released` 與 `provider_mitigation_failed`，正式名稱待 GGAP 確認。
+
+### 8.2 通知欄位
+
+| 欄位 | 說明 |
+|---|---|
+| `provider_id` | Provider 識別碼 |
+| `game_id` / `game_version` | 受影響遊戲與版本 |
+| `environment` | Production、DEMO 或 Test |
+| `provider_risk_event_id` | 對應 Provider `risk_event_id`，供雙方追蹤同一風控事件 |
+| `provider_event_id` | 本次通知事件的冪等與去重識別碼 |
+| `severity` | 通知當下的風險嚴重度 |
+| `mitigation_action` / `mitigation_scope` | 已執行動作與實際作用範圍 |
+| `effective_at` | 隔離、解除或失敗生效時間 |
+| `reason_code` | 穩定且可供程式判斷的原因碼 |
+| `request_id` | 本次 HTTP 請求追蹤識別碼 |
+
+`provider_event_id` 用於同一通知的重送去重；`provider_risk_event_id` 用於關聯完整 Risk Event，兩者不得互相取代。
+
+### 8.3 ACK、重試與失敗
+
+- GGAP 必須回傳可判斷接受結果的 ACK、穩定錯誤碼與 `request_id`。
+- Provider 在逾時或可重試錯誤時，以同一 `provider_event_id` 進行有限次數重送，GGAP 不得重複變更狀態。
+- 通知失敗時，Provider 必須保留重試狀態並建立或升級 Critical 告警，不得把 GGAP 狀態標記為已同步。
+- 隔離與解除通知皆適用相同的簽章、冪等、稽核與重試要求。
+
+正式 endpoint、認證、ACK 格式、重試次數、退避規則與 GGAP 端玩家行為尚待雙方確認。
+
+## 9. 安全要求
 
 - 使用正式 JWT 或雙向簽章，不沿用目前 mock token。
 - 每次請求驗證來源、簽章、時間戳與重放風險。
@@ -145,7 +186,7 @@ Provider 與 GGAP 需共同確認以下規則：
 - 不在一般遊戲列表或 Game Round 列表回傳 secret、私鑰或完整敏感憑證。
 - 保存對接請求、回應、錯誤與操作者 audit log。
 
-## 9. 待確認清單
+## 10. 待確認清單
 
 - 正式 base URL、API version 與認證方式。
 - GGAP 提供的代理商、商戶與會員欄位名稱。
@@ -154,3 +195,6 @@ Provider 與 GGAP 需共同確認以下規則：
 - USDT 精度、點數精度與四捨五入方向。
 - 多人玩法的共享 round 與參與者資料。
 - DEMO 使用的沙盒點數 / 錢包來源，以及 DEMO 報表是否需要獨立呈現。
+- 風控隔離、解除與緩解失敗通知的 endpoint、事件名稱與 ACK 格式。
+- GGAP 收到隔離通知後，對新 Launch、既有 Round 與代理商狀態的正式行為。
+- 通知重試次數、退避規則、保存期限與人工補送機制。

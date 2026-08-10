@@ -103,8 +103,8 @@ GGAP 對接
 | 頁面 | Route | 功能責任 | 預計顯示內容 | 原型狀態 | Placeholder | 後續 API／資料契約 |
 |---|---|---|---|---|---|---|
 | 監控總覽 | `/monitoring` | 彙整 Provider 遊戲與對接健康 | 五張監控摘要卡、遊戲健康列表、異常追蹤入口 | Phase 3 mock blueprint | 是 | Health metrics、Game Round success rate、latency、alert summary |
-| 風控報表 | `/monitoring/risk-reports` | 查詢與分析 Provider 端異常數據 | 異常數據查詢、風控趨勢、風控詳細列表 | Phase 3 mock blueprint | 是 | Risk event query、trend aggregation、event detail |
-| 風控告警／處理 | `/monitoring/alerts` | 追蹤告警與 Provider 應變處理 | 告警詳情、處理狀態、關閉遊戲與通知 GGAP 操作入口 | Phase 3 mock blueprint | 是 | Alert lifecycle、handling action、notification event、audit event |
+| 風控報表 | `/monitoring/risk-reports` | 查詢與分析 Provider 端異常數據 | 滾動時間、環境、五張摘要卡、待關注異常、Risk Event 列表與詳情 | 詳細規格已確認，待原型實作 | 是 | Risk event query、summary、event detail、export |
+| 風控告警／處理 | `/monitoring/alerts` | 追蹤告警與 Provider 應變處理 | 告警摘要、工作佇列、Alert 詳情、隔離／解除與 GGAP 通知 | 詳細規格已確認，待原型實作 | 是 | Alert lifecycle、mitigation action、notification event、audit event |
 
 ### 2.6 GGAP 對接
 

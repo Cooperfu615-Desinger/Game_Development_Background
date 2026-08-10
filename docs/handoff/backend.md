@@ -1,11 +1,11 @@
 # 後端交接文件：Provider Portal 與 GGAP 邊界
 
-> 狀態日期：2026-08-06
+> 狀態日期：2026-08-10
 > 文件狀態：Provider 邊界草案，待後端與 GGAP 對接團隊確認
 
 本專案目前沒有真實後端；`src/mocks/` 只模擬前端流程。GGAP 的平台開發在另一個專案進行，本文件先整理遊戲商 Provider Portal 需要的後端責任與對接缺口。
 
-產品範圍、對接與資料規格：[`PROVIDER_PORTAL_SPEC.md`](../PROVIDER_PORTAL_SPEC.md)、[`PROVIDER_GGAP_INTEGRATION_CONTRACT.md`](../PROVIDER_GGAP_INTEGRATION_CONTRACT.md)、[`GAME_ROUND_AND_REPORTING_SPEC.md`](../GAME_ROUND_AND_REPORTING_SPEC.md)。
+產品範圍、對接與資料規格：[`PROVIDER_PORTAL_SPEC.md`](../PROVIDER_PORTAL_SPEC.md)、[`PROVIDER_GGAP_INTEGRATION_CONTRACT.md`](../PROVIDER_GGAP_INTEGRATION_CONTRACT.md)、[`GAME_ROUND_AND_REPORTING_SPEC.md`](../GAME_ROUND_AND_REPORTING_SPEC.md)、[`PROVIDER_RISK_CONTROL_SPEC.md`](../PROVIDER_RISK_CONTROL_SPEC.md)、[`PROVIDER_RISK_REPORT_SPEC.md`](../PROVIDER_RISK_REPORT_SPEC.md)、[`PROVIDER_RISK_ALERT_HANDLING_SPEC.md`](../PROVIDER_RISK_ALERT_HANDLING_SPEC.md)。
 
 ## 1. 系統責任邊界
 
@@ -17,6 +17,8 @@
 - 接收 GGAP 傳入的遊戲請求脈絡
 - 建立不可任意改寫的 Game Round 紀錄
 - 由 Game Round 產生遊戲數據、遊戲商財務與風控報表
+- 建立、保存與聚合 Provider Risk Event 及 Alert
+- 在前端未開啟時仍能執行已核准的自動緩解、隔離與 GGAP 通知
 - Provider 使用者、角色、權限、通知與官網內容
 
 ### GGAP 負責
@@ -116,13 +118,34 @@ Game Round 是 Provider 的主要業務紀錄；不建立 Game Session 作為獨
 | `GET /api/provider/v1/game-rounds/:id` | Game Round 詳情 |
 | `GET /api/provider/v1/reports/game-rounds` | 時間 × 代理商 × 遊戲聚合 |
 | `GET /api/provider/v1/finance/summary` | 遊戲商財務彙總 |
-| `GET /api/provider/v1/monitoring/alerts` | 遊戲與對接監控告警 |
+| `GET /api/provider/v1/risk/events` | Risk Event 列表與風控報表查詢 |
+| `GET /api/provider/v1/risk/events/:id` | Risk Event 詳情、時間線與關聯 Round |
+| `GET /api/provider/v1/risk/alerts` | 待處理與歷史風控告警 |
+| `GET /api/provider/v1/risk/alerts/:id` | 告警、緩解、隔離與 GGAP 通知詳情 |
+| `POST /api/provider/v1/risk/alerts/:id/actions` | 維持、解除、重試或關閉等授權操作 |
 | `GET /api/provider/v1/notifications` | Provider 通知中心 |
 | `PATCH /api/provider/v1/notifications/:id/read` | 通知已讀 |
 
 正式後端需在實作前確認命名、分頁、排序、權限、錯誤格式與版本策略。
 
-## 7. 安全與一致性要求
+## 7. 風控事件與自動緩解實作要求
+
+風控處理必須由後端常駐服務或背景工作執行，不得依賴使用者停留在監控或告警頁面。建議至少拆分為事件產生、規則判斷、緩解執行、告警／稽核與 GGAP 通知等可追蹤責任。
+
+- 每筆 Risk Event 使用 `rsk_<ULID>` 格式的 `risk_event_id`，建立資料庫唯一索引，且建立後不可變更。
+- 規則判斷保存 `rule_id`、`rule_version`、門檻、統計窗口與判斷輸入快照；嚴重度本身不得直接觸發隔離。
+- 緩解執行需具備冪等鍵、有限重試、狀態機與併發鎖，避免多個 worker 重複停用或解除同一遊戲。
+- 隔離預設只阻擋指定遊戲、版本與環境的新 Launch；Settle、Callback、必要重試與 audit log 必須保持可用。
+- 自動處理不得修改投注、派彩、換算結果或已結算 Game Round。
+- `mitigation_status` 至少支援 `not_required`、`pending`、`applied`、`failed`、`released`。
+- 自動處理失敗需升級告警，不得將動作標記為成功；GGAP 通知失敗也需保存 ACK、錯誤與重試狀態。
+- 解除隔離前須執行健康檢查並驗證操作者權限；不使用無人確認的單純定時自動解除。
+- 所有人工動作保存操作者、時間、原狀態、新狀態、原因、核准資訊與 request ID。
+- 監控總覽與風控報表可直接取得告警詳情導向資訊，不要求前端依序切換頁面才能處理。
+
+詳細事件欄位、嚴重度、動作矩陣與生命週期以 [`PROVIDER_RISK_CONTROL_SPEC.md`](../PROVIDER_RISK_CONTROL_SPEC.md) 為準；GGAP 隔離通知以 [`PROVIDER_GGAP_INTEGRATION_CONTRACT.md`](../PROVIDER_GGAP_INTEGRATION_CONTRACT.md) 為準。
+
+## 8. 安全與一致性要求
 
 - 正式環境使用後端簽發與驗證的 JWT 或等效 token；mock token 不可沿用。
 - 所有 Provider 查詢必須由後端強制套用 `provider_id` 隔離。
@@ -131,10 +154,14 @@ Game Round 是 Provider 的主要業務紀錄；不建立 Game Session 作為獨
 - API 不應把 secret、私鑰或完整敏感憑證放在一般列表回傳。
 - 報表聚合必須在後端依查詢條件重新計算，不可直接回傳未套範圍的總數。
 
-## 8. 待確認事項
+## 9. 待確認事項
 
 - Provider 點數的最小精度與 USDT 換算方向。
 - `net_result_points` 與 GGR 的關係，以及 GGR 是否另存欄位與其正負方向。
 - Crash / 棋牌未結算、取消、退款與回滾的狀態流程。
 - GGAP 會提供哪些代理商 / 商戶 / 會員欄位，以及是否需要快照保存。
 - 多人玩法的共享局號與參與者模型。
+- 風控規則引擎、事件聚合與緩解 worker 的正式服務邊界。
+- 各異常門檻、規則版本發布流程、人工覆核 SLA 與升級方式。
+- 隔離解除健康檢查、操作權限與是否需要雙人核准。
+- GGAP 隔離通知 API、ACK、冪等鍵、重試與人工補送方式。

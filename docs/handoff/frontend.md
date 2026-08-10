@@ -1,7 +1,7 @@
 # 前端交接文件：Provider Portal
 
 > 狀態日期：2026-08-10
-> 文件狀態：Provider Portal 第一至五階段導覽、頁面原型、Placeholder blueprint、文件地圖與整體驗證已完成；正式 API、權限與資料契約待確認
+> 文件狀態：Provider Portal 第一至五階段導覽、頁面原型、風控報表原型、Placeholder blueprint、文件地圖與整體驗證已完成；正式 API、權限與資料契約待確認
 
 本文件說明目前前端實際結構、目前仍存在的舊原型邊界，以及下一階段調整原型時應遵循的方向。
 
@@ -36,7 +36,8 @@
 | `src/views/GameWebsite/` | 遊戲官網頁面與展示資料 | 已建立三個前端原型入口；正式內容、素材與發布 API 待接 |
 | `src/views/Finance/Overview.vue` | 遊戲商財務總覽 | 已建立 `/finance` 原型；正式 Game Round 聚合、玩家去重與財務 API 待接 |
 | `src/views/Finance/AgentGames.vue` | 代理商 × 遊戲彙總 | 已完成 `/finance/agent-games` 原型；正式 API、匯出服務與後續資料契約待接 |
-| `src/views/Provider/Placeholder.vue` | Provider Placeholder 共用頁面骨架 | 已為 12 個 route 配置群組專屬 mock blueprint；後續逐頁替換正式資料與互動 |
+| `src/views/Provider/RiskReports.vue` | 風控報表 | 已完成 `/monitoring/risk-reports` 唯讀前端原型；正式 Risk Event query、summary、detail 與 export API 待接 |
+| `src/views/Provider/Placeholder.vue` | Provider Placeholder 共用頁面骨架 | 已為 11 個 route 配置群組專屬 mock blueprint；風控報表已改由獨立頁面承接 |
 | `src/views/Docs/` | 文件檢視器 | 目前主要載入 `docs/handoff/*.md` |
 
 ## 3. 目前路由實況
@@ -67,9 +68,10 @@
 - `/reports`：Provider Game Round 明細，支援查詢、排序、分頁、詳情與 CSV / XLSX 匯出。
 - `/finance`：遊戲商財務總覽，包含時間 / 代理商 / 遊戲類型 / 遊戲篩選、八項統計卡片、兩組趨勢圖與遊戲表現排行。
 - `/finance/agent-games`：代理商 × 遊戲彙總，包含完整結果摘要、欄位排序、分頁、空資料狀態、自訂匯出欄位與導入 `/reports`。
+- `/monitoring/risk-reports`：風控報表前端原型，包含 Production／DEMO 單選、近 1／3／5 日與自訂時間、五張摘要卡 Tips、待關注異常、常用／進階查詢、15 欄 Risk Event 列表與大型唯讀詳情；使用 mock data，詳情只在有 Alert 時提供 `/monitoring/alerts` 導向。
 - `/lobby`、`/lobby/games`、`/lobby/management`、`/lobby/demo`、`/lobby/preview`：遊戲大廳五個前端原型入口。
 - `/website/banners`、`/website/content`、`/website/releases`：遊戲官網三個前端原型入口；`/website` 會導向 Banner 管理。
-- `/dashboard`、`/games/environments`、`/monitoring/*`、`/ggap/*`、`/notifications/*`：12 個 Provider Placeholder blueprint 入口，依頁面成熟度顯示說明區塊、mock 摘要、展示列表、空資料狀態與 API 待接說明；監控總覽目前從五張摘要卡開始。
+- `/dashboard`、`/games/environments`、`/monitoring`、`/monitoring/alerts`、`/ggap/*`、`/notifications/*`：11 個 Provider Placeholder blueprint 入口，依頁面成熟度顯示說明區塊、mock 摘要、展示列表、空資料狀態與 API 待接說明；風控報表已替換為獨立唯讀原型。
 
 上述頁面目前以原型展示資料呈現，正式 API、權限、狀態碼、精度與錯誤處理仍待確認。完整頁面清單見 [`PROVIDER_PORTAL_PAGE_MAP.md`](../PROVIDER_PORTAL_PAGE_MAP.md)。
 

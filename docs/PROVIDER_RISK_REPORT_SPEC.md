@@ -2,7 +2,7 @@
 
 > 版本：0.1.0
 > 更新日期：2026-08-10
-> 狀態：產品方向已確認，待前端原型實作與正式 API 契約確認
+> 狀態：產品方向已確認，前端原型已完成（mock data）；正式 API 契約待確認
 
 本文件定義 Provider Portal「風控報表」頁面的資料範圍、摘要、待關注異常、查詢、列表與 Risk Event 詳情。異常定義、Event ID、嚴重度、處理生命週期與自動緩解規則統一依 [`PROVIDER_RISK_CONTROL_SPEC.md`](./PROVIDER_RISK_CONTROL_SPEC.md) 執行。
 
@@ -187,7 +187,7 @@ Risk Event ID 與 Round ID 使用完整值精確查詢。代理商、商戶與�
 
 ## 11. 原型階段限制
 
-- 第一版先完成畫面與規格骨架，使用 mock data，不接正式 API。
+- 前端原型已完成畫面與規格骨架，使用完整 mock data，不接正式 API。
 - Tips、篩選、詳情、分頁與匯出可先呈現入口及預期狀態，不要求完成真實資料流。
 - 正式異常門檻、Rule ID、聚合方式、處理 SLA 與 GGAP ACK 仍待後端確認。
 - Test 不得因 mock data 方便而出現在環境篩選或摘要中。

@@ -103,7 +103,7 @@ GGAP 對接
 | 頁面 | Route | 功能責任 | 預計顯示內容 | 原型狀態 | Placeholder | 後續 API／資料契約 |
 |---|---|---|---|---|---|---|
 | 監控總覽 | `/monitoring` | 彙整 Provider 遊戲與對接健康 | 五張監控摘要卡、遊戲健康列表、異常追蹤入口 | Phase 3 mock blueprint | 是 | Health metrics、Game Round success rate、latency、alert summary |
-| 風控報表 | `/monitoring/risk-reports` | 查詢與分析 Provider 端異常數據 | 滾動時間、環境、五張摘要卡、待關注異常、Risk Event 列表與詳情 | 詳細規格已確認，待原型實作 | 是 | Risk event query、summary、event detail、export |
+| 風控報表 | `/monitoring/risk-reports` | 查詢與分析 Provider 端異常數據 | 滾動時間、環境、五張摘要卡、待關注異常、Risk Event 列表與詳情 | 前端原型已完成（mock data） | 否 | Risk event query、summary、event detail、export |
 | 風控告警／處理 | `/monitoring/alerts` | 追蹤告警與 Provider 應變處理 | 告警摘要、工作佇列、Alert 詳情、隔離／解除與 GGAP 通知 | 詳細規格已確認，待原型實作 | 是 | Alert lifecycle、mitigation action、notification event、audit event |
 
 ### 2.6 GGAP 對接
@@ -152,8 +152,8 @@ GGAP 對接
 
 | 狀態 | 數量 | 說明 |
 |---|---:|---|
-| 既有功能頁原型 | 20 | 遊戲管理保留頁、遊戲紀錄、財務、官網、大廳與系統設定頁 |
-| Phase 3 mock blueprint Placeholder | 12 | 儀表板、環境發布、監控、風控、GGAP 對接與通知頁 |
+| 既有功能頁原型 | 21 | 遊戲管理保留頁、遊戲紀錄、財務、官網、大廳、風控報表與系統設定頁 |
+| Phase 3 mock blueprint Placeholder | 11 | 儀表板、環境發布、監控、風控告警／處理、GGAP 對接與通知頁 |
 | 導覽入口 redirect | 1 | `/website` 導向 `/website/banners` |
 
 ## 4. 不屬於 Provider Portal 的功能範圍

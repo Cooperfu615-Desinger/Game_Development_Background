@@ -363,13 +363,9 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'monitoring/risk-reports',
                 name: 'ProviderRiskReports',
-                component: () => import('../views/Provider/Placeholder.vue'),
+                component: () => import('../views/Provider/RiskReports.vue'),
                 meta: {
                     title: 'menu.providerMonitoringRiskReports',
-                    providerPlaceholder: {
-                        description: '查詢異常數據、風控趨勢與需要進一步檢視的遊戲營運紀錄。',
-                        responsibility: '聚合 Provider 端異常與風控報表檢視，不建立會員或代理商風控主檔。',
-                    },
                 }
             },
             {

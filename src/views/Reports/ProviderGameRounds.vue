@@ -173,6 +173,8 @@ function hydrateFiltersFromRoute() {
     filters.gameQuery = queryValue('game_query')
     filters.gameType = queryValue('game_type') as FilterState['gameType']
     filters.agentQuery = queryValue('agent_query')
+    filters.roundId = queryValue('round_id')
+    filters.externalRoundId = queryValue('external_round_id')
     appliedFilters.value = copyFilters(filters)
 }
 

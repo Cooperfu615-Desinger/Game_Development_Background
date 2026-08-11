@@ -351,7 +351,7 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'monitoring',
                 name: 'ProviderMonitoring',
-                component: () => import('../views/Provider/Placeholder.vue'),
+                component: () => import('../views/Provider/MonitoringOverview.vue'),
                 meta: {
                     title: 'menu.providerMonitoring',
                     providerPlaceholder: {

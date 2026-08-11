@@ -30,16 +30,34 @@ interface RoundMetrics {
     mainFailureType: string
 }
 
-interface IntegrationMetric {
-    direction: 'GGAP → 遊戲商' | '遊戲商 → GGAP'
-    apiType: string
+interface IntegrationBucket {
+    observedAt: Date
     total: number
-    p50: number
-    p95: number
-    p99: number
     timeouts: number
     failures: number
     retries: number
+    latencySamples: number[]
+}
+
+interface IntegrationMetric {
+    direction: 'GGAP → 遊戲商' | '遊戲商 → GGAP'
+    apiType: string
+    buckets: IntegrationBucket[]
+    lastErrorAt: Date | null
+    lastError: string
+}
+
+interface ResolvedIntegrationMetric {
+    direction: IntegrationMetric['direction']
+    apiType: string
+    total: number
+    p50: number | null
+    p95: number | null
+    p99: number | null
+    timeouts: number
+    failures: number
+    retries: number
+    latencySamples: number[]
     lastErrorAt: Date | null
     lastError: string
 }
@@ -200,6 +218,34 @@ function minutesAgo(minutes: number) {
     return new Date(now.getTime() - minutes * 60 * 1000)
 }
 
+function stringSeed(value: string) {
+    return [...value].reduce((seed, character) => seed + character.charCodeAt(0), 0)
+}
+
+function distributeDailyCount(value: number, hourOffset: number, seed: number) {
+    const base = Math.floor(value / 24)
+    const remainder = value % 24
+    return base + ((hourOffset * 7 + seed) % 24 < remainder ? 1 : 0)
+}
+
+function latencySamples(p50: number, p95: number, p99: number, hourOffset: number, seed: number) {
+    const recentFactor = hourOffset === 0
+        ? 1.12
+        : hourOffset < 6
+            ? 1.04
+            : hourOffset < 24
+                ? 0.94 + ((hourOffset + seed) % 5) * 0.02
+                : 0.9 + ((hourOffset + seed) % 9) * 0.025
+    return Array.from({ length: 100 }, (_, index) => {
+        const quantile = (index + 1) / 100
+        let latency = p99 * 1.04
+        if (quantile <= 0.5) latency = p50 * (0.55 + quantile * 0.9)
+        else if (quantile <= 0.95) latency = p50 + ((quantile - 0.5) / 0.45) * (p95 - p50)
+        else if (quantile <= 0.99) latency = p95 + ((quantile - 0.95) / 0.04) * (p99 - p95)
+        return Math.max(1, Math.round(latency * recentFactor))
+    })
+}
+
 function integration(
     direction: IntegrationMetric['direction'],
     apiType: string,
@@ -212,16 +258,18 @@ function integration(
     retries = 0,
     lastError = '',
 ): IntegrationMetric {
+    const seed = stringSeed(`${direction}-${apiType}`)
     return {
         direction,
         apiType,
-        total,
-        p50,
-        p95,
-        p99,
-        timeouts,
-        failures,
-        retries,
+        buckets: Array.from({ length: 7 * 24 }, (_, hourOffset) => ({
+            observedAt: new Date(now.getTime() - (hourOffset + 0.5) * 60 * 60 * 1000),
+            total: distributeDailyCount(total, hourOffset, seed),
+            timeouts: distributeDailyCount(timeouts, hourOffset, seed + 3),
+            failures: distributeDailyCount(failures, hourOffset, seed + 7),
+            retries: distributeDailyCount(retries, hourOffset, seed + 11),
+            latencySamples: latencySamples(p50, p95, p99, hourOffset, seed),
+        })),
         lastErrorAt: lastError ? minutesAgo(18) : null,
         lastError,
     }
@@ -459,6 +507,68 @@ function roundMetrics(game: GameMonitor): RoundMetrics {
     }
 }
 
+function percentile(samples: number[], percentileValue: number) {
+    if (!samples.length) return null
+    const sorted = [...samples].sort((left, right) => left - right)
+    const position = (percentileValue / 100) * (sorted.length - 1)
+    const lowerIndex = Math.floor(position)
+    const upperIndex = Math.ceil(position)
+    if (lowerIndex === upperIndex) return sorted[lowerIndex]
+    const weight = position - lowerIndex
+    return Math.round(sorted[lowerIndex] + (sorted[upperIndex] - sorted[lowerIndex]) * weight)
+}
+
+function resolveIntegration(metric: IntegrationMetric): ResolvedIntegrationMetric | null {
+    const [from, to] = appliedFilters.value.dateRange
+    if (!from || !to) return null
+    const buckets = metric.buckets.filter((bucket) => bucket.observedAt >= from && bucket.observedAt <= to)
+    if (!buckets.length) return null
+    const samples = buckets.flatMap((bucket) => bucket.latencySamples)
+    const lastErrorInRange = metric.lastErrorAt && metric.lastErrorAt >= from && metric.lastErrorAt <= to
+    return {
+        direction: metric.direction,
+        apiType: metric.apiType,
+        total: buckets.reduce((sum, bucket) => sum + bucket.total, 0),
+        p50: percentile(samples, 50),
+        p95: percentile(samples, 95),
+        p99: percentile(samples, 99),
+        timeouts: buckets.reduce((sum, bucket) => sum + bucket.timeouts, 0),
+        failures: buckets.reduce((sum, bucket) => sum + bucket.failures, 0),
+        retries: buckets.reduce((sum, bucket) => sum + bucket.retries, 0),
+        latencySamples: samples,
+        lastErrorAt: lastErrorInRange ? metric.lastErrorAt : null,
+        lastError: lastErrorInRange ? metric.lastError : '',
+    }
+}
+
+function gameKey(game: Pick<GameMonitor, 'environment' | 'gameId'>) {
+    return `${game.environment}-${game.gameId}`
+}
+
+const resolvedIntegrationsByGame = computed(() => new Map(mockGames.map((game) => [
+    gameKey(game),
+    game.integrations.map(resolveIntegration).filter((metric): metric is ResolvedIntegrationMetric => metric !== null),
+])))
+
+function resolvedIntegrations(game: GameMonitor) {
+    return resolvedIntegrationsByGame.value.get(gameKey(game)) ?? []
+}
+
+function aggregateIntegrations(game: GameMonitor) {
+    const metrics = resolvedIntegrations(game)
+    const samples = metrics.flatMap((metric) => metric.latencySamples)
+    return {
+        total: metrics.reduce((sum, metric) => sum + metric.total, 0),
+        p50: percentile(samples, 50),
+        p95: percentile(samples, 95),
+        p99: percentile(samples, 99),
+        timeouts: metrics.reduce((sum, metric) => sum + metric.timeouts, 0),
+        failures: metrics.reduce((sum, metric) => sum + metric.failures, 0),
+        retries: metrics.reduce((sum, metric) => sum + metric.retries, 0),
+        latencySamples: samples,
+    }
+}
+
 function transformForScenario(game: GameMonitor): GameMonitor {
     if (scenario.value === 'all-normal') {
         return {
@@ -500,9 +610,7 @@ function roundRate(game: GameMonitor) {
 
 function ggapP95(game: GameMonitor) {
     if (!game.integrations.length || game.ggapStatus === 'no_data' || scenario.value === 'partial-failure') return null
-    const total = game.integrations.reduce((sum, metric) => sum + metric.total, 0)
-    if (!total) return null
-    return Math.round(game.integrations.reduce((sum, metric) => sum + metric.p95 * metric.total, 0) / total)
+    return aggregateIntegrations(game).p95
 }
 
 function matchesFocus(game: GameMonitor) {
@@ -638,13 +746,14 @@ const summaryCards = computed<SummaryCard[]>(() => {
     const denominator = rounds.success + rounds.failed + rounds.timeout
     const successRate = denominator ? (rounds.success / denominator) * 100 : null
     const lowRateGames = [...games].filter((game) => roundRate(game) !== null).sort((a, b) => (roundRate(a) ?? 100) - (roundRate(b) ?? 100)).slice(0, 5)
-    const integrations = games.flatMap((game) => game.integrations.map((metric) => ({ game, metric })))
+    const integrations = games.flatMap((game) => resolvedIntegrations(game).map((metric) => ({ game, metric })))
     const totalRequests = integrations.reduce((sum, item) => sum + item.metric.total, 0)
-    const overallP95 = scenario.value === 'partial-failure' || !totalRequests ? null : Math.round(integrations.reduce((sum, item) => sum + item.metric.p95 * item.metric.total, 0) / totalRequests)
+    const latencySampleSet = integrations.flatMap((item) => item.metric.latencySamples)
+    const overallP95 = scenario.value === 'partial-failure' ? null : percentile(latencySampleSet, 95)
     const timeoutCount = integrations.reduce((sum, item) => sum + item.metric.timeouts, 0)
     const failureCount = integrations.reduce((sum, item) => sum + item.metric.failures, 0)
     const retryCount = integrations.reduce((sum, item) => sum + item.metric.retries, 0)
-    const attentionIntegrations = [...integrations].sort((a, b) => b.metric.p95 - a.metric.p95).slice(0, 5)
+    const attentionIntegrations = [...integrations].sort((a, b) => (b.metric.p95 ?? -1) - (a.metric.p95 ?? -1)).slice(0, 5)
     const alerts = games.flatMap((game) => game.alerts.map((alert) => ({ game, alert })))
     const criticalAlerts = alerts.filter((item) => item.alert.severity === 'critical').length
     const overdueAlerts = alerts.filter((item) => item.alert.overdue).length
@@ -667,9 +776,9 @@ const summaryCards = computed<SummaryCard[]>(() => {
             tip: [`公式：成功 ÷（成功＋失敗＋逾時）`, `成功 ${formatNumber(rounds.success)}｜失敗 ${formatNumber(rounds.failed)}｜逾時 ${formatNumber(rounds.timeout)}｜處理中未納入 ${formatNumber(rounds.processing)}`, ...lowRateGames.map((game) => `${game.gameName}｜${formatPercent(roundRate(game))}｜失敗 ${formatNumber(roundMetrics(game).failed)}｜${game.round.mainFailureType}`)].join('\n'),
         },
         {
-            key: 'ggap', label: 'GGAP 請求延遲', value: overallP95 === null ? '無資料' : `P95 ${formatNumber(overallP95)} ms`, status: scenario.value === 'partial-failure' ? '來源載入失敗' : overallP95 === null ? '無請求資料' : highestTone(games.map((game) => game.ggapStatus)) === 'danger' ? '對接異常' : highestTone(games.map((game) => game.ggapStatus)) === 'warning' ? '延遲升高' : '正常', note: `逾時 ${formatNumber(timeoutCount)} · 失敗 ${formatNumber(failureCount)} · 重試 ${formatNumber(retryCount)}`,
+            key: 'ggap', label: 'GGAP 請求延遲', value: overallP95 === null ? '無資料' : `P95 ${formatNumber(overallP95)} ms`, status: scenario.value === 'partial-failure' ? '來源載入失敗' : overallP95 === null ? '無請求資料' : highestTone(games.map((game) => game.ggapStatus)) === 'danger' ? '對接異常' : highestTone(games.map((game) => game.ggapStatus)) === 'warning' ? '延遲升高' : '正常', note: scenario.value === 'partial-failure' ? '逾時 — · 失敗 — · 重試 —' : `逾時 ${formatNumber(timeoutCount)} · 失敗 ${formatNumber(failureCount)} · 重試 ${formatNumber(retryCount)}`,
             icon: 'pi pi-bolt', tone: scenario.value === 'partial-failure' ? 'danger' : overallP95 === null ? 'neutral' : highestTone(games.map((game) => game.ggapStatus)),
-            tip: scenario.value === 'partial-failure' ? 'GGAP 請求指標來源載入失敗；其他成功來源仍保留。' : [`成功回應請求 ${formatNumber(totalRequests)}｜逾時 ${formatNumber(timeoutCount)}｜失敗 ${formatNumber(failureCount)}｜重試 ${formatNumber(retryCount)}`, ...attentionIntegrations.map(({ game, metric }) => `${game.gameName}｜${metric.direction}｜${metric.apiType}｜P50 ${metric.p50} / P95 ${metric.p95} / P99 ${metric.p99} ms`)].join('\n'),
+            tip: scenario.value === 'partial-failure' ? 'GGAP 請求指標來源載入失敗；不沿用上一次的請求數、逾時、失敗、重試或 percentile。其他成功來源仍保留。' : [`成功回應請求 ${formatNumber(totalRequests)}｜逾時 ${formatNumber(timeoutCount)}｜失敗 ${formatNumber(failureCount)}｜重試 ${formatNumber(retryCount)}`, ...attentionIntegrations.map(({ game, metric }) => `${game.gameName}｜${metric.direction}｜${metric.apiType}｜P50 ${metric.p50 ?? '—'} / P95 ${metric.p95 ?? '—'} / P99 ${metric.p99 ?? '—'} ms`)].join('\n'),
         },
         {
             key: 'alert', label: '高風險告警', value: formatNumber(alerts.length), status: alerts.length === 0 ? '目前無未結案告警' : criticalAlerts || overdueAlerts || mitigationFailed ? '立即處理' : '優先確認', note: `目前未結案告警 · 嚴重 ${criticalAlerts} · 高 ${alerts.length - criticalAlerts}`,
@@ -686,6 +795,12 @@ const summaryCards = computed<SummaryCard[]>(() => {
 
 const allNormal = computed(() => scopedGames.value.length > 0 && scopedGames.value.every((game) => overallStatus(game) === 'normal') && scenario.value !== 'partial-failure')
 const hasHealthNoData = computed(() => scopedGames.value.some((game) => game.healthStatus === 'no_data'))
+const selectedGameIntegrations = computed(() => selectedGame.value ? resolvedIntegrations(selectedGame.value) : [])
+const liveConnection = computed(() => {
+    if (scenario.value === 'all-failure') return { label: '監控資料連線失敗', icon: 'pi pi-times-circle', tone: 'danger' }
+    if (scenario.value === 'partial-failure') return { label: '部分監控來源異常', icon: 'pi pi-exclamation-triangle', tone: 'warning' }
+    return { label: '監控資料已連線', icon: 'pi pi-check-circle', tone: 'success' }
+})
 
 function openDetails(game: GameMonitor) {
     selectedGame.value = game
@@ -805,8 +920,8 @@ onBeforeUnmount(() => {
             </div>
         </section>
 
-        <section class="monitoring-livebar" aria-label="監控更新狀態">
-            <div class="monitoring-live-status"><span class="monitoring-live-dot" />監控資料已連線</div>
+        <section class="monitoring-livebar" :aria-label="`監控更新狀態：${liveConnection.label}`" aria-live="polite">
+            <div class="monitoring-live-status" :class="`monitoring-live-status--${liveConnection.tone}`"><i :class="liveConnection.icon" aria-hidden="true" /><span>{{ liveConnection.label }}</span></div>
             <div class="monitoring-live-actions">
                 <label class="monitoring-scenario-field">
                     <span>狀態預覽（Mock）</span>
@@ -936,7 +1051,7 @@ onBeforeUnmount(() => {
                 <section class="monitoring-detail-section">
                     <div class="monitoring-detail-title"><i class="pi pi-bolt" /><div><h3>GGAP 直接對接</h3><p>依方向與 API 類型拆分，未推論 GGAP 與代理商下游狀態。</p></div></div>
                     <div v-if="scenario === 'partial-failure'" class="monitoring-detail-empty monitoring-detail-empty--warning"><i class="pi pi-exclamation-triangle" />GGAP 請求指標來源載入失敗；不顯示上一次數值。</div>
-                    <div v-else-if="selectedGame.integrations.length" class="monitoring-detail-table-wrap"><table class="monitoring-detail-table"><thead><tr><th>方向</th><th>API 類型</th><th>請求數</th><th>P50</th><th>P95</th><th>P99</th><th>逾時</th><th>失敗</th><th>重試</th><th>最近異常／錯誤摘要</th></tr></thead><tbody><tr v-for="metric in selectedGame.integrations" :key="`${metric.direction}-${metric.apiType}`"><td>{{ metric.direction }}</td><td><code>{{ metric.apiType }}</code></td><td>{{ formatNumber(scaledCount(metric.total)) }}</td><td>{{ metric.p50 }} ms</td><td><strong>{{ metric.p95 }} ms</strong></td><td>{{ metric.p99 }} ms</td><td>{{ formatNumber(scaledCount(metric.timeouts)) }}</td><td>{{ formatNumber(scaledCount(metric.failures)) }}</td><td>{{ formatNumber(scaledCount(metric.retries)) }}</td><td><time>{{ formatDateTime(metric.lastErrorAt) }}</time><small>{{ metric.lastError || '—' }}</small></td></tr></tbody></table></div>
+                    <div v-else-if="selectedGameIntegrations.length" class="monitoring-detail-table-wrap"><table class="monitoring-detail-table"><thead><tr><th>方向</th><th>API 類型</th><th>請求數</th><th>P50</th><th>P95</th><th>P99</th><th>逾時</th><th>失敗</th><th>重試</th><th>最近異常／錯誤摘要</th></tr></thead><tbody><tr v-for="metric in selectedGameIntegrations" :key="`${metric.direction}-${metric.apiType}`"><td>{{ metric.direction }}</td><td><code>{{ metric.apiType }}</code></td><td>{{ formatNumber(metric.total) }}</td><td>{{ metric.p50 === null ? '—' : `${metric.p50} ms` }}</td><td><strong>{{ metric.p95 === null ? '—' : `${metric.p95} ms` }}</strong></td><td>{{ metric.p99 === null ? '—' : `${metric.p99} ms` }}</td><td>{{ formatNumber(metric.timeouts) }}</td><td>{{ formatNumber(metric.failures) }}</td><td>{{ formatNumber(metric.retries) }}</td><td><time>{{ formatDateTime(metric.lastErrorAt) }}</time><small>{{ metric.lastError || '—' }}</small></td></tr></tbody></table></div>
                     <div v-else class="monitoring-detail-empty"><i class="pi pi-inbox" />所選分析時間內沒有 GGAP 直接對接請求，不視為正常。</div>
                 </section>
 
@@ -1025,7 +1140,11 @@ onBeforeUnmount(() => {
 
 .monitoring-livebar { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: 1rem; padding: .65rem .8rem; border: 1px solid var(--monitoring-line); border-radius: .8rem; background: linear-gradient(90deg, #f7fbfa, #fff); }
 .monitoring-live-status { display: inline-flex; flex-shrink: 0; align-items: center; gap: .45rem; color: var(--monitoring-ink); font-size: .72rem; font-weight: 800; }
-.monitoring-live-dot { width: .48rem; height: .48rem; border-radius: 50%; background: #41a878; box-shadow: 0 0 0 .24rem rgba(65, 168, 120, .12); }
+.monitoring-live-status--success i { color: var(--monitoring-green); }
+.monitoring-live-status--warning { color: #89581d; }
+.monitoring-live-status--warning i { color: var(--monitoring-amber); }
+.monitoring-live-status--danger { color: #963d3a; }
+.monitoring-live-status--danger i { color: var(--monitoring-red); }
 .monitoring-live-actions { display: flex; min-width: 0; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: .55rem; }
 .monitoring-scenario-field { display: flex; align-items: center; gap: .45rem; color: var(--monitoring-muted); font-size: .68rem; }
 .monitoring-scenario-field :deep(.p-select) { min-width: 10.5rem; }

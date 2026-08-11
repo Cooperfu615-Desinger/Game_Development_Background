@@ -1,8 +1,8 @@
 # Provider Portal 產品與功能規格
 
-> 版本：0.5.0
+> 版本：0.6.0
 > 更新日期：2026-08-11
-> 狀態：導覽、頁面原型與監控／風控規格已整理；監控總覽前端原型、正式 API、權限與資料契約待確認
+> 狀態：導覽、頁面原型與監控／風控規格已整理；監控總覽前端 mock 原型已完成，正式 API、權限、警戒門檻、更新頻率與資料契約待確認
 
 ## 1. 產品定位
 
@@ -50,7 +50,7 @@ Provider Portal 不建立 Provider 錢包，也不把代理商、商戶或會員
 | 遊戲管理 | 主資料、規則、數學、版本、資產、全域上下架 | 既有頁面原型；環境與發布為 Placeholder blueprint |
 | 數據與報表 | 遊戲紀錄、Game Round 查詢與匯出 | `/reports` 遊戲紀錄原型已完成 |
 | 遊戲商財務 | 點數、USDT、投注、輸贏、GGR、財務總覽與代理商 × 遊戲彙總 | 財務總覽與代理商 × 遊戲彙總原型已完成 |
-| 遊戲監控與風控 | 遊戲健康、異常局、請求失敗與風控告警 | 監控總覽產品規格已確認、前端仍為 mock blueprint；風控報表與風控告警／處理前端原型已完成 |
+| 遊戲監控與風控 | 遊戲健康、異常局、請求失敗與風控告警 | 監控總覽、風控報表與風控告警／處理的獨立前端 mock 原型已完成 |
 | GGAP 對接 | 連線、同步、請求、結算與錯誤狀態 | Phase 3 mock blueprint |
 | 通知中心 | 站內通知、已讀與通知偏好 | Phase 3 mock blueprint |
 | 遊戲官網 | Banner、條款、隱私權、負責任遊戲、聯絡資訊與發布紀錄 | 已完成前端原型骨架，後續接正式內容、圖片、發布與權限 |
@@ -62,8 +62,9 @@ Provider Portal 不建立 Provider 錢包，也不把代理商、商戶或會員
 - `/reports` 已建立 Provider Game Round 明細頁原型，支援查詢、排序、分頁、詳情與 CSV / XLSX 匯出。
 - `/lobby`、`/lobby/games`、`/lobby/management`、`/lobby/demo`、`/lobby/preview` 已建立遊戲大廳五頁原型。
 - `/website/banners`、`/website/content`、`/website/releases` 已建立遊戲官網三頁原型，`/website` 會導向 Banner 管理。
-- `/dashboard`、`/games/environments`、`/monitoring`、`/ggap/*`、`/notifications/*` 已建立共用 Provider Placeholder 頁面骨架；`/monitoring/risk-reports` 與 `/monitoring/alerts` 已由獨立內容頁承接。
-- 目前主要導覽共有 32 個可進入的內容頁，其中 22 個已有完整內容原型，10 個使用 Provider Placeholder；完整頁面地圖見 [`PROVIDER_PORTAL_PAGE_MAP.md`](./PROVIDER_PORTAL_PAGE_MAP.md)。
+- `/monitoring` 已由 `MonitoringOverview.vue` 承接獨立 mock 原型，包含五張摘要卡、期間查詢、遊戲監控列表、詳情、失敗狀態與跨頁導向；`/monitoring/risk-reports` 與 `/monitoring/alerts` 也由獨立內容頁承接。
+- `/dashboard`、`/games/environments`、`/ggap/*`、`/notifications/*` 仍使用共用 Provider Placeholder 頁面骨架。
+- 目前主要導覽共有 32 個可進入的內容頁，其中 23 個已有完整內容原型，9 個使用 Provider Placeholder；完整頁面地圖見 [`PROVIDER_PORTAL_PAGE_MAP.md`](./PROVIDER_PORTAL_PAGE_MAP.md)。
 - 上述頁面目前以原型展示資料呈現，不代表正式 API、權限、狀態碼、精度與後端資料契約已定稿。
 
 ## 4. 已確認的核心原則

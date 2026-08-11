@@ -354,10 +354,6 @@ const routes: RouteRecordRaw[] = [
                 component: () => import('../views/Provider/MonitoringOverview.vue'),
                 meta: {
                     title: 'menu.providerMonitoring',
-                    providerPlaceholder: {
-                        description: '遊戲健康、Game Round 異常、GGAP 請求與 Provider 風控告警。',
-                        responsibility: '提供 Provider 遊戲服務與對接健康的監控入口，不取代 GGAP 平台級風控。',
-                    },
                 }
             },
             {

@@ -35,6 +35,26 @@
 
 Provider Portal 可以保存 GGAP 傳入的代理商、商戶、會員與幣別脈絡，作為單筆 Game Round 或異常追蹤的關聯資料，但不建立上述主資料或平台風控規則。
 
+### 2.3 共用中文術語與顯示規則
+
+Provider Portal 的主要介面以台灣繁體中文呈現；英文只在技術值、原始欄位名稱、協定資訊或選項輔助說明中保留。共用術語如下：
+
+| 技術術語 | 一般畫面顯示 | 選項或詳情輔助顯示 |
+|---|---|---|
+| Risk Event | 風控事件 | 風控事件（Risk Event） |
+| Game Round | 遊戲回合 | 遊戲回合（Game Round） |
+| Provider | 供應商 | 供應商（Provider） |
+| Launch | 啟動 | 啟動（Launch） |
+| Settle | 結算 | 結算（Settle） |
+| Callback | 回呼 | 回呼（Callback） |
+| Request / Response | 請求／回應 | 請求（Request）／回應（Response） |
+| Error message | 錯誤訊息 | 錯誤訊息（Error message） |
+| Tips | 提示 | — |
+
+表格欄位、摘要卡與狀態標籤使用簡潔中文，避免每列重複英文。Production 顯示為「正式環境」、DEMO 顯示為「展示環境」，環境選項可使用「正式環境（Production）」與「展示環境（DEMO）」；Test 不納入本頁。Info、Low、Medium、High、Critical 一般顯示為「資訊、低、中、高、嚴重」，選項可附上英文原值。
+
+上述規則只改變顯示文字，不得翻譯或改動 API 值、路由、ID、錯誤碼、HTTP 狀態碼、版本號、原始欄位名稱與協定路徑。事件證據中的請求／回應摘要與時間線可翻譯說明文字，但應保留必要的 HTTP method、endpoint、狀態碼、識別碼與原始技術值。
+
 ## 3. 三個頁面的責任分工
 
 | 頁面 | 主要問題 | 可呈現內容 | 是否執行處理 |

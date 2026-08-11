@@ -113,42 +113,82 @@ const now = new Date()
 
 const gameTypeLabels: Record<GameType, string> = {
     slots: '老虎機',
-    crash: '單人 Crash',
-    table: '棋牌',
+    crash: '碰撞遊戲',
+    table: '棋牌遊戲',
 }
 
 const environmentLabels: Record<Environment, string> = {
-    production: 'Production',
-    demo: 'DEMO',
+    production: '正式環境',
+    demo: '展示環境',
+}
+
+const environmentOptionLabels: Record<Environment, string> = {
+    production: '正式環境（Production）',
+    demo: '展示環境（DEMO）',
+}
+
+const gameTypeOptionLabels: Record<GameType, string> = {
+    slots: '老虎機（Slots）',
+    crash: '碰撞遊戲（Crash）',
+    table: '棋牌遊戲（Table）',
 }
 
 const sourceLabels: Record<string, string> = {
-    game_round: 'Game Round',
-    ggap_request: 'GGAP Request',
-    callback: 'Callback',
-    data_quality: 'Data Quality',
-    game_service: 'Game Service',
-    game_math: 'Game Math',
+    game_round: '遊戲回合',
+    ggap_request: 'GGAP 請求',
+    callback: '回呼',
+    data_quality: '資料品質',
+    game_service: '遊戲服務',
+    game_math: '遊戲數值',
+}
+
+const sourceOptionLabels: Record<string, string> = {
+    game_round: '遊戲回合（Game Round）',
+    ggap_request: 'GGAP 請求（GGAP Request）',
+    callback: '回呼（Callback）',
+    data_quality: '資料品質（Data Quality）',
+    game_service: '遊戲服務（Game Service）',
+    game_math: '遊戲數值（Game Math）',
 }
 
 const anomalyLabels: Record<string, string> = {
     settlement_failure: '結算失敗',
-    callback_failure: 'Callback 失敗',
+    callback_failure: '回呼失敗',
     duplicate_settlement: '重複結算',
     request_timeout: '請求逾時',
-    callback_latency: 'Callback 延遲',
+    callback_latency: '回呼延遲',
     data_missing: '必要資料缺失',
     service_unavailable: '遊戲服務不可用',
     payout_anomaly: '派彩結果異常',
-    round_link_failure: 'Round 關聯失敗',
+    round_link_failure: '遊戲回合關聯失敗',
+}
+
+const anomalyOptionLabels: Record<string, string> = {
+    settlement_failure: '結算失敗（Settlement Failure）',
+    callback_failure: '回呼失敗（Callback Failure）',
+    duplicate_settlement: '重複結算（Duplicate Settlement）',
+    request_timeout: '請求逾時（Request Timeout）',
+    callback_latency: '回呼延遲（Callback Latency）',
+    data_missing: '必要資料缺失（Missing Data）',
+    service_unavailable: '遊戲服務不可用（Service Unavailable）',
+    payout_anomaly: '派彩結果異常（Payout Anomaly）',
+    round_link_failure: '遊戲回合關聯失敗（Round Link Failure）',
 }
 
 const severityLabels: Record<Severity, string> = {
-    info: 'Info',
-    low: 'Low',
-    medium: 'Medium',
-    high: 'High',
-    critical: 'Critical',
+    info: '資訊',
+    low: '低',
+    medium: '中',
+    high: '高',
+    critical: '嚴重',
+}
+
+const severityOptionLabels: Record<Severity, string> = {
+    info: '資訊（Info）',
+    low: '低（Low）',
+    medium: '中（Medium）',
+    high: '高（High）',
+    critical: '嚴重（Critical）',
 }
 
 const statusLabels: Record<HandlingStatus, string> = {
@@ -178,7 +218,29 @@ const ggapNotificationLabels: Record<GgapNotificationStatus, string> = {
     pending: '通知中',
     sent: '已送出',
     failed: '通知失敗',
-    acknowledged: '已 ACK',
+    acknowledged: '已確認',
+}
+
+const mitigationOptionLabels: Record<MitigationStatus, string> = {
+    not_required: '不需處理（Not required）',
+    pending: '處理中（Pending）',
+    applied: '已套用（Applied）',
+    failed: '處理失敗（Failed）',
+    released: '已解除（Released）',
+}
+
+const isolationOptionLabels: Record<IsolationStatus, string> = {
+    not_isolated: '未隔離（Not isolated）',
+    isolated: '隔離中（Isolated）',
+    released: '已解除（Released）',
+}
+
+const ggapNotificationOptionLabels: Record<GgapNotificationStatus, string> = {
+    not_required: '不需通知（Not required）',
+    pending: '通知中（Pending）',
+    sent: '已送出（Sent）',
+    failed: '通知失敗（Failed）',
+    acknowledged: '已確認（Acknowledged）',
 }
 
 function hoursAgo(hours: number, minutes = 0) {
@@ -253,13 +315,13 @@ const mockEvents: RiskEvent[] = [
 ]
 
 const gameOptions = [{ label: '全部遊戲', value: '' }, ...Array.from(new Map(mockEvents.map((event) => [event.gameId, { label: event.gameName, value: event.gameId }])).values())]
-const gameTypeOptions = [{ label: '全部類型', value: '' }, ...Object.entries(gameTypeLabels).map(([value, label]) => ({ value, label }))]
-const anomalyOptions = [{ label: '全部異常類型', value: '' }, ...Object.entries(anomalyLabels).map(([value, label]) => ({ value, label }))]
-const severityOptions = [{ label: '全部嚴重度', value: '' }, ...Object.entries(severityLabels).map(([value, label]) => ({ value, label }))]
-const sourceOptions = [{ label: '全部來源', value: '' }, ...Object.entries(sourceLabels).map(([value, label]) => ({ value, label }))]
-const mitigationOptions = [{ label: '全部緩解狀態', value: '' }, ...Object.entries(mitigationLabels).map(([value, label]) => ({ value, label }))]
-const isolationOptions = [{ label: '全部隔離狀態', value: '' }, ...Object.entries(isolationLabels).map(([value, label]) => ({ value, label }))]
-const ggapNotificationOptions = [{ label: '全部通知狀態', value: '' }, ...Object.entries(ggapNotificationLabels).map(([value, label]) => ({ value, label }))]
+const gameTypeOptions = [{ label: '全部類型', value: '' }, ...Object.entries(gameTypeOptionLabels).map(([value, label]) => ({ value, label }))]
+const anomalyOptions = [{ label: '全部異常類型', value: '' }, ...Object.entries(anomalyOptionLabels).map(([value, label]) => ({ value, label }))]
+const severityOptions = [{ label: '全部嚴重度', value: '' }, ...Object.entries(severityOptionLabels).map(([value, label]) => ({ value, label }))]
+const sourceOptions = [{ label: '全部來源', value: '' }, ...Object.entries(sourceOptionLabels).map(([value, label]) => ({ value, label }))]
+const mitigationOptions = [{ label: '全部緩解狀態', value: '' }, ...Object.entries(mitigationOptionLabels).map(([value, label]) => ({ value, label }))]
+const isolationOptions = [{ label: '全部隔離狀態', value: '' }, ...Object.entries(isolationOptionLabels).map(([value, label]) => ({ value, label }))]
+const ggapNotificationOptions = [{ label: '全部通知狀態', value: '' }, ...Object.entries(ggapNotificationOptionLabels).map(([value, label]) => ({ value, label }))]
 const statusOptions = [
     { label: '全部處理狀態', value: '' },
     { label: '未解決', value: 'unresolved' },
@@ -407,6 +469,64 @@ function formatAnomalyBreakdown(rows: RiskEvent[]) {
     return breakdown.length ? breakdown.join('、') : '無事件'
 }
 
+const evidenceTranslations: Array<[string, string]> = [
+    ['502 Bad Gateway', '502 Bad Gateway（閘道錯誤）'],
+    ['503 Service Unavailable', '503 Service Unavailable（服務不可用）'],
+    ['409 Conflict', '409 Conflict（衝突）'],
+    ['200 OK', '200 OK（成功）'],
+    ['新 Launch', '新啟動'],
+    ['Duplicate settle request rejected by idempotency guard', '重複結算請求遭冪等防護拒絕'],
+    ['GGAP response exceeded timeout threshold', 'GGAP 回應超過逾時門檻'],
+    ['Required field arrived after initial validation', '必要欄位在初次驗證後才到達'],
+    ['Payout exceeded configured range', '派彩超過已設定範圍'],
+    ['DEMO upstream response exceeded threshold', '展示環境上游回應超過門檻'],
+    ['Callback response latency exceeded threshold', '回呼回應延遲超過門檻'],
+    ['Round linkage was temporarily unavailable', '遊戲回合關聯暫時無法使用'],
+    ['upstream unavailable', '上游服務不可用'],
+    ['retry queue accepted', '已接受重試佇列'],
+    ['duplicate request ignored', '已忽略重複請求'],
+    ['Retry succeeded', '重試成功'],
+    ['Fields completed before settlement', '結算前已完成欄位補齊'],
+    ['Pending rule review', '等待規則檢視'],
+    ['ACK received after retry', '重試後收到確認'],
+    ['Link restored before close', '關閉前已恢復關聯'],
+    ['Schema validator', '結構驗證器'],
+    ['idempotency key reused', '重複使用冪等鍵'],
+    ['Callback acknowledgement', '回呼確認'],
+    ['Callback delivery queue', '回呼傳送佇列'],
+    ['Callback payload', '回呼內容'],
+    ['Game math monitor', '遊戲數值監控'],
+    ['Round reconciliation worker', '遊戲回合對帳工作程序'],
+    ['demo endpoint', '展示環境端點'],
+    ['endpoint', '端點'],
+    ['demo batch', '展示環境批次'],
+    ['batch', '批次'],
+    ['sample', '樣本'],
+    ['interval', '間隔'],
+    ['5s', '5 秒'],
+    ['30s', '30 秒'],
+    ['timeout', '逾時'],
+    ['retry', '重試'],
+    ['No ACK', '未收到確認'],
+    ['returned', '回傳'],
+    ['exceeded', '超過'],
+    ['Risk Event', '風控事件'],
+    ['Game Round', '遊戲回合'],
+    ['Callback', '回呼'],
+    ['Settle', '結算'],
+    ['Launch', '啟動'],
+    ['Round', '回合'],
+    ['High', '高'],
+    ['Critical', '嚴重'],
+    ['Production', '正式環境'],
+    ['DEMO', '展示環境'],
+    ['ACK', '確認'],
+]
+
+function formatEvidenceText(value: string) {
+    return evidenceTranslations.reduce((result, [source, target]) => result.replaceAll(source, target), value)
+}
+
 function formatDateTime(value: Date) {
     return new Intl.DateTimeFormat('zh-TW', {
         timeZone: 'Asia/Taipei',
@@ -503,7 +623,7 @@ function openRiskEventFromQuery() {
     if (!event) {
         selectedEvent.value = null
         detailsVisible.value = false
-        queryError.value = `找不到指定的 Risk Event：${riskEventId}。請確認完整識別碼後再試。`
+        queryError.value = `找不到指定的風控事件：${riskEventId}。請確認完整識別碼後再試。`
         return
     }
 
@@ -556,7 +676,7 @@ watch(() => route.query.risk_event_id, openRiskEventFromQuery)
         <section v-if="!queryError" class="risk-report-control-card" aria-label="風控報表查詢範圍">
             <div class="risk-report-control-heading">
                 <div>
-                    <span class="risk-report-eyebrow">RISK EVENT REPORT</span>
+                    <span class="risk-report-eyebrow">風控事件報表</span>
                     <h2>查詢範圍</h2>
                 </div>
                 <div class="risk-report-scope-meta"><i class="pi pi-clock" /> {{ timezoneLabel }}</div>
@@ -568,11 +688,11 @@ watch(() => route.query.risk_event_id, openRiskEventFromQuery)
                     <div class="risk-report-radio-group" role="radiogroup" aria-label="環境">
                         <label class="risk-report-radio-option" data-testid="risk-environment-production">
                             <RadioButton v-model="draftFilters.environment" name="risk-environment" value="production" @change="applyFilters" />
-                            <span>Production</span>
+                            <span>{{ environmentOptionLabels.production }}</span>
                         </label>
                         <label class="risk-report-radio-option" data-testid="risk-environment-demo">
                             <RadioButton v-model="draftFilters.environment" name="risk-environment" value="demo" @change="applyFilters" />
-                            <span>DEMO</span>
+                            <span>{{ environmentOptionLabels.demo }}</span>
                         </label>
                     </div>
                 </div>
@@ -593,21 +713,21 @@ watch(() => route.query.risk_event_id, openRiskEventFromQuery)
             <article v-for="card in summaryCards" :key="card.key" class="risk-report-summary-card" :class="`risk-report-summary-card--${card.tone}`">
                 <div class="risk-report-summary-top">
                     <span><i :class="card.icon" />{{ card.label }}</span>
-                    <button v-tooltip.top="card.tip" type="button" class="risk-report-info-button" :aria-label="`${card.label} Tips`"><i class="pi pi-info-circle" /></button>
+                    <button v-tooltip.top="card.tip" type="button" class="risk-report-info-button" :aria-label="`${card.label}提示`"><i class="pi pi-info-circle" /></button>
                 </div>
                 <strong>{{ formatNumber(card.value) }}</strong>
                 <small>{{ appliedRangeLabel }} · {{ environmentLabels[appliedFilters.environment] }}</small>
             </article>
         </section>
 
-        <div v-if="queryError" class="risk-report-state-panel risk-report-state-panel--error risk-report-query-error" role="alert"><i class="pi pi-exclamation-circle" /><div><strong>{{ queryError }}</strong><p>此頁未開啟其他事件，請確認 Risk Event ID 或返回風控告警／處理。</p></div><Button label="返回列表" icon="pi pi-arrow-left" severity="secondary" outlined @click="clearRiskEventQuery" /></div>
+        <div v-if="queryError" class="risk-report-state-panel risk-report-state-panel--error risk-report-query-error" role="alert"><i class="pi pi-exclamation-circle" /><div><strong>{{ queryError }}</strong><p>此頁未開啟其他事件，請確認風控事件 ID 或返回風控告警／處理。</p></div><Button label="返回列表" icon="pi pi-arrow-left" severity="secondary" outlined @click="clearRiskEventQuery" /></div>
 
         <section v-if="!queryError" class="risk-report-attention-section" aria-labelledby="risk-attention-title">
             <div class="risk-report-section-heading">
                 <div>
-                    <span class="risk-report-eyebrow">PRIORITY QUEUE</span>
+                    <span class="risk-report-eyebrow">優先處理佇列</span>
                     <h2 id="risk-attention-title">待關注異常</h2>
-                    <p>優先顯示 Critical、自動緩解失敗、尚未隔離、GGAP 通知失敗與 High 事件。</p>
+                    <p>優先顯示嚴重、高風險、自動緩解失敗、尚未隔離或 GGAP 通知失敗的事件。</p>
                 </div>
                 <span class="risk-report-section-count">{{ attentionRows.length }} / 5 筆</span>
             </div>
@@ -616,15 +736,15 @@ watch(() => route.query.risk_event_id, openRiskEventFromQuery)
                 <article v-for="event in attentionRows" :key="event.riskEventId" class="risk-report-attention-row">
                     <div class="risk-report-attention-severity"><span class="risk-pill" :class="severityClass(event.severity)">{{ severityLabels[event.severity] }}</span><time>{{ formatShortDate(event.detectedAt) }}</time></div>
                     <div class="risk-report-attention-identity"><strong>{{ event.riskEventId }}</strong><span>{{ event.gameName }} · {{ event.gameVersion }}</span></div>
-                    <div class="risk-report-attention-anomaly"><span>{{ anomalyLabels[event.anomalyType] }}</span><small>{{ formatNumber(event.affectedRounds) }} 個受影響 Game Round</small></div>
+                    <div class="risk-report-attention-anomaly"><span>{{ anomalyLabels[event.anomalyType] }}</span><small>{{ formatNumber(event.affectedRounds) }} 個受影響回合</small></div>
                     <div class="risk-report-attention-status"><span class="risk-pill" :class="statusClass(event.status)">{{ statusLabels[event.status] }}</span><small>{{ mitigationLabels[event.mitigationStatus] }} · {{ isolationLabels[event.isolationStatus] }}</small></div>
                     <div class="risk-report-attention-actions"><Button label="查看詳情" icon="pi pi-arrow-up-right" text severity="secondary" :data-testid="`risk-attention-details-${event.riskEventId}`" @click="openDetails(event)" /><Button v-if="event.alertId" label="前往處理" icon="pi pi-external-link" text severity="danger" @click="goToAlerts(event)" /></div>
                 </article>
             </div>
-            <div v-else class="risk-report-attention-empty"><div class="risk-report-empty-icon"><i class="pi pi-check-circle" /></div><div><strong>目前沒有需要優先關注的事件</strong><p>目前查詢範圍內沒有未關閉的 High／Critical Risk Event。</p></div></div>
+            <div v-else class="risk-report-attention-empty"><div class="risk-report-empty-icon"><i class="pi pi-check-circle" /></div><div><strong>目前沒有需要優先關注的事件</strong><p>目前查詢範圍內沒有未關閉的高風險或嚴重風控事件。</p></div></div>
         </section>
 
-        <FilterCard v-if="!queryError" title="查詢條件" description="所有摘要、待關注異常與 Risk Event 列表均依目前套用的查詢條件同步更新。">
+        <FilterCard v-if="!queryError" title="查詢條件" description="所有摘要、待關注異常與風控事件列表均依目前套用的查詢條件同步更新。">
             <template #default>
                 <div class="risk-report-filter-range-row">
                     <div class="risk-report-date-range-field"><span class="risk-report-field-label">自訂時間區間</span><DateTimeRangeField :model-value="draftFilters.dateRange" @update:model-value="handleCustomRange" /></div>
@@ -644,21 +764,21 @@ watch(() => route.query.risk_event_id, openRiskEventFromQuery)
                 </div>
 
                 <div v-if="advancedVisible" class="risk-report-filter-grid risk-report-filter-grid--advanced">
-                    <div class="field"><label for="risk-event-id">Risk Event ID <small>精確</small></label><InputText id="risk-event-id" v-model="draftFilters.riskEventId" placeholder="輸入完整 rsk_..." fluid @keyup.enter="applyFilters" /></div>
+                    <div class="field"><label for="risk-event-id">風控事件 ID（Risk Event ID） <small>精確查詢</small></label><InputText id="risk-event-id" v-model="draftFilters.riskEventId" placeholder="輸入完整 rsk_..." fluid @keyup.enter="applyFilters" /></div>
                     <div class="field"><label for="risk-game-version">遊戲版本</label><InputText id="risk-game-version" v-model="draftFilters.gameVersion" placeholder="例如 v2.4.1" fluid @keyup.enter="applyFilters" /></div>
                     <div class="field"><label for="risk-source">異常來源</label><Select id="risk-source" v-model="draftFilters.source" :options="sourceOptions" option-label="label" option-value="value" fluid /></div>
                     <div class="field"><label for="risk-mitigation">自動緩解狀態</label><Select id="risk-mitigation" v-model="draftFilters.mitigationStatus" :options="mitigationOptions" option-label="label" option-value="value" fluid /></div>
                     <div class="field"><label for="risk-isolation">是否隔離</label><Select id="risk-isolation" v-model="draftFilters.isolationStatus" :options="isolationOptions" option-label="label" option-value="value" fluid /></div>
                     <div class="field"><label for="risk-ggap-status">GGAP 通知狀態</label><Select id="risk-ggap-status" v-model="draftFilters.ggapNotificationStatus" :options="ggapNotificationOptions" option-label="label" option-value="value" fluid /></div>
-                    <div class="field"><label for="risk-provider-round">Provider Game Round ID <small>精確</small></label><InputText id="risk-provider-round" v-model="draftFilters.providerGameRoundId" placeholder="輸入完整 Round ID" fluid @keyup.enter="applyFilters" /></div>
-                    <div class="field"><label for="risk-ggap-round">GGAP Round ID <small>精確</small></label><InputText id="risk-ggap-round" v-model="draftFilters.ggapRoundId" placeholder="輸入完整 Round ID" fluid @keyup.enter="applyFilters" /></div>
+                    <div class="field"><label for="risk-provider-round">供應商遊戲回合 ID（Provider Game Round ID） <small>精確查詢</small></label><InputText id="risk-provider-round" v-model="draftFilters.providerGameRoundId" placeholder="輸入完整回合 ID" fluid @keyup.enter="applyFilters" /></div>
+                    <div class="field"><label for="risk-ggap-round">GGAP 回合 ID（GGAP Round ID） <small>精確查詢</small></label><InputText id="risk-ggap-round" v-model="draftFilters.ggapRoundId" placeholder="輸入完整回合 ID" fluid @keyup.enter="applyFilters" /></div>
                 </div>
             </template>
         </FilterCard>
 
         <section v-if="!queryError" class="risk-report-list-section" aria-labelledby="risk-list-title">
             <div class="risk-report-section-heading risk-report-list-heading">
-                <div><span class="risk-report-eyebrow">RISK EVENT LIST</span><h2 id="risk-list-title">Risk Event 列表</h2><p>{{ tableDescription }}</p></div>
+                <div><span class="risk-report-eyebrow">風控事件列表</span><h2 id="risk-list-title">風控事件列表</h2><p>{{ tableDescription }}</p></div>
                 <div class="risk-report-list-meta"><span><i class="pi pi-lock" />唯讀查詢</span><span><i class="pi pi-database" />{{ formatNumber(matchingRows.length) }} 筆結果</span><Button label="匯出" icon="pi pi-download" severity="secondary" outlined :disabled="matchingRows.length === 0" data-testid="risk-export-button" @click="openExport" /></div>
             </div>
 
@@ -666,23 +786,23 @@ watch(() => route.query.risk_event_id, openRiskEventFromQuery)
 
             <SectionCard class="risk-report-table-card">
                 <div v-if="loadError" class="risk-report-state-panel risk-report-state-panel--error"><i class="pi pi-exclamation-circle" /><div><strong>{{ loadError }}</strong><p>請修正條件後重新查詢。</p></div><Button label="重置條件" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" /></div>
-                <div v-else-if="!loading && matchingRows.length === 0" class="risk-report-state-panel"><i class="pi pi-search" /><div><strong>查無符合條件的 Risk Event</strong><p>目前查詢條件沒有事件資料；摘要卡已同步顯示 0。</p></div><Button label="清除條件" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" /></div>
+                <div v-else-if="!loading && matchingRows.length === 0" class="risk-report-state-panel"><i class="pi pi-search" /><div><strong>查無符合條件的風控事件</strong><p>目前查詢條件沒有事件資料；摘要卡已同步顯示 0。</p></div><Button label="清除條件" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" /></div>
                 <DataTable v-else class="risk-report-data-table" :value="matchingRows" data-key="riskEventId" :loading="loading" scrollable paginator :first="first" :rows="8" :rows-per-page-options="[8, 16, 32]" table-style="min-width: 2180px" paginator-template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink RowsPerPageDropdown" current-page-report-template="{first}-{last} / {totalRecords}" @page="handlePage">
                     <Column field="detectedAt" header="偵測時間" style="width: 168px; min-width: 168px"><template #body="{ data }"><span class="risk-report-time-cell">{{ formatDateTime(data.detectedAt) }}</span></template></Column>
-                    <Column field="riskEventId" header="Risk Event ID" style="width: 264px; min-width: 264px"><template #body="{ data }"><span class="risk-report-id-cell">{{ data.riskEventId }}</span></template></Column>
+                    <Column field="riskEventId" header="事件 ID" style="width: 264px; min-width: 264px"><template #body="{ data }"><span class="risk-report-id-cell">{{ data.riskEventId }}</span></template></Column>
                     <Column field="severity" header="嚴重度" style="width: 110px; min-width: 110px"><template #body="{ data }"><span class="risk-pill" :class="severityClass(data.severity)">{{ severityLabels[data.severity] }}</span></template></Column>
                     <Column field="environment" header="環境" style="width: 110px; min-width: 110px"><template #body="{ data }"><span class="risk-report-environment-cell"><i class="pi pi-circle-fill" />{{ environmentLabels[data.environment] }}</span></template></Column>
                     <Column field="source" header="異常來源" style="width: 142px; min-width: 142px"><template #body="{ data }">{{ sourceLabels[data.source] }}</template></Column>
                     <Column field="anomalyType" header="異常類型" style="width: 172px; min-width: 172px"><template #body="{ data }"><strong>{{ anomalyLabels[data.anomalyType] }}</strong></template></Column>
                     <Column field="gameName" header="遊戲名稱" style="width: 160px; min-width: 160px"><template #body="{ data }"><div class="risk-report-game-cell"><strong>{{ data.gameName }}</strong><small>{{ data.gameId }}</small></div></template></Column>
                     <Column field="gameVersion" header="遊戲版本" style="width: 122px; min-width: 122px"><template #body="{ data }"><span class="risk-report-version-cell">{{ data.gameVersion }}</span></template></Column>
-                    <Column field="affectedRounds" header="受影響 Game Round 數" style="width: 170px; min-width: 170px"><template #body="{ data }"><span class="risk-report-number-cell">{{ formatNumber(data.affectedRounds) }}</span></template></Column>
+                    <Column field="affectedRounds" header="受影響回合數" style="width: 170px; min-width: 170px"><template #body="{ data }"><span class="risk-report-number-cell">{{ formatNumber(data.affectedRounds) }}</span></template></Column>
                     <Column field="status" header="處理狀態" style="width: 120px; min-width: 120px"><template #body="{ data }"><span class="risk-pill" :class="statusClass(data.status)">{{ statusLabels[data.status] }}</span></template></Column>
                     <Column field="mitigationStatus" header="自動緩解狀態" style="width: 138px; min-width: 138px"><template #body="{ data }"><span class="risk-pill" :class="mitigationClass(data.mitigationStatus)">{{ mitigationLabels[data.mitigationStatus] }}</span></template></Column>
                     <Column field="isolationStatus" header="隔離狀態" style="width: 110px; min-width: 110px"><template #body="{ data }"><span class="risk-pill" :class="isolationClass(data.isolationStatus)">{{ isolationLabels[data.isolationStatus] }}</span></template></Column>
                     <Column field="ggapNotificationStatus" header="GGAP 通知狀態" style="width: 132px; min-width: 132px"><template #body="{ data }"><span class="risk-pill" :class="notificationClass(data.ggapNotificationStatus)">{{ ggapNotificationLabels[data.ggapNotificationStatus] }}</span></template></Column>
                     <Column field="updatedAt" header="最後更新時間" style="width: 168px; min-width: 168px"><template #body="{ data }"><span class="risk-report-time-cell">{{ formatDateTime(data.updatedAt) }}</span></template></Column>
-                    <Column header="操作" frozen align-frozen="right" style="width: 166px; min-width: 166px"><template #body="{ data }"><div class="risk-report-row-actions"><Button icon="pi pi-eye" text rounded severity="secondary" aria-label="查看 Risk Event 詳情" data-testid="risk-details-button" @click.stop="openDetails(data)" /><Button v-if="data.alertId" icon="pi pi-external-link" text rounded severity="danger" aria-label="前往告警處理" @click.stop="goToAlerts(data)" /></div></template></Column>
+                    <Column header="操作" frozen align-frozen="right" style="width: 166px; min-width: 166px"><template #body="{ data }"><div class="risk-report-row-actions"><Button icon="pi pi-eye" text rounded severity="secondary" aria-label="查看風控事件詳情" data-testid="risk-details-button" @click.stop="openDetails(data)" /><Button v-if="data.alertId" icon="pi pi-external-link" text rounded severity="danger" aria-label="前往告警處理" @click.stop="goToAlerts(data)" /></div></template></Column>
                 </DataTable>
             </SectionCard>
         </section>
@@ -691,37 +811,37 @@ watch(() => route.query.risk_event_id, openRiskEventFromQuery)
             <div class="risk-export-content">
                 <div class="risk-export-intro"><i class="pi pi-file-export" /><div><strong>匯出完整篩選結果</strong><p>{{ environmentLabels[appliedFilters.environment] }} · {{ appliedRangeLabel }} · {{ formatNumber(matchingRows.length) }} 筆，不受目前分頁限制。</p></div></div>
                 <div class="risk-export-format"><span>檔案格式</span><label><RadioButton v-model="exportFormat" name="risk-export-format" value="csv" /> CSV</label><label><RadioButton v-model="exportFormat" name="risk-export-format" value="xlsx" /> XLSX</label></div>
-                <div class="risk-export-mock-note"><i class="pi pi-info-circle" /><span>Prototype / Mock data：目前只呈現匯出入口與選擇，不產生實體檔案。</span></div>
+                <div class="risk-export-mock-note"><i class="pi pi-info-circle" /><span>原型／模擬資料（Prototype / Mock data）：目前只呈現匯出入口與格式選擇，不產生實體檔案。</span></div>
             </div>
             <template #footer><Button label="取消" severity="secondary" text @click="exportVisible = false" /><Button label="確認匯出" icon="pi pi-download" @click="runMockExport" /></template>
         </Dialog>
 
-        <Dialog v-model:visible="detailsVisible" modal dismissable-mask class="risk-detail-dialog" :style="{ width: 'min(1180px, calc(100vw - 32px))' }" :header="selectedEvent ? `${selectedEvent.riskEventId} / Risk Event 詳情` : 'Risk Event 詳情'">
+        <Dialog v-model:visible="detailsVisible" modal dismissable-mask class="risk-detail-dialog" :style="{ width: 'min(1180px, calc(100vw - 32px))' }" :header="selectedEvent ? `${selectedEvent.riskEventId} / 風控事件詳情` : '風控事件詳情'">
             <div v-if="selectedEvent" class="risk-detail-content">
                 <div class="risk-detail-hero">
-                    <div><span class="risk-report-eyebrow">READ-ONLY EVENT EVIDENCE</span><h2>{{ selectedEvent.gameName }}</h2><p>{{ anomalyLabels[selectedEvent.anomalyType] }} · {{ selectedEvent.gameVersion }} · {{ environmentLabels[selectedEvent.environment] }}</p></div>
+                    <div><span class="risk-report-eyebrow">唯讀事件證據</span><h2>{{ selectedEvent.gameName }}</h2><p>{{ anomalyLabels[selectedEvent.anomalyType] }} · {{ selectedEvent.gameVersion }} · {{ environmentLabels[selectedEvent.environment] }}</p></div>
                     <div class="risk-detail-hero-badges"><span class="risk-pill" :class="severityClass(selectedEvent.severity)">{{ severityLabels[selectedEvent.severity] }}</span><span class="risk-pill" :class="statusClass(selectedEvent.status)">{{ statusLabels[selectedEvent.status] }}</span><span class="risk-readonly-chip"><i class="pi pi-lock" />唯讀</span></div>
                 </div>
 
-                <section class="risk-detail-section"><div class="risk-detail-section-title"><i class="pi pi-file" /><h3>事件摘要</h3></div><div class="risk-detail-fact-grid"><div><span>Risk Event ID</span><strong class="risk-detail-mono">{{ selectedEvent.riskEventId }}</strong></div><div><span>異常來源</span><strong>{{ sourceLabels[selectedEvent.source] }}</strong></div><div><span>首次偵測</span><strong>{{ formatDateTime(selectedEvent.detectedAt) }}</strong></div><div><span>首次發生</span><strong>{{ formatDateTime(selectedEvent.firstSeenAt) }}</strong></div><div><span>最後發生</span><strong>{{ formatDateTime(selectedEvent.lastOccurredAt) }}</strong></div><div><span>發生次數</span><strong>{{ formatNumber(selectedEvent.occurredCount) }} 次</strong></div><div><span>最後更新時間</span><strong>{{ formatDateTime(selectedEvent.updatedAt) }}</strong></div></div></section>
+                <section class="risk-detail-section"><div class="risk-detail-section-title"><i class="pi pi-file" /><h3>事件摘要</h3></div><div class="risk-detail-fact-grid"><div><span>風控事件 ID（Risk Event ID）</span><strong class="risk-detail-mono">{{ selectedEvent.riskEventId }}</strong></div><div><span>異常來源</span><strong>{{ sourceLabels[selectedEvent.source] }}</strong></div><div><span>首次偵測</span><strong>{{ formatDateTime(selectedEvent.detectedAt) }}</strong></div><div><span>首次發生</span><strong>{{ formatDateTime(selectedEvent.firstSeenAt) }}</strong></div><div><span>最後發生</span><strong>{{ formatDateTime(selectedEvent.lastOccurredAt) }}</strong></div><div><span>發生次數</span><strong>{{ formatNumber(selectedEvent.occurredCount) }} 次</strong></div><div><span>最後更新時間</span><strong>{{ formatDateTime(selectedEvent.updatedAt) }}</strong></div></div></section>
 
                 <div class="risk-detail-two-column">
-                    <section class="risk-detail-section"><div class="risk-detail-section-title"><i class="pi pi-globe" /><h3>影響範圍</h3></div><div class="risk-detail-fact-list"><div><span>Game ID / 遊戲</span><strong>{{ selectedEvent.gameId }} · {{ selectedEvent.gameName }}</strong></div><div><span>版本 / 環境</span><strong>{{ selectedEvent.gameVersion }} · {{ environmentLabels[selectedEvent.environment] }}</strong></div><div><span>受影響 Game Round</span><strong>{{ formatNumber(selectedEvent.affectedRounds) }} 筆 · {{ selectedEvent.isOngoing ? '仍持續發生' : '目前未持續' }}</strong></div><div><span>緩解作用範圍</span><strong>{{ selectedEvent.mitigationScope }}</strong></div><div><span>隔離狀態</span><span class="risk-pill" :class="isolationClass(selectedEvent.isolationStatus)">{{ isolationLabels[selectedEvent.isolationStatus] }}</span></div></div></section>
-                    <section class="risk-detail-section"><div class="risk-detail-section-title"><i class="pi pi-sliders-h" /><h3>異常判斷依據</h3></div><div class="risk-detail-fact-list"><div><span>Rule ID / 版本</span><strong class="risk-detail-mono">{{ selectedEvent.ruleId }} · {{ selectedEvent.ruleVersion }}</strong></div><div><span>判斷門檻</span><strong>{{ selectedEvent.threshold }}</strong></div><div><span>實際數值</span><strong>{{ selectedEvent.actualValue }}</strong></div><div><span>統計窗口</span><strong>{{ selectedEvent.statisticWindow }}</strong></div><div><span>錯誤碼</span><strong class="risk-detail-mono">{{ selectedEvent.errorCode }}</strong></div></div></section>
+                    <section class="risk-detail-section"><div class="risk-detail-section-title"><i class="pi pi-globe" /><h3>影響範圍</h3></div><div class="risk-detail-fact-list"><div><span>遊戲 ID（Game ID）／名稱</span><strong>{{ selectedEvent.gameId }} · {{ selectedEvent.gameName }}</strong></div><div><span>版本／環境</span><strong>{{ selectedEvent.gameVersion }} · {{ environmentLabels[selectedEvent.environment] }}</strong></div><div><span>受影響遊戲回合</span><strong>{{ formatNumber(selectedEvent.affectedRounds) }} 筆 · {{ selectedEvent.isOngoing ? '仍持續發生' : '目前未持續' }}</strong></div><div><span>緩解作用範圍</span><strong>{{ formatEvidenceText(selectedEvent.mitigationScope) }}</strong></div><div><span>隔離狀態</span><span class="risk-pill" :class="isolationClass(selectedEvent.isolationStatus)">{{ isolationLabels[selectedEvent.isolationStatus] }}</span></div></div></section>
+                    <section class="risk-detail-section"><div class="risk-detail-section-title"><i class="pi pi-sliders-h" /><h3>異常判斷依據</h3></div><div class="risk-detail-fact-list"><div><span>規則 ID（Rule ID）／版本</span><strong class="risk-detail-mono">{{ selectedEvent.ruleId }} · {{ selectedEvent.ruleVersion }}</strong></div><div><span>判斷門檻</span><strong>{{ selectedEvent.threshold }}</strong></div><div><span>實際數值</span><strong>{{ selectedEvent.actualValue }}</strong></div><div><span>統計窗口</span><strong>{{ selectedEvent.statisticWindow }}</strong></div><div><span>錯誤碼</span><strong class="risk-detail-mono">{{ selectedEvent.errorCode }}</strong></div></div></section>
                 </div>
 
-                <section class="risk-detail-section"><div class="risk-detail-section-title"><i class="pi pi-code" /><h3>請求／回應摘要</h3></div><div class="risk-detail-code-grid"><div><span>Request</span><code>{{ selectedEvent.requestSummary }}</code></div><div><span>Response</span><code>{{ selectedEvent.responseSummary }}</code></div><div class="risk-detail-error"><span>Error message</span><code>{{ selectedEvent.errorMessage }}</code></div></div></section>
+                <section class="risk-detail-section"><div class="risk-detail-section-title"><i class="pi pi-code" /><h3>請求／回應摘要</h3></div><div class="risk-detail-code-grid"><div><span>請求（Request）</span><code>{{ formatEvidenceText(selectedEvent.requestSummary) }}</code></div><div><span>回應（Response）</span><code>{{ formatEvidenceText(selectedEvent.responseSummary) }}</code></div><div class="risk-detail-error"><span>錯誤訊息（Error message）</span><code>{{ formatEvidenceText(selectedEvent.errorMessage) }}</code></div></div></section>
 
                 <div class="risk-detail-two-column">
-                    <section class="risk-detail-section"><div class="risk-detail-section-title"><i class="pi pi-bolt" /><h3>自動緩解</h3></div><div class="risk-detail-fact-list"><div><span>執行動作</span><strong>{{ selectedEvent.mitigationAction }}</strong></div><div><span>目前狀態</span><span class="risk-pill" :class="mitigationClass(selectedEvent.mitigationStatus)">{{ mitigationLabels[selectedEvent.mitigationStatus] }}</span></div><div><span>開始／完成</span><strong>{{ selectedEvent.mitigationStartedAt ? formatDateTime(selectedEvent.mitigationStartedAt) : '—' }} / {{ selectedEvent.mitigationCompletedAt ? formatDateTime(selectedEvent.mitigationCompletedAt) : '—' }}</strong></div><div><span>失敗原因</span><strong>{{ selectedEvent.mitigationFailureReason }}</strong></div></div></section>
+                    <section class="risk-detail-section"><div class="risk-detail-section-title"><i class="pi pi-bolt" /><h3>自動緩解</h3></div><div class="risk-detail-fact-list"><div><span>執行動作</span><strong>{{ formatEvidenceText(selectedEvent.mitigationAction) }}</strong></div><div><span>目前狀態</span><span class="risk-pill" :class="mitigationClass(selectedEvent.mitigationStatus)">{{ mitigationLabels[selectedEvent.mitigationStatus] }}</span></div><div><span>開始／完成</span><strong>{{ selectedEvent.mitigationStartedAt ? formatDateTime(selectedEvent.mitigationStartedAt) : '—' }} / {{ selectedEvent.mitigationCompletedAt ? formatDateTime(selectedEvent.mitigationCompletedAt) : '—' }}</strong></div><div><span>失敗原因</span><strong>{{ formatEvidenceText(selectedEvent.mitigationFailureReason) }}</strong></div></div></section>
                     <section class="risk-detail-section"><div class="risk-detail-section-title"><i class="pi pi-send" /><h3>GGAP 通知</h3></div><div class="risk-detail-fact-list"><div><span>通知狀態</span><span class="risk-pill" :class="notificationClass(selectedEvent.ggapNotificationStatus)">{{ ggapNotificationLabels[selectedEvent.ggapNotificationStatus] }}</span></div><div><span>provider_event_id</span><strong class="risk-detail-mono">{{ selectedEvent.ggapProviderEventId }}</strong></div><div><span>送出／ACK</span><strong>{{ selectedEvent.ggapSentAt ? formatDateTime(selectedEvent.ggapSentAt) : '—' }} / {{ selectedEvent.ggapAckAt ? formatDateTime(selectedEvent.ggapAckAt) : '—' }}</strong></div><div><span>重試次數</span><strong>{{ selectedEvent.ggapRetryCount }} 次</strong></div></div></section>
                 </div>
 
-                <section class="risk-detail-section"><div class="risk-detail-section-title"><i class="pi pi-directions-alt" /><h3>關聯 Game Round</h3></div><div class="risk-detail-round-table-wrap"><table class="risk-detail-round-table"><thead><tr><th>Provider Game Round ID</th><th>GGAP Round ID</th><th>結算狀態</th><th>發生時間</th><th>入口</th></tr></thead><tbody><tr v-for="round in selectedEvent.relatedRounds" :key="round.providerId"><td class="risk-detail-mono">{{ round.providerId }}</td><td class="risk-detail-mono">{{ round.ggapId }}</td><td>{{ round.settleStatus }}</td><td>{{ formatDateTime(round.occurredAt) }}</td><td><Button label="遊戲紀錄" icon="pi pi-arrow-up-right" text severity="secondary" @click="goToRound(round)" /></td></tr></tbody></table></div></section>
+                <section class="risk-detail-section"><div class="risk-detail-section-title"><i class="pi pi-directions-alt" /><h3>關聯遊戲回合</h3></div><div class="risk-detail-round-table-wrap"><table class="risk-detail-round-table"><thead><tr><th>供應商遊戲回合 ID（Provider Game Round ID）</th><th>GGAP 回合 ID（GGAP Round ID）</th><th>結算狀態</th><th>發生時間</th><th>入口</th></tr></thead><tbody><tr v-for="round in selectedEvent.relatedRounds" :key="round.providerId"><td class="risk-detail-mono">{{ round.providerId }}</td><td class="risk-detail-mono">{{ round.ggapId }}</td><td>{{ formatEvidenceText(round.settleStatus) }}</td><td>{{ formatDateTime(round.occurredAt) }}</td><td><Button label="遊戲紀錄" icon="pi pi-arrow-up-right" text severity="secondary" @click="goToRound(round)" /></td></tr></tbody></table></div></section>
 
-                <section class="risk-detail-section"><div class="risk-detail-section-title"><i class="pi pi-history" /><h3>事件時間線</h3></div><ol class="risk-detail-timeline"><li v-for="item in selectedEvent.timeline" :key="`${item.label}-${item.time.toISOString()}`" :class="`risk-detail-timeline--${item.tone}`"><span class="risk-detail-timeline-dot" /><div><time>{{ formatDateTime(item.time) }}</time><strong>{{ item.label }}</strong><p>{{ item.description }}</p></div></li></ol></section>
+                <section class="risk-detail-section"><div class="risk-detail-section-title"><i class="pi pi-history" /><h3>事件時間線</h3></div><ol class="risk-detail-timeline"><li v-for="item in selectedEvent.timeline" :key="`${item.label}-${item.time.toISOString()}`" :class="`risk-detail-timeline--${item.tone}`"><span class="risk-detail-timeline-dot" /><div><time>{{ formatDateTime(item.time) }}</time><strong>{{ formatEvidenceText(item.label) }}</strong><p>{{ formatEvidenceText(item.description) }}</p></div></li></ol></section>
             </div>
-            <template #footer><div class="risk-detail-footer"><span v-if="selectedEvent && selectedEvent.alertId" class="risk-detail-footer-note"><i class="pi pi-info-circle" />此事件已有 Alert，處理操作請前往告警處理頁。</span><span v-else class="risk-detail-footer-note"><i class="pi pi-lock" />此事件目前沒有 Alert；本頁僅提供唯讀證據。</span><div><Button v-if="selectedEvent?.alertId" label="前往處理" icon="pi pi-external-link" severity="danger" outlined @click="goToAlerts(selectedEvent)" /><Button label="關閉" severity="secondary" outlined @click="detailsVisible = false" /></div></div></template>
+            <template #footer><div class="risk-detail-footer"><span v-if="selectedEvent && selectedEvent.alertId" class="risk-detail-footer-note"><i class="pi pi-info-circle" />此事件已有告警，處理操作請前往告警處理頁。</span><span v-else class="risk-detail-footer-note"><i class="pi pi-lock" />此事件目前沒有告警；本頁僅提供唯讀證據。</span><div><Button v-if="selectedEvent?.alertId" label="前往處理" icon="pi pi-external-link" severity="danger" outlined @click="goToAlerts(selectedEvent)" /><Button label="關閉" severity="secondary" outlined @click="detailsVisible = false" /></div></div></template>
         </Dialog>
     </div>
 </template>

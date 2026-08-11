@@ -10,7 +10,7 @@
 
 ## 1. 規範目的
 
-- 統一 Provider 風控事件的名稱、定義與分類。
+- 統一遊戲商風控事件的名稱、定義與分類。
 - 建立監控總覽、風控報表與風控告警／處理之間的責任分工。
 - 讓每筆異常都可以回溯到遊戲、版本、Game Round 與 GGAP 對接事件。
 - 提供後端建立事件、前端呈現報表、QA 驗證狀態的共同依據。
@@ -20,18 +20,18 @@
 
 ### 2.1 Provider Portal 負責
 
-- Provider 遊戲服務健康度。
-- Provider 遊戲的 Launch、Game Round、Settle 與相關回呼處理。
-- Provider 遊戲資料、版本、遊戲規則與數值結果異常。
-- Provider 與 GGAP 之間的請求、回應、Callback、重試與錯誤狀態。
-- Provider 自己的異常查詢、風險分析、告警處理與操作紀錄。
+- 遊戲商遊戲服務健康度。
+- 遊戲商遊戲的 Launch、Game Round、Settle 與相關回呼處理。
+- 遊戲商遊戲資料、版本、遊戲規則與數值結果異常。
+- 遊戲商與 GGAP 之間的請求、回應、Callback、重試與錯誤狀態。
+- 遊戲商自己的異常查詢、風險分析、告警處理與操作紀錄。
 
 ### 2.2 GGAP 負責
 
 - GGAP 平台整體健康與平台級風控。
 - 代理商、商戶、會員、平台錢包與平台交易風控。
 - GGAP 代理商側的幣別、金額轉換與平台結算。
-- GGAP 對多家 Provider 的聚合層級告警與平台處理。
+- GGAP 對多家遊戲商的聚合層級告警與平台處理。
 
 Provider Portal 可以保存 GGAP 傳入的代理商、商戶、會員與幣別脈絡，作為單筆 Game Round 或異常追蹤的關聯資料，但不建立上述主資料或平台風控規則。
 
@@ -43,7 +43,9 @@ Provider Portal 的主要介面以台灣繁體中文呈現；英文只在技術�
 |---|---|---|
 | Risk Event | 風控事件 | 風控事件（Risk Event） |
 | Game Round | 遊戲回合 | 遊戲回合（Game Round） |
-| Provider | 供應商 | 供應商（Provider） |
+| Provider | 遊戲商 | 遊戲商（Provider） |
+| Provider Game Round ID | 遊戲商遊戲回合 ID | 遊戲商遊戲回合 ID（Provider Game Round ID） |
+| GGAP Round ID | GGAP 遊戲回合 ID | GGAP 遊戲回合 ID（GGAP Round ID） |
 | Launch | 啟動 | 啟動（Launch） |
 | Settle | 結算 | 結算（Settle） |
 | Callback | 回呼 | 回呼（Callback） |
@@ -61,7 +63,7 @@ Provider Portal 的主要介面以台灣繁體中文呈現；英文只在技術�
 |---|---|---|---|
 | 監控總覽 | 現在是否有問題？ | 五張監控摘要卡、健康狀態、異常摘要與快速導向 | 不執行正式處理 |
 | 風控報表 | 發生了什麼問題？影響範圍為何？ | 查詢、摘要、待關注異常、事件列表、詳情與匯出 | 唯讀查詢分析 |
-| 風控告警／處理 | 接下來要怎麼處理？ | 告警佇列、處理狀態、隔離、解除、通知 GGAP、操作紀錄 | 可執行核准後的 Provider 操作 |
+| 風控告警／處理 | 接下來要怎麼處理？ | 告警佇列、處理狀態、隔離、解除、通知 GGAP、操作紀錄 | 可執行核准後的遊戲商操作 |
 
 風控報表不取代遊戲紀錄。需要查看單筆 Game Round 完整內容時，應導向 `/reports`「遊戲紀錄」頁面。
 
@@ -71,7 +73,7 @@ Provider Portal 的主要介面以台灣繁體中文呈現；英文只在技術�
 
 | 欄位 | 說明 |
 |---|---|
-| Event ID | Provider 風控事件唯一識別碼，正式欄位名為 `risk_event_id` |
+| Event ID | 遊戲商風控事件唯一識別碼，正式欄位名為 `risk_event_id` |
 | 發生時間 | 異常實際發生時間；另保留偵測時間 |
 | 異常來源 | Game Service、Game Round、GGAP Request、Callback、Data Quality 或 Game Math |
 | 異常類型 | 具體事件，例如結算失敗、請求逾時、資料缺失 |

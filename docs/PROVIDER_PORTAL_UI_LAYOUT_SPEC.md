@@ -50,7 +50,7 @@
 
 共用 Provider Placeholder 原本可包含以下三種說明區塊：
 
-1. Hero：頁面用途與 Prototype / Mock data 標示。
+1. Hero：頁面用途與原型／模擬資料標示。
 2. 頁面資訊：功能說明與責任範圍。
 3. 主要內容區塊：以 blueprint 卡片預告預計製作的內容。
 
@@ -73,7 +73,8 @@
 
 - Provider Portal 主要介面文字使用台灣繁體中文；英文只作為技術值、原始欄位名稱、協定資訊或選項輔助。
 - 表格欄位、摘要卡與狀態標籤使用簡潔中文；下拉與單選選項可使用「中文（English）」格式，避免將同一組中英雙語 mapping 套用到每一列資料。
-- `Risk Event`、`Game Round`、`Provider`、`Launch`、`Settle`、`Callback`、`Request`、`Response`、`Error message` 與 `Tips` 分別以風控事件、遊戲回合、供應商、啟動、結算、回呼、請求、回應、錯誤訊息與提示為主要顯示文字。
+- `Risk Event`、`Game Round`、`Provider`、`Launch`、`Settle`、`Callback`、`Request`、`Response`、`Error message` 與 `Tips` 分別以風控事件、遊戲回合、遊戲商、啟動、結算、回呼、請求、回應、錯誤訊息與提示為主要顯示文字。
+- `Provider Game Round ID` 與 `GGAP Round ID` 分別以「遊戲商遊戲回合 ID」與「GGAP 遊戲回合 ID」為主要顯示文字；正式欄位名稱與技術值保留原文。
 - Production、DEMO 可顯示為「正式環境（Production）」、「展示環境（DEMO）」；Info、Low、Medium、High、Critical 可顯示為「資訊（Info）」、「低（Low）」、「中（Medium）」、「高（High）」、「嚴重（Critical）」。Test 不應出現在 Provider 風控頁面。
 - API 值、路由、ID、錯誤碼、HTTP 狀態碼、版本號、原始欄位名稱與協定 endpoint 不得翻譯或改值。英文遊戲名稱沒有官方中文名稱時維持原文；mock 證據的說明文字可翻譯，但需保留必要協定資訊。
 

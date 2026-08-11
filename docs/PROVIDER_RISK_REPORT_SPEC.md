@@ -197,7 +197,8 @@ Risk Event ID 與 Round ID 使用完整值精確查詢。代理商、商戶與�
 ### 11.1 繁體中文顯示規則
 
 - 風控報表的主要介面、摘要卡、表格欄位、狀態標籤、空資料與錯誤提示使用台灣繁體中文。
-- `Risk Event`、`Game Round`、`Provider`、`Launch`、`Settle`、`Callback`、`Request`、`Response`、`Error message` 與 `Tips` 一般顯示為風控事件、遊戲回合、供應商、啟動、結算、回呼、請求、回應、錯誤訊息與提示；下拉選項或詳情欄位可採「中文（English）」格式作為輔助。
+- `Risk Event`、`Game Round`、`Provider`、`Launch`、`Settle`、`Callback`、`Request`、`Response`、`Error message` 與 `Tips` 一般顯示為風控事件、遊戲回合、遊戲商、啟動、結算、回呼、請求、回應、錯誤訊息與提示；下拉選項或詳情欄位可採「中文（English）」格式作為輔助。
+- `Provider Game Round ID` 一般顯示為「遊戲商遊戲回合 ID」；`GGAP Round ID` 一般顯示為「GGAP 遊戲回合 ID」。正式欄位名稱與技術值仍保留原文。
 - Production 顯示為「正式環境」、DEMO 顯示為「展示環境」；Info、Low、Medium、High、Critical 顯示為「資訊、低、中、高、嚴重」。環境與嚴重度選項可保留英文原值，Test 不得出現。
 - `risk_event_id`、`provider_event_id`、Provider Game Round ID、GGAP Round ID、Rule ID、錯誤碼、HTTP method、endpoint、HTTP 狀態碼與版本號等技術值及原始欄位名稱不得翻譯或改值。
 - mock 證據的英文說明、回應摘要與事件時間線可翻譯為繁體中文，但須保留必要的協定資訊、識別碼、錯誤碼、HTTP 狀態碼與版本值。英文遊戲名稱沒有官方中文名稱時維持原文。

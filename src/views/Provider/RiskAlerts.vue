@@ -137,14 +137,25 @@ const currentUser = '目前使用者'
 const now = new Date()
 
 const environmentLabels: Record<Environment, string> = {
-    production: 'Production',
-    demo: 'DEMO',
+    production: '正式環境',
+    demo: '展示環境',
+}
+
+const environmentOptionLabels: Record<Environment, string> = {
+    production: '正式環境（Production）',
+    demo: '展示環境（DEMO）',
 }
 
 const severityLabels: Record<Severity, string> = {
-    critical: 'Critical',
-    high: 'High',
-    medium: 'Medium',
+    critical: '嚴重',
+    high: '高',
+    medium: '中',
+}
+
+const severityOptionLabels: Record<Severity, string> = {
+    critical: '嚴重（Critical）',
+    high: '高（High）',
+    medium: '中（Medium）',
 }
 
 const statusLabels: Record<AlertStatus, string> = {
@@ -174,25 +185,157 @@ const notificationLabels: Record<GgapNotificationStatus, string> = {
     pending: '通知中',
     sent: '已送出',
     failed: '通知失敗',
-    acknowledged: '已 ACK',
+    acknowledged: '已確認',
 }
 
 const sourceLabels: Record<string, string> = {
-    game_round: 'Game Round',
-    callback: 'Callback',
-    ggap_request: 'GGAP Request',
-    game_service: 'Game Service',
-    data_quality: 'Data Quality',
-    game_math: 'Game Math',
+    game_round: '遊戲回合',
+    callback: '回呼',
+    ggap_request: 'GGAP 請求',
+    game_service: '遊戲服務',
+    data_quality: '資料品質',
+    game_math: '遊戲數值',
+}
+
+const sourceOptionLabels: Record<string, string> = {
+    game_round: '遊戲回合（Game Round）',
+    callback: '回呼（Callback）',
+    ggap_request: 'GGAP 請求（GGAP Request）',
+    game_service: '遊戲服務（Game Service）',
+    data_quality: '資料品質（Data Quality）',
+    game_math: '遊戲數值（Game Math）',
 }
 
 const anomalyLabels: Record<string, string> = {
     settlement_failure: '結算失敗',
-    callback_failure: 'Callback 失敗',
+    callback_failure: '回呼失敗',
     duplicate_settlement: '重複結算',
     request_timeout: '請求逾時',
     service_unavailable: '遊戲服務不可用',
     payout_anomaly: '派彩結果異常',
+}
+
+const anomalyOptionLabels: Record<string, string> = {
+    settlement_failure: '結算失敗（Settlement Failure）',
+    callback_failure: '回呼失敗（Callback Failure）',
+    duplicate_settlement: '重複結算（Duplicate Settlement）',
+    request_timeout: '請求逾時（Request Timeout）',
+    service_unavailable: '遊戲服務不可用（Service Unavailable）',
+    payout_anomaly: '派彩結果異常（Payout Anomaly）',
+}
+
+const statusOptionLabels: Record<AlertStatus, string> = {
+    pending: '待處理（Pending）',
+    investigating: '調查中（Investigating）',
+    mitigated: '已緩解（Mitigated）',
+    closed: '已結案（Closed）',
+    false_positive: '誤報（False positive）',
+}
+
+const mitigationOptionLabels: Record<MitigationStatus, string> = {
+    not_required: '不需處理（Not required）',
+    pending: '處理中（Pending）',
+    applied: '已套用（Applied）',
+    failed: '處理失敗（Failed）',
+    released: '已解除（Released）',
+}
+
+const isolationOptionLabels: Record<IsolationStatus, string> = {
+    not_isolated: '未隔離（Not isolated）',
+    isolated: '隔離中（Isolated）',
+    released: '已解除（Released）',
+}
+
+const notificationOptionLabels: Record<GgapNotificationStatus, string> = {
+    not_required: '不需通知（Not required）',
+    pending: '通知中（Pending）',
+    sent: '已送出（Sent）',
+    failed: '通知失敗（Failed）',
+    acknowledged: '已確認（Acknowledged）',
+}
+
+const mockTextTranslations: Array<[string, string]> = [
+    ['有限重試與新 Launch 限制', '有限重試與新遊戲啟動限制'],
+    ['建立 Alert', '建立告警'],
+    ['Alert 已結案', '告警已結案'],
+    ['Callback 未', '回呼未'],
+    ['失敗 Callback 已', '失敗回呼已'],
+    ['既有 Round Callback', '既有遊戲回合回呼'],
+    ['新 Launch 觀察', '新遊戲啟動觀察'],
+    ['暫停新 Launch', '暫停新遊戲啟動'],
+    ['Callback 重試中', '回呼重試中'],
+    ['結算上游 unavailable', '結算上游服務不可用'],
+    ['retry queue accepted', '重試佇列已接受'],
+    ['Callback payload', '回呼負載'],
+    ['Round 狀態', '回合狀態'],
+    ['受影響 Round', '受影響回合'],
+    ['Game service 仍', '遊戲服務仍'],
+    ['GGAP Settle endpoint returned', 'GGAP 結算端點回傳'],
+    ['Callback acknowledgement exceeded 90 seconds', '回呼確認回覆超過 90 秒'],
+    ['Duplicate settle request rejected by idempotency guard', '重複結算請求已由冪等防護拒絕'],
+    ['Game service unavailable', '遊戲服務不可用'],
+    ['Payout exceeded configured range', '派彩超出設定範圍'],
+    ['DEMO upstream response exceeded threshold', 'DEMO 上游回應超過門檻'],
+    ['GGAP response exceeded timeout threshold', 'GGAP 回應超過逾時門檻'],
+    ['Required field arrived after initial validation', '必要欄位於初次驗證後到達'],
+    ['Callback response latency exceeded threshold', '回呼回應延遲超過門檻'],
+    ['Round linkage was temporarily unavailable', '回合關聯暫時不可用'],
+    ['Fields completed before settlement', '欄位已於結算前補齊'],
+    ['Schema validator 暫時標記欄位缺失。', '結構驗證器暫時標記欄位缺失。'],
+    ['Game service health', '遊戲服務健康'],
+    ['Callback delivery queue', '回呼傳送佇列'],
+    ['Callback queue', '回呼佇列'],
+    ['Settle upstream unavailable', '結算上游服務不可用'],
+    ['Settle upstream 仍', '結算上游仍'],
+    ['Settle upstream', '結算上游'],
+    ['New Launch guard', '新啟動防護'],
+    ['DEMO service health', 'DEMO 服務健康'],
+    ['Launch retry', '啟動重試'],
+    ['DEMO Round settle', 'DEMO 回合結算'],
+    ['Round settle', '回合結算'],
+    ['Math rule sample', '數值規則樣本'],
+    ['Idempotency guard', '冪等防護'],
+    ['Game math monitor', '遊戲數值監控'],
+    ['No ACK', '尚無 ACK'],
+    ['ACK received after retry', '重試後收到 ACK'],
+    ['Retry succeeded', '重試成功'],
+    ['Pending rule review', '待規則覆核'],
+    ['Link restored before close', '關聯已於結案前恢復'],
+    ['Round reconciliation worker', '回合對帳工作程序'],
+    ['demo endpoint', 'DEMO 端點'],
+    ['delayed field hydration', '延遲欄位補齊'],
+    ['interval', '間隔'],
+    ['timeout', '逾時'],
+    ['retry', '重試'],
+    ['endpoint', '端點'],
+    ['upstream unavailable', '上游服務不可用'],
+    ['upstream', '上游'],
+    ['Bad Gateway', '閘道錯誤'],
+    ['Service Unavailable', '服務不可用'],
+    ['idempotency key reused', '冪等鍵重複使用'],
+    ['batch', '批次'],
+    ['queue', '佇列'],
+    ['sample', '樣本'],
+    ['accepted', '已接受'],
+    ['failed', '失敗'],
+    ['passed', '通過'],
+    ['pending', '處理中'],
+    ['Health check', '健康檢查'],
+    ['Settle', '結算'],
+    ['Callback', '回呼'],
+    ['Launch', '啟動'],
+    ['Risk Event', '風控事件'],
+    ['Game Round', '遊戲回合'],
+    ['Round', '回合'],
+    ['Alert', '告警'],
+    ['Critical', '嚴重'],
+    ['High', '高'],
+    ['Medium', '中'],
+    ['Production', '正式環境'],
+]
+
+function translateMockText(value: string) {
+    return mockTextTranslations.reduce((text, [from, to]) => text.replaceAll(from, to), value)
 }
 
 function hoursAgo(hours: number, minutes = 0) {
@@ -291,23 +434,19 @@ const assigneeOptions = computed(() => [
 ])
 const assigneePeopleOptions = computed(() => Array.from(new Set(mockAlerts.value.map((alert) => alert.assignee).filter((value): value is string => Boolean(value)))).map((value) => ({ label: value, value })))
 const gameOptions = computed(() => [{ label: '全部遊戲', value: '' }, ...Array.from(new Map(mockAlerts.value.map((alert) => [alert.gameId, { label: alert.gameName, value: alert.gameId }])).values())])
-const anomalyOptions = computed(() => [{ label: '全部異常類型', value: '' }, ...Array.from(new Set(mockAlerts.value.map((alert) => alert.anomalyType))).map((value) => ({ label: anomalyLabels[value], value }))])
-const sourceOptions = computed(() => [{ label: '全部來源', value: '' }, ...Array.from(new Set(mockAlerts.value.map((alert) => alert.source))).map((value) => ({ label: sourceLabels[value], value }))])
+const anomalyOptions = computed(() => [{ label: '全部異常類型', value: '' }, ...Array.from(new Set(mockAlerts.value.map((alert) => alert.anomalyType))).map((value) => ({ label: anomalyOptionLabels[value], value }))])
+const sourceOptions = computed(() => [{ label: '全部來源', value: '' }, ...Array.from(new Set(mockAlerts.value.map((alert) => alert.source))).map((value) => ({ label: sourceOptionLabels[value], value }))])
 const gameVersionOptions = computed(() => [{ label: '全部遊戲版本', value: '' }, ...Array.from(new Set(mockAlerts.value.map((alert) => alert.gameVersion))).map((value) => ({ label: value, value }))])
 
 const statusOptions = [
-    { label: '未結案／非誤報', value: 'active' },
+    { label: '未結案／非誤報（Active）', value: 'active' },
     { label: '全部狀態', value: '' },
-    { label: '待處理', value: 'pending' },
-    { label: '調查中', value: 'investigating' },
-    { label: '已緩解', value: 'mitigated' },
-    { label: '已結案', value: 'closed' },
-    { label: '誤報', value: 'false_positive' },
+    ...Object.entries(statusOptionLabels).map(([value, label]) => ({ value, label })),
 ]
-const severityOptions = [{ label: '全部嚴重度', value: '' }, ...Object.entries(severityLabels).map(([value, label]) => ({ value, label }))]
-const mitigationOptions = [{ label: '全部緩解狀態', value: '' }, ...Object.entries(mitigationLabels).map(([value, label]) => ({ value, label }))]
-const isolationOptions = [{ label: '全部隔離狀態', value: '' }, ...Object.entries(isolationLabels).map(([value, label]) => ({ value, label }))]
-const notificationOptions = [{ label: '全部通知狀態', value: '' }, ...Object.entries(notificationLabels).map(([value, label]) => ({ value, label }))]
+const severityOptions = [{ label: '全部嚴重度', value: '' }, ...Object.entries(severityOptionLabels).map(([value, label]) => ({ value, label }))]
+const mitigationOptions = [{ label: '全部緩解狀態', value: '' }, ...Object.entries(mitigationOptionLabels).map(([value, label]) => ({ value, label }))]
+const isolationOptions = [{ label: '全部隔離狀態', value: '' }, ...Object.entries(isolationOptionLabels).map(([value, label]) => ({ value, label }))]
+const notificationOptions = [{ label: '全部通知狀態', value: '' }, ...Object.entries(notificationOptionLabels).map(([value, label]) => ({ value, label }))]
 const overdueOptions = [{ label: '全部', value: '' }, { label: '已逾期', value: 'yes' }, { label: '未逾期', value: 'no' }]
 
 const initialFilters: FilterState = {
@@ -431,13 +570,13 @@ const summaryCards = computed(() => {
     return [
         { key: 'unassigned' as ShortcutKey, label: '待接手告警', value: unassigned.length, icon: 'pi pi-inbox', tone: 'blue', tip: `嚴重度：${breakdown(unassigned)}；最久等待 ${formatDuration(longestWaiting)}。` },
         { key: 'high-risk' as ShortcutKey, label: '高風險告警', value: highRisk.length, icon: 'pi pi-shield', tone: 'red', tip: `受影響遊戲：${new Set(highRisk.map((alert) => alert.gameName)).size} 款；隔離中 ${highRisk.filter((alert) => alert.isolationStatus === 'isolated').length} 筆、未隔離 ${highRisk.filter((alert) => alert.isolationStatus !== 'isolated').length} 筆。` },
-        { key: 'isolated' as ShortcutKey, label: '隔離中', value: new Set(isolated.map((alert) => alert.isolationScopeKey)).size, icon: 'pi pi-lock', tone: 'amber', tip: isolated.length ? isolated.map((alert) => `${alert.gameName} ${alert.gameVersion} · ${environmentLabels[alert.environment]} · ${formatDuration(Date.now() - (alert.isolatedAt?.getTime() ?? Date.now()))}`).join('；') : '目前沒有仍阻擋新 Launch 的範圍。' },
+        { key: 'isolated' as ShortcutKey, label: '隔離中', value: new Set(isolated.map((alert) => alert.isolationScopeKey)).size, icon: 'pi pi-lock', tone: 'amber', tip: isolated.length ? isolated.map((alert) => `${alert.gameName} ${alert.gameVersion} · ${environmentLabels[alert.environment]} · ${formatDuration(Date.now() - (alert.isolatedAt?.getTime() ?? Date.now()))}`).join('；') : '目前沒有仍阻擋新遊戲啟動的範圍。' },
         { key: 'auto-failed' as ShortcutKey, label: '自動處理失敗', value: failed.length, icon: 'pi pi-bolt', tone: 'red', tip: `緩解失敗 ${failedMitigation} 筆；GGAP 通知失敗 ${failedNotification} 筆。` },
         { key: 'overdue' as ShortcutKey, label: '逾期未覆核', value: overdue.length, icon: 'pi pi-calendar-clock', tone: 'green', tip: overdue.length ? overdue.map((alert) => `${alert.assignee ?? '未指派'} · ${alert.gameName} · 逾期 ${formatDuration(Date.now() - (alert.reviewDueAt?.getTime() ?? Date.now()))}`).join('；') : '目前沒有逾期覆核。' },
     ]
 })
 
-const tableDescription = computed(() => `${environmentLabels[appliedFilters.value.environment]} · ${formatNumber(matchingRows.value.length)} 筆結果 · 優先排序：Critical → 自動處理失敗 → 逾期 → High → Medium`)
+const tableDescription = computed(() => `${environmentLabels[appliedFilters.value.environment]} · ${formatNumber(matchingRows.value.length)} 筆結果 · 優先排序：嚴重 → 自動處理失敗 → 逾期 → 高 → 中`)
 const appliedShortcutLabel = computed(() => {
     const card = summaryCards.value.find((item) => item.key === appliedFilters.value.shortcut)
     return card?.label ?? ''
@@ -502,7 +641,7 @@ function openQueryTarget() {
     if (!target) {
         selectedAlert.value = null
         detailVisible.value = false
-        queryError.value = `找不到指定的 Alert${alertId ? `：${alertId}` : ''}${riskEventId ? `（Risk Event ${riskEventId}）` : ''}。請確認識別碼後再試。`
+        queryError.value = `找不到指定的告警${alertId ? `：${alertId}` : ''}${riskEventId ? `（風控事件 ${riskEventId}）` : ''}。請確認識別碼後再試。`
         return
     }
     queryError.value = ''
@@ -551,7 +690,7 @@ const canResendGgap = computed(() => Boolean(selectedAlert.value && activeAlert(
 const canFalsePositive = computed(() => Boolean(selectedAlert.value && activeAlert(selectedAlert.value) && selectedAlert.value.isolationStatus !== 'isolated'))
 const closeBlockReason = computed(() => {
     const alert = selectedAlert.value
-    if (!alert || !activeAlert(alert)) return '此 Alert 已不在可結案狀態。'
+    if (!alert || !activeAlert(alert)) return '此告警已不在可結案狀態。'
     if (alert.isolationStatus === 'isolated') return '仍有有效隔離，請先解除隔離。'
     if (alert.ggapNotificationStatus === 'failed') return 'GGAP 通知失敗，請先重送並取得結果。'
     if (alert.mitigationStatus === 'pending') return '必要自動處理仍在執行中，請等待完成。'
@@ -571,16 +710,16 @@ const actionSubmitDisabled = computed(() => {
 })
 
 function actionDisabledReason(action: ActionType) {
-    if (action === 'takeover' && !canTakeover.value) return '已有負責人或 Alert 已結束。'
-    if (action === 'assign' && !canAssign.value) return '已結案或誤報的 Alert 不可再指派。'
+    if (action === 'takeover' && !canTakeover.value) return '已有負責人或告警已結束。'
+    if (action === 'assign' && !canAssign.value) return '已結案或誤報的告警不可再指派。'
     if (action === 'mitigate' && !canMitigate.value) return '目前狀態已是已緩解或不可操作。'
     if (action === 'maintain-isolation' && !canMaintainIsolation.value) return '目前沒有有效隔離可供維持。'
     if (action === 'release-isolation' && !canReleaseIsolation.value) return selectedAlert.value?.healthCheck.status === 'passed' ? '目前沒有有效隔離。' : '最新健康檢查尚未通過。'
     if (action === 'retry-mitigation' && !canRetryMitigation.value) return '目前沒有自動處理失敗。'
     if (action === 'resend-ggap' && !canResendGgap.value) return '目前沒有 GGAP 通知失敗。'
-    if (action === 'false-positive' && !canFalsePositive.value) return selectedAlert.value?.isolationStatus === 'isolated' ? '標記誤報前必須先解除隔離。' : '已結束的 Alert 不可標記誤報。'
+    if (action === 'false-positive' && !canFalsePositive.value) return selectedAlert.value?.isolationStatus === 'isolated' ? '標記誤報前必須先解除隔離。' : '已結束的告警不可標記誤報。'
     if (action === 'close' && !canClose.value) return closeBlockReason.value
-    if (action === 'reopen' && !canReopen.value) return '只有已結案或誤報的 Alert 可以重新開啟。'
+    if (action === 'reopen' && !canReopen.value) return '只有已結案或誤報的告警可以重新開啟。'
     return ''
 }
 
@@ -612,10 +751,10 @@ function executeAction() {
         if (action === 'takeover') {
             alert.assignee = currentUser
             if (alert.status === 'pending') alert.status = 'investigating'
-            addTimeline(alert, '人工接手', actionNote.value.trim() || `${currentUser} 接手此 Alert。`, 'warning')
+            addTimeline(alert, '人工接手', actionNote.value.trim() || `${currentUser} 接手此告警。`, 'warning')
         } else if (action === 'assign' && actionAssignee.value) {
             alert.assignee = actionAssignee.value
-            addTimeline(alert, '指派負責人', `${currentUser} 將 Alert 指派給 ${actionAssignee.value}。${actionNote.value.trim() ? ` 備註：${actionNote.value.trim()}` : ''}`, 'neutral')
+            addTimeline(alert, '指派負責人', `${currentUser} 將告警指派給 ${actionAssignee.value}。${actionNote.value.trim() ? ` 備註：${actionNote.value.trim()}` : ''}`, 'neutral')
         } else if (action === 'note') {
             addTimeline(alert, '新增處理備註', actionNote.value.trim(), 'neutral')
         } else if (action === 'mitigate') {
@@ -653,7 +792,7 @@ function executeAction() {
         } else if (action === 'close') {
             alert.status = 'closed'
             alert.isOngoing = false
-            addTimeline(alert, 'Alert 已結案', actionNote.value.trim(), 'success')
+            addTimeline(alert, '告警已結案', actionNote.value.trim(), 'success')
         } else if (action === 'reopen') {
             alert.status = 'investigating'
             addTimeline(alert, '重新開啟 Alert', actionNote.value.trim(), 'warning')
@@ -661,7 +800,7 @@ function executeAction() {
         actionBusy.value = false
         actionVisible.value = false
         pendingAction.value = null
-        toast.add({ severity: 'success', summary: '原型狀態已更新', detail: '已更新前端 mock 狀態與處理時間線；未修改正式資料。', life: 4200 })
+        toast.add({ severity: 'success', summary: '原型狀態已更新', detail: '已更新前端模擬狀態與處理時間線；未修改正式資料。', life: 4200 })
     }, 320)
 }
 
@@ -682,7 +821,7 @@ watch(() => [route.query.alert_id, route.query.risk_event_id], openQueryTarget)
 
 <template>
     <div class="risk-alerts-page page-stack">
-        <div v-if="queryError" class="risk-alerts-state risk-alerts-state--error" role="alert"><i class="pi pi-exclamation-circle" /><div><strong>{{ queryError }}</strong><p>目前未開啟任何 Alert 詳情，請從工作佇列選擇有效資料。</p></div><Button label="清除提示" icon="pi pi-times" severity="secondary" outlined @click="queryError = ''" /></div>
+        <div v-if="queryError" class="risk-alerts-state risk-alerts-state--error" role="alert"><i class="pi pi-exclamation-circle" /><div><strong>{{ queryError }}</strong><p>目前未開啟任何告警詳情，請從工作佇列選擇有效資料。</p></div><Button label="清除提示" icon="pi pi-times" severity="secondary" outlined @click="queryError = ''" /></div>
 
         <section class="risk-alert-summary-grid" aria-label="風控告警摘要">
             <button v-for="card in summaryCards" :key="card.key" type="button" class="risk-alert-summary-card" :class="[`risk-alert-summary-card--${card.tone}`, { active: appliedFilters.shortcut === card.key }]" :aria-pressed="appliedFilters.shortcut === card.key" @click="chooseShortcut(card.key)">
@@ -693,11 +832,11 @@ watch(() => [route.query.alert_id, route.query.risk_event_id], openQueryTarget)
         </section>
 
         <section class="risk-alert-filter-card" aria-label="告警查詢條件">
-            <div class="risk-alert-section-heading"><div><span class="risk-alert-eyebrow">WORK QUEUE FILTERS</span><h2>查詢條件</h2></div><span class="risk-alert-scope-meta"><i class="pi pi-clock" />{{ timezoneLabel }} · 不使用快速時間範圍</span></div>
+            <div class="risk-alert-section-heading"><div><span class="risk-alert-eyebrow">工作佇列篩選</span><h2>查詢條件</h2></div><span class="risk-alert-scope-meta"><i class="pi pi-clock" />{{ timezoneLabel }} · 不使用快速時間範圍</span></div>
             <div class="risk-alert-filter-grid risk-alert-filter-grid--common">
                 <div class="field"><label for="alert-status">告警狀態</label><Select id="alert-status" v-model="draftFilters.status" :options="statusOptions" option-label="label" option-value="value" fluid @change="draftFilters.shortcut = ''" /></div>
                 <div class="field"><label for="alert-severity">嚴重度</label><Select id="alert-severity" v-model="draftFilters.severity" :options="severityOptions" option-label="label" option-value="value" fluid @change="draftFilters.shortcut = ''" /></div>
-                <div class="field"><span class="risk-alert-field-label">環境</span><div class="risk-alert-radio-group" role="radiogroup" aria-label="環境"><label><RadioButton v-model="draftFilters.environment" name="alert-environment" value="production" @change="applyFilters" />Production</label><label><RadioButton v-model="draftFilters.environment" name="alert-environment" value="demo" @change="applyFilters" />DEMO</label></div></div>
+                <div class="field"><span class="risk-alert-field-label">環境</span><div class="risk-alert-radio-group" role="radiogroup" aria-label="環境"><label><RadioButton v-model="draftFilters.environment" name="alert-environment" value="production" @change="applyFilters" />{{ environmentOptionLabels.production }}</label><label><RadioButton v-model="draftFilters.environment" name="alert-environment" value="demo" @change="applyFilters" />{{ environmentOptionLabels.demo }}</label></div></div>
                 <div class="field"><label for="alert-game">遊戲</label><Select id="alert-game" v-model="draftFilters.game" :options="gameOptions" option-label="label" option-value="value" fluid @change="draftFilters.shortcut = ''" /></div>
                 <div class="field"><label for="alert-anomaly">異常類型</label><Select id="alert-anomaly" v-model="draftFilters.anomalyType" :options="anomalyOptions" option-label="label" option-value="value" fluid @change="draftFilters.shortcut = ''" /></div>
                 <div class="field"><label for="alert-assignee">負責人</label><Select id="alert-assignee" v-model="draftFilters.assignee" :options="assigneeOptions" option-label="label" option-value="value" fluid @change="draftFilters.shortcut = ''" /></div>
@@ -705,55 +844,55 @@ watch(() => [route.query.alert_id, route.query.risk_event_id], openQueryTarget)
             </div>
             <div class="risk-alert-filter-footer"><button type="button" class="risk-alert-advanced-toggle" :aria-expanded="advancedVisible" @click="advancedVisible = !advancedVisible"><i :class="advancedVisible ? 'pi pi-chevron-up' : 'pi pi-chevron-down'" />{{ advancedVisible ? '收合進階條件' : '顯示進階條件' }}</button><div class="risk-alert-filter-actions"><Button label="查詢" icon="pi pi-search" data-testid="risk-alert-apply-filters" @click="applyFilters" /><Button label="重置" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" /></div></div>
             <div v-if="advancedVisible" class="risk-alert-filter-grid risk-alert-filter-grid--advanced">
-                <div class="field"><label for="alert-id">Alert ID <small>精確</small></label><InputText id="alert-id" v-model="draftFilters.alertId" placeholder="輸入完整 alt_..." fluid @keyup.enter="applyFilters" /></div>
-                <div class="field"><label for="alert-risk-event-id">Risk Event ID <small>精確</small></label><InputText id="alert-risk-event-id" v-model="draftFilters.riskEventId" placeholder="輸入完整 rsk_..." fluid @keyup.enter="applyFilters" /></div>
+                <div class="field"><label for="alert-id">告警 ID <small>精確</small></label><InputText id="alert-id" v-model="draftFilters.alertId" placeholder="輸入完整 alt_..." fluid @keyup.enter="applyFilters" /></div>
+                <div class="field"><label for="alert-risk-event-id">風控事件 ID <small>精確</small></label><InputText id="alert-risk-event-id" v-model="draftFilters.riskEventId" placeholder="輸入完整 rsk_..." fluid @keyup.enter="applyFilters" /></div>
                 <div class="field"><label for="alert-source">異常來源</label><Select id="alert-source" v-model="draftFilters.source" :options="sourceOptions" option-label="label" option-value="value" fluid /></div>
                 <div class="field"><label for="alert-game-version">遊戲版本</label><Select id="alert-game-version" v-model="draftFilters.gameVersion" :options="gameVersionOptions" option-label="label" option-value="value" fluid /></div>
                 <div class="field"><label for="alert-mitigation">自動緩解狀態</label><Select id="alert-mitigation" v-model="draftFilters.mitigationStatus" :options="mitigationOptions" option-label="label" option-value="value" fluid /></div>
                 <div class="field"><label for="alert-isolation">隔離狀態</label><Select id="alert-isolation" v-model="draftFilters.isolationStatus" :options="isolationOptions" option-label="label" option-value="value" fluid /></div>
                 <div class="field"><label for="alert-ggap-status">GGAP 通知狀態</label><Select id="alert-ggap-status" v-model="draftFilters.ggapNotificationStatus" :options="notificationOptions" option-label="label" option-value="value" fluid /></div>
-                <div class="field"><label for="alert-provider-round">Provider Game Round ID <small>精確</small></label><InputText id="alert-provider-round" v-model="draftFilters.providerGameRoundId" placeholder="輸入完整 Round ID" fluid @keyup.enter="applyFilters" /></div>
-                <div class="field"><label for="alert-ggap-round">GGAP Round ID <small>精確</small></label><InputText id="alert-ggap-round" v-model="draftFilters.ggapRoundId" placeholder="輸入完整 Round ID" fluid @keyup.enter="applyFilters" /></div>
-                <div class="field field-span-2"><label for="alert-created-range">Alert 建立時間區間</label><DateTimeRangeField id="alert-created-range" :model-value="draftFilters.createdRange" @update:model-value="draftFilters.createdRange = $event" /></div>
+                <div class="field"><label for="alert-provider-round">遊戲商遊戲局 ID <small>精確</small></label><InputText id="alert-provider-round" v-model="draftFilters.providerGameRoundId" placeholder="輸入完整 Round ID" fluid @keyup.enter="applyFilters" /></div>
+                <div class="field"><label for="alert-ggap-round">GGAP 遊戲局 ID <small>精確</small></label><InputText id="alert-ggap-round" v-model="draftFilters.ggapRoundId" placeholder="輸入完整 Round ID" fluid @keyup.enter="applyFilters" /></div>
+                <div class="field field-span-2"><label for="alert-created-range">告警建立時間區間</label><DateTimeRangeField id="alert-created-range" :model-value="draftFilters.createdRange" @update:model-value="draftFilters.createdRange = $event" /></div>
             </div>
             <div v-if="appliedShortcutLabel" class="risk-alert-applied-shortcut"><i class="pi pi-filter-fill" /><span>快捷篩選：{{ appliedShortcutLabel }}</span><button type="button" @click="chooseShortcut(appliedFilters.shortcut)">清除快捷篩選</button></div>
         </section>
 
         <section class="risk-alert-queue-section" aria-labelledby="risk-alert-queue-title">
-            <div class="risk-alert-section-heading risk-alert-queue-heading"><div><span class="risk-alert-eyebrow">ALERT WORK QUEUE</span><h2 id="risk-alert-queue-title">告警工作佇列</h2><p>{{ tableDescription }}</p></div><div class="risk-alert-list-actions"><span><i class="pi pi-database" />{{ formatNumber(matchingRows.length) }} 筆</span><Button label="匯出完整結果" icon="pi pi-download" severity="secondary" outlined :disabled="!matchingRows.length || loading" @click="openExport" /></div></div>
+            <div class="risk-alert-section-heading risk-alert-queue-heading"><div><span class="risk-alert-eyebrow">告警工作佇列</span><h2 id="risk-alert-queue-title">告警工作佇列</h2><p>{{ tableDescription }}</p></div><div class="risk-alert-list-actions"><span><i class="pi pi-database" />{{ formatNumber(matchingRows.length) }} 筆</span><Button label="匯出完整結果" icon="pi pi-download" severity="secondary" outlined :disabled="!matchingRows.length || loading" @click="openExport" /></div></div>
             <div v-if="exportNotice" class="risk-alerts-state risk-alerts-state--info" role="status"><i class="pi pi-info-circle" /><span>{{ exportNotice }}</span></div>
             <div v-if="loadError" class="risk-alerts-state risk-alerts-state--error" role="alert"><i class="pi pi-exclamation-circle" /><div><strong>{{ loadError }}</strong><p>請修正條件後重新查詢。</p></div><Button label="重置條件" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" /></div>
             <div v-else-if="loading" class="risk-alerts-state"><i class="pi pi-spin pi-spinner" /><div><strong>正在載入告警佇列</strong><p>正在套用環境、狀態與快捷條件。</p></div></div>
-            <div v-else-if="!matchingRows.length" class="risk-alerts-state"><i class="pi pi-inbox" /><div><strong>目前沒有符合條件的告警</strong><p>目前查詢範圍沒有有效 Alert；可保留條件或重置篩選。</p></div><Button label="重置條件" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" /></div>
+            <div v-else-if="!matchingRows.length" class="risk-alerts-state"><i class="pi pi-inbox" /><div><strong>目前沒有符合條件的告警</strong><p>目前查詢範圍沒有有效告警；可保留條件或重置篩選。</p></div><Button label="重置條件" icon="pi pi-refresh" severity="secondary" outlined @click="resetFilters" /></div>
             <div v-else class="risk-alert-table-shell">
-                <div class="risk-alert-table-scroll" tabindex="0" aria-label="告警工作佇列表格，可水平捲動"><table class="risk-alert-table"><thead><tr><th>嚴重度</th><th>Alert ID</th><th>Risk Event ID</th><th>建立時間</th><th>環境</th><th>遊戲名稱</th><th>遊戲版本</th><th>異常類型</th><th>受影響 Game Round 數</th><th>告警狀態</th><th>負責人</th><th>自動緩解狀態</th><th>隔離狀態</th><th>GGAP 通知狀態</th><th>覆核期限</th><th>操作</th></tr></thead><tbody><tr v-for="alert in pagedRows" :key="alert.alertId"><td><span class="risk-alert-pill" :class="severityClass(alert.severity)">{{ severityLabels[alert.severity] }}</span></td><td><code>{{ alert.alertId }}</code></td><td><code>{{ alert.riskEventId }}</code></td><td class="risk-alert-time">{{ formatDateTime(alert.createdAt) }}</td><td><span class="risk-alert-environment"><i class="pi pi-circle-fill" />{{ environmentLabels[alert.environment] }}</span></td><td><div class="risk-alert-game"><strong>{{ alert.gameName }}</strong><small>{{ alert.gameId }}</small></div></td><td>{{ alert.gameVersion }}</td><td><strong>{{ anomalyLabels[alert.anomalyType] }}</strong><small class="risk-alert-subline">{{ sourceLabels[alert.source] }}</small></td><td class="risk-alert-number">{{ formatNumber(alert.affectedRounds) }}</td><td><span class="risk-alert-pill" :class="statusClass(alert.status)">{{ statusLabels[alert.status] }}</span></td><td>{{ alert.assignee ?? '未指派' }}</td><td><span class="risk-alert-pill" :class="mitigationClass(alert.mitigationStatus)">{{ mitigationLabels[alert.mitigationStatus] }}</span></td><td><span class="risk-alert-pill" :class="isolationClass(alert.isolationStatus)">{{ isolationLabels[alert.isolationStatus] }}</span></td><td><span class="risk-alert-pill" :class="notificationClass(alert.ggapNotificationStatus)">{{ notificationLabels[alert.ggapNotificationStatus] }}</span></td><td><span :class="{ 'risk-alert-overdue': isOverdue(alert) }">{{ formatShortDate(alert.reviewDueAt) }}<small v-if="isOverdue(alert)" class="risk-alert-subline">已逾期</small></span></td><td><Button label="查看／處理" icon="pi pi-arrow-up-right" text severity="danger" @click="openDetails(alert)" /></td></tr></tbody></table></div>
+                <div class="risk-alert-table-scroll" tabindex="0" aria-label="告警工作佇列表格，可水平捲動"><table class="risk-alert-table"><thead><tr><th>嚴重度</th><th>告警 ID</th><th>風控事件 ID</th><th>建立時間</th><th>環境</th><th>遊戲名稱</th><th>遊戲版本</th><th>異常類型</th><th>受影響遊戲回合數</th><th>告警狀態</th><th>負責人</th><th>自動緩解狀態</th><th>隔離狀態</th><th>GGAP 通知狀態</th><th>覆核期限</th><th>操作</th></tr></thead><tbody><tr v-for="alert in pagedRows" :key="alert.alertId"><td><span class="risk-alert-pill" :class="severityClass(alert.severity)">{{ severityLabels[alert.severity] }}</span></td><td><code>{{ alert.alertId }}</code></td><td><code>{{ alert.riskEventId }}</code></td><td class="risk-alert-time">{{ formatDateTime(alert.createdAt) }}</td><td><span class="risk-alert-environment"><i class="pi pi-circle-fill" />{{ environmentLabels[alert.environment] }}</span></td><td><div class="risk-alert-game"><strong>{{ alert.gameName }}</strong><small>{{ alert.gameId }}</small></div></td><td>{{ alert.gameVersion }}</td><td><strong>{{ anomalyLabels[alert.anomalyType] }}</strong><small class="risk-alert-subline">{{ sourceLabels[alert.source] }}</small></td><td class="risk-alert-number">{{ formatNumber(alert.affectedRounds) }}</td><td><span class="risk-alert-pill" :class="statusClass(alert.status)">{{ statusLabels[alert.status] }}</span></td><td>{{ alert.assignee ?? '未指派' }}</td><td><span class="risk-alert-pill" :class="mitigationClass(alert.mitigationStatus)">{{ mitigationLabels[alert.mitigationStatus] }}</span></td><td><span class="risk-alert-pill" :class="isolationClass(alert.isolationStatus)">{{ isolationLabels[alert.isolationStatus] }}</span></td><td><span class="risk-alert-pill" :class="notificationClass(alert.ggapNotificationStatus)">{{ notificationLabels[alert.ggapNotificationStatus] }}</span></td><td><span :class="{ 'risk-alert-overdue': isOverdue(alert) }">{{ formatShortDate(alert.reviewDueAt) }}<small v-if="isOverdue(alert)" class="risk-alert-subline">已逾期</small></span></td><td><Button label="查看／處理" icon="pi pi-arrow-up-right" text severity="danger" @click="openDetails(alert)" /></td></tr></tbody></table></div>
                 <div class="risk-alert-pagination"><span>第 {{ currentPage }} / {{ totalPages }} 頁 · {{ formatNumber(matchingRows.length) }} 筆</span><div><Button icon="pi pi-angle-double-left" text rounded severity="secondary" aria-label="第一頁" :disabled="first === 0" @click="handlePage({ first: 0 })" /><Button icon="pi pi-angle-left" text rounded severity="secondary" aria-label="上一頁" :disabled="first === 0" @click="handlePage({ first: Math.max(0, first - rowsPerPage) })" /><Button icon="pi pi-angle-right" text rounded severity="secondary" aria-label="下一頁" :disabled="currentPage >= totalPages" @click="handlePage({ first: Math.min((totalPages - 1) * rowsPerPage, first + rowsPerPage) })" /><Button icon="pi pi-angle-double-right" text rounded severity="secondary" aria-label="最後一頁" :disabled="currentPage >= totalPages" @click="handlePage({ first: (totalPages - 1) * rowsPerPage })" /></div><Select v-model="rowsPerPage" :options="[8, 16, 32]" aria-label="每頁筆數" @change="first = 0" /></div>
             </div>
         </section>
 
-        <Dialog v-model:visible="exportVisible" modal dismissable-mask header="匯出告警工作佇列" class="risk-alert-export-dialog" :style="{ width: 'min(560px, calc(100vw - 24px))' }"><div class="risk-alert-dialog-body"><div class="risk-alert-dialog-intro"><i class="pi pi-file-export" /><div><strong>匯出完整篩選結果</strong><p>{{ environmentLabels[appliedFilters.environment] }} · {{ formatNumber(matchingRows.length) }} 筆，不受目前分頁限制。</p></div></div><div class="risk-alert-format"><span>檔案格式</span><label><RadioButton v-model="exportFormat" name="alert-export-format" value="csv" />CSV</label><label><RadioButton v-model="exportFormat" name="alert-export-format" value="xlsx" />XLSX</label></div><div class="risk-alert-mock-note"><i class="pi pi-info-circle" /><span>Prototype / Mock data：目前只呈現完整匯出入口，不產生或傳送正式檔案。</span></div></div><template #footer><Button label="取消" severity="secondary" text @click="exportVisible = false" /><Button label="確認匯出" icon="pi pi-download" @click="runMockExport" /></template></Dialog>
+        <Dialog v-model:visible="exportVisible" modal dismissable-mask header="匯出告警工作佇列" class="risk-alert-export-dialog" :style="{ width: 'min(560px, calc(100vw - 24px))' }"><div class="risk-alert-dialog-body"><div class="risk-alert-dialog-intro"><i class="pi pi-file-export" /><div><strong>匯出完整篩選結果</strong><p>{{ environmentLabels[appliedFilters.environment] }} · {{ formatNumber(matchingRows.length) }} 筆，不受目前分頁限制。</p></div></div><div class="risk-alert-format"><span>檔案格式</span><label><RadioButton v-model="exportFormat" name="alert-export-format" value="csv" />CSV</label><label><RadioButton v-model="exportFormat" name="alert-export-format" value="xlsx" />XLSX</label></div><div class="risk-alert-mock-note"><i class="pi pi-info-circle" /><span>原型／模擬資料：目前只呈現完整匯出入口，不產生或傳送正式檔案。</span></div></div><template #footer><Button label="取消" severity="secondary" text @click="exportVisible = false" /><Button label="確認匯出" icon="pi pi-download" @click="runMockExport" /></template></Dialog>
 
-        <Dialog v-model:visible="detailVisible" modal dismissable-mask class="risk-alert-detail-dialog" :style="{ width: 'min(1240px, calc(100vw - 24px))' }" :header="selectedAlert ? `${selectedAlert.alertId} / Alert 詳情與處理` : 'Alert 詳情與處理'"><div v-if="selectedAlert" class="risk-alert-detail-content">
-            <div class="risk-alert-detail-hero"><div><span class="risk-alert-eyebrow">PROVIDER RISK ALERT</span><h2>{{ selectedAlert.gameName }}</h2><p>{{ anomalyLabels[selectedAlert.anomalyType] }} · {{ selectedAlert.gameVersion }} · {{ environmentLabels[selectedAlert.environment] }}</p></div><div class="risk-alert-detail-badges"><span class="risk-alert-pill" :class="severityClass(selectedAlert.severity)">{{ severityLabels[selectedAlert.severity] }}</span><span class="risk-alert-pill" :class="statusClass(selectedAlert.status)">{{ statusLabels[selectedAlert.status] }}</span><span class="risk-alert-state-chip"><i class="pi pi-wrench" />可操作 mock</span></div></div>
+        <Dialog v-model:visible="detailVisible" modal dismissable-mask class="risk-alert-detail-dialog" :style="{ width: 'min(1240px, calc(100vw - 24px))' }" :header="selectedAlert ? `${selectedAlert.alertId} / 告警詳情與處理` : '告警詳情與處理'"><div v-if="selectedAlert" class="risk-alert-detail-content">
+            <div class="risk-alert-detail-hero"><div><span class="risk-alert-eyebrow">Provider 風控告警</span><h2>{{ selectedAlert.gameName }}</h2><p>{{ anomalyLabels[selectedAlert.anomalyType] }} · {{ selectedAlert.gameVersion }} · {{ environmentLabels[selectedAlert.environment] }}</p></div><div class="risk-alert-detail-badges"><span class="risk-alert-pill" :class="severityClass(selectedAlert.severity)">{{ severityLabels[selectedAlert.severity] }}</span><span class="risk-alert-pill" :class="statusClass(selectedAlert.status)">{{ statusLabels[selectedAlert.status] }}</span><span class="risk-alert-state-chip"><i class="pi pi-wrench" />可操作模擬</span></div></div>
 
-            <section class="risk-alert-detail-section"><div class="risk-alert-detail-title"><i class="pi pi-file" /><h3>告警摘要</h3></div><div class="risk-alert-fact-grid"><div><span>Alert ID</span><code>{{ selectedAlert.alertId }}</code></div><div><span>Risk Event ID</span><code>{{ selectedAlert.riskEventId }}</code></div><div><span>建立時間</span><strong>{{ formatDateTime(selectedAlert.createdAt) }}</strong></div><div><span>環境／遊戲版本</span><strong>{{ environmentLabels[selectedAlert.environment] }} · {{ selectedAlert.gameVersion }}</strong></div><div><span>負責人</span><strong>{{ selectedAlert.assignee ?? '未指派' }}</strong></div><div><span>覆核期限</span><strong :class="{ 'risk-alert-overdue': isOverdue(selectedAlert) }">{{ formatDateTime(selectedAlert.reviewDueAt) }}{{ isOverdue(selectedAlert) ? ' · 已逾期' : '' }}</strong></div><div><span>告警狀態</span><span class="risk-alert-pill" :class="statusClass(selectedAlert.status)">{{ statusLabels[selectedAlert.status] }}</span></div><div><span>自動緩解狀態</span><span class="risk-alert-pill" :class="mitigationClass(selectedAlert.mitigationStatus)">{{ mitigationLabels[selectedAlert.mitigationStatus] }}</span></div><div><span>隔離狀態</span><span class="risk-alert-pill" :class="isolationClass(selectedAlert.isolationStatus)">{{ isolationLabels[selectedAlert.isolationStatus] }}</span></div></div></section>
+            <section class="risk-alert-detail-section"><div class="risk-alert-detail-title"><i class="pi pi-file" /><h3>告警摘要</h3></div><div class="risk-alert-fact-grid"><div><span>告警 ID</span><code>{{ selectedAlert.alertId }}</code></div><div><span>風控事件 ID</span><code>{{ selectedAlert.riskEventId }}</code></div><div><span>建立時間</span><strong>{{ formatDateTime(selectedAlert.createdAt) }}</strong></div><div><span>環境／遊戲版本</span><strong>{{ environmentLabels[selectedAlert.environment] }} · {{ selectedAlert.gameVersion }}</strong></div><div><span>負責人</span><strong>{{ selectedAlert.assignee ?? '未指派' }}</strong></div><div><span>覆核期限</span><strong :class="{ 'risk-alert-overdue': isOverdue(selectedAlert) }">{{ formatDateTime(selectedAlert.reviewDueAt) }}{{ isOverdue(selectedAlert) ? ' · 已逾期' : '' }}</strong></div><div><span>告警狀態</span><span class="risk-alert-pill" :class="statusClass(selectedAlert.status)">{{ statusLabels[selectedAlert.status] }}</span></div><div><span>自動緩解狀態</span><span class="risk-alert-pill" :class="mitigationClass(selectedAlert.mitigationStatus)">{{ mitigationLabels[selectedAlert.mitigationStatus] }}</span></div><div><span>隔離狀態</span><span class="risk-alert-pill" :class="isolationClass(selectedAlert.isolationStatus)">{{ isolationLabels[selectedAlert.isolationStatus] }}</span></div></div></section>
 
-            <div class="risk-alert-detail-two-column"><section class="risk-alert-detail-section"><div class="risk-alert-detail-title"><i class="pi pi-globe" /><h3>目前影響</h3></div><div class="risk-alert-fact-list"><div><span>受影響 Game Round</span><strong>{{ formatNumber(selectedAlert.affectedRounds) }} 筆 · {{ selectedAlert.isOngoing ? '仍持續發生' : '目前未持續' }}</strong></div><div><span>首次／最後發生</span><strong>{{ formatDateTime(selectedAlert.firstSeenAt) }}<br>{{ formatDateTime(selectedAlert.lastOccurredAt) }}</strong></div><div><span>新 Launch</span><strong>{{ selectedAlert.isolationStatus === 'isolated' ? '指定範圍阻擋中' : '未由此 Alert 阻擋' }}</strong></div><div><span>既有 Round</span><strong>Settle／Callback 依既有流程持續</strong></div><div><span>隔離範圍</span><strong>{{ selectedAlert.isolationStatus === 'isolated' ? selectedAlert.mitigationScope : '—' }}</strong></div></div></section><section class="risk-alert-detail-section"><div class="risk-alert-detail-title"><i class="pi pi-sliders-h" /><h3>判斷依據</h3></div><div class="risk-alert-fact-list"><div><span>異常來源／類型</span><strong>{{ sourceLabels[selectedAlert.source] }} · {{ anomalyLabels[selectedAlert.anomalyType] }}</strong></div><div><span>Rule ID／版本</span><code>{{ selectedAlert.ruleId }} · {{ selectedAlert.ruleVersion }}</code></div><div><span>門檻／實際數值</span><strong>{{ selectedAlert.threshold }}<br>{{ selectedAlert.actualValue }}</strong></div><div><span>統計窗口</span><strong>{{ selectedAlert.statisticWindow }}</strong></div><div><span>錯誤碼</span><code>{{ selectedAlert.errorCode }}</code></div></div></section></div>
+            <div class="risk-alert-detail-two-column"><section class="risk-alert-detail-section"><div class="risk-alert-detail-title"><i class="pi pi-globe" /><h3>目前影響</h3></div><div class="risk-alert-fact-list"><div><span>受影響遊戲回合</span><strong>{{ formatNumber(selectedAlert.affectedRounds) }} 筆 · {{ selectedAlert.isOngoing ? '仍持續發生' : '目前未持續' }}</strong></div><div><span>首次／最後發生</span><strong>{{ formatDateTime(selectedAlert.firstSeenAt) }}<br>{{ formatDateTime(selectedAlert.lastOccurredAt) }}</strong></div><div><span>新遊戲啟動</span><strong>{{ selectedAlert.isolationStatus === 'isolated' ? '指定範圍阻擋中' : '未由此告警阻擋' }}</strong></div><div><span>既有遊戲回合</span><strong>結算／回呼依既有流程持續</strong></div><div><span>隔離範圍</span><strong>{{ selectedAlert.isolationStatus === 'isolated' ? translateMockText(selectedAlert.mitigationScope) : '—' }}</strong></div></div></section><section class="risk-alert-detail-section"><div class="risk-alert-detail-title"><i class="pi pi-sliders-h" /><h3>判斷依據</h3></div><div class="risk-alert-fact-list"><div><span>異常來源／類型</span><strong>{{ sourceLabels[selectedAlert.source] }} · {{ anomalyLabels[selectedAlert.anomalyType] }}</strong></div><div><span>規則 ID／版本</span><code>{{ selectedAlert.ruleId }} · {{ selectedAlert.ruleVersion }}</code></div><div><span>門檻／實際數值</span><strong>{{ translateMockText(selectedAlert.threshold) }}<br>{{ translateMockText(selectedAlert.actualValue) }}</strong></div><div><span>統計窗口</span><strong>{{ translateMockText(selectedAlert.statisticWindow) }}</strong></div><div><span>錯誤碼</span><code>{{ selectedAlert.errorCode }}</code></div></div></section></div>
 
-            <section class="risk-alert-detail-section"><div class="risk-alert-detail-title"><i class="pi pi-code" /><h3>請求／回應摘要</h3></div><div class="risk-alert-code-grid"><div><span>Request</span><code>{{ selectedAlert.requestSummary }}</code></div><div><span>Response</span><code>{{ selectedAlert.responseSummary }}</code></div><div class="risk-alert-wide"><span>Error message</span><code>{{ selectedAlert.errorMessage }}</code></div></div><div class="risk-alert-entry-links"><Button label="查看 Risk Event 詳情" icon="pi pi-arrow-up-right" text severity="secondary" @click="goToRiskEvent(selectedAlert)" /><Button label="查看請求紀錄" icon="pi pi-list" text severity="secondary" @click="goToRequestLogs(selectedAlert)" /></div></section>
+            <section class="risk-alert-detail-section"><div class="risk-alert-detail-title"><i class="pi pi-code" /><h3>請求／回應摘要</h3></div><div class="risk-alert-code-grid"><div><span>請求</span><code>{{ translateMockText(selectedAlert.requestSummary) }}</code></div><div><span>回應</span><code>{{ translateMockText(selectedAlert.responseSummary) }}</code></div><div class="risk-alert-wide"><span>錯誤訊息</span><code>{{ translateMockText(selectedAlert.errorMessage) }}</code></div></div><div class="risk-alert-entry-links"><Button label="查看風控事件詳情" icon="pi pi-arrow-up-right" text severity="secondary" @click="goToRiskEvent(selectedAlert)" /><Button label="查看請求紀錄" icon="pi pi-list" text severity="secondary" @click="goToRequestLogs(selectedAlert)" /></div></section>
 
-            <div class="risk-alert-detail-two-column"><section class="risk-alert-detail-section"><div class="risk-alert-detail-title"><i class="pi pi-bolt" /><h3>自動緩解結果</h3></div><div class="risk-alert-fact-list"><div><span>執行動作</span><strong>{{ selectedAlert.mitigationAction }}</strong></div><div><span>目前狀態</span><span class="risk-alert-pill" :class="mitigationClass(selectedAlert.mitigationStatus)">{{ mitigationLabels[selectedAlert.mitigationStatus] }}</span></div><div><span>開始／完成</span><strong>{{ formatDateTime(selectedAlert.mitigationStartedAt) }} / {{ formatDateTime(selectedAlert.mitigationCompletedAt) }}</strong></div><div><span>作用範圍</span><strong>{{ selectedAlert.mitigationScope }}</strong></div><div><span>失敗原因</span><strong>{{ selectedAlert.mitigationFailureReason }}</strong></div></div></section><section class="risk-alert-detail-section"><div class="risk-alert-detail-title"><i class="pi pi-send" /><h3>GGAP 通知</h3></div><div class="risk-alert-fact-list"><div><span>通知狀態</span><span class="risk-alert-pill" :class="notificationClass(selectedAlert.ggapNotificationStatus)">{{ notificationLabels[selectedAlert.ggapNotificationStatus] }}</span></div><div><span>provider_event_id</span><code>{{ selectedAlert.ggapProviderEventId }}</code></div><div><span>送出／ACK</span><strong>{{ formatDateTime(selectedAlert.ggapSentAt) }} / {{ formatDateTime(selectedAlert.ggapAckAt) }}</strong></div><div><span>重試次數</span><strong>{{ selectedAlert.ggapRetryCount }} 次</strong></div></div></section></div>
+            <div class="risk-alert-detail-two-column"><section class="risk-alert-detail-section"><div class="risk-alert-detail-title"><i class="pi pi-bolt" /><h3>自動緩解結果</h3></div><div class="risk-alert-fact-list"><div><span>執行動作</span><strong>{{ translateMockText(selectedAlert.mitigationAction) }}</strong></div><div><span>目前狀態</span><span class="risk-alert-pill" :class="mitigationClass(selectedAlert.mitigationStatus)">{{ mitigationLabels[selectedAlert.mitigationStatus] }}</span></div><div><span>開始／完成</span><strong>{{ formatDateTime(selectedAlert.mitigationStartedAt) }} / {{ formatDateTime(selectedAlert.mitigationCompletedAt) }}</strong></div><div><span>作用範圍</span><strong>{{ translateMockText(selectedAlert.mitigationScope) }}</strong></div><div><span>失敗原因</span><strong>{{ translateMockText(selectedAlert.mitigationFailureReason) }}</strong></div></div></section><section class="risk-alert-detail-section"><div class="risk-alert-detail-title"><i class="pi pi-send" /><h3>GGAP 通知</h3></div><div class="risk-alert-fact-list"><div><span>通知狀態</span><span class="risk-alert-pill" :class="notificationClass(selectedAlert.ggapNotificationStatus)">{{ notificationLabels[selectedAlert.ggapNotificationStatus] }}</span></div><div><span>provider_event_id</span><code>{{ selectedAlert.ggapProviderEventId }}</code></div><div><span>送出／確認（ACK）</span><strong>{{ formatDateTime(selectedAlert.ggapSentAt) }} / {{ formatDateTime(selectedAlert.ggapAckAt) }}</strong></div><div><span>重試次數</span><strong>{{ selectedAlert.ggapRetryCount }} 次</strong></div></div></section></div>
 
-            <section class="risk-alert-detail-section"><div class="risk-alert-detail-title"><i class="pi pi-heart" /><h3>最新健康檢查</h3><span class="risk-alert-health" :class="healthClass(selectedAlert.healthCheck.status)">{{ selectedAlert.healthCheck.status === 'passed' ? '已通過' : selectedAlert.healthCheck.status === 'warning' ? '部分通過' : '未通過' }}</span></div><div class="risk-alert-health-summary"><strong>{{ selectedAlert.healthCheck.summary }}</strong><span>檢查時間 {{ formatDateTime(selectedAlert.healthCheck.checkedAt) }}</span></div><ul class="risk-alert-check-list"><li v-for="check in selectedAlert.healthCheck.checks" :key="check"><i class="pi pi-circle-fill" />{{ check }}</li></ul></section>
+            <section class="risk-alert-detail-section"><div class="risk-alert-detail-title"><i class="pi pi-heart" /><h3>最新健康檢查</h3><span class="risk-alert-health" :class="healthClass(selectedAlert.healthCheck.status)">{{ selectedAlert.healthCheck.status === 'passed' ? '已通過' : selectedAlert.healthCheck.status === 'warning' ? '部分通過' : '未通過' }}</span></div><div class="risk-alert-health-summary"><strong>{{ translateMockText(selectedAlert.healthCheck.summary) }}</strong><span>檢查時間 {{ formatDateTime(selectedAlert.healthCheck.checkedAt) }}</span></div><ul class="risk-alert-check-list"><li v-for="check in selectedAlert.healthCheck.checks" :key="check"><i class="pi pi-circle-fill" />{{ translateMockText(check) }}</li></ul></section>
 
-            <section class="risk-alert-detail-section"><div class="risk-alert-detail-title"><i class="pi pi-directions-alt" /><h3>關聯 Game Round</h3><span class="risk-alert-section-note">{{ formatNumber(selectedAlert.relatedRounds.length) }} 筆代表資料</span></div><div class="risk-alert-round-table-wrap"><table class="risk-alert-round-table"><thead><tr><th>Provider Game Round ID</th><th>GGAP Round ID</th><th>結算狀態</th><th>發生時間</th><th>入口</th></tr></thead><tbody><tr v-for="round in selectedAlert.relatedRounds" :key="round.providerId"><td><code>{{ round.providerId }}</code></td><td><code>{{ round.ggapId }}</code></td><td>{{ round.settleStatus }}</td><td>{{ formatDateTime(round.occurredAt) }}</td><td><Button label="遊戲紀錄" icon="pi pi-arrow-up-right" text severity="secondary" @click="goToRound(round)" /></td></tr></tbody></table></div></section>
+            <section class="risk-alert-detail-section"><div class="risk-alert-detail-title"><i class="pi pi-directions-alt" /><h3>關聯遊戲回合</h3><span class="risk-alert-section-note">{{ formatNumber(selectedAlert.relatedRounds.length) }} 筆代表資料</span></div><div class="risk-alert-round-table-wrap"><table class="risk-alert-round-table"><thead><tr><th>遊戲商遊戲局 ID</th><th>GGAP 遊戲局 ID</th><th>結算狀態</th><th>發生時間</th><th>入口</th></tr></thead><tbody><tr v-for="round in selectedAlert.relatedRounds" :key="round.providerId"><td><code>{{ round.providerId }}</code></td><td><code>{{ round.ggapId }}</code></td><td>{{ translateMockText(round.settleStatus) }}</td><td>{{ formatDateTime(round.occurredAt) }}</td><td><Button label="遊戲紀錄" icon="pi pi-arrow-up-right" text severity="secondary" @click="goToRound(round)" /></td></tr></tbody></table></div></section>
 
-            <section class="risk-alert-detail-section"><div class="risk-alert-detail-title"><i class="pi pi-list" /><h3>請求紀錄</h3><span class="risk-alert-section-note">敏感內容已遮罩</span></div><div class="risk-alert-request-list"><div v-for="request in selectedAlert.requestLogs" :key="request.id"><time>{{ formatDateTime(request.time) }}</time><strong>{{ request.type }}</strong><span>{{ request.status }}</span><p>{{ request.summary }}</p></div></div></section>
+            <section class="risk-alert-detail-section"><div class="risk-alert-detail-title"><i class="pi pi-list" /><h3>請求紀錄</h3><span class="risk-alert-section-note">敏感內容已遮罩</span></div><div class="risk-alert-request-list"><div v-for="request in selectedAlert.requestLogs" :key="request.id"><time>{{ formatDateTime(request.time) }}</time><strong>{{ translateMockText(request.type) }}</strong><span>{{ translateMockText(request.status) }}</span><p>{{ translateMockText(request.summary) }}</p></div></div></section>
 
-            <section class="risk-alert-detail-section"><div class="risk-alert-detail-title"><i class="pi pi-history" /><h3>完整處理時間線</h3></div><ol class="risk-alert-timeline"><li v-for="item in selectedAlert.timeline" :key="`${item.label}-${item.time.toISOString()}`" :class="`risk-alert-timeline--${item.tone}`"><span class="risk-alert-timeline-dot" /><div><time>{{ formatDateTime(item.time) }} · {{ item.actor ?? '系統' }}</time><strong>{{ item.label }}</strong><p>{{ item.description }}</p></div></li></ol></section>
-        </div><template #footer><div v-if="selectedAlert" class="risk-alert-detail-footer"><div class="risk-alert-detail-footer-note"><i class="pi pi-info-circle" />前端原型操作只更新 mock 狀態與時間線，不會隔離遊戲、通知 GGAP、修改 Game Round 或正式資料。</div><div class="risk-alert-action-grid"><Button label="接手處理" icon="pi pi-user-plus" outlined :disabled="!canTakeover || actionBusy" :title="actionDisabledReason('takeover')" @click="openAction('takeover')" /><Button label="指派／改派" icon="pi pi-users" outlined :disabled="!canAssign || actionBusy" :title="actionDisabledReason('assign')" @click="openAction('assign')" /><Button label="新增備註" icon="pi pi-comment" outlined :disabled="actionBusy" @click="openAction('note')" /><Button label="標記已緩解" icon="pi pi-check" outlined :disabled="!canMitigate || actionBusy" :title="actionDisabledReason('mitigate')" @click="openAction('mitigate')" /><Button label="維持隔離" icon="pi pi-lock" outlined :disabled="!canMaintainIsolation || actionBusy" :title="actionDisabledReason('maintain-isolation')" @click="openAction('maintain-isolation')" /><Button label="解除隔離" icon="pi pi-lock-open" outlined :disabled="!canReleaseIsolation || actionBusy" :title="actionDisabledReason('release-isolation')" @click="openAction('release-isolation')" /><Button label="重試自動處理" icon="pi pi-refresh" outlined :disabled="!canRetryMitigation || actionBusy" :title="actionDisabledReason('retry-mitigation')" @click="openAction('retry-mitigation')" /><Button label="重送 GGAP 通知" icon="pi pi-send" outlined :disabled="!canResendGgap || actionBusy" :title="actionDisabledReason('resend-ggap')" @click="openAction('resend-ggap')" /><Button label="標記誤報" icon="pi pi-flag" outlined severity="secondary" :disabled="!canFalsePositive || actionBusy" :title="actionDisabledReason('false-positive')" @click="openAction('false-positive')" /><Button label="結案" icon="pi pi-check-circle" outlined severity="success" :disabled="!canClose || actionBusy" :title="actionDisabledReason('close')" @click="openAction('close')" /><Button label="重新開啟" icon="pi pi-replay" outlined severity="danger" :disabled="!canReopen || actionBusy" :title="actionDisabledReason('reopen')" @click="openAction('reopen')" /></div></div></template></Dialog>
+            <section class="risk-alert-detail-section"><div class="risk-alert-detail-title"><i class="pi pi-history" /><h3>完整處理時間線</h3></div><ol class="risk-alert-timeline"><li v-for="item in selectedAlert.timeline" :key="`${item.label}-${item.time.toISOString()}`" :class="`risk-alert-timeline--${item.tone}`"><span class="risk-alert-timeline-dot" /><div><time>{{ formatDateTime(item.time) }} · {{ item.actor ?? '系統' }}</time><strong>{{ translateMockText(item.label) }}</strong><p>{{ translateMockText(item.description) }}</p></div></li></ol></section>
+        </div><template #footer><div v-if="selectedAlert" class="risk-alert-detail-footer"><div class="risk-alert-detail-footer-note"><i class="pi pi-info-circle" />前端原型操作只更新模擬狀態與時間線，不會隔離遊戲、通知 GGAP、修改遊戲回合或正式資料。</div><div class="risk-alert-action-grid"><Button label="接手處理" icon="pi pi-user-plus" outlined :disabled="!canTakeover || actionBusy" :title="actionDisabledReason('takeover')" @click="openAction('takeover')" /><Button label="指派／改派" icon="pi pi-users" outlined :disabled="!canAssign || actionBusy" :title="actionDisabledReason('assign')" @click="openAction('assign')" /><Button label="新增備註" icon="pi pi-comment" outlined :disabled="actionBusy" @click="openAction('note')" /><Button label="標記已緩解" icon="pi pi-check" outlined :disabled="!canMitigate || actionBusy" :title="actionDisabledReason('mitigate')" @click="openAction('mitigate')" /><Button label="維持隔離" icon="pi pi-lock" outlined :disabled="!canMaintainIsolation || actionBusy" :title="actionDisabledReason('maintain-isolation')" @click="openAction('maintain-isolation')" /><Button label="解除隔離" icon="pi pi-lock-open" outlined :disabled="!canReleaseIsolation || actionBusy" :title="actionDisabledReason('release-isolation')" @click="openAction('release-isolation')" /><Button label="重試自動處理" icon="pi pi-refresh" outlined :disabled="!canRetryMitigation || actionBusy" :title="actionDisabledReason('retry-mitigation')" @click="openAction('retry-mitigation')" /><Button label="重送 GGAP 通知" icon="pi pi-send" outlined :disabled="!canResendGgap || actionBusy" :title="actionDisabledReason('resend-ggap')" @click="openAction('resend-ggap')" /><Button label="標記誤報" icon="pi pi-flag" outlined severity="secondary" :disabled="!canFalsePositive || actionBusy" :title="actionDisabledReason('false-positive')" @click="openAction('false-positive')" /><Button label="結案" icon="pi pi-check-circle" outlined severity="success" :disabled="!canClose || actionBusy" :title="actionDisabledReason('close')" @click="openAction('close')" /><Button label="重新開啟" icon="pi pi-replay" outlined severity="danger" :disabled="!canReopen || actionBusy" :title="actionDisabledReason('reopen')" @click="openAction('reopen')" /></div></div></template></Dialog>
 
-        <Dialog v-model:visible="actionVisible" modal dismissable-mask :header="pendingAction ? actionTitles[pendingAction] : '確認處理'" class="risk-alert-action-dialog" :style="{ width: 'min(620px, calc(100vw - 24px))' }" @hide="closeActionDialog"><div v-if="selectedAlert && pendingAction" class="risk-alert-dialog-body"><div class="risk-alert-mock-note risk-alert-mock-note--strong"><i class="pi pi-info-circle" /><span>原型操作：只更新前端 mock 狀態與處理時間線，未呼叫正式 API。</span></div><div class="risk-alert-action-context"><strong>{{ selectedAlert.alertId }}</strong><span>{{ selectedAlert.gameName }} · {{ statusLabels[selectedAlert.status] }} · 緩解 {{ mitigationLabels[selectedAlert.mitigationStatus] }}</span></div><div v-if="pendingAction === 'release-isolation'" class="risk-alert-health-check"><strong>解除隔離前最新健康檢查</strong><span :class="healthClass(selectedAlert.healthCheck.status)">{{ selectedAlert.healthCheck.summary }}</span><small>{{ formatDateTime(selectedAlert.healthCheck.checkedAt) }}</small></div><div v-if="pendingAction === 'assign'" class="field"><label for="action-assignee">負責人 <small>必要</small></label><Select id="action-assignee" v-model="actionAssignee" :options="assigneePeopleOptions" option-label="label" option-value="value" fluid /></div><div v-if="pendingAction === 'maintain-isolation'" class="field"><label for="action-review-due">下次覆核時間 <small>必要</small></label><DatePicker id="action-review-due" v-model="actionReviewDueAt" show-icon show-time hour-format="24" placeholder="選擇覆核時間" fluid /></div><div class="field"><label for="action-note">{{ actionNeedsReason(pendingAction) ? '處理原因' : '補充備註' }} <small v-if="actionNeedsReason(pendingAction)">必要</small></label><Textarea id="action-note" v-model="actionNote" rows="4" auto-resize :placeholder="actionNeedsReason(pendingAction) ? '請輸入此次處理的原因，會寫入時間線。' : '可補充交接脈絡或處理說明。'" fluid @keyup.ctrl.enter="executeAction" /></div><p v-if="actionError" class="risk-alert-action-error" role="alert"><i class="pi pi-exclamation-circle" />{{ actionError }}</p><p v-if="pendingAction === 'close' && closeBlockReason" class="risk-alert-action-error" role="alert"><i class="pi pi-ban" />{{ closeBlockReason }}</p><p v-if="pendingAction === 'false-positive' && !canFalsePositive" class="risk-alert-action-error" role="alert"><i class="pi pi-ban" />{{ actionDisabledReason('false-positive') }}</p></div><template #footer><Button label="取消" severity="secondary" text :disabled="actionBusy" @click="closeActionDialog" /><Button :label="pendingAction ? actionLabels[pendingAction] : '確認'" icon="pi pi-check" :loading="actionBusy" :disabled="actionSubmitDisabled" @click="executeAction" /></template></Dialog>
+        <Dialog v-model:visible="actionVisible" modal dismissable-mask :header="pendingAction ? actionTitles[pendingAction] : '確認處理'" class="risk-alert-action-dialog" :style="{ width: 'min(620px, calc(100vw - 24px))' }" @hide="closeActionDialog"><div v-if="selectedAlert && pendingAction" class="risk-alert-dialog-body"><div class="risk-alert-mock-note risk-alert-mock-note--strong"><i class="pi pi-info-circle" /><span>原型操作：只更新前端模擬狀態與處理時間線，未呼叫正式 API。</span></div><div class="risk-alert-action-context"><strong>{{ selectedAlert.alertId }}</strong><span>{{ selectedAlert.gameName }} · {{ statusLabels[selectedAlert.status] }} · 緩解 {{ mitigationLabels[selectedAlert.mitigationStatus] }}</span></div><div v-if="pendingAction === 'release-isolation'" class="risk-alert-health-check"><strong>解除隔離前最新健康檢查</strong><span :class="healthClass(selectedAlert.healthCheck.status)">{{ translateMockText(selectedAlert.healthCheck.summary) }}</span><small>{{ formatDateTime(selectedAlert.healthCheck.checkedAt) }}</small></div><div v-if="pendingAction === 'assign'" class="field"><label for="action-assignee">負責人 <small>必要</small></label><Select id="action-assignee" v-model="actionAssignee" :options="assigneePeopleOptions" option-label="label" option-value="value" fluid /></div><div v-if="pendingAction === 'maintain-isolation'" class="field"><label for="action-review-due">下次覆核時間 <small>必要</small></label><DatePicker id="action-review-due" v-model="actionReviewDueAt" show-icon show-time hour-format="24" placeholder="選擇覆核時間" fluid /></div><div class="field"><label for="action-note">{{ actionNeedsReason(pendingAction) ? '處理原因' : '補充備註' }} <small v-if="actionNeedsReason(pendingAction)">必要</small></label><Textarea id="action-note" v-model="actionNote" rows="4" auto-resize :placeholder="actionNeedsReason(pendingAction) ? '請輸入此次處理的原因，會寫入時間線。' : '可補充交接脈絡或處理說明。'" fluid @keyup.ctrl.enter="executeAction" /></div><p v-if="actionError" class="risk-alert-action-error" role="alert"><i class="pi pi-exclamation-circle" />{{ actionError }}</p><p v-if="pendingAction === 'close' && closeBlockReason" class="risk-alert-action-error" role="alert"><i class="pi pi-ban" />{{ closeBlockReason }}</p><p v-if="pendingAction === 'false-positive' && !canFalsePositive" class="risk-alert-action-error" role="alert"><i class="pi pi-ban" />{{ actionDisabledReason('false-positive') }}</p></div><template #footer><Button label="取消" severity="secondary" text :disabled="actionBusy" @click="closeActionDialog" /><Button :label="pendingAction ? actionLabels[pendingAction] : '確認'" icon="pi pi-check" :loading="actionBusy" :disabled="actionSubmitDisabled" @click="executeAction" /></template></Dialog>
     </div>
 </template>
 

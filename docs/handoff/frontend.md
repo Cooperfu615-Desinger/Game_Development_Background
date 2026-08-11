@@ -1,6 +1,6 @@
 # 前端交接文件：Provider Portal
 
-> 狀態日期：2026-08-10
+> 狀態日期：2026-08-11
 > 文件狀態：Provider Portal 第一至六階段導覽、頁面原型、風控報表與風控告警／處理原型、Placeholder blueprint、文件地圖與整體驗證已完成；正式 API、權限與資料契約待確認
 
 本文件說明目前前端實際結構、目前仍存在的舊原型邊界，以及下一階段調整原型時應遵循的方向。
@@ -71,6 +71,7 @@
 - `/finance/agent-games`：代理商 × 遊戲彙總，包含完整結果摘要、欄位排序、分頁、空資料狀態、自訂匯出欄位與導入 `/reports`。
 - `/monitoring/risk-reports`：風控報表前端原型，包含 Production／DEMO 單選、近 1／3／5 日與自訂時間、五張摘要卡 Tips、待關注異常、常用／進階查詢、15 欄 Risk Event 列表與大型唯讀詳情；使用 mock data。由 Alert 詳情帶入 `risk_event_id` 時會自動切換事件環境並開啟對應詳情，同頁 query 變更會重新定位，無效 ID 顯示明確錯誤；詳情只在有 Alert 時提供 `/monitoring/alerts` 導向。
 - `/monitoring/alerts`：風控告警／處理前端原型，包含五張動態摘要卡與快捷篩選、Production／DEMO、主要／進階查詢、16 欄優先工作佇列、分頁、完整匯出入口、query 導入、Alert 詳情、Risk Event／請求紀錄／Game Round 導向、健康檢查、時間線與 11 項 mock 操作。摘要卡快捷篩選會回到有效 Alert 範圍並清除互斥條件；篩選器的 `__unassigned__` 只作為未指派查詢 sentinel，不是正式 `assignee` 值。操作只更新前端狀態，不接正式 API。
+- `/monitoring/alerts` 的一般畫面、表格、摘要卡、詳情與操作 Dialog 已沿用風控報表的繁體中文術語；篩選選項保留中文／英文對照，技術 ID、API 路徑、錯誤碼、版本號與正式欄位值保持原樣，mock 健康檢查、請求紀錄、錯誤訊息與時間線的可見敘述已中文化。
 - `/lobby`、`/lobby/games`、`/lobby/management`、`/lobby/demo`、`/lobby/preview`：遊戲大廳五個前端原型入口。
 - `/website/banners`、`/website/content`、`/website/releases`：遊戲官網三個前端原型入口；`/website` 會導向 Banner 管理。
 - `/dashboard`、`/games/environments`、`/monitoring`、`/ggap/*`、`/notifications/*`：10 個 Provider Placeholder blueprint 入口，依頁面成熟度顯示說明區塊、mock 摘要、展示列表、空資料狀態與 API 待接說明；風控報表與風控告警／處理已替換為獨立內容原型。

@@ -1,6 +1,6 @@
 # 專案現況總覽 / Project Status
 
-> 狀態日期：2026-08-08
+> 狀態日期：2026-08-11
 > 目前分支：`main`
 > 文件狀態：Provider Portal 第一至六階段導覽、頁面原型、風控報表與風控告警／處理原型、文件地圖與整體驗證已完成；正式 API、權限與後端資料契約待確認
 
@@ -106,6 +106,7 @@
 - `src/views/Finance/AgentGames.vue` 已完成 `/finance/agent-games` 代理商 × 遊戲彙總原型，包含摘要、排序、分頁、空資料、匯出欄位設定與導入 `/reports`。
 - `src/views/Provider/Placeholder.vue` 已為 10 個 Provider route 提供群組專屬 mock blueprint，包含摘要卡、主要內容區塊、展示列表、空資料狀態與 API 待接說明。
 - `src/views/Provider/RiskReports.vue` 與 `src/views/Provider/RiskAlerts.vue` 已承接風控報表、風控告警／處理完整 mock 內容；兩頁不顯示重複說明區塊。
+- `src/views/Provider/RiskAlerts.vue` 已完成繁體中文介面與可見 mock 敘述，沿用風控報表的正式／展示環境、嚴重／高／中、遊戲回合、回呼與請求／回應術語；篩選選項保留中英對照，技術識別碼、API 路徑、錯誤碼、版本號與正式欄位值不翻譯。
 - `docs/PROVIDER_PORTAL_PAGE_MAP.md` 已建立，集中記錄 32 個導覽內容頁與 1 個官方網站 redirect 入口。
 - `docs/GGAP_final_system_spec_tech.html` 是 GGAP 平台依據；Provider Portal 的補充對接契約見 `docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md`，不能直接把 GGAP Admin Portal 規格當成遊戲商畫面規格。
 

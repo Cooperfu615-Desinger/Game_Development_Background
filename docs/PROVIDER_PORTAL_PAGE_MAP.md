@@ -1,8 +1,8 @@
 # Provider Portal 頁面地圖
 
-> 文件版本：0.2.0
-> 更新日期：2026-08-08
-> 狀態：Provider Portal 第一至六階段導覽、路由、頁面原型、文件地圖與整體驗證已完成；正式 API、權限與資料契約待確認
+> 文件版本：0.3.0
+> 更新日期：2026-08-11
+> 狀態：Provider Portal 導覽、路由與頁面原型已整理；監控總覽規格已確認、前端原型與正式資料契約待完成
 
 本文件是 Provider Portal 導覽、route、頁面責任與原型狀態的集中索引。頁面資料目前以既有原型展示資料或共用 Provider Placeholder mock data 呈現，不代表正式 API、權限、狀態碼、精度與後端資料契約已定稿。
 
@@ -102,7 +102,7 @@ GGAP 對接
 
 | 頁面 | Route | 功能責任 | 預計顯示內容 | 原型狀態 | Placeholder | 後續 API／資料契約 |
 |---|---|---|---|---|---|---|
-| 監控總覽 | `/monitoring` | 彙整 Provider 遊戲與對接健康 | 五張監控摘要卡、遊戲健康列表、異常追蹤入口 | Phase 3 mock blueprint | 是 | Health metrics、Game Round success rate、latency、alert summary |
+| 監控總覽 | `/monitoring` | 快速判讀 Provider 遊戲服務、Game Round 與 GGAP 直接對接健康 | Production／DEMO、分析時間、五張摘要卡、關注項目、遊戲監控列表、詳情與報表／處理導向 | 產品規格已確認；Phase 3 mock blueprint 待替換 | 是 | Health metrics、Game Round success rate、GGAP latency、active Alert／Risk Event summary、game monitoring detail |
 | 風控報表 | `/monitoring/risk-reports` | 查詢與分析 Provider 端異常數據 | 滾動時間、環境、五張摘要卡、待關注異常、Risk Event 列表與詳情 | 前端原型已完成（mock data） | 否 | Risk event query、summary、event detail、export |
 | 風控告警／處理 | `/monitoring/alerts` | 追蹤告警與 Provider 應變處理 | 五張告警摘要、16 欄工作佇列、Alert 詳情、隔離／解除與 GGAP 通知操作、處理時間線 | 前端完整原型已完成（mock data） | 否 | Alert lifecycle、mitigation action、notification event、audit event |
 

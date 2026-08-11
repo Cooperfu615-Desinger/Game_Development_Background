@@ -1,8 +1,8 @@
 # Provider Portal 產品與功能規格
 
-> 版本：0.4.0
-> 更新日期：2026-08-10
-> 狀態：第一至六階段導覽、頁面原型、文件地圖與整體驗證已完成；正式 API、權限與資料契約待確認
+> 版本：0.5.0
+> 更新日期：2026-08-11
+> 狀態：導覽、頁面原型與監控／風控規格已整理；監控總覽前端原型、正式 API、權限與資料契約待確認
 
 ## 1. 產品定位
 
@@ -50,7 +50,7 @@ Provider Portal 不建立 Provider 錢包，也不把代理商、商戶或會員
 | 遊戲管理 | 主資料、規則、數學、版本、資產、全域上下架 | 既有頁面原型；環境與發布為 Placeholder blueprint |
 | 數據與報表 | 遊戲紀錄、Game Round 查詢與匯出 | `/reports` 遊戲紀錄原型已完成 |
 | 遊戲商財務 | 點數、USDT、投注、輸贏、GGR、財務總覽與代理商 × 遊戲彙總 | 財務總覽與代理商 × 遊戲彙總原型已完成 |
-| 遊戲監控與風控 | 遊戲健康、異常局、請求失敗與風控告警 | 風控報表與風控告警／處理前端原型已完成；監控總覽仍為 mock blueprint |
+| 遊戲監控與風控 | 遊戲健康、異常局、請求失敗與風控告警 | 監控總覽產品規格已確認、前端仍為 mock blueprint；風控報表與風控告警／處理前端原型已完成 |
 | GGAP 對接 | 連線、同步、請求、結算與錯誤狀態 | Phase 3 mock blueprint |
 | 通知中心 | 站內通知、已讀與通知偏好 | Phase 3 mock blueprint |
 | 遊戲官網 | Banner、條款、隱私權、負責任遊戲、聯絡資訊與發布紀錄 | 已完成前端原型骨架，後續接正式內容、圖片、發布與權限 |
@@ -143,7 +143,7 @@ DEMO 遊戲雖然可以實際遊玩，但其 Game Round、點數與資料必須�
 - Placeholder 說明區塊依頁面成熟度使用；已完成主要內容規劃的頁面應直接從摘要卡、查詢、列表、圖表或操作內容開始，不重複顯示說明 Hero、頁面資訊與 blueprint。
 - 各頁外層寬度、1500px 寬版頁與無固定最大寬度頁的規則，統一依 [`PROVIDER_PORTAL_UI_LAYOUT_SPEC.md`](./PROVIDER_PORTAL_UI_LAYOUT_SPEC.md) 執行。
 - Prototype / Mock data 只用於確認資訊架構與欄位方向，不代表正式數字、狀態、權限或資料流。
-- Provider 風控事件定義、自動緩解與隔離統一依 [`PROVIDER_RISK_CONTROL_SPEC.md`](./PROVIDER_RISK_CONTROL_SPEC.md)；頁面內容依 [`PROVIDER_RISK_REPORT_SPEC.md`](./PROVIDER_RISK_REPORT_SPEC.md) 與 [`PROVIDER_RISK_ALERT_HANDLING_SPEC.md`](./PROVIDER_RISK_ALERT_HANDLING_SPEC.md) 執行。
+- Provider 風控事件定義、自動緩解與隔離統一依 [`PROVIDER_RISK_CONTROL_SPEC.md`](./PROVIDER_RISK_CONTROL_SPEC.md)；頁面內容依 [`PROVIDER_MONITORING_OVERVIEW_SPEC.md`](./PROVIDER_MONITORING_OVERVIEW_SPEC.md)、[`PROVIDER_RISK_REPORT_SPEC.md`](./PROVIDER_RISK_REPORT_SPEC.md) 與 [`PROVIDER_RISK_ALERT_HANDLING_SPEC.md`](./PROVIDER_RISK_ALERT_HANDLING_SPEC.md) 執行。
 - 不在 Placeholder 階段新增平台錢包、商戶、會員、代理商管理、平台結算、平台對帳或活動功能。
 - 「DEMO環境數據」使用隔離 DEMO／沙盒資料，不進入遊戲紀錄與遊戲商財務。
 

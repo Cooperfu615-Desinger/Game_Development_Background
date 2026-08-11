@@ -1,7 +1,7 @@
 # Provider 風控與異常事件規範
 
-> 版本：0.3.0
-> 更新日期：2026-08-10
+> 版本：0.3.1
+> 更新日期：2026-08-11
 > 狀態：Provider Portal 第一版風控規範草案；事件門檻、API 欄位與 GGAP 對接狀態待確認
 
 本文件定義 Provider Portal 如何辨識、分類、查詢與處理 Provider 自己的遊戲、Game Round、服務與 GGAP 對接異常。
@@ -472,4 +472,4 @@ Risk Event 或其關聯 Alert 至少應保存：
 - 各嚴重度可使用的自動緩解動作、覆核時限與升級方式。
 - 隔離解除所需健康檢查、核准角色與 GGAP 通知流程。
 
-風控報表的完整頁面規格見 [`PROVIDER_RISK_REPORT_SPEC.md`](./PROVIDER_RISK_REPORT_SPEC.md)；風控告警／處理的完整頁面規格見 [`PROVIDER_RISK_ALERT_HANDLING_SPEC.md`](./PROVIDER_RISK_ALERT_HANDLING_SPEC.md)。
+監控總覽的完整頁面規格見 [`PROVIDER_MONITORING_OVERVIEW_SPEC.md`](./PROVIDER_MONITORING_OVERVIEW_SPEC.md)；風控報表的完整頁面規格見 [`PROVIDER_RISK_REPORT_SPEC.md`](./PROVIDER_RISK_REPORT_SPEC.md)；風控告警／處理的完整頁面規格見 [`PROVIDER_RISK_ALERT_HANDLING_SPEC.md`](./PROVIDER_RISK_ALERT_HANDLING_SPEC.md)。

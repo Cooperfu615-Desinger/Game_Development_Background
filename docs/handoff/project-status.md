@@ -43,7 +43,7 @@
 | 遊戲資料 | 已有遊戲清單、詳情、數學、版本、資產等原型頁 |
 | 報表 | 已有舊版平台 / 代理 / 商戶導向報表，需重新定義為 Provider 報表 |
 | Game Round | `/reports` 已建立 Provider Game Round 頁面，包含查詢、排序、分頁、詳情與 CSV / XLSX 匯出；正式 API 與資料契約仍待確認 |
-| Provider Placeholder | `/dashboard`、`/games/environments`、`/monitoring`、`/ggap/*`、`/notifications/*` 已有群組專屬 mock blueprint、摘要卡、展示列表與空資料狀態；風控報表與風控告警／處理不再使用 Placeholder |
+| Provider Placeholder | `/dashboard`、`/games/environments`、`/monitoring`、`/ggap/*`、`/notifications/*` 已有群組專屬 mock blueprint、摘要卡、展示列表與空資料狀態；`/monitoring` 專屬產品規格已確認、待替換獨立原型；風控報表與風控告警／處理不再使用 Placeholder |
 | 通知中心 | `/notifications`、`/notifications/preferences` 已有通知列表與偏好原型骨架，正式通知功能尚未完成 |
 | 遊戲大廳 | 已建立 `/lobby`、`/lobby/games`、`/lobby/management`、`/lobby/demo`、`/lobby/preview` 五個前端原型頁 |
 | 遊戲官網 | 已建立 `/website/banners`、`/website/content`、`/website/releases` 三個前端原型頁；`/website` 會導向 Banner 管理 |

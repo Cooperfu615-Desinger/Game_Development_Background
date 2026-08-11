@@ -5,7 +5,7 @@
 
 本文件說明目前前端實際結構、目前仍存在的舊原型邊界，以及下一階段調整原型時應遵循的方向。
 
-產品範圍、導覽、版型與風控依據：[`PROVIDER_PORTAL_SPEC.md`](../PROVIDER_PORTAL_SPEC.md)、[`PROVIDER_PORTAL_NAVIGATION_SPEC.md`](../PROVIDER_PORTAL_NAVIGATION_SPEC.md)、[`PROVIDER_PORTAL_UI_LAYOUT_SPEC.md`](../PROVIDER_PORTAL_UI_LAYOUT_SPEC.md)、[`PROVIDER_RISK_CONTROL_SPEC.md`](../PROVIDER_RISK_CONTROL_SPEC.md)、[`PROVIDER_RISK_REPORT_SPEC.md`](../PROVIDER_RISK_REPORT_SPEC.md)、[`PROVIDER_RISK_ALERT_HANDLING_SPEC.md`](../PROVIDER_RISK_ALERT_HANDLING_SPEC.md)。
+產品範圍、導覽、版型與監控／風控依據：[`PROVIDER_PORTAL_SPEC.md`](../PROVIDER_PORTAL_SPEC.md)、[`PROVIDER_PORTAL_NAVIGATION_SPEC.md`](../PROVIDER_PORTAL_NAVIGATION_SPEC.md)、[`PROVIDER_PORTAL_UI_LAYOUT_SPEC.md`](../PROVIDER_PORTAL_UI_LAYOUT_SPEC.md)、[`PROVIDER_RISK_CONTROL_SPEC.md`](../PROVIDER_RISK_CONTROL_SPEC.md)、[`PROVIDER_MONITORING_OVERVIEW_SPEC.md`](../PROVIDER_MONITORING_OVERVIEW_SPEC.md)、[`PROVIDER_RISK_REPORT_SPEC.md`](../PROVIDER_RISK_REPORT_SPEC.md)、[`PROVIDER_RISK_ALERT_HANDLING_SPEC.md`](../PROVIDER_RISK_ALERT_HANDLING_SPEC.md)。
 
 ## 1. 前端定位
 
@@ -69,6 +69,7 @@
 - `/reports`：Provider Game Round 明細，支援查詢、排序、分頁、詳情與 CSV / XLSX 匯出。
 - `/finance`：遊戲商財務總覽，包含時間 / 代理商 / 遊戲類型 / 遊戲篩選、八項統計卡片、兩組趨勢圖與遊戲表現排行。
 - `/finance/agent-games`：代理商 × 遊戲彙總，包含完整結果摘要、欄位排序、分頁、空資料狀態、自訂匯出欄位與導入 `/reports`。
+- `/monitoring`：監控總覽產品規格已確認，預計包含 Production／DEMO、分析時間、五張摘要卡、關注項目、遊戲監控列表與唯讀詳情；目前仍由 Provider Placeholder 承接，待依 [`PROVIDER_MONITORING_OVERVIEW_SPEC.md`](../PROVIDER_MONITORING_OVERVIEW_SPEC.md) 建立獨立 mock 原型。
 - `/monitoring/risk-reports`：風控報表前端原型，包含 Production／DEMO 單選、近 1／3／5 日與自訂時間、五張摘要卡 Tips、待關注異常、常用／進階查詢、15 欄 Risk Event 列表與大型唯讀詳情；使用 mock data。由 Alert 詳情帶入 `risk_event_id` 時會自動切換事件環境並開啟對應詳情，同頁 query 變更會重新定位，無效 ID 顯示明確錯誤；詳情只在有 Alert 時提供 `/monitoring/alerts` 導向。
 - `/monitoring/alerts`：風控告警／處理前端原型，包含五張動態摘要卡與快捷篩選、Production／DEMO、主要／進階查詢、16 欄優先工作佇列、分頁、完整匯出入口、query 導入、Alert 詳情、Risk Event／請求紀錄／Game Round 導向、健康檢查、時間線與 11 項 mock 操作。摘要卡快捷篩選會回到有效 Alert 範圍並清除互斥條件；篩選器的 `__unassigned__` 只作為未指派查詢 sentinel，不是正式 `assignee` 值。操作只更新前端狀態，不接正式 API。
 - `/monitoring/alerts` 的一般畫面、表格、摘要卡、詳情與操作 Dialog 已沿用風控報表的繁體中文術語；篩選選項保留中文／英文對照，技術 ID、API 路徑、錯誤碼、版本號與正式欄位值保持原樣，mock 健康檢查、請求紀錄、錯誤訊息與時間線的可見敘述已中文化。
@@ -92,7 +93,7 @@
 | 數據與報表 | `/reports` 遊戲紀錄、Provider 聚合報表 | 不再以平台 / 商戶報表作為主入口；不建立獨立 Game Round 財務明細 |
 | 遊戲大廳 | 大廳總覽、遊戲清單、遊戲管理、DEMO環境數據、大廳預覽 | 已建立 `/lobby/*` 五頁原型；後續接正式遊戲資料、狀態與 DEMO API |
 | 遊戲商財務 | `/finance` 財務總覽、`/finance/agent-games` 代理商 × 遊戲彙總 | 財務兩頁原型已完成；單筆 Game Round 沿用 `/reports` 遊戲紀錄，不建立第二套明細 |
-| 遊戲監控與風控 | 監控總覽、風控報表、風控告警／處理 | `/monitoring` 仍為 Placeholder；`/monitoring/risk-reports` 與 `/monitoring/alerts` 已完成獨立 mock 原型，後續接健康、Risk Event、Alert 與操作 API |
+| 遊戲監控與風控 | 監控總覽、風控報表、風控告警／處理 | `/monitoring` 專屬規格已確認但仍為 Placeholder；`/monitoring/risk-reports` 與 `/monitoring/alerts` 已完成獨立 mock 原型，後續接健康、Risk Event、Alert 與操作 API |
 | GGAP 對接 | 對接總覽、目錄同步、請求回呼、錯誤重試、對接設定 | `/ggap/*` 已建立群組專屬 Placeholder blueprint，取代 `/aggregators` 的平台管理語意 |
 | 通知中心 | 全部通知、通知偏好 | `/notifications/*` 已建立群組專屬 Placeholder blueprint，後續接站內通知 API |
 | 官方網站 | 遊戲官網 Banner、法務與聯絡資訊、發布與版本紀錄；遊戲大廳為同一主選單下的獨立子導覽 | 已建立 `/website/*` 三頁原型；公告與活動暫不納入現階段，與 GGAP 平台功能分離 |

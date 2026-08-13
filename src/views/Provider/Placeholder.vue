@@ -69,31 +69,6 @@ const defaultBlueprint: PlaceholderBlueprint = {
 }
 
 const pageBlueprints: Record<string, PlaceholderBlueprint> = {
-    Dashboard: {
-        sections: [
-            { eyebrow: 'OPERATIONS SNAPSHOT', title: 'Provider 營運摘要', body: '快速掌握遊戲數量、正式上線狀態與近期營運規模。', icon: 'pi pi-chart-line' },
-            { eyebrow: 'HEALTH SIGNALS', title: '連線與資料健康', body: '集中查看 GGAP 連線、Game Round 與資料服務健康訊號。', icon: 'pi pi-heart' },
-            { eyebrow: 'ACTION QUEUE', title: '待處理事項', body: '保留告警、通知與需要營運人員檢視的工作入口。', icon: 'pi pi-inbox' },
-        ],
-        stats: [
-            { label: '遊戲總數', value: '42', note: 'Provider mock catalog' },
-            { label: '正式上線', value: '38', note: 'Production enabled' },
-            { label: '待處理告警', value: '3', note: 'Risk queue' },
-            { label: 'GGAP 健康', value: '99.98%', note: '近 24 小時展示值' },
-        ],
-        table: {
-            title: '遊戲健康列表',
-            caption: '以展示資料呈現遊戲、環境與服務狀態。',
-            columns: ['遊戲', '環境', '服務狀態', '最近活動'],
-            rows: [
-                ['Neon Heist', 'Production', '正常', '2 分鐘前'],
-                ['Crash Drift', 'DEMO', '需關注', '8 分鐘前'],
-                ['Orbit Dice', 'Test', '測試中', '15 分鐘前'],
-            ],
-        },
-        emptyTitle: '查無 Provider 營運資料',
-        emptyBody: '正式接入後，這裡會保留日期範圍、環境與資料權限下的空資料狀態。',
-    },
     GameEnvironments: {
         sections: [
             { eyebrow: 'ENVIRONMENT MATRIX', title: '正式／DEMO／測試環境', body: '分開呈現三種環境的版本、健康與可操作狀態。', icon: 'pi pi-server' },

@@ -66,13 +66,9 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'dashboard',
                 name: 'Dashboard',
-                component: () => import('../views/Provider/Placeholder.vue'),
+                component: () => import('../views/Provider/Dashboard.vue'),
                 meta: {
                     title: 'menu.providerOverview',
-                    providerPlaceholder: {
-                        description: 'Provider 遊戲、營運數據、健康狀態與待處理通知的總覽入口。',
-                        responsibility: '彙整 Provider 自有遊戲、營運摘要、健康狀態與通知入口，不管理 GGAP 平台資料。',
-                    },
                 }
             },
 

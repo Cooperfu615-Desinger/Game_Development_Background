@@ -1,11 +1,11 @@
 # 前端交接文件：Provider Portal
 
-> 狀態日期：2026-08-11
-> 文件狀態：Provider Portal 第一至六階段導覽、監控／風控獨立 mock 原型、Placeholder blueprint、文件地圖與整體驗證已完成；正式 API、權限、監控門檻、更新頻率與資料契約待確認
+> 狀態日期：2026-08-13
+> 文件狀態：Provider Portal 第一至六階段導覽、儀表板、監控／風控獨立 mock 原型、Placeholder blueprint、文件地圖與整體驗證已完成；正式 API、權限、監控門檻、更新頻率與資料契約待確認
 
 本文件說明目前前端實際結構、目前仍存在的舊原型邊界，以及下一階段調整原型時應遵循的方向。
 
-產品範圍、導覽、版型與監控／風控依據：[`PROVIDER_PORTAL_SPEC.md`](../PROVIDER_PORTAL_SPEC.md)、[`PROVIDER_PORTAL_NAVIGATION_SPEC.md`](../PROVIDER_PORTAL_NAVIGATION_SPEC.md)、[`PROVIDER_PORTAL_UI_LAYOUT_SPEC.md`](../PROVIDER_PORTAL_UI_LAYOUT_SPEC.md)、[`PROVIDER_RISK_CONTROL_SPEC.md`](../PROVIDER_RISK_CONTROL_SPEC.md)、[`PROVIDER_MONITORING_OVERVIEW_SPEC.md`](../PROVIDER_MONITORING_OVERVIEW_SPEC.md)、[`PROVIDER_RISK_REPORT_SPEC.md`](../PROVIDER_RISK_REPORT_SPEC.md)、[`PROVIDER_RISK_ALERT_HANDLING_SPEC.md`](../PROVIDER_RISK_ALERT_HANDLING_SPEC.md)。
+產品範圍、導覽、版型、儀表板與監控／風控依據：[`PROVIDER_PORTAL_SPEC.md`](../PROVIDER_PORTAL_SPEC.md)、[`PROVIDER_PORTAL_NAVIGATION_SPEC.md`](../PROVIDER_PORTAL_NAVIGATION_SPEC.md)、[`PROVIDER_PORTAL_UI_LAYOUT_SPEC.md`](../PROVIDER_PORTAL_UI_LAYOUT_SPEC.md)、[`PROVIDER_DASHBOARD_SPEC.md`](../PROVIDER_DASHBOARD_SPEC.md)、[`PROVIDER_RISK_CONTROL_SPEC.md`](../PROVIDER_RISK_CONTROL_SPEC.md)、[`PROVIDER_MONITORING_OVERVIEW_SPEC.md`](../PROVIDER_MONITORING_OVERVIEW_SPEC.md)、[`PROVIDER_RISK_REPORT_SPEC.md`](../PROVIDER_RISK_REPORT_SPEC.md)、[`PROVIDER_RISK_ALERT_HANDLING_SPEC.md`](../PROVIDER_RISK_ALERT_HANDLING_SPEC.md)。
 
 ## 1. 前端定位
 
@@ -39,7 +39,8 @@
 | `src/views/Provider/RiskReports.vue` | 風控報表 | 已完成 `/monitoring/risk-reports` 唯讀前端原型；正式 Risk Event query、summary、detail 與 export API 待接 |
 | `src/views/Provider/RiskAlerts.vue` | 風控告警／處理 | 已完成 `/monitoring/alerts` 操作工作台 mock 原型；正式 Alert lifecycle、mitigation、通知、audit 與權限 API 待接 |
 | `src/views/Provider/MonitoringOverview.vue` | 監控總覽 | 已完成 `/monitoring` 獨立唯讀 mock 原型；正式健康、Game Round、GGAP、Risk Event、Alert API、警戒門檻與更新頻率待接 |
-| `src/views/Provider/Placeholder.vue` | Provider Placeholder 共用頁面骨架 | 已為 9 個 route 配置群組專屬 mock blueprint；監控總覽、風控報表與風控告警／處理已改由獨立頁面承接 |
+| `src/views/Provider/Placeholder.vue` | Provider Placeholder 共用頁面骨架 | 已為 8 個 route 配置群組專屬 mock blueprint；儀表板、監控總覽、風控報表與風控告警／處理已改由獨立頁面承接 |
+| `src/views/Provider/Dashboard.vue` | Provider 儀表板 | 已完成即時狀態、期間營運摘要、七日趨勢、待處理事項、遊戲概況與通知 mock 原型 |
 | `src/views/Docs/` | 文件檢視器 | 目前主要載入 `docs/handoff/*.md` |
 
 ## 3. 目前路由實況
@@ -76,7 +77,8 @@
 - `/monitoring/alerts` 的一般畫面、表格、摘要卡、詳情與操作 Dialog 已沿用風控報表的繁體中文術語；篩選選項保留中文／英文對照，技術 ID、API 路徑、錯誤碼、版本號與正式欄位值保持原樣，mock 健康檢查、請求紀錄、錯誤訊息與時間線的可見敘述已中文化。
 - `/lobby`、`/lobby/games`、`/lobby/management`、`/lobby/demo`、`/lobby/preview`：遊戲大廳五個前端原型入口。
 - `/website/banners`、`/website/content`、`/website/releases`：遊戲官網三個前端原型入口；`/website` 會導向 Banner 管理。
-- `/dashboard`、`/games/environments`、`/ggap/*`、`/notifications/*`：9 個 Provider Placeholder blueprint 入口，依頁面成熟度顯示說明區塊、mock 摘要、展示列表、空資料狀態與 API 待接說明；監控總覽、風控報表與風控告警／處理已替換為獨立內容原型。
+- `/dashboard`：已由 `Provider/Dashboard.vue` 承接獨立 mock 原型，完整內容依 [`PROVIDER_DASHBOARD_SPEC.md`](../PROVIDER_DASHBOARD_SPEC.md)。
+- `/games/environments`、`/ggap/*`、`/notifications/*`：8 個 Provider Placeholder blueprint 入口，依頁面成熟度顯示說明區塊、mock 摘要、展示列表、空資料狀態與 API 待接說明。
 
 上述頁面目前以原型展示資料呈現，正式 API、權限、狀態碼、精度與錯誤處理仍待確認。完整頁面清單見 [`PROVIDER_PORTAL_PAGE_MAP.md`](../PROVIDER_PORTAL_PAGE_MAP.md)。
 

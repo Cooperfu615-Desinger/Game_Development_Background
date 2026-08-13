@@ -1,7 +1,7 @@
 # Provider Portal 共用頁面版型規範
 
-> 版本：0.2.0
-> 更新日期：2026-08-11
+> 版本：0.3.0
+> 更新日期：2026-08-13
 > 狀態：目前原型版型規則；後續頁面製作與調整的共同依據
 
 本文件定義 Provider Portal 原型各類頁面的外層寬度、內容起始位置與 Placeholder 說明區塊使用方式。目的不是限制每個頁面的內容設計，而是讓不同開發 Session 產出的頁面維持一致的閱讀寬度、資訊密度與版型邏輯。
@@ -22,6 +22,7 @@
 
 | 頁面群組 | 頁面 | 實作對應 |
 |---|---|---|
+| 總覽 | 儀表板 | `.provider-dashboard-page`（`Provider/Dashboard.vue`） |
 | 遊戲管理 | 遊戲列表 | `.provider-games-page` |
 | 遊戲管理 | 環境與發布 | `.provider-placeholder-page--wide`，只套用於 `GameEnvironments` |
 | 遊戲監控與風控 | 監控總覽 | `.monitoring-page`（`MonitoringOverview.vue`） |
@@ -59,7 +60,7 @@
 - 尚未開始討論內容的 Placeholder 頁面，可以保留三種區塊，作為規格討論與頁面範圍提示。
 - 已完成主要內容規劃，且頁面已有摘要卡、查詢條件、列表、圖表或操作內容時，應移除重複的 Hero、頁面資訊與主要內容區塊。
 - 實際報表頁應從主要工作內容開始，不要讓說明卡片排在報表資料之前。
-- 監控總覽已由獨立內容頁直接從查詢與監控資料開始；環境與發布的 Placeholder 也移除重複說明區塊，直接從環境摘要資料開始。風控報表與風控告警／處理已有完整內容，直接從摘要卡、查詢、列表或處理工作區開始，不保留 Placeholder blueprint。
+- 儀表板與監控總覽已由獨立內容頁直接從營運或監控資料開始；環境與發布的 Placeholder 也移除重複說明區塊，直接從環境摘要資料開始。風控報表與風控告警／處理已有完整內容，直接從摘要卡、查詢、列表或處理工作區開始，不保留 Placeholder blueprint。
 - 移除說明區塊時，不能一併移除摘要卡、資料列表、空資料狀態或後續 API 待接資訊，除非該頁規格另有決定。
 
 ## 4. 響應式要求
@@ -90,8 +91,8 @@
 
 ## 6. 目前程式對應
 
-- 1500px 寬版共用樣式：`src/views/GameWebsite/website.css`、`src/views/GameLobby/game-lobby.css`、`src/views/Games/Index.vue`、`src/views/Provider/MonitoringOverview.vue`、`src/views/Provider/Placeholder.vue`。
+- 1500px 寬版共用樣式：`src/views/Provider/Dashboard.vue`、`src/views/GameWebsite/website.css`、`src/views/GameLobby/game-lobby.css`、`src/views/Games/Index.vue`、`src/views/Provider/MonitoringOverview.vue`、`src/views/Provider/Placeholder.vue`。
 - 財務總覽與代理商 × 遊戲彙總已移除頁面外層固定最大寬度：`src/views/Finance/Overview.vue`、`src/views/Finance/AgentGames.vue`。
 - 遊戲紀錄頁未設定額外頁面最大寬度：`src/views/Reports/ProviderGameRounds.vue`。
-- Placeholder 說明區塊位於：`src/views/Provider/Placeholder.vue`；監控總覽位於：`src/views/Provider/MonitoringOverview.vue`。
+- Placeholder 說明區塊位於：`src/views/Provider/Placeholder.vue`；儀表板位於：`src/views/Provider/Dashboard.vue`；監控總覽位於：`src/views/Provider/MonitoringOverview.vue`。
 - 風控報表內容位於：`src/views/Provider/RiskReports.vue`；風控告警／處理內容位於：`src/views/Provider/RiskAlerts.vue`。告警工作台不設定頁面層級固定最大寬度，16 欄佇列由表格容器提供水平捲動。

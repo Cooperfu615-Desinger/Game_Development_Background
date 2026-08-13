@@ -1,8 +1,8 @@
 # Provider Portal 產品與功能規格
 
-> 版本：0.6.0
-> 更新日期：2026-08-11
-> 狀態：導覽、頁面原型與監控／風控規格已整理；監控總覽前端 mock 原型已完成，正式 API、權限、警戒門檻、更新頻率與資料契約待確認
+> 版本：0.7.0
+> 更新日期：2026-08-13
+> 狀態：導覽、頁面原型、儀表板與監控／風控規格已整理；正式 API、權限、警戒門檻、更新頻率與資料契約待確認
 
 ## 1. 產品定位
 
@@ -46,7 +46,7 @@ Provider Portal 不建立 Provider 錢包，也不把代理商、商戶或會員
 
 | 模組 | Provider Portal 責任 | 目前原型狀態 |
 |---|---|---|
-| 總覽 | Provider 遊戲、投注、GGR、告警與 GGAP 連線健康 | Phase 3 mock blueprint |
+| 總覽 | Provider 遊戲、投注、GGR、告警、發布、通知與 GGAP 連線健康 | 儀表板獨立前端 mock 原型已完成 |
 | 遊戲管理 | 主資料、規則、數學、版本、資產、全域上下架 | 既有頁面原型；環境與發布為 Placeholder blueprint |
 | 數據與報表 | 遊戲紀錄、Game Round 查詢與匯出 | `/reports` 遊戲紀錄原型已完成 |
 | 遊戲商財務 | 點數、USDT、投注、輸贏、GGR、財務總覽與代理商 × 遊戲彙總 | 財務總覽與代理商 × 遊戲彙總原型已完成 |
@@ -63,8 +63,8 @@ Provider Portal 不建立 Provider 錢包，也不把代理商、商戶或會員
 - `/lobby`、`/lobby/games`、`/lobby/management`、`/lobby/demo`、`/lobby/preview` 已建立遊戲大廳五頁原型。
 - `/website/banners`、`/website/content`、`/website/releases` 已建立遊戲官網三頁原型，`/website` 會導向 Banner 管理。
 - `/monitoring` 已由 `MonitoringOverview.vue` 承接獨立 mock 原型，包含五張摘要卡、期間查詢、遊戲監控列表、詳情、失敗狀態與跨頁導向；`/monitoring/risk-reports` 與 `/monitoring/alerts` 也由獨立內容頁承接。
-- `/dashboard`、`/games/environments`、`/ggap/*`、`/notifications/*` 仍使用共用 Provider Placeholder 頁面骨架。
-- 目前主要導覽共有 32 個可進入的內容頁，其中 23 個已有完整內容原型，9 個使用 Provider Placeholder；完整頁面地圖見 [`PROVIDER_PORTAL_PAGE_MAP.md`](./PROVIDER_PORTAL_PAGE_MAP.md)。
+- `/dashboard` 已由 `Provider/Dashboard.vue` 承接獨立 mock 原型；`/games/environments`、`/ggap/*`、`/notifications/*` 仍使用共用 Provider Placeholder 頁面骨架。
+- 目前主要導覽共有 32 個可進入的內容頁，其中 24 個已有完整內容原型，8 個使用 Provider Placeholder；完整頁面地圖見 [`PROVIDER_PORTAL_PAGE_MAP.md`](./PROVIDER_PORTAL_PAGE_MAP.md)。
 - 上述頁面目前以原型展示資料呈現，不代表正式 API、權限、狀態碼、精度與後端資料契約已定稿。
 
 ## 4. 已確認的核心原則
@@ -144,7 +144,7 @@ DEMO 遊戲雖然可以實際遊玩，但其 Game Round、點數與資料必須�
 - Placeholder 說明區塊依頁面成熟度使用；已完成主要內容規劃的頁面應直接從摘要卡、查詢、列表、圖表或操作內容開始，不重複顯示說明 Hero、頁面資訊與 blueprint。
 - 各頁外層寬度、1500px 寬版頁與無固定最大寬度頁的規則，統一依 [`PROVIDER_PORTAL_UI_LAYOUT_SPEC.md`](./PROVIDER_PORTAL_UI_LAYOUT_SPEC.md) 執行。
 - Prototype / Mock data 只用於確認資訊架構與欄位方向，不代表正式數字、狀態、權限或資料流。
-- Provider 風控事件定義、自動緩解與隔離統一依 [`PROVIDER_RISK_CONTROL_SPEC.md`](./PROVIDER_RISK_CONTROL_SPEC.md)；頁面內容依 [`PROVIDER_MONITORING_OVERVIEW_SPEC.md`](./PROVIDER_MONITORING_OVERVIEW_SPEC.md)、[`PROVIDER_RISK_REPORT_SPEC.md`](./PROVIDER_RISK_REPORT_SPEC.md) 與 [`PROVIDER_RISK_ALERT_HANDLING_SPEC.md`](./PROVIDER_RISK_ALERT_HANDLING_SPEC.md) 執行。
+- 儀表板內容與資料時間語意依 [`PROVIDER_DASHBOARD_SPEC.md`](./PROVIDER_DASHBOARD_SPEC.md)；Provider 風控事件定義、自動緩解與隔離統一依 [`PROVIDER_RISK_CONTROL_SPEC.md`](./PROVIDER_RISK_CONTROL_SPEC.md)；監控與風控頁面內容依 [`PROVIDER_MONITORING_OVERVIEW_SPEC.md`](./PROVIDER_MONITORING_OVERVIEW_SPEC.md)、[`PROVIDER_RISK_REPORT_SPEC.md`](./PROVIDER_RISK_REPORT_SPEC.md) 與 [`PROVIDER_RISK_ALERT_HANDLING_SPEC.md`](./PROVIDER_RISK_ALERT_HANDLING_SPEC.md) 執行。
 - 不在 Placeholder 階段新增平台錢包、商戶、會員、代理商管理、平台結算、平台對帳或活動功能。
 - 「DEMO環境數據」使用隔離 DEMO／沙盒資料，不進入遊戲紀錄與遊戲商財務。
 

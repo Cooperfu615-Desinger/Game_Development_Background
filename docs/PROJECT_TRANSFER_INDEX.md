@@ -51,6 +51,8 @@
   - Provider 風控責任、異常事件定義、Event ID、嚴重度、自動緩解、隔離與處理生命週期。
 - [`PROVIDER_MONITORING_OVERVIEW_SPEC.md`](./PROVIDER_MONITORING_OVERVIEW_SPEC.md)
   - 監控總覽的 Production／DEMO 範圍、五張摘要卡、查詢、遊戲監控列表、詳情與跨頁導向。
+- [`PROVIDER_DASHBOARD_SPEC.md`](./PROVIDER_DASHBOARD_SPEC.md)
+  - Provider 跨模組營運儀表板、時間語意、摘要卡、趨勢與工作入口規格。
 - [`PROVIDER_RISK_REPORT_SPEC.md`](./PROVIDER_RISK_REPORT_SPEC.md)
   - 風控報表的滾動時間、Production／DEMO、摘要卡、待關注異常、查詢、列表與 Risk Event 詳情。
 - [`PROVIDER_RISK_ALERT_HANDLING_SPEC.md`](./PROVIDER_RISK_ALERT_HANDLING_SPEC.md)

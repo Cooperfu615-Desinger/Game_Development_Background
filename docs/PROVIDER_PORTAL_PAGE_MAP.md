@@ -1,8 +1,8 @@
 # Provider Portal 頁面地圖
 
-> 文件版本：0.4.0
-> 更新日期：2026-08-11
-> 狀態：Provider Portal 導覽、路由與頁面原型已整理；監控總覽前端 mock 原型已完成，正式資料契約、警戒門檻與更新頻率待確認
+> 文件版本：0.5.0
+> 更新日期：2026-08-13
+> 狀態：Provider Portal 導覽、路由與頁面原型已整理；儀表板、監控與風控前端 mock 原型已完成，正式資料契約、警戒門檻與更新頻率待確認
 
 本文件是 Provider Portal 導覽、route、頁面責任與原型狀態的集中索引。頁面資料目前以既有原型展示資料或共用 Provider Placeholder mock data 呈現，不代表正式 API、權限、狀態碼、精度與後端資料契約已定稿。
 
@@ -70,7 +70,7 @@ GGAP 對接
 
 | 頁面 | Route | 功能責任 | 預計顯示內容 | 原型狀態 | Placeholder | 後續 API／資料契約 |
 |---|---|---|---|---|---|---|
-| 儀表板 | `/dashboard` | Provider 營運摘要與健康狀態入口 | 遊戲數量、正式上線、待處理告警、GGAP 健康、遊戲健康列表 | Phase 3 mock blueprint | 是 | Provider dashboard summary、game health、notification summary |
+| 儀表板 | `/dashboard` | Provider 跨模組營運摘要與工作入口 | 四張即時狀態、五張營運摘要、七日趨勢、待處理事項、遊戲概況與最新通知 | 獨立前端 mock 原型已完成 | 否 | Dashboard status、operation summary、trend、action queue、game summary、notification summary |
 
 ### 2.2 遊戲管理
 
@@ -152,8 +152,8 @@ GGAP 對接
 
 | 狀態 | 數量 | 說明 |
 |---|---:|---|
-| 已完成內容頁原型 | 23 | 遊戲管理保留頁、遊戲紀錄、財務、官網、大廳、監控總覽、風控報表、風控告警／處理與系統設定頁 |
-| Phase 3 mock blueprint Placeholder | 9 | 儀表板、環境發布、GGAP 對接與通知頁 |
+| 已完成內容頁原型 | 24 | 儀表板、遊戲管理保留頁、遊戲紀錄、財務、官網、大廳、監控總覽、風控報表、風控告警／處理與系統設定頁 |
+| Phase 3 mock blueprint Placeholder | 8 | 環境發布、GGAP 對接與通知頁 |
 | 導覽入口 redirect | 1 | `/website` 導向 `/website/banners` |
 
 ## 4. 不屬於 Provider Portal 的功能範圍

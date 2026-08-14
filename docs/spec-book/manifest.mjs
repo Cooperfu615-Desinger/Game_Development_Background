@@ -1,10 +1,10 @@
 export const book = {
     title: 'Provider Portal 產品與系統規格書',
     shortTitle: 'Provider Portal Specs',
-    version: '0.4.0-readiness-audit',
+    version: '0.5.0-page-reconciliation',
     updatedAt: '2026-08-14',
     owner: 'Provider Portal Product / Engineering',
-    status: 'Authoring Format Confirmed · Phase 1 Readiness Audited',
+    status: 'Authoring Format Confirmed · Phase 1 Pages Reconciled',
     description: '供產品、前端、後端、QA 與 GGAP 對接團隊共同使用的 Provider Portal 規格入口。',
 }
 
@@ -211,6 +211,7 @@ export const appendices = [
     section('changelog', 'E', '版本紀錄', '規格網站與核准規格的變更摘要。', 'content/appendices/changelog.md'),
     { ...section('spec-book-authoring-guide', 'F', '規格書撰寫與交接規範', '可於本專案沿用，也可獨立移植至其他專案的規格網站方法、模板與品質標準。', 'SPEC_BOOK_AUTHORING_GUIDE.md'), status: 'confirmed' },
     { ...section('page-readiness-matrix', 'G', '第一階段頁面完成度矩陣', '21 個本輪頁面的來源、批次、逐面向完成度與待補主題。', 'content/appendices/page-readiness-matrix.md'), generatedReadiness: true },
+    { ...section('page-reconciliation', 'H', '第一階段頁面三層校準', '逐頁區分已確認產品規則、現行原型實況與尚未確認的目標規格。', 'content/appendices/page-reconciliation.md'), generatedReconciliation: true },
 ]
 
 function page(id, title, route, component, prototype, sources, overrides = {}) {

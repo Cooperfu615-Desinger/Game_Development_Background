@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="逐頁區分已確認產品規則、現行原型實況與尚未確認的目標規格。">
+    <meta name="color-scheme" content="light">
+    <title>第一階段頁面三層校準｜Provider Portal 產品與系統規格書</title>
+    <link rel="stylesheet" href="assets/site.css">
+    <script src="assets/search-index.js" defer></script>
+    <script src="assets/site.js" defer></script>
+</head>
+<body data-page-id="page-reconciliation">
+    <a class="skip-link" href="#main-content">跳至主要內容</a>
+    <header class="topbar">
+        <button class="icon-button nav-trigger" type="button" data-nav-trigger aria-label="開啟規格目錄" aria-expanded="false" aria-controls="spec-navigation">
+            <span></span><span></span><span></span>
+        </button>
+        <a class="wordmark" href="index.html" aria-label="回到規格書首頁">
+            <span class="wordmark-mark" aria-hidden="true">▦</span>
+            <span><strong>Provider Portal</strong><small>產品與系統規格書</small></span>
+        </a>
+        <button class="search-trigger" type="button" data-search-trigger>
+            <span aria-hidden="true">⌕</span>
+            <span>搜尋規格</span>
+            <kbd>⌘ K</kbd>
+        </button>
+        <div class="topbar-meta">
+            <strong class="spec-context-label">SPEC</strong>
+            <span>0.5.0-page-reconciliation</span>
+            <span class="topbar-status">Authoring Format Confirmed · Phase 1 Pages Reconciled</span>
+        </div>
+    </header>
+
+    <div class="shell">
+        <aside class="sidebar" id="spec-navigation" data-sidebar>
+            <div class="sidebar-intro">
+                <span class="sidebar-kicker">SPECIFICATION MANUAL</span>
+                <p>2026-08-14 更新</p>
+            </div>
+            <nav aria-label="規格書章節">
+
+        <details class="nav-group" >
+            <summary>開始閱讀<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="index.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>規格書首頁</span>
+
+                    </a><a href="document-control.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>文件治理與使用方式</span>
+
+                    </a><a href="product-overview.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>產品定位與目標</span>
+
+                    </a><a href="system-boundary.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>系統與責任邊界</span>
+
+                    </a><a href="information-architecture.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>資訊架構與頁面地圖</span>
+
+                    </a><a href="common-domain-rules.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>共通領域規則</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.1 總覽<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="dashboard-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="dashboard.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>儀表板</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.2 遊戲管理<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="game-management-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="game-list.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲列表</span>
+
+                    </a><a href="game-environments.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>環境與發布</span>
+
+                    </a><a href="game-settings.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲設定</span>
+
+                    </a><a href="game-math.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>數值設定</span>
+
+                    </a><a href="game-versions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲版本</span>
+
+                    </a><a href="game-assets.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲素材</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.3 數據與報表<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="data-reporting-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="game-round-records.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲紀錄</span>
+                        <b>PILOT</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.4 遊戲商財務<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="provider-finance-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="finance-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>財務總覽</span>
+
+                    </a><a href="finance-agent-games.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>代理商 × 遊戲彙總</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.5 遊戲監控與風控<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="monitoring-risk-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="monitoring-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>監控總覽</span>
+
+                    </a><a href="risk-reports.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>風控報表</span>
+
+                    </a><a href="risk-alerts.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>風控告警／處理</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.6 GGAP 對接<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="ggap-integration-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>對接總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-catalog-sync.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲目錄同步</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-requests.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>請求與回呼紀錄</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-errors.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>錯誤與重試</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-settings.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>對接設定</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.7 通知中心<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="notifications-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="notifications.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>全部通知</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="notification-preferences.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>通知偏好</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.8 官方網站<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="official-website-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="website-banners.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>Banner 管理</span>
+
+                    </a><a href="website-content.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>內容管理</span>
+
+                    </a><a href="website-releases.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>發布紀錄</span>
+
+                    </a><a href="lobby-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>大廳總覽</span>
+
+                    </a><a href="lobby-games.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲清單</span>
+
+                    </a><a href="lobby-management.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲管理</span>
+
+                    </a><a href="lobby-demo.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>DEMO環境數據</span>
+
+                    </a><a href="lobby-preview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>大廳預覽</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.9 系統設定<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="system-settings-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>設定總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-permissions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>使用者與權限</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-api-keys.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>API key 與憑證</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-audit-logs.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>操作紀錄</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>共通規格<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="api-integration.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>API 與整合契約</span>
+
+                    </a><a href="security-permissions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>安全與權限</span>
+
+                    </a><a href="non-functional-requirements.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>非功能性需求</span>
+
+                    </a><a href="acceptance-qa.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>驗收與 QA</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" open>
+            <summary>附錄<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="data-dictionary.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>資料字典</span>
+
+                    </a><a href="status-enums.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>狀態與枚舉</span>
+
+                    </a><a href="route-page-matrix.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>Route 與頁面矩陣</span>
+
+                    </a><a href="open-issues.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>待決策與校正清單</span>
+
+                    </a><a href="changelog.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>版本紀錄</span>
+
+                    </a><a href="spec-book-authoring-guide.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>規格書撰寫與交接規範</span>
+
+                    </a><a href="page-readiness-matrix.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>第一階段頁面完成度矩陣</span>
+
+                    </a><a href="page-reconciliation.html" aria-current="page">
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>第一階段頁面三層校準</span>
+
+                    </a>
+            </div>
+        </details>
+
+            </nav>
+            <div class="sidebar-legend">
+                <p>規格狀態</p>
+                <span><i class="status-dot status-confirmed"></i>已確認</span><span><i class="status-dot status-draft"></i>草案</span><span><i class="status-dot status-outline"></i>待整理</span><span><i class="status-dot status-tbd"></i>待決策</span>
+            </div>
+        </aside>
+        <button class="sidebar-scrim" type="button" data-nav-close aria-label="關閉規格目錄"></button>
+
+        <main id="main-content" class="main-content" tabindex="-1">
+            <div class="page-frame ">
+                <header class="page-header">
+                    <div>
+                        <p class="eyebrow">附錄 H</p>
+                        <h1>第一階段頁面三層校準</h1>
+                        <p class="page-summary">逐頁區分已確認產品規則、現行原型實況與尚未確認的目標規格。</p>
+                    </div>
+                    <div class="page-status-stack">
+                        <span class="status-badge status-outline">待整理</span>
+
+
+                    </div>
+                </header>
+
+                <section class="metadata-card" aria-label="章節追溯資訊">
+        <div class="metadata-grid">
+            <div><span>章節編號</span><code>H</code></div><div><span>規格狀態</span><code>待整理</code></div>
+        </div>
+    </section>
+
+
+                <div class="content-layout">
+                    <article class="spec-content">
+                        <p>本章把每個本輪頁面的資訊拆成三層，避免在整理完整規格時混淆「產品已決定什麼」、「現行畫面做了什麼」以及「未來預計補什麼」。</p>
+<h2 id="三層定義">三層定義</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>層級</th>
+<th>定義</th>
+<th>使用限制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>已確認產品規則</td>
+<td>已有明確產品定位、責任邊界或跨頁共通規則支持</td>
+<td>可作為後續規格不可違反的 guardrail</td>
+</tr>
+<tr>
+<td>現行原型實況</td>
+<td>目前 route、元件及畫面實際可見的資訊與互動</td>
+<td>只能證明 mock 現況，不代表正式 API 或資料契約</td>
+</tr>
+<tr>
+<td>目標草案／待確認</td>
+<td>規格方向已知，但 API、權限、狀態、資料或流程仍未核准</td>
+<td>必須補成 Draft／TBD，不能寫成既定事實</td>
+</tr>
+</tbody></table></div>
+<h2 id="校準狀態">校準狀態</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>狀態</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>大致一致</td>
+<td>原型方向符合已確認邊界，仍需補正式契約</td>
+</tr>
+<tr>
+<td>邊界注意</td>
+<td>原型含 mock、暫名或可能被誤讀為正式能力的內容</td>
+</tr>
+<tr>
+<td>原型缺口</td>
+<td>現行畫面不足以呈現已確認責任，或頁面仍為 Placeholder</td>
+</tr>
+</tbody></table></div>
+<blockquote>
+<p>「邊界注意」不等於原型錯誤，而是撰寫規格時必須加註限制；「大致一致」也不代表頁面已可直接開發。</p>
+</blockquote>
+<h2 id="本輪校準摘要">本輪校準摘要</h2><section class="reconciliation-summary-grid" aria-label="第一階段三層校準摘要">
+<div><strong>21</strong><span>校準頁面</span><small>Baseline + Active</small></div>
+<div class="reconciliation-summary-aligned"><strong>8</strong><span>大致一致</span><small>方向符合已確認邊界</small></div>
+<div class="reconciliation-summary-attention"><strong>12</strong><span>邊界注意</span><small>需標示 mock 或責任限制</small></div>
+<div class="reconciliation-summary-gap"><strong>1</strong><span>原型缺口</span><small>需先補足頁面結構</small></div>
+</section><h2 id="21-頁校準結果">21 頁校準結果</h2><h3 id="批次-a-遊戲紀錄與財務鏈">批次 A｜遊戲紀錄與財務鏈</h3><section class="reconciliation-list" aria-label="批次 A 頁面校準">
+<article class="reconciliation-card reconciliation-aligned">
+<header class="reconciliation-card__header">
+<div><span>BATCH A · 數據與報表</span><h4><a href="game-round-records.html">遊戲紀錄</a></h4><code>/reports</code></div>
+<span class="reconciliation-state reconciliation-state-aligned">大致一致</span>
+</header>
+<p class="reconciliation-state-note">原型方向符合已確認邊界，仍需補正式契約。</p>
+<div class="reconciliation-columns">
+<section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Game Round 是 Provider 的主要業務紀錄單位，不另建 Game Session。</li><li>正式遊戲紀錄只包含 Production，不得混入 DEMO／Test；金額以 Provider 點數為主。</li><li>代理商、會員及 GGAP 識別碼是交易脈絡快照，不是 Provider 主資料。</li></ul></section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有完整頁首、查詢、摘要、列表、替代狀態、匯出與 Game Round 詳情 Dialog。</li><li>頁面以前端 mock 驗證 Production only、點數／USDT、雙方 Round ID 與錯誤狀態。</li><li>目前是第一個完整規格 Baseline，但 API、資料與權限尚未正式接入。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>正式 round status、ID 交換、重送、冪等與更正生命週期仍待整合契約。</li><li>金額精度、會員識別遮罩、匯出限制與 permission key 尚待核准。</li><li>API path、schema、錯誤碼、效能與保存期限仍是草案。</li></ul></section>
+</div>
+</article>
+<article class="reconciliation-card reconciliation-attention">
+<header class="reconciliation-card__header">
+<div><span>BATCH A · 遊戲商財務</span><h4><a href="finance-overview.html">財務總覽</a></h4><code>/finance</code></div>
+<span class="reconciliation-state reconciliation-state-attention">邊界注意</span>
+</header>
+<p class="reconciliation-state-note">原型含 mock、暫名或可能被誤讀為正式能力的內容。</p>
+<div class="reconciliation-columns">
+<section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>本頁是 Provider 自身正式環境財務摘要，不是 GGAP 平台結算或錢包帳務。</li><li>只統計有效 Production Game Round；點數為主，USDT 為換算對照。</li></ul></section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有期間、遊戲等查詢條件、八張摘要卡、財務／活躍趨勢及遊戲排行。</li><li>公式、數字、匯率與圖表由前端 mock 計算，部分文案已標示 prototype／draft。</li><li>匯出目前只顯示提示，未建立正式檔案流程。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>正式有效 Round 條件、聚合公式、精度、匯率時間點與資料更正規則尚待確認。</li><li>摘要、趨勢、排行、匯出 API 與效能契約尚未定義。</li><li>財務資料 scope、permission key 與稽核要求尚待核准。</li></ul></section>
+</div>
+</article>
+<article class="reconciliation-card reconciliation-attention">
+<header class="reconciliation-card__header">
+<div><span>BATCH A · 遊戲商財務</span><h4><a href="finance-agent-games.html">代理商 × 遊戲彙總</a></h4><code>/finance/agent-games</code></div>
+<span class="reconciliation-state reconciliation-state-attention">邊界注意</span>
+</header>
+<p class="reconciliation-state-note">原型含 mock、暫名或可能被誤讀為正式能力的內容。</p>
+<div class="reconciliation-columns">
+<section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>本頁以代理商 × 遊戲作 Provider 財務彙總，但 Provider 不建立或管理代理商主資料。</li><li>聚合來源必須是有效 Production Game Round，並可回到授權範圍內的單筆紀錄。</li><li>金額以 Provider 點數為主，USDT 僅作換算對照。</li></ul></section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有期間／代理商／遊戲查詢、結果摘要、彙總列表、排序分頁、Game Round 詳情與自訂匯出 Dialog。</li><li>代理商名稱、會員人數、金額與明細皆為 mock 聚合。</li><li>前端以代理商識別呈現報表脈絡，但未建立代理商維護功能。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>代理商 ID／名稱快照來源、歷史顯示及授權 scope 尚待 GGAP／後端確認。</li><li>聚合精度、分頁排序、明細導流與資料更正契約尚待核准。</li><li>匯出欄位、API、permission key 與大量資料處理尚未正式定義。</li></ul></section>
+</div>
+</article>
+</section><h3 id="批次-b-儀表板-監控與風控鏈">批次 B｜儀表板、監控與風控鏈</h3><section class="reconciliation-list" aria-label="批次 B 頁面校準">
+<article class="reconciliation-card reconciliation-attention">
+<header class="reconciliation-card__header">
+<div><span>BATCH B · 總覽</span><h4><a href="dashboard.html">儀表板</a></h4><code>/dashboard</code></div>
+<span class="reconciliation-state reconciliation-state-attention">邊界注意</span>
+</header>
+<p class="reconciliation-state-note">原型含 mock、暫名或可能被誤讀為正式能力的內容。</p>
+<div class="reconciliation-columns">
+<section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>本頁是 Provider 自身遊戲營運、財務、監控與風控的跨模組摘要入口。</li><li>正式財務與 Game Round 指標不得混入 DEMO／Test；金額以 Provider 點數為主。</li><li>Provider 不因摘要出現代理商、會員或通知脈絡而擁有其主資料。</li></ul></section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有期間切換、營運狀態卡、指標卡、趨勢、待處理事項、遊戲概況與最新通知。</li><li>卡片數字、告警、通知及跨頁連結皆由前端 mock 提供。</li><li>DEMO 目前只出現在環境／發布狀態說明，不納入正式財務指標。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>各摘要卡的資料來源、計算時間、更新頻率、失效與降級顯示仍待確認。</li><li>卡片導流、資料 scope 與 permission key 尚未形成正式契約。</li><li>通知中心已延後；儀表板上的通知區只能保留依賴標記，不可反推通知產品規格。</li></ul></section>
+</div>
+</article>
+<article class="reconciliation-card reconciliation-aligned">
+<header class="reconciliation-card__header">
+<div><span>BATCH B · 遊戲監控與風控</span><h4><a href="monitoring-overview.html">監控總覽</a></h4><code>/monitoring</code></div>
+<span class="reconciliation-state reconciliation-state-aligned">大致一致</span>
+</header>
+<p class="reconciliation-state-note">原型方向符合已確認邊界，仍需補正式契約。</p>
+<div class="reconciliation-columns">
+<section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 監控自身遊戲服務、Game Round、與 GGAP 直接對接及自身告警。</li><li>Test 不納入 Provider 風控監控；目前狀態與分析時間窗口必須分開。</li><li>GGAP 與代理商之間的平台監控不屬於 Provider 本頁。</li></ul></section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有監控範圍／時間／關注項目查詢、五張摘要卡、遊戲監控列表與詳情 Dialog。</li><li>健康、成功率、延遲、告警及未處理異常皆以 mock 資料呈現。</li><li>可導向風控報表、告警處理及 Game Round，但目前只是前端 route。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>指標公式、門檻、採樣、資料來源、更新頻率與失效判定尚待後端確認。</li><li>Production／DEMO 監控資料的差異、降級與無資料契約尚未核准。</li><li>查詢、詳情、跨頁 query、API 與權限尚待正式定義。</li></ul></section>
+</div>
+</article>
+<article class="reconciliation-card reconciliation-aligned">
+<header class="reconciliation-card__header">
+<div><span>BATCH B · 遊戲監控與風控</span><h4><a href="risk-reports.html">風控報表</a></h4><code>/monitoring/risk-reports</code></div>
+<span class="reconciliation-state reconciliation-state-aligned">大致一致</span>
+</header>
+<p class="reconciliation-state-note">原型方向符合已確認邊界，仍需補正式契約。</p>
+<div class="reconciliation-columns">
+<section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>本頁用於 Provider 自身 Risk Event 分析，不等同 Alert 工作佇列。</li><li>Test 不納入 Provider 風控；事件需可追溯至相關 Game Round。</li><li>Provider 隔離不等於 GGAP 代理商個別遊戲開關。</li></ul></section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有摘要、待關注異常、查詢、Risk Event 列表、詳情與關聯 Game Round。</li><li>事件類型、嚴重度、門檻、自動緩解及 GGAP 通知均由 mock 呈現。</li><li>頁面偏分析與追蹤，處理操作主要導向告警頁。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Risk Event schema、ID、enum、聚合、保存與資料更正規則尚待核准。</li><li>門檻、統計窗口、自動緩解與 GGAP 通知契約仍待正式確認。</li><li>查詢、詳情、匯出 API、敏感欄位與權限尚未定義。</li></ul></section>
+</div>
+</article>
+<article class="reconciliation-card reconciliation-attention">
+<header class="reconciliation-card__header">
+<div><span>BATCH B · 遊戲監控與風控</span><h4><a href="risk-alerts.html">風控告警／處理</a></h4><code>/monitoring/alerts</code></div>
+<span class="reconciliation-state reconciliation-state-attention">邊界注意</span>
+</header>
+<p class="reconciliation-state-note">原型含 mock、暫名或可能被誤讀為正式能力的內容。</p>
+<div class="reconciliation-columns">
+<section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Alert 是需要追蹤／處理的工作單位，與 Risk Event、緩解狀態及隔離狀態分開。</li><li>Test 不納入 Provider 風控；任何隔離都不得阻斷既有 Round 的必要結算、Callback 與 audit。</li><li>GGAP 通知狀態不代表 GGAP 已完成平台側處理。</li></ul></section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有告警摘要、豐富查詢、工作佇列、詳情、時間線、指派、隔離／解除與結案等操作。</li><li>操作結果、狀態流轉、健康檢查、GGAP 通知及重試皆由前端 mock 模擬。</li><li>畫面擬真度高，容易被誤認為正式處理流程已核准。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Alert 狀態機、操作前置條件、權限、併發、失敗與補償流程尚待核准。</li><li>自動緩解、隔離、解除、健康檢查及 GGAP 通知契約仍未正式確認。</li><li>工作佇列 API、操作稽核、保存與敏感資料規則尚待定義。</li></ul></section>
+</div>
+</article>
+</section><h3 id="批次-c-遊戲生命週期">批次 C｜遊戲生命週期</h3><section class="reconciliation-list" aria-label="批次 C 頁面校準">
+<article class="reconciliation-card reconciliation-aligned">
+<header class="reconciliation-card__header">
+<div><span>BATCH C · 遊戲管理</span><h4><a href="game-list.html">遊戲列表</a></h4><code>/games</code></div>
+<span class="reconciliation-state reconciliation-state-aligned">大致一致</span>
+</header>
+<p class="reconciliation-state-note">原型方向符合已確認邊界，仍需補正式契約。</p>
+<div class="reconciliation-columns">
+<section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 負責遊戲主資料、全域上架／下架狀態及各環境的遊戲可服務狀態。</li><li>Production、DEMO 與 Test 必須分開顯示；GGAP 另行控制各代理商是否開放已上架遊戲。</li><li>版本、數值與素材是 Provider 自有遊戲資料，但各自有獨立管理頁。</li></ul></section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有遊戲搜尋、環境狀態篩選、摘要、寬表格、單筆詳情 Dialog 與跨頁入口。</li><li>版本發布操作明確標示等待「環境與發布」頁完成，目前以唯讀摘要呈現。</li><li>列表、狀態、RTP 與詳情均使用前端 mock。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>正式遊戲狀態 enum、來源、轉換規則與全域上下架 API 尚待確認。</li><li>批次操作、權限、稽核、失敗與部分成功處理尚未定義。</li><li>GGAP 同步只可標示結果與依賴，不可在本頁建立代理商個別開關。</li></ul></section>
+</div>
+</article>
+<article class="reconciliation-card reconciliation-gap">
+<header class="reconciliation-card__header">
+<div><span>BATCH C · 遊戲管理</span><h4><a href="game-environments.html">環境與發布</a></h4><code>/games/environments</code></div>
+<span class="reconciliation-state reconciliation-state-gap">原型缺口</span>
+</header>
+<p class="reconciliation-state-note">現行畫面不足以呈現已確認責任或頁面仍為 Placeholder。</p>
+<div class="reconciliation-columns">
+<section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 負責 Production／DEMO 的版本與素材發布，以及遊戲的全域上架／下架。</li><li>GGAP 對已上架遊戲控制各代理商是否開放；該能力不屬於 Provider 本頁。</li><li>Test 可作開發驗證，但不得混入正式財務、Game Round 或 Provider 風控資料。</li></ul></section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>目前仍使用共用 Placeholder，以環境矩陣、待發布摘要與版本狀態表呈現 blueprint。</li><li>Production、DEMO、Test 數量、版本與待發布佇列皆為 mock。</li><li>沒有正式發布操作、驗證結果、失敗狀態或發布詳情。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>需建立 Provider 自有的發布生命週期、環境矩陣、發布前驗證與歷程規格。</li><li>版本／素材綁定、維護、停用、回復策略與高風險權限尚待確認。</li><li>GGAP 同步、重試及代理商開放狀態等待 GGAP 正式規格，只保留依賴邊界。</li></ul></section>
+</div>
+</article>
+<article class="reconciliation-card reconciliation-attention">
+<header class="reconciliation-card__header">
+<div><span>BATCH C · 遊戲管理</span><h4><a href="game-settings.html">遊戲設定</a></h4><code>/games/settings</code></div>
+<span class="reconciliation-state reconciliation-state-attention">邊界注意</span>
+</header>
+<p class="reconciliation-state-note">原型含 mock、暫名或可能被誤讀為正式能力的內容。</p>
+<div class="reconciliation-columns">
+<section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 負責自身遊戲設定，不延伸為代理商、商戶或會員層級的設定中心。</li><li>影響 Production 的設定變更必須與版本、環境及發布責任保持可追溯關係。</li></ul></section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有維護週期模板、限紅模板與基礎選項三個設定區。</li><li>表單可在前端操作，包含正式環境是否需要審核等 mock 選項。</li><li>沒有正式儲存、驗證、版本綁定、權限或稽核資料流。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>設定分類、欄位 schema、預設值、合法範圍與相依驗證尚待產品確認。</li><li>草稿／生效版本、Production 審核與環境套用方式尚未核准。</li><li>正式 API、permission key、並行修改與操作紀錄尚待定義。</li></ul></section>
+</div>
+</article>
+<article class="reconciliation-card reconciliation-attention">
+<header class="reconciliation-card__header">
+<div><span>BATCH C · 遊戲管理</span><h4><a href="game-math.html">數值設定</a></h4><code>/games/math</code></div>
+<span class="reconciliation-state reconciliation-state-attention">邊界注意</span>
+</header>
+<p class="reconciliation-state-note">原型含 mock、暫名或可能被誤讀為正式能力的內容。</p>
+<div class="reconciliation-columns">
+<section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 負責遊戲數值、RTP、波動度及賠率相關主資料與版本。</li><li>數值設定與風控監測相關，但設定責任與異常監測責任不可混成同一資料模型。</li></ul></section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有數值摘要、RTP 趨勢、查詢、版本列表、詳情 Dialog 與審核申請 Dialog。</li><li>「偏離 ≥ 5%」、審核狀態、樣本量與數值皆為展示 mock；匯出目前停用。</li><li>頁面同時呈現設定版本與監控結果，但尚無正式資料來源區分。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>數值模型、精度、合法範圍、版本生命週期與生效環境尚待核准。</li><li>審核、發布、回復、不可逆操作與權限稽核尚未定義。</li><li>RTP 偏離門檻、樣本窗口及與 Risk Event 的關聯必須由正式風控規則決定。</li></ul></section>
+</div>
+</article>
+<article class="reconciliation-card reconciliation-attention">
+<header class="reconciliation-card__header">
+<div><span>BATCH C · 遊戲管理</span><h4><a href="game-versions.html">遊戲版本</a></h4><code>/games/versions</code></div>
+<span class="reconciliation-state reconciliation-state-attention">邊界注意</span>
+</header>
+<p class="reconciliation-state-note">原型含 mock、暫名或可能被誤讀為正式能力的內容。</p>
+<div class="reconciliation-columns">
+<section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 負責遊戲版本及全域發布，不管理商戶主資料或商戶層級發布。</li><li>版本需與遊戲、數值、素材及環境維持可追溯關係。</li></ul></section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有摘要、版本／狀態／發布類型篩選、列表、新增發布入口、匯出與詳情 Dialog。</li><li>狀態包含已發布、測試中、維護中、待審核、已回滾，皆為 mock。</li><li>摘要中的「影響商戶」是展示欄位，不代表 Provider 建立或管理商戶主資料。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>版本狀態、相容性、鎖定、發布單、回復與刪除限制尚待確認。</li><li>「影響範圍」應改以 Provider 可追溯的環境／遊戲脈絡定義，商戶資訊只能是外部快照。</li><li>新增、發布、回復、匯出 API、權限與稽核尚未形成契約。</li></ul></section>
+</div>
+</article>
+<article class="reconciliation-card reconciliation-aligned">
+<header class="reconciliation-card__header">
+<div><span>BATCH C · 遊戲管理</span><h4><a href="game-assets.html">遊戲素材</a></h4><code>/games/assets</code></div>
+<span class="reconciliation-state reconciliation-state-aligned">大致一致</span>
+</header>
+<p class="reconciliation-state-note">原型方向符合已確認邊界，仍需補正式契約。</p>
+<div class="reconciliation-columns">
+<section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 負責自身遊戲素材，素材需能關聯遊戲、版本、語系及使用情境。</li><li>素材管理不授予 Provider 維護代理商、商戶或會員資料的能力。</li></ul></section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有素材摘要、搜尋與篩選、列表、詳情預覽及上傳 Dialog。</li><li>素材狀態、語系、關聯版本與上傳流程均為前端 mock。</li><li>目前沒有檔案實際上傳、掃描、儲存、發布或失敗資料流。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>素材類型、格式、尺寸、大小、儲存、掃描及可存取性要求尚待確認。</li><li>素材版本、語系 fallback、裝置用途與發布綁定尚未核准。</li><li>上傳／替換／刪除限制、API、權限與稽核尚待定義。</li></ul></section>
+</div>
+</article>
+</section><h3 id="批次-d-官方網站與遊戲大廳">批次 D｜官方網站與遊戲大廳</h3><section class="reconciliation-list" aria-label="批次 D 頁面校準">
+<article class="reconciliation-card reconciliation-aligned">
+<header class="reconciliation-card__header">
+<div><span>BATCH D · 官方網站</span><h4><a href="website-banners.html">Banner 管理</a></h4><code>/website/banners</code></div>
+<span class="reconciliation-state reconciliation-state-aligned">大致一致</span>
+</header>
+<p class="reconciliation-state-note">原型方向符合已確認邊界，仍需補正式契約。</p>
+<div class="reconciliation-columns">
+<section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 可管理自身遊戲官網的 Banner 素材、文字與發布狀態。</li><li>官網內容管理不延伸為 GGAP、代理商或商戶內容管理。</li></ul></section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有狀態篩選、Banner 清單、編輯表單、發布資訊與即時預覽。</li><li>發布按鈕只顯示模擬提示；資料與素材均為前端 mock。</li><li>目前沒有真實媒體上傳、排程、版本或發布 API。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Banner schema、媒體規格、裝置／語系、排序與排程規則尚待確認。</li><li>草稿、預覽、發布、版本、失敗與回復流程尚未核准。</li><li>內容操作權限、API、素材存放與稽核尚待定義。</li></ul></section>
+</div>
+</article>
+<article class="reconciliation-card reconciliation-attention">
+<header class="reconciliation-card__header">
+<div><span>BATCH D · 官方網站</span><h4><a href="website-content.html">內容管理</a></h4><code>/website/content</code></div>
+<span class="reconciliation-state reconciliation-state-attention">邊界注意</span>
+</header>
+<p class="reconciliation-state-note">原型含 mock、暫名或可能被誤讀為正式能力的內容。</p>
+<div class="reconciliation-columns">
+<section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 可管理自身遊戲官網的法務、聯絡及已納入範圍的靜態內容。</li><li>介面以台灣繁體中文為主，多語內容需明確標示語系與 fallback。</li></ul></section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有內容分頁、簡易文字編輯骨架、發布按鈕與發布前檢查區。</li><li>畫面明示正式版本可能改用富文字編輯器，現況不是最終輸入模型。</li><li>發布只顯示 mock 提示，未建立多語、版本與 API 資料流。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>正式內容類型、欄位 schema、富文字限制、必填與驗證尚待確認。</li><li>語系 fallback、預覽、草稿、版本、發布與回復流程尚未核准。</li><li>內容權限、API、XSS／連結安全與稽核規則尚待定義。</li></ul></section>
+</div>
+</article>
+<article class="reconciliation-card reconciliation-attention">
+<header class="reconciliation-card__header">
+<div><span>BATCH D · 官方網站</span><h4><a href="website-releases.html">發布紀錄</a></h4><code>/website/releases</code></div>
+<span class="reconciliation-state reconciliation-state-attention">邊界注意</span>
+</header>
+<p class="reconciliation-state-note">原型含 mock、暫名或可能被誤讀為正式能力的內容。</p>
+<div class="reconciliation-columns">
+<section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 官網內容發布需留下版本、內容範圍、操作者與時間追溯。</li><li>發布紀錄只涵蓋 Provider 自有官網，不代表遊戲版本或 GGAP 上架紀錄。</li></ul></section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有發布摘要、狀態篩選、事件列表與單筆版本詳情。</li><li>版本、操作者、發布時間及內容差異皆為前端 mock。</li><li>沒有真正發布、取消、回復或不可變快照資料流。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>發布事件 schema、版本命名、內容快照與狀態生命週期尚待確認。</li><li>失敗、取消、回復及不可逆限制尚未核准。</li><li>發布 API、高風險權限、操作稽核與保存期限尚待定義。</li></ul></section>
+</div>
+</article>
+<article class="reconciliation-card reconciliation-aligned">
+<header class="reconciliation-card__header">
+<div><span>BATCH D · 官方網站</span><h4><a href="lobby-overview.html">大廳總覽</a></h4><code>/lobby</code></div>
+<span class="reconciliation-state reconciliation-state-aligned">大致一致</span>
+</header>
+<p class="reconciliation-state-note">原型方向符合已確認邊界，仍需補正式契約。</p>
+<div class="reconciliation-columns">
+<section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>本模組是 Provider 自有遊戲大廳，不是 GGAP 平台大廳或錢包系統。</li><li>DEMO 資料必須與 Production Game Round、財務及風控資料隔離。</li></ul></section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有遊戲推出狀態、Demo 今日摘要、資料管理、預覽與公開檢查入口。</li><li>摘要數字、狀態與檢查結果皆由前端 mock 提供。</li><li>頁面目前是導覽型總覽，沒有正式資料新鮮度或失敗狀態。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>大廳公開狀態、檢查結果、摘要指標與更新頻率尚待確認。</li><li>跨頁導流 query、錯誤／無資料與權限行為尚未核准。</li><li>總覽 API、資料來源與可見 scope 尚待定義。</li></ul></section>
+</div>
+</article>
+<article class="reconciliation-card reconciliation-aligned">
+<header class="reconciliation-card__header">
+<div><span>BATCH D · 官方網站</span><h4><a href="lobby-games.html">遊戲清單</a></h4><code>/lobby/games</code></div>
+<span class="reconciliation-state reconciliation-state-aligned">大致一致</span>
+</header>
+<p class="reconciliation-state-note">原型方向符合已確認邊界，仍需補正式契約。</p>
+<div class="reconciliation-columns">
+<section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>本頁呈現 Provider 自有大廳中的遊戲清單與公開資料。</li><li>大廳是否顯示遊戲不取代 Provider 全域上架，也不取代 GGAP 代理商個別開放控制。</li></ul></section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有關鍵字搜尋、推出狀態篩選、遊戲表格、詳情管理與預覽入口。</li><li>版號、上架時間、RTP、波動度、最高倍率與狀態皆為前端 mock。</li><li>目前沒有批次選取、儲存、錯誤或正式 API。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>遊戲納入大廳的條件、公開狀態、排序與環境隔離尚待確認。</li><li>顯示資料與遊戲主資料、數值版本的同步規則尚未核准。</li><li>列表、操作 API、權限、衝突與操作稽核尚待定義。</li></ul></section>
+</div>
+</article>
+<article class="reconciliation-card reconciliation-attention">
+<header class="reconciliation-card__header">
+<div><span>BATCH D · 官方網站</span><h4><a href="lobby-management.html">遊戲管理</a></h4><code>/lobby/management</code></div>
+<span class="reconciliation-state reconciliation-state-attention">邊界注意</span>
+</header>
+<p class="reconciliation-state-note">原型含 mock、暫名或可能被誤讀為正式能力的內容。</p>
+<div class="reconciliation-columns">
+<section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 可管理自身大廳的公開文字、參數、素材與玩家可見狀態。</li><li>公開資料需引用 Provider 遊戲主資料，不得建立另一份相互衝突的遊戲真實來源。</li></ul></section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有基本資料、遊戲參數、公開內容、圖片影片、狀態與公開檢查五個分頁。</li><li>四語內容、公開數值、玩家狀態及 5／5 檢查結果均為 mock。</li><li>表單可操作但沒有草稿、儲存、發布、衝突或權限資料流。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>可編輯欄位與遊戲主資料唯讀欄位的責任邊界尚待確認。</li><li>草稿、公開版本、檢查規則、發布、失敗與回復尚未核准。</li><li>多語、素材、API、permission key 與稽核規則尚待定義。</li></ul></section>
+</div>
+</article>
+<article class="reconciliation-card reconciliation-attention">
+<header class="reconciliation-card__header">
+<div><span>BATCH D · 官方網站</span><h4><a href="lobby-demo.html">DEMO環境數據</a></h4><code>/lobby/demo</code></div>
+<span class="reconciliation-state reconciliation-state-attention">邊界注意</span>
+</header>
+<p class="reconciliation-state-note">原型含 mock、暫名或可能被誤讀為正式能力的內容。</p>
+<div class="reconciliation-columns">
+<section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>DEMO 是隔離的展示環境，不得混入正式 Game Round、財務或風控模型。</li><li>Provider 不因 DEMO 大廳顯示玩家、Session 或餘額而建立會員或錢包主資料。</li></ul></section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有玩家活躍趨勢、Demo 規則、各遊戲表現及匯出按鈕。</li><li>頁面明示目前用固定規則產生資料；趨勢、玩家、Session 與表現皆為 mock。</li><li>匯出按鈕沒有正式檔案流程。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>DEMO 指標、Session 顯示語意、資料來源、保存與重設規則尚待確認。</li><li>DEMO 帳號、玩家識別、餘額顯示必須與正式會員／錢包責任分離。</li><li>查詢、匯出 API、檢視權限與資料隔離驗收尚待定義。</li></ul></section>
+</div>
+</article>
+<article class="reconciliation-card reconciliation-attention">
+<header class="reconciliation-card__header">
+<div><span>BATCH D · 官方網站</span><h4><a href="lobby-preview.html">大廳預覽</a></h4><code>/lobby/preview</code></div>
+<span class="reconciliation-state reconciliation-state-attention">邊界注意</span>
+</header>
+<p class="reconciliation-state-note">原型含 mock、暫名或可能被誤讀為正式能力的內容。</p>
+<div class="reconciliation-columns">
+<section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>本頁只預覽 Provider 自有遊戲大廳，不建立正式玩家、會員或錢包能力。</li><li>預覽中的 DEMO 資料必須與 Production 紀錄、財務與風控隔離。</li></ul></section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有類玩家端的大廳導覽、遊戲卡、推出狀態與試玩按鈕。</li><li>頁首顯示「DEMO 餘額 USD 10,000.00」，目前只是視覺 mock，不是 Provider 錢包。</li><li>預覽資料直接使用前端 mock，沒有草稿／公開版本切換或存取控制。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>預覽資料來源、草稿版本、公開版本、語系與裝置模式尚待確認。</li><li>DEMO 餘額必須改為清楚的展示脈絡，禁止被解讀為 Provider 建立錢包。</li><li>預覽存取、分享、失效狀態、啟動流程與 API 尚待定義。</li></ul></section>
+</div>
+</article>
+</section><h2 id="使用方式">使用方式</h2><ol>
+<li>完整頁面規格先複製「已確認產品規則」作為不可違反的邊界。</li>
+<li>以「現行原型實況」建立畫面示意與程式追溯，但所有 mock 值與互動需明確標示。</li>
+<li>將「目標草案／待確認」轉成頁面章節、API 草案或具 owner 的 TBD。</li>
+<li>若原型與已確認規則發生直接衝突，先停止該段規格升格，由產品決定修原型或修規則。</li>
+<li>Deferred 頁面不建立三層校準，直到必要輸入齊備並重新排入 Active。</li>
+</ol>
+
+                    </article>
+                    <aside class="page-outline" aria-label="本頁目錄">
+        <p>本頁目錄</p>
+        <nav><a class="outline-level-2" href="#三層定義">三層定義</a><a class="outline-level-2" href="#校準狀態">校準狀態</a><a class="outline-level-2" href="#本輪校準摘要">本輪校準摘要</a><a class="outline-level-2" href="#21-頁校準結果">21 頁校準結果</a><a class="outline-level-3" href="#批次-a-遊戲紀錄與財務鏈">批次 A｜遊戲紀錄與財務鏈</a><a class="outline-level-3" href="#批次-b-儀表板-監控與風控鏈">批次 B｜儀表板、監控與風控鏈</a><a class="outline-level-3" href="#批次-c-遊戲生命週期">批次 C｜遊戲生命週期</a><a class="outline-level-3" href="#批次-d-官方網站與遊戲大廳">批次 D｜官方網站與遊戲大廳</a><a class="outline-level-2" href="#使用方式">使用方式</a></nav>
+        <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
+    </aside>
+                </div>
+
+                <nav class="previous-next" aria-label="上一章與下一章">
+        <a class="previous-link" href="page-readiness-matrix.html"><span>← 上一章</span><strong>第一階段頁面完成度矩陣</strong></a>
+        <span></span>
+    </nav>
+                <footer class="document-footer">
+                    <span>Provider Portal Product / Engineering</span>
+                    <span>0.5.0-page-reconciliation · 2026-08-14</span>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <dialog class="search-dialog" data-search-dialog aria-labelledby="search-dialog-title">
+        <div class="search-dialog-header">
+            <div>
+                <p class="eyebrow">全文檢索</p>
+                <h2 id="search-dialog-title">搜尋規格書</h2>
+            </div>
+            <button class="icon-button dialog-close" type="button" data-search-close aria-label="關閉搜尋">×</button>
+        </div>
+        <label class="search-field">
+            <span class="sr-only">輸入章節、route、欄位或關鍵字</span>
+            <span aria-hidden="true">⌕</span>
+            <input type="search" data-search-input autocomplete="off" placeholder="例如：Game Round、/reports、USDT">
+        </label>
+        <p class="search-hint" data-search-hint>可搜尋章節名稱、內文、route、欄位與技術值。</p>
+        <div class="search-results" data-search-results></div>
+    </dialog>
+</body>
+</html>

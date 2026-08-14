@@ -16,6 +16,10 @@ import {
     readinessDimensions,
     readinessLevels,
 } from '../docs/spec-book/readiness.mjs'
+import {
+    pageReconciliation,
+    reconciliationStates,
+} from '../docs/spec-book/reconciliation.mjs'
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url))
 const repositoryRoot = path.resolve(scriptDirectory, '..')
@@ -70,6 +74,7 @@ const documents = [
 
 const pageMatrixMarkdown = createPageMatrix()
 const readinessFragments = createReadinessFragments()
+const reconciliationFragments = createReconciliationFragments()
 const renderedDocuments = []
 
 for (const document of documents) {
@@ -97,6 +102,10 @@ for (const document of documents) {
 
     if (document.generatedReadiness) {
         markdown = replaceReadinessMarkers(markdown, readinessFragments)
+    }
+
+    if (document.generatedReconciliation) {
+        markdown = replaceReconciliationMarkers(markdown, reconciliationFragments)
     }
 
     if (document.visualAtTop) {
@@ -688,6 +697,67 @@ function replaceReadinessMarkers(markdown, fragments) {
     for (const [marker, value] of Object.entries(markers)) {
         const token = `<!-- ${marker} -->`
         if (!result.includes(token)) throw new Error(`找不到完成度矩陣標記：${marker}`)
+        result = result.replace(token, value)
+    }
+    return result
+}
+
+function createReconciliationFragments() {
+    const assessedPages = allContentPages.filter((page) => ['baseline', 'active'].includes(page.scope))
+    const stateCounts = Object.fromEntries(Object.keys(reconciliationStates).map((key) => [key, assessedPages.filter((page) => pageReconciliation[page.id]?.state === key).length]))
+    const summary = `<section class="reconciliation-summary-grid" aria-label="第一階段三層校準摘要">
+<div><strong>${assessedPages.length}</strong><span>校準頁面</span><small>Baseline + Active</small></div>
+<div class="reconciliation-summary-aligned"><strong>${stateCounts.aligned}</strong><span>大致一致</span><small>方向符合已確認邊界</small></div>
+<div class="reconciliation-summary-attention"><strong>${stateCounts.attention}</strong><span>邊界注意</span><small>需標示 mock 或責任限制</small></div>
+<div class="reconciliation-summary-gap"><strong>${stateCounts.gap}</strong><span>原型缺口</span><small>需先補足頁面結構</small></div>
+</section>`
+
+    const batchTitles = {
+        A: '遊戲紀錄與財務鏈',
+        B: '儀表板、監控與風控鏈',
+        C: '遊戲生命週期',
+        D: '官方網站與遊戲大廳',
+    }
+    const content = Object.entries(batchTitles).map(([batch, title]) => {
+        const pages = assessedPages.filter((page) => pageReadiness[page.id].batch === batch)
+        const cards = pages.map((page) => createReconciliationCard(page, batch)).join('\n')
+        return `### 批次 ${batch}｜${title}\n\n<section class="reconciliation-list" aria-label="批次 ${batch} 頁面校準">\n${cards}\n</section>`
+    }).join('\n\n')
+
+    return { summary, content }
+}
+
+function createReconciliationCard(page, batch) {
+    const record = pageReconciliation[page.id]
+    if (!record) throw new Error(`缺少頁面三層校準資料：${page.id}`)
+    const state = reconciliationStates[record.state]
+    if (!state) throw new Error(`${page.id} 使用未知校準狀態：${record.state}`)
+    const module = modules.find((item) => item.id === page.moduleId)
+    const list = (items) => `<ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`
+
+    return `<article class="reconciliation-card reconciliation-${state.tone}">
+<header class="reconciliation-card__header">
+<div><span>BATCH ${escapeHtml(batch)} · ${escapeHtml(module.title)}</span><h4><a href="${escapeHtml(page.id)}.html">${escapeHtml(page.title)}</a></h4><code>${escapeHtml(page.route)}</code></div>
+<span class="reconciliation-state reconciliation-state-${state.tone}">${escapeHtml(state.label)}</span>
+</header>
+<p class="reconciliation-state-note">${escapeHtml(state.description)}</p>
+<div class="reconciliation-columns">
+<section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5>${list(record.confirmed)}</section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5>${list(record.prototype)}</section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5>${list(record.target)}</section>
+</div>
+</article>`
+}
+
+function replaceReconciliationMarkers(markdown, fragments) {
+    const markers = {
+        GENERATED_RECONCILIATION_SUMMARY: fragments.summary,
+        GENERATED_RECONCILIATION: fragments.content,
+    }
+    let result = markdown
+    for (const [marker, value] of Object.entries(markers)) {
+        const token = `<!-- ${marker} -->`
+        if (!result.includes(token)) throw new Error(`找不到頁面校準標記：${marker}`)
         result = result.replace(token, value)
     }
     return result

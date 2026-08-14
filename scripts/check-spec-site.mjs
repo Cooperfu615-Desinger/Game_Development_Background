@@ -3,6 +3,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { appendices, crossCutting, foundation, modules, scopeLabels } from '../docs/spec-book/manifest.mjs'
 import { pageReadiness, readinessDimensions, readinessLevels } from '../docs/spec-book/readiness.mjs'
+import { pageReconciliation, reconciliationStates } from '../docs/spec-book/reconciliation.mjs'
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url))
 const repositoryRoot = path.resolve(scriptDirectory, '..')
@@ -36,6 +37,12 @@ assert(readinessDimensionList.length === 12, '完成度矩陣應包含 12 個評
 assert(assessedPages.every((page) => readinessDimensionList.every((dimension) => readinessLevels[pageReadiness[page.id][dimension.key]])), '所有完成度值都必須使用已定義評級')
 assert(['A', 'B', 'C', 'D'].every((batch, index) => assessedPages.filter((page) => pageReadiness[page.id].batch === batch).length === [3, 4, 6, 8][index]), 'A–D 批次頁數應為 3、4、6、8')
 assert(assessedPages.every((page) => pageReadiness[page.id].blockers.length > 0), '每個本輪頁面都必須列出待補主題')
+assert(Object.keys(pageReconciliation).length === assessedPages.length, '三層校準資料筆數應與本輪頁數一致')
+assert(assessedPages.every((page) => pageReconciliation[page.id]), '所有 Baseline／Active 頁都必須有三層校準資料')
+assert(contentPages.filter((page) => page.scope === 'deferred').every((page) => !pageReconciliation[page.id]), 'Deferred 頁不應建立三層校準')
+assert(assessedPages.every((page) => reconciliationStates[pageReconciliation[page.id].state]), '所有頁面都必須使用已定義的校準狀態')
+assert(assessedPages.every((page) => ['confirmed', 'prototype', 'target'].every((key) => pageReconciliation[page.id][key].length > 0)), '每個本輪頁面都必須包含三層校準內容')
+assert(['aligned', 'attention', 'gap'].every((state, index) => assessedPages.filter((page) => pageReconciliation[page.id].state === state).length === [8, 12, 1][index]), '校準狀態頁數應為 8、12、1')
 assert(new Set(expectedIds).size === expectedIds.length, '文件 ID 不可重複')
 
 for (const asset of ['assets/site.css', 'assets/site.js', 'assets/search-index.js']) {
@@ -103,6 +110,15 @@ for (const requiredText of ['21', '產品與 UI 完成度', '開發交付完成�
 }
 assert((readinessHtml.match(/class="readiness-badge /g) || []).length === assessedPages.length * readinessDimensionList.length, '完成度矩陣評級數量不正確')
 
+const reconciliationHtml = await readFile(path.join(outputRoot, 'page-reconciliation.html'), 'utf8')
+for (const requiredText of ['已確認產品規則', '現行原型實況', '目標草案／待確認', 'DEMO 餘額 USD 10,000.00', 'Provider 不建立或管理代理商主資料']) {
+    assert(reconciliationHtml.includes(requiredText), `第一階段頁面三層校準缺少必要內容：${requiredText}`)
+}
+assert((reconciliationHtml.match(/class="reconciliation-card /g) || []).length === assessedPages.length, '三層校準卡片數量不正確')
+assert((reconciliationHtml.match(/class="reconciliation-confirmed"/g) || []).length === assessedPages.length, '三層校準缺少已確認產品規則欄')
+assert((reconciliationHtml.match(/class="reconciliation-prototype"/g) || []).length === assessedPages.length, '三層校準缺少原型實況欄')
+assert((reconciliationHtml.match(/class="reconciliation-target"/g) || []).length === assessedPages.length, '三層校準缺少目標草案欄')
+
 for (const page of contentPages.filter((item) => item.scope === 'deferred')) {
     const html = await readFile(path.join(outputRoot, `${page.id}.html`), 'utf8')
     for (const requiredText of ['延後製作', '重新啟動前需要的輸入', '不可作為前端、後端或 QA 的開發依據']) {
@@ -119,6 +135,8 @@ assert(siteCss.includes('--annotation: #478eff'), '畫面示意編號應使用�
 assert(siteCss.includes('width: 100%;\n    max-width: none;'), '規格內文應填滿目錄以外的主欄寬度')
 assert(siteCss.includes('.readiness-summary-grid'), '規格網站缺少完成度摘要樣式')
 assert(siteCss.includes('.readiness-badge.readiness-missing'), '規格網站缺少完成度評級樣式')
+assert(siteCss.includes('.reconciliation-columns'), '規格網站缺少三層校準欄位樣式')
+assert(siteCss.includes('.reconciliation-state-attention'), '規格網站缺少校準狀態樣式')
 
 const indexHtml = await readFile(path.join(outputRoot, 'index.html'), 'utf8')
 for (const relativeAsset of ['assets/site.css', 'assets/search-index.js', 'assets/site.js']) {

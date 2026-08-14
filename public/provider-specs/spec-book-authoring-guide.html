@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.2.0-authoring-baseline</span>
-            <span class="topbar-status">Authoring Format Confirmed · Content Draft</span>
+            <span>0.3.0-scope-freeze</span>
+            <span class="topbar-status">Authoring Format Confirmed · Phase 1 Scope Frozen</span>
         </div>
     </header>
 
@@ -184,27 +184,27 @@
                 <a href="ggap-integration-module.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>模組總覽</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="ggap-overview.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>對接總覽</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="ggap-catalog-sync.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>遊戲目錄同步</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="ggap-requests.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>請求與回呼紀錄</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="ggap-errors.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>錯誤與重試</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="ggap-settings.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>對接設定</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a>
             </div>
         </details>
@@ -215,15 +215,15 @@
                 <a href="notifications-module.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>模組總覽</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="notifications.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>全部通知</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="notification-preferences.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>通知偏好</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a>
             </div>
         </details>
@@ -277,23 +277,23 @@
                 <a href="system-settings-module.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>模組總覽</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="settings-overview.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>設定總覽</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="settings-permissions.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>使用者與權限</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="settings-api-keys.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>API key 與憑證</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="settings-audit-logs.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>操作紀錄</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a>
             </div>
         </details>
@@ -370,6 +370,7 @@
                     </div>
                     <div class="page-status-stack">
                         <span class="status-badge status-confirmed">已確認</span>
+
 
                     </div>
                 </header>
@@ -558,13 +559,39 @@ F  撰寫與交接規範
 <td>否</td>
 </tr>
 </tbody></table></div>
-<h3 id="4-2-原型成熟度必須獨立管理">4.2 原型成熟度必須獨立管理</h3><p>可另設 <code>complete</code>、<code>partial</code>、<code>placeholder</code> 等原型狀態，但不可用它取代規格成熟度。常見組合包括：</p>
+<h3 id="4-2-製作範圍必須獨立管理">4.2 製作範圍必須獨立管理</h3><p>規格成熟度回答「內容確認到什麼程度」，製作範圍回答「目前是否排入整理」。建議至少使用：</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>範圍</th>
+<th>定義</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>baseline</code></td>
+<td>已完成完整試作，作為後續頁面的撰寫與審閱標準</td>
+</tr>
+<tr>
+<td><code>active</code></td>
+<td>納入目前規格完善範圍</td>
+</tr>
+<tr>
+<td><code>deferred</code></td>
+<td>必要規格或產品決策未完成；只保留延後說明</td>
+</tr>
+<tr>
+<td><code>blocked</code></td>
+<td>已開始整理，但遇到明確且無法繞過的阻擋</td>
+</tr>
+</tbody></table></div>
+<p>Deferred 不等於 TBD：前者是排程狀態，後者是內容成熟度。延後頁面不應保留看似完整的空白規格骨架，只需說明原因、重新啟動所需輸入，以及目前不可作為開發依據。</p>
+<h3 id="4-3-原型成熟度必須獨立管理">4.3 原型成熟度必須獨立管理</h3><p>可另設 <code>complete</code>、<code>partial</code>、<code>placeholder</code> 等原型狀態，但不可用它取代規格成熟度。常見組合包括：</p>
 <ul>
 <li>畫面已完成、規格仍為 Draft：只能視為互動原型，不可推定正式 API。</li>
 <li>畫面為 Placeholder、規格已 Confirmed：可開始實作，但 UI 尚未完成。</li>
 <li>畫面與規格皆完成：仍需通過驗收與整合測試。</li>
 </ul>
-<h3 id="4-3-文件優先級">4.3 文件優先級</h3><p>每個專案應明確定義衝突時的判斷順序。建議預設為：</p>
+<h3 id="4-4-文件優先級">4.4 文件優先級</h3><p>每個專案應明確定義衝突時的判斷順序。建議預設為：</p>
 <ol>
 <li>最新核准的產品決策與 Confirmed 規格。</li>
 <li>最新平台或跨系統整合契約。</li>
@@ -1003,6 +1030,7 @@ F  撰寫與交接規範
 | 項目 | 內容 |
 | --- | --- |
 | 規格成熟度 | Draft／Confirmed |
+| 製作範圍 | Baseline／Active／Deferred／Blocked |
 | 對應路由 | `/{route}` |
 | 前端元件 | `src/.../{Component}.vue` |
 | 主要來源 | `{SOURCE_SPEC}.md` |
@@ -1156,6 +1184,7 @@ F  撰寫與交接規範
 <li><input disabled="" type="checkbox"> 可維護來源與產生後輸出的區別。</li>
 <li><input disabled="" type="checkbox"> 集中索引、內容來源、樣式、互動與 build script 的位置。</li>
 <li><input disabled="" type="checkbox"> 規格狀態與原型狀態的差異。</li>
+<li><input disabled="" type="checkbox"> 規格成熟度與製作範圍的差異。</li>
 <li><input disabled="" type="checkbox"> 文件優先級與正式決策流程。</li>
 <li><input disabled="" type="checkbox"> 共通規則、頁面規格、資料字典、enum 與 TBD 清單的位置。</li>
 <li><input disabled="" type="checkbox"> 如何新增頁面與 Overview 畫面示意。</li>
@@ -1167,7 +1196,7 @@ F  撰寫與交接規範
 <h2 id="18-移植至其他專案">18. 移植至其他專案</h2><p>最小移植步驟：</p>
 <ol>
 <li>複製本文件作為新專案的規格治理基準。</li>
-<li>建立集中索引，先列出模組、頁面、route、元件與成熟度。</li>
+<li>建立集中索引，先列出模組、頁面、route、元件、成熟度與製作範圍。</li>
 <li>建立文件治理、產品定位、責任邊界、共通規則與 TBD 清單。</li>
 <li>選擇最複雜且具代表性的頁面作為 pilot。</li>
 <li>完成 pilot 的 Overview、完整頁面規格、API 草案與驗收條件。</li>
@@ -1267,7 +1296,7 @@ npm run build
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#1-目標與使用方式">1. 目標與使用方式</a><a class="outline-level-2" href="#2-核心原則">2. 核心原則</a><a class="outline-level-3" href="#2-1-單一可維護來源-多種閱讀輸出">2.1 單一可維護來源，多種閱讀輸出</a><a class="outline-level-3" href="#2-2-overview-first">2.2 Overview first</a><a class="outline-level-3" href="#2-3-畫面-資料契約與-mock-分離">2.3 畫面、資料契約與 Mock 分離</a><a class="outline-level-3" href="#2-4-共通規則只定義一次">2.4 共通規則只定義一次</a><a class="outline-level-3" href="#2-5-每個未決事項都必須可管理">2.5 每個未決事項都必須可管理</a><a class="outline-level-2" href="#3-規格書的資訊架構">3. 規格書的資訊架構</a><a class="outline-level-3" href="#3-1-建議章節樹">3.1 建議章節樹</a><a class="outline-level-2" href="#4-文件狀態與成熟度">4. 文件狀態與成熟度</a><a class="outline-level-3" href="#4-1-規格成熟度">4.1 規格成熟度</a><a class="outline-level-3" href="#4-2-原型成熟度必須獨立管理">4.2 原型成熟度必須獨立管理</a><a class="outline-level-3" href="#4-3-文件優先級">4.3 文件優先級</a><a class="outline-level-2" href="#5-規格網站內容頁版型">5. 規格網站內容頁版型</a><a class="outline-level-3" href="#5-1-頁面由上至下的固定順序">5.1 頁面由上至下的固定順序</a><a class="outline-level-3" href="#5-2-寬度與閱讀密度">5.2 寬度與閱讀密度</a><a class="outline-level-2" href="#6-頁面畫面示意規範">6. 頁面畫面示意規範</a><a class="outline-level-3" href="#6-1-使用-html-css-而非只依賴截圖">6.1 使用 HTML／CSS，而非只依賴截圖</a><a class="outline-level-3" href="#6-2-擬真原則">6.2 擬真原則</a><a class="outline-level-3" href="#6-3-互動與響應式">6.3 互動與響應式</a><a class="outline-level-3" href="#6-4-標註色">6.4 標註色</a><a class="outline-level-2" href="#7-單一頁面規格的內容模型">7. 單一頁面規格的內容模型</a><a class="outline-level-2" href="#8-各類規格的寫法">8. 各類規格的寫法</a><a class="outline-level-3" href="#8-1-欄位定義">8.1 欄位定義</a><a class="outline-level-3" href="#8-2-查詢-排序與分頁">8.2 查詢、排序與分頁</a><a class="outline-level-3" href="#8-3-金額-比率與計算">8.3 金額、比率與計算</a><a class="outline-level-3" href="#8-4-日期與時間">8.4 日期與時間</a><a class="outline-level-3" href="#8-5-狀態與錯誤">8.5 狀態與錯誤</a><a class="outline-level-3" href="#8-6-匯出">8.6 匯出</a><a class="outline-level-3" href="#8-7-api-契約">8.7 API 契約</a><a class="outline-level-2" href="#9-驗收條件與完成定義">9. 驗收條件與完成定義</a><a class="outline-level-3" href="#9-1-驗收條件的分類">9.1 驗收條件的分類</a><a class="outline-level-3" href="#9-2-好的驗收條件">9.2 好的驗收條件</a><a class="outline-level-3" href="#9-3-規格完成定義">9.3 規格完成定義</a><a class="outline-level-2" href="#10-文字-格式與命名規則">10. 文字、格式與命名規則</a><a class="outline-level-3" href="#10-1-語言">10.1 語言</a><a class="outline-level-3" href="#10-2-敘述方式">10.2 敘述方式</a><a class="outline-level-3" href="#10-3-標題與-anchor">10.3 標題與 anchor</a><a class="outline-level-2" href="#11-響應式-可存取性與列印">11. 響應式、可存取性與列印</a><a class="outline-level-3" href="#11-1-desktop">11.1 Desktop</a><a class="outline-level-3" href="#11-2-mobile">11.2 Mobile</a><a class="outline-level-3" href="#11-3-可存取性">11.3 可存取性</a><a class="outline-level-3" href="#11-4-列印與離線">11.4 列印與離線</a><a class="outline-level-2" href="#12-維護流程">12. 維護流程</a><a class="outline-level-3" href="#12-1-新增或整理一個頁面">12.1 新增或整理一個頁面</a><a class="outline-level-3" href="#12-2-正式決策變更">12.2 正式決策變更</a><a class="outline-level-3" href="#12-3-不再適用的內容">12.3 不再適用的內容</a><a class="outline-level-2" href="#13-自動化與品質檢查">13. 自動化與品質檢查</a><a class="outline-level-2" href="#14-可複製的頁面規格模板">14. 可複製的頁面規格模板</a><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與使用情境">1. 目的與使用情境</a><a class="outline-level-2" href="#2-範圍與責任邊界">2. 範圍與責任邊界</a><a class="outline-level-3" href="#2-1-本頁包含">2.1 本頁包含</a><a class="outline-level-3" href="#2-2-本頁不包含">2.2 本頁不包含</a><a class="outline-level-3" href="#2-3-資料可見性與權限原則">2.3 資料可見性與權限原則</a><a class="outline-level-2" href="#3-名詞與計算口徑">3. 名詞與計算口徑</a><a class="outline-level-2" href="#4-資訊架構與頁面區塊">4. 資訊架構與頁面區塊</a><a class="outline-level-2" href="#5-查詢-輸入條件-適用時">5. 查詢／輸入條件（適用時）</a><a class="outline-level-2" href="#6-主要內容-列表-圖表規格">6. 主要內容／列表／圖表規格</a><a class="outline-level-2" href="#7-單筆明細或操作流程-適用時">7. 單筆明細或操作流程（適用時）</a><a class="outline-level-2" href="#8-狀態模型-適用時">8. 狀態模型（適用時）</a><a class="outline-level-2" href="#9-匯出規格-適用時">9. 匯出規格（適用時）</a><a class="outline-level-2" href="#10-api-契約">10. API 契約</a><a class="outline-level-2" href="#11-頁面狀態與錯誤處理">11. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#12-響應式與可存取性">12. 響應式與可存取性</a><a class="outline-level-2" href="#13-前端實作要求">13. 前端實作要求</a><a class="outline-level-2" href="#14-後端實作要求">14. 後端實作要求</a><a class="outline-level-2" href="#15-整合與資料一致性-適用時">15. 整合與資料一致性（適用時）</a><a class="outline-level-2" href="#16-驗收條件">16. 驗收條件</a><a class="outline-level-3" href="#16-1-功能驗收">16.1 功能驗收</a><a class="outline-level-3" href="#16-2-權限與隔離驗收">16.2 權限與隔離驗收</a><a class="outline-level-3" href="#16-3-體驗與可存取性驗收">16.3 體驗與可存取性驗收</a><a class="outline-level-3" href="#16-4-技術驗收">16.4 技術驗收</a><a class="outline-level-2" href="#17-測試情境清單">17. 測試情境清單</a><a class="outline-level-2" href="#18-待確認事項">18. 待確認事項</a><a class="outline-level-2" href="#19-規格完成條件">19. 規格完成條件</a><a class="outline-level-2" href="#15-可複製的集中索引資料模型">15. 可複製的集中索引資料模型</a><a class="outline-level-2" href="#16-常見反模式">16. 常見反模式</a><a class="outline-level-2" href="#17-交接清單">17. 交接清單</a><a class="outline-level-2" href="#18-移植至其他專案">18. 移植至其他專案</a><a class="outline-level-2" href="#19-provider-portal-專案接續方式">19. Provider Portal 專案接續方式</a><a class="outline-level-3" href="#19-1-檔案位置">19.1 檔案位置</a><a class="outline-level-3" href="#19-2-指令">19.2 指令</a><a class="outline-level-3" href="#19-3-已定版的閱讀介面">19.3 已定版的閱讀介面</a><a class="outline-level-3" href="#19-4-專案特有規則">19.4 專案特有規則</a><a class="outline-level-2" href="#20-最終原則">20. 最終原則</a></nav>
+        <nav><a class="outline-level-2" href="#1-目標與使用方式">1. 目標與使用方式</a><a class="outline-level-2" href="#2-核心原則">2. 核心原則</a><a class="outline-level-3" href="#2-1-單一可維護來源-多種閱讀輸出">2.1 單一可維護來源，多種閱讀輸出</a><a class="outline-level-3" href="#2-2-overview-first">2.2 Overview first</a><a class="outline-level-3" href="#2-3-畫面-資料契約與-mock-分離">2.3 畫面、資料契約與 Mock 分離</a><a class="outline-level-3" href="#2-4-共通規則只定義一次">2.4 共通規則只定義一次</a><a class="outline-level-3" href="#2-5-每個未決事項都必須可管理">2.5 每個未決事項都必須可管理</a><a class="outline-level-2" href="#3-規格書的資訊架構">3. 規格書的資訊架構</a><a class="outline-level-3" href="#3-1-建議章節樹">3.1 建議章節樹</a><a class="outline-level-2" href="#4-文件狀態與成熟度">4. 文件狀態與成熟度</a><a class="outline-level-3" href="#4-1-規格成熟度">4.1 規格成熟度</a><a class="outline-level-3" href="#4-2-製作範圍必須獨立管理">4.2 製作範圍必須獨立管理</a><a class="outline-level-3" href="#4-3-原型成熟度必須獨立管理">4.3 原型成熟度必須獨立管理</a><a class="outline-level-3" href="#4-4-文件優先級">4.4 文件優先級</a><a class="outline-level-2" href="#5-規格網站內容頁版型">5. 規格網站內容頁版型</a><a class="outline-level-3" href="#5-1-頁面由上至下的固定順序">5.1 頁面由上至下的固定順序</a><a class="outline-level-3" href="#5-2-寬度與閱讀密度">5.2 寬度與閱讀密度</a><a class="outline-level-2" href="#6-頁面畫面示意規範">6. 頁面畫面示意規範</a><a class="outline-level-3" href="#6-1-使用-html-css-而非只依賴截圖">6.1 使用 HTML／CSS，而非只依賴截圖</a><a class="outline-level-3" href="#6-2-擬真原則">6.2 擬真原則</a><a class="outline-level-3" href="#6-3-互動與響應式">6.3 互動與響應式</a><a class="outline-level-3" href="#6-4-標註色">6.4 標註色</a><a class="outline-level-2" href="#7-單一頁面規格的內容模型">7. 單一頁面規格的內容模型</a><a class="outline-level-2" href="#8-各類規格的寫法">8. 各類規格的寫法</a><a class="outline-level-3" href="#8-1-欄位定義">8.1 欄位定義</a><a class="outline-level-3" href="#8-2-查詢-排序與分頁">8.2 查詢、排序與分頁</a><a class="outline-level-3" href="#8-3-金額-比率與計算">8.3 金額、比率與計算</a><a class="outline-level-3" href="#8-4-日期與時間">8.4 日期與時間</a><a class="outline-level-3" href="#8-5-狀態與錯誤">8.5 狀態與錯誤</a><a class="outline-level-3" href="#8-6-匯出">8.6 匯出</a><a class="outline-level-3" href="#8-7-api-契約">8.7 API 契約</a><a class="outline-level-2" href="#9-驗收條件與完成定義">9. 驗收條件與完成定義</a><a class="outline-level-3" href="#9-1-驗收條件的分類">9.1 驗收條件的分類</a><a class="outline-level-3" href="#9-2-好的驗收條件">9.2 好的驗收條件</a><a class="outline-level-3" href="#9-3-規格完成定義">9.3 規格完成定義</a><a class="outline-level-2" href="#10-文字-格式與命名規則">10. 文字、格式與命名規則</a><a class="outline-level-3" href="#10-1-語言">10.1 語言</a><a class="outline-level-3" href="#10-2-敘述方式">10.2 敘述方式</a><a class="outline-level-3" href="#10-3-標題與-anchor">10.3 標題與 anchor</a><a class="outline-level-2" href="#11-響應式-可存取性與列印">11. 響應式、可存取性與列印</a><a class="outline-level-3" href="#11-1-desktop">11.1 Desktop</a><a class="outline-level-3" href="#11-2-mobile">11.2 Mobile</a><a class="outline-level-3" href="#11-3-可存取性">11.3 可存取性</a><a class="outline-level-3" href="#11-4-列印與離線">11.4 列印與離線</a><a class="outline-level-2" href="#12-維護流程">12. 維護流程</a><a class="outline-level-3" href="#12-1-新增或整理一個頁面">12.1 新增或整理一個頁面</a><a class="outline-level-3" href="#12-2-正式決策變更">12.2 正式決策變更</a><a class="outline-level-3" href="#12-3-不再適用的內容">12.3 不再適用的內容</a><a class="outline-level-2" href="#13-自動化與品質檢查">13. 自動化與品質檢查</a><a class="outline-level-2" href="#14-可複製的頁面規格模板">14. 可複製的頁面規格模板</a><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與使用情境">1. 目的與使用情境</a><a class="outline-level-2" href="#2-範圍與責任邊界">2. 範圍與責任邊界</a><a class="outline-level-3" href="#2-1-本頁包含">2.1 本頁包含</a><a class="outline-level-3" href="#2-2-本頁不包含">2.2 本頁不包含</a><a class="outline-level-3" href="#2-3-資料可見性與權限原則">2.3 資料可見性與權限原則</a><a class="outline-level-2" href="#3-名詞與計算口徑">3. 名詞與計算口徑</a><a class="outline-level-2" href="#4-資訊架構與頁面區塊">4. 資訊架構與頁面區塊</a><a class="outline-level-2" href="#5-查詢-輸入條件-適用時">5. 查詢／輸入條件（適用時）</a><a class="outline-level-2" href="#6-主要內容-列表-圖表規格">6. 主要內容／列表／圖表規格</a><a class="outline-level-2" href="#7-單筆明細或操作流程-適用時">7. 單筆明細或操作流程（適用時）</a><a class="outline-level-2" href="#8-狀態模型-適用時">8. 狀態模型（適用時）</a><a class="outline-level-2" href="#9-匯出規格-適用時">9. 匯出規格（適用時）</a><a class="outline-level-2" href="#10-api-契約">10. API 契約</a><a class="outline-level-2" href="#11-頁面狀態與錯誤處理">11. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#12-響應式與可存取性">12. 響應式與可存取性</a><a class="outline-level-2" href="#13-前端實作要求">13. 前端實作要求</a><a class="outline-level-2" href="#14-後端實作要求">14. 後端實作要求</a><a class="outline-level-2" href="#15-整合與資料一致性-適用時">15. 整合與資料一致性（適用時）</a><a class="outline-level-2" href="#16-驗收條件">16. 驗收條件</a><a class="outline-level-3" href="#16-1-功能驗收">16.1 功能驗收</a><a class="outline-level-3" href="#16-2-權限與隔離驗收">16.2 權限與隔離驗收</a><a class="outline-level-3" href="#16-3-體驗與可存取性驗收">16.3 體驗與可存取性驗收</a><a class="outline-level-3" href="#16-4-技術驗收">16.4 技術驗收</a><a class="outline-level-2" href="#17-測試情境清單">17. 測試情境清單</a><a class="outline-level-2" href="#18-待確認事項">18. 待確認事項</a><a class="outline-level-2" href="#19-規格完成條件">19. 規格完成條件</a><a class="outline-level-2" href="#15-可複製的集中索引資料模型">15. 可複製的集中索引資料模型</a><a class="outline-level-2" href="#16-常見反模式">16. 常見反模式</a><a class="outline-level-2" href="#17-交接清單">17. 交接清單</a><a class="outline-level-2" href="#18-移植至其他專案">18. 移植至其他專案</a><a class="outline-level-2" href="#19-provider-portal-專案接續方式">19. Provider Portal 專案接續方式</a><a class="outline-level-3" href="#19-1-檔案位置">19.1 檔案位置</a><a class="outline-level-3" href="#19-2-指令">19.2 指令</a><a class="outline-level-3" href="#19-3-已定版的閱讀介面">19.3 已定版的閱讀介面</a><a class="outline-level-3" href="#19-4-專案特有規則">19.4 專案特有規則</a><a class="outline-level-2" href="#20-最終原則">20. 最終原則</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -1278,7 +1307,7 @@ npm run build
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.2.0-authoring-baseline · 2026-08-14</span>
+                    <span>0.3.0-scope-freeze · 2026-08-14</span>
                 </footer>
             </div>
         </main>

@@ -1,10 +1,10 @@
 export const book = {
     title: 'Provider Portal 產品與系統規格書',
     shortTitle: 'Provider Portal Specs',
-    version: '0.2.0-authoring-baseline',
+    version: '0.3.0-scope-freeze',
     updatedAt: '2026-08-14',
     owner: 'Provider Portal Product / Engineering',
-    status: 'Authoring Format Confirmed · Content Draft',
+    status: 'Authoring Format Confirmed · Phase 1 Scope Frozen',
     description: '供產品、前端、後端、QA 與 GGAP 對接團隊共同使用的 Provider Portal 規格入口。',
 }
 
@@ -13,6 +13,13 @@ export const statusLabels = {
     draft: { label: '草案', tone: 'draft' },
     outline: { label: '待整理', tone: 'outline' },
     tbd: { label: '待決策', tone: 'tbd' },
+}
+
+export const scopeLabels = {
+    baseline: { label: '基準範本', shortLabel: 'BASELINE', tone: 'baseline' },
+    active: { label: '本輪製作', shortLabel: 'ACTIVE', tone: 'active' },
+    deferred: { label: '延後製作', shortLabel: 'DEFERRED', tone: 'deferred' },
+    blocked: { label: '受阻', shortLabel: 'BLOCKED', tone: 'blocked' },
 }
 
 export const foundation = [
@@ -97,6 +104,7 @@ export const modules = [
                 'docs/PROVIDER_PORTAL_UI_LAYOUT_SPEC.md',
             ], {
                 status: 'draft',
+                scope: 'baseline',
                 content: 'content/modules/data-and-reporting/game-round-records.md',
                 pilot: true,
                 visualAtTop: true,
@@ -141,11 +149,11 @@ export const modules = [
         title: 'GGAP 對接',
         summary: 'Provider 與 GGAP 的連線、同步、請求、錯誤、重試及憑證。',
         pages: [
-            page('ggap-overview', '對接總覽', '/ggap', 'src/views/Provider/Placeholder.vue', 'placeholder', ['docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md']),
-            page('ggap-catalog-sync', '遊戲目錄同步', '/ggap/catalog-sync', 'src/views/Provider/Placeholder.vue', 'placeholder', ['docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md']),
-            page('ggap-requests', '請求與回呼紀錄', '/ggap/requests', 'src/views/Provider/Placeholder.vue', 'placeholder', ['docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md']),
-            page('ggap-errors', '錯誤與重試', '/ggap/errors', 'src/views/Provider/Placeholder.vue', 'placeholder', ['docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md']),
-            page('ggap-settings', '對接設定', '/ggap/settings', 'src/views/Provider/Placeholder.vue', 'placeholder', ['docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md']),
+            deferredPage('ggap-overview', '對接總覽', '/ggap', 'src/views/Provider/Placeholder.vue', 'placeholder', ['docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md'], '等待取得並整合 GGAP 現行正式規格。', ['GGAP 現行系統與產品規格', 'Provider／GGAP 最新責任與資料邊界', '正式 API、認證、簽章、狀態與錯誤契約']),
+            deferredPage('ggap-catalog-sync', '遊戲目錄同步', '/ggap/catalog-sync', 'src/views/Provider/Placeholder.vue', 'placeholder', ['docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md'], '等待取得並整合 GGAP 現行正式規格。', ['遊戲目錄同步方向與觸發時機', '上架狀態與代理商開放控制契約', '同步差異、冪等與重試規則']),
+            deferredPage('ggap-requests', '請求與回呼紀錄', '/ggap/requests', 'src/views/Provider/Placeholder.vue', 'placeholder', ['docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md'], '等待取得並整合 GGAP 現行正式規格。', ['請求與 Callback 類型', '識別碼、ACK、保存與查詢規則', '敏感資料遮罩與檢視權限']),
+            deferredPage('ggap-errors', '錯誤與重試', '/ggap/errors', 'src/views/Provider/Placeholder.vue', 'placeholder', ['docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md'], '等待取得並整合 GGAP 現行正式規格。', ['正式錯誤碼與可重試語意', '重試、補送、冪等與告警規則', '人工處理權限與稽核要求']),
+            deferredPage('ggap-settings', '對接設定', '/ggap/settings', 'src/views/Provider/Placeholder.vue', 'placeholder', ['docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md'], '等待取得並整合 GGAP 現行正式規格。', ['環境、端點與認證模型', '憑證生命週期與輪替責任', '設定權限、驗證與稽核要求']),
         ],
     },
     {
@@ -154,8 +162,8 @@ export const modules = [
         title: '通知中心',
         summary: 'Provider 站內通知、已讀狀態與使用者偏好。',
         pages: [
-            page('notifications', '全部通知', '/notifications', 'src/views/Provider/Placeholder.vue', 'placeholder', ['docs/NOTIFICATION_SPEC.md']),
-            page('notification-preferences', '通知偏好', '/notifications/preferences', 'src/views/Provider/Placeholder.vue', 'placeholder', ['docs/NOTIFICATION_SPEC.md']),
+            deferredPage('notifications', '全部通知', '/notifications', 'src/views/Provider/Placeholder.vue', 'placeholder', ['docs/NOTIFICATION_SPEC.md'], '通知中心的產品內容與行為尚未完成。', ['通知類型、來源與優先級', '已讀、封存與保留週期', '通知檢視權限與跨頁導流規則']),
+            deferredPage('notification-preferences', '通知偏好', '/notifications/preferences', 'src/views/Provider/Placeholder.vue', 'placeholder', ['docs/NOTIFICATION_SPEC.md'], '通知中心的產品內容與行為尚未完成。', ['可設定的通知類型與管道', '預設值、繼承與停用限制', '偏好設定權限及生效時機']),
         ],
     },
     {
@@ -180,10 +188,10 @@ export const modules = [
         title: '系統設定',
         summary: 'Provider 使用者、角色、憑證與操作稽核。',
         pages: [
-            page('settings-overview', '設定總覽', '/settings', 'src/views/Settings/Index.vue', 'complete', ['docs/PROVIDER_PORTAL_PAGE_MAP.md']),
-            page('settings-permissions', '使用者與權限', '/settings/permissions', 'src/views/Settings/Permissions.vue', 'complete', ['docs/PROVIDER_PORTAL_PAGE_MAP.md']),
-            page('settings-api-keys', 'API key 與憑證', '/settings/api-keys', 'src/views/Settings/ApiKeys.vue', 'complete', ['docs/PROVIDER_PORTAL_PAGE_MAP.md']),
-            page('settings-audit-logs', '操作紀錄', '/system/logs', 'src/views/System/Logs.vue', 'complete', ['docs/PROVIDER_PORTAL_PAGE_MAP.md']),
+            deferredPage('settings-overview', '設定總覽', '/settings', 'src/views/Settings/Index.vue', 'complete', ['docs/PROVIDER_PORTAL_PAGE_MAP.md'], '系統設定的產品內容與權限模型尚未完成。', ['系統設定資訊架構', 'Provider 使用者與角色模型', '設定項目責任方與安全等級']),
+            deferredPage('settings-permissions', '使用者與權限', '/settings/permissions', 'src/views/Settings/Permissions.vue', 'complete', ['docs/PROVIDER_PORTAL_PAGE_MAP.md'], '系統設定的產品內容與權限模型尚未完成。', ['Provider 使用者生命週期', '角色、permission key 與資料 scope', '高風險操作的授權與稽核規則']),
+            deferredPage('settings-api-keys', 'API key 與憑證', '/settings/api-keys', 'src/views/Settings/ApiKeys.vue', 'complete', ['docs/PROVIDER_PORTAL_PAGE_MAP.md'], '系統設定的憑證管理規則尚未完成。', ['API key／憑證的用途與擁有者', '建立、顯示、輪替、撤銷與到期規則', '秘密資料遮罩、存放與操作稽核']),
+            deferredPage('settings-audit-logs', '操作紀錄', '/system/logs', 'src/views/System/Logs.vue', 'complete', ['docs/PROVIDER_PORTAL_PAGE_MAP.md'], '系統設定的操作稽核規則尚未完成。', ['稽核事件範圍與欄位', '保存期限、查詢、匯出與遮罩規則', '操作紀錄檢視權限']),
         ],
     },
 ]
@@ -212,10 +220,20 @@ function page(id, title, route, component, prototype, sources, overrides = {}) {
         component,
         prototype,
         status: 'outline',
+        scope: 'active',
         summary: prototype === 'complete' ? '已有內容原型；正式資料契約仍待整理。' : '目前使用 Placeholder；等待內容與契約整理。',
         sources,
         ...overrides,
     }
+}
+
+function deferredPage(id, title, route, component, prototype, sources, deferredReason, requiredInputs) {
+    return page(id, title, route, component, prototype, sources, {
+        scope: 'deferred',
+        summary: '本輪延後製作；等待必要規格與產品決策補齊。',
+        deferredReason,
+        requiredInputs,
+    })
 }
 
 function section(id, number, title, summary, content) {

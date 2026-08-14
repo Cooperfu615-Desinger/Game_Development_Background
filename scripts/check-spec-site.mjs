@@ -1,7 +1,7 @@
 import { access, readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { appendices, crossCutting, foundation, modules } from '../docs/spec-book/manifest.mjs'
+import { appendices, crossCutting, foundation, modules, scopeLabels } from '../docs/spec-book/manifest.mjs'
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url))
 const repositoryRoot = path.resolve(scriptDirectory, '..')
@@ -19,6 +19,12 @@ const failures = []
 assert(contentPages.length === 32, `內容頁應為 32，實際為 ${contentPages.length}`)
 assert(contentPages.filter((page) => page.prototype === 'complete').length === 24, '已有內容原型頁應為 24')
 assert(contentPages.filter((page) => page.prototype === 'placeholder').length === 8, 'Placeholder 頁應為 8')
+assert(contentPages.filter((page) => page.scope === 'baseline').length === 1, 'Baseline 頁應為 1')
+assert(contentPages.filter((page) => page.scope === 'active').length === 20, 'Active 頁應為 20')
+assert(contentPages.filter((page) => page.scope === 'deferred').length === 11, 'Deferred 頁應為 11')
+assert(contentPages.filter((page) => page.scope === 'blocked').length === 0, '目前不應有 Blocked 頁')
+assert(contentPages.every((page) => scopeLabels[page.scope]), '所有內容頁都必須使用已定義的製作範圍')
+assert(contentPages.find((page) => page.id === 'game-environments')?.scope === 'active', '環境與發布應保留為 Active')
 assert(new Set(expectedIds).size === expectedIds.length, '文件 ID 不可重複')
 
 for (const asset of ['assets/site.css', 'assets/site.js', 'assets/search-index.js']) {
@@ -76,8 +82,17 @@ assert(
 )
 
 const authoringGuideHtml = await readFile(path.join(outputRoot, 'spec-book-authoring-guide.html'), 'utf8')
-for (const requiredText of ['Overview first', '可複製的頁面規格模板', '移植至其他專案', 'Provider Portal 專案接續方式']) {
+for (const requiredText of ['Overview first', '製作範圍必須獨立管理', '可複製的頁面規格模板', '移植至其他專案', 'Provider Portal 專案接續方式']) {
     assert(authoringGuideHtml.includes(requiredText), `規格書撰寫與交接規範缺少必要內容：${requiredText}`)
+}
+
+for (const page of contentPages.filter((item) => item.scope === 'deferred')) {
+    const html = await readFile(path.join(outputRoot, `${page.id}.html`), 'utf8')
+    for (const requiredText of ['延後製作', '重新啟動前需要的輸入', '不可作為前端、後端或 QA 的開發依據']) {
+        assert(html.includes(requiredText), `${page.id} 缺少延後頁必要內容：${requiredText}`)
+    }
+    assert(!html.includes('後續完整章節骨架'), `${page.id} 不應顯示一般待整理骨架`)
+    assert(!html.includes('page-visual-overview'), `${page.id} 不應顯示頁面畫面示意`)
 }
 
 const siteCss = await readFile(path.join(outputRoot, 'assets/site.css'), 'utf8')

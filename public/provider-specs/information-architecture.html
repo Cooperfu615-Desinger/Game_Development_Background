@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.2.0-authoring-baseline</span>
-            <span class="topbar-status">Authoring Format Confirmed · Content Draft</span>
+            <span>0.3.0-scope-freeze</span>
+            <span class="topbar-status">Authoring Format Confirmed · Phase 1 Scope Frozen</span>
         </div>
     </header>
 
@@ -184,27 +184,27 @@
                 <a href="ggap-integration-module.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>模組總覽</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="ggap-overview.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>對接總覽</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="ggap-catalog-sync.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>遊戲目錄同步</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="ggap-requests.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>請求與回呼紀錄</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="ggap-errors.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>錯誤與重試</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="ggap-settings.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>對接設定</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a>
             </div>
         </details>
@@ -215,15 +215,15 @@
                 <a href="notifications-module.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>模組總覽</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="notifications.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>全部通知</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="notification-preferences.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>通知偏好</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a>
             </div>
         </details>
@@ -277,23 +277,23 @@
                 <a href="system-settings-module.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>模組總覽</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="settings-overview.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>設定總覽</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="settings-permissions.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>使用者與權限</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="settings-api-keys.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>API key 與憑證</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="settings-audit-logs.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>操作紀錄</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a>
             </div>
         </details>
@@ -371,6 +371,7 @@
                     <div class="page-status-stack">
                         <span class="status-badge status-draft">草案</span>
 
+
                     </div>
                 </header>
 
@@ -414,6 +415,42 @@
 <td><code>/website</code> 導向 <code>/website/banners</code>，不計入 32 個內容頁</td>
 </tr>
 </tbody></table></div>
+<h2 id="第一階段製作範圍-已凍結">第一階段製作範圍（已凍結）</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>製作範圍</th>
+<th align="right">數量</th>
+<th>頁面／模組</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Baseline</td>
+<td align="right">1</td>
+<td>遊戲紀錄</td>
+</tr>
+<tr>
+<td>Active</td>
+<td align="right">20</td>
+<td>儀表板 1、遊戲管理 6、遊戲商財務 2、遊戲監控與風控 3、官方網站與遊戲大廳 8</td>
+</tr>
+<tr>
+<td>Deferred</td>
+<td align="right">11</td>
+<td>GGAP 對接 5、通知中心 2、系統設定 4</td>
+</tr>
+<tr>
+<td>Blocked</td>
+<td align="right">0</td>
+<td>無</td>
+</tr>
+</tbody></table></div>
+<p>本輪共處理 21 頁，包含 1 頁 Baseline 與 20 頁 Active。Deferred 頁面只保留 route、程式追溯、延後原因、重新啟動所需輸入及「不可作為開發依據」聲明，不製作頁面畫面示意、欄位、互動、API、權限、狀態模型或驗收草案。</p>
+<h3 id="延後模組">延後模組</h3><ul>
+<li><strong>GGAP 對接</strong>：等待取得並整合 GGAP 現行正式規格。</li>
+<li><strong>通知中心</strong>：通知類型、生命週期、偏好及權限仍待產品定義。</li>
+<li><strong>系統設定</strong>：Provider 使用者、角色、權限、憑證與操作稽核模型仍待完成。</li>
+</ul>
+<h3 id="環境與發布的本輪邊界">環境與發布的本輪邊界</h3><p>「環境與發布」仍列為 Active，但本輪只整理 Provider 自有責任：Production／DEMO 環境、遊戲全域上架／下架、版本與素材發布、發布前驗證，以及發布狀態／歷程。GGAP 同步、各代理商個別開放、跨系統重試與正式整合契約只標示責任邊界與依賴，等待 GGAP 規格後補充，不得自行推定。</p>
 <h2 id="完整頁面矩陣">完整頁面矩陣</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
@@ -422,6 +459,7 @@
 <th>Route</th>
 <th>畫面現況</th>
 <th>規格狀態</th>
+<th>製作範圍</th>
 <th>前端元件</th>
 </tr>
 </thead>
@@ -431,6 +469,7 @@
 <td><code>/dashboard</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>本輪製作</td>
 <td><code>src/views/Provider/Dashboard.vue</code></td>
 </tr>
 <tr>
@@ -439,6 +478,7 @@
 <td><code>/games</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>本輪製作</td>
 <td><code>src/views/Games/Index.vue</code></td>
 </tr>
 <tr>
@@ -447,6 +487,7 @@
 <td><code>/games/environments</code></td>
 <td>Placeholder</td>
 <td>待整理</td>
+<td>本輪製作</td>
 <td><code>src/views/Provider/Placeholder.vue</code></td>
 </tr>
 <tr>
@@ -455,6 +496,7 @@
 <td><code>/games/settings</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>本輪製作</td>
 <td><code>src/views/Games/Settings.vue</code></td>
 </tr>
 <tr>
@@ -463,6 +505,7 @@
 <td><code>/games/math</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>本輪製作</td>
 <td><code>src/views/Games/Math.vue</code></td>
 </tr>
 <tr>
@@ -471,6 +514,7 @@
 <td><code>/games/versions</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>本輪製作</td>
 <td><code>src/views/Games/Versions.vue</code></td>
 </tr>
 <tr>
@@ -479,6 +523,7 @@
 <td><code>/games/assets</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>本輪製作</td>
 <td><code>src/views/Games/Assets.vue</code></td>
 </tr>
 <tr>
@@ -487,6 +532,7 @@
 <td><code>/reports</code></td>
 <td>內容原型</td>
 <td>草案</td>
+<td>基準範本</td>
 <td><code>src/views/Reports/ProviderGameRounds.vue</code></td>
 </tr>
 <tr>
@@ -495,6 +541,7 @@
 <td><code>/finance</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>本輪製作</td>
 <td><code>src/views/Finance/Overview.vue</code></td>
 </tr>
 <tr>
@@ -503,6 +550,7 @@
 <td><code>/finance/agent-games</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>本輪製作</td>
 <td><code>src/views/Finance/AgentGames.vue</code></td>
 </tr>
 <tr>
@@ -511,6 +559,7 @@
 <td><code>/monitoring</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>本輪製作</td>
 <td><code>src/views/Provider/MonitoringOverview.vue</code></td>
 </tr>
 <tr>
@@ -519,6 +568,7 @@
 <td><code>/monitoring/risk-reports</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>本輪製作</td>
 <td><code>src/views/Provider/RiskReports.vue</code></td>
 </tr>
 <tr>
@@ -527,6 +577,7 @@
 <td><code>/monitoring/alerts</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>本輪製作</td>
 <td><code>src/views/Provider/RiskAlerts.vue</code></td>
 </tr>
 <tr>
@@ -535,6 +586,7 @@
 <td><code>/ggap</code></td>
 <td>Placeholder</td>
 <td>待整理</td>
+<td>延後製作</td>
 <td><code>src/views/Provider/Placeholder.vue</code></td>
 </tr>
 <tr>
@@ -543,6 +595,7 @@
 <td><code>/ggap/catalog-sync</code></td>
 <td>Placeholder</td>
 <td>待整理</td>
+<td>延後製作</td>
 <td><code>src/views/Provider/Placeholder.vue</code></td>
 </tr>
 <tr>
@@ -551,6 +604,7 @@
 <td><code>/ggap/requests</code></td>
 <td>Placeholder</td>
 <td>待整理</td>
+<td>延後製作</td>
 <td><code>src/views/Provider/Placeholder.vue</code></td>
 </tr>
 <tr>
@@ -559,6 +613,7 @@
 <td><code>/ggap/errors</code></td>
 <td>Placeholder</td>
 <td>待整理</td>
+<td>延後製作</td>
 <td><code>src/views/Provider/Placeholder.vue</code></td>
 </tr>
 <tr>
@@ -567,6 +622,7 @@
 <td><code>/ggap/settings</code></td>
 <td>Placeholder</td>
 <td>待整理</td>
+<td>延後製作</td>
 <td><code>src/views/Provider/Placeholder.vue</code></td>
 </tr>
 <tr>
@@ -575,6 +631,7 @@
 <td><code>/notifications</code></td>
 <td>Placeholder</td>
 <td>待整理</td>
+<td>延後製作</td>
 <td><code>src/views/Provider/Placeholder.vue</code></td>
 </tr>
 <tr>
@@ -583,6 +640,7 @@
 <td><code>/notifications/preferences</code></td>
 <td>Placeholder</td>
 <td>待整理</td>
+<td>延後製作</td>
 <td><code>src/views/Provider/Placeholder.vue</code></td>
 </tr>
 <tr>
@@ -591,6 +649,7 @@
 <td><code>/website/banners</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>本輪製作</td>
 <td><code>src/views/GameWebsite/Banners.vue</code></td>
 </tr>
 <tr>
@@ -599,6 +658,7 @@
 <td><code>/website/content</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>本輪製作</td>
 <td><code>src/views/GameWebsite/Content.vue</code></td>
 </tr>
 <tr>
@@ -607,6 +667,7 @@
 <td><code>/website/releases</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>本輪製作</td>
 <td><code>src/views/GameWebsite/Releases.vue</code></td>
 </tr>
 <tr>
@@ -615,6 +676,7 @@
 <td><code>/lobby</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>本輪製作</td>
 <td><code>src/views/GameLobby/Overview.vue</code></td>
 </tr>
 <tr>
@@ -623,6 +685,7 @@
 <td><code>/lobby/games</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>本輪製作</td>
 <td><code>src/views/GameLobby/Games.vue</code></td>
 </tr>
 <tr>
@@ -631,6 +694,7 @@
 <td><code>/lobby/management</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>本輪製作</td>
 <td><code>src/views/GameLobby/Management.vue</code></td>
 </tr>
 <tr>
@@ -639,6 +703,7 @@
 <td><code>/lobby/demo</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>本輪製作</td>
 <td><code>src/views/GameLobby/DemoData.vue</code></td>
 </tr>
 <tr>
@@ -647,6 +712,7 @@
 <td><code>/lobby/preview</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>本輪製作</td>
 <td><code>src/views/GameLobby/Preview.vue</code></td>
 </tr>
 <tr>
@@ -655,6 +721,7 @@
 <td><code>/settings</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>延後製作</td>
 <td><code>src/views/Settings/Index.vue</code></td>
 </tr>
 <tr>
@@ -663,6 +730,7 @@
 <td><code>/settings/permissions</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>延後製作</td>
 <td><code>src/views/Settings/Permissions.vue</code></td>
 </tr>
 <tr>
@@ -671,6 +739,7 @@
 <td><code>/settings/api-keys</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>延後製作</td>
 <td><code>src/views/Settings/ApiKeys.vue</code></td>
 </tr>
 <tr>
@@ -679,6 +748,7 @@
 <td><code>/system/logs</code></td>
 <td>內容原型</td>
 <td>待整理</td>
+<td>延後製作</td>
 <td><code>src/views/System/Logs.vue</code></td>
 </tr>
 </tbody></table></div>
@@ -687,7 +757,7 @@
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#導覽原則">導覽原則</a><a class="outline-level-2" href="#目前頁面成熟度">目前頁面成熟度</a><a class="outline-level-2" href="#完整頁面矩陣">完整頁面矩陣</a><a class="outline-level-2" href="#舊-route-邊界">舊 route 邊界</a></nav>
+        <nav><a class="outline-level-2" href="#導覽原則">導覽原則</a><a class="outline-level-2" href="#目前頁面成熟度">目前頁面成熟度</a><a class="outline-level-2" href="#第一階段製作範圍-已凍結">第一階段製作範圍（已凍結）</a><a class="outline-level-3" href="#延後模組">延後模組</a><a class="outline-level-3" href="#環境與發布的本輪邊界">環境與發布的本輪邊界</a><a class="outline-level-2" href="#完整頁面矩陣">完整頁面矩陣</a><a class="outline-level-2" href="#舊-route-邊界">舊 route 邊界</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -698,7 +768,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.2.0-authoring-baseline · 2026-08-14</span>
+                    <span>0.3.0-scope-freeze · 2026-08-14</span>
                 </footer>
             </div>
         </main>

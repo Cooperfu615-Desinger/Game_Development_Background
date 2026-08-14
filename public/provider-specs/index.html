@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.2.0-authoring-baseline</span>
-            <span class="topbar-status">Authoring Format Confirmed · Content Draft</span>
+            <span>0.3.0-scope-freeze</span>
+            <span class="topbar-status">Authoring Format Confirmed · Phase 1 Scope Frozen</span>
         </div>
     </header>
 
@@ -184,27 +184,27 @@
                 <a href="ggap-integration-module.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>模組總覽</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="ggap-overview.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>對接總覽</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="ggap-catalog-sync.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>遊戲目錄同步</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="ggap-requests.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>請求與回呼紀錄</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="ggap-errors.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>錯誤與重試</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="ggap-settings.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>對接設定</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a>
             </div>
         </details>
@@ -215,15 +215,15 @@
                 <a href="notifications-module.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>模組總覽</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="notifications.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>全部通知</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="notification-preferences.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>通知偏好</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a>
             </div>
         </details>
@@ -277,23 +277,23 @@
                 <a href="system-settings-module.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>模組總覽</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="settings-overview.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>設定總覽</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="settings-permissions.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>使用者與權限</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="settings-api-keys.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>API key 與憑證</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="settings-audit-logs.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>操作紀錄</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a>
             </div>
         </details>
@@ -371,6 +371,7 @@
                     <div class="page-status-stack">
                         <span class="status-badge status-draft">草案</span>
 
+
                     </div>
                 </header>
 
@@ -388,9 +389,9 @@
 <div class="hero-rule" aria-hidden="true"><span>GGAP</span><i></i><span>PROVIDER</span></div>
 </section><section class="metric-grid" aria-label="目前規格進度">
 <div><strong>32</strong><span>內容頁</span><small>九個工作模組</small></div>
-<div><strong>24</strong><span>已有內容原型</span><small>不等於正式 API 完成</small></div>
-<div><strong>8</strong><span>Placeholder</span><small>已有 route 與責任骨架</small></div>
-<div class="metric-accent"><strong>1</strong><span>完整試作章節</span><small>遊戲紀錄</small></div>
+<div><strong>21</strong><span>本輪範圍</span><small>含基準範本與本輪製作</small></div>
+<div><strong>11</strong><span>延後製作</span><small>等待必要規格與決策</small></div>
+<div class="metric-accent"><strong>1</strong><span>基準範本</span><small>遊戲紀錄</small></div>
 </section><h2 id="建議閱讀順序">建議閱讀順序</h2><ol>
 <li><strong>產品定位與目標</strong>：先確認這是一個遊戲商後台，而非 GGAP 平台管理後台。</li>
 <li><strong>系統與責任邊界</strong>：確認 Provider、GGAP 與外部角色各自負責的資料與操作。</li>
@@ -398,7 +399,7 @@
 <li><strong>資訊架構與頁面地圖</strong>：從 32 頁矩陣進入各模組規格。</li>
 <li><strong>遊戲紀錄</strong>：以首個完整章節檢視頁面規格的深度、結構與待決事項表達方式。</li>
 </ol>
-<h2 id="本階段輸出界線">本階段輸出界線</h2><p>目前先完成整份規格書的資訊架構與可閱讀網站，並以「遊戲紀錄」驗證完整頁面模板。其餘頁面仍維持「待整理」狀態，會列出來源與標準章節骨架，但不會把既有 mock 或推測直接升格為已確認契約。</p>
+<h2 id="本階段輸出界線">本階段輸出界線</h2><p>規格網站的撰寫格式與第一階段製作範圍已定版。32 個內容頁中，21 頁納入本輪（1 頁基準範本、20 頁本輪製作），11 頁延後。延後頁面只保留等待原因與必要輸入，不建立畫面、欄位、API 或驗收草案。</p>
 <h2 id="四個不可混淆的核心原則">四個不可混淆的核心原則</h2><ul>
 <li>Provider 不建立錢包，也不管理代理商、商戶或會員主資料。</li>
 <li>Game Round 是主要業務紀錄單位，不另建 Game Session。</li>
@@ -434,11 +435,40 @@
 <td>需指定責任人與阻擋範圍</td>
 </tr>
 </tbody></table></div>
+<h2 id="製作範圍怎麼看">製作範圍怎麼看</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>範圍</th>
+<th>意義</th>
+<th>本階段處理方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基準範本</td>
+<td>已完成完整試作並作為其他頁面的撰寫標準</td>
+<td>維護並用於品質校正</td>
+</tr>
+<tr>
+<td>本輪製作</td>
+<td>納入目前規格完善範圍</td>
+<td>依批次整理、審閱與驗收</td>
+</tr>
+<tr>
+<td>延後製作</td>
+<td>必要規格或產品決策尚未完成</td>
+<td>僅保留延後說明，不作為開發依據</td>
+</tr>
+<tr>
+<td>受阻</td>
+<td>已開始整理，但遇到明確且無法繞過的阻擋</td>
+<td>記錄阻擋條件與責任方</td>
+</tr>
+</tbody></table></div>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#建議閱讀順序">建議閱讀順序</a><a class="outline-level-2" href="#本階段輸出界線">本階段輸出界線</a><a class="outline-level-2" href="#四個不可混淆的核心原則">四個不可混淆的核心原則</a><a class="outline-level-2" href="#規格狀態怎麼看">規格狀態怎麼看</a></nav>
+        <nav><a class="outline-level-2" href="#建議閱讀順序">建議閱讀順序</a><a class="outline-level-2" href="#本階段輸出界線">本階段輸出界線</a><a class="outline-level-2" href="#四個不可混淆的核心原則">四個不可混淆的核心原則</a><a class="outline-level-2" href="#規格狀態怎麼看">規格狀態怎麼看</a><a class="outline-level-2" href="#製作範圍怎麼看">製作範圍怎麼看</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -449,7 +479,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.2.0-authoring-baseline · 2026-08-14</span>
+                    <span>0.3.0-scope-freeze · 2026-08-14</span>
                 </footer>
             </div>
         </main>

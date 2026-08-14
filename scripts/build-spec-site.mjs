@@ -8,6 +8,7 @@ import {
     crossCutting,
     foundation,
     modules,
+    scopeLabels,
     statusLabels,
 } from '../docs/spec-book/manifest.mjs'
 
@@ -51,6 +52,7 @@ const documents = [
             title: module.title,
             summary: module.summary,
             status: module.pages.some((page) => page.status === 'draft') ? 'draft' : 'outline',
+            scope: moduleScope(module),
             kind: 'module',
             moduleId: module.id,
             moduleTitle: module.title,
@@ -125,6 +127,7 @@ await writeFile(
         number: document.number,
         summary: document.summary,
         status: document.status,
+        scope: document.scope,
         module: document.moduleTitle || sectionLabel(document.kind),
         url: document.id === 'index' ? 'index.html' : `${document.id}.html`,
         text: document.searchText.slice(0, 12000),
@@ -137,6 +140,7 @@ console.log(`Output: ${path.relative(repositoryRoot, outputRoot)}/index.html`)
 
 function renderDocument(document, previous, next) {
     const status = statusLabels[document.status] || statusLabels.outline
+    const scope = document.scope ? scopeLabels[document.scope] : null
     const isHome = document.kind === 'home'
     const pageTitle = isHome ? book.title : `${document.title}｜${book.title}`
     const eyebrow = breadcrumbFor(document)
@@ -201,6 +205,7 @@ function renderDocument(document, previous, next) {
                     </div>
                     <div class="page-status-stack">
                         <span class="status-badge status-${status.tone}">${escapeHtml(status.label)}</span>
+                        ${scope ? `<span class="scope-badge scope-${scope.tone}">${escapeHtml(scope.label)}</span>` : ''}
                         ${document.pilot ? '<span class="pilot-badge">PILOT 章節</span>' : ''}
                     </div>
                 </header>
@@ -260,7 +265,7 @@ function renderNavigation(activeId) {
             id: `nav-${module.id}`,
             open: activeId === module.id || module.pages.some((page) => page.id === activeId),
             items: [
-                { ...module, title: '模組總覽', status: module.pages.some((page) => page.status === 'draft') ? 'draft' : 'outline' },
+                { ...module, title: '模組總覽', status: module.pages.some((page) => page.status === 'draft') ? 'draft' : 'outline', scope: moduleScope(module) },
                 ...module.pages,
             ],
         })),
@@ -288,7 +293,7 @@ function renderNavigation(activeId) {
                     return `<a href="${url}" ${item.id === activeId ? 'aria-current="page"' : ''}>
                         <i class="status-dot status-${status.tone}" aria-hidden="true"></i>
                         <span>${escapeHtml(item.title)}</span>
-                        ${item.pilot ? '<b>PILOT</b>' : ''}
+                        ${item.scope === 'deferred' ? '<b class="nav-scope nav-scope-deferred">延後</b>' : item.pilot ? '<b>PILOT</b>' : ''}
                     </a>`
                 }).join('')}
             </div>
@@ -399,8 +404,9 @@ function renderMarkdown(markdown) {
 }
 
 function createHomeMarkdown() {
-    const completeCount = allContentPages.filter((page) => page.prototype === 'complete').length
-    const placeholderCount = allContentPages.filter((page) => page.prototype === 'placeholder').length
+    const currentRoundCount = allContentPages.filter((page) => ['baseline', 'active'].includes(page.scope)).length
+    const deferredCount = allContentPages.filter((page) => page.scope === 'deferred').length
+    const baselineCount = allContentPages.filter((page) => page.scope === 'baseline').length
 
     return `# 規格書首頁
 
@@ -415,9 +421,9 @@ function createHomeMarkdown() {
 
 <section class="metric-grid" aria-label="目前規格進度">
 <div><strong>${allContentPages.length}</strong><span>內容頁</span><small>九個工作模組</small></div>
-<div><strong>${completeCount}</strong><span>已有內容原型</span><small>不等於正式 API 完成</small></div>
-<div><strong>${placeholderCount}</strong><span>Placeholder</span><small>已有 route 與責任骨架</small></div>
-<div class="metric-accent"><strong>1</strong><span>完整試作章節</span><small>遊戲紀錄</small></div>
+<div><strong>${currentRoundCount}</strong><span>本輪範圍</span><small>含基準範本與本輪製作</small></div>
+<div><strong>${deferredCount}</strong><span>延後製作</span><small>等待必要規格與決策</small></div>
+<div class="metric-accent"><strong>${baselineCount}</strong><span>基準範本</span><small>遊戲紀錄</small></div>
 </section>
 
 ## 建議閱讀順序
@@ -430,7 +436,7 @@ function createHomeMarkdown() {
 
 ## 本階段輸出界線
 
-目前先完成整份規格書的資訊架構與可閱讀網站，並以「遊戲紀錄」驗證完整頁面模板。其餘頁面仍維持「待整理」狀態，會列出來源與標準章節骨架，但不會把既有 mock 或推測直接升格為已確認契約。
+規格網站的撰寫格式與第一階段製作範圍已定版。32 個內容頁中，21 頁納入本輪（1 頁基準範本、20 頁本輪製作），11 頁延後。延後頁面只保留等待原因與必要輸入，不建立畫面、欄位、API 或驗收草案。
 
 ## 四個不可混淆的核心原則
 
@@ -447,6 +453,15 @@ function createHomeMarkdown() {
 | 草案 | 結構或內容已成形，仍有待決項 | 可評估與拆工，不可把 TBD 當成契約 |
 | 待整理 | 已知頁面、來源與責任，細節尚未收斂 | 先補規格，不直接推導 API |
 | 待決策 | 存在會影響資料或流程的選項 | 需指定責任人與阻擋範圍 |
+
+## 製作範圍怎麼看
+
+| 範圍 | 意義 | 本階段處理方式 |
+| --- | --- | --- |
+| 基準範本 | 已完成完整試作並作為其他頁面的撰寫標準 | 維護並用於品質校正 |
+| 本輪製作 | 納入目前規格完善範圍 | 依批次整理、審閱與驗收 |
+| 延後製作 | 必要規格或產品決策尚未完成 | 僅保留延後說明，不作為開發依據 |
+| 受阻 | 已開始整理，但遇到明確且無法繞過的阻擋 | 記錄阻擋條件與責任方 |
 `
 }
 
@@ -454,8 +469,9 @@ function createModuleMarkdown(document) {
     const module = modules.find((item) => item.id === document.moduleId)
     const rows = module.pages.map((page, index) => {
         const status = statusLabels[page.status] || statusLabels.outline
+        const scope = scopeLabels[page.scope] || scopeLabels.active
         const prototype = page.prototype === 'complete' ? '已有內容原型' : 'Placeholder'
-        return `| ${index + 1} | [${page.title}](${page.id}.html) | \`${page.route}\` | ${prototype} | ${status.label} |`
+        return `| ${index + 1} | [${page.title}](${page.id}.html) | \`${page.route}\` | ${prototype} | ${status.label} | ${scope.label} |`
     }).join('\n')
 
     return `# ${module.title}
@@ -466,8 +482,8 @@ ${module.summary}
 
 ## 頁面清單
 
-| # | 頁面 | Route | 畫面現況 | 規格狀態 |
-| ---: | --- | --- | --- | --- |
+| # | 頁面 | Route | 畫面現況 | 規格狀態 | 製作範圍 |
+| ---: | --- | --- | --- | --- | --- |
 ${rows}
 
 ## 模組整理原則
@@ -488,6 +504,10 @@ ${rows}
 }
 
 function createOutlineMarkdown(document) {
+    if (document.scope === 'deferred') {
+        return createDeferredMarkdown(document)
+    }
+
     const sourceList = document.sources?.map((source) => `- \`${source}\``).join('\n') || '- 尚待指定'
     const prototype = document.prototype === 'complete'
         ? '目前已有內容原型；正式 API、權限與互動資料流仍待規格化。'
@@ -534,16 +554,53 @@ ${sourceList}
 `
 }
 
+function createDeferredMarkdown(document) {
+    const requiredInputs = document.requiredInputs?.map((item) => `- ${item}`).join('\n') || '- 由產品與責任方補充正式輸入。'
+
+    return `# ${document.title}
+
+<div class="deferred-notice">
+<strong>本頁延後製作</strong>
+<p>${document.deferredReason || '必要規格與產品決策尚未完成。'}</p>
+</div>
+
+## 延後原因
+
+${document.deferredReason || '必要規格與產品決策尚未完成。'} 在責任方提供並確認下列輸入前，本頁不進入規格撰寫與開發估工。
+
+## 重新啟動前需要的輸入
+
+${requiredInputs}
+
+## 本階段邊界
+
+- 本頁 route 與現行前端元件僅供資訊架構追溯。
+- 不建立頁面畫面示意、欄位、互動、API、權限、狀態模型或驗收草案。
+- 既有 mock、Placeholder 與來源文件中的未確認內容，不得推定為正式需求。
+- 本頁目前**不可作為前端、後端或 QA 的開發依據**。
+`
+}
+
 function createPageMatrix() {
     const rows = modules.flatMap((module) => module.pages.map((page) => {
         const status = statusLabels[page.status] || statusLabels.outline
+        const scope = scopeLabels[page.scope] || scopeLabels.active
         const prototype = page.prototype === 'complete' ? '內容原型' : 'Placeholder'
-        return `| ${module.title} | [${page.title}](${page.id}.html) | \`${page.route}\` | ${prototype} | ${status.label} | \`${page.component}\` |`
+        return `| ${module.title} | [${page.title}](${page.id}.html) | \`${page.route}\` | ${prototype} | ${status.label} | ${scope.label} | \`${page.component}\` |`
     }))
 
-    return `| 模組 | 頁面 | Route | 畫面現況 | 規格狀態 | 前端元件 |
-| --- | --- | --- | --- | --- | --- |
+    return `| 模組 | 頁面 | Route | 畫面現況 | 規格狀態 | 製作範圍 | 前端元件 |
+| --- | --- | --- | --- | --- | --- | --- |
 ${rows.join('\n')}`
+}
+
+function moduleScope(module) {
+    const scopes = new Set(module.pages.map((page) => page.scope))
+    if (scopes.size === 1) return [...scopes][0]
+    if (scopes.has('blocked')) return 'blocked'
+    if (scopes.has('active')) return 'active'
+    if (scopes.has('baseline')) return 'baseline'
+    return 'deferred'
 }
 
 function breadcrumbFor(document) {

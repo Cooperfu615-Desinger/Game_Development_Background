@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.2.0-authoring-baseline</span>
-            <span class="topbar-status">Authoring Format Confirmed · Content Draft</span>
+            <span>0.3.0-scope-freeze</span>
+            <span class="topbar-status">Authoring Format Confirmed · Phase 1 Scope Frozen</span>
         </div>
     </header>
 
@@ -184,27 +184,27 @@
                 <a href="ggap-integration-module.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>模組總覽</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="ggap-overview.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>對接總覽</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="ggap-catalog-sync.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>遊戲目錄同步</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="ggap-requests.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>請求與回呼紀錄</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="ggap-errors.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>錯誤與重試</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="ggap-settings.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>對接設定</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a>
             </div>
         </details>
@@ -215,15 +215,15 @@
                 <a href="notifications-module.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>模組總覽</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="notifications.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>全部通知</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="notification-preferences.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>通知偏好</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a>
             </div>
         </details>
@@ -277,23 +277,23 @@
                 <a href="system-settings-module.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>模組總覽</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="settings-overview.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>設定總覽</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="settings-permissions.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>使用者與權限</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="settings-api-keys.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>API key 與憑證</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a><a href="settings-audit-logs.html" >
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>操作紀錄</span>
-
+                        <b class="nav-scope nav-scope-deferred">延後</b>
                     </a>
             </div>
         </details>
@@ -371,6 +371,7 @@
                     <div class="page-status-stack">
                         <span class="status-badge status-outline">待整理</span>
 
+
                     </div>
                 </header>
 
@@ -383,7 +384,14 @@
 
                 <div class="content-layout">
                     <article class="spec-content">
-                        <h2 id="0-2-0-authoring-baseline-2026-08-14">0.2.0-authoring-baseline · 2026-08-14</h2><ul>
+                        <h2 id="0-3-0-scope-freeze-2026-08-14">0.3.0-scope-freeze · 2026-08-14</h2><ul>
+<li>將規格成熟度與製作範圍拆分為兩個獨立維度。</li>
+<li>凍結第一階段 32 頁範圍：1 頁 Baseline、20 頁 Active、11 頁 Deferred。</li>
+<li>GGAP 對接、通知中心與系統設定共 11 頁延後製作。</li>
+<li>延後頁面改為最小等待說明，不產生推測性的畫面、欄位、API、權限或驗收骨架。</li>
+<li>「環境與發布」維持 Active，但只整理 Provider 自有發布責任；GGAP 整合行為留待正式規格。</li>
+</ul>
+<h2 id="0-2-0-authoring-baseline-2026-08-14">0.2.0-authoring-baseline · 2026-08-14</h2><ul>
 <li>定版規格網站的 Overview-first 閱讀結構與內容頁版型。</li>
 <li>將頁面示意移至追溯資訊後，加入區塊索引、章節高亮、展開／收合與返回入口。</li>
 <li>精簡追溯卡與畫面示意，統一藍色標註並增加有效閱讀空間。</li>
@@ -401,15 +409,16 @@
 <li>依 <code>/reports</code> 原型補入可跳轉章節的六區塊 HTML/CSS 畫面解剖圖。</li>
 </ul>
 <h2 id="後續版本方向">後續版本方向</h2><ul>
-<li>結構確認後，補完遊戲紀錄 API、資料欄位、權限、精度與驗收決策。</li>
-<li>以核准後的遊戲紀錄模板逐頁整理其他 31 個內容頁。</li>
+<li>建立本輪 21 頁的逐面向完成度矩陣與跨頁依賴圖。</li>
+<li>依核准批次整理 20 個 Active 頁面，持續維護遊戲紀錄 Baseline。</li>
+<li>取得必要輸入後，再將 Deferred 頁面重新排入範圍。</li>
 <li>第一個正式核准版本輸出單一 HTML 與 PDF 快照。</li>
 </ul>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#0-2-0-authoring-baseline-2026-08-14">0.2.0-authoring-baseline · 2026-08-14</a><a class="outline-level-2" href="#0-1-0-structure-2026-08-13">0.1.0-structure · 2026-08-13</a><a class="outline-level-2" href="#後續版本方向">後續版本方向</a></nav>
+        <nav><a class="outline-level-2" href="#0-3-0-scope-freeze-2026-08-14">0.3.0-scope-freeze · 2026-08-14</a><a class="outline-level-2" href="#0-2-0-authoring-baseline-2026-08-14">0.2.0-authoring-baseline · 2026-08-14</a><a class="outline-level-2" href="#0-1-0-structure-2026-08-13">0.1.0-structure · 2026-08-13</a><a class="outline-level-2" href="#後續版本方向">後續版本方向</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -420,7 +429,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.2.0-authoring-baseline · 2026-08-14</span>
+                    <span>0.3.0-scope-freeze · 2026-08-14</span>
                 </footer>
             </div>
         </main>

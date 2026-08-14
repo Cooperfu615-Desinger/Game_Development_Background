@@ -473,6 +473,7 @@ pre {
 }
 
 .status-badge,
+.scope-badge,
 .pilot-badge {
     display: inline-flex;
     align-items: center;
@@ -514,6 +515,11 @@ pre {
     color: var(--petrol);
     background: transparent;
     font-family: var(--mono);
+}
+
+.scope-badge {
+    color: var(--ink-soft);
+    background: var(--slate-wash);
 }
 
 .metadata-card {
@@ -2209,6 +2215,7 @@ body {
 }
 
 .status-badge,
+.scope-badge,
 .pilot-badge {
     min-height: 26px;
     border-radius: 999px;
@@ -2243,6 +2250,52 @@ body {
     color: var(--petrol-dark);
     background: var(--petrol-wash);
     border-color: rgba(0, 122, 255, 0.2);
+}
+
+.scope-badge.scope-baseline,
+.scope-badge.scope-active {
+    color: #1768c5;
+    background: #eef5ff;
+    border-color: #b8d5fb;
+}
+
+.scope-badge.scope-deferred {
+    color: #6d737b;
+    background: #f6f6f8;
+    border-color: #dedfe4;
+}
+
+.scope-badge.scope-blocked {
+    color: #b84f43;
+    background: #fff3f0;
+    border-color: #f0c8c1;
+}
+
+.nav-items a b.nav-scope-deferred {
+    color: #777b82;
+    background: rgba(120, 120, 128, 0.08);
+    border-color: rgba(120, 120, 128, 0.22);
+}
+
+.deferred-notice {
+    margin: 0 0 28px;
+    padding: 20px 22px;
+    color: #555a62;
+    background: #f6f6f8;
+    border: 1px solid #dedfe4;
+    border-left: 4px solid #8e9299;
+    border-radius: 10px;
+}
+
+.deferred-notice strong {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--ink);
+    font-size: 16px;
+}
+
+.deferred-notice p {
+    margin: 0;
 }
 
 .metadata-card {

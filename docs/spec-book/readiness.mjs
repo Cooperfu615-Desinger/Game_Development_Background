@@ -91,45 +91,45 @@ export const pageReadiness = {
         '自動緩解、GGAP 通知及人工處理契約',
         '工作佇列 API、操作稽核與保存規則',
     ]),
-    'website-banners': readiness('D', ['complete', 'complete', 'complete', 'complete', 'complete', 'partial'], ['missing', 'partial', 'missing', 'partial', 'missing', 'partial'], [
-        'Banner schema、媒體限制與裝置／語系規則',
-        '排程、發布、版本、失敗與回復流程',
-        '內容操作權限、API 與異動稽核',
+    'website-banners': readiness('D', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
+        'Banner／revision schema、媒體限制、slot、排程時區與裝置／語系 fallback',
+        '驗證、預覽、發布 job、失敗／衝突及 API 契約',
+        '內容操作 permission、外部連結／素材安全與 audit',
     ]),
-    'website-content': readiness('D', ['complete', 'complete', 'partial', 'complete', 'partial', 'missing'], ['missing', 'partial', 'missing', 'partial', 'missing', 'partial'], [
-        '多語內容 schema、必填、驗證與 fallback 規則',
-        '草稿、預覽、發布、失敗與版本流程',
-        '內容操作權限、API 與異動稽核',
+    'website-content': readiness('D', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
+        '多語內容／結構化聯絡 schema、必填、fallback 與富文字限制',
+        '草稿 revision、預覽、發布 job、衝突與 API 契約',
+        '法律內容 permission／核准、XSS／連結安全與 audit',
     ]),
-    'website-releases': readiness('D', ['complete', 'complete', 'partial', 'partial', 'partial', 'partial'], ['missing', 'partial', 'missing', 'partial', 'missing', 'partial'], [
-        '發布快照、狀態、版本與變更內容模型',
-        '失敗、取消、回復及不可逆操作規則',
-        '發布權限、API、操作人與稽核保存契約',
+    'website-releases': readiness('D', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
+        '發布 event／job、snapshot、狀態與展示版號正式模型',
+        '失敗、取消、衝突、新工作回復及保存規則',
+        '事件查詢 API、檢視／發布 permission、錯誤遮罩與 audit',
     ]),
-    'lobby-overview': readiness('D', ['complete', 'complete', 'complete', 'complete', 'partial', 'partial'], ['missing', 'partial', 'missing', 'partial', 'missing', 'partial'], [
-        '大廳公開狀態與檢查結果的正式計算規則',
-        '總覽指標、資料來源與更新頻率',
-        '跨頁導流、API 與資料檢視權限',
+    'lobby-overview': readiness('D', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
+        '大廳三狀態、readiness 與 DEMO 指標正式計算規則',
+        '多來源摘要 API、更新頻率、延遲與局部降級契約',
+        'DEMO／Production 隔離、跨頁資料 scope 與 permission',
     ]),
-    'lobby-games': readiness('D', ['complete', 'complete', 'complete', 'complete', 'complete', 'partial'], ['missing', 'partial', 'missing', 'partial', 'missing', 'partial'], [
-        '遊戲納入條件、可見狀態、排序與環境隔離',
-        '批次操作、失敗、衝突與儲存規則',
-        '管理 API、權限與操作稽核',
+    'lobby-games': readiness('D', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
+        '遊戲納入／移除條件、公開 snapshot、排序與三狀態正式模型',
+        '清單／摘要 API、上游數值／素材參照與局部失敗契約',
+        '資料 scope、檢視 permission 與 deep link 授權',
     ]),
-    'lobby-management': readiness('D', ['complete', 'complete', 'complete', 'complete', 'complete', 'partial'], ['missing', 'partial', 'missing', 'partial', 'missing', 'partial'], [
-        '管理草稿、公開版本與變更集模型',
-        '公開前驗證、衝突、失敗與回復規則',
-        '發布 API、權限與操作稽核',
+    'lobby-management': readiness('D', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
+        '上游唯讀欄位、lobby draft／published revision 與公開欄位 schema',
+        '公開前規則、草稿／發布 API、衝突、失敗及新工作回復',
+        '編輯／預覽／發布 permission、媒體安全、核准與 audit',
     ]),
-    'lobby-demo': readiness('D', ['complete', 'complete', 'complete', 'complete', 'partial', 'partial'], ['missing', 'partial', 'missing', 'partial', 'missing', 'complete'], [
-        'DEMO 資料隔離、保存期限與重設規則',
-        '展示指標的 schema、時間口徑與資料來源',
-        'DEMO 帳號、查詢 API 與檢視權限',
+    'lobby-demo': readiness('D', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
+        'DEMO identity、試玩工作階段、credit、重設、保存與反濫用規則',
+        '指標 schema、去重、時間口徑、資料品質、查詢／匯出 API',
+        'DEMO namespace 隔離、識別遮罩、檢視／匯出 permission',
     ]),
-    'lobby-preview': readiness('D', ['complete', 'complete', 'complete', 'complete', 'complete', 'partial'], ['missing', 'partial', 'missing', 'partial', 'missing', 'partial'], [
-        '預覽資料來源、草稿版本與公開版本切換',
-        '語系、裝置、環境模式與失效狀態',
-        '預覽存取權、分享方式與 API 契約',
+    'lobby-preview': readiness('D', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
+        'published／draft revision、語系、裝置、分類與三狀態 manifest',
+        'preview／sandbox launch API、expired／stale／asset failure 契約',
+        '草稿存取、短效 token、CSP、cache 與外部媒體安全',
     ]),
 }
 

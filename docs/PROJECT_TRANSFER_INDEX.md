@@ -1,8 +1,8 @@
 # 遊戲商 Provider Portal 文件索引
 
-> 文件版本：2.17.0
+> 文件版本：2.18.0
 > 更新日期：2026-08-14
-> 文件狀態：規格網站第一階段已封版；第二階段 Batch A–C 共十三頁已完成完整 Draft，正式 API、權限、精度、門檻、發布生命週期與外部契約仍待確認
+> 文件狀態：規格網站第一階段已封版；第二階段 Batch A–D 共二十一頁已完成完整 Draft，正式 API、權限、精度、門檻、發布生命週期與外部契約仍待確認
 
 ## 閱讀前提
 
@@ -53,6 +53,9 @@
 - [`../public/provider-specs/game-list.html`](../public/provider-specs/game-list.html)、[`../public/provider-specs/game-environments.html`](../public/provider-specs/game-environments.html)、[`../public/provider-specs/game-settings.html`](../public/provider-specs/game-settings.html)、[`../public/provider-specs/game-math.html`](../public/provider-specs/game-math.html)、[`../public/provider-specs/game-versions.html`](../public/provider-specs/game-versions.html)、[`../public/provider-specs/game-assets.html`](../public/provider-specs/game-assets.html)
   - 第二階段 Batch C 完整 Draft：遊戲主資料、設定、數值、程式版本、素材與 Production／DEMO 發布生命週期。
   - 環境與發布仍是程式 Placeholder；規格已提供目標畫面、流程、狀態與移除條件，不代表正式發布操作已完成。
+- [`../public/provider-specs/website-banners.html`](../public/provider-specs/website-banners.html)、[`../public/provider-specs/website-content.html`](../public/provider-specs/website-content.html)、[`../public/provider-specs/website-releases.html`](../public/provider-specs/website-releases.html)、[`../public/provider-specs/lobby-overview.html`](../public/provider-specs/lobby-overview.html)、[`../public/provider-specs/lobby-games.html`](../public/provider-specs/lobby-games.html)、[`../public/provider-specs/lobby-management.html`](../public/provider-specs/lobby-management.html)、[`../public/provider-specs/lobby-demo.html`](../public/provider-specs/lobby-demo.html)、[`../public/provider-specs/lobby-preview.html`](../public/provider-specs/lobby-preview.html)
+  - 第二階段 Batch D 完整 Draft：官網 Banner／靜態內容／發布追溯，以及大廳公開資料、管理、DEMO telemetry 與指定 revision 預覽。
+  - DEMO 資料明確不建立會員、錢包或正式 Game Session，亦不混入 Production Game Round、財務與 Provider 風控。
 
 > 上述交接文件已依 Provider Portal 方向整理，並將「目前原型實況」與「目標規格草案」分開標示。正式 API 與資料欄位仍需由後端與 GGAP 對接團隊核准。
 

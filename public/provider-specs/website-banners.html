@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="已有內容原型；正式資料契約仍待整理。">
+    <meta name="description" content="Provider 自有遊戲官網 Banner 的多語內容、素材、排程、單筆預覽與發布。">
     <meta name="color-scheme" content="light">
     <title>Banner 管理｜Provider Portal 產品與系統規格書</title>
     <link rel="stylesheet" href="assets/site.css">
@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.11.0-batch-c-draft</span>
-            <span class="topbar-status">Phase 2 · Batch C Draft Complete</span>
+            <span>0.12.0-batch-d-draft</span>
+            <span class="topbar-status">Phase 2 · Batch D Draft Complete</span>
         </div>
     </header>
 
@@ -232,39 +232,39 @@
             <summary>05.8 官方網站<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="official-website-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="website-banners.html" aria-current="page">
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>Banner 管理</span>
 
                     </a><a href="website-content.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>內容管理</span>
 
                     </a><a href="website-releases.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>發布紀錄</span>
 
                     </a><a href="lobby-overview.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>大廳總覽</span>
 
                     </a><a href="lobby-games.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲清單</span>
 
                     </a><a href="lobby-management.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲管理</span>
 
                     </a><a href="lobby-demo.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>DEMO環境數據</span>
 
                     </a><a href="lobby-preview.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>大廳預覽</span>
 
                     </a>
@@ -382,10 +382,10 @@
                     <div>
                         <p class="eyebrow">05.8.1 · 官方網站</p>
                         <h1>Banner 管理</h1>
-                        <p class="page-summary">已有內容原型；正式資料契約仍待整理。</p>
+                        <p class="page-summary">Provider 自有遊戲官網 Banner 的多語內容、素材、排程、單筆預覽與發布。</p>
                     </div>
                     <div class="page-status-stack">
-                        <span class="status-badge status-outline">待整理</span>
+                        <span class="status-badge status-draft">草案</span>
                         <span class="scope-badge scope-active">本輪製作</span>
 
                     </div>
@@ -393,21 +393,50 @@
 
                 <section class="metadata-card" aria-label="章節追溯資訊">
         <div class="metadata-grid">
-            <div><span>章節編號</span><code>05.8.1</code></div><div><span>規格狀態</span><code>待整理</code></div><div><span>Route</span><code>/website/banners</code></div><div><span>前端元件</span><code>src/views/GameWebsite/Banners.vue</code></div>
+            <div><span>章節編號</span><code>05.8.1</code></div><div><span>規格狀態</span><code>草案</code></div><div><span>Route</span><code>/website/banners</code></div><div><span>前端元件</span><code>src/views/GameWebsite/Banners.vue</code></div>
         </div>
     </section>
-
+                <section id="page-visual-overview" class="page-visual-overview" aria-labelledby="page-visual-title">
+        <div class="visual-overview-header">
+            <div>
+                <p class="visual-overview-kicker">PAGE ANATOMY · OVERVIEW FIRST</p>
+                <h2 id="page-visual-title">Banner 管理畫面示意</h2>
+                <p>參照現行 /website/banners 原型；草稿與公開版本分離，預覽只代表單一 Banner。</p>
+            </div>
+            <button class="visual-toggle" type="button" data-anatomy-toggle aria-expanded="true" aria-controls="website-banners-visual-panel">
+                <span data-anatomy-toggle-label>收合畫面示意</span>
+                <i aria-hidden="true">⌃</i>
+            </button>
+        </div>
+        <nav class="visual-quick-map" aria-label="頁面區塊快速導覽">
+            <a href="#4-banner-摘要與篩選"><strong>01</strong><span>Banner 摘要</span><i aria-hidden="true">↘</i></a><a href="#4-banner-摘要與篩選"><strong>02</strong><span>篩選與清單</span><i aria-hidden="true">↘</i></a><a href="#5-基本-排程與連結"><strong>03</strong><span>基本與排程</span><i aria-hidden="true">↘</i></a><a href="#6-多語文案與素材"><strong>04</strong><span>多語文案與素材</span><i aria-hidden="true">↘</i></a><a href="#7-單一-banner-預覽"><strong>05</strong><span>單一 Banner 預覽</span><i aria-hidden="true">↘</i></a><a href="#8-儲存-發布與頁面狀態"><strong>06</strong><span>儲存、發布與狀態</span><i aria-hidden="true">↘</i></a>
+        </nav>
+        <div class="visual-scope-notes" aria-label="畫面閱讀邊界">
+            <span>閱讀邊界</span>
+            <small>Provider 自有官網</small><small>單一 Banner 預覽</small><small>四語系 revision</small><small>發布目前為 mock</small>
+        </div>
+        <div id="website-banners-visual-panel" class="visual-overview-panel" data-anatomy-panel>
+            <figure class="page-anatomy lifecycle-anatomy publishing-anatomy publishing-anatomy--website" aria-label="Banner 管理六區塊畫面示意">
+  <div class="lifecycle-anatomy__canvas">
+    <a class="anatomy-zone lifecycle-anatomy__cards" href="#4-banner-摘要與篩選" aria-label="前往第一區，Banner 摘要"><span class="anatomy-zone__number">01</span><span><small>目前 Banner</small><strong>03</strong><i>含 1 筆草稿</i></span><span><small>已發布</small><strong>02</strong><i>官網可見</i></span><span><small>最後更新</small><strong>08.05</strong><i>Provider Editor</i></span></a>
+    <a class="anatomy-zone lifecycle-anatomy__filters" href="#4-banner-摘要與篩選" aria-label="前往第二區，篩選與清單"><span class="anatomy-zone__number">02</span><strong>Banner 素材與內容</strong><i>全部</i><i>已發布</i><i>草稿</i><i>已停用</i><b>3 筆內容</b></a>
+    <a class="anatomy-zone lifecycle-anatomy__matrix publishing-anatomy__editor" href="#5-基本-排程與連結" aria-label="前往第三區，基本與排程"><span class="anatomy-zone__number">03</span><strong>編輯內容</strong><span><b>基本資料</b>內部名稱 · 顯示位置 · 順序 · 狀態</span><span><b>排程</b>開始時間 · 結束時間 · 時區</span><span><b>連結</b>目的地 · 安全驗證</span></a>
+    <a class="anatomy-zone lifecycle-anatomy__table publishing-anatomy__copy" href="#6-多語文案與素材" aria-label="前往第四區，多語文案與素材"><span class="anatomy-zone__number">04</span><strong>四語系文案與素材</strong><small>繁中　簡中　English　日本語　｜　眉標　標題　簡述　CTA　素材版本</small><i>在極光之下，開始下一局　·　探索 Provider 最新推出的遊戲體驗　·　asset-v7</i></a>
+    <div class="lifecycle-anatomy__split">
+      <a class="anatomy-zone lifecycle-anatomy__detail publishing-anatomy__preview" href="#7-單一-banner-預覽" aria-label="前往第五區，單一 Banner 預覽"><span class="anatomy-zone__number">05</span><small>SINGLE BANNER PREVIEW</small><strong>在極光之下，開始下一局</strong><i>語系 · Desktop／Mobile · CTA 目的地</i></a>
+      <a class="anatomy-zone lifecycle-anatomy__states" href="#8-儲存-發布與頁面狀態" aria-label="前往第六區，儲存發布與替代狀態"><span class="anatomy-zone__number">06</span><strong>儲存與發布</strong><i>儲存草稿</i><i>發布前檢查</i><i>確認</i><i>失敗</i><i>Forbidden</i></a>
+    </div>
+  </div>
+  <div class="page-anatomy__legend"><span><i></i>Provider 自有官網</span><span><i></i>單一 Banner 預覽</span><small>參照現行 `/website/banners` 原型；發布按鈕目前只有 mock 提示。</small></div>
+</figure>
+        </div>
+        <p class="visual-overview-disclaimer">畫面示意用於定位元件與閱讀順序；實際欄位、狀態與行為仍以本頁詳細規格及正式契約為準。</p>
+    </section>
+    <a class="visual-return" data-visual-return href="#page-visual-overview" hidden><span aria-hidden="true">↑</span> 回到畫面示意</a>
 
                 <div class="content-layout">
                     <article class="spec-content">
-                        <blockquote>
-<p>本章目前為「待整理」骨架。以下內容用來確定後續規格必須回答的問題，不代表尚未確認的行為已成為正式需求。</p>
-</blockquote>
-<h2 id="頁面定位">頁面定位</h2><p>已有內容原型；正式資料契約仍待整理。 目前已有內容原型；正式 API、權限與互動資料流仍待規格化。</p>
-<h2 id="規格來源">規格來源</h2><ul>
-<li><code>docs/GAME_WEBSITE_SPEC.md</code></li>
-</ul>
-<h2 id="既有程式對應">既有程式對應</h2><div class="table-scroll" tabindex="0"><table>
+                        <h2 id="章節狀態">章節狀態</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
 <th>項目</th>
@@ -415,7 +444,15 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>Route</td>
+<td>規格成熟度</td>
+<td>Draft — Batch D 完整頁面規格</td>
+</tr>
+<tr>
+<td>製作範圍</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>對應路由</td>
 <td><code>/website/banners</code></td>
 </tr>
 <tr>
@@ -423,32 +460,104 @@
 <td><code>src/views/GameWebsite/Banners.vue</code></td>
 </tr>
 <tr>
-<td>畫面現況</td>
-<td>已有內容原型</td>
+<td>主要來源</td>
+<td><code>GAME_WEBSITE_SPEC.md</code>、<code>PROVIDER_PORTAL_UI_LAYOUT_SPEC.md</code></td>
+</tr>
+<tr>
+<td>頁面角色</td>
+<td>Provider 自有遊戲官網的單一 Banner 編輯、預覽與發布入口</td>
 </tr>
 </tbody></table></div>
-<h2 id="後續完整章節骨架">後續完整章節骨架</h2><ol>
-<li>目的、使用者與主要使用情境。</li>
-<li>範圍、責任邊界與明確排除項目。</li>
-<li>名詞、資料來源、計算口徑與環境隔離。</li>
-<li>資訊架構、欄位、篩選、列表、詳情與互動規則。</li>
-<li>狀態模型、空白／載入／錯誤／權限不足狀態。</li>
-<li>API request／response、錯誤、分頁、排序與匯出契約。</li>
-<li>安全、權限、稽核、響應式與可存取性。</li>
-<li>前端、後端、整合、資料品質與 QA 驗收條件。</li>
-<li>待確認事項、責任人、阻擋範圍與規格完成條件。</li>
-</ol>
-<h2 id="本章完成條件">本章完成條件</h2><ul>
-<li>已逐條整併來源 Spec，且無互相矛盾的責任或名詞。</li>
-<li>與實際 route、左側導覽、頁面原型及元件對應完成核對。</li>
-<li>Draft、TBD 與 Confirmed 內容可清楚區分。</li>
-<li>前端與後端能據此估工、拆分介面契約並建立驗收案例。</li>
+<blockquote>
+<p>本頁只管理 Provider 自有官網 Banner，不是完整 CMS，也不管理遊戲大廳、GGAP、代理商或商戶內容。原型的儲存與發布只顯示 mock 提示；正式媒體、版本、排程、權限與發布契約仍受集中 TBD 管理。</p>
+</blockquote>
+<h2 id="1-目的與責任邊界">1. 目的與責任邊界</h2><ul>
+<li>以單一 Banner 為工作單位，管理內部名稱、顯示位置、順序、期間、連結、素材與四語系文案。</li>
+<li>提供單一 Banner 預覽，確認目前選取語系的眉標、標題、簡述與 CTA。</li>
+<li>允許儲存草稿並建立該 Banner 的發布工作；正式發布事件由發布紀錄頁追溯。</li>
+<li>不提供整體官網版型編輯、公告、活動、SEO、曝光分析或完整首頁預覽。</li>
+<li>Banner 引用素材版本，不直接覆寫已發布素材；媒體安全依 <code>TBD-DAT-006</code>、<code>TBD-SEC-005</code>。</li>
 </ul>
+<h2 id="2-內容與版本模型">2. 內容與版本模型</h2><ul>
+<li>穩定識別使用 <code>banner_id</code>；內部名稱、位置與顯示順序不可作 join key。</li>
+<li>每個 Banner 保留 <code>draft_revision</code> 與 <code>published_revision</code>；編輯不直接覆蓋公開內容。</li>
+<li>四語系文案同屬一個 revision snapshot；缺語系能否發布由正式 fallback 規則決定。</li>
+<li>顯示排程使用明確時區；<code>end_at</code> 可為空，開始不得晚於結束。</li>
+<li>發布成功後才更新 published snapshot；工作失敗時公開版本保持不變。</li>
+</ul>
+<h2 id="3-六區塊資訊架構">3. 六區塊資訊架構</h2><ol>
+<li>Banner 摘要：總數、已發布、草稿／停用及最後更新。</li>
+<li>篩選與清單：狀態、位置、期間、關鍵字與選取脈絡。</li>
+<li>基本與排程：內部名稱、位置、狀態、順序、開始／結束與連結。</li>
+<li>多語文案與素材：四語系內容、素材版本及完整度。</li>
+<li>單一 Banner 預覽：語系、裝置與 CTA 安全預覽。</li>
+<li>儲存／發布與替代狀態：驗證、確認、工作結果、失敗及權限。</li>
+</ol>
+<h2 id="4-banner-摘要與篩選">4. Banner 摘要與篩選</h2><ul>
+<li>摘要至少顯示總數、已發布、草稿、已停用、最近成功發布與資料更新時間；來源失敗不得顯示 0。</li>
+<li>篩選條件：關鍵字、狀態、顯示位置、排程期間；切換條件後由查詢動作套用。</li>
+<li>清單列顯示縮圖、內部名稱、位置、目前公開狀態、草稿狀態、有效期間與最後更新。</li>
+<li>選取 Banner 不應丟失尚未儲存內容；切換前提示儲存、捨棄或取消。</li>
+</ul>
+<h2 id="5-基本-排程與連結">5. 基本、排程與連結</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>Draft 規則</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>內部名稱／位置</td>
+<td>內部名稱必填；位置來自官網版型允許的 slot enum。</td>
+</tr>
+<tr>
+<td>顯示順序</td>
+<td>同一 slot 內的正整數；衝突由後端回傳或重排。</td>
+</tr>
+<tr>
+<td>開始／結束</td>
+<td>使用 Provider 設定時區並顯示 offset；結束可空。</td>
+</tr>
+<tr>
+<td>連結</td>
+<td>保存目的地類型與值；外部 URL 需 allowlist、HTTPS 與重新導向檢查。</td>
+</tr>
+<tr>
+<td>狀態</td>
+<td>草稿、已發布、已停用是公開生命週期，不等同發布工作狀態。</td>
+</tr>
+</tbody></table></div>
+<p>停用與發布均需確認；已發布 Banner 的修改只形成草稿，不立即改變玩家看到的內容。</p>
+<h2 id="6-多語文案與素材">6. 多語文案與素材</h2><ul>
+<li>固定支援繁中、簡中、English、日本語；繁中為主要編輯語系，但正式 fallback 待 <code>TBD-DAT-006</code>。</li>
+<li>每語系包含眉標、標題、簡述與 CTA；長度限制、允許字元及必填由 schema 回傳。</li>
+<li>顯示每語系完整度與錯誤數；切換語系不得遺失未儲存草稿。</li>
+<li>素材以 <code>asset_id + asset_version_id</code> 引用，顯示 MIME、尺寸、裝置用途、掃描與審核狀態。</li>
+<li>Desktop／Mobile 是否共用素材由正式 slot schema 決定；不可由前端自行裁切成正式資產。</li>
+</ul>
+<h2 id="7-單一-banner-預覽">7. 單一 Banner 預覽</h2><ul>
+<li>預覽明確標示資料 revision、語系、裝置、生成時間及「非完整官網」；禁止混用公開 snapshot 與未儲存欄位。</li>
+<li>CTA 預覽顯示正規化後目的地；外部連結不得在未驗證狀態直接開啟。</li>
+<li>無素材、素材掃描中／失敗、缺翻譯或連結無效時呈現對應阻擋，不以 fallback mock 假裝完成。</li>
+<li>預覽 token、草稿洩漏與 CSP 規則依 <code>TBD-SEC-005</code>。</li>
+</ul>
+<h2 id="8-儲存-發布與頁面狀態">8. 儲存、發布與頁面狀態</h2><p>儲存草稿需驗證欄位並回傳 revision；發布前重新檢查多語、素材、排程、連結與版本衝突。發布建立非同步 job，成功後才建立不可變事件；重複送出需具 idempotency。</p>
+<p>頁面支援 loading、empty、validation error、unsaved changes、conflict、preview unavailable、publish queued／running／failed／succeeded、partial source failure、stale 與 Forbidden。原型 notice 不得作為正式成功證據。</p>
+<h2 id="9-api-權限與稽核草案">9. API、權限與稽核草案</h2><p>API 能力包含摘要／清單、單筆 draft／published snapshot、驗證、儲存、預覽、發布／停用 job 與發布結果。所有寫入強制 Provider scope、revision concurrency、permission、actor 與 audit；正式 path、schema 及 permission key 依 <code>TBD-API-006</code>、<code>TBD-SEC-001</code>、<code>TBD-SEC-005</code>。</p>
+<h2 id="10-響應式-無障礙與驗收">10. 響應式、無障礙與驗收</h2><p>本頁使用 Portal <code>1500px</code> 寬版。Desktop 保留清單、編輯及預覽脈絡；窄版依序重排，語系與操作列可換行，預覽不產生水平溢出。Tab／按鈕支援鍵盤，狀態不只靠顏色。</p>
+<p>驗收條件：草稿與公開版本分離；四語系與素材完整度可見；排程含時區；單一 Banner 預覽不冒充完整官網；失敗不改變公開版本；發布可由 job／audit 追溯。</p>
+<h2 id="11-待確認與-draft-移除條件">11. 待確認與 Draft 移除條件</h2><ul>
+<li><code>TBD-DOM-005</code>：官網內容與大廳發布是否保持獨立生命週期。</li>
+<li><code>TBD-DAT-006</code>：媒體、語系、fallback、欄位限制。</li>
+<li><code>TBD-API-006</code>、<code>TBD-SEC-005</code>：CRUD、預覽、發布與公開內容安全。</li>
+<li><code>TBD-SEC-001</code>、<code>TBD-NFR-003</code>：權限、併發、冪等與 audit。</li>
+</ul>
+<p>正式 schema、排程、媒體、預覽、發布 API、權限與失敗／衝突行為核准並通過驗收後，才可改為 Confirmed。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#頁面定位">頁面定位</a><a class="outline-level-2" href="#規格來源">規格來源</a><a class="outline-level-2" href="#既有程式對應">既有程式對應</a><a class="outline-level-2" href="#後續完整章節骨架">後續完整章節骨架</a><a class="outline-level-2" href="#本章完成條件">本章完成條件</a></nav>
+        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-內容與版本模型">2. 內容與版本模型</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-banner-摘要與篩選">4. Banner 摘要與篩選</a><a class="outline-level-2" href="#5-基本-排程與連結">5. 基本、排程與連結</a><a class="outline-level-2" href="#6-多語文案與素材">6. 多語文案與素材</a><a class="outline-level-2" href="#7-單一-banner-預覽">7. 單一 Banner 預覽</a><a class="outline-level-2" href="#8-儲存-發布與頁面狀態">8. 儲存、發布與頁面狀態</a><a class="outline-level-2" href="#9-api-權限與稽核草案">9. API、權限與稽核草案</a><a class="outline-level-2" href="#10-響應式-無障礙與驗收">10. 響應式、無障礙與驗收</a><a class="outline-level-2" href="#11-待確認與-draft-移除條件">11. 待確認與 Draft 移除條件</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -459,7 +568,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.11.0-batch-c-draft · 2026-08-14</span>
+                    <span>0.12.0-batch-d-draft · 2026-08-14</span>
                 </footer>
             </div>
         </main>

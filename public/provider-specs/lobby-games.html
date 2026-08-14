@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="已有內容原型；正式資料契約仍待整理。">
+    <meta name="description" content="已納入大廳之遊戲、玩家公開摘要、三狀態及管理／預覽入口。">
     <meta name="color-scheme" content="light">
     <title>遊戲清單｜Provider Portal 產品與系統規格書</title>
     <link rel="stylesheet" href="assets/site.css">
@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.11.0-batch-c-draft</span>
-            <span class="topbar-status">Phase 2 · Batch C Draft Complete</span>
+            <span>0.12.0-batch-d-draft</span>
+            <span class="topbar-status">Phase 2 · Batch D Draft Complete</span>
         </div>
     </header>
 
@@ -232,39 +232,39 @@
             <summary>05.8 官方網站<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="official-website-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="website-banners.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>Banner 管理</span>
 
                     </a><a href="website-content.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>內容管理</span>
 
                     </a><a href="website-releases.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>發布紀錄</span>
 
                     </a><a href="lobby-overview.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>大廳總覽</span>
 
                     </a><a href="lobby-games.html" aria-current="page">
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲清單</span>
 
                     </a><a href="lobby-management.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲管理</span>
 
                     </a><a href="lobby-demo.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>DEMO環境數據</span>
 
                     </a><a href="lobby-preview.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>大廳預覽</span>
 
                     </a>
@@ -382,10 +382,10 @@
                     <div>
                         <p class="eyebrow">05.8.5 · 官方網站</p>
                         <h1>遊戲清單</h1>
-                        <p class="page-summary">已有內容原型；正式資料契約仍待整理。</p>
+                        <p class="page-summary">已納入大廳之遊戲、玩家公開摘要、三狀態及管理／預覽入口。</p>
                     </div>
                     <div class="page-status-stack">
-                        <span class="status-badge status-outline">待整理</span>
+                        <span class="status-badge status-draft">草案</span>
                         <span class="scope-badge scope-active">本輪製作</span>
 
                     </div>
@@ -393,21 +393,50 @@
 
                 <section class="metadata-card" aria-label="章節追溯資訊">
         <div class="metadata-grid">
-            <div><span>章節編號</span><code>05.8.5</code></div><div><span>規格狀態</span><code>待整理</code></div><div><span>Route</span><code>/lobby/games</code></div><div><span>前端元件</span><code>src/views/GameLobby/Games.vue</code></div>
+            <div><span>章節編號</span><code>05.8.5</code></div><div><span>規格狀態</span><code>草案</code></div><div><span>Route</span><code>/lobby/games</code></div><div><span>前端元件</span><code>src/views/GameLobby/Games.vue</code></div>
         </div>
     </section>
-
+                <section id="page-visual-overview" class="page-visual-overview" aria-labelledby="page-visual-title">
+        <div class="visual-overview-header">
+            <div>
+                <p class="visual-overview-kicker">PAGE ANATOMY · OVERVIEW FIRST</p>
+                <h2 id="page-visual-title">大廳遊戲清單畫面示意</h2>
+                <p>參照現行 /lobby/games 原型；清單唯讀，大廳狀態不取代全域或 GGAP 開關。</p>
+            </div>
+            <button class="visual-toggle" type="button" data-anatomy-toggle aria-expanded="true" aria-controls="lobby-games-visual-panel">
+                <span data-anatomy-toggle-label>收合畫面示意</span>
+                <i aria-hidden="true">⌃</i>
+            </button>
+        </div>
+        <nav class="visual-quick-map" aria-label="頁面區塊快速導覽">
+            <a href="#4-摘要-查詢與結果"><strong>01</strong><span>清單摘要</span><i aria-hidden="true">↘</i></a><a href="#4-摘要-查詢與結果"><strong>02</strong><span>查詢條件</span><i aria-hidden="true">↘</i></a><a href="#4-摘要-查詢與結果"><strong>03</strong><span>結果摘要</span><i aria-hidden="true">↘</i></a><a href="#5-遊戲列表規格"><strong>04</strong><span>遊戲列表</span><i aria-hidden="true">↘</i></a><a href="#6-公開摘要與跨頁導流"><strong>05</strong><span>單筆公開摘要</span><i aria-hidden="true">↘</i></a><a href="#7-頁面狀態與錯誤處理"><strong>06</strong><span>導流與替代狀態</span><i aria-hidden="true">↘</i></a>
+        </nav>
+        <div class="visual-scope-notes" aria-label="畫面閱讀邊界">
+            <span>閱讀邊界</span>
+            <small>三種玩家狀態</small><small>公開 snapshot</small><small>清單唯讀</small><small>精確 game_id 導流</small>
+        </div>
+        <div id="lobby-games-visual-panel" class="visual-overview-panel" data-anatomy-panel>
+            <figure class="page-anatomy lifecycle-anatomy publishing-anatomy publishing-anatomy--lobby" aria-label="大廳遊戲清單六區塊畫面示意">
+  <div class="lifecycle-anatomy__canvas">
+    <a class="anatomy-zone lifecycle-anatomy__cards lifecycle-anatomy__cards--four" href="#4-摘要-查詢與結果" aria-label="前往第一區，清單摘要"><span class="anatomy-zone__number">01</span><span><small>大廳遊戲</small><strong>06</strong><i>完整集合</i></span><span><small>已推出</small><strong>03</strong><i>可試玩</i></span><span><small>即將／維護</small><strong>03</strong><i>保留展示</i></span><span><small>需補資料</small><strong>01</strong><i>公開阻擋</i></span></a>
+    <a class="anatomy-zone lifecycle-anatomy__filters" href="#4-摘要-查詢與結果" aria-label="前往第二區，查詢條件"><span class="anatomy-zone__number">02</span><strong>查詢遊戲</strong><i>名稱／代碼／類型</i><i>玩家狀態</i><i>類型</i><i>準備度</i><i>版號</i><b>查詢</b></a>
+    <a class="anatomy-zone lifecycle-anatomy__toolbar" href="#4-摘要-查詢與結果" aria-label="前往第三區，結果摘要"><span class="anatomy-zone__number">03</span><strong>6 款大廳遊戲</strong><small>依公開排序 · 每頁 20 筆 · Updated 10:20</small><i>清單唯讀；編輯請進入遊戲管理</i></a>
+    <a class="anatomy-zone lifecycle-anatomy__table" href="#5-遊戲列表規格" aria-label="前往第四區，遊戲列表"><span class="anatomy-zone__number">04</span><strong>遊戲列表</strong><small>遊戲　版號　上架時間　玩家狀態　RTP　波動度　最高倍率　操作</small><i>翡翠天后 / JADE-QUEEN　v1.4.2　07.18　已推出　96.42%　高　x2,000　詳情／預覽</i></a>
+    <div class="lifecycle-anatomy__split">
+      <a class="anatomy-zone lifecycle-anatomy__detail" href="#6-公開摘要與跨頁導流" aria-label="前往第五區，單筆公開摘要"><span class="anatomy-zone__number">05</span><small>PUBLIC SNAPSHOT</small><strong>翡翠天后 · lobby-r12</strong><i>四語內容 · math-18 · asset-07 · readiness 5/5</i></a>
+      <a class="anatomy-zone lifecycle-anatomy__states" href="#7-頁面狀態與錯誤處理" aria-label="前往第六區，導流與替代狀態"><span class="anatomy-zone__number">06</span><strong>詳情與預覽</strong><i>精確 game_id</i><i>No snapshot</i><i>Stale</i><i>Error</i><i>Forbidden</i></a>
+    </div>
+  </div>
+  <div class="page-anatomy__legend"><span><i></i>玩家公開摘要</span><span><i></i>唯讀清單</span><small>參照現行 `/lobby/games` 原型；不包含批次變更或 GGAP 開關。</small></div>
+</figure>
+        </div>
+        <p class="visual-overview-disclaimer">畫面示意用於定位元件與閱讀順序；實際欄位、狀態與行為仍以本頁詳細規格及正式契約為準。</p>
+    </section>
+    <a class="visual-return" data-visual-return href="#page-visual-overview" hidden><span aria-hidden="true">↑</span> 回到畫面示意</a>
 
                 <div class="content-layout">
                     <article class="spec-content">
-                        <blockquote>
-<p>本章目前為「待整理」骨架。以下內容用來確定後續規格必須回答的問題，不代表尚未確認的行為已成為正式需求。</p>
-</blockquote>
-<h2 id="頁面定位">頁面定位</h2><p>已有內容原型；正式資料契約仍待整理。 目前已有內容原型；正式 API、權限與互動資料流仍待規格化。</p>
-<h2 id="規格來源">規格來源</h2><ul>
-<li><code>docs/GAME_LOBBY_SPEC.md</code></li>
-</ul>
-<h2 id="既有程式對應">既有程式對應</h2><div class="table-scroll" tabindex="0"><table>
+                        <h2 id="章節狀態">章節狀態</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
 <th>項目</th>
@@ -415,7 +444,15 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>Route</td>
+<td>規格成熟度</td>
+<td>Draft — Batch D 完整頁面規格</td>
+</tr>
+<tr>
+<td>製作範圍</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>對應路由</td>
 <td><code>/lobby/games</code></td>
 </tr>
 <tr>
@@ -423,32 +460,88 @@
 <td><code>src/views/GameLobby/Games.vue</code></td>
 </tr>
 <tr>
-<td>畫面現況</td>
-<td>已有內容原型</td>
+<td>主要來源</td>
+<td><code>GAME_LOBBY_SPEC.md</code>、<code>GAME_LIST_SPEC.md</code></td>
+</tr>
+<tr>
+<td>頁面角色</td>
+<td>已納入 Provider 自有大廳之遊戲與玩家公開摘要清單</td>
 </tr>
 </tbody></table></div>
-<h2 id="後續完整章節骨架">後續完整章節骨架</h2><ol>
-<li>目的、使用者與主要使用情境。</li>
-<li>範圍、責任邊界與明確排除項目。</li>
-<li>名詞、資料來源、計算口徑與環境隔離。</li>
-<li>資訊架構、欄位、篩選、列表、詳情與互動規則。</li>
-<li>狀態模型、空白／載入／錯誤／權限不足狀態。</li>
-<li>API request／response、錯誤、分頁、排序與匯出契約。</li>
-<li>安全、權限、稽核、響應式與可存取性。</li>
-<li>前端、後端、整合、資料品質與 QA 驗收條件。</li>
-<li>待確認事項、責任人、阻擋範圍與規格完成條件。</li>
-</ol>
-<h2 id="本章完成條件">本章完成條件</h2><ul>
-<li>已逐條整併來源 Spec，且無互相矛盾的責任或名詞。</li>
-<li>與實際 route、左側導覽、頁面原型及元件對應完成核對。</li>
-<li>Draft、TBD 與 Confirmed 內容可清楚區分。</li>
-<li>前端與後端能據此估工、拆分介面契約並建立驗收案例。</li>
+<blockquote>
+<p>本頁是大廳公開資料的唯讀清單與入口，不直接編輯或批次改狀態。大廳狀態不取代 Provider 全域上架，也不控制 GGAP 代理商個別開放。</p>
+</blockquote>
+<h2 id="1-目的與責任邊界">1. 目的與責任邊界</h2><ul>
+<li>查找已納入大廳的遊戲，包含已推出、即將開放與維護中。</li>
+<li>顯示玩家公開版號、RTP、波動度、最高倍率及資料完整度。</li>
+<li>導向單筆遊戲管理與精確預覽。</li>
+<li>不直接修改正式遊戲主資料、數值版本、素材版本或環境狀態。</li>
+<li>不顯示 GGAP 對帳、代理商開關、正式 Game Round 或財務資訊。</li>
 </ul>
+<h2 id="2-納入與公開規則">2. 納入與公開規則</h2><ul>
+<li>大廳項目以 <code>game_id</code> 引用 Provider 遊戲主資料；名稱／代碼為 snapshot，不作 join key。</li>
+<li>只有符合正式納入條件的遊戲出現在本清單；條件與移除流程依 <code>TBD-DOM-005</code>。</li>
+<li>玩家狀態只控制 DEMO CTA；即將開放與維護中仍保留公開卡片。</li>
+<li>公開數值來自已核准 snapshot，不允許在列表直接編輯。</li>
+</ul>
+<h2 id="3-六區塊資訊架構">3. 六區塊資訊架構</h2><ol>
+<li>清單摘要：大廳遊戲、三種狀態及需補資料。</li>
+<li>查詢條件：關鍵字、狀態、類型、readiness 與版號。</li>
+<li>結果摘要：命中數、applied filters、排序與更新時間。</li>
+<li>遊戲列表：八個主要欄位、分頁與狀態語意。</li>
+<li>單筆公開摘要：內容、素材、數值來源及問題提示。</li>
+<li>詳情／預覽與替代狀態：deep link、empty、error、stale、Forbidden。</li>
+</ol>
+<h2 id="4-摘要-查詢與結果">4. 摘要、查詢與結果</h2><p>查詢包含 keyword、玩家狀態、遊戲類型、readiness、公開版號；編輯條件不立即改變結果，查詢後建立 applied filters。預設依公開排序與 <code>game_id</code> 穩定次序，正式分頁／排序由伺服器處理。</p>
+<p>摘要使用完整集合，顯示三種狀態及阻擋公開數量；資料來源失敗不顯示 0。由總覽 deep link 進入時套用 query 並可清除。</p>
+<h2 id="5-遊戲列表規格">5. 遊戲列表規格</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>規則</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>遊戲</td>
+<td>名稱、代碼、類型、<code>game_id</code>；長文字可展開。</td>
+</tr>
+<tr>
+<td>版號</td>
+<td>大廳公開 snapshot 的展示版號，不等同 Production artifact 版號。</td>
+</tr>
+<tr>
+<td>上架時間</td>
+<td>玩家首次已推出時間；未推出顯示 <code>—</code>。</td>
+</tr>
+<tr>
+<td>狀態</td>
+<td>即將開放、已推出、維護中；附文字／圖示。</td>
+</tr>
+<tr>
+<td>RTP／波動度／最高倍率</td>
+<td>引用已核准公開數值 snapshot；缺值顯示 <code>—</code> 與原因。</td>
+</tr>
+<tr>
+<td>操作</td>
+<td>精確導向管理及預覽；不得直接變更狀態。</td>
+</tr>
+</tbody></table></div>
+<p>Desktop 使用可捲動表格；Mobile 轉卡片並保留全部公開欄位與兩個入口。</p>
+<h2 id="6-公開摘要與跨頁導流">6. 公開摘要與跨頁導流</h2><p>單筆摘要顯示 lobby revision、四語完整度、素材／數值參照、玩家狀態、最後發布及阻擋／警告。詳情導向 <code>/lobby/management?gameId=...</code>；預覽導向 <code>/lobby/preview?gameId=...&amp;mode=published</code>。若來源 snapshot 被撤銷或缺失，入口仍可查看原因，不可靜默套用最新草稿。</p>
+<h2 id="7-頁面狀態與錯誤處理">7. 頁面狀態與錯誤處理</h2><p>支援 loading、empty、no match、query error、partial field unavailable、snapshot missing、stale、invalid deep link 與 Forbidden。局部公開數值失敗顯示 <code>—</code>，不得顯示 0% 或推算 mock。</p>
+<h2 id="8-api-權限與驗收">8. API、權限與驗收</h2><p>API 提供摘要、filter options、列表與公開 snapshot 摘要；後端強制 Provider scope 並回傳 stable sorting、generated_at、source status 與 allowed links。正式契約依 <code>TBD-API-006</code>。</p>
+<p>本頁使用 <code>1500px</code> 寬版。驗收條件：所有三狀態遊戲都可找到；八欄完整；公開數值可追溯；列表唯讀；大廳狀態不冒充全域／GGAP 開關；Desktop／Mobile、鍵盤與替代狀態可驗收。</p>
+<h2 id="9-待確認與-draft-移除條件">9. 待確認與 Draft 移除條件</h2><ul>
+<li><code>TBD-DOM-005</code>：納入、排序、公開版本與移除模型。</li>
+<li><code>TBD-DAT-006</code>：多語與素材 fallback。</li>
+<li><code>TBD-API-006</code>、<code>TBD-SEC-001</code>：清單／摘要 API 與資料 scope。</li>
+</ul>
+<p>正式納入條件、公開 snapshot、API、權限及排序／錯誤規則核准後，才可改為 Confirmed。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#頁面定位">頁面定位</a><a class="outline-level-2" href="#規格來源">規格來源</a><a class="outline-level-2" href="#既有程式對應">既有程式對應</a><a class="outline-level-2" href="#後續完整章節骨架">後續完整章節骨架</a><a class="outline-level-2" href="#本章完成條件">本章完成條件</a></nav>
+        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-納入與公開規則">2. 納入與公開規則</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-摘要-查詢與結果">4. 摘要、查詢與結果</a><a class="outline-level-2" href="#5-遊戲列表規格">5. 遊戲列表規格</a><a class="outline-level-2" href="#6-公開摘要與跨頁導流">6. 公開摘要與跨頁導流</a><a class="outline-level-2" href="#7-頁面狀態與錯誤處理">7. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#8-api-權限與驗收">8. API、權限與驗收</a><a class="outline-level-2" href="#9-待確認與-draft-移除條件">9. 待確認與 Draft 移除條件</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -459,7 +552,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.11.0-batch-c-draft · 2026-08-14</span>
+                    <span>0.12.0-batch-d-draft · 2026-08-14</span>
                 </footer>
             </div>
         </main>

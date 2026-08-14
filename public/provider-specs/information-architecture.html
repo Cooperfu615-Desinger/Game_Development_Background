@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.11.0-batch-c-draft</span>
-            <span class="topbar-status">Phase 2 · Batch C Draft Complete</span>
+            <span>0.12.0-batch-d-draft</span>
+            <span class="topbar-status">Phase 2 · Batch D Draft Complete</span>
         </div>
     </header>
 
@@ -232,39 +232,39 @@
             <summary>05.8 官方網站<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="official-website-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="website-banners.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>Banner 管理</span>
 
                     </a><a href="website-content.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>內容管理</span>
 
                     </a><a href="website-releases.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>發布紀錄</span>
 
                     </a><a href="lobby-overview.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>大廳總覽</span>
 
                     </a><a href="lobby-games.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲清單</span>
 
                     </a><a href="lobby-management.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲管理</span>
 
                     </a><a href="lobby-demo.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>DEMO環境數據</span>
 
                     </a><a href="lobby-preview.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>大廳預覽</span>
 
                     </a>
@@ -489,7 +489,18 @@
 <li>遊戲版本：artifact、相容性、lineage、組合參照及建立新 release job 的回復模型。</li>
 <li>遊戲素材：不可變素材版本、安全預覽、檔案驗證／掃描、審核與引用。</li>
 </ul>
-<p>Batch A–C 頁面仍是 Draft；正式公式、門檻、decimal 精度、狀態生命週期、API schema、權限與外部契約仍依集中 TBD 管理。其餘 Batch D 頁面維持 Active／Outline，等待後續整理。</p>
+<p>Batch D 已完成官方網站與遊戲大廳八頁完整 Draft：</p>
+<ul>
+<li>Banner 管理：單一 Banner、多語 revision、素材／排程、預覽與獨立發布。</li>
+<li>內容管理：四類低頻內容、受限富文字、結構化聯絡資訊、驗證與獨立發布。</li>
+<li>發布紀錄：官網不可變 release／job、snapshot、timeline、錯誤及來源追溯。</li>
+<li>大廳總覽：三種玩家狀態、DEMO 摘要、readiness 與精確工作入口。</li>
+<li>遊戲清單：八欄唯讀公開清單、snapshot 與管理／預覽導流。</li>
+<li>遊戲管理：上游唯讀參照、四語內容、媒體、三狀態、公開檢查與發布。</li>
+<li>DEMO環境數據：隔離 identity／telemetry、趨勢、資料品質、遊戲表現與匯出。</li>
+<li>大廳預覽：published／指定 draft revision、四語、雙裝置、三狀態與 sandbox 安全。</li>
+</ul>
+<p>Batch A–D 共 21 個 Baseline／Active 頁面皆已形成完整 Draft；正式公式、門檻、decimal 精度、內容／遊戲生命週期、API schema、權限、安全與外部契約仍依集中 TBD 管理。GGAP 對接、通知中心與系統設定維持 Deferred。</p>
 <h2 id="完整頁面矩陣">完整頁面矩陣</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
@@ -687,7 +698,7 @@
 <td><a href="website-banners.html">Banner 管理</a></td>
 <td><code>/website/banners</code></td>
 <td>內容原型</td>
-<td>待整理</td>
+<td>草案</td>
 <td>本輪製作</td>
 <td><code>src/views/GameWebsite/Banners.vue</code></td>
 </tr>
@@ -696,7 +707,7 @@
 <td><a href="website-content.html">內容管理</a></td>
 <td><code>/website/content</code></td>
 <td>內容原型</td>
-<td>待整理</td>
+<td>草案</td>
 <td>本輪製作</td>
 <td><code>src/views/GameWebsite/Content.vue</code></td>
 </tr>
@@ -705,7 +716,7 @@
 <td><a href="website-releases.html">發布紀錄</a></td>
 <td><code>/website/releases</code></td>
 <td>內容原型</td>
-<td>待整理</td>
+<td>草案</td>
 <td>本輪製作</td>
 <td><code>src/views/GameWebsite/Releases.vue</code></td>
 </tr>
@@ -714,7 +725,7 @@
 <td><a href="lobby-overview.html">大廳總覽</a></td>
 <td><code>/lobby</code></td>
 <td>內容原型</td>
-<td>待整理</td>
+<td>草案</td>
 <td>本輪製作</td>
 <td><code>src/views/GameLobby/Overview.vue</code></td>
 </tr>
@@ -723,7 +734,7 @@
 <td><a href="lobby-games.html">遊戲清單</a></td>
 <td><code>/lobby/games</code></td>
 <td>內容原型</td>
-<td>待整理</td>
+<td>草案</td>
 <td>本輪製作</td>
 <td><code>src/views/GameLobby/Games.vue</code></td>
 </tr>
@@ -732,7 +743,7 @@
 <td><a href="lobby-management.html">遊戲管理</a></td>
 <td><code>/lobby/management</code></td>
 <td>內容原型</td>
-<td>待整理</td>
+<td>草案</td>
 <td>本輪製作</td>
 <td><code>src/views/GameLobby/Management.vue</code></td>
 </tr>
@@ -741,7 +752,7 @@
 <td><a href="lobby-demo.html">DEMO環境數據</a></td>
 <td><code>/lobby/demo</code></td>
 <td>內容原型</td>
-<td>待整理</td>
+<td>草案</td>
 <td>本輪製作</td>
 <td><code>src/views/GameLobby/DemoData.vue</code></td>
 </tr>
@@ -750,7 +761,7 @@
 <td><a href="lobby-preview.html">大廳預覽</a></td>
 <td><code>/lobby/preview</code></td>
 <td>內容原型</td>
-<td>待整理</td>
+<td>草案</td>
 <td>本輪製作</td>
 <td><code>src/views/GameLobby/Preview.vue</code></td>
 </tr>
@@ -807,7 +818,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.11.0-batch-c-draft · 2026-08-14</span>
+                    <span>0.12.0-batch-d-draft · 2026-08-14</span>
                 </footer>
             </div>
         </main>

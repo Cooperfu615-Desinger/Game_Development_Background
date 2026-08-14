@@ -1,5 +1,14 @@
 # 版本紀錄
 
+## 0.12.0-batch-d-draft · 2026-08-14
+
+- 完成 Phase 2 Batch D：官方網站三頁與遊戲大廳五頁完整 Draft。
+- 建立官網內容草稿 → 安全預覽 → 獨立發布／追溯，以及大廳草稿 → readiness → 指定 revision 預覽的兩條內容發布鏈。
+- 八頁新增貼近現行官網／大廳原型的 Overview-first HTML／CSS 畫面示意與六區快速導覽。
+- 分開遊戲主資料、官網內容、大廳公開 snapshot、發布工作與 DEMO telemetry，避免互相覆寫或冒充唯一真實來源。
+- DEMO identity、展示 credit 與試玩工作階段不建立會員、錢包或正式 Game Session，也不納入 Game Round、財務或 Provider 風控。
+- 正式內容／大廳生命週期、語系／素材 fallback、API、permission、公開內容安全與 DEMO 契約仍依集中 TBD 管理。
+
 ## 0.11.0-batch-c-draft · 2026-08-14
 
 - 完成 Phase 2 Batch C：遊戲列表、環境與發布、遊戲設定、數值設定、遊戲版本、遊戲素材六頁完整 Draft。

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="已有內容原型；正式資料契約仍待整理。">
+    <meta name="description" content="隔離 DEMO identity、試玩 telemetry、趨勢、遊戲表現與非正式匯出。">
     <meta name="color-scheme" content="light">
     <title>DEMO環境數據｜Provider Portal 產品與系統規格書</title>
     <link rel="stylesheet" href="assets/site.css">
@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.11.0-batch-c-draft</span>
-            <span class="topbar-status">Phase 2 · Batch C Draft Complete</span>
+            <span>0.12.0-batch-d-draft</span>
+            <span class="topbar-status">Phase 2 · Batch D Draft Complete</span>
         </div>
     </header>
 
@@ -232,39 +232,39 @@
             <summary>05.8 官方網站<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="official-website-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="website-banners.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>Banner 管理</span>
 
                     </a><a href="website-content.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>內容管理</span>
 
                     </a><a href="website-releases.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>發布紀錄</span>
 
                     </a><a href="lobby-overview.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>大廳總覽</span>
 
                     </a><a href="lobby-games.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲清單</span>
 
                     </a><a href="lobby-management.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲管理</span>
 
                     </a><a href="lobby-demo.html" aria-current="page">
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>DEMO環境數據</span>
 
                     </a><a href="lobby-preview.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>大廳預覽</span>
 
                     </a>
@@ -382,10 +382,10 @@
                     <div>
                         <p class="eyebrow">05.8.7 · 官方網站</p>
                         <h1>DEMO環境數據</h1>
-                        <p class="page-summary">已有內容原型；正式資料契約仍待整理。</p>
+                        <p class="page-summary">隔離 DEMO identity、試玩 telemetry、趨勢、遊戲表現與非正式匯出。</p>
                     </div>
                     <div class="page-status-stack">
-                        <span class="status-badge status-outline">待整理</span>
+                        <span class="status-badge status-draft">草案</span>
                         <span class="scope-badge scope-active">本輪製作</span>
 
                     </div>
@@ -393,21 +393,50 @@
 
                 <section class="metadata-card" aria-label="章節追溯資訊">
         <div class="metadata-grid">
-            <div><span>章節編號</span><code>05.8.7</code></div><div><span>規格狀態</span><code>待整理</code></div><div><span>Route</span><code>/lobby/demo</code></div><div><span>前端元件</span><code>src/views/GameLobby/DemoData.vue</code></div>
+            <div><span>章節編號</span><code>05.8.7</code></div><div><span>規格狀態</span><code>草案</code></div><div><span>Route</span><code>/lobby/demo</code></div><div><span>前端元件</span><code>src/views/GameLobby/DemoData.vue</code></div>
         </div>
     </section>
-
+                <section id="page-visual-overview" class="page-visual-overview" aria-labelledby="page-visual-title">
+        <div class="visual-overview-header">
+            <div>
+                <p class="visual-overview-kicker">PAGE ANATOMY · OVERVIEW FIRST</p>
+                <h2 id="page-visual-title">DEMO環境數據畫面示意</h2>
+                <p>參照現行 /lobby/demo 原型；工作階段與 USD 額度只屬展示 telemetry，不是正式業務／錢包。</p>
+            </div>
+            <button class="visual-toggle" type="button" data-anatomy-toggle aria-expanded="true" aria-controls="lobby-demo-visual-panel">
+                <span data-anatomy-toggle-label>收合畫面示意</span>
+                <i aria-hidden="true">⌃</i>
+            </button>
+        </div>
+        <nav class="visual-quick-map" aria-label="頁面區塊快速導覽">
+            <a href="#4-查詢與-demo-摘要"><strong>01</strong><span>查詢範圍</span><i aria-hidden="true">↘</i></a><a href="#4-查詢與-demo-摘要"><strong>02</strong><span>DEMO 摘要</span><i aria-hidden="true">↘</i></a><a href="#5-趨勢-規則與資料品質"><strong>03</strong><span>活躍趨勢</span><i aria-hidden="true">↘</i></a><a href="#5-趨勢-規則與資料品質"><strong>04</strong><span>規則與資料品質</span><i aria-hidden="true">↘</i></a><a href="#6-各遊戲表現與匯出"><strong>05</strong><span>各遊戲表現</span><i aria-hidden="true">↘</i></a><a href="#7-頁面狀態與錯誤處理"><strong>06</strong><span>匯出與替代狀態</span><i aria-hidden="true">↘</i></a>
+        </nav>
+        <div class="visual-scope-notes" aria-label="畫面閱讀邊界">
+            <span>閱讀邊界</span>
+            <small>DEMO telemetry only</small><small>不含正式財務／風控</small><small>不建立會員／錢包</small><small>Test 排除</small>
+        </div>
+        <div id="lobby-demo-visual-panel" class="visual-overview-panel" data-anatomy-panel>
+            <figure class="page-anatomy lifecycle-anatomy publishing-anatomy publishing-anatomy--lobby" aria-label="DEMO環境數據六區塊畫面示意">
+  <div class="lifecycle-anatomy__canvas">
+    <a class="anatomy-zone lifecycle-anatomy__filters" href="#4-查詢與-demo-摘要" aria-label="前往第一區，查詢範圍"><span class="anatomy-zone__number">01</span><strong>DEMO 數據期間</strong><i>今日</i><i>近 7 日</i><i>近 30 日</i><i>遊戲</i><i>類型</i><b>查詢</b></a>
+    <a class="anatomy-zone lifecycle-anatomy__cards lifecycle-anatomy__cards--four" href="#4-查詢與-demo-摘要" aria-label="前往第二區，DEMO 摘要"><span class="anatomy-zone__number">02</span><span><small>目前在線</small><strong>100</strong><i>DEMO identity</i></span><span><small>試玩工作階段</small><strong>498</strong><i>非正式 Session</i></span><span><small>試玩行為</small><strong>14.9k</strong><i>隔離事件</i></span><span><small>額度流量</small><strong>458k</strong><i>非財務</i></span></a>
+    <div class="lifecycle-anatomy__split">
+      <a class="anatomy-zone lifecycle-anatomy__chart publishing-anatomy__dark" href="#5-趨勢-規則與資料品質" aria-label="前往第三區，活躍趨勢"><span class="anatomy-zone__number">03</span><strong>玩家活躍趨勢</strong><small>Asia/Taipei · 1h bucket · Updated 10:20</small><span><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></a>
+      <a class="anatomy-zone lifecycle-anatomy__detail" href="#5-趨勢-規則與資料品質" aria-label="前往第四區，DEMO 規則與資料品質"><span class="anatomy-zone__number">04</span><small>DEMO GUARDRAILS</small><strong>隔離資料 · 無會員／錢包</strong><i>identity 派發 · credit reset · retention · source lag</i></a>
+    </div>
+    <a class="anatomy-zone lifecycle-anatomy__table" href="#6-各遊戲表現與匯出" aria-label="前往第五區，各遊戲表現"><span class="anatomy-zone__number">05</span><strong>各遊戲 DEMO 表現</strong><small>遊戲　目前 identity　試玩工作階段　試玩行為　額度流量　遊玩時間</small><i>翡翠天后　42　186　6,240　184,320 demo credits　4,380 min</i></a>
+    <a class="anatomy-zone lifecycle-anatomy__states" href="#7-頁面狀態與錯誤處理" aria-label="前往第六區，匯出與替代狀態"><span class="anatomy-zone__number">06</span><strong>匯出與狀態</strong><i>CSV</i><i>No data</i><i>Delayed</i><i>Partial</i><i>Forbidden</i></a>
+  </div>
+  <div class="page-anatomy__legend"><span><i></i>DEMO telemetry only</span><span><i></i>不納正式財務／風控</span><small>參照現行 `/lobby/demo` 原型；USD 10,000 不升格為正式錢包契約。</small></div>
+</figure>
+        </div>
+        <p class="visual-overview-disclaimer">畫面示意用於定位元件與閱讀順序；實際欄位、狀態與行為仍以本頁詳細規格及正式契約為準。</p>
+    </section>
+    <a class="visual-return" data-visual-return href="#page-visual-overview" hidden><span aria-hidden="true">↑</span> 回到畫面示意</a>
 
                 <div class="content-layout">
                     <article class="spec-content">
-                        <blockquote>
-<p>本章目前為「待整理」骨架。以下內容用來確定後續規格必須回答的問題，不代表尚未確認的行為已成為正式需求。</p>
-</blockquote>
-<h2 id="頁面定位">頁面定位</h2><p>已有內容原型；正式資料契約仍待整理。 目前已有內容原型；正式 API、權限與互動資料流仍待規格化。</p>
-<h2 id="規格來源">規格來源</h2><ul>
-<li><code>docs/GAME_LOBBY_SPEC.md</code></li>
-</ul>
-<h2 id="既有程式對應">既有程式對應</h2><div class="table-scroll" tabindex="0"><table>
+                        <h2 id="章節狀態">章節狀態</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
 <th>項目</th>
@@ -415,7 +444,15 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>Route</td>
+<td>規格成熟度</td>
+<td>Draft — Batch D 完整頁面規格</td>
+</tr>
+<tr>
+<td>製作範圍</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>對應路由</td>
 <td><code>/lobby/demo</code></td>
 </tr>
 <tr>
@@ -423,32 +460,62 @@
 <td><code>src/views/GameLobby/DemoData.vue</code></td>
 </tr>
 <tr>
-<td>畫面現況</td>
-<td>已有內容原型</td>
+<td>主要來源</td>
+<td><code>GAME_LOBBY_SPEC.md</code>、<code>PROVIDER_PORTAL_SPEC.md</code></td>
+</tr>
+<tr>
+<td>頁面角色</td>
+<td>Provider 自有大廳 DEMO 試玩 telemetry 與營運參考</td>
 </tr>
 </tbody></table></div>
-<h2 id="後續完整章節骨架">後續完整章節骨架</h2><ol>
-<li>目的、使用者與主要使用情境。</li>
-<li>範圍、責任邊界與明確排除項目。</li>
-<li>名詞、資料來源、計算口徑與環境隔離。</li>
-<li>資訊架構、欄位、篩選、列表、詳情與互動規則。</li>
-<li>狀態模型、空白／載入／錯誤／權限不足狀態。</li>
-<li>API request／response、錯誤、分頁、排序與匯出契約。</li>
-<li>安全、權限、稽核、響應式與可存取性。</li>
-<li>前端、後端、整合、資料品質與 QA 驗收條件。</li>
-<li>待確認事項、責任人、阻擋範圍與規格完成條件。</li>
-</ol>
-<h2 id="本章完成條件">本章完成條件</h2><ul>
-<li>已逐條整併來源 Spec，且無互相矛盾的責任或名詞。</li>
-<li>與實際 route、左側導覽、頁面原型及元件對應完成核對。</li>
-<li>Draft、TBD 與 Confirmed 內容可清楚區分。</li>
-<li>前端與後端能據此估工、拆分介面契約並建立驗收案例。</li>
+<blockquote>
+<p>本頁資料完全隔離，不納入正式 Game Round、財務、GGR 或 Provider 風控。畫面中的帳號、餘額與工作階段不是 Provider 會員、錢包或正式業務 Game Session；原型 USD 10,000 只是展示假資料。</p>
+</blockquote>
+<h2 id="1-目的與責任邊界">1. 目的與責任邊界</h2><ul>
+<li>查看今日、近 7 日與近 30 日的 DEMO 活躍、試玩工作階段、行為及各遊戲表現。</li>
+<li>提供 DEMO 營運參考與資料品質提示，不提供正式財務結論。</li>
+<li>隨機 DEMO identity 是短期技術識別，不建立固定會員帳號池。</li>
+<li>展示額度是隔離沙盒 credit，不建立或連接 Provider／GGAP 錢包。</li>
+<li>Test 不納入本頁；本頁也不納入 Provider 風控監控。</li>
 </ul>
+<h2 id="2-demo-資料模型與隔離">2. DEMO 資料模型與隔離</h2><ul>
+<li><code>demo_identity_id</code>、<code>demo_play_id</code>／<code>demo_session_id</code> 只存在 DEMO namespace，不得與 member ID、Provider／GGAP Round ID 共用。</li>
+<li>Production 正式紀錄仍以 Game Round 為主要業務單位；DEMO session 只是瀏覽／試玩 telemetry 分組。</li>
+<li>DEMO 資料庫、事件 topic、查詢 API、匯出與 retention 必須與 Production 分離。</li>
+<li>原型「投注總額 USD」改稱 DEMO 試玩額度流量；正式顯示單位、精度與是否保留金額概念待 <code>TBD-DOM-006</code>。</li>
+</ul>
+<h2 id="3-六區塊資訊架構">3. 六區塊資訊架構</h2><ol>
+<li>查詢範圍：期間、遊戲、類型與資料更新時間。</li>
+<li>DEMO 摘要：在線 identity、試玩工作階段、試玩行為、額度流量。</li>
+<li>活躍趨勢：時間序列、粒度、時區與缺口。</li>
+<li>DEMO 規則與資料品質：隔離、派發、重設、延遲與 retention。</li>
+<li>各遊戲表現：玩家、工作階段、行為、額度及遊玩時間。</li>
+<li>匯出與替代狀態：empty、delayed、partial、failed、Forbidden。</li>
+</ol>
+<h2 id="4-查詢與-demo-摘要">4. 查詢與 DEMO 摘要</h2><p>期間支援今日、近 7 日、近 30 日，並可依 <code>game_id</code>、遊戲類型查詢；需顯示 applied range、時區、資料延遲與生成時間。摘要使用同一 applied filters：目前在線是 snapshot，其餘是期間聚合，標籤需區分時間語意。</p>
+<p>各指標正式定義需說明去重 identity、工作階段開始／結束、事件去重、額度方向、遊玩時間及 late event 修正。無資料顯示 <code>—</code>，不是 0。</p>
+<h2 id="5-趨勢-規則與資料品質">5. 趨勢、規則與資料品質</h2><ul>
+<li>趨勢回傳 bucket start/end、value、completeness、generated_at；缺 bucket 顯示斷點，不補 0。</li>
+<li>規則區顯示 DEMO namespace、identity TTL、初始／重設 credit、資料 retention、反濫用限制及規則版本。</li>
+<li>原型「後端隨機生成、USD 10,000」是方向，不是核准契約；正式值由 API／設定回傳。</li>
+<li>顯示 ingestion delay、last complete bucket、late events 與 source failure。</li>
+</ul>
+<h2 id="6-各遊戲表現與匯出">6. 各遊戲表現與匯出</h2><p>列表包含 <code>game_id</code>／名稱／類型、active identities、demo play sessions、play events、credit flow、play duration、更新時間與資料品質。預設依活躍排序並由伺服器分頁。</p>
+<p>匯出沿用 applied filters、欄位定義、單位、時區與生成時間，檔名明確包含 <code>DEMO</code>；不可與正式財務／Game Round 匯出放在同一檔案或同一 download namespace。</p>
+<h2 id="7-頁面狀態與錯誤處理">7. 頁面狀態與錯誤處理</h2><p>支援 loading、no events、query error、partial game metrics、delayed、incomplete bucket、export queued／failed／expired、stale 與 Forbidden。任何資料都需有醒目 DEMO 標示，避免截圖或匯出被誤用為正式報表。</p>
+<h2 id="8-api-安全與驗收">8. API、安全與驗收</h2><p>API 提供 filter options、summary、trend、game performance、data quality 及 async export。後端強制 DEMO namespace／Provider scope，禁止 Production source fallback；識別碼需短期、遮罩且不可反查正式會員。</p>
+<p>使用 <code>1500px</code> 寬版；Mobile 摘要、趨勢、規則、列表卡片依序排列。驗收需證明 DEMO 與正式資料完全隔離、工作階段不成為正式業務單位、原型 USD 不冒充錢包、匯出清楚標示且所有延遲／缺口可辨識。</p>
+<h2 id="9-待確認與-draft-移除條件">9. 待確認與 Draft 移除條件</h2><ul>
+<li><code>TBD-DOM-006</code>：DEMO identity、工作階段、credit、重設與 retention。</li>
+<li><code>TBD-DAT-005</code>：指標、窗口、去重及資料品質。</li>
+<li><code>TBD-API-006</code>、<code>TBD-SEC-001</code>：查詢／匯出 API、scope 與遮罩。</li>
+</ul>
+<p>正式 DEMO 模型、指標、隔離、API、權限、保存及匯出規則核准後，才可改為 Confirmed。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#頁面定位">頁面定位</a><a class="outline-level-2" href="#規格來源">規格來源</a><a class="outline-level-2" href="#既有程式對應">既有程式對應</a><a class="outline-level-2" href="#後續完整章節骨架">後續完整章節骨架</a><a class="outline-level-2" href="#本章完成條件">本章完成條件</a></nav>
+        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-demo-資料模型與隔離">2. DEMO 資料模型與隔離</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-查詢與-demo-摘要">4. 查詢與 DEMO 摘要</a><a class="outline-level-2" href="#5-趨勢-規則與資料品質">5. 趨勢、規則與資料品質</a><a class="outline-level-2" href="#6-各遊戲表現與匯出">6. 各遊戲表現與匯出</a><a class="outline-level-2" href="#7-頁面狀態與錯誤處理">7. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#8-api-安全與驗收">8. API、安全與驗收</a><a class="outline-level-2" href="#9-待確認與-draft-移除條件">9. 待確認與 Draft 移除條件</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -459,7 +526,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.11.0-batch-c-draft · 2026-08-14</span>
+                    <span>0.12.0-batch-d-draft · 2026-08-14</span>
                 </footer>
             </div>
         </main>

@@ -62,7 +62,18 @@ Batch C 已完成遊戲管理六頁完整 Draft：
 - 遊戲版本：artifact、相容性、lineage、組合參照及建立新 release job 的回復模型。
 - 遊戲素材：不可變素材版本、安全預覽、檔案驗證／掃描、審核與引用。
 
-Batch A–C 頁面仍是 Draft；正式公式、門檻、decimal 精度、狀態生命週期、API schema、權限與外部契約仍依集中 TBD 管理。其餘 Batch D 頁面維持 Active／Outline，等待後續整理。
+Batch D 已完成官方網站與遊戲大廳八頁完整 Draft：
+
+- Banner 管理：單一 Banner、多語 revision、素材／排程、預覽與獨立發布。
+- 內容管理：四類低頻內容、受限富文字、結構化聯絡資訊、驗證與獨立發布。
+- 發布紀錄：官網不可變 release／job、snapshot、timeline、錯誤及來源追溯。
+- 大廳總覽：三種玩家狀態、DEMO 摘要、readiness 與精確工作入口。
+- 遊戲清單：八欄唯讀公開清單、snapshot 與管理／預覽導流。
+- 遊戲管理：上游唯讀參照、四語內容、媒體、三狀態、公開檢查與發布。
+- DEMO環境數據：隔離 identity／telemetry、趨勢、資料品質、遊戲表現與匯出。
+- 大廳預覽：published／指定 draft revision、四語、雙裝置、三狀態與 sandbox 安全。
+
+Batch A–D 共 21 個 Baseline／Active 頁面皆已形成完整 Draft；正式公式、門檻、decimal 精度、內容／遊戲生命週期、API schema、權限、安全與外部契約仍依集中 TBD 管理。GGAP 對接、通知中心與系統設定維持 Deferred。
 
 ## 完整頁面矩陣
 

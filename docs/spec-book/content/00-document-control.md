@@ -9,8 +9,8 @@
 | 文件名稱 | Provider Portal 產品與系統規格書 |
 | 適用產品 | GGAP Provider Portal |
 | 主要讀者 | 產品、前端、後端、QA、GGAP 對接團隊 |
-| 目前版本 | `0.11.0-batch-c-draft` |
-| 目前狀態 | Phase 2 · Batch C Draft Complete |
+| 目前版本 | `0.12.0-batch-d-draft` |
+| 目前狀態 | Phase 2 · Batch D Draft Complete |
 | 主要語言 | 台灣繁體中文；技術值與協定名稱保留英文 |
 
 ## 規格狀態定義
@@ -77,3 +77,5 @@
 第二階段 Batch B 已完成「儀表板、監控總覽、風控報表、風控告警／處理」四頁完整 Draft。四頁形成「跨模組摘要 → 服務與指標觀察 → Risk Event 分析 → Alert 人工作業」鏈，並明確保留 Test 排除、Production／DEMO 隔離、既有 Round 不受隔離阻斷及 GGAP／通知 Deferred 邊界。
 
 第二階段 Batch C 已完成遊戲管理六頁完整 Draft，形成「遊戲主資料 → 一般設定 → 數值版本 → 程式版本 → 素材版本 → 環境發布」鏈。環境與發布的程式仍為 Placeholder，規格只建立目標 UI／流程與驗收骨架；正式生命週期、API、權限、核准及 GGAP 同步仍待集中 TBD。
+
+第二階段 Batch D 已完成官方網站與遊戲大廳八頁完整 Draft，形成「官網內容草稿 → 安全預覽 → 獨立發布／追溯」及「遊戲公開草稿 → readiness → 指定 revision 預覽 → DEMO telemetry」兩條鏈。DEMO identity、展示額度與試玩工作階段不建立正式會員、錢包或 Game Session 業務模型，也不進入正式 Game Round、財務或 Provider 風控；正式內容／大廳生命週期、API、權限及安全契約仍待集中 TBD。

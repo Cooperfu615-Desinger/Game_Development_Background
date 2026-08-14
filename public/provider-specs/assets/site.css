@@ -4161,6 +4161,106 @@ body {
     .lifecycle-anatomy__cards > span { border-right: 0; }
 }
 
+/* Phase 2 Batch D: website and lobby publishing anatomy */
+.publishing-anatomy {
+    --publish-teal: #2d766e;
+    --publish-mint: #bfe8d6;
+    --publish-coral: #df8966;
+    --publish-night: #102328;
+}
+
+.publishing-anatomy--website .lifecycle-anatomy__canvas {
+    background:
+        radial-gradient(circle at 92% 4%, rgba(191, 232, 214, .48), transparent 24%),
+        linear-gradient(135deg, #f7fbf9 0%, #eef6f2 100%);
+}
+
+.publishing-anatomy--website .anatomy-zone {
+    border-color: #d6e8e1;
+    box-shadow: 0 4px 14px rgba(34, 76, 70, .065);
+}
+
+.publishing-anatomy--website .anatomy-zone:hover,
+.publishing-anatomy--website .anatomy-zone:focus-visible {
+    border-color: var(--life-blue);
+}
+
+.publishing-anatomy--website .lifecycle-anatomy__cards i,
+.publishing-anatomy--website .lifecycle-anatomy__toolbar > i,
+.publishing-anatomy--website .lifecycle-anatomy__matrix > span b {
+    color: var(--publish-teal);
+}
+
+.publishing-anatomy--website .lifecycle-anatomy__filters > i,
+.publishing-anatomy--website .lifecycle-anatomy__actions > i,
+.publishing-anatomy--website .lifecycle-anatomy__states > i,
+.publishing-anatomy--website .lifecycle-anatomy__matrix > span {
+    border-color: #d8e9e2;
+    background: #f3faf6;
+}
+
+.publishing-anatomy__editor {
+    background: linear-gradient(135deg, #fff 0%, #f1faf6 100%) !important;
+}
+
+.publishing-anatomy__copy > small,
+.publishing-anatomy__editor-area > small {
+    background: #29443f;
+}
+
+.publishing-anatomy__preview {
+    background: linear-gradient(135deg, #fff 0%, #eef9f4 100%) !important;
+}
+
+.publishing-anatomy--lobby .lifecycle-anatomy__canvas {
+    background:
+        linear-gradient(rgba(255, 255, 255, .78), rgba(255, 255, 255, .78)),
+        repeating-linear-gradient(135deg, #dcece7 0 1px, transparent 1px 18px),
+        #eef6f3;
+}
+
+.publishing-anatomy--lobby .anatomy-zone {
+    border-color: #d5e5df;
+    box-shadow: 0 4px 14px rgba(16, 63, 59, .07);
+}
+
+.publishing-anatomy--lobby .lifecycle-anatomy__cards i,
+.publishing-anatomy--lobby .lifecycle-anatomy__toolbar > i,
+.publishing-anatomy--lobby .lifecycle-anatomy__matrix > span b {
+    color: #147c78;
+}
+
+.publishing-anatomy__dark {
+    color: #effcf8 !important;
+    border-color: #254b4d !important;
+    background:
+        radial-gradient(circle at 85% 12%, rgba(68, 151, 137, .26), transparent 27%),
+        linear-gradient(135deg, #102328 0%, #18373a 100%) !important;
+}
+
+.publishing-anatomy__dark > strong { color: #f4fffb !important; }
+.publishing-anatomy__dark > small,
+.publishing-anatomy__dark > i { color: #a9cbc1 !important; }
+.publishing-anatomy__dark.lifecycle-anatomy__chart > span { border-bottom-color: rgba(191, 232, 214, .28); }
+.publishing-anatomy__dark.lifecycle-anatomy__chart > span i { background: #58a99a; }
+.publishing-anatomy__dark.lifecycle-anatomy__chart > span i:nth-child(3),
+.publishing-anatomy__dark.lifecycle-anatomy__chart > span i:nth-child(5) { background: #dfaa62; }
+
+.publishing-anatomy__game-grid > small {
+    color: #dff7ee;
+    background: rgba(191, 232, 214, .12);
+}
+
+.publishing-anatomy__game-grid > i {
+    color: #a5c7be;
+    background: rgba(255, 255, 255, .055);
+    border-color: rgba(191, 232, 214, .16);
+}
+
+.publishing-anatomy__preview-canvas {
+    background: linear-gradient(180deg, #edf5f2 0%, #e6efec 100%) !important;
+}
+
 .metadata-card {
     margin: 0 0 18px;
     padding: 14px 18px;

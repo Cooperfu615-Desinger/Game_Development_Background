@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="已有內容原型；正式資料契約仍待整理。">
+    <meta name="description" content="官網內容發布工作、不可變事件、版本 snapshot、結果與錯誤追溯。">
     <meta name="color-scheme" content="light">
     <title>發布紀錄｜Provider Portal 產品與系統規格書</title>
     <link rel="stylesheet" href="assets/site.css">
@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.11.0-batch-c-draft</span>
-            <span class="topbar-status">Phase 2 · Batch C Draft Complete</span>
+            <span>0.12.0-batch-d-draft</span>
+            <span class="topbar-status">Phase 2 · Batch D Draft Complete</span>
         </div>
     </header>
 
@@ -232,39 +232,39 @@
             <summary>05.8 官方網站<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="official-website-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="website-banners.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>Banner 管理</span>
 
                     </a><a href="website-content.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>內容管理</span>
 
                     </a><a href="website-releases.html" aria-current="page">
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>發布紀錄</span>
 
                     </a><a href="lobby-overview.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>大廳總覽</span>
 
                     </a><a href="lobby-games.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲清單</span>
 
                     </a><a href="lobby-management.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲管理</span>
 
                     </a><a href="lobby-demo.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>DEMO環境數據</span>
 
                     </a><a href="lobby-preview.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>大廳預覽</span>
 
                     </a>
@@ -382,10 +382,10 @@
                     <div>
                         <p class="eyebrow">05.8.3 · 官方網站</p>
                         <h1>發布紀錄</h1>
-                        <p class="page-summary">已有內容原型；正式資料契約仍待整理。</p>
+                        <p class="page-summary">官網內容發布工作、不可變事件、版本 snapshot、結果與錯誤追溯。</p>
                     </div>
                     <div class="page-status-stack">
-                        <span class="status-badge status-outline">待整理</span>
+                        <span class="status-badge status-draft">草案</span>
                         <span class="scope-badge scope-active">本輪製作</span>
 
                     </div>
@@ -393,21 +393,50 @@
 
                 <section class="metadata-card" aria-label="章節追溯資訊">
         <div class="metadata-grid">
-            <div><span>章節編號</span><code>05.8.3</code></div><div><span>規格狀態</span><code>待整理</code></div><div><span>Route</span><code>/website/releases</code></div><div><span>前端元件</span><code>src/views/GameWebsite/Releases.vue</code></div>
+            <div><span>章節編號</span><code>05.8.3</code></div><div><span>規格狀態</span><code>草案</code></div><div><span>Route</span><code>/website/releases</code></div><div><span>前端元件</span><code>src/views/GameWebsite/Releases.vue</code></div>
         </div>
     </section>
-
+                <section id="page-visual-overview" class="page-visual-overview" aria-labelledby="page-visual-title">
+        <div class="visual-overview-header">
+            <div>
+                <p class="visual-overview-kicker">PAGE ANATOMY · OVERVIEW FIRST</p>
+                <h2 id="page-visual-title">發布紀錄畫面示意</h2>
+                <p>參照現行 /website/releases 原型；只涵蓋官網內容，不是遊戲或大廳版本紀錄。</p>
+            </div>
+            <button class="visual-toggle" type="button" data-anatomy-toggle aria-expanded="true" aria-controls="website-releases-visual-panel">
+                <span data-anatomy-toggle-label>收合畫面示意</span>
+                <i aria-hidden="true">⌃</i>
+            </button>
+        </div>
+        <nav class="visual-quick-map" aria-label="頁面區塊快速導覽">
+            <a href="#4-發布摘要與查詢"><strong>01</strong><span>發布摘要</span><i aria-hidden="true">↘</i></a><a href="#4-發布摘要與查詢"><strong>02</strong><span>查詢與篩選</span><i aria-hidden="true">↘</i></a><a href="#5-結果摘要與發布列表"><strong>03</strong><span>結果摘要</span><i aria-hidden="true">↘</i></a><a href="#5-結果摘要與發布列表"><strong>04</strong><span>發布事件列表</span><i aria-hidden="true">↘</i></a><a href="#6-發布詳情與追溯"><strong>05</strong><span>發布詳情</span><i aria-hidden="true">↘</i></a><a href="#7-替代狀態與導流"><strong>06</strong><span>替代狀態與導流</span><i aria-hidden="true">↘</i></a>
+        </nav>
+        <div class="visual-scope-notes" aria-label="畫面閱讀邊界">
+            <span>閱讀邊界</span>
+            <small>官網內容限定</small><small>事件不可變</small><small>工作／公開狀態分離</small><small>無一鍵回滾</small>
+        </div>
+        <div id="website-releases-visual-panel" class="visual-overview-panel" data-anatomy-panel>
+            <figure class="page-anatomy lifecycle-anatomy publishing-anatomy publishing-anatomy--website" aria-label="發布紀錄六區塊畫面示意">
+  <div class="lifecycle-anatomy__canvas">
+    <a class="anatomy-zone lifecycle-anatomy__cards" href="#4-發布摘要與查詢" aria-label="前往第一區，發布摘要"><span class="anatomy-zone__number">01</span><span><small>目前公開版本</small><strong>v1.4</strong><i>08.04 發布</i></span><span><small>待處理工作</small><strong>01</strong><i>Banner 草稿</i></span><span><small>最近發布人員</small><strong>Admin</strong><i>Provider Admin</i></span></a>
+    <a class="anatomy-zone lifecycle-anatomy__filters" href="#4-發布摘要與查詢" aria-label="前往第二區，查詢與篩選"><span class="anatomy-zone__number">02</span><strong>官網發布事件</strong><i>全部</i><i>已發布</i><i>進行中</i><i>失敗</i><i>內容類型</i><b>查詢</b></a>
+    <a class="anatomy-zone lifecycle-anatomy__toolbar" href="#5-結果摘要與發布列表" aria-label="前往第三區，結果摘要"><span class="anatomy-zone__number">03</span><strong>24 筆發布事件</strong><small>依建立時間倒序 · 最近更新 10:20</small><i>官網內容專用，不含遊戲／大廳版本</i></a>
+    <a class="anatomy-zone lifecycle-anatomy__table" href="#5-結果摘要與發布列表" aria-label="前往第四區，發布事件列表"><span class="anatomy-zone__number">04</span><strong>發布事件列表</strong><small>版本　內容範圍　來源 revision　工作狀態　發布時間　操作者　詳情</small><i>v1.4.0　Banner／負責任遊戲　r18／r09　已發布　08.04 15:20　Provider Admin</i></a>
+    <div class="lifecycle-anatomy__split">
+      <a class="anatomy-zone lifecycle-anatomy__detail" href="#6-發布詳情與追溯" aria-label="前往第五區，發布詳情"><span class="anatomy-zone__number">05</span><small>RELEASE DETAIL</small><strong>release-web-20260804-014</strong><i>來源／結果 snapshot · timeline · actor · trace · error</i></a>
+      <a class="anatomy-zone lifecycle-anatomy__states" href="#7-替代狀態與導流" aria-label="前往第六區，替代狀態與導流"><span class="anatomy-zone__number">06</span><strong>狀態與導流</strong><i>Queued</i><i>Running</i><i>Failed</i><i>Conflict</i><i>來源內容</i></a>
+    </div>
+  </div>
+  <div class="page-anatomy__legend"><span><i></i>不可變發布事件</span><span><i></i>官網內容範圍</span><small>參照現行 `/website/releases` 原型；不包含一鍵回滾或全文差異。</small></div>
+</figure>
+        </div>
+        <p class="visual-overview-disclaimer">畫面示意用於定位元件與閱讀順序；實際欄位、狀態與行為仍以本頁詳細規格及正式契約為準。</p>
+    </section>
+    <a class="visual-return" data-visual-return href="#page-visual-overview" hidden><span aria-hidden="true">↑</span> 回到畫面示意</a>
 
                 <div class="content-layout">
                     <article class="spec-content">
-                        <blockquote>
-<p>本章目前為「待整理」骨架。以下內容用來確定後續規格必須回答的問題，不代表尚未確認的行為已成為正式需求。</p>
-</blockquote>
-<h2 id="頁面定位">頁面定位</h2><p>已有內容原型；正式資料契約仍待整理。 目前已有內容原型；正式 API、權限與互動資料流仍待規格化。</p>
-<h2 id="規格來源">規格來源</h2><ul>
-<li><code>docs/GAME_WEBSITE_SPEC.md</code></li>
-</ul>
-<h2 id="既有程式對應">既有程式對應</h2><div class="table-scroll" tabindex="0"><table>
+                        <h2 id="章節狀態">章節狀態</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
 <th>項目</th>
@@ -415,7 +444,15 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>Route</td>
+<td>規格成熟度</td>
+<td>Draft — Batch D 完整頁面規格</td>
+</tr>
+<tr>
+<td>製作範圍</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>對應路由</td>
 <td><code>/website/releases</code></td>
 </tr>
 <tr>
@@ -423,32 +460,57 @@
 <td><code>src/views/GameWebsite/Releases.vue</code></td>
 </tr>
 <tr>
-<td>畫面現況</td>
-<td>已有內容原型</td>
+<td>主要來源</td>
+<td><code>GAME_WEBSITE_SPEC.md</code></td>
+</tr>
+<tr>
+<td>頁面角色</td>
+<td>Provider 官網內容發布事件與不可變版本快照的追溯頁</td>
 </tr>
 </tbody></table></div>
-<h2 id="後續完整章節骨架">後續完整章節骨架</h2><ol>
-<li>目的、使用者與主要使用情境。</li>
-<li>範圍、責任邊界與明確排除項目。</li>
-<li>名詞、資料來源、計算口徑與環境隔離。</li>
-<li>資訊架構、欄位、篩選、列表、詳情與互動規則。</li>
-<li>狀態模型、空白／載入／錯誤／權限不足狀態。</li>
-<li>API request／response、錯誤、分頁、排序與匯出契約。</li>
-<li>安全、權限、稽核、響應式與可存取性。</li>
-<li>前端、後端、整合、資料品質與 QA 驗收條件。</li>
-<li>待確認事項、責任人、阻擋範圍與規格完成條件。</li>
-</ol>
-<h2 id="本章完成條件">本章完成條件</h2><ul>
-<li>已逐條整併來源 Spec，且無互相矛盾的責任或名詞。</li>
-<li>與實際 route、左側導覽、頁面原型及元件對應完成核對。</li>
-<li>Draft、TBD 與 Confirmed 內容可清楚區分。</li>
-<li>前端與後端能據此估工、拆分介面契約並建立驗收案例。</li>
+<blockquote>
+<p>本頁只追溯官網 Banner 與靜態內容，不是遊戲程式版本、遊戲大廳公開版本或 GGAP 上架紀錄。現行原型只有已發布／草稿列表；目標 Draft 補上工作狀態與失敗追溯，但不擴張為整站版本打包或一鍵回滾。</p>
+</blockquote>
+<h2 id="1-目的與責任邊界">1. 目的與責任邊界</h2><ul>
+<li>查看 Banner、條款、隱私權、負責任遊戲與聯絡資訊的發布事件。</li>
+<li>追溯發布目標、來源 revision、內容範圍、操作者、時間、結果與錯誤。</li>
+<li>區分「內容草稿／公開狀態」與「發布工作狀態」。</li>
+<li>不刪除或改寫已完成事件；不提供整體官網版本打包、差異全文或一鍵回滾。</li>
+<li>若未來回復內容，需建立新的草稿／發布工作，不把舊事件改成目前版本。</li>
 </ul>
+<h2 id="2-發布事件模型">2. 發布事件模型</h2><p>穩定主鍵使用 <code>release_id</code>／<code>job_id</code>；展示版號可由系統產生，不作 join key。事件至少保存內容類型與 ID、來源 draft revision、前一 published revision、結果 revision、目標語系、狀態、actor、建立／開始／完成時間、idempotency key、trace ID、錯誤摘要及不可變 audit snapshot。</p>
+<h2 id="3-六區塊資訊架構">3. 六區塊資訊架構</h2><ol>
+<li>發布摘要：目前公開版本、待處理工作、最近發布與失敗。</li>
+<li>查詢與篩選：內容類型、狀態、操作者、時間、release ID。</li>
+<li>結果摘要：命中數、applied filters、排序及資料更新時間。</li>
+<li>發布事件列表：版號、範圍、revision、狀態、時間與操作者。</li>
+<li>發布詳情：before／source／result snapshot、timeline、trace 與錯誤。</li>
+<li>替代狀態與導流：running、failed、conflict、stale、Forbidden 及來源頁。</li>
+</ol>
+<h2 id="4-發布摘要與查詢">4. 發布摘要與查詢</h2><ul>
+<li>摘要顯示最近成功發布、active jobs、近期待處理草稿與近期失敗；來源失敗不得顯示 0。</li>
+<li>查詢支援 release／job ID、內容類型／ID、工作狀態、結果狀態、操作者及建立／完成時間。</li>
+<li>時間使用 Provider 時區並保留原始 offset；預設近 30 日、建立時間倒序。</li>
+</ul>
+<h2 id="5-結果摘要與發布列表">5. 結果摘要與發布列表</h2><p>列表至少包含：展示版號、release ID、內容範圍、來源 revision、結果 revision、工作／公開狀態、建立／完成時間、actor、摘要與詳情入口。列表由伺服器排序分頁；長摘要截斷但保留可存取全文。</p>
+<p>草稿不是發布事件成功；queued／running／failed 也不得顯示為已發布。已完成事件不可刪除或修改。</p>
+<h2 id="6-發布詳情與追溯">6. 發布詳情與追溯</h2><p>詳情顯示來源內容 deep link、before／source／result snapshot references、語系範圍、驗證結果、工作 timeline、actor、理由、idempotency、trace ID 與錯誤。第一階段只提供結構化摘要，不提供全文差異或直接回復操作。</p>
+<h2 id="7-替代狀態與導流">7. 替代狀態與導流</h2><p>支援 loading、empty、query error、queued、running、succeeded、failed、cancelled、conflict、partial audit unavailable、stale 與 Forbidden。進行中頁面可輪詢／重新載入並由 job ID 恢復；失敗顯示可重試語意但實際重新發布回到來源頁建立新工作。</p>
+<p>導流必須帶精確 <code>content_type</code>、<code>content_id</code> 與 revision；不得只用名稱搜尋。</p>
+<h2 id="8-api-權限-保存與驗收">8. API、權限、保存與驗收</h2><p>API 提供摘要、查詢列表與 release／job 詳情；所有資料強制 Provider scope。查看內容、查看 audit 與執行發布可使用不同 permission。保存期限、匯出及敏感錯誤遮罩待核准。</p>
+<p>本頁使用 <code>1500px</code> 寬版；Mobile 將事件轉為卡片，保留 ID、狀態、內容、時間、actor 與詳情。驗收需證明事件不可變、狀態維度分離、失敗不改變公開內容、跨頁可精確追溯且讀屏可辨識狀態。</p>
+<h2 id="9-待確認與-draft-移除條件">9. 待確認與 Draft 移除條件</h2><ul>
+<li><code>TBD-DOM-005</code>：官網內容版本與發布生命週期。</li>
+<li><code>TBD-API-006</code>：發布 job、事件查詢與詳情 API。</li>
+<li><code>TBD-SEC-001</code>、<code>TBD-SEC-003</code>、<code>TBD-SEC-005</code>：檢視／發布權限、核准與安全追溯。</li>
+<li><code>TBD-NFR-003</code>：冪等、衝突、失敗及恢復。</li>
+</ul>
+<p>正式事件 schema、狀態、API、權限、保存與 audit 規則核准並通過驗收後，才可改為 Confirmed。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#頁面定位">頁面定位</a><a class="outline-level-2" href="#規格來源">規格來源</a><a class="outline-level-2" href="#既有程式對應">既有程式對應</a><a class="outline-level-2" href="#後續完整章節骨架">後續完整章節骨架</a><a class="outline-level-2" href="#本章完成條件">本章完成條件</a></nav>
+        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-發布事件模型">2. 發布事件模型</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-發布摘要與查詢">4. 發布摘要與查詢</a><a class="outline-level-2" href="#5-結果摘要與發布列表">5. 結果摘要與發布列表</a><a class="outline-level-2" href="#6-發布詳情與追溯">6. 發布詳情與追溯</a><a class="outline-level-2" href="#7-替代狀態與導流">7. 替代狀態與導流</a><a class="outline-level-2" href="#8-api-權限-保存與驗收">8. API、權限、保存與驗收</a><a class="outline-level-2" href="#9-待確認與-draft-移除條件">9. 待確認與 Draft 移除條件</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -459,7 +521,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.11.0-batch-c-draft · 2026-08-14</span>
+                    <span>0.12.0-batch-d-draft · 2026-08-14</span>
                 </footer>
             </div>
         </main>

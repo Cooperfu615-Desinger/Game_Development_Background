@@ -14,7 +14,8 @@
     "spec:batch-a-check": "npm run spec:check && node scripts/check-phase-one-seal.mjs && node scripts/check-batch-a.mjs",
     "spec:batch-b-check": "npm run spec:batch-a-check && node scripts/check-batch-b.mjs",
     "spec:batch-c-check": "npm run spec:batch-b-check && node scripts/check-batch-c.mjs",
-    "spec:seal-check": "npm run spec:batch-c-check",
+    "spec:batch-d-check": "npm run spec:batch-c-check && node scripts/check-batch-d.mjs",
+    "spec:seal-check": "npm run spec:batch-d-check",
     "spec:seal": "npm run spec:seal-check && npm run type-check && npm run build",
     "type-check": "vue-tsc --noEmit",
     "preview": "vite preview"

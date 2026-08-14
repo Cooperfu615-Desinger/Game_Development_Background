@@ -248,7 +248,8 @@
         "failed": "帳號或密碼錯誤",
         "appName": "Game Developer Dashboard",
         "subtitle": "遊戲開發商管理後台",
-        "docs": "交接文件"
+        "docs": "交接文件",
+        "specDocs": "規格文件"
     },
     "columns": {
         "id": "ID",

@@ -83,6 +83,11 @@ const openDocs = () => {
     window.open(router.resolve('/docs').href, '_blank')
 }
 
+const openSpecDocs = () => {
+    const specUrl = `${import.meta.env.BASE_URL}provider-specs/index.html`
+    window.open(specUrl, '_blank', 'noopener,noreferrer')
+}
+
 const submitLabel = computed(() => (loading.value ? t('login.authenticating') : t('login.submit')))
 </script>
 
@@ -154,6 +159,14 @@ const submitLabel = computed(() => (loading.value ? t('login.authenticating') : 
                     severity="secondary"
                     outlined
                     @click="openDocs"
+                />
+                <Button
+                    :label="t('login.specDocs')"
+                    icon="pi pi-book"
+                    size="small"
+                    severity="info"
+                    outlined
+                    @click="openSpecDocs"
                 />
             </div>
         </div>

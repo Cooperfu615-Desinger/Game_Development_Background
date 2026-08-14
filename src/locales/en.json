@@ -232,7 +232,8 @@
         "password": "Password",
         "submit": "Login",
         "subtitle": "Admin Management System",
-        "docs": "Handoff Docs"
+        "docs": "Handoff Docs",
+        "specDocs": "Specifications"
     },
     "columns": {
         "id": "ID",

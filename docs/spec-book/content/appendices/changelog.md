@@ -1,5 +1,13 @@
 # 版本紀錄
 
+## 0.13.0-phase-two-seal · 2026-08-14
+
+- 完成 Phase 2 Batch A–D 共 21 個完整 Draft 頁的跨批次封版驗證。
+- 新增第二階段專屬 `check-phase-two-seal.mjs`，驗證 21 頁、126 個示意區塊、11 頁 Deferred、30 項 Open TBD 與登入頁規格入口。
+- 確認 252 個交付面向為 Complete 189、Partial 63、Missing 0；API、資料與權限維持 Partial，不誤標為正式契約。
+- 新增附錄 K《第二階段封版驗證報告》，記錄自動 Gate、跨 Batch 一致性、非阻擋限制、重開條件與 Phase 3 入口。
+- GGAP 對接、通知中心與系統設定共 11 頁維持 Deferred；Browserslist 更新與正式 HTML／PDF 快照留待整份規格書完成或契約核准後處理。
+
 ## 0.12.0-batch-d-draft · 2026-08-14
 
 - 完成 Phase 2 Batch D：官方網站三頁與遊戲大廳五頁完整 Draft。
@@ -105,7 +113,7 @@
 
 ## 後續版本方向
 
-- 依 A–D 批次整理 20 個 Active 頁面，持續維護遊戲紀錄 Baseline。
-- 優先處理各批次集中 TBD，避免頁面個別發明 Game Round、財務、監控、風控、權限或整合契約。
+- Phase 3 依 Domain／Data、API、Security、Lifecycle、Monitoring／Risk、QA／NFR 等共用契約收斂集中 TBD。
+- 優先處理跨頁共用決策，避免頁面個別發明 Game Round、財務、監控、風控、權限或整合契約。
 - 取得必要輸入後，再將 Deferred 頁面重新排入範圍。
 - 第一個正式核准版本輸出單一 HTML 與 PDF 快照。

@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.12.0-batch-d-draft</span>
-            <span class="topbar-status">Phase 2 · Batch D Draft Complete</span>
+            <span>0.13.0-phase-two-seal</span>
+            <span class="topbar-status">Phase 2 · Draft Sealed</span>
         </div>
     </header>
 
@@ -364,6 +364,10 @@
                         <i class="status-dot status-confirmed" aria-hidden="true"></i>
                         <span>第一階段封版驗證報告</span>
 
+                    </a><a href="phase-two-validation-report.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>第二階段封版驗證報告</span>
+
                     </a>
             </div>
         </details>
@@ -400,7 +404,14 @@
 
                 <div class="content-layout">
                     <article class="spec-content">
-                        <h2 id="0-12-0-batch-d-draft-2026-08-14">0.12.0-batch-d-draft · 2026-08-14</h2><ul>
+                        <h2 id="0-13-0-phase-two-seal-2026-08-14">0.13.0-phase-two-seal · 2026-08-14</h2><ul>
+<li>完成 Phase 2 Batch A–D 共 21 個完整 Draft 頁的跨批次封版驗證。</li>
+<li>新增第二階段專屬 <code>check-phase-two-seal.mjs</code>，驗證 21 頁、126 個示意區塊、11 頁 Deferred、30 項 Open TBD 與登入頁規格入口。</li>
+<li>確認 252 個交付面向為 Complete 189、Partial 63、Missing 0；API、資料與權限維持 Partial，不誤標為正式契約。</li>
+<li>新增附錄 K《第二階段封版驗證報告》，記錄自動 Gate、跨 Batch 一致性、非阻擋限制、重開條件與 Phase 3 入口。</li>
+<li>GGAP 對接、通知中心與系統設定共 11 頁維持 Deferred；Browserslist 更新與正式 HTML／PDF 快照留待整份規格書完成或契約核准後處理。</li>
+</ul>
+<h2 id="0-12-0-batch-d-draft-2026-08-14">0.12.0-batch-d-draft · 2026-08-14</h2><ul>
 <li>完成 Phase 2 Batch D：官方網站三頁與遊戲大廳五頁完整 Draft。</li>
 <li>建立官網內容草稿 → 安全預覽 → 獨立發布／追溯，以及大廳草稿 → readiness → 指定 revision 預覽的兩條內容發布鏈。</li>
 <li>八頁新增貼近現行官網／大廳原型的 Overview-first HTML／CSS 畫面示意與六區快速導覽。</li>
@@ -492,8 +503,8 @@
 <li>依 <code>/reports</code> 原型補入可跳轉章節的六區塊 HTML/CSS 畫面解剖圖。</li>
 </ul>
 <h2 id="後續版本方向">後續版本方向</h2><ul>
-<li>依 A–D 批次整理 20 個 Active 頁面，持續維護遊戲紀錄 Baseline。</li>
-<li>優先處理各批次集中 TBD，避免頁面個別發明 Game Round、財務、監控、風控、權限或整合契約。</li>
+<li>Phase 3 依 Domain／Data、API、Security、Lifecycle、Monitoring／Risk、QA／NFR 等共用契約收斂集中 TBD。</li>
+<li>優先處理跨頁共用決策，避免頁面個別發明 Game Round、財務、監控、風控、權限或整合契約。</li>
 <li>取得必要輸入後，再將 Deferred 頁面重新排入範圍。</li>
 <li>第一個正式核准版本輸出單一 HTML 與 PDF 快照。</li>
 </ul>
@@ -501,7 +512,7 @@
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#0-12-0-batch-d-draft-2026-08-14">0.12.0-batch-d-draft · 2026-08-14</a><a class="outline-level-2" href="#0-11-0-batch-c-draft-2026-08-14">0.11.0-batch-c-draft · 2026-08-14</a><a class="outline-level-2" href="#0-10-0-batch-b-draft-2026-08-14">0.10.0-batch-b-draft · 2026-08-14</a><a class="outline-level-2" href="#0-9-0-batch-a-draft-2026-08-14">0.9.0-batch-a-draft · 2026-08-14</a><a class="outline-level-2" href="#0-8-0-phase-one-seal-2026-08-14">0.8.0-phase-one-seal · 2026-08-14</a><a class="outline-level-2" href="#0-7-0-tbd-registry-2026-08-14">0.7.0-tbd-registry · 2026-08-14</a><a class="outline-level-2" href="#0-6-0-dependency-map-2026-08-14">0.6.0-dependency-map · 2026-08-14</a><a class="outline-level-2" href="#0-5-0-page-reconciliation-2026-08-14">0.5.0-page-reconciliation · 2026-08-14</a><a class="outline-level-2" href="#0-4-0-readiness-audit-2026-08-14">0.4.0-readiness-audit · 2026-08-14</a><a class="outline-level-2" href="#0-3-0-scope-freeze-2026-08-14">0.3.0-scope-freeze · 2026-08-14</a><a class="outline-level-2" href="#0-2-0-authoring-baseline-2026-08-14">0.2.0-authoring-baseline · 2026-08-14</a><a class="outline-level-2" href="#0-1-0-structure-2026-08-13">0.1.0-structure · 2026-08-13</a><a class="outline-level-2" href="#後續版本方向">後續版本方向</a></nav>
+        <nav><a class="outline-level-2" href="#0-13-0-phase-two-seal-2026-08-14">0.13.0-phase-two-seal · 2026-08-14</a><a class="outline-level-2" href="#0-12-0-batch-d-draft-2026-08-14">0.12.0-batch-d-draft · 2026-08-14</a><a class="outline-level-2" href="#0-11-0-batch-c-draft-2026-08-14">0.11.0-batch-c-draft · 2026-08-14</a><a class="outline-level-2" href="#0-10-0-batch-b-draft-2026-08-14">0.10.0-batch-b-draft · 2026-08-14</a><a class="outline-level-2" href="#0-9-0-batch-a-draft-2026-08-14">0.9.0-batch-a-draft · 2026-08-14</a><a class="outline-level-2" href="#0-8-0-phase-one-seal-2026-08-14">0.8.0-phase-one-seal · 2026-08-14</a><a class="outline-level-2" href="#0-7-0-tbd-registry-2026-08-14">0.7.0-tbd-registry · 2026-08-14</a><a class="outline-level-2" href="#0-6-0-dependency-map-2026-08-14">0.6.0-dependency-map · 2026-08-14</a><a class="outline-level-2" href="#0-5-0-page-reconciliation-2026-08-14">0.5.0-page-reconciliation · 2026-08-14</a><a class="outline-level-2" href="#0-4-0-readiness-audit-2026-08-14">0.4.0-readiness-audit · 2026-08-14</a><a class="outline-level-2" href="#0-3-0-scope-freeze-2026-08-14">0.3.0-scope-freeze · 2026-08-14</a><a class="outline-level-2" href="#0-2-0-authoring-baseline-2026-08-14">0.2.0-authoring-baseline · 2026-08-14</a><a class="outline-level-2" href="#0-1-0-structure-2026-08-13">0.1.0-structure · 2026-08-13</a><a class="outline-level-2" href="#後續版本方向">後續版本方向</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -512,7 +523,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.12.0-batch-d-draft · 2026-08-14</span>
+                    <span>0.13.0-phase-two-seal · 2026-08-14</span>
                 </footer>
             </div>
         </main>

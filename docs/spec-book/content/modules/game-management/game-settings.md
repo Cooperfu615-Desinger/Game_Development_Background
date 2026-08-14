@@ -45,7 +45,7 @@
     <a class="anatomy-zone lifecycle-anatomy__table" href="#6-限紅模板" aria-label="前往第四區，限紅模板"><span class="anatomy-zone__number">04</span><strong>限紅模板</strong><small>模板 ID　名稱　最小投注　最大投注　派彩上限　點數規則版本　範圍　版本　狀態</small><i>limit-003　標準限紅　1 pt　5,000 pt　500,000 pt　point-rule-v6　全部老虎機　v3　Approved</i></a>
     <div class="lifecycle-anatomy__split">
       <a class="anatomy-zone lifecycle-anatomy__detail" href="#7-基礎選項" aria-label="前往第五區，基礎選項"><span class="anatomy-zone__number">05</span><small>BASE OPTIONS</small><strong>遊戲類型 · 平台 · 語系</strong><i>穩定 enum · 繁中預設 · 不由自由文字建立</i></a>
-      <a class="anatomy-zone lifecycle-anatomy__states" href="#8-草稿審核與稽核" aria-label="前往第六區，草稿審核與稽核"><span class="anatomy-zone__number">06</span><strong>草稿、審核與稽核</strong><i>儲存草稿</i><i>驗證</i><i>送審</i><i>版本衝突</i><i>歷程</i></a>
+      <a class="anatomy-zone lifecycle-anatomy__states" href="#8-草稿-審核與稽核" aria-label="前往第六區，草稿審核與稽核"><span class="anatomy-zone__number">06</span><strong>草稿、審核與稽核</strong><i>儲存草稿</i><i>驗證</i><i>送審</i><i>版本衝突</i><i>歷程</i></a>
     </div>
   </div>
   <div class="page-anatomy__legend"><span><i></i>設定模板</span><span><i></i>Production 異動需核准</span><small>參照現行 `/games/settings` 原型；表單編輯不等於正式生效。</small></div>

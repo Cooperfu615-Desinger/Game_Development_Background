@@ -1,10 +1,10 @@
 export const book = {
     title: 'Provider Portal 產品與系統規格書',
     shortTitle: 'Provider Portal Specs',
-    version: '0.12.0-batch-d-draft',
+    version: '0.13.0-phase-two-seal',
     updatedAt: '2026-08-14',
     owner: 'Provider Portal Product / Engineering',
-    status: 'Phase 2 · Batch D Draft Complete',
+    status: 'Phase 2 · Draft Sealed',
     description: '供產品、前端、後端、QA 與 GGAP 對接團隊共同使用的 Provider Portal 規格入口。',
 }
 
@@ -119,7 +119,7 @@ export const modules = [
                 summary: 'Provider 維護、限紅與基礎設定模板的版本、驗證、審核及遊戲套用。',
                 visualTitle: '遊戲設定畫面示意',
                 visualSummary: '參照現行 /games/settings 原型；表單編輯只形成草稿，Production 異動需核准。',
-                visualZones: zones(['設定摘要', '#4-設定摘要與脈絡'], ['設定脈絡', '#4-設定摘要與脈絡'], ['維護週期模板', '#5-維護週期模板'], ['限紅模板', '#6-限紅模板'], ['基礎選項', '#7-基礎選項'], ['草稿、審核與稽核', '#8-草稿審核與稽核']),
+                visualZones: zones(['設定摘要', '#4-設定摘要與脈絡'], ['設定脈絡', '#4-設定摘要與脈絡'], ['維護週期模板', '#5-維護週期模板'], ['限紅模板', '#6-限紅模板'], ['基礎選項', '#7-基礎選項'], ['草稿、審核與稽核', '#8-草稿-審核與稽核']),
                 visualNotes: ['Provider 點數主值', 'Active 不可直改', 'Production 需核准', '不含 RTP／版本／素材'],
             })),
             page('game-math', '數值設定', '/games/math', 'src/views/Games/Math.vue', 'complete', ['docs/PROVIDER_RISK_CONTROL_SPEC.md'], gameLifecyclePage({
@@ -408,6 +408,7 @@ export const appendices = [
     { ...section('page-reconciliation', 'H', '第一階段頁面三層校準', '逐頁區分已確認產品規則、現行原型實況與尚未確認的目標規格。', 'content/appendices/page-reconciliation.md'), generatedReconciliation: true },
     { ...section('page-dependency-map', 'I', '第一階段跨頁依賴圖', '四條核心業務鏈、共用契約與 Deferred 外部依賴。', 'content/appendices/page-dependency-map.md'), generatedDependencies: true },
     { ...section('phase-one-validation-report', 'J', '第一階段封版驗證報告', '第一階段完整 Gate、覆蓋結果、核心邊界、注意事項與重開條件。', 'content/appendices/phase-one-validation-report.md'), status: 'confirmed' },
+    { ...section('phase-two-validation-report', 'K', '第二階段封版驗證報告', 'Batch A–D 完整 Draft 的跨批次 Gate、交付覆蓋、Deferred 邊界與第三階段入口。', 'content/appendices/phase-two-validation-report.md'), status: 'confirmed' },
 ]
 
 function page(id, title, route, component, prototype, sources, overrides = {}) {

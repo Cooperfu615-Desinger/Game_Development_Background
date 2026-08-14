@@ -14,8 +14,8 @@ let assertionCount = 0
 const batchCPageIds = ['game-list', 'game-environments', 'game-settings', 'game-math', 'game-versions', 'game-assets']
 const manifestPages = modules.flatMap((module) => module.pages)
 
-assert(['0.11.0-batch-c-draft', '0.12.0-batch-d-draft'].includes(book.version), '規格網站版本不得早於 Batch C Draft')
-assert(book.status.includes('Batch C Draft Complete') || book.status.includes('Batch D Draft Complete'), '規格網站狀態不得早於 Batch C Draft Complete')
+assert(['0.11.0-batch-c-draft', '0.12.0-batch-d-draft', '0.13.0-phase-two-seal'].includes(book.version), '規格網站版本不得早於 Batch C Draft')
+assert(book.status.includes('Batch C Draft Complete') || book.status.includes('Batch D Draft Complete') || book.status.includes('Draft Sealed'), '規格網站狀態不得早於 Batch C Draft Complete')
 
 for (const pageId of batchCPageIds) {
     const page = manifestPages.find((item) => item.id === pageId)

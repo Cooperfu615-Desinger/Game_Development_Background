@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Provider Portal 的產品定位、使用者、核心任務與目前階段。">
+    <meta name="description" content="Batch A–D 完整 Draft 的跨批次 Gate、交付覆蓋、Deferred 邊界與第三階段入口。">
     <meta name="color-scheme" content="light">
-    <title>產品定位與目標｜Provider Portal 產品與系統規格書</title>
+    <title>第二階段封版驗證報告｜Provider Portal 產品與系統規格書</title>
     <link rel="stylesheet" href="assets/site.css">
     <script src="assets/search-index.js" defer></script>
     <script src="assets/site.js" defer></script>
 </head>
-<body data-page-id="product-overview">
+<body data-page-id="phase-two-validation-report">
     <a class="skip-link" href="#main-content">跳至主要內容</a>
     <header class="topbar">
         <button class="icon-button nav-trigger" type="button" data-nav-trigger aria-label="開啟規格目錄" aria-expanded="false" aria-controls="spec-navigation">
@@ -40,7 +40,7 @@
             </div>
             <nav aria-label="規格書章節">
 
-        <details class="nav-group" open>
+        <details class="nav-group" >
             <summary>開始閱讀<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="index.html" >
@@ -51,7 +51,7 @@
                         <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>文件治理與使用方式</span>
 
-                    </a><a href="product-overview.html" aria-current="page">
+                    </a><a href="product-overview.html" >
                         <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>產品定位與目標</span>
 
@@ -321,7 +321,7 @@
             </div>
         </details>
 
-        <details class="nav-group" >
+        <details class="nav-group" open>
             <summary>附錄<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="data-dictionary.html" >
@@ -364,7 +364,7 @@
                         <i class="status-dot status-confirmed" aria-hidden="true"></i>
                         <span>第一階段封版驗證報告</span>
 
-                    </a><a href="phase-two-validation-report.html" >
+                    </a><a href="phase-two-validation-report.html" aria-current="page">
                         <i class="status-dot status-confirmed" aria-hidden="true"></i>
                         <span>第二階段封版驗證報告</span>
 
@@ -384,12 +384,12 @@
             <div class="page-frame ">
                 <header class="page-header">
                     <div>
-                        <p class="eyebrow">01 · 基礎規格</p>
-                        <h1>產品定位與目標</h1>
-                        <p class="page-summary">Provider Portal 的產品定位、使用者、核心任務與目前階段。</p>
+                        <p class="eyebrow">附錄 K</p>
+                        <h1>第二階段封版驗證報告</h1>
+                        <p class="page-summary">Batch A–D 完整 Draft 的跨批次 Gate、交付覆蓋、Deferred 邊界與第三階段入口。</p>
                     </div>
                     <div class="page-status-stack">
-                        <span class="status-badge status-draft">草案</span>
+                        <span class="status-badge status-confirmed">已確認</span>
 
 
                     </div>
@@ -397,54 +397,273 @@
 
                 <section class="metadata-card" aria-label="章節追溯資訊">
         <div class="metadata-grid">
-            <div><span>章節編號</span><code>01</code></div><div><span>規格狀態</span><code>草案</code></div>
+            <div><span>章節編號</span><code>K</code></div><div><span>規格狀態</span><code>已確認</code></div>
         </div>
     </section>
 
 
                 <div class="content-layout">
                     <article class="spec-content">
-                        <p>Provider Portal 是 GGAP 的其中一個 Provider Portal，服務對象為遊戲商內部團隊。它不是另一套遊戲聚合平台，也不是代理商、商戶或會員後台。</p>
-<h2 id="核心任務">核心任務</h2><ol>
-<li>管理遊戲商自己的遊戲產品、版本、規則、數值與素材。</li>
-<li>接收 GGAP 傳入的遊戲請求與業務脈絡。</li>
-<li>保存可追蹤、不可任意改寫的 Game Round。</li>
-<li>產生遊戲商自己的數據、財務、監控與風控報表。</li>
-<li>管理遊戲官網、遊戲大廳與 Provider 內部設定。</li>
+                        <h2 id="1-驗證結論">1. 驗證結論</h2><p>第二階段封版 Gate <strong>通過</strong>。Batch A–D 共 21 個 Baseline／Active 頁面均已完成一致的完整 Draft：產品與 UI 規格、Overview-first 畫面示意、頁面狀態、驗收骨架、跨頁依賴及集中 TBD 追溯皆可交付產品、前端、後端與 QA 進行下一輪契約審閱。</p>
+<p>本次封版是 <strong>Draft Seal</strong>，不是正式核准。21 頁仍維持 Draft；API、資料／計算與權限／稽核三個交付面向維持 Partial，30 項集中 TBD 維持 Open。GGAP 對接、通知中心與系統設定共 11 頁繼續 Deferred，不因本次封版而產生推測規格。</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>驗證日期</td>
+<td>2026-08-14（Asia/Taipei）</td>
+</tr>
+<tr>
+<td>封版輸入基準</td>
+<td><code>main@9ce2d07</code></td>
+</tr>
+<tr>
+<td>規格網站版本</td>
+<td><code>0.13.0-phase-two-seal</code></td>
+</tr>
+<tr>
+<td>Gate 結果</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>阻擋缺陷</td>
+<td>0</td>
+</tr>
+<tr>
+<td>非阻擋注意事項</td>
+<td>3</td>
+</tr>
+<tr>
+<td>下一階段</td>
+<td>Phase 3：共用契約與集中 TBD 收斂</td>
+</tr>
+</tbody></table></div>
+<h2 id="2-驗證範圍">2. 驗證範圍</h2><p>本次驗證涵蓋第二階段四個批次及其共同依賴：</p>
+<ol>
+<li>Batch A：遊戲紀錄、財務總覽、代理商 × 遊戲彙總，共 3 頁。</li>
+<li>Batch B：儀表板、監控總覽、風控報表、風控告警／處理，共 4 頁。</li>
+<li>Batch C：遊戲列表、環境與發布、遊戲設定、數值設定、遊戲版本、遊戲素材，共 6 頁。</li>
+<li>Batch D：遊戲官網 3 頁與遊戲大廳 5 頁，共 8 頁。</li>
+<li>四條核心業務鏈、30 項集中 TBD、三項 Deferred 外部依賴及登入頁規格文件入口。</li>
 </ol>
-<h2 id="主要使用者">主要使用者</h2><p>Provider Portal 只服務同一個 Provider 內部人員。正式角色預計拆分為營運、財務、風控、技術與管理員；所有角色仍以同一個 <code>provider_id</code> 為資料邊界。</p>
-<h2 id="目前產品階段">目前產品階段</h2><ul>
-<li>目前重點是畫面、資訊架構與規格骨架。</li>
-<li>32 個內容頁中，24 個已有內容原型，8 個仍使用 Placeholder。</li>
-<li>正式 API、權限、資料流、狀態碼、精度與警戒門檻尚未整體核准。</li>
-<li>Prototype / Mock data 只用於確認資訊架構與欄位方向。</li>
+<p>不在本次封版判定範圍內：正式 API／schema、permission key、金額與百分比精度、正式監控門檻、發布與核准狀態機、GGAP 正式契約、通知中心、系統設定，以及正式核准 PDF 快照。</p>
+<h2 id="3-驗證方法與結果">3. 驗證方法與結果</h2><h3 id="3-1-自動化-gate">3.1 自動化 Gate</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>指令／檢查</th>
+<th>結果</th>
+<th>驗證內容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>規格網站完整性</td>
+<td><code>npm run spec:check</code></td>
+<td>PASS</td>
+<td>62 份文件、32 個內容頁、離線資源、內部連結、搜尋索引與生成標記</td>
+</tr>
+<tr>
+<td>第一階段基準</td>
+<td><code>node scripts/check-phase-one-seal.mjs</code></td>
+<td>PASS</td>
+<td>251 項 assertion；範圍、route、元件、來源、核心邊界、依賴及 TBD 基準</td>
+</tr>
+<tr>
+<td>Batch A</td>
+<td><code>node scripts/check-batch-a.mjs</code></td>
+<td>PASS</td>
+<td>81 項 assertion／3 頁</td>
+</tr>
+<tr>
+<td>Batch B</td>
+<td><code>node scripts/check-batch-b.mjs</code></td>
+<td>PASS</td>
+<td>118 項 assertion／4 頁</td>
+</tr>
+<tr>
+<td>Batch C</td>
+<td><code>node scripts/check-batch-c.mjs</code></td>
+<td>PASS</td>
+<td>170 項 assertion／6 頁</td>
+</tr>
+<tr>
+<td>Batch D</td>
+<td><code>node scripts/check-batch-d.mjs</code></td>
+<td>PASS</td>
+<td>262 項 assertion／8 頁</td>
+</tr>
+<tr>
+<td>第二階段封版</td>
+<td><code>node scripts/check-phase-two-seal.mjs</code></td>
+<td>PASS</td>
+<td>741 項 assertion；21 頁 Draft、126 個示意區塊、11 頁 Deferred 與登入入口</td>
+</tr>
+<tr>
+<td>TypeScript／Vue</td>
+<td><code>npm run type-check</code></td>
+<td>PASS</td>
+<td>Vue 與 TypeScript 型別</td>
+</tr>
+<tr>
+<td>正式建置</td>
+<td><code>npm run build</code></td>
+<td>PASS</td>
+<td>Vite production build 與規格網站重新產生</td>
+</tr>
+<tr>
+<td>Git 差異格式</td>
+<td><code>git diff --check</code></td>
+<td>PASS</td>
+<td>空白錯誤與衝突標記</td>
+</tr>
+</tbody></table></div>
+<p>後續可使用 <code>npm run spec:seal</code> 一次重跑規格網站、第一階段基準、Batch A–D、第二階段封版、型別與 production build。</p>
+<h3 id="3-2-數量與交付覆蓋">3.2 數量與交付覆蓋</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>驗證對象</th>
+<th align="right">封版結果</th>
+<th>判定</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>規格網站文件</td>
+<td align="right">62</td>
+<td>PASS；包含第一、第二階段驗證報告</td>
+</tr>
+<tr>
+<td>內容頁</td>
+<td align="right">32</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>已有內容原型／Placeholder</td>
+<td align="right">24／8</td>
+<td>PASS；Phase 2 中「環境與發布」仍是唯一 Active Placeholder</td>
+</tr>
+<tr>
+<td>Baseline／Active／Deferred／Blocked</td>
+<td align="right">1／20／11／0</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>Phase 2 完整 Draft 頁</td>
+<td align="right">21</td>
+<td>PASS；Batch A／B／C／D 分別為 3／4／6／8 頁</td>
+</tr>
+<tr>
+<td>產品與 UI 完成度</td>
+<td align="right">126／126 Complete</td>
+<td>PASS；21 頁 × 6 面向</td>
+</tr>
+<tr>
+<td>響應式、驗收、跨頁依賴</td>
+<td align="right">63／63 Complete</td>
+<td>PASS；21 頁 × 3 面向</td>
+</tr>
+<tr>
+<td>API、資料、權限</td>
+<td align="right">63／63 Partial</td>
+<td>PASS；明確交由 Phase 3 收斂，未誤標完成</td>
+</tr>
+<tr>
+<td>Overview-first 快速區塊</td>
+<td align="right">126</td>
+<td>PASS；21 頁 × 6 區，均可連至目標章節</td>
+</tr>
+<tr>
+<td>核心業務鏈</td>
+<td align="right">4 條／19 節點／15 關係</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>Deferred 外部依賴</td>
+<td align="right">3</td>
+<td>PASS；GGAP、通知中心、系統設定</td>
+</tr>
+<tr>
+<td>集中 TBD</td>
+<td align="right">30 Open</td>
+<td>PASS；未將未核准內容誤標為已解決</td>
+</tr>
+</tbody></table></div>
+<p>第一階段 252 個完成度評級格為 Complete 85、Partial 108、Missing 59；第二階段封版後為 Complete 189、Partial 63、Missing 0。這代表規格骨架與交付說明已補齊，不代表 63 個技術契約面向已核准。</p>
+<h3 id="3-3-網站與追溯驗證">3.3 網站與追溯驗證</h3><ul>
+<li>62 份 HTML 均使用繁體中文語系、主要內容 landmark、目前導覽狀態及可解析的本機相對連結。</li>
+<li>21 個完整 Draft 頁均具置頂六區畫面示意、頁內目錄、快速區塊導覽、返回閱讀動線與搜尋索引。</li>
+<li>Desktop、Tablet、Mobile 與列印樣式規則仍存在；內文寬度不受舊版固定最大寬度限制。</li>
+<li>登入頁保留「交接文件」，並另有「規格文件」入口，可依 Vite base path 開啟規格網站首頁。</li>
+<li>32 個 route、Provider 九群組主導覽、manifest 元件與來源 Spec 檔案持續可追溯。</li>
 </ul>
-<h2 id="不在目前範圍">不在目前範圍</h2><ul>
-<li>Provider、代理商或會員錢包。</li>
-<li>代理商、商戶、會員主資料管理。</li>
-<li>GGAP 平台交易、平台結算與平台對帳。</li>
-<li>代理商逐一開關遊戲的 Provider 控制台。</li>
-<li>獨立跨機台 Jackpot 管理。</li>
-<li>Provider 專屬活動、官網活動與遊戲內活動管理。</li>
+<h2 id="4-跨-batch-一致性結論">4. 跨 Batch 一致性結論</h2><h3 id="4-1-game-round-與財務">4.1 Game Round 與財務</h3><ul>
+<li>Game Round 維持主要業務紀錄單位，不另建正式 Game Session。</li>
+<li>財務總覽與代理商 × 遊戲彙總均由 Production Game Round 聚合，並可回查遊戲紀錄。</li>
+<li>Provider 點數為主值，USDT 是保存且可追溯的換算對照；正式精度與更正規則仍為 TBD。</li>
+<li>代理商只作為 GGAP 傳入的交易脈絡快照，不代表 Provider 建立代理商主資料。</li>
 </ul>
-<h2 id="產品成功條件">產品成功條件</h2><ul>
-<li>每個頁面都能清楚回答使用者目的、資料來源、操作邊界與下一步。</li>
-<li>前端可直接取得欄位、狀態、互動與錯誤呈現規則。</li>
-<li>後端可直接取得資料模型、查詢、權限、冪等與錯誤契約。</li>
-<li>QA 可由同一份規格形成可驗證的測試案例。</li>
+<h3 id="4-2-監控與風控">4.2 監控與風控</h3><ul>
+<li>監控總覽維持唯讀觀察，Risk Event 負責分析，Alert 負責人工處理，三者不混為同一狀態。</li>
+<li>Production／DEMO 必須分開選擇，Test 不進 Provider 風控監控。</li>
+<li>隔離只阻擋指定 scope 的新 Launch；既有 Game Round 繼續完成並保留真實結果。</li>
+<li>正式門檻、更新頻率、操作權限、冪等與 GGAP 通知仍需 Phase 3 或外部契約確認。</li>
 </ul>
+<h3 id="4-3-遊戲生命週期">4.3 遊戲生命週期</h3><ul>
+<li>遊戲主資料、一般設定、數值版本、程式版本、素材版本與 release job 維持不同責任物件。</li>
+<li>Test 維持只讀送測脈絡；Provider Production／DEMO 發布不取代 GGAP 的代理商個別開關。</li>
+<li>「環境與發布」雖有完整目標 Draft，程式仍為 Placeholder；必須符合頁內移除條件後才能替換。</li>
+<li>正式發布組合、狀態機、核准、併發、回復與 GGAP 同步仍屬集中 TBD。</li>
+</ul>
+<h3 id="4-4-官網與遊戲大廳">4.4 官網與遊戲大廳</h3><ul>
+<li>官網內容草稿、公開 snapshot、發布 job 與歷史紀錄維持分離。</li>
+<li>大廳遊戲資料引用 Provider 遊戲主資料，但大廳公開狀態不取代 Provider 全域上下架或 GGAP 代理商開關。</li>
+<li>DEMO identity、展示 credit 與試玩工作階段不建立正式會員、錢包或 Game Session，也不進入 Production Game Round、財務或風控。</li>
+<li>正式內容 schema、素材／語系 fallback、安全清理、發布與 DEMO API 仍需 Phase 3 收斂。</li>
+</ul>
+<h2 id="5-deferred-與未完成契約">5. Deferred 與未完成契約</h2><ul>
+<li>GGAP 對接 5 頁、通知中心 2 頁、系統設定 4 頁維持 Deferred。</li>
+<li>11 頁只保留 route、程式追溯、延後原因、必要輸入與不可開發聲明；不建立畫面示意、完成度或三層校準。</li>
+<li>30 項集中 TBD 維持 Open。正式決議必須同步更新共通章節、受影響頁面、資料字典、enum、API、權限及測試。</li>
+<li>Phase 3 應先處理跨頁共用契約，再處理頁面局部契約，避免每頁各自定義 Game Round、財務、發布、監控或權限口徑。</li>
+</ul>
+<h2 id="6-非阻擋注意事項">6. 非阻擋注意事項</h2><ol>
+<li>Vite 建置仍提示 <code>caniuse-lite</code> 資料已有 8 個月未更新；依既定決策，待整份規格書完成後一次更新並重跑瀏覽器相容性驗證。</li>
+<li>自動 Gate 驗證 DOM、連結、響應式規則與 build，不取代實際瀏覽器的像素級 Desktop／Mobile 人工抽看；人工抽看由產品審閱流程執行。</li>
+<li>規格網站尚未輸出正式單一 HTML 與 PDF 核准快照；應待第一批契約升格為 Confirmed 後再產生，避免把 Draft／TBD 誤封為正式契約。</li>
+</ol>
+<h2 id="7-封版判定與重開條件">7. 封版判定與重開條件</h2><p>第二階段以本報告、<code>0.13.0-phase-two-seal</code> 及其輸入基準作為 Draft 封版紀錄。發生下列任一情況時，必須重跑 <code>npm run spec:seal</code> 並更新報告或版本紀錄：</p>
+<ol>
+<li>21 個 Draft 頁的範圍、批次、route、元件或畫面結構改變。</li>
+<li>Provider／GGAP 責任、Game Round、Production／DEMO／Test 或點數／USDT 邊界改變。</li>
+<li>財務聚合、Risk Event／Alert、發布生命週期或官網／大廳資料責任改變。</li>
+<li>集中 TBD、跨頁依賴或 Deferred 影響範圍發生重大調整。</li>
+<li>GGAP、通知中心或系統設定取得必要輸入並重新排入 Active。</li>
+</ol>
+<h2 id="8-第三階段入口">8. 第三階段入口</h2><p>Phase 3 應以共用契約為批次，而不是再次逐頁補寫：</p>
+<ol>
+<li>Domain／Data：Game Round、財務公式、時間、精度與 enum。</li>
+<li>API：查詢、分頁、排序、匯出、錯誤與冪等。</li>
+<li>Security：Provider identity、角色、permission key、資料 scope 與 audit。</li>
+<li>Lifecycle：遊戲、版本、素材、官網與大廳的發布、核准、併發與回復。</li>
+<li>Monitoring／Risk：指標、門檻、更新頻率、Risk Event／Alert 與操作副作用。</li>
+<li>QA／NFR：效能、保存、可用性、資料品質與正式驗收案例。</li>
+</ol>
+<p>進入 Phase 3 不代表解除 Deferred。GGAP、通知中心與系統設定仍需等取得必要規格後，另行評估是否重新排入範圍。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#核心任務">核心任務</a><a class="outline-level-2" href="#主要使用者">主要使用者</a><a class="outline-level-2" href="#目前產品階段">目前產品階段</a><a class="outline-level-2" href="#不在目前範圍">不在目前範圍</a><a class="outline-level-2" href="#產品成功條件">產品成功條件</a></nav>
+        <nav><a class="outline-level-2" href="#1-驗證結論">1. 驗證結論</a><a class="outline-level-2" href="#2-驗證範圍">2. 驗證範圍</a><a class="outline-level-2" href="#3-驗證方法與結果">3. 驗證方法與結果</a><a class="outline-level-3" href="#3-1-自動化-gate">3.1 自動化 Gate</a><a class="outline-level-3" href="#3-2-數量與交付覆蓋">3.2 數量與交付覆蓋</a><a class="outline-level-3" href="#3-3-網站與追溯驗證">3.3 網站與追溯驗證</a><a class="outline-level-2" href="#4-跨-batch-一致性結論">4. 跨 Batch 一致性結論</a><a class="outline-level-3" href="#4-1-game-round-與財務">4.1 Game Round 與財務</a><a class="outline-level-3" href="#4-2-監控與風控">4.2 監控與風控</a><a class="outline-level-3" href="#4-3-遊戲生命週期">4.3 遊戲生命週期</a><a class="outline-level-3" href="#4-4-官網與遊戲大廳">4.4 官網與遊戲大廳</a><a class="outline-level-2" href="#5-deferred-與未完成契約">5. Deferred 與未完成契約</a><a class="outline-level-2" href="#6-非阻擋注意事項">6. 非阻擋注意事項</a><a class="outline-level-2" href="#7-封版判定與重開條件">7. 封版判定與重開條件</a><a class="outline-level-2" href="#8-第三階段入口">8. 第三階段入口</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
 
                 <nav class="previous-next" aria-label="上一章與下一章">
-        <a class="previous-link" href="document-control.html"><span>← 上一章</span><strong>文件治理與使用方式</strong></a>
-        <a class="next-link" href="system-boundary.html"><span>下一章 →</span><strong>系統與責任邊界</strong></a>
+        <a class="previous-link" href="phase-one-validation-report.html"><span>← 上一章</span><strong>第一階段封版驗證報告</strong></a>
+        <span></span>
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>

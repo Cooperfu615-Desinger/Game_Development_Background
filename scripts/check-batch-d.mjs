@@ -14,8 +14,8 @@ let assertionCount = 0
 const batchDPageIds = ['website-banners', 'website-content', 'website-releases', 'lobby-overview', 'lobby-games', 'lobby-management', 'lobby-demo', 'lobby-preview']
 const manifestPages = modules.flatMap((module) => module.pages)
 
-assert(book.version === '0.12.0-batch-d-draft', '規格網站版本應標示 Batch D Draft')
-assert(book.status.includes('Batch D Draft Complete'), '規格網站狀態應標示 Batch D Draft Complete')
+assert(['0.12.0-batch-d-draft', '0.13.0-phase-two-seal'].includes(book.version), '規格網站版本不得早於 Batch D Draft')
+assert(book.status.includes('Batch D Draft Complete') || book.status.includes('Draft Sealed'), '規格網站狀態不得早於 Batch D Draft Complete')
 
 for (const pageId of batchDPageIds) {
     const page = manifestPages.find((item) => item.id === pageId)

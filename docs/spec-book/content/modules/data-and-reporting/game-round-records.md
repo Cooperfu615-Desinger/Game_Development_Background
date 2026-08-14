@@ -503,7 +503,9 @@ page_size=20
 ## 16. 整合與資料一致性
 
 - Provider Round ID 與 GGAP Round ID 的唯一性、生成方、交換時點與重送行為必須在整合契約中定義。
-- Game Round 狀態與金額口徑需與遊戲商財務報表一致。
+- Game Round 狀態與金額口徑需與《財務總覽》及《代理商 × 遊戲彙總》一致；兩個財務頁只能聚合本頁所定義的有效 Production Game Round。
+- `/finance` 負責全域摘要、趨勢與遊戲排行；`/finance/agent-games` 負責 `agent_id × game_id` 分組；兩頁都不得建立第二套 Game Round 詳情。
+- `/finance/agent-games` 導回本頁時，必須帶入時間、代理商與遊戲條件；本頁重新執行 Provider scope 與權限驗證，不得信任來源 URL。
 - 風控告警若關聯 Game Round，應以穩定 ID 導向本頁，而非複製一份不同口徑的回合資料。
 - 匯率來源、方向、精度、有效時間與歷史重現策略需與財務模組共用。
 - 遊戲名稱、版本及數值版本應能反映回合成立時的實際內容；採 snapshot 或 join 現行主資料仍待決定。
@@ -577,6 +579,17 @@ page_size=20
 | GR-012 | 目標資料量、查詢延遲與匯出完成時間門檻。 | Product／Backend／SRE | 是，阻擋效能驗收 |
 | GR-013 | 正式 API 路徑、錯誤 envelope 與 trace ID 規則。 | Backend／Frontend | 是 |
 | GR-014 | 取消、調整、延遲結算與重送的處理流程。 | Product／Backend／GGAP | 是 |
+
+上述 `GR-*` 為本頁既有局部追蹤碼；跨頁決策以集中 TBD 為治理入口：
+
+| 集中 TBD | 對應本頁範圍 |
+| --- | --- |
+| `TBD-DOM-001`、`TBD-DOM-002` | Game Round 生命週期、有效財務資料、公式與正負方向 |
+| `TBD-DAT-001`、`TBD-DAT-002`、`TBD-DAT-003`、`TBD-DAT-004` | 精度、匯率、識別快照、時區、保存與更正 |
+| `TBD-API-001`、`TBD-API-002`、`TBD-API-003` | 共通 API、Round 查詢／詳情／匯出、財務 deep link |
+| `TBD-SEC-001`、`TBD-SEC-002`、`TBD-SEC-004`、`TBD-EXT-003` | scope、遮罩、匯出、permission key 與 audit |
+| `TBD-NFR-001`、`TBD-NFR-003` | 查詢／匯出效能、冪等、重試與可觀測性 |
+| `TBD-EXT-001` | GGAP 正式識別、Callback、ACK 與重送契約 |
 
 ## 20. 規格完成條件
 

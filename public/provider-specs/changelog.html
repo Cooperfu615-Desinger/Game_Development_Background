@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.8.0-phase-one-seal</span>
-            <span class="topbar-status">Authoring Format Confirmed · Phase 1 Sealed</span>
+            <span>0.9.0-batch-a-draft</span>
+            <span class="topbar-status">Phase 2 · Batch A Draft Complete</span>
         </div>
     </header>
 
@@ -140,15 +140,15 @@
             <summary>05.4 遊戲商財務<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="provider-finance-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="finance-overview.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>財務總覽</span>
 
                     </a><a href="finance-agent-games.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>代理商 × 遊戲彙總</span>
 
                     </a>
@@ -400,7 +400,15 @@
 
                 <div class="content-layout">
                     <article class="spec-content">
-                        <h2 id="0-8-0-phase-one-seal-2026-08-14">0.8.0-phase-one-seal · 2026-08-14</h2><ul>
+                        <h2 id="0-9-0-batch-a-draft-2026-08-14">0.9.0-batch-a-draft · 2026-08-14</h2><ul>
+<li>完成 Phase 2 Batch A：遊戲紀錄、財務總覽、代理商 × 遊戲彙總三頁形成一致的 Game Round → 財務聚合 → 單筆追溯規格鏈。</li>
+<li>新增財務總覽完整 Draft，涵蓋查詢、八張摘要卡、兩類趨勢、遊戲排行、匯出、狀態、API 責任與驗收。</li>
+<li>新增代理商 × 遊戲彙總完整 Draft，涵蓋六張摘要、11 欄列表、伺服器排序分頁、Game Round deep link 與自訂匯出。</li>
+<li>兩頁新增貼近現行 Provider 財務原型的 Overview-first HTML／CSS 畫面示意及六區塊快速導覽。</li>
+<li>回填遊戲紀錄與兩個財務頁的跨頁責任、導流條件及集中 TBD 對照。</li>
+<li>API path、正式公式、decimal 精度、代理商快照、permission key、GGAP 與系統設定仍維持 Draft／Deferred，不將 mock 誤寫為正式契約。</li>
+</ul>
+<h2 id="0-8-0-phase-one-seal-2026-08-14">0.8.0-phase-one-seal · 2026-08-14</h2><ul>
 <li>以 <code>main@d827c59</code> 作為第一階段封版輸入基準，完成整體重新驗證。</li>
 <li>新增可重跑的 <code>spec:seal</code> Gate，交叉驗證 route、主導覽、元件、來源、第一階段覆蓋與核心產品邊界。</li>
 <li>確認 32 個內容頁、21 個本輪頁面、四條業務鏈、三項 Deferred 外部依賴及 30 項集中 TBD 彼此一致。</li>
@@ -469,7 +477,7 @@
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#0-8-0-phase-one-seal-2026-08-14">0.8.0-phase-one-seal · 2026-08-14</a><a class="outline-level-2" href="#0-7-0-tbd-registry-2026-08-14">0.7.0-tbd-registry · 2026-08-14</a><a class="outline-level-2" href="#0-6-0-dependency-map-2026-08-14">0.6.0-dependency-map · 2026-08-14</a><a class="outline-level-2" href="#0-5-0-page-reconciliation-2026-08-14">0.5.0-page-reconciliation · 2026-08-14</a><a class="outline-level-2" href="#0-4-0-readiness-audit-2026-08-14">0.4.0-readiness-audit · 2026-08-14</a><a class="outline-level-2" href="#0-3-0-scope-freeze-2026-08-14">0.3.0-scope-freeze · 2026-08-14</a><a class="outline-level-2" href="#0-2-0-authoring-baseline-2026-08-14">0.2.0-authoring-baseline · 2026-08-14</a><a class="outline-level-2" href="#0-1-0-structure-2026-08-13">0.1.0-structure · 2026-08-13</a><a class="outline-level-2" href="#後續版本方向">後續版本方向</a></nav>
+        <nav><a class="outline-level-2" href="#0-9-0-batch-a-draft-2026-08-14">0.9.0-batch-a-draft · 2026-08-14</a><a class="outline-level-2" href="#0-8-0-phase-one-seal-2026-08-14">0.8.0-phase-one-seal · 2026-08-14</a><a class="outline-level-2" href="#0-7-0-tbd-registry-2026-08-14">0.7.0-tbd-registry · 2026-08-14</a><a class="outline-level-2" href="#0-6-0-dependency-map-2026-08-14">0.6.0-dependency-map · 2026-08-14</a><a class="outline-level-2" href="#0-5-0-page-reconciliation-2026-08-14">0.5.0-page-reconciliation · 2026-08-14</a><a class="outline-level-2" href="#0-4-0-readiness-audit-2026-08-14">0.4.0-readiness-audit · 2026-08-14</a><a class="outline-level-2" href="#0-3-0-scope-freeze-2026-08-14">0.3.0-scope-freeze · 2026-08-14</a><a class="outline-level-2" href="#0-2-0-authoring-baseline-2026-08-14">0.2.0-authoring-baseline · 2026-08-14</a><a class="outline-level-2" href="#0-1-0-structure-2026-08-13">0.1.0-structure · 2026-08-13</a><a class="outline-level-2" href="#後續版本方向">後續版本方向</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -480,7 +488,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.8.0-phase-one-seal · 2026-08-14</span>
+                    <span>0.9.0-batch-a-draft · 2026-08-14</span>
                 </footer>
             </div>
         </main>

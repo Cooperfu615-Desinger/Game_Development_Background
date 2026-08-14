@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.8.0-phase-one-seal</span>
-            <span class="topbar-status">Authoring Format Confirmed · Phase 1 Sealed</span>
+            <span>0.9.0-batch-a-draft</span>
+            <span class="topbar-status">Phase 2 · Batch A Draft Complete</span>
         </div>
     </header>
 
@@ -140,15 +140,15 @@
             <summary>05.4 遊戲商財務<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="provider-finance-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="finance-overview.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>財務總覽</span>
 
                     </a><a href="finance-agent-games.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>代理商 × 遊戲彙總</span>
 
                     </a>
@@ -475,7 +475,7 @@
 <div class="reconciliation-columns">
 <section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>本頁是 Provider 自身正式環境財務摘要，不是 GGAP 平台結算或錢包帳務。</li><li>只統計有效 Production Game Round；點數為主，USDT 為換算對照。</li></ul></section>
 <section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有期間、遊戲等查詢條件、八張摘要卡、財務／活躍趨勢及遊戲排行。</li><li>公式、數字、匯率與圖表由前端 mock 計算，部分文案已標示 prototype／draft。</li><li>匯出目前只顯示提示，未建立正式檔案流程。</li></ul></section>
-<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>正式有效 Round 條件、聚合公式、精度、匯率時間點與資料更正規則尚待確認。</li><li>摘要、趨勢、排行、匯出 API 與效能契約尚未定義。</li><li>財務資料 scope、permission key 與稽核要求尚待核准。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Batch A Draft 已定義同一 applied filters 下的八項摘要、兩類趨勢、遊戲排行、狀態與驗收。</li><li>API 能力與資料一致性責任已形成草案；正式 path、schema、公式、精度、匯率與效能門檻仍待核准。</li><li>財務資料 scope、permission key、匯出保存與稽核仍依集中 TBD 管理。</li></ul></section>
 </div>
 </article>
 <article class="reconciliation-card reconciliation-attention">
@@ -487,7 +487,7 @@
 <div class="reconciliation-columns">
 <section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>本頁以代理商 × 遊戲作 Provider 財務彙總，但 Provider 不建立或管理代理商主資料。</li><li>聚合來源必須是有效 Production Game Round，並可回到授權範圍內的單筆紀錄。</li><li>金額以 Provider 點數為主，USDT 僅作換算對照。</li></ul></section>
 <section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有期間／代理商／遊戲查詢、結果摘要、彙總列表、排序分頁、Game Round 詳情與自訂匯出 Dialog。</li><li>代理商名稱、會員人數、金額與明細皆為 mock 聚合。</li><li>前端以代理商識別呈現報表脈絡，但未建立代理商維護功能。</li></ul></section>
-<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>代理商 ID／名稱快照來源、歷史顯示及授權 scope 尚待 GGAP／後端確認。</li><li>聚合精度、分頁排序、明細導流與資料更正契約尚待核准。</li><li>匯出欄位、API、permission key 與大量資料處理尚未正式定義。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Batch A Draft 已定義 agent_id × game_id 聚合、六項摘要、11 欄列表、伺服器排序分頁與 Round deep link。</li><li>自訂匯出、頁面狀態、響應式、API 責任及驗收已有草案；正式 schema、精度與大量資料門檻仍待核准。</li><li>代理商快照來源、歷史名稱、授權 scope、permission key 與 GGAP 契約仍依集中 TBD 管理。</li></ul></section>
 </div>
 </article>
 </section><h3 id="批次-b-儀表板-監控與風控鏈">批次 B｜儀表板、監控與風控鏈</h3><section class="reconciliation-list" aria-label="批次 B 頁面校準">
@@ -731,7 +731,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.8.0-phase-one-seal · 2026-08-14</span>
+                    <span>0.9.0-batch-a-draft · 2026-08-14</span>
                 </footer>
             </div>
         </main>

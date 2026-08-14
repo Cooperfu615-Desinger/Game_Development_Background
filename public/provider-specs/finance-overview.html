@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="已有內容原型；正式資料契約仍待整理。">
+    <meta name="description" content="Production Game Round 的全域財務摘要、趨勢與遊戲表現排行。">
     <meta name="color-scheme" content="light">
     <title>財務總覽｜Provider Portal 產品與系統規格書</title>
     <link rel="stylesheet" href="assets/site.css">
@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.8.0-phase-one-seal</span>
-            <span class="topbar-status">Authoring Format Confirmed · Phase 1 Sealed</span>
+            <span>0.9.0-batch-a-draft</span>
+            <span class="topbar-status">Phase 2 · Batch A Draft Complete</span>
         </div>
     </header>
 
@@ -140,15 +140,15 @@
             <summary>05.4 遊戲商財務<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="provider-finance-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="finance-overview.html" aria-current="page">
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>財務總覽</span>
 
                     </a><a href="finance-agent-games.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>代理商 × 遊戲彙總</span>
 
                     </a>
@@ -382,10 +382,10 @@
                     <div>
                         <p class="eyebrow">05.4.1 · 遊戲商財務</p>
                         <h1>財務總覽</h1>
-                        <p class="page-summary">已有內容原型；正式資料契約仍待整理。</p>
+                        <p class="page-summary">Production Game Round 的全域財務摘要、趨勢與遊戲表現排行。</p>
                     </div>
                     <div class="page-status-stack">
-                        <span class="status-badge status-outline">待整理</span>
+                        <span class="status-badge status-draft">草案</span>
                         <span class="scope-badge scope-active">本輪製作</span>
 
                     </div>
@@ -393,22 +393,75 @@
 
                 <section class="metadata-card" aria-label="章節追溯資訊">
         <div class="metadata-grid">
-            <div><span>章節編號</span><code>05.4.1</code></div><div><span>規格狀態</span><code>待整理</code></div><div><span>Route</span><code>/finance</code></div><div><span>前端元件</span><code>src/views/Finance/Overview.vue</code></div>
+            <div><span>章節編號</span><code>05.4.1</code></div><div><span>規格狀態</span><code>草案</code></div><div><span>Route</span><code>/finance</code></div><div><span>前端元件</span><code>src/views/Finance/Overview.vue</code></div>
         </div>
     </section>
-
+                <section id="page-visual-overview" class="page-visual-overview" aria-labelledby="page-visual-title">
+        <div class="visual-overview-header">
+            <div>
+                <p class="visual-overview-kicker">PAGE ANATOMY · OVERVIEW FIRST</p>
+                <h2 id="page-visual-title">財務總覽畫面示意</h2>
+                <p>參照現行 /finance 原型；先掌握查詢、摘要、趨勢與排行，再閱讀詳細規格。</p>
+            </div>
+            <button class="visual-toggle" type="button" data-anatomy-toggle aria-expanded="true" aria-controls="finance-overview-visual-panel">
+                <span data-anatomy-toggle-label>收合畫面示意</span>
+                <i aria-hidden="true">⌃</i>
+            </button>
+        </div>
+        <nav class="visual-quick-map" aria-label="頁面區塊快速導覽">
+            <a href="#5-查詢條件"><strong>01</strong><span>查詢範圍</span><i aria-hidden="true">↘</i></a><a href="#6-財務摘要"><strong>02</strong><span>財務摘要</span><i aria-hidden="true">↘</i></a><a href="#7-1-財務趨勢"><strong>03</strong><span>財務趨勢</span><i aria-hidden="true">↘</i></a><a href="#7-2-活動趨勢"><strong>04</strong><span>活動趨勢</span><i aria-hidden="true">↘</i></a><a href="#8-遊戲表現排行"><strong>05</strong><span>遊戲表現排行</span><i aria-hidden="true">↘</i></a><a href="#11-頁面狀態與錯誤處理"><strong>06</strong><span>匯出與替代狀態</span><i aria-hidden="true">↘</i></a>
+        </nav>
+        <div class="visual-scope-notes" aria-label="畫面閱讀邊界">
+            <span>閱讀邊界</span>
+            <small>Production only</small><small>settled_at 統計</small><small>Provider 點數為主</small><small>公式與資料為 Draft</small>
+        </div>
+        <div id="finance-overview-visual-panel" class="visual-overview-panel" data-anatomy-panel>
+            <figure class="page-anatomy finance-anatomy finance-anatomy--overview" aria-label="財務總覽六區塊畫面示意">
+  <div class="finance-anatomy__canvas">
+    <a class="anatomy-zone finance-anatomy__filter" href="#5-查詢條件" aria-label="前往第一區，查詢條件規格">
+      <span class="anatomy-zone__number">01</span><span class="finance-anatomy__eyebrow">QUERY SCOPE</span><strong>查詢條件</strong><small>Production only · settled_at · UTC+08:00</small>
+      <span class="finance-anatomy__quick"><i>今日</i><i>昨日</i><i class="is-active">近 7 日</i><i>近 30 日</i><i>自訂</i></span>
+      <span class="finance-anatomy__fields"><i>時間區間　2026/08/08 — 2026/08/14</i><i>代理商　全部</i><i>遊戲類型　全部</i><i>單款遊戲　全部</i><b>⌕ 查詢</b></span>
+    </a>
+    <a class="anatomy-zone finance-anatomy__summary" href="#6-財務摘要" aria-label="前往第二區，財務摘要規格">
+      <span class="anatomy-zone__number">02</span><span class="finance-anatomy__section-label">財務摘要</span>
+      <span class="finance-anatomy__stat"><small>投注總額</small><strong>12.46M pt</strong><i>≈ 124,600 USDT</i></span>
+      <span class="finance-anatomy__stat"><small>派彩總額</small><strong>11.93M pt</strong><i>≈ 119,300 USDT</i></span>
+      <span class="finance-anatomy__stat"><small>玩家淨輸贏</small><strong>−530K pt</strong><i>玩家角度</i></span>
+      <span class="finance-anatomy__stat"><small>GGR</small><strong>+530K pt</strong><i>Prototype / Draft</i></span>
+      <span class="finance-anatomy__stat"><small>投注筆數</small><strong>84,120</strong><i>有效 Round</i></span>
+      <span class="finance-anatomy__stat"><small>玩家人數</small><strong>1,284</strong><i>不重複</i></span>
+      <span class="finance-anatomy__stat"><small>平均投注額</small><strong>148.12 pt</strong><i>每 Round</i></span>
+      <span class="finance-anatomy__stat"><small>人均投注額</small><strong>9,704 pt</strong><i>每玩家</i></span>
+    </a>
+    <div class="finance-anatomy__charts">
+      <a class="anatomy-zone finance-anatomy__chart" href="#7-1-財務趨勢" aria-label="前往第三區，財務趨勢規格">
+        <span class="anatomy-zone__number">03</span><span class="finance-anatomy__section-label">財務趨勢</span><small>投注 · 派彩 · 玩家淨輸贏 · GGR</small>
+        <span class="finance-anatomy__plot"><i></i><i></i><i></i><i></i><b></b></span><span class="finance-anatomy__axis">08/08　08/10　08/12　08/14</span>
+      </a>
+      <a class="anatomy-zone finance-anatomy__chart finance-anatomy__chart--activity" href="#7-2-活動趨勢" aria-label="前往第四區，活動趨勢規格">
+        <span class="anatomy-zone__number">04</span><span class="finance-anatomy__section-label">活動趨勢</span><small>投注筆數 · 不重複玩家人數</small>
+        <span class="finance-anatomy__bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="finance-anatomy__axis">08/08　08/10　08/12　08/14</span>
+      </a>
+    </div>
+    <a class="anatomy-zone finance-anatomy__ranking" href="#8-遊戲表現排行" aria-label="前往第五區，遊戲表現排行規格">
+      <span class="anatomy-zone__number">05</span><span class="finance-anatomy__section-label">遊戲表現排行</span><small>完整查詢結果 · 預設依 GGR 由高至低</small><span class="finance-anatomy__export">⇩ 匯出</span>
+      <span class="finance-anatomy__table"><b>遊戲</b><b>類型</b><b>投注筆數</b><b>玩家</b><b>投注總額</b><b>派彩總額</b><b>GGR</b><i>Celestial Vault · CV-001</i><i>老虎機</i><i>18,420</i><i>328</i><i>2.84M pt</i><i>2.71M pt</i><i>+128K pt</i><i>Neon Drift · ND-014</i><i>Crash</i><i>15,980</i><i>294</i><i>2.41M pt</i><i>2.49M pt</i><i>−75K pt</i></span>
+    </a>
+    <a class="anatomy-zone finance-anatomy__states" href="#11-頁面狀態與錯誤處理" aria-label="前往第六區，頁面狀態與錯誤處理規格">
+      <span class="anatomy-zone__number">06</span><span class="finance-anatomy__section-label">匯出與替代狀態</span><span><i>◌ 載入中</i><i>⌕ 查無資料</i><i>! 查詢失敗</i><i>⊘ 權限不足</i><i>↻ 資料過期</i><i>⇩ 匯出處理中</i></span>
+    </a>
+  </div>
+  <div class="page-anatomy__legend"><span><i></i>主要閱讀順序</span><span><i></i>原型化財務資料</span><small>參照現行 `/finance` 原型；固定數字不代表正式回應值。</small></div>
+</figure>
+        </div>
+        <p class="visual-overview-disclaimer">畫面示意用於定位元件與閱讀順序；實際欄位、狀態與行為仍以本頁詳細規格及正式契約為準。</p>
+    </section>
+    <a class="visual-return" data-visual-return href="#page-visual-overview" hidden><span aria-hidden="true">↑</span> 回到畫面示意</a>
 
                 <div class="content-layout">
                     <article class="spec-content">
-                        <blockquote>
-<p>本章目前為「待整理」骨架。以下內容用來確定後續規格必須回答的問題，不代表尚未確認的行為已成為正式需求。</p>
-</blockquote>
-<h2 id="頁面定位">頁面定位</h2><p>已有內容原型；正式資料契約仍待整理。 目前已有內容原型；正式 API、權限與互動資料流仍待規格化。</p>
-<h2 id="規格來源">規格來源</h2><ul>
-<li><code>docs/GAME_VENDOR_FINANCE_OVERVIEW_SPEC.md</code></li>
-<li><code>docs/GAME_VENDOR_FINANCE_REPORTING_SPEC.md</code></li>
-</ul>
-<h2 id="既有程式對應">既有程式對應</h2><div class="table-scroll" tabindex="0"><table>
+                        <h2 id="章節狀態">章節狀態</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
 <th>項目</th>
@@ -416,7 +469,15 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>Route</td>
+<td>規格成熟度</td>
+<td>Draft — Batch A 完整頁面規格</td>
+</tr>
+<tr>
+<td>製作範圍</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>對應路由</td>
 <td><code>/finance</code></td>
 </tr>
 <tr>
@@ -424,32 +485,540 @@
 <td><code>src/views/Finance/Overview.vue</code></td>
 </tr>
 <tr>
-<td>畫面現況</td>
-<td>已有內容原型</td>
+<td>主要來源</td>
+<td><code>GAME_VENDOR_FINANCE_OVERVIEW_SPEC.md</code>、<code>GAME_VENDOR_FINANCE_REPORTING_SPEC.md</code></td>
+</tr>
+<tr>
+<td>資料環境</td>
+<td>Production only</td>
+</tr>
+<tr>
+<td>統計時間</td>
+<td><code>settled_at</code></td>
+</tr>
+<tr>
+<td>主要業務單位</td>
+<td>有效且已結算的 Game Round 聚合</td>
 </tr>
 </tbody></table></div>
-<h2 id="後續完整章節骨架">後續完整章節骨架</h2><ol>
-<li>目的、使用者與主要使用情境。</li>
-<li>範圍、責任邊界與明確排除項目。</li>
-<li>名詞、資料來源、計算口徑與環境隔離。</li>
-<li>資訊架構、欄位、篩選、列表、詳情與互動規則。</li>
-<li>狀態模型、空白／載入／錯誤／權限不足狀態。</li>
-<li>API request／response、錯誤、分頁、排序與匯出契約。</li>
-<li>安全、權限、稽核、響應式與可存取性。</li>
-<li>前端、後端、整合、資料品質與 QA 驗收條件。</li>
-<li>待確認事項、責任人、阻擋範圍與規格完成條件。</li>
+<blockquote>
+<p>本頁產品目的、責任邊界、資訊架構與 Draft 顯示規則已整理完成。正式公式、精度、API、權限與大量資料策略仍受集中 TBD 阻擋，不得將原型 mock 當成正式財務契約。</p>
+</blockquote>
+<h2 id="1-目的與使用情境">1. 目的與使用情境</h2><p>財務總覽讓遊戲商財務、營運與管理者快速掌握自身遊戲在正式環境中的整體投注、派彩、玩家輸贏、GGR、活動量與遊戲表現，並依時間、代理商脈絡、遊戲類型或單款遊戲縮小範圍。</p>
+<p>主要使用情境：</p>
+<ol>
+<li>查看選定期間內的整體財務與活動摘要。</li>
+<li>比較投注、派彩、玩家淨輸贏與 GGR 的時間趨勢。</li>
+<li>檢視投注筆數與不重複玩家人數的變化。</li>
+<li>依 GGR 等指標辨識主要遊戲表現。</li>
+<li>進一步前往「代理商 × 遊戲彙總」或「遊戲紀錄」追查來源 Game Round。</li>
 </ol>
-<h2 id="本章完成條件">本章完成條件</h2><ul>
-<li>已逐條整併來源 Spec，且無互相矛盾的責任或名詞。</li>
-<li>與實際 route、左側導覽、頁面原型及元件對應完成核對。</li>
-<li>Draft、TBD 與 Confirmed 內容可清楚區分。</li>
-<li>前端與後端能據此估工、拆分介面契約並建立驗收案例。</li>
+<h2 id="2-範圍與責任邊界">2. 範圍與責任邊界</h2><h3 id="2-1-本頁包含">2.1 本頁包含</h3><ul>
+<li>登入 Provider 自身遊戲產生的有效 Production Game Round 聚合。</li>
+<li>查詢範圍內的財務摘要、活動摘要、趨勢與遊戲排行。</li>
+<li>Provider 點數主值及以每筆已保存換算資訊聚合的 USDT 對照值。</li>
+<li>GGAP 傳入的代理商識別脈絡，僅作篩選或報表維度。</li>
+<li>由彙總結果前往其他 Provider 報表頁的導流入口。</li>
+</ul>
+<h3 id="2-2-本頁不包含">2.2 本頁不包含</h3><ul>
+<li>DEMO 或 Test 資料；兩者不得混入正式財務聚合。</li>
+<li>GGAP 平台財務、代理商結算、商戶帳務、分潤或對帳工作流。</li>
+<li>會員錢包、Provider 錢包、充值、提款或餘額調整。</li>
+<li>代理商、商戶或會員主資料的建立與維護。</li>
+<li>修改、刪除或重算 Game Round 的操作。</li>
+<li>將 USDT 即時行情反套至歷史資料。</li>
+</ul>
+<h3 id="2-3-資料可見性與權限原則">2.3 資料可見性與權限原則</h3><ul>
+<li>後端必須以登入 Provider scope 限制所有查詢、趨勢、排行與匯出資料。</li>
+<li>代理商篩選只能使用 Provider 有權看見的交易脈絡，不代表 Provider 擁有代理商主資料。</li>
+<li>前端隱藏元件不能替代後端授權；查詢與匯出都需獨立檢核。</li>
+<li>正式 permission key、角色與資料 scope 等待 <code>TBD-SEC-001</code>、<code>TBD-EXT-003</code>。</li>
+</ul>
+<h2 id="3-名詞與計算口徑">3. 名詞與計算口徑</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>名詞／指標</th>
+<th>Draft 定義</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>有效 Game Round</td>
+<td>Production 中可納入正式財務的已結算回合；取消、回滾、調整與更正規則待 <code>TBD-DOM-001</code>、<code>TBD-DOM-002</code>。</td>
+</tr>
+<tr>
+<td>投注總額</td>
+<td><code>SUM(bet_points)</code>。</td>
+</tr>
+<tr>
+<td>派彩總額</td>
+<td><code>SUM(payout_points)</code>。</td>
+</tr>
+<tr>
+<td>玩家淨輸贏</td>
+<td><code>SUM(payout_points - bet_points)</code>；正值代表玩家淨贏。</td>
+</tr>
+<tr>
+<td>Provider GGR</td>
+<td>Prototype 暫用 <code>SUM(bet_points - payout_points)</code>；正式方向與調整項待核准。</td>
+</tr>
+<tr>
+<td>投注筆數</td>
+<td>有效 settled Game Round 數量。</td>
+</tr>
+<tr>
+<td>玩家人數</td>
+<td>查詢範圍內不重複 <code>member_id</code> 數量，不得將各分組人數直接相加。</td>
+</tr>
+<tr>
+<td>平均投注額</td>
+<td><code>投注總額 ÷ 投注筆數</code>；分母為 0 時顯示 <code>—</code>。</td>
+</tr>
+<tr>
+<td>人均投注額</td>
+<td><code>投注總額 ÷ 不重複玩家人數</code>；分母為 0 時顯示 <code>—</code>。</td>
+</tr>
+</tbody></table></div>
+<p>共同口徑：</p>
+<ul>
+<li>統計時間使用 <code>settled_at</code>，時間邊界採半開區間 <code>[from, to)</code>；正式時區等待 <code>TBD-DAT-003</code>。</li>
+<li>Provider 點數是計算及主顯示值；USDT 只能聚合每筆 Round 已保存的對照值，不得以目前匯率重算歷史。</li>
+<li>所有卡片、圖表與排行必須使用同一套已套用條件與有效 Round 條件。</li>
+<li>摘要與圖表不得由目前分頁資料推算。</li>
+</ul>
+<h2 id="4-資訊架構與頁面區塊">4. 資訊架構與頁面區塊</h2><p>頁面由上至下分為六個可辨識區塊：</p>
+<ol>
+<li>查詢範圍：快速時間、時間區間、代理商、遊戲類型與單款遊戲。</li>
+<li>財務摘要：八張財務與活動指標卡。</li>
+<li>財務趨勢：投注、派彩、玩家淨輸贏及 GGR。</li>
+<li>活動趨勢：投注筆數與不重複玩家人數。</li>
+<li>遊戲表現排行：依選定指標比較遊戲聚合結果。</li>
+<li>匯出與替代狀態：匯出入口及 Loading、Empty、Error、Forbidden、Stale。</li>
+</ol>
+<h2 id="5-查詢條件">5. 查詢條件</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>介面欄位</th>
+<th>技術欄位</th>
+<th>型別</th>
+<th>必填</th>
+<th>預設</th>
+<th>規則</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>快速時間</td>
+<td><code>quick_range</code></td>
+<td>UI state</td>
+<td>否</td>
+<td>近 7 日</td>
+<td>今日、昨日、近 7 日、近 30 日、自訂；送出前轉為明確時間。</td>
+</tr>
+<tr>
+<td>起始時間</td>
+<td><code>from</code></td>
+<td>ISO 8601 datetime</td>
+<td>是</td>
+<td>近 7 日起點</td>
+<td>不得晚於結束時間。</td>
+</tr>
+<tr>
+<td>結束時間</td>
+<td><code>to</code></td>
+<td>ISO 8601 datetime</td>
+<td>是</td>
+<td>查詢當下／當日終點</td>
+<td>以半開區間處理，避免跨批重複。</td>
+</tr>
+<tr>
+<td>代理商</td>
+<td><code>agent_id</code></td>
+<td>string</td>
+<td>否</td>
+<td>全部</td>
+<td>選項只來自有權檢視的交易脈絡；送穩定 ID。</td>
+</tr>
+<tr>
+<td>遊戲類型</td>
+<td><code>game_type</code></td>
+<td>enum</td>
+<td>否</td>
+<td>全部</td>
+<td>沿用遊戲主資料列舉。</td>
+</tr>
+<tr>
+<td>單款遊戲</td>
+<td><code>game_id</code></td>
+<td>string</td>
+<td>否</td>
+<td>全部</td>
+<td>顯示名稱與 ID，送穩定 ID。</td>
+</tr>
+</tbody></table></div>
+<p>行為規則：</p>
+<ul>
+<li>編輯條件不立即改變結果；按「查詢」後一次套用摘要、圖表與排行。</li>
+<li>「重置」恢復預設近 7 日與全部維度，並重新查詢。</li>
+<li>套用條件後應同步至 URL query，以支援重新整理與跨頁返回；不得放入敏感會員資訊。</li>
+<li>不允許的時間區間在前端先阻止送出；後端仍需再次驗證。</li>
+<li>最大時間區間、預設時區與資料延遲門檻等待 <code>TBD-DAT-003</code>、<code>TBD-NFR-001</code>、<code>TBD-NFR-002</code>。</li>
+</ul>
+<h2 id="6-財務摘要">6. 財務摘要</h2><p>八張摘要卡依序為投注總額、派彩總額、玩家淨輸贏、GGR、投注筆數、玩家人數、平均投注額、人均投注額。</p>
+<ul>
+<li>金額卡主值顯示 Provider 點數，次值顯示 <code>≈ {value} USDT</code>。</li>
+<li>正負值必須保留 <code>+</code>／<code>−</code>，並以文字說明角度；不可只用顏色表達。</li>
+<li>卡片公式可透過 tooltip 或輔助說明查看，鍵盤與觸控皆可存取。</li>
+<li><code>0</code> 與無法計算不同：0 顯示格式化數值；分母為 0 顯示 <code>—</code>。</li>
+<li>摘要由完整篩選結果計算，不受排行筆數或分頁限制。</li>
+<li>任一摘要分區失敗時不得默認顯示 0；應顯示局部錯誤或整頁錯誤。</li>
+</ul>
+<h2 id="7-趨勢圖表">7. 趨勢圖表</h2><h3 id="7-1-財務趨勢">7.1 財務趨勢</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>序列</th>
+<th>主單位</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>投注</td>
+<td>Provider 點數</td>
+<td>每時間桶有效 Round 的投注加總。</td>
+</tr>
+<tr>
+<td>派彩</td>
+<td>Provider 點數</td>
+<td>每時間桶有效 Round 的派彩加總。</td>
+</tr>
+<tr>
+<td>玩家淨輸贏</td>
+<td>Provider 點數</td>
+<td>以玩家角度顯示正負。</td>
+</tr>
+<tr>
+<td>GGR</td>
+<td>Provider 點數</td>
+<td>Prototype 公式；正式核准前標示 Draft。</td>
+</tr>
+</tbody></table></div>
+<h3 id="7-2-活動趨勢">7.2 活動趨勢</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>序列</th>
+<th>單位</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>投注筆數</td>
+<td>Round</td>
+<td>每時間桶的有效 settled Game Round 數量。</td>
+</tr>
+<tr>
+<td>玩家人數</td>
+<td>人</td>
+<td>每個時間桶內不重複玩家；跨桶不可直接相加推回期間總人數。</td>
+</tr>
+</tbody></table></div>
+<p>共同圖表規則：</p>
+<ul>
+<li>依查詢跨度選擇小時或日粒度；原型的切換器為目標互動，正式自動選擇門檻待 API 契約。</li>
+<li>Tooltip 顯示完整時間桶、序列名稱、格式化主值及必要 USDT 對照。</li>
+<li>圖例可切換序列，但不改變摘要與排行的後端條件。</li>
+<li>空值表示沒有可用資料；不得以 0 補值掩蓋資料缺口。</li>
+<li>圖表須提供可被輔助科技讀取的摘要或等價資料表。</li>
+</ul>
+<h2 id="8-遊戲表現排行">8. 遊戲表現排行</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th align="right">順序</th>
+<th>欄位</th>
+<th>技術欄位</th>
+<th>顯示與規則</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>遊戲</td>
+<td><code>game_name</code>、<code>game_id</code></td>
+<td>名稱主顯示，ID 次顯示；來源為 Provider 遊戲主資料。</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>遊戲類型</td>
+<td><code>game_type</code></td>
+<td>使用繁中顯示值。</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>投注筆數</td>
+<td><code>round_count</code></td>
+<td>整數格式。</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td>玩家人數</td>
+<td><code>distinct_player_count</code></td>
+<td>本遊戲分組內不重複。</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td>投注總額</td>
+<td><code>bet_points</code></td>
+<td>點數主值、USDT 次值。</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td>派彩總額</td>
+<td><code>payout_points</code></td>
+<td>點數主值、USDT 次值。</td>
+</tr>
+<tr>
+<td align="right">7</td>
+<td>玩家淨輸贏</td>
+<td><code>player_net_points</code></td>
+<td>顯示正負與角度。</td>
+</tr>
+<tr>
+<td align="right">8</td>
+<td>GGR</td>
+<td><code>ggr_points</code></td>
+<td>預設排序欄；Draft 公式。</td>
+</tr>
+<tr>
+<td align="right">9</td>
+<td>平均投注額</td>
+<td><code>average_bet_points</code></td>
+<td>分母為 0 顯示 <code>—</code>。</td>
+</tr>
+<tr>
+<td align="right">10</td>
+<td>人均投注額</td>
+<td><code>bet_per_player_points</code></td>
+<td>分母為 0 顯示 <code>—</code>。</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>預設依 <code>ggr_points desc</code>；同值時以 <code>game_id asc</code> 作穩定排序。</li>
+<li>預設顯示前 10 名；若提供完整排行，使用伺服器排序與分頁。</li>
+<li>點擊遊戲可前往 <code>/finance/agent-games</code> 並帶入目前時間、遊戲類型及 <code>game_id</code>。</li>
+<li>資料列不得建立或修改遊戲主資料。</li>
+</ul>
+<h2 id="9-匯出規格">9. 匯出規格</h2><ul>
+<li>匯出使用已套用條件，不使用尚未送出的表單草稿。</li>
+<li>匯出涵蓋完整篩選結果，不受畫面排行筆數或分頁限制。</li>
+<li>原型目前僅有提示；正式格式、欄位、同步／非同步門檻、保存及稽核等待 <code>TBD-SEC-004</code>、<code>TBD-NFR-001</code>。</li>
+<li>無資料時停用匯出；權限不足回應不得啟動工作。</li>
+<li>若採非同步流程，需顯示已受理、處理中、完成、失敗與過期；通知中心尚 Deferred，不可把通知當唯一完成入口。</li>
+</ul>
+<h2 id="10-api-契約草案">10. API 契約草案</h2><blockquote>
+<p>Draft：以下是前後端責任切分，不是已核准 path 或 schema。正式契約由 <code>TBD-API-001</code>、<code>TBD-API-003</code> 管理。</p>
+</blockquote>
+<p>建議能力拆分：</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>建議輸入</th>
+<th>必要輸出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查詢摘要</td>
+<td>共通 filters</td>
+<td>八項指標、點數／USDT、資料時間、口徑版本</td>
+</tr>
+<tr>
+<td>查詢趨勢</td>
+<td>filters、granularity</td>
+<td>buckets、四項財務序列、兩項活動序列、時區</td>
+</tr>
+<tr>
+<td>查詢排行</td>
+<td>filters、sort、limit／page</td>
+<td>遊戲分組列、total、穩定排序欄位</td>
+</tr>
+<tr>
+<td>建立匯出</td>
+<td>filters、format、fields</td>
+<td>export job ID、狀態、到期資訊</td>
+</tr>
+</tbody></table></div>
+<p>後端要求：</p>
+<ul>
+<li>一次 request 中的摘要、趨勢與排行必須能以相同資料版本或一致性標記解釋。</li>
+<li>回應需帶 <code>calculated_at</code>、<code>timezone</code>、<code>data_version</code> 或等價追溯欄位。</li>
+<li>decimal 不得以二進位浮點作財務真實值；精度與序列化依 <code>TBD-DAT-001</code>。</li>
+<li>不重複玩家必須由完整查詢集合計算。</li>
+<li>取消、回滾與更正後的聚合更新策略需可追溯。</li>
+</ul>
+<h2 id="11-頁面狀態與錯誤處理">11. 頁面狀態與錯誤處理</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>狀態</th>
+<th>必要介面與行為</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>首次載入</td>
+<td>保留區塊結構並顯示 skeleton；不可先顯示 0。</td>
+</tr>
+<tr>
+<td>重新查詢</td>
+<td>保留舊結果或顯示 loading overlay，避免畫面跳動；以最後一次 request 為準。</td>
+</tr>
+<tr>
+<td>無資料</td>
+<td>保留套用條件，顯示 Production 範圍與重置入口；匯出停用。</td>
+</tr>
+<tr>
+<td>查詢失敗</td>
+<td>顯示可重試訊息與 trace ID；保留條件，不以空資料取代。</td>
+</tr>
+<tr>
+<td>局部失敗</td>
+<td>標示失敗區塊與資料時間；不得混用不同條件結果。</td>
+</tr>
+<tr>
+<td>權限不足</td>
+<td>不顯示歷史快取財務值；提供返回安全頁面的入口。</td>
+</tr>
+<tr>
+<td>資料過期</td>
+<td>顯示最後成功時間與過期提示，允許重試。</td>
+</tr>
+<tr>
+<td>匯出處理</td>
+<td>顯示受理、處理中、完成、失敗、過期；重複點擊需防重。</td>
+</tr>
+</tbody></table></div>
+<h2 id="12-響應式與可存取性">12. 響應式與可存取性</h2><ul>
+<li>頁面不設 page-level <code>max-width</code>，使用主內容區完整寬度。</li>
+<li>Desktop：篩選器可為四欄；摘要最多四欄；兩張圖並排；排行在容器內捲動。</li>
+<li>中型寬度：篩選及摘要降為兩欄，兩張圖改為單欄。</li>
+<li>Mobile：所有卡片單欄，操作按鈕可滿寬；表格只在自身容器水平捲動。</li>
+<li>所有圖表需有文字摘要；顏色之外還要有名稱、圖例、正負符號或線型差異。</li>
+<li>tooltip、排序、查詢及匯出可由鍵盤操作，焦點順序符合視覺順序。</li>
+<li>金額、長 ID 與繁中文字在 390px 寬度不得造成整頁溢位。</li>
+</ul>
+<h2 id="13-前端實作要求">13. 前端實作要求</h2><ul>
+<li>分離 draft filters、applied filters、request state 與 rendered data。</li>
+<li>使用 request ID 或取消前一請求，避免較慢回應覆蓋新條件。</li>
+<li>URL query 與 applied filters 可雙向還原；無效 query 回到安全預設並提示。</li>
+<li>金額與日期格式化集中處理，不在各卡片自行計算。</li>
+<li>原型 mock 與正式 API adapter 分離；正式模式不得 fallback 到 mock。</li>
+<li>圖表 resize、表格容器 overflow 與 Dialog focus trap 必須測試。</li>
+</ul>
+<h2 id="14-後端實作要求">14. 後端實作要求</h2><ul>
+<li>以 Provider tenant scope、Production 與有效 Round 條件作強制查詢前置條件。</li>
+<li>摘要、圖表、排行共享同一財務口徑版本。</li>
+<li>支援穩定排序、時間桶補充狀態、可追溯匯率資訊及資料更正。</li>
+<li>對超過上限的查詢提供明確驗證錯誤，不可靜默截短期間。</li>
+<li>記錄高成本查詢與匯出的操作者、條件摘要、結果量、狀態及 trace ID。</li>
+</ul>
+<h2 id="15-整合與資料一致性">15. 整合與資料一致性</h2><ul>
+<li>上游唯一來源為「遊戲紀錄」所代表的有效 Production Game Round。</li>
+<li><code>/finance/agent-games</code> 必須沿用相同有效資料、時間、金額與匯率口徑。</li>
+<li><code>/reports</code> 是單筆 Game Round 詳情唯一入口；本頁不建立第二套 Round 詳情。</li>
+<li>Dashboard 若重用財務摘要，必須引用相同口徑版本並標示時間範圍。</li>
+<li>GGAP 與系統設定仍為 Deferred；本頁只保留外部依賴，不補寫其 API 或權限模型。</li>
+</ul>
+<h2 id="16-驗收條件">16. 驗收條件</h2><h3 id="16-1-功能驗收">16.1 功能驗收</h3><ul>
+<li>六個畫面區塊、八張摘要卡、兩張趨勢圖與遊戲排行均使用同一 applied filters。</li>
+<li>快速時間、自訂區間、查詢、重置、排序、導流與匯出狀態符合規格。</li>
+<li>0、負值、無法計算及無資料有不同且正確的呈現。</li>
+</ul>
+<h3 id="16-2-權限與隔離驗收">16.2 權限與隔離驗收</h3><ul>
+<li>DEMO／Test、其他 Provider 與未授權代理商脈絡無法透過 UI、URL 或 API 取得。</li>
+<li>權限不足時不顯示快取資料，匯出也不得繞過檢視 scope。</li>
+</ul>
+<h3 id="16-3-體驗與可存取性驗收">16.3 體驗與可存取性驗收</h3><ul>
+<li>Desktop、900px 與 390px 皆無整頁水平 overflow。</li>
+<li>圖表有等價文字資訊，查詢、排序與匯出可用鍵盤完成。</li>
+<li>Loading、Empty、Error、Forbidden、Stale 不只依顏色辨識。</li>
+</ul>
+<h3 id="16-4-技術驗收">16.4 技術驗收</h3><ul>
+<li>財務 decimal、時區、資料版本與匯率可被測試重現。</li>
+<li>併發查詢只顯示最後一次有效回應。</li>
+<li>大量查詢、排序、排行與匯出符合核准效能門檻。</li>
+</ul>
+<h2 id="17-測試情境清單">17. 測試情境清單</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>類別</th>
+<th>核心情境</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>正常流程</td>
+<td>預設近 7 日、各快速時間、自訂區間、各維度篩選、跨頁導流。</td>
+</tr>
+<tr>
+<td>計算</td>
+<td>正值、負值、0、分母為 0、不重複玩家、不同匯率版本。</td>
+</tr>
+<tr>
+<td>邊界值</td>
+<td>跨日、跨月、最大期間、時間桶切換、長遊戲名稱。</td>
+</tr>
+<tr>
+<td>錯誤</td>
+<td>摘要／圖表／排行局部失敗、逾時、重試、舊資料。</td>
+</tr>
+<tr>
+<td>權限</td>
+<td>其他 Provider、未授權代理商、直接 URL、匯出繞過。</td>
+</tr>
+<tr>
+<td>響應式</td>
+<td>1440px、900px、390px、表格捲動、200% zoom。</td>
+</tr>
+</tbody></table></div>
+<h2 id="18-待確認事項">18. 待確認事項</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>集中 TBD</th>
+<th>本頁待確認內容</th>
+<th>阻擋範圍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>TBD-DOM-001</code>、<code>TBD-DOM-002</code></td>
+<td>有效 Round、取消／更正、公式與正負方向</td>
+<td>Backend、QA、Release</td>
+</tr>
+<tr>
+<td><code>TBD-DAT-001</code>、<code>TBD-DAT-003</code>、<code>TBD-DAT-004</code></td>
+<td>精度、匯率、時區、資料更正與歷史重現</td>
+<td>Backend、QA</td>
+</tr>
+<tr>
+<td><code>TBD-API-001</code>、<code>TBD-API-003</code></td>
+<td>共通 API、摘要、趨勢、排行與匯出契約</td>
+<td>Frontend、Backend、QA</td>
+</tr>
+<tr>
+<td><code>TBD-SEC-001</code>、<code>TBD-SEC-004</code>、<code>TBD-EXT-003</code></td>
+<td>財務檢視／匯出權限與 audit</td>
+<td>Frontend、Backend、Release</td>
+</tr>
+<tr>
+<td><code>TBD-NFR-001</code>、<code>TBD-NFR-002</code></td>
+<td>效能、快取、新鮮度與降級</td>
+<td>Backend、SRE、QA</td>
+</tr>
+</tbody></table></div>
+<h2 id="19-規格完成條件">19. 規格完成條件</h2><p>升為 Confirmed 前必須完成：</p>
+<ul>
+<li>核准財務公式、有效 Round、精度、匯率與資料更正規則。</li>
+<li>核准摘要、趨勢、排行、導流與匯出 API schema。</li>
+<li>核准財務檢視與匯出 permission key、資料 scope 及稽核。</li>
+<li>以正式契約資料完成 Desktop／Mobile、計算、錯誤、權限與效能驗收。</li>
 </ul>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#頁面定位">頁面定位</a><a class="outline-level-2" href="#規格來源">規格來源</a><a class="outline-level-2" href="#既有程式對應">既有程式對應</a><a class="outline-level-2" href="#後續完整章節骨架">後續完整章節骨架</a><a class="outline-level-2" href="#本章完成條件">本章完成條件</a></nav>
+        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與使用情境">1. 目的與使用情境</a><a class="outline-level-2" href="#2-範圍與責任邊界">2. 範圍與責任邊界</a><a class="outline-level-3" href="#2-1-本頁包含">2.1 本頁包含</a><a class="outline-level-3" href="#2-2-本頁不包含">2.2 本頁不包含</a><a class="outline-level-3" href="#2-3-資料可見性與權限原則">2.3 資料可見性與權限原則</a><a class="outline-level-2" href="#3-名詞與計算口徑">3. 名詞與計算口徑</a><a class="outline-level-2" href="#4-資訊架構與頁面區塊">4. 資訊架構與頁面區塊</a><a class="outline-level-2" href="#5-查詢條件">5. 查詢條件</a><a class="outline-level-2" href="#6-財務摘要">6. 財務摘要</a><a class="outline-level-2" href="#7-趨勢圖表">7. 趨勢圖表</a><a class="outline-level-3" href="#7-1-財務趨勢">7.1 財務趨勢</a><a class="outline-level-3" href="#7-2-活動趨勢">7.2 活動趨勢</a><a class="outline-level-2" href="#8-遊戲表現排行">8. 遊戲表現排行</a><a class="outline-level-2" href="#9-匯出規格">9. 匯出規格</a><a class="outline-level-2" href="#10-api-契約草案">10. API 契約草案</a><a class="outline-level-2" href="#11-頁面狀態與錯誤處理">11. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#12-響應式與可存取性">12. 響應式與可存取性</a><a class="outline-level-2" href="#13-前端實作要求">13. 前端實作要求</a><a class="outline-level-2" href="#14-後端實作要求">14. 後端實作要求</a><a class="outline-level-2" href="#15-整合與資料一致性">15. 整合與資料一致性</a><a class="outline-level-2" href="#16-驗收條件">16. 驗收條件</a><a class="outline-level-3" href="#16-1-功能驗收">16.1 功能驗收</a><a class="outline-level-3" href="#16-2-權限與隔離驗收">16.2 權限與隔離驗收</a><a class="outline-level-3" href="#16-3-體驗與可存取性驗收">16.3 體驗與可存取性驗收</a><a class="outline-level-3" href="#16-4-技術驗收">16.4 技術驗收</a><a class="outline-level-2" href="#17-測試情境清單">17. 測試情境清單</a><a class="outline-level-2" href="#18-待確認事項">18. 待確認事項</a><a class="outline-level-2" href="#19-規格完成條件">19. 規格完成條件</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -460,7 +1029,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.8.0-phase-one-seal · 2026-08-14</span>
+                    <span>0.9.0-batch-a-draft · 2026-08-14</span>
                 </footer>
             </div>
         </main>

@@ -1,8 +1,8 @@
 # 遊戲商 Provider Portal 文件索引
 
-> 文件版本：2.16.0
+> 文件版本：2.17.0
 > 更新日期：2026-08-14
-> 文件狀態：Provider Portal 導覽與頁面原型已整理；規格網站第一階段已封版，正式 API、權限、警戒門檻、更新頻率與資料契約仍待確認
+> 文件狀態：規格網站第一階段已封版；第二階段 Batch A 的遊戲紀錄與兩個遊戲商財務頁已完成完整 Draft，正式 API、權限、精度與外部契約仍待確認
 
 ## 閱讀前提
 
@@ -44,6 +44,9 @@
 - [`../public/provider-specs/phase-one-validation-report.html`](../public/provider-specs/phase-one-validation-report.html)
   - 第一階段封版驗證結論、Gate、覆蓋數量、核心產品邊界、注意事項與重開條件。
   - 封版代表第一階段整理輸入可進入第二階段，不代表全部頁面或正式契約已 Confirmed。
+- [`../public/provider-specs/game-round-records.html`](../public/provider-specs/game-round-records.html)、[`../public/provider-specs/finance-overview.html`](../public/provider-specs/finance-overview.html)、[`../public/provider-specs/finance-agent-games.html`](../public/provider-specs/finance-agent-games.html)
+  - 第二階段 Batch A 完整 Draft：Game Round 查詢、全域財務摘要及代理商 × 遊戲彙總。
+  - 三頁均提供原型對齊的置頂畫面示意、完整規格、跨頁導流、驗收與集中 TBD 對照。
 
 > 上述交接文件已依 Provider Portal 方向整理，並將「目前原型實況」與「目標規格草案」分開標示。正式 API 與資料欄位仍需由後端與 GGAP 對接團隊核准。
 

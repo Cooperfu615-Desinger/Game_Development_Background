@@ -113,9 +113,9 @@ export const pageReconciliation = {
         '公式、數字、匯率與圖表由前端 mock 計算，部分文案已標示 prototype／draft。',
         '匯出目前只顯示提示，未建立正式檔案流程。',
     ], [
-        '正式有效 Round 條件、聚合公式、精度、匯率時間點與資料更正規則尚待確認。',
-        '摘要、趨勢、排行、匯出 API 與效能契約尚未定義。',
-        '財務資料 scope、permission key 與稽核要求尚待核准。',
+        'Batch A Draft 已定義同一 applied filters 下的八項摘要、兩類趨勢、遊戲排行、狀態與驗收。',
+        'API 能力與資料一致性責任已形成草案；正式 path、schema、公式、精度、匯率與效能門檻仍待核准。',
+        '財務資料 scope、permission key、匯出保存與稽核仍依集中 TBD 管理。',
     ]),
     'finance-agent-games': record('attention', [
         '本頁以代理商 × 遊戲作 Provider 財務彙總，但 Provider 不建立或管理代理商主資料。',
@@ -126,9 +126,9 @@ export const pageReconciliation = {
         '代理商名稱、會員人數、金額與明細皆為 mock 聚合。',
         '前端以代理商識別呈現報表脈絡，但未建立代理商維護功能。',
     ], [
-        '代理商 ID／名稱快照來源、歷史顯示及授權 scope 尚待 GGAP／後端確認。',
-        '聚合精度、分頁排序、明細導流與資料更正契約尚待核准。',
-        '匯出欄位、API、permission key 與大量資料處理尚未正式定義。',
+        'Batch A Draft 已定義 agent_id × game_id 聚合、六項摘要、11 欄列表、伺服器排序分頁與 Round deep link。',
+        '自訂匯出、頁面狀態、響應式、API 責任及驗收已有草案；正式 schema、精度與大量資料門檻仍待核准。',
+        '代理商快照來源、歷史名稱、授權 scope、permission key 與 GGAP 契約仍依集中 TBD 管理。',
     ]),
     'monitoring-overview': record('aligned', [
         'Provider 監控自身遊戲服務、Game Round、與 GGAP 直接對接及自身告警。',

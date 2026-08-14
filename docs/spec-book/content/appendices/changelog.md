@@ -1,5 +1,14 @@
 # 版本紀錄
 
+## 0.9.0-batch-a-draft · 2026-08-14
+
+- 完成 Phase 2 Batch A：遊戲紀錄、財務總覽、代理商 × 遊戲彙總三頁形成一致的 Game Round → 財務聚合 → 單筆追溯規格鏈。
+- 新增財務總覽完整 Draft，涵蓋查詢、八張摘要卡、兩類趨勢、遊戲排行、匯出、狀態、API 責任與驗收。
+- 新增代理商 × 遊戲彙總完整 Draft，涵蓋六張摘要、11 欄列表、伺服器排序分頁、Game Round deep link 與自訂匯出。
+- 兩頁新增貼近現行 Provider 財務原型的 Overview-first HTML／CSS 畫面示意及六區塊快速導覽。
+- 回填遊戲紀錄與兩個財務頁的跨頁責任、導流條件及集中 TBD 對照。
+- API path、正式公式、decimal 精度、代理商快照、permission key、GGAP 與系統設定仍維持 Draft／Deferred，不將 mock 誤寫為正式契約。
+
 ## 0.8.0-phase-one-seal · 2026-08-14
 
 - 以 `main@d827c59` 作為第一階段封版輸入基準，完成整體重新驗證。

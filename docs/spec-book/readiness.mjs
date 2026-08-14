@@ -66,12 +66,12 @@ export const pageReadiness = {
         '金額精度、會員識別遮罩、匯出與 permission key',
         '正式 API path、schema、錯誤碼與效能門檻',
     ]),
-    'finance-overview': readiness('A', ['complete', 'complete', 'complete', 'complete', 'partial', 'partial'], ['missing', 'partial', 'partial', 'partial', 'partial', 'complete'], [
+    'finance-overview': readiness('A', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
         '正式聚合口徑、點數／USDT 精度與資料更正規則',
         '摘要、趨勢與排行的 API／效能契約',
         '資料可見範圍、匯出與財務檢視權限',
     ]),
-    'finance-agent-games': readiness('A', ['complete', 'complete', 'complete', 'complete', 'complete', 'partial'], ['missing', 'partial', 'partial', 'partial', 'partial', 'complete'], [
+    'finance-agent-games': readiness('A', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
         '代理商識別快照來源與歷史名稱顯示規則',
         '聚合計算、精度、分頁排序與資料更正契約',
         '自訂匯出、Game Round 導流與權限 API',

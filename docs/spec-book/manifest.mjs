@@ -1,10 +1,10 @@
 export const book = {
     title: 'Provider Portal 產品與系統規格書',
     shortTitle: 'Provider Portal Specs',
-    version: '0.8.0-phase-one-seal',
+    version: '0.9.0-batch-a-draft',
     updatedAt: '2026-08-14',
     owner: 'Provider Portal Product / Engineering',
-    status: 'Authoring Format Confirmed · Phase 1 Sealed',
+    status: 'Phase 2 · Batch A Draft Complete',
     description: '供產品、前端、後端、QA 與 GGAP 對接團隊共同使用的 Provider Portal 規格入口。',
 }
 
@@ -128,8 +128,40 @@ export const modules = [
         title: '遊戲商財務',
         summary: 'Provider 正式環境財務摘要與代理商 × 遊戲彙總。',
         pages: [
-            page('finance-overview', '財務總覽', '/finance', 'src/views/Finance/Overview.vue', 'complete', ['docs/GAME_VENDOR_FINANCE_OVERVIEW_SPEC.md', 'docs/GAME_VENDOR_FINANCE_REPORTING_SPEC.md']),
-            page('finance-agent-games', '代理商 × 遊戲彙總', '/finance/agent-games', 'src/views/Finance/AgentGames.vue', 'complete', ['docs/GAME_VENDOR_FINANCE_AGENT_GAME_SPEC.md', 'docs/GAME_VENDOR_FINANCE_REPORTING_SPEC.md']),
+            page('finance-overview', '財務總覽', '/finance', 'src/views/Finance/Overview.vue', 'complete', ['docs/GAME_VENDOR_FINANCE_OVERVIEW_SPEC.md', 'docs/GAME_VENDOR_FINANCE_REPORTING_SPEC.md'], {
+                status: 'draft',
+                content: 'content/modules/provider-finance/finance-overview.md',
+                summary: 'Production Game Round 的全域財務摘要、趨勢與遊戲表現排行。',
+                visualAtTop: true,
+                visualTitle: '財務總覽畫面示意',
+                visualSummary: '參照現行 /finance 原型；先掌握查詢、摘要、趨勢與排行，再閱讀詳細規格。',
+                visualZones: [
+                    { number: '01', label: '查詢範圍', href: '#5-查詢條件' },
+                    { number: '02', label: '財務摘要', href: '#6-財務摘要' },
+                    { number: '03', label: '財務趨勢', href: '#7-1-財務趨勢' },
+                    { number: '04', label: '活動趨勢', href: '#7-2-活動趨勢' },
+                    { number: '05', label: '遊戲表現排行', href: '#8-遊戲表現排行' },
+                    { number: '06', label: '匯出與替代狀態', href: '#11-頁面狀態與錯誤處理' },
+                ],
+                visualNotes: ['Production only', 'settled_at 統計', 'Provider 點數為主', '公式與資料為 Draft'],
+            }),
+            page('finance-agent-games', '代理商 × 遊戲彙總', '/finance/agent-games', 'src/views/Finance/AgentGames.vue', 'complete', ['docs/GAME_VENDOR_FINANCE_AGENT_GAME_SPEC.md', 'docs/GAME_VENDOR_FINANCE_REPORTING_SPEC.md'], {
+                status: 'draft',
+                content: 'content/modules/provider-finance/finance-agent-games.md',
+                summary: '依代理商交易脈絡與遊戲分組的 Production 財務彙總、回查與匯出。',
+                visualAtTop: true,
+                visualTitle: '代理商 × 遊戲彙總畫面示意',
+                visualSummary: '參照現行 /finance/agent-games 原型；代理商僅為交易脈絡，不是 Provider 主資料。',
+                visualZones: [
+                    { number: '01', label: '查詢範圍', href: '#5-查詢條件' },
+                    { number: '02', label: '查詢摘要', href: '#6-查詢摘要' },
+                    { number: '03', label: '彙總列表', href: '#7-彙總列表規格' },
+                    { number: '04', label: '排序與分頁', href: '#8-排序與分頁' },
+                    { number: '05', label: 'Game Round 導流', href: '#9-game-round-導流' },
+                    { number: '06', label: '匯出與替代狀態', href: '#11-頁面狀態與錯誤處理' },
+                ],
+                visualNotes: ['Production only', '聚合鍵 agent_id × game_id', 'Provider 不管理代理商主資料', '匯出完整篩選結果'],
+            }),
         ],
     },
     {

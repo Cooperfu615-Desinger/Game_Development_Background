@@ -9,8 +9,8 @@
 | 文件名稱 | Provider Portal 產品與系統規格書 |
 | 適用產品 | GGAP Provider Portal |
 | 主要讀者 | 產品、前端、後端、QA、GGAP 對接團隊 |
-| 目前版本 | `0.8.0-phase-one-seal` |
-| 目前狀態 | Authoring Format Confirmed · Phase 1 Sealed |
+| 目前版本 | `0.9.0-batch-a-draft` |
+| 目前狀態 | Phase 2 · Batch A Draft Complete |
 | 主要語言 | 台灣繁體中文；技術值與協定名稱保留英文 |
 
 ## 規格狀態定義
@@ -71,3 +71,5 @@
 > 「撰寫格式已確認」不代表所有內容頁均已 Confirmed。正式 API、權限、狀態 enum、資料精度與整合契約仍以各章節狀態及待決策清單為準。
 
 第一階段的範圍、完成度、三層校準、跨頁依賴與集中 TBD 已完成封版驗證；驗證結果、限制及重開條件見附錄 J《第一階段封版驗證報告》。
+
+第二階段 Batch A 已完成「遊戲紀錄、財務總覽、代理商 × 遊戲彙總」三頁的完整 Draft 規格與原型對齊畫面示意。此完成狀態代表產品／UI／驗收骨架可交付審閱，不代表集中 TBD 所列的正式公式、API、精度、權限、GGAP 或系統設定契約已核准。

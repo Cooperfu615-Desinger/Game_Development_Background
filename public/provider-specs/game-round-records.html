@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.8.0-phase-one-seal</span>
-            <span class="topbar-status">Authoring Format Confirmed · Phase 1 Sealed</span>
+            <span>0.9.0-batch-a-draft</span>
+            <span class="topbar-status">Phase 2 · Batch A Draft Complete</span>
         </div>
     </header>
 
@@ -140,15 +140,15 @@
             <summary>05.4 遊戲商財務<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="provider-finance-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="finance-overview.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>財務總覽</span>
 
                     </a><a href="finance-agent-games.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>代理商 × 遊戲彙總</span>
 
                     </a>
@@ -1280,7 +1280,9 @@ page_size=20
 </ul>
 <h2 id="16-整合與資料一致性">16. 整合與資料一致性</h2><ul>
 <li>Provider Round ID 與 GGAP Round ID 的唯一性、生成方、交換時點與重送行為必須在整合契約中定義。</li>
-<li>Game Round 狀態與金額口徑需與遊戲商財務報表一致。</li>
+<li>Game Round 狀態與金額口徑需與《財務總覽》及《代理商 × 遊戲彙總》一致；兩個財務頁只能聚合本頁所定義的有效 Production Game Round。</li>
+<li><code>/finance</code> 負責全域摘要、趨勢與遊戲排行；<code>/finance/agent-games</code> 負責 <code>agent_id × game_id</code> 分組；兩頁都不得建立第二套 Game Round 詳情。</li>
+<li><code>/finance/agent-games</code> 導回本頁時，必須帶入時間、代理商與遊戲條件；本頁重新執行 Provider scope 與權限驗證，不得信任來源 URL。</li>
 <li>風控告警若關聯 Game Round，應以穩定 ID 導向本頁，而非複製一份不同口徑的回合資料。</li>
 <li>匯率來源、方向、精度、有效時間與歷史重現策略需與財務模組共用。</li>
 <li>遊戲名稱、版本及數值版本應能反映回合成立時的實際內容；採 snapshot 或 join 現行主資料仍待決定。</li>
@@ -1454,6 +1456,39 @@ page_size=20
 <td>是</td>
 </tr>
 </tbody></table></div>
+<p>上述 <code>GR-*</code> 為本頁既有局部追蹤碼；跨頁決策以集中 TBD 為治理入口：</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>集中 TBD</th>
+<th>對應本頁範圍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>TBD-DOM-001</code>、<code>TBD-DOM-002</code></td>
+<td>Game Round 生命週期、有效財務資料、公式與正負方向</td>
+</tr>
+<tr>
+<td><code>TBD-DAT-001</code>、<code>TBD-DAT-002</code>、<code>TBD-DAT-003</code>、<code>TBD-DAT-004</code></td>
+<td>精度、匯率、識別快照、時區、保存與更正</td>
+</tr>
+<tr>
+<td><code>TBD-API-001</code>、<code>TBD-API-002</code>、<code>TBD-API-003</code></td>
+<td>共通 API、Round 查詢／詳情／匯出、財務 deep link</td>
+</tr>
+<tr>
+<td><code>TBD-SEC-001</code>、<code>TBD-SEC-002</code>、<code>TBD-SEC-004</code>、<code>TBD-EXT-003</code></td>
+<td>scope、遮罩、匯出、permission key 與 audit</td>
+</tr>
+<tr>
+<td><code>TBD-NFR-001</code>、<code>TBD-NFR-003</code></td>
+<td>查詢／匯出效能、冪等、重試與可觀測性</td>
+</tr>
+<tr>
+<td><code>TBD-EXT-001</code></td>
+<td>GGAP 正式識別、Callback、ACK 與重送契約</td>
+</tr>
+</tbody></table></div>
 <h2 id="20-規格完成條件">20. 規格完成條件</h2><p>本章可由 Draft 升為 Confirmed 的條件：</p>
 <ol>
 <li>所有標記「阻擋正式開發」的待確認事項均有決議與責任人。</li>
@@ -1478,7 +1513,7 @@ page_size=20
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.8.0-phase-one-seal · 2026-08-14</span>
+                    <span>0.9.0-batch-a-draft · 2026-08-14</span>
                 </footer>
             </div>
         </main>

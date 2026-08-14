@@ -9,8 +9,8 @@
 | 文件名稱 | Provider Portal 產品與系統規格書 |
 | 適用產品 | GGAP Provider Portal |
 | 主要讀者 | 產品、前端、後端、QA、GGAP 對接團隊 |
-| 目前版本 | `0.6.0-dependency-map` |
-| 目前狀態 | Authoring Format Confirmed · Phase 1 Dependencies Mapped |
+| 目前版本 | `0.7.0-tbd-registry` |
+| 目前狀態 | Authoring Format Confirmed · Phase 1 TBDs Centralized |
 | 主要語言 | 台灣繁體中文；技術值與協定名稱保留英文 |
 
 ## 規格狀態定義

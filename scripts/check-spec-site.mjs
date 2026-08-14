@@ -5,6 +5,7 @@ import { appendices, crossCutting, foundation, modules, scopeLabels } from '../d
 import { pageReadiness, readinessDimensions, readinessLevels } from '../docs/spec-book/readiness.mjs'
 import { pageReconciliation, reconciliationStates } from '../docs/spec-book/reconciliation.mjs'
 import { deferredDependencies, dependencyChains, dependencyKinds, dependencyMaturity } from '../docs/spec-book/dependencies.mjs'
+import { blockingScopes, tbdCategories, tbdPriorities, tbdRegistry, tbdStatuses } from '../docs/spec-book/tbd-registry.mjs'
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url))
 const repositoryRoot = path.resolve(scriptDirectory, '..')
@@ -58,6 +59,23 @@ assert(dependencyChains.every((chain) => {
 assert(deferredDependencies.length === 3, '應包含 GGAP、通知中心與系統設定三項 Deferred 依賴')
 assert(deferredDependencies.every((item) => item.targets.every((pageId) => assessedPages.some((page) => page.id === pageId))), 'Deferred 依賴只能指向 Baseline／Active 頁')
 assert(deferredDependencies.find((item) => item.id === 'settings-dependency')?.targets.length === assessedPages.length, '系統設定安全邊界應影響全部本輪頁面')
+const tbdIds = new Set(tbdRegistry.map((item) => item.id))
+const assessedPageIds = new Set(assessedPages.map((page) => page.id))
+const dependencyChainIds = new Set(dependencyChains.map((chain) => chain.id))
+assert(tbdRegistry.length === 30, `集中 TBD 應包含 30 項，實際為 ${tbdRegistry.length}`)
+assert(tbdIds.size === tbdRegistry.length, '集中 TBD ID 不可重複')
+assert(Object.keys(tbdCategories).every((category, index) => tbdRegistry.filter((item) => item.category === category).length === [6, 6, 6, 5, 4, 3][index]), 'TBD 六分類筆數應為 6、6、6、5、4、3')
+assert(tbdRegistry.every((item) => /^TBD-[A-Z]{3}-\d{3}$/.test(item.id)), '所有集中 TBD 必須使用穩定 TBD-XXX-000 ID')
+assert(tbdRegistry.every((item) => tbdCategories[item.category] && tbdStatuses[item.status] && tbdPriorities[item.priority]), '所有集中 TBD 必須使用已定義分類、狀態與優先級')
+assert(tbdRegistry.every((item) => item.title && item.question && item.neededBy && item.owners.length && item.pageIds.length && item.blocks.length), '所有集中 TBD 必須包含問題、責任方、影響頁面、阻擋範圍與需要時間')
+assert(tbdRegistry.every((item) => item.pageIds.every((pageId) => assessedPageIds.has(pageId))), '集中 TBD 只能連結 Baseline／Active 頁面')
+assert(tbdRegistry.every((item) => item.chainIds.every((chainId) => dependencyChainIds.has(chainId))), '集中 TBD 只能連結已定義業務鏈')
+assert(tbdRegistry.every((item) => item.blocks.every((scope) => blockingScopes[scope])), '集中 TBD 必須使用已定義阻擋範圍')
+assert(assessedPages.every((page) => tbdRegistry.some((item) => item.pageIds.includes(page.id))), '所有 Baseline／Active 頁面都必須至少關聯一項集中 TBD')
+assert(tbdRegistry.filter((item) => item.category === 'external').length === deferredDependencies.length, 'External TBD 應對應三項 Deferred 外部依賴')
+for (const id of ['TBD-API-001', 'TBD-SEC-001', 'TBD-NFR-004', 'TBD-EXT-003']) {
+    assert(tbdRegistry.find((item) => item.id === id)?.pageIds.length === assessedPages.length, `${id} 應影響全部本輪頁面`)
+}
 assert(new Set(expectedIds).size === expectedIds.length, '文件 ID 不可重複')
 
 for (const asset of ['assets/site.css', 'assets/site.js', 'assets/search-index.js']) {
@@ -143,6 +161,14 @@ assert((dependencyHtml.match(/class="dependency-node"/g) || []).length === depen
 assert((dependencyHtml.match(/class="dependency-edge /g) || []).length === dependencyEdges.length, '跨頁依賴圖箭頭數量不正確')
 assert((dependencyHtml.match(/class="deferred-dependency-card"/g) || []).length === deferredDependencies.length, 'Deferred 依賴卡片數量不正確')
 
+const tbdHtml = await readFile(path.join(outputRoot, 'open-issues.html'), 'utf8')
+for (const requiredText of ['集中 TBD 登錄', '產品領域與生命週期', '資料、計算與保存', '介面與整合契約', '權限、敏感資料與稽核', '效能、可靠性與可用性', '外部規格與延後模組依賴', '頁面覆蓋索引']) {
+    assert(tbdHtml.includes(requiredText), `集中 TBD 登錄缺少必要內容：${requiredText}`)
+}
+assert((tbdHtml.match(/class="tbd-card"/g) || []).length === tbdRegistry.length, '集中 TBD 卡片數量不正確')
+assert((tbdHtml.match(/class="tbd-priority tbd-priority-p0"/g) || []).length === tbdRegistry.filter((item) => item.priority === 'P0').length, '集中 TBD P0 數量不正確')
+assert(assessedPages.every((page) => tbdHtml.includes(`href="${page.id}.html"`)), '集中 TBD 頁面覆蓋索引必須連結所有本輪頁面')
+
 for (const page of contentPages.filter((item) => item.scope === 'deferred')) {
     const html = await readFile(path.join(outputRoot, `${page.id}.html`), 'utf8')
     for (const requiredText of ['延後製作', '重新啟動前需要的輸入', '不可作為前端、後端或 QA 的開發依據']) {
@@ -163,6 +189,9 @@ assert(siteCss.includes('.reconciliation-columns'), '規格網站缺少三層校
 assert(siteCss.includes('.reconciliation-state-attention'), '規格網站缺少校準狀態樣式')
 assert(siteCss.includes('.dependency-flow'), '規格網站缺少跨頁依賴流程樣式')
 assert(siteCss.includes('.dependency-edge__guardrail'), '規格網站缺少依賴 Guardrail 樣式')
+assert(siteCss.includes('.tbd-summary-grid'), '規格網站缺少集中 TBD 摘要樣式')
+assert(siteCss.includes('.tbd-card__question'), '規格網站缺少集中 TBD 問題卡樣式')
+assert(siteCss.includes('.tbd-priority-p0'), '規格網站缺少集中 TBD 優先級樣式')
 
 const indexHtml = await readFile(path.join(outputRoot, 'index.html'), 'utf8')
 for (const relativeAsset of ['assets/site.css', 'assets/search-index.js', 'assets/site.js']) {

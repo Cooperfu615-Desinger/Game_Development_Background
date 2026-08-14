@@ -26,6 +26,13 @@ import {
     dependencyKinds,
     dependencyMaturity,
 } from '../docs/spec-book/dependencies.mjs'
+import {
+    blockingScopes,
+    tbdCategories,
+    tbdPriorities,
+    tbdRegistry,
+    tbdStatuses,
+} from '../docs/spec-book/tbd-registry.mjs'
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url))
 const repositoryRoot = path.resolve(scriptDirectory, '..')
@@ -82,6 +89,7 @@ const pageMatrixMarkdown = createPageMatrix()
 const readinessFragments = createReadinessFragments()
 const reconciliationFragments = createReconciliationFragments()
 const dependencyFragments = createDependencyFragments()
+const tbdFragments = createTbdFragments()
 const renderedDocuments = []
 
 for (const document of documents) {
@@ -117,6 +125,10 @@ for (const document of documents) {
 
     if (document.generatedDependencies) {
         markdown = replaceDependencyMarkers(markdown, dependencyFragments)
+    }
+
+    if (document.generatedTbdRegistry) {
+        markdown = replaceTbdMarkers(markdown, tbdFragments)
     }
 
     if (document.visualAtTop) {
@@ -862,6 +874,89 @@ function replaceDependencyMarkers(markdown, fragments) {
     for (const [marker, value] of Object.entries(markers)) {
         const token = `<!-- ${marker} -->`
         if (!result.includes(token)) throw new Error(`找不到跨頁依賴標記：${marker}`)
+        result = result.replace(token, value)
+    }
+    return result
+}
+
+function createTbdFragments() {
+    const assessedPages = allContentPages.filter((page) => ['baseline', 'active'].includes(page.scope))
+    const p0Count = tbdRegistry.filter((item) => item.priority === 'P0').length
+    const externalCount = tbdRegistry.filter((item) => item.status === 'external').length
+    const summary = `<section class="tbd-summary-grid" aria-label="跨頁 TBD 摘要">
+<div><strong>${tbdRegistry.length}</strong><span>集中 TBD</span><small>六個治理分類</small></div>
+<div class="tbd-summary-p0"><strong>${p0Count}</strong><span>P0 項目</span><small>阻擋正式契約或上線</small></div>
+<div class="tbd-summary-external"><strong>${externalCount}</strong><span>等待外部輸入</span><small>不在本輪推定契約</small></div>
+<div><strong>${assessedPages.length}</strong><span>影響頁面</span><small>全部 Baseline + Active</small></div>
+</section>
+
+| 優先級 | 工作定義 |
+|---|---|
+${Object.entries(tbdPriorities).map(([key, item]) => `| ${key} | ${item.description} |`).join('\n')}`
+
+    const categories = Object.entries(tbdCategories).map(([categoryKey, category]) => {
+        const items = tbdRegistry.filter((item) => item.category === categoryKey)
+        return `### ${category.number} ${category.label}｜${category.title}\n\n<section class="tbd-card-list tbd-category-${category.tone}" aria-label="${escapeHtml(category.title)} TBD">\n${items.map((item) => createTbdCard(item)).join('\n')}\n</section>`
+    }).join('\n\n')
+
+    const coverageRows = assessedPages.map((page) => {
+        const items = tbdRegistry.filter((item) => item.pageIds.includes(page.id))
+        const highestPriority = ['P0', 'P1', 'P2'].find((priority) => items.some((item) => item.priority === priority)) || '—'
+        const links = items.map((item) => `<a href="#${escapeHtml(item.id.toLowerCase())}">${escapeHtml(item.id)}</a>`).join(' ')
+        return `| ${pageReadiness[page.id].batch} | [${page.title}](${page.id}.html) | ${items.length} | ${highestPriority} | ${links} |`
+    }).join('\n')
+    const coverage = `| 批次 | 頁面 | 關聯 TBD | 最高層級 | TBD ID |
+|:---:|---|---:|:---:|---|
+${coverageRows}`
+
+    return { summary, categories, coverage }
+}
+
+function createTbdCard(item) {
+    const category = tbdCategories[item.category]
+    const status = tbdStatuses[item.status]
+    const priority = tbdPriorities[item.priority]
+    if (!category || !status || !priority) throw new Error(`${item.id} 使用未知 TBD 分類、狀態或優先級`)
+    const pageLinks = item.pageIds.map((pageId) => {
+        const page = allContentPages.find((candidate) => candidate.id === pageId)
+        if (!page) throw new Error(`${item.id} 參照不存在頁面：${pageId}`)
+        return `<a href="${escapeHtml(page.id)}.html">${escapeHtml(page.title)}</a>`
+    }).join('')
+    const chainLinks = item.chainIds.map((chainId) => {
+        const chain = dependencyChains.find((candidate) => candidate.id === chainId)
+        if (!chain) throw new Error(`${item.id} 參照不存在業務鏈：${chainId}`)
+        return `<a href="page-dependency-map.html#dependency-${escapeHtml(chain.id)}">${escapeHtml(chain.title)}</a>`
+    }).join('')
+    const owners = item.owners.map((owner) => `<span>${escapeHtml(owner)}</span>`).join('')
+    const blocks = item.blocks.map((scope) => `<span>${escapeHtml(blockingScopes[scope])}</span>`).join('')
+    const legacy = item.legacyRefs.length ? `<div class="tbd-card__legacy"><strong>來源參照</strong><p>${item.legacyRefs.map((ref) => `<code>${escapeHtml(ref)}</code>`).join('')}</p></div>` : ''
+
+    return `<article class="tbd-card" id="${escapeHtml(item.id.toLowerCase())}">
+<header class="tbd-card__header">
+<div><span>${escapeHtml(category.label)}</span><code>${escapeHtml(item.id)}</code><h4>${escapeHtml(item.title)}</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-${priority.tone}">${escapeHtml(priority.label)}</b><span class="tbd-status tbd-status-${status.tone}">${escapeHtml(status.label)}</span></div>
+</header>
+<p class="tbd-card__question">${escapeHtml(item.question)}</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list">${owners}</p></div>
+<div><strong>需要時間</strong><p>${escapeHtml(item.neededBy)}</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks">${blocks}</p></div>
+${legacy}
+</div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav>${pageLinks}</nav></div><div><strong>業務鏈</strong><nav>${chainLinks}</nav></div></div>
+</article>`
+}
+
+function replaceTbdMarkers(markdown, fragments) {
+    const markers = {
+        GENERATED_TBD_SUMMARY: fragments.summary,
+        GENERATED_TBD_CATEGORIES: fragments.categories,
+        GENERATED_TBD_COVERAGE: fragments.coverage,
+    }
+    let result = markdown
+    for (const [marker, value] of Object.entries(markers)) {
+        const token = `<!-- ${marker} -->`
+        if (!result.includes(token)) throw new Error(`找不到 TBD 登錄標記：${marker}`)
         result = result.replace(token, value)
     }
     return result

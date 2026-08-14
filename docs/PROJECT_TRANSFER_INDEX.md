@@ -1,6 +1,6 @@
 # 遊戲商 Provider Portal 文件索引
 
-> 文件版本：2.14.0
+> 文件版本：2.15.0
 > 更新日期：2026-08-14
 > 文件狀態：Provider Portal 導覽與頁面原型已整理；規格網站結構與撰寫規範已定版，正式 API、權限、警戒門檻、更新頻率與資料契約仍待確認
 
@@ -38,6 +38,9 @@
 - [`../public/provider-specs/page-dependency-map.html`](../public/provider-specs/page-dependency-map.html)
   - 第一階段四條核心業務鏈、15 條依賴關係、Guardrail 與共用契約優先級。
   - GGAP 對接、通知中心及系統設定只作 Deferred 外部依賴，不推定其正式契約。
+- [`../public/provider-specs/open-issues.html`](../public/provider-specs/open-issues.html)
+  - Domain、Data、API、Security、NFR、External 六類跨頁 TBD 集中登錄與 21 頁影響矩陣。
+  - 頁面局部 TBD 保留來源 ID，但共用決議以此集中清單為唯一治理入口。
 
 > 上述交接文件已依 Provider Portal 方向整理，並將「目前原型實況」與「目標規格草案」分開標示。正式 API 與資料欄位仍需由後端與 GGAP 對接團隊核准。
 

@@ -1,10 +1,10 @@
 export const book = {
     title: 'Provider Portal 產品與系統規格書',
     shortTitle: 'Provider Portal Specs',
-    version: '0.6.0-dependency-map',
+    version: '0.7.0-tbd-registry',
     updatedAt: '2026-08-14',
     owner: 'Provider Portal Product / Engineering',
-    status: 'Authoring Format Confirmed · Phase 1 Dependencies Mapped',
+    status: 'Authoring Format Confirmed · Phase 1 TBDs Centralized',
     description: '供產品、前端、後端、QA 與 GGAP 對接團隊共同使用的 Provider Portal 規格入口。',
 }
 
@@ -207,7 +207,7 @@ export const appendices = [
     section('data-dictionary', 'A', '資料字典', '共用識別碼、Game Round、金額與時間欄位。', 'content/appendices/data-dictionary.md'),
     section('status-enums', 'B', '狀態與枚舉', '跨頁共用狀態、顯示名稱與正式值。', 'content/appendices/status-enums.md'),
     { ...section('route-page-matrix', 'C', 'Route 與頁面矩陣', '32 個內容頁的集中追溯表。'), generatedMatrix: true },
-    section('open-issues', 'D', '待決策與校正清單', '跨模組 TBD、現行文件／程式差異與阻擋範圍。', 'content/appendices/open-issues.md'),
+    { ...section('open-issues', 'D', '待決策與校正清單', 'Domain、Data、API、Security、NFR 與 External Dependency 的集中 TBD 登錄。', 'content/appendices/open-issues.md'), generatedTbdRegistry: true },
     section('changelog', 'E', '版本紀錄', '規格網站與核准規格的變更摘要。', 'content/appendices/changelog.md'),
     { ...section('spec-book-authoring-guide', 'F', '規格書撰寫與交接規範', '可於本專案沿用，也可獨立移植至其他專案的規格網站方法、模板與品質標準。', 'SPEC_BOOK_AUTHORING_GUIDE.md'), status: 'confirmed' },
     { ...section('page-readiness-matrix', 'G', '第一階段頁面完成度矩陣', '21 個本輪頁面的來源、批次、逐面向完成度與待補主題。', 'content/appendices/page-readiness-matrix.md'), generatedReadiness: true },

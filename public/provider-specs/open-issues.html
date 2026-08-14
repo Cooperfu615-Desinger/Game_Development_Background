@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="跨模組 TBD、現行文件／程式差異與阻擋範圍。">
+    <meta name="description" content="Domain、Data、API、Security、NFR 與 External Dependency 的集中 TBD 登錄。">
     <meta name="color-scheme" content="light">
     <title>待決策與校正清單｜Provider Portal 產品與系統規格書</title>
     <link rel="stylesheet" href="assets/site.css">
@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.6.0-dependency-map</span>
-            <span class="topbar-status">Authoring Format Confirmed · Phase 1 Dependencies Mapped</span>
+            <span>0.7.0-tbd-registry</span>
+            <span class="topbar-status">Authoring Format Confirmed · Phase 1 TBDs Centralized</span>
         </div>
     </header>
 
@@ -378,7 +378,7 @@
                     <div>
                         <p class="eyebrow">附錄 D</p>
                         <h1>待決策與校正清單</h1>
-                        <p class="page-summary">跨模組 TBD、現行文件／程式差異與阻擋範圍。</p>
+                        <p class="page-summary">Domain、Data、API、Security、NFR 與 External Dependency 的集中 TBD 登錄。</p>
                     </div>
                     <div class="page-status-stack">
                         <span class="status-badge status-outline">待整理</span>
@@ -396,54 +396,599 @@
 
                 <div class="content-layout">
                     <article class="spec-content">
-                        <h2 id="跨模組待決策">跨模組待決策</h2><div class="table-scroll" tabindex="0"><table>
+                        <p>本章是第一階段跨頁 TBD 的唯一集中登錄。頁面規格可以保留局部問題與來源 ID，但任何影響兩頁以上、共用契約或正式上線的問題，都必須在此建立穩定 ID、責任方與阻擋範圍。</p>
+<h2 id="治理規則">治理規則</h2><ul>
+<li>TBD 不等於 Deferred：TBD 是內容未決；Deferred 是頁面尚未排入本輪。</li>
+<li>優先級是目前規格整理工作的建議層級，不代表已核准的產品時程。</li>
+<li>P0 必須在對應正式資料、API、高風險流程或上線前解決；不代表所有 P0 都阻擋 UI 骨架。</li>
+<li>每項 TBD 必須連到受影響頁面或業務鏈，避免相同問題在不同頁面重複決策。</li>
+<li>決議後不直接刪除項目；應更新狀態、決議內容、日期與取代的規格版本。</li>
+<li>Deferred 模組相關問題只記錄需要取得的外部輸入，不藉此建立其畫面或 API 草案。</li>
+</ul>
+<h2 id="集中摘要">集中摘要</h2><section class="tbd-summary-grid" aria-label="跨頁 TBD 摘要">
+<div><strong>30</strong><span>集中 TBD</span><small>六個治理分類</small></div>
+<div class="tbd-summary-p0"><strong>18</strong><span>P0 項目</span><small>阻擋正式契約或上線</small></div>
+<div class="tbd-summary-external"><strong>4</strong><span>等待外部輸入</span><small>不在本輪推定契約</small></div>
+<div><strong>21</strong><span>影響頁面</span><small>全部 Baseline + Active</small></div>
+</section><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
-<th>項目</th>
-<th>責任方</th>
-<th>阻擋範圍</th>
+<th>優先級</th>
+<th>工作定義</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>Provider 內部角色與 permission key</td>
-<td>產品／後端</td>
-<td>正式權限與上線</td>
+<td>P0</td>
+<td>阻擋正式資料／API／高風險流程或上線。</td>
 </tr>
 <tr>
-<td>Game Round 正式狀態枚舉</td>
-<td>產品／後端／GGAP</td>
-<td>後端與整合</td>
+<td>P1</td>
+<td>阻擋模組完整規格、整合或驗收。</td>
 </tr>
 <tr>
-<td>點數與 USDT 精度、四捨五入</td>
-<td>Provider／後端／GGAP</td>
-<td>財務與正式上線</td>
-</tr>
-<tr>
-<td>GGAP 正式 API、簽章、Callback、ACK 與重試</td>
-<td>GGAP／後端</td>
-<td>對接與正式上線</td>
-</tr>
-<tr>
-<td>資料保存、查詢與匯出上限</td>
-<td>產品／後端</td>
-<td>後端與營運</td>
+<td>P2</td>
+<td>不阻擋骨架撰寫，但需在正式驗收前完成。</td>
 </tr>
 </tbody></table></div>
-<h2 id="現行文件與程式校正">現行文件與程式校正</h2><ul>
-<li>遊戲版本與數值 mock 仍有「影響商戶」「全部正式商戶」等舊語意。</li>
-<li>設定總覽與操作紀錄仍有平台結算、發票、商戶及錢包語意。</li>
-<li>DEMO 大廳使用 USD 與 Session，需明確定義為隔離展示模型。</li>
-<li>遊戲紀錄部分主要標籤仍使用英文，需依繁體中文顯示規則統一。</li>
-<li>儀表板曾使用 <code>event_id</code>，風控報表正式 query 使用 <code>risk_event_id</code>。</li>
-<li>遊戲管理的文件順序與實際左側選單順序需統一。</li>
-</ul>
-<p>以上差異先記錄，不在規格網站結構階段直接修改 Provider Portal 原型。</p>
+<h2 id="六類-tbd-登錄">六類 TBD 登錄</h2><h3 id="01-domain-產品領域與生命週期">01 Domain｜產品領域與生命週期</h3><section class="tbd-card-list tbd-category-domain" aria-label="產品領域與生命週期 TBD">
+<article class="tbd-card" id="tbd-dom-001">
+<header class="tbd-card__header">
+<div><span>Domain</span><code>TBD-DOM-001</code><h4>Game Round 正式生命週期</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-partial">部分已有</span></div>
+</header>
+<p class="tbd-card__question">確認正式 round status、終態、取消／調整／延遲結算、重送、冪等與資料更正流程。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Product</span><span>Backend</span><span>GGAP</span></p></div>
+<div><strong>需要時間</strong><p>Batch A 契約整理前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Backend</span><span>Integration</span><span>QA</span><span>正式上線</span></p></div>
+<div class="tbd-card__legacy"><strong>來源參照</strong><p><code>GR-001</code><code>GR-014</code></p></div>
+</div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="game-round-records.html">遊戲紀錄</a><a href="finance-overview.html">財務總覽</a><a href="finance-agent-games.html">代理商 × 遊戲彙總</a><a href="monitoring-overview.html">監控總覽</a><a href="risk-reports.html">風控報表</a><a href="risk-alerts.html">風控告警／處理</a><a href="dashboard.html">儀表板</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-round-finance">Game Round 與財務鏈</a><a href="page-dependency-map.html#dependency-monitoring-risk">監控與風控鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-dom-002">
+<header class="tbd-card__header">
+<div><span>Domain</span><code>TBD-DOM-002</code><h4>正式財務指標與正負方向</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-partial">部分已有</span></div>
+</header>
+<p class="tbd-card__question">確認有效 Game Round、投注、派彩、玩家淨輸贏、Provider GGR、取消／回滾／調整的唯一公式與正負方向。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Product</span><span>Finance</span><span>Backend</span></p></div>
+<div><strong>需要時間</strong><p>Batch A 契約整理前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Backend</span><span>QA</span><span>正式上線</span></p></div>
+<div class="tbd-card__legacy"><strong>來源參照</strong><p><code>GR-005</code></p></div>
+</div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="game-round-records.html">遊戲紀錄</a><a href="finance-overview.html">財務總覽</a><a href="finance-agent-games.html">代理商 × 遊戲彙總</a><a href="dashboard.html">儀表板</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-round-finance">Game Round 與財務鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-dom-003">
+<header class="tbd-card__header">
+<div><span>Domain</span><code>TBD-DOM-003</code><h4>遊戲發布組合與生命週期</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-definition">待定義</span></div>
+</header>
+<p class="tbd-card__question">定義設定、數值、版本、素材如何組成可發布版本，以及草稿、審核、Production／DEMO 生效、維護、停用與回復狀態。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Product</span><span>Game Engineering</span><span>Backend</span></p></div>
+<div><strong>需要時間</strong><p>Batch C 開始前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>QA</span><span>正式上線</span></p></div></div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="game-list.html">遊戲列表</a><a href="game-environments.html">環境與發布</a><a href="game-settings.html">遊戲設定</a><a href="game-math.html">數值設定</a><a href="game-versions.html">遊戲版本</a><a href="game-assets.html">遊戲素材</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-game-lifecycle">遊戲生命週期鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-dom-004">
+<header class="tbd-card__header">
+<div><span>Domain</span><code>TBD-DOM-004</code><h4>Risk Event、Alert、緩解與隔離模型</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-partial">部分已有</span></div>
+</header>
+<p class="tbd-card__question">確認 Risk Event 與 Alert 的建立條件、狀態機、關聯、結案／誤報、緩解、隔離、解除及既有 Round 保留行為。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Product</span><span>Risk</span><span>Backend</span><span>SRE</span></p></div>
+<div><strong>需要時間</strong><p>Batch B 契約整理前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Backend</span><span>Integration</span><span>QA</span><span>正式上線</span></p></div></div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="monitoring-overview.html">監控總覽</a><a href="risk-reports.html">風控報表</a><a href="risk-alerts.html">風控告警／處理</a><a href="game-round-records.html">遊戲紀錄</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-monitoring-risk">監控與風控鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-dom-005">
+<header class="tbd-card__header">
+<div><span>Domain</span><code>TBD-DOM-005</code><h4>官網與大廳發布模型</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p1">P1</b><span class="tbd-status tbd-status-definition">待定義</span></div>
+</header>
+<p class="tbd-card__question">確認官網內容、大廳公開內容、遊戲全域上架、草稿／公開版本、預覽及回復是獨立還是關聯生命週期。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Product</span><span>Content Operations</span><span>Frontend</span><span>Backend</span></p></div>
+<div><strong>需要時間</strong><p>Batch D 開始前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>QA</span></p></div></div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="website-banners.html">Banner 管理</a><a href="website-content.html">內容管理</a><a href="website-releases.html">發布紀錄</a><a href="lobby-overview.html">大廳總覽</a><a href="lobby-games.html">遊戲清單</a><a href="lobby-management.html">遊戲管理</a><a href="lobby-preview.html">大廳預覽</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-website-lobby">官網與遊戲大廳鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-dom-006">
+<header class="tbd-card__header">
+<div><span>Domain</span><code>TBD-DOM-006</code><h4>DEMO 展示模型與責任邊界</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p1">P1</b><span class="tbd-status tbd-status-partial">部分已有</span></div>
+</header>
+<p class="tbd-card__question">定義 DEMO 帳號、玩家、Session、模擬餘額、資料重設與試玩啟動語意，並確認它們不形成 Provider 會員或錢包主資料。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Product</span><span>Backend</span><span>Security</span></p></div>
+<div><strong>需要時間</strong><p>Batch D 開始前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>QA</span></p></div></div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="game-environments.html">環境與發布</a><a href="lobby-overview.html">大廳總覽</a><a href="lobby-games.html">遊戲清單</a><a href="lobby-management.html">遊戲管理</a><a href="lobby-demo.html">DEMO環境數據</a><a href="lobby-preview.html">大廳預覽</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-website-lobby">官網與遊戲大廳鏈</a></nav></div></div>
+</article>
+</section><h3 id="02-data-資料-計算與保存">02 Data｜資料、計算與保存</h3><section class="tbd-card-list tbd-category-data" aria-label="資料、計算與保存 TBD">
+<article class="tbd-card" id="tbd-dat-001">
+<header class="tbd-card__header">
+<div><span>Data</span><code>TBD-DAT-001</code><h4>點數、USDT、匯率與精度</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-partial">部分已有</span></div>
+</header>
+<p class="tbd-card__question">確認點數與 USDT 的 decimal 精度、四捨五入、匯率方向、來源、生效時間、規則版本及歷史重現方式。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Finance</span><span>Backend</span><span>GGAP</span></p></div>
+<div><strong>需要時間</strong><p>Batch A 契約整理前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Backend</span><span>Integration</span><span>QA</span><span>正式上線</span></p></div>
+<div class="tbd-card__legacy"><strong>來源參照</strong><p><code>GR-006</code></p></div>
+</div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="game-round-records.html">遊戲紀錄</a><a href="finance-overview.html">財務總覽</a><a href="finance-agent-games.html">代理商 × 遊戲彙總</a><a href="dashboard.html">儀表板</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-round-finance">Game Round 與財務鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-dat-002">
+<header class="tbd-card__header">
+<div><span>Data</span><code>TBD-DAT-002</code><h4>跨系統識別碼與交易快照</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-partial">部分已有</span></div>
+</header>
+<p class="tbd-card__question">確認 Provider／GGAP Round ID、request ID、agent／member 識別的生成、唯一性、交換時點、歷史名稱、遮罩與 snapshot／join 策略。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Backend</span><span>Data</span><span>GGAP</span><span>Security</span></p></div>
+<div><strong>需要時間</strong><p>Batch A 契約整理前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Backend</span><span>Integration</span><span>QA</span><span>正式上線</span></p></div>
+<div class="tbd-card__legacy"><strong>來源參照</strong><p><code>GR-002</code><code>GR-007</code><code>GR-008</code><code>GR-009</code></p></div>
+</div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="game-round-records.html">遊戲紀錄</a><a href="finance-agent-games.html">代理商 × 遊戲彙總</a><a href="monitoring-overview.html">監控總覽</a><a href="risk-reports.html">風控報表</a><a href="risk-alerts.html">風控告警／處理</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-round-finance">Game Round 與財務鏈</a><a href="page-dependency-map.html#dependency-monitoring-risk">監控與風控鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-dat-003">
+<header class="tbd-card__header">
+<div><span>Data</span><code>TBD-DAT-003</code><h4>時間、時區、窗口與資料新鮮度</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p1">P1</b><span class="tbd-status tbd-status-partial">部分已有</span></div>
+</header>
+<p class="tbd-card__question">統一事件時間、結算時間、統計日、rolling window、顯示時區、資料更新時間、過期判定與跨日邊界。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Product</span><span>Backend</span><span>Data</span><span>SRE</span></p></div>
+<div><strong>需要時間</strong><p>各批次驗收前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Backend</span><span>QA</span></p></div>
+<div class="tbd-card__legacy"><strong>來源參照</strong><p><code>GR-003</code></p></div>
+</div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="dashboard.html">儀表板</a><a href="game-round-records.html">遊戲紀錄</a><a href="finance-overview.html">財務總覽</a><a href="finance-agent-games.html">代理商 × 遊戲彙總</a><a href="monitoring-overview.html">監控總覽</a><a href="risk-reports.html">風控報表</a><a href="risk-alerts.html">風控告警／處理</a><a href="website-releases.html">發布紀錄</a><a href="lobby-demo.html">DEMO環境數據</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-round-finance">Game Round 與財務鏈</a><a href="page-dependency-map.html#dependency-monitoring-risk">監控與風控鏈</a><a href="page-dependency-map.html#dependency-website-lobby">官網與遊戲大廳鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-dat-004">
+<header class="tbd-card__header">
+<div><span>Data</span><code>TBD-DAT-004</code><h4>資料保存、更正與不可變追溯</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p1">P1</b><span class="tbd-status tbd-status-definition">待定義</span></div>
+</header>
+<p class="tbd-card__question">確認 Game Round、財務聚合、Risk Event、Alert、發布紀錄及 audit 的保存期限、更正方式、版本化與不可變欄位。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Product</span><span>Backend</span><span>Data Governance</span><span>Security</span></p></div>
+<div><strong>需要時間</strong><p>正式上線前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Backend</span><span>QA</span><span>正式上線</span></p></div></div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="game-round-records.html">遊戲紀錄</a><a href="finance-overview.html">財務總覽</a><a href="finance-agent-games.html">代理商 × 遊戲彙總</a><a href="risk-reports.html">風控報表</a><a href="risk-alerts.html">風控告警／處理</a><a href="website-releases.html">發布紀錄</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-round-finance">Game Round 與財務鏈</a><a href="page-dependency-map.html#dependency-monitoring-risk">監控與風控鏈</a><a href="page-dependency-map.html#dependency-website-lobby">官網與遊戲大廳鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-dat-005">
+<header class="tbd-card__header">
+<div><span>Data</span><code>TBD-DAT-005</code><h4>監控指標、門檻與採樣規則</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-partial">部分已有</span></div>
+</header>
+<p class="tbd-card__question">確認健康、成功率、延遲、數值偏離、嚴重度、統計窗口、樣本量、門檻版本及無資料判定。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Risk</span><span>SRE</span><span>Game Math</span><span>Backend</span></p></div>
+<div><strong>需要時間</strong><p>Batch B 契約整理前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Backend</span><span>QA</span><span>正式上線</span></p></div></div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="dashboard.html">儀表板</a><a href="game-math.html">數值設定</a><a href="monitoring-overview.html">監控總覽</a><a href="risk-reports.html">風控報表</a><a href="risk-alerts.html">風控告警／處理</a><a href="lobby-demo.html">DEMO環境數據</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-monitoring-risk">監控與風控鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-dat-006">
+<header class="tbd-card__header">
+<div><span>Data</span><code>TBD-DAT-006</code><h4>多語內容、素材與 fallback schema</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p1">P1</b><span class="tbd-status tbd-status-definition">待定義</span></div>
+</header>
+<p class="tbd-card__question">確認語系清單、繁中預設、fallback、文字／富文字限制、媒體格式、尺寸、大小、版本、裝置用途與可存取替代文字。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Product</span><span>Content Operations</span><span>Frontend</span><span>Backend</span></p></div>
+<div><strong>需要時間</strong><p>Batch C／D 開始前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>QA</span></p></div></div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="game-assets.html">遊戲素材</a><a href="website-banners.html">Banner 管理</a><a href="website-content.html">內容管理</a><a href="website-releases.html">發布紀錄</a><a href="lobby-management.html">遊戲管理</a><a href="lobby-preview.html">大廳預覽</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-game-lifecycle">遊戲生命週期鏈</a><a href="page-dependency-map.html#dependency-website-lobby">官網與遊戲大廳鏈</a></nav></div></div>
+</article>
+</section><h3 id="03-api-介面與整合契約">03 API｜介面與整合契約</h3><section class="tbd-card-list tbd-category-api" aria-label="介面與整合契約 TBD">
+<article class="tbd-card" id="tbd-api-001">
+<header class="tbd-card__header">
+<div><span>API</span><code>TBD-API-001</code><h4>Provider Portal 共通 API 契約</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-definition">待定義</span></div>
+</header>
+<p class="tbd-card__question">核准 base URL、版本、認證、錯誤 envelope、trace ID、分頁、排序、filter、冪等、欄位驗證及時間格式。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Backend</span><span>Frontend</span><span>Security</span></p></div>
+<div><strong>需要時間</strong><p>第一個正式 API 前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>Integration</span><span>QA</span><span>正式上線</span></p></div>
+<div class="tbd-card__legacy"><strong>來源參照</strong><p><code>GR-004</code><code>GR-013</code></p></div>
+</div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="dashboard.html">儀表板</a><a href="game-list.html">遊戲列表</a><a href="game-environments.html">環境與發布</a><a href="game-settings.html">遊戲設定</a><a href="game-math.html">數值設定</a><a href="game-versions.html">遊戲版本</a><a href="game-assets.html">遊戲素材</a><a href="game-round-records.html">遊戲紀錄</a><a href="finance-overview.html">財務總覽</a><a href="finance-agent-games.html">代理商 × 遊戲彙總</a><a href="monitoring-overview.html">監控總覽</a><a href="risk-reports.html">風控報表</a><a href="risk-alerts.html">風控告警／處理</a><a href="website-banners.html">Banner 管理</a><a href="website-content.html">內容管理</a><a href="website-releases.html">發布紀錄</a><a href="lobby-overview.html">大廳總覽</a><a href="lobby-games.html">遊戲清單</a><a href="lobby-management.html">遊戲管理</a><a href="lobby-demo.html">DEMO環境數據</a><a href="lobby-preview.html">大廳預覽</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-round-finance">Game Round 與財務鏈</a><a href="page-dependency-map.html#dependency-monitoring-risk">監控與風控鏈</a><a href="page-dependency-map.html#dependency-game-lifecycle">遊戲生命週期鏈</a><a href="page-dependency-map.html#dependency-website-lobby">官網與遊戲大廳鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-api-002">
+<header class="tbd-card__header">
+<div><span>API</span><code>TBD-API-002</code><h4>Game Round 查詢、詳情與匯出 API</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-partial">部分已有</span></div>
+</header>
+<p class="tbd-card__question">核准查詢條件、最大時間、列表／詳情 schema、狀態、原始 payload、跨頁 deep link、匯出上限與非同步流程。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Backend</span><span>Frontend</span><span>Security</span></p></div>
+<div><strong>需要時間</strong><p>Batch A 契約整理前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>QA</span><span>正式上線</span></p></div>
+<div class="tbd-card__legacy"><strong>來源參照</strong><p><code>GR-003</code><code>GR-010</code><code>GR-011</code></p></div>
+</div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="game-round-records.html">遊戲紀錄</a><a href="finance-agent-games.html">代理商 × 遊戲彙總</a><a href="risk-reports.html">風控報表</a><a href="risk-alerts.html">風控告警／處理</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-round-finance">Game Round 與財務鏈</a><a href="page-dependency-map.html#dependency-monitoring-risk">監控與風控鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-api-003">
+<header class="tbd-card__header">
+<div><span>API</span><code>TBD-API-003</code><h4>財務聚合與排行 API</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-definition">待定義</span></div>
+</header>
+<p class="tbd-card__question">定義財務總覽、代理商 × 遊戲、趨勢、排行、摘要、分頁與 Dashboard 摘要的 request／response 及大量資料策略。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Backend</span><span>Finance</span><span>Frontend</span></p></div>
+<div><strong>需要時間</strong><p>Batch A 契約整理前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>QA</span></p></div></div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="finance-overview.html">財務總覽</a><a href="finance-agent-games.html">代理商 × 遊戲彙總</a><a href="dashboard.html">儀表板</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-round-finance">Game Round 與財務鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-api-004">
+<header class="tbd-card__header">
+<div><span>API</span><code>TBD-API-004</code><h4>監控、Risk Event 與 Alert API</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-definition">待定義</span></div>
+</header>
+<p class="tbd-card__question">定義監控摘要、遊戲健康、Risk Event、Alert 工作佇列、詳情、指派、處理、隔離、解除及跨頁 query。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Backend</span><span>Risk</span><span>SRE</span><span>Frontend</span></p></div>
+<div><strong>需要時間</strong><p>Batch B 契約整理前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>Integration</span><span>QA</span><span>正式上線</span></p></div></div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="dashboard.html">儀表板</a><a href="monitoring-overview.html">監控總覽</a><a href="risk-reports.html">風控報表</a><a href="risk-alerts.html">風控告警／處理</a><a href="game-round-records.html">遊戲紀錄</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-monitoring-risk">監控與風控鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-api-005">
+<header class="tbd-card__header">
+<div><span>API</span><code>TBD-API-005</code><h4>遊戲生命週期與發布 API</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-definition">待定義</span></div>
+</header>
+<p class="tbd-card__question">定義遊戲、設定、數值、版本、素材、環境、驗證、審核、發布、停用、維護與回復 API。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Game Engineering</span><span>Backend</span><span>Frontend</span><span>Security</span></p></div>
+<div><strong>需要時間</strong><p>Batch C 開始前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>Integration</span><span>QA</span><span>正式上線</span></p></div></div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="game-list.html">遊戲列表</a><a href="game-environments.html">環境與發布</a><a href="game-settings.html">遊戲設定</a><a href="game-math.html">數值設定</a><a href="game-versions.html">遊戲版本</a><a href="game-assets.html">遊戲素材</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-game-lifecycle">遊戲生命週期鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-api-006">
+<header class="tbd-card__header">
+<div><span>API</span><code>TBD-API-006</code><h4>官網與遊戲大廳 API</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p1">P1</b><span class="tbd-status tbd-status-definition">待定義</span></div>
+</header>
+<p class="tbd-card__question">定義 Banner、內容、發布紀錄、大廳遊戲、管理、DEMO 指標與預覽的 CRUD、版本、檢查與發布介面。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Backend</span><span>Frontend</span><span>Content Operations</span></p></div>
+<div><strong>需要時間</strong><p>Batch D 開始前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>QA</span></p></div></div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="website-banners.html">Banner 管理</a><a href="website-content.html">內容管理</a><a href="website-releases.html">發布紀錄</a><a href="lobby-overview.html">大廳總覽</a><a href="lobby-games.html">遊戲清單</a><a href="lobby-management.html">遊戲管理</a><a href="lobby-demo.html">DEMO環境數據</a><a href="lobby-preview.html">大廳預覽</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-website-lobby">官網與遊戲大廳鏈</a></nav></div></div>
+</article>
+</section><h3 id="04-security-權限-敏感資料與稽核">04 Security｜權限、敏感資料與稽核</h3><section class="tbd-card-list tbd-category-security" aria-label="權限、敏感資料與稽核 TBD">
+<article class="tbd-card" id="tbd-sec-001">
+<header class="tbd-card__header">
+<div><span>Security</span><code>TBD-SEC-001</code><h4>角色、資料 scope 與 permission key</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-external">等待外部輸入</span></div>
+</header>
+<p class="tbd-card__question">定義 Provider 內部角色、讀取／匯出／發布／正式環境／風控處理等 action、資料 scope、預設拒絕及後端強制驗證。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Product</span><span>Security</span><span>Backend</span></p></div>
+<div><strong>需要時間</strong><p>系統設定規格取得後</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>QA</span><span>正式上線</span></p></div></div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="dashboard.html">儀表板</a><a href="game-list.html">遊戲列表</a><a href="game-environments.html">環境與發布</a><a href="game-settings.html">遊戲設定</a><a href="game-math.html">數值設定</a><a href="game-versions.html">遊戲版本</a><a href="game-assets.html">遊戲素材</a><a href="game-round-records.html">遊戲紀錄</a><a href="finance-overview.html">財務總覽</a><a href="finance-agent-games.html">代理商 × 遊戲彙總</a><a href="monitoring-overview.html">監控總覽</a><a href="risk-reports.html">風控報表</a><a href="risk-alerts.html">風控告警／處理</a><a href="website-banners.html">Banner 管理</a><a href="website-content.html">內容管理</a><a href="website-releases.html">發布紀錄</a><a href="lobby-overview.html">大廳總覽</a><a href="lobby-games.html">遊戲清單</a><a href="lobby-management.html">遊戲管理</a><a href="lobby-demo.html">DEMO環境數據</a><a href="lobby-preview.html">大廳預覽</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-round-finance">Game Round 與財務鏈</a><a href="page-dependency-map.html#dependency-monitoring-risk">監控與風控鏈</a><a href="page-dependency-map.html#dependency-game-lifecycle">遊戲生命週期鏈</a><a href="page-dependency-map.html#dependency-website-lobby">官網與遊戲大廳鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-sec-002">
+<header class="tbd-card__header">
+<div><span>Security</span><code>TBD-SEC-002</code><h4>敏感識別、payload 與遮罩</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-definition">待定義</span></div>
+</header>
+<p class="tbd-card__question">確認會員、代理商、request／trace ID、原始 payload、錯誤內容、財務與風控資料的分級、遮罩、複製、查詢與支援存取。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Security</span><span>Backend</span><span>Support</span></p></div>
+<div><strong>需要時間</strong><p>Batch A／B 契約整理前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>QA</span><span>正式上線</span></p></div>
+<div class="tbd-card__legacy"><strong>來源參照</strong><p><code>GR-007</code><code>GR-009</code><code>GR-011</code></p></div>
+</div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="game-round-records.html">遊戲紀錄</a><a href="finance-agent-games.html">代理商 × 遊戲彙總</a><a href="monitoring-overview.html">監控總覽</a><a href="risk-reports.html">風控報表</a><a href="risk-alerts.html">風控告警／處理</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-round-finance">Game Round 與財務鏈</a><a href="page-dependency-map.html#dependency-monitoring-risk">監控與風控鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-sec-003">
+<header class="tbd-card__header">
+<div><span>Security</span><code>TBD-SEC-003</code><h4>高風險操作、核准、併發與稽核</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-definition">待定義</span></div>
+</header>
+<p class="tbd-card__question">確認 Production 發布、設定／數值異動、隔離／解除、風控結案、內容發布的雙人核准、重新驗證、併發鎖、失敗補償與 audit。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Product</span><span>Security</span><span>Backend</span><span>SRE</span></p></div>
+<div><strong>需要時間</strong><p>高風險操作實作前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>QA</span><span>正式上線</span></p></div></div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="game-environments.html">環境與發布</a><a href="game-settings.html">遊戲設定</a><a href="game-math.html">數值設定</a><a href="game-versions.html">遊戲版本</a><a href="game-assets.html">遊戲素材</a><a href="risk-alerts.html">風控告警／處理</a><a href="website-banners.html">Banner 管理</a><a href="website-content.html">內容管理</a><a href="website-releases.html">發布紀錄</a><a href="lobby-management.html">遊戲管理</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-monitoring-risk">監控與風控鏈</a><a href="page-dependency-map.html#dependency-game-lifecycle">遊戲生命週期鏈</a><a href="page-dependency-map.html#dependency-website-lobby">官網與遊戲大廳鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-sec-004">
+<header class="tbd-card__header">
+<div><span>Security</span><code>TBD-SEC-004</code><h4>匯出、下載與檔案保存權限</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p1">P1</b><span class="tbd-status tbd-status-definition">待定義</span></div>
+</header>
+<p class="tbd-card__question">確認可匯出欄位、資料範圍、同步／非同步、檔案加密、下載 URL、保存期限、權限變更與 audit。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Security</span><span>Backend</span><span>Product</span></p></div>
+<div><strong>需要時間</strong><p>匯出功能實作前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>QA</span><span>正式上線</span></p></div>
+<div class="tbd-card__legacy"><strong>來源參照</strong><p><code>GR-010</code></p></div>
+</div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="game-round-records.html">遊戲紀錄</a><a href="finance-overview.html">財務總覽</a><a href="finance-agent-games.html">代理商 × 遊戲彙總</a><a href="game-math.html">數值設定</a><a href="game-versions.html">遊戲版本</a><a href="game-assets.html">遊戲素材</a><a href="risk-reports.html">風控報表</a><a href="lobby-demo.html">DEMO環境數據</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-round-finance">Game Round 與財務鏈</a><a href="page-dependency-map.html#dependency-monitoring-risk">監控與風控鏈</a><a href="page-dependency-map.html#dependency-game-lifecycle">遊戲生命週期鏈</a><a href="page-dependency-map.html#dependency-website-lobby">官網與遊戲大廳鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-sec-005">
+<header class="tbd-card__header">
+<div><span>Security</span><code>TBD-SEC-005</code><h4>公開內容、預覽與媒體安全</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p1">P1</b><span class="tbd-status tbd-status-definition">待定義</span></div>
+</header>
+<p class="tbd-card__question">定義富文字／連結清理、媒體掃描、預覽存取、分享 token、草稿洩漏、CSP 及公開內容發布安全檢查。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Security</span><span>Frontend</span><span>Backend</span><span>Content Operations</span></p></div>
+<div><strong>需要時間</strong><p>Batch D 驗收前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>QA</span><span>正式上線</span></p></div></div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="website-banners.html">Banner 管理</a><a href="website-content.html">內容管理</a><a href="lobby-management.html">遊戲管理</a><a href="lobby-preview.html">大廳預覽</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-website-lobby">官網與遊戲大廳鏈</a></nav></div></div>
+</article>
+</section><h3 id="05-nfr-效能-可靠性與可用性">05 NFR｜效能、可靠性與可用性</h3><section class="tbd-card-list tbd-category-nfr" aria-label="效能、可靠性與可用性 TBD">
+<article class="tbd-card" id="tbd-nfr-001">
+<header class="tbd-card__header">
+<div><span>NFR</span><code>TBD-NFR-001</code><h4>查詢、列表、聚合與匯出效能門檻</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p1">P1</b><span class="tbd-status tbd-status-definition">待定義</span></div>
+</header>
+<p class="tbd-card__question">確認正式資料量、P95／P99 查詢延遲、分頁規模、聚合窗口、同步匯出上限、非同步完成時間與逾時策略。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Product</span><span>Backend</span><span>SRE</span><span>QA</span></p></div>
+<div><strong>需要時間</strong><p>效能驗收前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Backend</span><span>QA</span><span>正式上線</span></p></div>
+<div class="tbd-card__legacy"><strong>來源參照</strong><p><code>GR-012</code></p></div>
+</div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="dashboard.html">儀表板</a><a href="game-list.html">遊戲列表</a><a href="game-round-records.html">遊戲紀錄</a><a href="finance-overview.html">財務總覽</a><a href="finance-agent-games.html">代理商 × 遊戲彙總</a><a href="monitoring-overview.html">監控總覽</a><a href="risk-reports.html">風控報表</a><a href="risk-alerts.html">風控告警／處理</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-round-finance">Game Round 與財務鏈</a><a href="page-dependency-map.html#dependency-monitoring-risk">監控與風控鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-nfr-002">
+<header class="tbd-card__header">
+<div><span>NFR</span><code>TBD-NFR-002</code><h4>資料更新、快取、失效與降級</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p1">P1</b><span class="tbd-status tbd-status-partial">部分已有</span></div>
+</header>
+<p class="tbd-card__question">定義自動／手動更新、快取、stale threshold、最後更新時間、局部失敗、無資料與跨模組降級顯示。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>SRE</span><span>Backend</span><span>Frontend</span><span>Product</span></p></div>
+<div><strong>需要時間</strong><p>各批次驗收前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>QA</span></p></div></div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="dashboard.html">儀表板</a><a href="finance-overview.html">財務總覽</a><a href="monitoring-overview.html">監控總覽</a><a href="risk-reports.html">風控報表</a><a href="risk-alerts.html">風控告警／處理</a><a href="lobby-overview.html">大廳總覽</a><a href="lobby-demo.html">DEMO環境數據</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-round-finance">Game Round 與財務鏈</a><a href="page-dependency-map.html#dependency-monitoring-risk">監控與風控鏈</a><a href="page-dependency-map.html#dependency-website-lobby">官網與遊戲大廳鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-nfr-003">
+<header class="tbd-card__header">
+<div><span>NFR</span><code>TBD-NFR-003</code><h4>可靠性、冪等、重試與可觀測性</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-partial">部分已有</span></div>
+</header>
+<p class="tbd-card__question">確認發布、Game Round、Callback、Alert 操作與內容發布的冪等 key、有限重試、補送、trace、metrics、logs 與人工復原流程。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Backend</span><span>SRE</span><span>GGAP</span></p></div>
+<div><strong>需要時間</strong><p>整合測試前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Backend</span><span>Integration</span><span>QA</span><span>正式上線</span></p></div></div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="game-round-records.html">遊戲紀錄</a><a href="game-environments.html">環境與發布</a><a href="risk-alerts.html">風控告警／處理</a><a href="website-releases.html">發布紀錄</a><a href="lobby-management.html">遊戲管理</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-round-finance">Game Round 與財務鏈</a><a href="page-dependency-map.html#dependency-monitoring-risk">監控與風控鏈</a><a href="page-dependency-map.html#dependency-game-lifecycle">遊戲生命週期鏈</a><a href="page-dependency-map.html#dependency-website-lobby">官網與遊戲大廳鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-nfr-004">
+<header class="tbd-card__header">
+<div><span>NFR</span><code>TBD-NFR-004</code><h4>響應式、可存取性與繁中顯示驗收</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p2">P2</b><span class="tbd-status tbd-status-partial">部分已有</span></div>
+</header>
+<p class="tbd-card__question">把共用 layout、390px Mobile、鍵盤、焦點、表格、Dialog、錯誤宣告、狀態非色彩辨識、長 ID 與繁中術語轉成逐頁驗收案例。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Frontend</span><span>QA</span><span>Product</span></p></div>
+<div><strong>需要時間</strong><p>各頁規格完成前</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>QA</span></p></div></div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="dashboard.html">儀表板</a><a href="game-list.html">遊戲列表</a><a href="game-environments.html">環境與發布</a><a href="game-settings.html">遊戲設定</a><a href="game-math.html">數值設定</a><a href="game-versions.html">遊戲版本</a><a href="game-assets.html">遊戲素材</a><a href="game-round-records.html">遊戲紀錄</a><a href="finance-overview.html">財務總覽</a><a href="finance-agent-games.html">代理商 × 遊戲彙總</a><a href="monitoring-overview.html">監控總覽</a><a href="risk-reports.html">風控報表</a><a href="risk-alerts.html">風控告警／處理</a><a href="website-banners.html">Banner 管理</a><a href="website-content.html">內容管理</a><a href="website-releases.html">發布紀錄</a><a href="lobby-overview.html">大廳總覽</a><a href="lobby-games.html">遊戲清單</a><a href="lobby-management.html">遊戲管理</a><a href="lobby-demo.html">DEMO環境數據</a><a href="lobby-preview.html">大廳預覽</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-round-finance">Game Round 與財務鏈</a><a href="page-dependency-map.html#dependency-monitoring-risk">監控與風控鏈</a><a href="page-dependency-map.html#dependency-game-lifecycle">遊戲生命週期鏈</a><a href="page-dependency-map.html#dependency-website-lobby">官網與遊戲大廳鏈</a></nav></div></div>
+</article>
+</section><h3 id="06-external-外部規格與延後模組依賴">06 External｜外部規格與延後模組依賴</h3><section class="tbd-card-list tbd-category-external" aria-label="外部規格與延後模組依賴 TBD">
+<article class="tbd-card" id="tbd-ext-001">
+<header class="tbd-card__header">
+<div><span>External</span><code>TBD-EXT-001</code><h4>取得並整合 GGAP 現行正式規格</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-external">等待外部輸入</span></div>
+</header>
+<p class="tbd-card__question">取得 GGAP 系統、遊戲目錄、啟動、錢包脈絡、結算、Callback、ACK、簽章、重試、狀態與代理商開放控制規格。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>GGAP</span><span>Backend</span><span>Product</span></p></div>
+<div><strong>需要時間</strong><p>GGAP 規格取得後</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Integration</span><span>Backend</span><span>QA</span><span>正式上線</span></p></div></div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="game-environments.html">環境與發布</a><a href="game-round-records.html">遊戲紀錄</a><a href="finance-agent-games.html">代理商 × 遊戲彙總</a><a href="monitoring-overview.html">監控總覽</a><a href="risk-reports.html">風控報表</a><a href="risk-alerts.html">風控告警／處理</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-round-finance">Game Round 與財務鏈</a><a href="page-dependency-map.html#dependency-monitoring-risk">監控與風控鏈</a><a href="page-dependency-map.html#dependency-game-lifecycle">遊戲生命週期鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-ext-002">
+<header class="tbd-card__header">
+<div><span>External</span><code>TBD-EXT-002</code><h4>通知中心產品與事件契約</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p2">P2</b><span class="tbd-status tbd-status-external">等待外部輸入</span></div>
+</header>
+<p class="tbd-card__question">確認通知類型、來源、優先級、已讀、保存、管道、偏好、權限、匯出完成與告警處理導流。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Product</span><span>Backend</span></p></div>
+<div><strong>需要時間</strong><p>通知中心重新排入 Active 後</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>QA</span></p></div></div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="dashboard.html">儀表板</a><a href="risk-alerts.html">風控告警／處理</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-round-finance">Game Round 與財務鏈</a><a href="page-dependency-map.html#dependency-monitoring-risk">監控與風控鏈</a></nav></div></div>
+</article>
+<article class="tbd-card" id="tbd-ext-003">
+<header class="tbd-card__header">
+<div><span>External</span><code>TBD-EXT-003</code><h4>系統設定、角色、憑證與 audit 規格</h4></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-external">等待外部輸入</span></div>
+</header>
+<p class="tbd-card__question">取得 Provider 使用者／角色模型、permission key、API key／憑證生命週期及操作紀錄 UI／資料契約。</p>
+<div class="tbd-card__meta">
+<div><strong>責任方</strong><p class="tbd-chip-list"><span>Product</span><span>Security</span><span>Backend</span></p></div>
+<div><strong>需要時間</strong><p>系統設定重新排入 Active 後</p></div>
+<div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>Integration</span><span>QA</span><span>正式上線</span></p></div></div>
+<div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="dashboard.html">儀表板</a><a href="game-list.html">遊戲列表</a><a href="game-environments.html">環境與發布</a><a href="game-settings.html">遊戲設定</a><a href="game-math.html">數值設定</a><a href="game-versions.html">遊戲版本</a><a href="game-assets.html">遊戲素材</a><a href="game-round-records.html">遊戲紀錄</a><a href="finance-overview.html">財務總覽</a><a href="finance-agent-games.html">代理商 × 遊戲彙總</a><a href="monitoring-overview.html">監控總覽</a><a href="risk-reports.html">風控報表</a><a href="risk-alerts.html">風控告警／處理</a><a href="website-banners.html">Banner 管理</a><a href="website-content.html">內容管理</a><a href="website-releases.html">發布紀錄</a><a href="lobby-overview.html">大廳總覽</a><a href="lobby-games.html">遊戲清單</a><a href="lobby-management.html">遊戲管理</a><a href="lobby-demo.html">DEMO環境數據</a><a href="lobby-preview.html">大廳預覽</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-round-finance">Game Round 與財務鏈</a><a href="page-dependency-map.html#dependency-monitoring-risk">監控與風控鏈</a><a href="page-dependency-map.html#dependency-game-lifecycle">遊戲生命週期鏈</a><a href="page-dependency-map.html#dependency-website-lobby">官網與遊戲大廳鏈</a></nav></div></div>
+</article>
+</section><h2 id="頁面覆蓋索引">頁面覆蓋索引</h2><p>此矩陣用來確認每個本輪頁面需要等待哪些共用決策。「最高層級」只表示該頁所關聯問題中的最高建議優先級，不代表整頁完全受阻。</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th align="center">批次</th>
+<th>頁面</th>
+<th align="right">關聯 TBD</th>
+<th align="center">最高層級</th>
+<th>TBD ID</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">B</td>
+<td><a href="dashboard.html">儀表板</a></td>
+<td align="right">14</td>
+<td align="center">P0</td>
+<td><a href="#tbd-dom-001">TBD-DOM-001</a> <a href="#tbd-dom-002">TBD-DOM-002</a> <a href="#tbd-dat-001">TBD-DAT-001</a> <a href="#tbd-dat-003">TBD-DAT-003</a> <a href="#tbd-dat-005">TBD-DAT-005</a> <a href="#tbd-api-001">TBD-API-001</a> <a href="#tbd-api-003">TBD-API-003</a> <a href="#tbd-api-004">TBD-API-004</a> <a href="#tbd-sec-001">TBD-SEC-001</a> <a href="#tbd-nfr-001">TBD-NFR-001</a> <a href="#tbd-nfr-002">TBD-NFR-002</a> <a href="#tbd-nfr-004">TBD-NFR-004</a> <a href="#tbd-ext-002">TBD-EXT-002</a> <a href="#tbd-ext-003">TBD-EXT-003</a></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-list.html">遊戲列表</a></td>
+<td align="right">7</td>
+<td align="center">P0</td>
+<td><a href="#tbd-dom-003">TBD-DOM-003</a> <a href="#tbd-api-001">TBD-API-001</a> <a href="#tbd-api-005">TBD-API-005</a> <a href="#tbd-sec-001">TBD-SEC-001</a> <a href="#tbd-nfr-001">TBD-NFR-001</a> <a href="#tbd-nfr-004">TBD-NFR-004</a> <a href="#tbd-ext-003">TBD-EXT-003</a></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-environments.html">環境與發布</a></td>
+<td align="right">10</td>
+<td align="center">P0</td>
+<td><a href="#tbd-dom-003">TBD-DOM-003</a> <a href="#tbd-dom-006">TBD-DOM-006</a> <a href="#tbd-api-001">TBD-API-001</a> <a href="#tbd-api-005">TBD-API-005</a> <a href="#tbd-sec-001">TBD-SEC-001</a> <a href="#tbd-sec-003">TBD-SEC-003</a> <a href="#tbd-nfr-003">TBD-NFR-003</a> <a href="#tbd-nfr-004">TBD-NFR-004</a> <a href="#tbd-ext-001">TBD-EXT-001</a> <a href="#tbd-ext-003">TBD-EXT-003</a></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-settings.html">遊戲設定</a></td>
+<td align="right">7</td>
+<td align="center">P0</td>
+<td><a href="#tbd-dom-003">TBD-DOM-003</a> <a href="#tbd-api-001">TBD-API-001</a> <a href="#tbd-api-005">TBD-API-005</a> <a href="#tbd-sec-001">TBD-SEC-001</a> <a href="#tbd-sec-003">TBD-SEC-003</a> <a href="#tbd-nfr-004">TBD-NFR-004</a> <a href="#tbd-ext-003">TBD-EXT-003</a></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-math.html">數值設定</a></td>
+<td align="right">9</td>
+<td align="center">P0</td>
+<td><a href="#tbd-dom-003">TBD-DOM-003</a> <a href="#tbd-dat-005">TBD-DAT-005</a> <a href="#tbd-api-001">TBD-API-001</a> <a href="#tbd-api-005">TBD-API-005</a> <a href="#tbd-sec-001">TBD-SEC-001</a> <a href="#tbd-sec-003">TBD-SEC-003</a> <a href="#tbd-sec-004">TBD-SEC-004</a> <a href="#tbd-nfr-004">TBD-NFR-004</a> <a href="#tbd-ext-003">TBD-EXT-003</a></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-versions.html">遊戲版本</a></td>
+<td align="right">8</td>
+<td align="center">P0</td>
+<td><a href="#tbd-dom-003">TBD-DOM-003</a> <a href="#tbd-api-001">TBD-API-001</a> <a href="#tbd-api-005">TBD-API-005</a> <a href="#tbd-sec-001">TBD-SEC-001</a> <a href="#tbd-sec-003">TBD-SEC-003</a> <a href="#tbd-sec-004">TBD-SEC-004</a> <a href="#tbd-nfr-004">TBD-NFR-004</a> <a href="#tbd-ext-003">TBD-EXT-003</a></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-assets.html">遊戲素材</a></td>
+<td align="right">9</td>
+<td align="center">P0</td>
+<td><a href="#tbd-dom-003">TBD-DOM-003</a> <a href="#tbd-dat-006">TBD-DAT-006</a> <a href="#tbd-api-001">TBD-API-001</a> <a href="#tbd-api-005">TBD-API-005</a> <a href="#tbd-sec-001">TBD-SEC-001</a> <a href="#tbd-sec-003">TBD-SEC-003</a> <a href="#tbd-sec-004">TBD-SEC-004</a> <a href="#tbd-nfr-004">TBD-NFR-004</a> <a href="#tbd-ext-003">TBD-EXT-003</a></td>
+</tr>
+<tr>
+<td align="center">A</td>
+<td><a href="game-round-records.html">遊戲紀錄</a></td>
+<td align="right">18</td>
+<td align="center">P0</td>
+<td><a href="#tbd-dom-001">TBD-DOM-001</a> <a href="#tbd-dom-002">TBD-DOM-002</a> <a href="#tbd-dom-004">TBD-DOM-004</a> <a href="#tbd-dat-001">TBD-DAT-001</a> <a href="#tbd-dat-002">TBD-DAT-002</a> <a href="#tbd-dat-003">TBD-DAT-003</a> <a href="#tbd-dat-004">TBD-DAT-004</a> <a href="#tbd-api-001">TBD-API-001</a> <a href="#tbd-api-002">TBD-API-002</a> <a href="#tbd-api-004">TBD-API-004</a> <a href="#tbd-sec-001">TBD-SEC-001</a> <a href="#tbd-sec-002">TBD-SEC-002</a> <a href="#tbd-sec-004">TBD-SEC-004</a> <a href="#tbd-nfr-001">TBD-NFR-001</a> <a href="#tbd-nfr-003">TBD-NFR-003</a> <a href="#tbd-nfr-004">TBD-NFR-004</a> <a href="#tbd-ext-001">TBD-EXT-001</a> <a href="#tbd-ext-003">TBD-EXT-003</a></td>
+</tr>
+<tr>
+<td align="center">A</td>
+<td><a href="finance-overview.html">財務總覽</a></td>
+<td align="right">13</td>
+<td align="center">P0</td>
+<td><a href="#tbd-dom-001">TBD-DOM-001</a> <a href="#tbd-dom-002">TBD-DOM-002</a> <a href="#tbd-dat-001">TBD-DAT-001</a> <a href="#tbd-dat-003">TBD-DAT-003</a> <a href="#tbd-dat-004">TBD-DAT-004</a> <a href="#tbd-api-001">TBD-API-001</a> <a href="#tbd-api-003">TBD-API-003</a> <a href="#tbd-sec-001">TBD-SEC-001</a> <a href="#tbd-sec-004">TBD-SEC-004</a> <a href="#tbd-nfr-001">TBD-NFR-001</a> <a href="#tbd-nfr-002">TBD-NFR-002</a> <a href="#tbd-nfr-004">TBD-NFR-004</a> <a href="#tbd-ext-003">TBD-EXT-003</a></td>
+</tr>
+<tr>
+<td align="center">A</td>
+<td><a href="finance-agent-games.html">代理商 × 遊戲彙總</a></td>
+<td align="right">16</td>
+<td align="center">P0</td>
+<td><a href="#tbd-dom-001">TBD-DOM-001</a> <a href="#tbd-dom-002">TBD-DOM-002</a> <a href="#tbd-dat-001">TBD-DAT-001</a> <a href="#tbd-dat-002">TBD-DAT-002</a> <a href="#tbd-dat-003">TBD-DAT-003</a> <a href="#tbd-dat-004">TBD-DAT-004</a> <a href="#tbd-api-001">TBD-API-001</a> <a href="#tbd-api-002">TBD-API-002</a> <a href="#tbd-api-003">TBD-API-003</a> <a href="#tbd-sec-001">TBD-SEC-001</a> <a href="#tbd-sec-002">TBD-SEC-002</a> <a href="#tbd-sec-004">TBD-SEC-004</a> <a href="#tbd-nfr-001">TBD-NFR-001</a> <a href="#tbd-nfr-004">TBD-NFR-004</a> <a href="#tbd-ext-001">TBD-EXT-001</a> <a href="#tbd-ext-003">TBD-EXT-003</a></td>
+</tr>
+<tr>
+<td align="center">B</td>
+<td><a href="monitoring-overview.html">監控總覽</a></td>
+<td align="right">14</td>
+<td align="center">P0</td>
+<td><a href="#tbd-dom-001">TBD-DOM-001</a> <a href="#tbd-dom-004">TBD-DOM-004</a> <a href="#tbd-dat-002">TBD-DAT-002</a> <a href="#tbd-dat-003">TBD-DAT-003</a> <a href="#tbd-dat-005">TBD-DAT-005</a> <a href="#tbd-api-001">TBD-API-001</a> <a href="#tbd-api-004">TBD-API-004</a> <a href="#tbd-sec-001">TBD-SEC-001</a> <a href="#tbd-sec-002">TBD-SEC-002</a> <a href="#tbd-nfr-001">TBD-NFR-001</a> <a href="#tbd-nfr-002">TBD-NFR-002</a> <a href="#tbd-nfr-004">TBD-NFR-004</a> <a href="#tbd-ext-001">TBD-EXT-001</a> <a href="#tbd-ext-003">TBD-EXT-003</a></td>
+</tr>
+<tr>
+<td align="center">B</td>
+<td><a href="risk-reports.html">風控報表</a></td>
+<td align="right">17</td>
+<td align="center">P0</td>
+<td><a href="#tbd-dom-001">TBD-DOM-001</a> <a href="#tbd-dom-004">TBD-DOM-004</a> <a href="#tbd-dat-002">TBD-DAT-002</a> <a href="#tbd-dat-003">TBD-DAT-003</a> <a href="#tbd-dat-004">TBD-DAT-004</a> <a href="#tbd-dat-005">TBD-DAT-005</a> <a href="#tbd-api-001">TBD-API-001</a> <a href="#tbd-api-002">TBD-API-002</a> <a href="#tbd-api-004">TBD-API-004</a> <a href="#tbd-sec-001">TBD-SEC-001</a> <a href="#tbd-sec-002">TBD-SEC-002</a> <a href="#tbd-sec-004">TBD-SEC-004</a> <a href="#tbd-nfr-001">TBD-NFR-001</a> <a href="#tbd-nfr-002">TBD-NFR-002</a> <a href="#tbd-nfr-004">TBD-NFR-004</a> <a href="#tbd-ext-001">TBD-EXT-001</a> <a href="#tbd-ext-003">TBD-EXT-003</a></td>
+</tr>
+<tr>
+<td align="center">B</td>
+<td><a href="risk-alerts.html">風控告警／處理</a></td>
+<td align="right">19</td>
+<td align="center">P0</td>
+<td><a href="#tbd-dom-001">TBD-DOM-001</a> <a href="#tbd-dom-004">TBD-DOM-004</a> <a href="#tbd-dat-002">TBD-DAT-002</a> <a href="#tbd-dat-003">TBD-DAT-003</a> <a href="#tbd-dat-004">TBD-DAT-004</a> <a href="#tbd-dat-005">TBD-DAT-005</a> <a href="#tbd-api-001">TBD-API-001</a> <a href="#tbd-api-002">TBD-API-002</a> <a href="#tbd-api-004">TBD-API-004</a> <a href="#tbd-sec-001">TBD-SEC-001</a> <a href="#tbd-sec-002">TBD-SEC-002</a> <a href="#tbd-sec-003">TBD-SEC-003</a> <a href="#tbd-nfr-001">TBD-NFR-001</a> <a href="#tbd-nfr-002">TBD-NFR-002</a> <a href="#tbd-nfr-003">TBD-NFR-003</a> <a href="#tbd-nfr-004">TBD-NFR-004</a> <a href="#tbd-ext-001">TBD-EXT-001</a> <a href="#tbd-ext-002">TBD-EXT-002</a> <a href="#tbd-ext-003">TBD-EXT-003</a></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="website-banners.html">Banner 管理</a></td>
+<td align="right">9</td>
+<td align="center">P0</td>
+<td><a href="#tbd-dom-005">TBD-DOM-005</a> <a href="#tbd-dat-006">TBD-DAT-006</a> <a href="#tbd-api-001">TBD-API-001</a> <a href="#tbd-api-006">TBD-API-006</a> <a href="#tbd-sec-001">TBD-SEC-001</a> <a href="#tbd-sec-003">TBD-SEC-003</a> <a href="#tbd-sec-005">TBD-SEC-005</a> <a href="#tbd-nfr-004">TBD-NFR-004</a> <a href="#tbd-ext-003">TBD-EXT-003</a></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="website-content.html">內容管理</a></td>
+<td align="right">9</td>
+<td align="center">P0</td>
+<td><a href="#tbd-dom-005">TBD-DOM-005</a> <a href="#tbd-dat-006">TBD-DAT-006</a> <a href="#tbd-api-001">TBD-API-001</a> <a href="#tbd-api-006">TBD-API-006</a> <a href="#tbd-sec-001">TBD-SEC-001</a> <a href="#tbd-sec-003">TBD-SEC-003</a> <a href="#tbd-sec-005">TBD-SEC-005</a> <a href="#tbd-nfr-004">TBD-NFR-004</a> <a href="#tbd-ext-003">TBD-EXT-003</a></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="website-releases.html">發布紀錄</a></td>
+<td align="right">11</td>
+<td align="center">P0</td>
+<td><a href="#tbd-dom-005">TBD-DOM-005</a> <a href="#tbd-dat-003">TBD-DAT-003</a> <a href="#tbd-dat-004">TBD-DAT-004</a> <a href="#tbd-dat-006">TBD-DAT-006</a> <a href="#tbd-api-001">TBD-API-001</a> <a href="#tbd-api-006">TBD-API-006</a> <a href="#tbd-sec-001">TBD-SEC-001</a> <a href="#tbd-sec-003">TBD-SEC-003</a> <a href="#tbd-nfr-003">TBD-NFR-003</a> <a href="#tbd-nfr-004">TBD-NFR-004</a> <a href="#tbd-ext-003">TBD-EXT-003</a></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="lobby-overview.html">大廳總覽</a></td>
+<td align="right">8</td>
+<td align="center">P0</td>
+<td><a href="#tbd-dom-005">TBD-DOM-005</a> <a href="#tbd-dom-006">TBD-DOM-006</a> <a href="#tbd-api-001">TBD-API-001</a> <a href="#tbd-api-006">TBD-API-006</a> <a href="#tbd-sec-001">TBD-SEC-001</a> <a href="#tbd-nfr-002">TBD-NFR-002</a> <a href="#tbd-nfr-004">TBD-NFR-004</a> <a href="#tbd-ext-003">TBD-EXT-003</a></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="lobby-games.html">遊戲清單</a></td>
+<td align="right">7</td>
+<td align="center">P0</td>
+<td><a href="#tbd-dom-005">TBD-DOM-005</a> <a href="#tbd-dom-006">TBD-DOM-006</a> <a href="#tbd-api-001">TBD-API-001</a> <a href="#tbd-api-006">TBD-API-006</a> <a href="#tbd-sec-001">TBD-SEC-001</a> <a href="#tbd-nfr-004">TBD-NFR-004</a> <a href="#tbd-ext-003">TBD-EXT-003</a></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="lobby-management.html">遊戲管理</a></td>
+<td align="right">11</td>
+<td align="center">P0</td>
+<td><a href="#tbd-dom-005">TBD-DOM-005</a> <a href="#tbd-dom-006">TBD-DOM-006</a> <a href="#tbd-dat-006">TBD-DAT-006</a> <a href="#tbd-api-001">TBD-API-001</a> <a href="#tbd-api-006">TBD-API-006</a> <a href="#tbd-sec-001">TBD-SEC-001</a> <a href="#tbd-sec-003">TBD-SEC-003</a> <a href="#tbd-sec-005">TBD-SEC-005</a> <a href="#tbd-nfr-003">TBD-NFR-003</a> <a href="#tbd-nfr-004">TBD-NFR-004</a> <a href="#tbd-ext-003">TBD-EXT-003</a></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="lobby-demo.html">DEMO環境數據</a></td>
+<td align="right">10</td>
+<td align="center">P0</td>
+<td><a href="#tbd-dom-006">TBD-DOM-006</a> <a href="#tbd-dat-003">TBD-DAT-003</a> <a href="#tbd-dat-005">TBD-DAT-005</a> <a href="#tbd-api-001">TBD-API-001</a> <a href="#tbd-api-006">TBD-API-006</a> <a href="#tbd-sec-001">TBD-SEC-001</a> <a href="#tbd-sec-004">TBD-SEC-004</a> <a href="#tbd-nfr-002">TBD-NFR-002</a> <a href="#tbd-nfr-004">TBD-NFR-004</a> <a href="#tbd-ext-003">TBD-EXT-003</a></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="lobby-preview.html">大廳預覽</a></td>
+<td align="right">9</td>
+<td align="center">P0</td>
+<td><a href="#tbd-dom-005">TBD-DOM-005</a> <a href="#tbd-dom-006">TBD-DOM-006</a> <a href="#tbd-dat-006">TBD-DAT-006</a> <a href="#tbd-api-001">TBD-API-001</a> <a href="#tbd-api-006">TBD-API-006</a> <a href="#tbd-sec-001">TBD-SEC-001</a> <a href="#tbd-sec-005">TBD-SEC-005</a> <a href="#tbd-nfr-004">TBD-NFR-004</a> <a href="#tbd-ext-003">TBD-EXT-003</a></td>
+</tr>
+</tbody></table></div>
+<h2 id="game-round-既有-id-對照">Game Round 既有 ID 對照</h2><p>遊戲紀錄 Baseline 已有 <code>GR-001～GR-014</code> 局部 TBD。集中登錄透過「來源參照」保留這些 ID；局部 ID 適合頁面審閱，跨頁 TBD ID 則負責共用決策與狀態治理。兩者不得各自產生互相衝突的決議。</p>
+<h2 id="決議完成條件">決議完成條件</h2><p>一項 TBD 只有在以下條件成立後才能視為完成：</p>
+<ol>
+<li>決策責任方已確認結論，且能指向正式規格、schema、ADR 或會議決議。</li>
+<li>受影響頁面、共用章節、資料字典、enum、API 與測試已同步更新。</li>
+<li>若改變既有原型，已明確決定修原型或保留相容策略。</li>
+<li>阻擋範圍已解除，或剩餘限制已轉成新的具體 TBD。</li>
+<li>版本紀錄已記載決議日期、影響範圍與取代內容。</li>
+</ol>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#跨模組待決策">跨模組待決策</a><a class="outline-level-2" href="#現行文件與程式校正">現行文件與程式校正</a></nav>
+        <nav><a class="outline-level-2" href="#治理規則">治理規則</a><a class="outline-level-2" href="#集中摘要">集中摘要</a><a class="outline-level-2" href="#六類-tbd-登錄">六類 TBD 登錄</a><a class="outline-level-3" href="#01-domain-產品領域與生命週期">01 Domain｜產品領域與生命週期</a><a class="outline-level-3" href="#02-data-資料-計算與保存">02 Data｜資料、計算與保存</a><a class="outline-level-3" href="#03-api-介面與整合契約">03 API｜介面與整合契約</a><a class="outline-level-3" href="#04-security-權限-敏感資料與稽核">04 Security｜權限、敏感資料與稽核</a><a class="outline-level-3" href="#05-nfr-效能-可靠性與可用性">05 NFR｜效能、可靠性與可用性</a><a class="outline-level-3" href="#06-external-外部規格與延後模組依賴">06 External｜外部規格與延後模組依賴</a><a class="outline-level-2" href="#頁面覆蓋索引">頁面覆蓋索引</a><a class="outline-level-2" href="#game-round-既有-id-對照">Game Round 既有 ID 對照</a><a class="outline-level-2" href="#決議完成條件">決議完成條件</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -454,7 +999,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.6.0-dependency-map · 2026-08-14</span>
+                    <span>0.7.0-tbd-registry · 2026-08-14</span>
                 </footer>
             </div>
         </main>

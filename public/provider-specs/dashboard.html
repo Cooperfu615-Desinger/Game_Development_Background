@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="已有內容原型；正式資料契約仍待整理。">
+    <meta name="description" content="Provider 跨模組即時狀態、Production 營運摘要、趨勢與工作入口。">
     <meta name="color-scheme" content="light">
     <title>儀表板｜Provider Portal 產品與系統規格書</title>
     <link rel="stylesheet" href="assets/site.css">
@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.9.0-batch-a-draft</span>
-            <span class="topbar-status">Phase 2 · Batch A Draft Complete</span>
+            <span>0.10.0-batch-b-draft</span>
+            <span class="topbar-status">Phase 2 · Batch B Draft Complete</span>
         </div>
     </header>
 
@@ -75,11 +75,11 @@
             <summary>05.1 總覽<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="dashboard-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="dashboard.html" aria-current="page">
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>儀表板</span>
 
                     </a>
@@ -159,19 +159,19 @@
             <summary>05.5 遊戲監控與風控<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="monitoring-risk-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="monitoring-overview.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>監控總覽</span>
 
                     </a><a href="risk-reports.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>風控報表</span>
 
                     </a><a href="risk-alerts.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>風控告警／處理</span>
 
                     </a>
@@ -382,10 +382,10 @@
                     <div>
                         <p class="eyebrow">05.1.1 · 總覽</p>
                         <h1>儀表板</h1>
-                        <p class="page-summary">已有內容原型；正式資料契約仍待整理。</p>
+                        <p class="page-summary">Provider 跨模組即時狀態、Production 營運摘要、趨勢與工作入口。</p>
                     </div>
                     <div class="page-status-stack">
-                        <span class="status-badge status-outline">待整理</span>
+                        <span class="status-badge status-draft">草案</span>
                         <span class="scope-badge scope-active">本輪製作</span>
 
                     </div>
@@ -393,21 +393,50 @@
 
                 <section class="metadata-card" aria-label="章節追溯資訊">
         <div class="metadata-grid">
-            <div><span>章節編號</span><code>05.1.1</code></div><div><span>規格狀態</span><code>待整理</code></div><div><span>Route</span><code>/dashboard</code></div><div><span>前端元件</span><code>src/views/Provider/Dashboard.vue</code></div>
+            <div><span>章節編號</span><code>05.1.1</code></div><div><span>規格狀態</span><code>草案</code></div><div><span>Route</span><code>/dashboard</code></div><div><span>前端元件</span><code>src/views/Provider/Dashboard.vue</code></div>
         </div>
     </section>
-
+                <section id="page-visual-overview" class="page-visual-overview" aria-labelledby="page-visual-title">
+        <div class="visual-overview-header">
+            <div>
+                <p class="visual-overview-kicker">PAGE ANATOMY · OVERVIEW FIRST</p>
+                <h2 id="page-visual-title">儀表板畫面示意</h2>
+                <p>參照現行 /dashboard 原型；分清目前狀態、期間數字、工作入口與 Deferred 通知依賴。</p>
+            </div>
+            <button class="visual-toggle" type="button" data-anatomy-toggle aria-expanded="true" aria-controls="dashboard-visual-panel">
+                <span data-anatomy-toggle-label>收合畫面示意</span>
+                <i aria-hidden="true">⌃</i>
+            </button>
+        </div>
+        <nav class="visual-quick-map" aria-label="頁面區塊快速導覽">
+            <a href="#4-更新與期間"><strong>01</strong><span>更新與期間</span><i aria-hidden="true">↘</i></a><a href="#5-即時狀態"><strong>02</strong><span>即時狀態</span><i aria-hidden="true">↘</i></a><a href="#6-營運摘要"><strong>03</strong><span>營運摘要</span><i aria-hidden="true">↘</i></a><a href="#7-近七日趨勢"><strong>04</strong><span>近七日趨勢</span><i aria-hidden="true">↘</i></a><a href="#8-待處理工作"><strong>05</strong><span>待處理工作</span><i aria-hidden="true">↘</i></a><a href="#9-遊戲概況與通知依賴"><strong>06</strong><span>遊戲概況與通知依賴</span><i aria-hidden="true">↘</i></a>
+        </nav>
+        <div class="visual-scope-notes" aria-label="畫面閱讀邊界">
+            <span>閱讀邊界</span>
+            <small>Production 財務</small><small>Test 排除</small><small>Provider 直接監控</small><small>通知中心 Deferred</small>
+        </div>
+        <div id="dashboard-visual-panel" class="visual-overview-panel" data-anatomy-panel>
+            <figure class="page-anatomy ops-anatomy ops-anatomy--dashboard" aria-label="儀表板六區塊畫面示意">
+  <div class="ops-anatomy__canvas">
+    <a class="anatomy-zone ops-anatomy__toolbar" href="#4-更新與期間" aria-label="前往第一區，更新與期間"><span class="anatomy-zone__number">01</span><span><small>DASHBOARD · PRODUCTION</small><strong>營運儀表板</strong><i>最後更新 10:24:18</i></span><b>今日　昨日　近 7 日　↻ 更新</b></a>
+    <a class="anatomy-zone ops-anatomy__cards ops-anatomy__cards--four" href="#5-即時狀態" aria-label="前往第二區，即時狀態"><span class="anatomy-zone__number">02</span><span><small>Production 服務</small><strong>正常</strong><i>24 / 24</i></span><span><small>GGAP 直接對接</small><strong>正常</strong><i>P95 126 ms</i></span><span><small>待處理告警</small><strong>7</strong><i>2 Critical</i></span><span><small>發布／維護</small><strong>3</strong><i>含 DEMO</i></span></a>
+    <a class="anatomy-zone ops-anatomy__cards ops-anatomy__cards--five" href="#6-營運摘要" aria-label="前往第三區，營運摘要"><span class="anatomy-zone__number">03</span><span><small>Game Round</small><strong>84,120</strong></span><span><small>玩家</small><strong>1,284</strong></span><span><small>投注</small><strong>12.46M pt</strong></span><span><small>派彩</small><strong>11.93M pt</strong></span><span><small>GGR</small><strong>+530K pt</strong></span></a>
+    <div class="ops-anatomy__split">
+      <a class="anatomy-zone ops-anatomy__chart" href="#7-近七日趨勢" aria-label="前往第四區，近七日趨勢"><span class="anatomy-zone__number">04</span><strong>近 7 日營運趨勢</strong><small>Round · 玩家 · 投注 · GGR</small><span><i></i><i></i><i></i><i></i><i></i><i></i></span></a>
+      <a class="anatomy-zone ops-anatomy__work" href="#8-待處理工作" aria-label="前往第五區，待處理工作"><span class="anatomy-zone__number">05</span><strong>待處理工作</strong><small>Critical alert · 發布失敗 · 資料過期</small><i>查看全部工作 →</i></a>
+    </div>
+    <a class="anatomy-zone ops-anatomy__table" href="#9-遊戲概況與通知依賴" aria-label="前往第六區，遊戲概況與通知依賴"><span class="anatomy-zone__number">06</span><strong>遊戲營運概況</strong><small>遊戲　狀態　版本　Round　GGR　更新時間</small><i>通知中心為 Deferred dependency；本頁只保留入口與失敗降級。</i></a>
+  </div>
+  <div class="page-anatomy__legend"><span><i></i>目前狀態</span><span><i></i>期間摘要</span><small>參照現行 `/dashboard` 原型；數字不代表正式資料。</small></div>
+</figure>
+        </div>
+        <p class="visual-overview-disclaimer">畫面示意用於定位元件與閱讀順序；實際欄位、狀態與行為仍以本頁詳細規格及正式契約為準。</p>
+    </section>
+    <a class="visual-return" data-visual-return href="#page-visual-overview" hidden><span aria-hidden="true">↑</span> 回到畫面示意</a>
 
                 <div class="content-layout">
                     <article class="spec-content">
-                        <blockquote>
-<p>本章目前為「待整理」骨架。以下內容用來確定後續規格必須回答的問題，不代表尚未確認的行為已成為正式需求。</p>
-</blockquote>
-<h2 id="頁面定位">頁面定位</h2><p>已有內容原型；正式資料契約仍待整理。 目前已有內容原型；正式 API、權限與互動資料流仍待規格化。</p>
-<h2 id="規格來源">規格來源</h2><ul>
-<li><code>docs/PROVIDER_DASHBOARD_SPEC.md</code></li>
-</ul>
-<h2 id="既有程式對應">既有程式對應</h2><div class="table-scroll" tabindex="0"><table>
+                        <h2 id="章節狀態">章節狀態</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
 <th>項目</th>
@@ -415,7 +444,15 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>Route</td>
+<td>規格成熟度</td>
+<td>Draft — Batch B 完整頁面規格</td>
+</tr>
+<tr>
+<td>製作範圍</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>對應路由</td>
 <td><code>/dashboard</code></td>
 </tr>
 <tr>
@@ -423,32 +460,243 @@
 <td><code>src/views/Provider/Dashboard.vue</code></td>
 </tr>
 <tr>
-<td>畫面現況</td>
-<td>已有內容原型</td>
+<td>主要來源</td>
+<td><code>PROVIDER_DASHBOARD_SPEC.md</code></td>
+</tr>
+<tr>
+<td>正式財務環境</td>
+<td>Production only</td>
+</tr>
+<tr>
+<td>監控環境</td>
+<td>依卡片標示 Production／DEMO；Test 不納入</td>
 </tr>
 </tbody></table></div>
-<h2 id="後續完整章節骨架">後續完整章節骨架</h2><ol>
-<li>目的、使用者與主要使用情境。</li>
-<li>範圍、責任邊界與明確排除項目。</li>
-<li>名詞、資料來源、計算口徑與環境隔離。</li>
-<li>資訊架構、欄位、篩選、列表、詳情與互動規則。</li>
-<li>狀態模型、空白／載入／錯誤／權限不足狀態。</li>
-<li>API request／response、錯誤、分頁、排序與匯出契約。</li>
-<li>安全、權限、稽核、響應式與可存取性。</li>
-<li>前端、後端、整合、資料品質與 QA 驗收條件。</li>
-<li>待確認事項、責任人、阻擋範圍與規格完成條件。</li>
-</ol>
-<h2 id="本章完成條件">本章完成條件</h2><ul>
-<li>已逐條整併來源 Spec，且無互相矛盾的責任或名詞。</li>
-<li>與實際 route、左側導覽、頁面原型及元件對應完成核對。</li>
-<li>Draft、TBD 與 Confirmed 內容可清楚區分。</li>
-<li>前端與後端能據此估工、拆分介面契約並建立驗收案例。</li>
+<blockquote>
+<p>儀表板是 Provider 跨模組營運摘要與工作入口，不是財務、監控、風控或通知中心的替代頁。原型資料皆為 mock；正式聚合、門檻、API、權限與通知行為仍受集中 TBD 管理。</p>
+</blockquote>
+<h2 id="1-目的與使用情境">1. 目的與使用情境</h2><p>讓遊戲商營運、技術與管理者登入後快速回答三件事：服務是否正常、今日營運表現如何、目前有哪些工作需要處理。使用者再依卡片導向遊戲紀錄、財務、監控、風控或遊戲管理頁取得完整資訊。</p>
+<h2 id="2-範圍與責任邊界">2. 範圍與責任邊界</h2><h3 id="2-1-本頁包含">2.1 本頁包含</h3><ul>
+<li>Provider 自身遊戲服務、與 GGAP 直接對接狀態及未處理告警摘要。</li>
+<li>Production Game Round 的營運與財務摘要、近七日趨勢。</li>
+<li>遊戲發布／維護、待處理工作、遊戲營運概況與通知入口。</li>
+<li>各摘要來源頁的明確導流與最後更新時間。</li>
 </ul>
+<h3 id="2-2-本頁不包含">2.2 本頁不包含</h3><ul>
+<li>建立錢包或管理代理商、商戶、會員主資料。</li>
+<li>推斷 GGAP 與代理商之間的平台狀態。</li>
+<li>取代財務總覽、監控總覽、Risk Event 報表或 Alert 工作佇列。</li>
+<li>在卡片上直接執行隔離、解除、結案、發布等高風險操作。</li>
+<li>定義通知中心的類型、已讀、保存、管道或偏好；該模組目前 Deferred。</li>
+</ul>
+<h3 id="2-3-共通資料規則">2.3 共通資料規則</h3><ul>
+<li>金額主值使用 Provider 點數；USDT 僅作已保存換算資訊的對照。</li>
+<li>正式營運與財務數字只取 Production；DEMO 只能出現在明確標示的發布／維護資訊，Test 全面排除。</li>
+<li>今日／昨日／近 7 日只影響期間型營運數字，不得改變即時服務狀態。</li>
+<li>卡片數字必須由完整資料集聚合，不得從畫面分頁或其他卡片反推。</li>
+</ul>
+<h2 id="3-資訊架構與頁面區塊">3. 資訊架構與頁面區塊</h2><p>頁面由上至下分為六個可點擊閱讀區塊：</p>
+<ol>
+<li>更新與期間：最後更新、手動更新、今日／昨日／近 7 日。</li>
+<li>即時狀態：Production 服務、GGAP 直接對接、待處理告警、發布／維護。</li>
+<li>營運摘要：Round、玩家、投注、派彩、GGR。</li>
+<li>近七日趨勢：營運量與財務走勢。</li>
+<li>待處理工作：依優先順序呈現最多五項行動入口。</li>
+<li>遊戲概況與通知依賴：遊戲狀態摘要及 Deferred 通知入口。</li>
+</ol>
+<h2 id="4-更新與期間">4. 更新與期間</h2><ul>
+<li>預設「今日」；可切換今日、昨日、近 7 日，所有期間型卡片與趨勢一次更新。</li>
+<li>即時狀態不受期間切換影響，但必須套用登入 Provider scope。</li>
+<li>手動更新同時觸發各資料區塊；部分失敗時保留成功資料並標示失敗區塊。</li>
+<li>顯示 <code>generated_at</code> 或等價最後資料時間；過期判定與自動更新等待 <code>TBD-DAT-003</code>、<code>TBD-NFR-002</code>。</li>
+</ul>
+<h2 id="5-即時狀態">5. 即時狀態</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>卡片</th>
+<th>定義與導流</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Production 服務</td>
+<td>Provider 正式服務健康摘要；導向 <code>/monitoring?environment=production</code>。</td>
+</tr>
+<tr>
+<td>GGAP 直接對接</td>
+<td>只反映 Provider 與 GGAP 直接 request／callback 可用性，不延伸到代理商側。</td>
+</tr>
+<tr>
+<td>待處理告警</td>
+<td>未關閉且非誤報的 Alert 數；導向 <code>/monitoring/alerts</code>。</td>
+</tr>
+<tr>
+<td>發布／維護</td>
+<td>Provider 自有遊戲發布、維護與異常摘要；可明確分列 Production／DEMO。</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>正常、警告、異常、維護、無資料必須同時使用文字與視覺標記。</li>
+<li>卡片無資料不得顯示為正常；來源失敗不得顯示 0。</li>
+</ul>
+<h2 id="6-營運摘要">6. 營運摘要</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>指標</th>
+<th>Draft 口徑</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Game Round</td>
+<td>選定期間 Production 有效 Round 數。</td>
+</tr>
+<tr>
+<td>玩家</td>
+<td>期間內不重複 <code>member_id</code>；跨日不可直接相加。</td>
+</tr>
+<tr>
+<td>投注</td>
+<td>Production 有效 Round 的 <code>SUM(bet_points)</code>。</td>
+</tr>
+<tr>
+<td>派彩</td>
+<td>Production 有效 Round 的 <code>SUM(payout_points)</code>。</td>
+</tr>
+<tr>
+<td>GGR</td>
+<td>Prototype 暫用 <code>bet_points - payout_points</code>，正式公式待核准。</td>
+</tr>
+</tbody></table></div>
+<p>金額以點數主顯示；USDT 對照與正負角度遵循財務總覽。點擊財務指標導向 <code>/finance</code>，Round 導向 <code>/reports</code>，並帶入等價明確時間條件。</p>
+<h2 id="7-近七日趨勢">7. 近七日趨勢</h2><ul>
+<li>趨勢固定顯示近 7 個統計日，不因上方今日／昨日切換而改成單點圖；期間切換可用於指標比較，現行原型行為需由正式 API 最終確認。</li>
+<li>序列至少包含 Round、玩家、投注及 GGR；不同單位使用分圖、雙軸或明確切換，不可用單一軸誤導。</li>
+<li>Tooltip 顯示統計日、完整值、單位、時區與資料狀態；無資料與 0 必須區分。</li>
+</ul>
+<h2 id="8-待處理工作">8. 待處理工作</h2><ul>
+<li>最多顯示五項，依 Critical、高風險、失敗、逾期、最新順序排列。</li>
+<li>每項必須有類型、摘要、環境、建立時間、目的 route；不得在儀表板直接執行處理。</li>
+<li>Alert 導向 <code>/monitoring/alerts?alert_id=...</code>；Risk Event 導向 <code>/monitoring/risk-reports?risk_event_id=...</code>；其他工作導向其擁有頁。</li>
+<li>相同事件產生 Risk Event 與 Alert 時，不得合計為兩個獨立異常指標。</li>
+</ul>
+<h2 id="9-遊戲概況與通知依賴">9. 遊戲概況與通知依賴</h2><ul>
+<li>遊戲概況可含遊戲名稱／ID、Production 狀態、版本、期間 Round、GGR、最後更新及導流。</li>
+<li>清單只作摘要，完整遊戲管理在 <code>/games</code>；排序、最大筆數及查看更多入口需明確。</li>
+<li>最新通知區可保留 mock 入口，但通知中心仍為 Deferred；來源失敗不得阻擋其他儀表板區塊。</li>
+<li>不在本頁定義通知類型、已讀、偏好、保存或正式 API，依 <code>TBD-EXT-002</code> 後續補充。</li>
+</ul>
+<h2 id="10-api-契約草案">10. API 契約草案</h2><blockquote>
+<p>以下僅定義能力邊界，不是已核准 path／schema。</p>
+</blockquote>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>必要輸入</th>
+<th>必要輸出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>即時狀態</td>
+<td>provider scope</td>
+<td>四類狀態、環境、來源狀態、<code>generated_at</code></td>
+</tr>
+<tr>
+<td>營運摘要</td>
+<td>明確 <code>from</code>、<code>to</code></td>
+<td>五項指標、單位、口徑版本、資料時間</td>
+</tr>
+<tr>
+<td>七日趨勢</td>
+<td>timezone、granularity</td>
+<td>buckets、series、缺值與資料狀態</td>
+</tr>
+<tr>
+<td>待處理工作</td>
+<td>provider scope、limit</td>
+<td>類型、嚴重度、ID、route、時間</td>
+</tr>
+<tr>
+<td>遊戲概況</td>
+<td>period、limit</td>
+<td>遊戲快照、狀態、版本、指標與導流</td>
+</tr>
+</tbody></table></div>
+<p>每個子回應需能獨立表達 Loading、success、empty、stale、error、forbidden；後端必須做 Provider scope 授權。正式聚合、共通 envelope、路徑與 permission key 依 <code>TBD-API-001</code>、<code>TBD-API-003</code>、<code>TBD-API-004</code>、<code>TBD-SEC-001</code>。</p>
+<h2 id="11-頁面狀態與錯誤處理">11. 頁面狀態與錯誤處理</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>狀態</th>
+<th>必要行為</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>首次載入</td>
+<td>保留六區塊 skeleton，不先顯示 0 或正常。</td>
+</tr>
+<tr>
+<td>手動更新</td>
+<td>防止重複觸發，顯示更新中並以最後有效 request 為準。</td>
+</tr>
+<tr>
+<td>局部失敗</td>
+<td>成功區塊可用；失敗區顯示重試、來源與最後成功時間。</td>
+</tr>
+<tr>
+<td>全部失敗</td>
+<td>顯示整頁錯誤與重試，不保留容易誤判的舊狀態。</td>
+</tr>
+<tr>
+<td>無資料</td>
+<td>期間型數字依語意顯示 0／空狀態；即時狀態顯示無資料。</td>
+</tr>
+<tr>
+<td>資料過期</td>
+<td>顯示 stale 標記及最後更新時間，不冒充即時。</td>
+</tr>
+<tr>
+<td>權限不足</td>
+<td>只顯示有權區塊；整頁無權時提供明確 Forbidden。</td>
+</tr>
+</tbody></table></div>
+<h2 id="12-響應式-無障礙與文案">12. 響應式、無障礙與文案</h2><ul>
+<li>Desktop 依 Provider Portal <code>1500px</code> 內容上限；規格網站畫面示意沿用文件有效寬度。</li>
+<li>Tablet 將狀態與指標卡改為兩欄；Mobile 單欄排列，工作入口保持可點擊。</li>
+<li>數值、狀態與趨勢不能只靠顏色；卡片與圖表提供文字名稱、單位及可讀摘要。</li>
+<li>台灣繁體中文為主，Route、ID、協定、環境及技術狀態保留英文。</li>
+</ul>
+<h2 id="13-前後端交付要求">13. 前後端交付要求</h2><p>前端：以單一 applied period 驅動相關區塊、隔離各區 loading／error、保留最後更新時間、導流帶穩定 ID 與明確時間，不自行聚合正式財務。</p>
+<p>後端：依 Provider scope 回傳可追溯聚合；區分即時狀態與期間數據；提供來源失敗、資料版本、時區、環境及資料新鮮度；不得回傳 Test 至監控／風控摘要。</p>
+<h2 id="14-驗收條件">14. 驗收條件</h2><ol>
+<li>頁面可清楚區分即時狀態、期間摘要、趨勢、工作與導流。</li>
+<li>今日／昨日／近 7 日不會改變即時狀態語意。</li>
+<li>正式財務只含 Production，Test 不出現在任何監控／風控數字。</li>
+<li>GGAP 卡片只表達 Provider 直接整合，不推斷代理商側。</li>
+<li>所有數字有單位、範圍、資料時間與來源失敗狀態。</li>
+<li>Risk Event 與 Alert 不被錯誤相加；工作項可導向正確 ID。</li>
+<li>通知中心不可用時，其他儀表板功能仍可使用。</li>
+<li>Desktop、Tablet、Mobile 與鍵盤導覽符合共通規範。</li>
+</ol>
+<h2 id="15-測試重點">15. 測試重點</h2><ul>
+<li>期間切換、快速重複更新與 out-of-order response。</li>
+<li>區塊 success／empty／stale／partial error／forbidden 組合。</li>
+<li>Production／DEMO／Test 隔離及點數／USDT 顯示。</li>
+<li>各卡片 deep link、ID、時間區間與返回條件。</li>
+<li>大數字、負 GGR、0、無法計算與來源延遲。</li>
+</ul>
+<h2 id="16-待確認事項">16. 待確認事項</h2><ul>
+<li><code>TBD-DOM-001</code>、<code>TBD-DOM-002</code>：有效 Game Round 與財務公式。</li>
+<li><code>TBD-DAT-001</code>、<code>TBD-DAT-003</code>、<code>TBD-DAT-005</code>：精度、時間、新鮮度、指標門檻與採樣。</li>
+<li><code>TBD-API-001</code>、<code>TBD-API-003</code>、<code>TBD-API-004</code>：共通、財務與監控 API。</li>
+<li><code>TBD-SEC-001</code>：頁面、卡片及資料 scope 權限。</li>
+<li><code>TBD-NFR-001</code>、<code>TBD-NFR-002</code>、<code>TBD-NFR-004</code>：效能、快取降級與前端品質。</li>
+<li><code>TBD-EXT-002</code>、<code>TBD-EXT-003</code>：通知中心及系統設定／權限模型。</li>
+</ul>
+<h2 id="17-placeholder-draft-移除條件">17. Placeholder／Draft 移除條件</h2><p>本頁已有內容原型，不使用 Placeholder。只有在正式聚合口徑、API schema、資料新鮮度、權限與依賴契約核准，且驗收測試通過後，才可由 Draft 改為 Confirmed。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#頁面定位">頁面定位</a><a class="outline-level-2" href="#規格來源">規格來源</a><a class="outline-level-2" href="#既有程式對應">既有程式對應</a><a class="outline-level-2" href="#後續完整章節骨架">後續完整章節骨架</a><a class="outline-level-2" href="#本章完成條件">本章完成條件</a></nav>
+        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與使用情境">1. 目的與使用情境</a><a class="outline-level-2" href="#2-範圍與責任邊界">2. 範圍與責任邊界</a><a class="outline-level-3" href="#2-1-本頁包含">2.1 本頁包含</a><a class="outline-level-3" href="#2-2-本頁不包含">2.2 本頁不包含</a><a class="outline-level-3" href="#2-3-共通資料規則">2.3 共通資料規則</a><a class="outline-level-2" href="#3-資訊架構與頁面區塊">3. 資訊架構與頁面區塊</a><a class="outline-level-2" href="#4-更新與期間">4. 更新與期間</a><a class="outline-level-2" href="#5-即時狀態">5. 即時狀態</a><a class="outline-level-2" href="#6-營運摘要">6. 營運摘要</a><a class="outline-level-2" href="#7-近七日趨勢">7. 近七日趨勢</a><a class="outline-level-2" href="#8-待處理工作">8. 待處理工作</a><a class="outline-level-2" href="#9-遊戲概況與通知依賴">9. 遊戲概況與通知依賴</a><a class="outline-level-2" href="#10-api-契約草案">10. API 契約草案</a><a class="outline-level-2" href="#11-頁面狀態與錯誤處理">11. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#12-響應式-無障礙與文案">12. 響應式、無障礙與文案</a><a class="outline-level-2" href="#13-前後端交付要求">13. 前後端交付要求</a><a class="outline-level-2" href="#14-驗收條件">14. 驗收條件</a><a class="outline-level-2" href="#15-測試重點">15. 測試重點</a><a class="outline-level-2" href="#16-待確認事項">16. 待確認事項</a><a class="outline-level-2" href="#17-placeholder-draft-移除條件">17. Placeholder／Draft 移除條件</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -459,7 +707,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.9.0-batch-a-draft · 2026-08-14</span>
+                    <span>0.10.0-batch-b-draft · 2026-08-14</span>
                 </footer>
             </div>
         </main>

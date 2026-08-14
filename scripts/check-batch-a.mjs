@@ -14,7 +14,7 @@ let assertionCount = 0
 const batchAPageIds = ['game-round-records', 'finance-overview', 'finance-agent-games']
 const manifestPages = modules.flatMap((module) => module.pages)
 
-assert(book.version === '0.9.0-batch-a-draft', '規格網站版本應標示 Batch A Draft')
+assert(['0.9.0-batch-a-draft', '0.10.0-batch-b-draft'].includes(book.version), '規格網站版本不得早於 Batch A Draft')
 
 for (const pageId of batchAPageIds) {
     const page = manifestPages.find((item) => item.id === pageId)

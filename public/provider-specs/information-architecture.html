@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.9.0-batch-a-draft</span>
-            <span class="topbar-status">Phase 2 · Batch A Draft Complete</span>
+            <span>0.10.0-batch-b-draft</span>
+            <span class="topbar-status">Phase 2 · Batch B Draft Complete</span>
         </div>
     </header>
 
@@ -75,11 +75,11 @@
             <summary>05.1 總覽<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="dashboard-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="dashboard.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>儀表板</span>
 
                     </a>
@@ -159,19 +159,19 @@
             <summary>05.5 遊戲監控與風控<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="monitoring-risk-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="monitoring-overview.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>監控總覽</span>
 
                     </a><a href="risk-reports.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>風控報表</span>
 
                     </a><a href="risk-alerts.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>風控告警／處理</span>
 
                     </a>
@@ -473,7 +473,14 @@
 <li>財務總覽：完成查詢、八張摘要卡、財務／活動趨勢、遊戲排行、匯出、狀態、API 責任與驗收規格。</li>
 <li>代理商 × 遊戲彙總：完成查詢、六張摘要卡、11 欄彙總、排序分頁、Game Round 導流、自訂匯出、狀態、API 責任與驗收規格。</li>
 </ul>
-<p>上述頁面仍是 Draft；正式公式、decimal 精度、狀態生命週期、API schema、權限與外部契約仍依集中 TBD 管理。其餘 Batch B–D 頁面維持 Active／Outline，等待後續批次整理。</p>
+<p>Batch B 已完成四頁完整 Draft：</p>
+<ul>
+<li>儀表板：完成即時狀態、Production 營運摘要、趨勢、待處理工作、遊戲概況與通知 Deferred 邊界。</li>
+<li>監控總覽：完成五張指標卡、目前狀態／分析窗口、11 欄遊戲列表、大型詳情與精確導流。</li>
+<li>風控報表：完成 Risk Event 滾動時間、五張摘要、待關注排序、15 欄列表、詳情與完整結果匯出。</li>
+<li>風控告警／處理：完成 Alert 五張工作卡、16 欄佇列、大型詳情、操作前置條件、隔離 Guardrail 與 audit 骨架。</li>
+</ul>
+<p>Batch A／B 頁面仍是 Draft；正式公式、門檻、decimal 精度、狀態生命週期、API schema、權限與外部契約仍依集中 TBD 管理。其餘 Batch C–D 頁面維持 Active／Outline，等待後續批次整理。</p>
 <h2 id="完整頁面矩陣">完整頁面矩陣</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
@@ -491,7 +498,7 @@
 <td><a href="dashboard.html">儀表板</a></td>
 <td><code>/dashboard</code></td>
 <td>內容原型</td>
-<td>待整理</td>
+<td>草案</td>
 <td>本輪製作</td>
 <td><code>src/views/Provider/Dashboard.vue</code></td>
 </tr>
@@ -581,7 +588,7 @@
 <td><a href="monitoring-overview.html">監控總覽</a></td>
 <td><code>/monitoring</code></td>
 <td>內容原型</td>
-<td>待整理</td>
+<td>草案</td>
 <td>本輪製作</td>
 <td><code>src/views/Provider/MonitoringOverview.vue</code></td>
 </tr>
@@ -590,7 +597,7 @@
 <td><a href="risk-reports.html">風控報表</a></td>
 <td><code>/monitoring/risk-reports</code></td>
 <td>內容原型</td>
-<td>待整理</td>
+<td>草案</td>
 <td>本輪製作</td>
 <td><code>src/views/Provider/RiskReports.vue</code></td>
 </tr>
@@ -599,7 +606,7 @@
 <td><a href="risk-alerts.html">風控告警／處理</a></td>
 <td><code>/monitoring/alerts</code></td>
 <td>內容原型</td>
-<td>待整理</td>
+<td>草案</td>
 <td>本輪製作</td>
 <td><code>src/views/Provider/RiskAlerts.vue</code></td>
 </tr>
@@ -791,7 +798,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.9.0-batch-a-draft · 2026-08-14</span>
+                    <span>0.10.0-batch-b-draft · 2026-08-14</span>
                 </footer>
             </div>
         </main>

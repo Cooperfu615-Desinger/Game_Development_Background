@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="已有內容原型；正式資料契約仍待整理。">
+    <meta name="description" content="以 Risk Event 為主體的異常分析、證據、影響與 Game Round 追溯。">
     <meta name="color-scheme" content="light">
     <title>風控報表｜Provider Portal 產品與系統規格書</title>
     <link rel="stylesheet" href="assets/site.css">
@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.9.0-batch-a-draft</span>
-            <span class="topbar-status">Phase 2 · Batch A Draft Complete</span>
+            <span>0.10.0-batch-b-draft</span>
+            <span class="topbar-status">Phase 2 · Batch B Draft Complete</span>
         </div>
     </header>
 
@@ -75,11 +75,11 @@
             <summary>05.1 總覽<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="dashboard-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="dashboard.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>儀表板</span>
 
                     </a>
@@ -159,19 +159,19 @@
             <summary>05.5 遊戲監控與風控<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="monitoring-risk-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="monitoring-overview.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>監控總覽</span>
 
                     </a><a href="risk-reports.html" aria-current="page">
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>風控報表</span>
 
                     </a><a href="risk-alerts.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>風控告警／處理</span>
 
                     </a>
@@ -382,10 +382,10 @@
                     <div>
                         <p class="eyebrow">05.5.2 · 遊戲監控與風控</p>
                         <h1>風控報表</h1>
-                        <p class="page-summary">已有內容原型；正式資料契約仍待整理。</p>
+                        <p class="page-summary">以 Risk Event 為主體的異常分析、證據、影響與 Game Round 追溯。</p>
                     </div>
                     <div class="page-status-stack">
-                        <span class="status-badge status-outline">待整理</span>
+                        <span class="status-badge status-draft">草案</span>
                         <span class="scope-badge scope-active">本輪製作</span>
 
                     </div>
@@ -393,22 +393,50 @@
 
                 <section class="metadata-card" aria-label="章節追溯資訊">
         <div class="metadata-grid">
-            <div><span>章節編號</span><code>05.5.2</code></div><div><span>規格狀態</span><code>待整理</code></div><div><span>Route</span><code>/monitoring/risk-reports</code></div><div><span>前端元件</span><code>src/views/Provider/RiskReports.vue</code></div>
+            <div><span>章節編號</span><code>05.5.2</code></div><div><span>規格狀態</span><code>草案</code></div><div><span>Route</span><code>/monitoring/risk-reports</code></div><div><span>前端元件</span><code>src/views/Provider/RiskReports.vue</code></div>
         </div>
     </section>
-
+                <section id="page-visual-overview" class="page-visual-overview" aria-labelledby="page-visual-title">
+        <div class="visual-overview-header">
+            <div>
+                <p class="visual-overview-kicker">PAGE ANATOMY · OVERVIEW FIRST</p>
+                <h2 id="page-visual-title">風控報表畫面示意</h2>
+                <p>參照現行 /monitoring/risk-reports 原型；本頁唯讀，處理操作留在 Alert 工作佇列。</p>
+            </div>
+            <button class="visual-toggle" type="button" data-anatomy-toggle aria-expanded="true" aria-controls="risk-reports-visual-panel">
+                <span data-anatomy-toggle-label>收合畫面示意</span>
+                <i aria-hidden="true">⌃</i>
+            </button>
+        </div>
+        <nav class="visual-quick-map" aria-label="頁面區塊快速導覽">
+            <a href="#5-查詢範圍"><strong>01</strong><span>查詢範圍</span><i aria-hidden="true">↘</i></a><a href="#6-五張摘要卡"><strong>02</strong><span>五張摘要卡</span><i aria-hidden="true">↘</i></a><a href="#7-待關注異常"><strong>03</strong><span>待關注異常</span><i aria-hidden="true">↘</i></a><a href="#8-篩選與事件列表"><strong>04</strong><span>篩選與事件列表</span><i aria-hidden="true">↘</i></a><a href="#9-risk-event-詳情"><strong>05</strong><span>Risk Event 詳情</span><i aria-hidden="true">↘</i></a><a href="#11-頁面狀態與錯誤處理"><strong>06</strong><span>匯出與替代狀態</span><i aria-hidden="true">↘</i></a>
+        </nav>
+        <div class="visual-scope-notes" aria-label="畫面閱讀邊界">
+            <span>閱讀邊界</span>
+            <small>Risk Event 主體</small><small>Production / DEMO 單選</small><small>Test 排除</small><small>處理操作導向 Alert</small>
+        </div>
+        <div id="risk-reports-visual-panel" class="visual-overview-panel" data-anatomy-panel>
+            <figure class="page-anatomy ops-anatomy ops-anatomy--risk-report" aria-label="風控報表六區塊畫面示意">
+  <div class="ops-anatomy__canvas">
+    <a class="anatomy-zone ops-anatomy__toolbar" href="#5-查詢範圍" aria-label="前往第一區，查詢範圍"><span class="anatomy-zone__number">01</span><span><small>RISK EVENT ANALYTICS</small><strong>風控報表</strong><i>detected_at · rolling window</i></span><b>Production　24h　72h　120h　全部遊戲　↻</b></a>
+    <a class="anatomy-zone ops-anatomy__cards ops-anatomy__cards--five" href="#6-五張摘要卡" aria-label="前往第二區，五張摘要卡"><span class="anatomy-zone__number">02</span><span><small>全部事件</small><strong>38</strong></span><span><small>未處理</small><strong>5</strong></span><span><small>處理中</small><strong>4</strong></span><span><small>已解決</small><strong>29</strong></span><span><small>高風險</small><strong>7</strong></span></a>
+    <a class="anatomy-zone ops-anatomy__attention" href="#7-待關注異常" aria-label="前往第三區，待關注異常"><span class="anatomy-zone__number">03</span><strong>待關注異常</strong><span><b>CRITICAL</b> payout deviation · mitigation failed</span><span><b>HIGH</b> GGAP timeout · not notified</span><span><b>HIGH</b> round failure spike · investigating</span></a>
+    <a class="anatomy-zone ops-anatomy__table" href="#8-篩選與事件列表" aria-label="前往第四區，篩選與事件列表"><span class="anatomy-zone__number">04</span><strong>Risk Event 列表</strong><small>事件 ID　時間　環境　遊戲　類型　嚴重度　狀態　影響　緩解　隔離　Alert　Round　更新</small><i>risk-20260814-0031　10:18　Production　星際寶藏　數值偏離　Critical　Investigating</i></a>
+    <div class="ops-anatomy__split">
+      <a class="anatomy-zone ops-anatomy__detail" href="#9-risk-event-詳情" aria-label="前往第五區，Risk Event 詳情"><span class="anatomy-zone__number">05</span><small>RISK EVENT DETAIL</small><strong>risk-20260814-0031</strong><i>事件摘要 · 影響 · 規則證據 · 自動緩解 · Round · Timeline</i><b>前往 Alert →</b></a>
+      <a class="anatomy-zone ops-anatomy__states" href="#11-頁面狀態與錯誤處理" aria-label="前往第六區，匯出與替代狀態"><span class="anatomy-zone__number">06</span><strong>匯出與替代狀態</strong><i>完整結果匯出</i><i>查無資料</i><i>查詢失敗</i><i>權限不足</i></a>
+    </div>
+  </div>
+  <div class="page-anatomy__legend"><span><i></i>Risk Event</span><span><i></i>需人工關注</span><small>參照現行 `/monitoring/risk-reports` 原型；本頁全程唯讀。</small></div>
+</figure>
+        </div>
+        <p class="visual-overview-disclaimer">畫面示意用於定位元件與閱讀順序；實際欄位、狀態與行為仍以本頁詳細規格及正式契約為準。</p>
+    </section>
+    <a class="visual-return" data-visual-return href="#page-visual-overview" hidden><span aria-hidden="true">↑</span> 回到畫面示意</a>
 
                 <div class="content-layout">
                     <article class="spec-content">
-                        <blockquote>
-<p>本章目前為「待整理」骨架。以下內容用來確定後續規格必須回答的問題，不代表尚未確認的行為已成為正式需求。</p>
-</blockquote>
-<h2 id="頁面定位">頁面定位</h2><p>已有內容原型；正式資料契約仍待整理。 目前已有內容原型；正式 API、權限與互動資料流仍待規格化。</p>
-<h2 id="規格來源">規格來源</h2><ul>
-<li><code>docs/PROVIDER_RISK_REPORT_SPEC.md</code></li>
-<li><code>docs/PROVIDER_RISK_CONTROL_SPEC.md</code></li>
-</ul>
-<h2 id="既有程式對應">既有程式對應</h2><div class="table-scroll" tabindex="0"><table>
+                        <h2 id="章節狀態">章節狀態</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
 <th>項目</th>
@@ -416,7 +444,15 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>Route</td>
+<td>規格成熟度</td>
+<td>Draft — Batch B 完整頁面規格</td>
+</tr>
+<tr>
+<td>製作範圍</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>對應路由</td>
 <td><code>/monitoring/risk-reports</code></td>
 </tr>
 <tr>
@@ -424,32 +460,341 @@
 <td><code>src/views/Provider/RiskReports.vue</code></td>
 </tr>
 <tr>
-<td>畫面現況</td>
-<td>已有內容原型</td>
+<td>主要來源</td>
+<td><code>PROVIDER_RISK_REPORT_SPEC.md</code>、<code>PROVIDER_RISK_CONTROL_SPEC.md</code></td>
+</tr>
+<tr>
+<td>主要業務單位</td>
+<td>Risk Event</td>
+</tr>
+<tr>
+<td>環境</td>
+<td>Production 或 DEMO 單選；Test 排除</td>
 </tr>
 </tbody></table></div>
-<h2 id="後續完整章節骨架">後續完整章節骨架</h2><ol>
-<li>目的、使用者與主要使用情境。</li>
-<li>範圍、責任邊界與明確排除項目。</li>
-<li>名詞、資料來源、計算口徑與環境隔離。</li>
-<li>資訊架構、欄位、篩選、列表、詳情與互動規則。</li>
-<li>狀態模型、空白／載入／錯誤／權限不足狀態。</li>
-<li>API request／response、錯誤、分頁、排序與匯出契約。</li>
-<li>安全、權限、稽核、響應式與可存取性。</li>
-<li>前端、後端、整合、資料品質與 QA 驗收條件。</li>
-<li>待確認事項、責任人、阻擋範圍與規格完成條件。</li>
-</ol>
-<h2 id="本章完成條件">本章完成條件</h2><ul>
-<li>已逐條整併來源 Spec，且無互相矛盾的責任或名詞。</li>
-<li>與實際 route、左側導覽、頁面原型及元件對應完成核對。</li>
-<li>Draft、TBD 與 Confirmed 內容可清楚區分。</li>
-<li>前端與後端能據此估工、拆分介面契約並建立驗收案例。</li>
+<blockquote>
+<p>本頁是 Provider 自身 Risk Event 的唯讀分析頁，不是 Alert 工作佇列。事件可有關聯 Alert，但兩者 ID、狀態與生命週期不得合併。</p>
+</blockquote>
+<h2 id="1-目的與使用情境">1. 目的與使用情境</h2><p>供風控、營運與技術人員依滾動時間、環境、遊戲、事件類型、嚴重度與狀態分析異常，優先檢視需關注事件，追溯證據與 Game Round，並在需要人工處理時導向 Alert 頁。</p>
+<h2 id="2-範圍與責任邊界">2. 範圍與責任邊界</h2><h3 id="2-1-本頁包含">2.1 本頁包含</h3><ul>
+<li>Provider 自身遊戲服務、Round 結果、數值偏離與 GGAP 直接整合所產生的 Risk Event。</li>
+<li>五張事件摘要、最多五筆待關注事件、完整篩選列表、事件詳情與匯出。</li>
+<li>關聯 Game Round、Alert、緩解／隔離快照及 GGAP 通知結果的唯讀追溯。</li>
 </ul>
+<h3 id="2-2-本頁不包含">2.2 本頁不包含</h3><ul>
+<li>Test 資料，或 Production／DEMO 混合統計。</li>
+<li>告警指派、備註、隔離、解除、重試、結案或誤報操作。</li>
+<li>修改投注、派彩、換算、已結算 Round 或風控證據。</li>
+<li>將 Provider 隔離解讀為 GGAP 對代理商個別開關。</li>
+</ul>
+<h2 id="3-名詞-時間與狀態">3. 名詞、時間與狀態</h2><ul>
+<li>主時間欄位為 <code>detected_at</code>；預設 rolling 24 小時，快速選項 24／72／120 小時。</li>
+<li>Risk Event 代表已偵測的客觀異常；<code>risk_event_id</code> 必須唯一、穩定、可追溯。</li>
+<li>Draft 狀態至少區分 pending、investigating、resolved；正式 enum、終態與重開規則依 <code>TBD-DOM-004</code>。</li>
+<li>High／Critical 為高風險；正式嚴重度、門檻版本、樣本與 evidence schema 依 <code>TBD-DAT-005</code>。</li>
+<li>Production／DEMO 各自查詢與聚合；深連結事件若屬另一環境，頁面切換至事件環境再開啟詳情。</li>
+</ul>
+<h2 id="4-資訊架構與頁面區塊">4. 資訊架構與頁面區塊</h2><ol>
+<li>查詢範圍：環境、滾動時間、遊戲與更新。</li>
+<li>五張摘要卡：全部、未處理、處理中、已解決、高風險。</li>
+<li>待關注異常：最多五筆 active High／Critical。</li>
+<li>篩選與事件列表：常用／進階條件、15 欄、排序、分頁。</li>
+<li>Risk Event 詳情：大型 Dialog 顯示證據、影響、緩解、Round 與歷程。</li>
+<li>匯出、替代狀態與跨頁導流。</li>
+</ol>
+<h2 id="5-查詢範圍">5. 查詢範圍</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>技術值</th>
+<th>預設／規則</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>環境</td>
+<td><code>environment</code></td>
+<td>Production；Production／DEMO 單選。</td>
+</tr>
+<tr>
+<td>快速時間</td>
+<td><code>rolling_window</code></td>
+<td>24h；另有 72h、120h。</td>
+</tr>
+<tr>
+<td>起訖時間</td>
+<td><code>detected_from</code>、<code>detected_to</code></td>
+<td>自訂時取代快速時間；半開區間 <code>[from,to)</code>。</td>
+</tr>
+<tr>
+<td>遊戲類型／遊戲</td>
+<td><code>game_type</code>、<code>game_id</code></td>
+<td>全部；選項限 Provider scope。</td>
+</tr>
+<tr>
+<td>精確事件</td>
+<td><code>risk_event_id</code></td>
+<td>完整比對，不得模糊搜尋。</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>URL 帶有效 <code>risk_event_id</code> 時，先解析事件並切到正確環境，再開啟詳情。</li>
+<li>ID 不存在、格式錯誤或無權時顯示對應錯誤，不可退回一般列表冒充成功。</li>
+<li>切換環境清除不適用的遊戲與事件條件；Test 值直接拒絕。</li>
+</ul>
+<h2 id="6-五張摘要卡">6. 五張摘要卡</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>卡片</th>
+<th>計算</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>全部事件</td>
+<td>查詢窗口內不重複 <code>risk_event_id</code>。</td>
+</tr>
+<tr>
+<td>未處理</td>
+<td>狀態 pending。</td>
+</tr>
+<tr>
+<td>處理中</td>
+<td>狀態 investigating。</td>
+</tr>
+<tr>
+<td>已解決</td>
+<td>狀態 resolved。</td>
+</tr>
+<tr>
+<td>高風險</td>
+<td>High／Critical；可與前三張狀態卡交集。</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>卡片使用完整篩選集合，不受列表分頁影響。</li>
+<li>高風險不是互斥狀態，五張卡不可相加推回總數。</li>
+<li>empty 時顯示 0；來源失敗時顯示錯誤，不得沿用舊值或假裝 0。</li>
+</ul>
+<h2 id="7-待關注異常">7. 待關注異常</h2><ul>
+<li>最多五筆 active High／Critical，優先序：Critical、緩解失敗、尚未隔離／GGAP 通知失敗、High、最新 <code>detected_at</code>。</li>
+<li>每筆顯示 Risk Event ID、遊戲／環境、事件類型、嚴重度、狀態、關鍵證據、緩解／隔離／通知狀態及時間。</li>
+<li>點擊開啟同頁詳情；本區不提供處理按鈕。</li>
+<li>無待關注事件時顯示「目前無高風險待關注事件」，不隱藏整個區塊。</li>
+</ul>
+<h2 id="8-篩選與事件列表">8. 篩選與事件列表</h2><p>常用條件：事件 ID、遊戲、事件類型、嚴重度、狀態、是否有 Alert。進階條件可含規則 ID、緩解狀態、隔離狀態、GGAP 通知狀態、關聯 Round ID。</p>
+<p>列表 15 個主要欄位：</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th align="right">#</th>
+<th>欄位</th>
+<th>顯示規則</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>Risk Event ID</td>
+<td>完整 ID，可複製並開啟詳情。</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>偵測時間</td>
+<td><code>detected_at</code>、含時區。</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>環境</td>
+<td>Production／DEMO。</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td>遊戲</td>
+<td>名稱與 <code>game_id</code>。</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td>事件類型</td>
+<td>繁中名稱、技術值輔助。</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td>嚴重度</td>
+<td>Critical／High／Medium／Low。</td>
+</tr>
+<tr>
+<td align="right">7</td>
+<td>事件狀態</td>
+<td>與 Alert status 分開。</td>
+</tr>
+<tr>
+<td align="right">8</td>
+<td>影響摘要</td>
+<td>指標、範圍、樣本或 Round 數。</td>
+</tr>
+<tr>
+<td align="right">9</td>
+<td>規則／門檻</td>
+<td>rule ID、版本與觸發值。</td>
+</tr>
+<tr>
+<td align="right">10</td>
+<td>自動緩解</td>
+<td>未執行／執行中／成功／失敗。</td>
+</tr>
+<tr>
+<td align="right">11</td>
+<td>隔離狀態</td>
+<td>Provider scope 的隔離快照。</td>
+</tr>
+<tr>
+<td align="right">12</td>
+<td>GGAP 通知</td>
+<td>request／ACK 狀態；不代表平台完成處理。</td>
+</tr>
+<tr>
+<td align="right">13</td>
+<td>Alert</td>
+<td><code>alert_id</code> 與 Alert status；無則 <code>—</code>。</td>
+</tr>
+<tr>
+<td align="right">14</td>
+<td>關聯 Round</td>
+<td>數量及精確導流入口。</td>
+</tr>
+<tr>
+<td align="right">15</td>
+<td>更新／詳情</td>
+<td><code>updated_at</code> 及開啟詳情。</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>預設 <code>detected_at desc</code>，同值以 <code>risk_event_id desc</code> 穩定排序。</li>
+<li>排序、分頁、篩選由伺服器處理；頁碼超界時回到有效頁並提示。</li>
+</ul>
+<h2 id="9-risk-event-詳情">9. Risk Event 詳情</h2><p>使用大型 Dialog 或獨立內容區，不使用狹窄抽屜。至少包含：</p>
+<ol>
+<li>事件摘要：ID、環境、遊戲、類型、嚴重度、狀態、偵測／更新時間。</li>
+<li>影響範圍：受影響服務、版本、Round、玩家匿名數、時間窗口。</li>
+<li>規則證據：rule ID／版本、觀察值、門檻、樣本、資料來源。</li>
+<li>自動緩解與 GGAP：執行結果、隔離快照、request ID、ACK／錯誤；只讀。</li>
+<li>關聯 Game Round：精確 Provider／GGAP Round ID、時間、結果與 <code>/reports</code> 導流。</li>
+<li>Timeline：偵測、升級、緩解、Alert 建立、通知、狀態變更與 actor。</li>
+</ol>
+<p>若有 Alert，顯示「前往告警處理」並帶 <code>alert_id</code>、<code>risk_event_id</code>、<code>environment</code>；若沒有 Alert，不得自行在前端創建。</p>
+<h2 id="10-匯出與跨頁導流">10. 匯出與跨頁導流</h2><ul>
+<li>匯出完整 applied filters 結果，不受目前分頁或待關注五筆限制。</li>
+<li>匯出包含篩選快照、產生時間、時區、環境、口徑／規則版本；敏感欄位、格式、同步／非同步、保存與下載權限依 <code>TBD-SEC-004</code>。</li>
+<li>Round 導向 <code>/reports</code>；Alert 導向 <code>/monitoring/alerts</code>；監控脈絡可返回 <code>/monitoring</code>。</li>
+<li>GGAP request 頁目前 Deferred，只保留 ID 與依賴說明。</li>
+</ul>
+<h2 id="11-頁面狀態與錯誤處理">11. 頁面狀態與錯誤處理</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>狀態</th>
+<th>必要行為</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>首次載入／重新查詢</td>
+<td>保留區塊 skeleton；以最後有效 request 為準。</td>
+</tr>
+<tr>
+<td>無資料</td>
+<td>五張摘要顯示 0，列表與待關注顯示明確 empty，匯出停用。</td>
+</tr>
+<tr>
+<td>局部失敗</td>
+<td>成功區塊保留；失敗區顯示來源與重試，不以 0 代替。</td>
+</tr>
+<tr>
+<td>查詢失敗</td>
+<td>保留條件，顯示重試；不可顯示舊結果為新查詢。</td>
+</tr>
+<tr>
+<td>資料過期</td>
+<td>標示 stale 及最後成功時間。</td>
+</tr>
+<tr>
+<td>權限不足</td>
+<td>Forbidden；敏感 evidence 不可先渲染再隱藏。</td>
+</tr>
+<tr>
+<td>匯出</td>
+<td>idle、queued、processing、completed、failed、expired。</td>
+</tr>
+<tr>
+<td>Deep link 失敗</td>
+<td>分開顯示 invalid、not found、forbidden、environment mismatch。</td>
+</tr>
+</tbody></table></div>
+<h2 id="12-api-契約草案">12. API 契約草案</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>必要輸入</th>
+<th>必要輸出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>摘要／待關注</td>
+<td>environment、window、filters</td>
+<td>五項摘要、attention、資料時間、規則版本</td>
+</tr>
+<tr>
+<td>事件列表</td>
+<td>filters、sort、page</td>
+<td>15 欄資料、total、穩定排序</td>
+</tr>
+<tr>
+<td>事件詳情</td>
+<td>risk_event_id</td>
+<td>證據、影響、緩解、Round、Alert、timeline</td>
+</tr>
+<tr>
+<td>建立匯出</td>
+<td>applied filters、format、fields</td>
+<td>job ID、狀態、保存／到期資訊</td>
+</tr>
+</tbody></table></div>
+<p>所有回應強制 Provider scope、單一環境、Test 排除，並帶 <code>generated_at</code>、<code>timezone</code>、<code>data_status</code>、<code>rule_version</code> 或等價欄位。正式 schema、enum、path、錯誤碼與 permission key 依集中 TBD。</p>
+<h2 id="13-響應式-無障礙與文案">13. 響應式、無障礙與文案</h2><ul>
+<li>Desktop 遵循 Portal <code>1500px</code>；詳情 Dialog 使用寬版資訊分區。</li>
+<li>Mobile 摘要單欄或雙欄、待關注卡片堆疊、列表轉卡片；保留 ID 複製與詳情入口。</li>
+<li>嚴重度、狀態、成功／失敗必須有文字；表格 header、Dialog focus、鍵盤操作完整。</li>
+<li>介面以台灣繁中為主；ID、rule、enum、request／trace 保留技術值。</li>
+</ul>
+<h2 id="14-前後端交付要求">14. 前後端交付要求</h2><p>前端：分開 Risk Event／Alert state，所有操作留在 Alert 頁；以 applied filters 驅動摘要、待關注、列表與匯出；深連結先解析事件，不作模糊 fallback。</p>
+<p>後端：提供不可變事件 ID、規則／門檻版本、事件時間與 evidence；隔離與 GGAP 僅回傳可證明快照；保留更正與稽核追溯，排除 Test。</p>
+<h2 id="15-驗收條件">15. 驗收條件</h2><ol>
+<li>頁面主單位明確為 Risk Event，與 Alert 狀態完全分離。</li>
+<li>Production／DEMO 單選且不混合，Test 不可查詢。</li>
+<li>五張卡、待關注、列表與匯出使用同一 applied filters。</li>
+<li>待關注排序符合 Critical／失敗／通知／High／時間規則。</li>
+<li>15 欄列表及大型詳情可追溯規則、Round、Alert、緩解與時間線。</li>
+<li>本頁不出現隔離、解除、結案或修改 Round 操作。</li>
+<li>精確 deep link 能切換事件環境；無效或無權不 fallback。</li>
+<li>empty、stale、partial error、Forbidden、匯出各狀態可驗收。</li>
+</ol>
+<h2 id="16-測試重點">16. 測試重點</h2><ul>
+<li>rolling 24／72／120h、自訂區間與 detected_at 邊界。</li>
+<li>相同事件的狀態／嚴重度交集、attention 排序與分頁穩定性。</li>
+<li>Event deep link 跨環境、not found、forbidden 與 malformed ID。</li>
+<li>Evidence 遮罩、Round／Alert 導流、Dialog focus。</li>
+<li>匯出完整結果、無資料、queued／failed／expired。</li>
+</ul>
+<h2 id="17-待確認事項">17. 待確認事項</h2><ul>
+<li><code>TBD-DOM-004</code>：Risk Event、Alert、緩解與隔離正式模型。</li>
+<li><code>TBD-DAT-002</code>、<code>TBD-DAT-003</code>、<code>TBD-DAT-004</code>、<code>TBD-DAT-005</code>：識別碼、時間、保存、更正、門檻與 evidence。</li>
+<li><code>TBD-API-001</code>、<code>TBD-API-002</code>、<code>TBD-API-004</code>：共通、Round、監控／風控及匯出 API。</li>
+<li><code>TBD-SEC-001</code>、<code>TBD-SEC-002</code>、<code>TBD-SEC-004</code>：scope、敏感欄位與匯出權限。</li>
+<li><code>TBD-NFR-001</code>、<code>TBD-NFR-002</code>、<code>TBD-NFR-004</code>：效能、stale／降級與前端品質。</li>
+<li><code>TBD-EXT-001</code>、<code>TBD-EXT-003</code>：GGAP 正式規格與系統權限模型。</li>
+</ul>
+<h2 id="18-placeholder-draft-移除條件">18. Placeholder／Draft 移除條件</h2><p>本頁已有內容原型，不使用 Placeholder。只有 Event schema／enum、門檻、API、保存、遮罩、匯出及權限核准且驗收通過後，才可改為 Confirmed。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#頁面定位">頁面定位</a><a class="outline-level-2" href="#規格來源">規格來源</a><a class="outline-level-2" href="#既有程式對應">既有程式對應</a><a class="outline-level-2" href="#後續完整章節骨架">後續完整章節骨架</a><a class="outline-level-2" href="#本章完成條件">本章完成條件</a></nav>
+        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與使用情境">1. 目的與使用情境</a><a class="outline-level-2" href="#2-範圍與責任邊界">2. 範圍與責任邊界</a><a class="outline-level-3" href="#2-1-本頁包含">2.1 本頁包含</a><a class="outline-level-3" href="#2-2-本頁不包含">2.2 本頁不包含</a><a class="outline-level-2" href="#3-名詞-時間與狀態">3. 名詞、時間與狀態</a><a class="outline-level-2" href="#4-資訊架構與頁面區塊">4. 資訊架構與頁面區塊</a><a class="outline-level-2" href="#5-查詢範圍">5. 查詢範圍</a><a class="outline-level-2" href="#6-五張摘要卡">6. 五張摘要卡</a><a class="outline-level-2" href="#7-待關注異常">7. 待關注異常</a><a class="outline-level-2" href="#8-篩選與事件列表">8. 篩選與事件列表</a><a class="outline-level-2" href="#9-risk-event-詳情">9. Risk Event 詳情</a><a class="outline-level-2" href="#10-匯出與跨頁導流">10. 匯出與跨頁導流</a><a class="outline-level-2" href="#11-頁面狀態與錯誤處理">11. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#12-api-契約草案">12. API 契約草案</a><a class="outline-level-2" href="#13-響應式-無障礙與文案">13. 響應式、無障礙與文案</a><a class="outline-level-2" href="#14-前後端交付要求">14. 前後端交付要求</a><a class="outline-level-2" href="#15-驗收條件">15. 驗收條件</a><a class="outline-level-2" href="#16-測試重點">16. 測試重點</a><a class="outline-level-2" href="#17-待確認事項">17. 待確認事項</a><a class="outline-level-2" href="#18-placeholder-draft-移除條件">18. Placeholder／Draft 移除條件</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -460,7 +805,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.9.0-batch-a-draft · 2026-08-14</span>
+                    <span>0.10.0-batch-b-draft · 2026-08-14</span>
                 </footer>
             </div>
         </main>

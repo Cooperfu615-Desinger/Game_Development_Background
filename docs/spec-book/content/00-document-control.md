@@ -9,8 +9,8 @@
 | 文件名稱 | Provider Portal 產品與系統規格書 |
 | 適用產品 | GGAP Provider Portal |
 | 主要讀者 | 產品、前端、後端、QA、GGAP 對接團隊 |
-| 目前版本 | `0.9.0-batch-a-draft` |
-| 目前狀態 | Phase 2 · Batch A Draft Complete |
+| 目前版本 | `0.10.0-batch-b-draft` |
+| 目前狀態 | Phase 2 · Batch B Draft Complete |
 | 主要語言 | 台灣繁體中文；技術值與協定名稱保留英文 |
 
 ## 規格狀態定義
@@ -73,3 +73,5 @@
 第一階段的範圍、完成度、三層校準、跨頁依賴與集中 TBD 已完成封版驗證；驗證結果、限制及重開條件見附錄 J《第一階段封版驗證報告》。
 
 第二階段 Batch A 已完成「遊戲紀錄、財務總覽、代理商 × 遊戲彙總」三頁的完整 Draft 規格與原型對齊畫面示意。此完成狀態代表產品／UI／驗收骨架可交付審閱，不代表集中 TBD 所列的正式公式、API、精度、權限、GGAP 或系統設定契約已核准。
+
+第二階段 Batch B 已完成「儀表板、監控總覽、風控報表、風控告警／處理」四頁完整 Draft。四頁形成「跨模組摘要 → 服務與指標觀察 → Risk Event 分析 → Alert 人工作業」鏈，並明確保留 Test 排除、Production／DEMO 隔離、既有 Round 不受隔離阻斷及 GGAP／通知 Deferred 邊界。

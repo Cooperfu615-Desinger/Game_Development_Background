@@ -25,10 +25,10 @@ export const readinessDimensions = {
 }
 
 export const pageReadiness = {
-    dashboard: readiness('B', ['complete', 'complete', 'complete', 'complete', 'partial', 'partial'], ['missing', 'partial', 'missing', 'partial', 'partial', 'partial'], [
-        '跨模組摘要的正式聚合口徑與資料來源',
-        '更新頻率、資料新鮮度與降級顯示契約',
-        '卡片導流與資料檢視權限',
+    dashboard: readiness('B', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
+        '正式聚合口徑、資料來源、門檻與資料新鮮度',
+        '摘要／趨勢／工作入口的 API schema 與資料 scope 權限',
+        '通知中心維持 Deferred，正式事件與完成回饋待後續整合',
     ]),
     'game-list': readiness('C', ['complete', 'complete', 'complete', 'complete', 'complete', 'partial'], ['missing', 'partial', 'partial', 'partial', 'missing', 'complete'], [
         '遊戲與環境狀態的正式來源及狀態轉換',
@@ -76,17 +76,17 @@ export const pageReadiness = {
         '聚合計算、精度、分頁排序與資料更正契約',
         '自訂匯出、Game Round 導流與權限 API',
     ]),
-    'monitoring-overview': readiness('B', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['missing', 'partial', 'partial', 'complete', 'partial', 'complete'], [
+    'monitoring-overview': readiness('B', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
         '監控指標公式、門檻、採樣與資料來源',
         '更新頻率、資料延遲、可用性與降級契約',
         '查詢、詳情與跨頁導流 API／權限',
     ]),
-    'risk-reports': readiness('B', ['complete', 'complete', 'complete', 'complete', 'complete', 'partial'], ['missing', 'partial', 'partial', 'partial', 'partial', 'complete'], [
+    'risk-reports': readiness('B', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
         'Risk Event 正式 schema、enum 與聚合規則',
         '查詢、詳情、匯出 API 與保存期限',
         '敏感欄位、資料範圍與檢視權限',
     ]),
-    'risk-alerts': readiness('B', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['missing', 'partial', 'partial', 'partial', 'partial', 'complete'], [
+    'risk-alerts': readiness('B', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
         'Alert 操作權限、狀態流轉、併發與失敗處理',
         '自動緩解、GGAP 通知及人工處理契約',
         '工作佇列 API、操作稽核與保存規則',

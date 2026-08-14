@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="已有內容原型；正式資料契約仍待整理。">
+    <meta name="description" content="Provider 自身遊戲服務、Game Round、GGAP 直接對接與風控訊號總覽。">
     <meta name="color-scheme" content="light">
     <title>監控總覽｜Provider Portal 產品與系統規格書</title>
     <link rel="stylesheet" href="assets/site.css">
@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.9.0-batch-a-draft</span>
-            <span class="topbar-status">Phase 2 · Batch A Draft Complete</span>
+            <span>0.10.0-batch-b-draft</span>
+            <span class="topbar-status">Phase 2 · Batch B Draft Complete</span>
         </div>
     </header>
 
@@ -75,11 +75,11 @@
             <summary>05.1 總覽<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="dashboard-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="dashboard.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>儀表板</span>
 
                     </a>
@@ -159,19 +159,19 @@
             <summary>05.5 遊戲監控與風控<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="monitoring-risk-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="monitoring-overview.html" aria-current="page">
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>監控總覽</span>
 
                     </a><a href="risk-reports.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>風控報表</span>
 
                     </a><a href="risk-alerts.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>風控告警／處理</span>
 
                     </a>
@@ -382,10 +382,10 @@
                     <div>
                         <p class="eyebrow">05.5.1 · 遊戲監控與風控</p>
                         <h1>監控總覽</h1>
-                        <p class="page-summary">已有內容原型；正式資料契約仍待整理。</p>
+                        <p class="page-summary">Provider 自身遊戲服務、Game Round、GGAP 直接對接與風控訊號總覽。</p>
                     </div>
                     <div class="page-status-stack">
-                        <span class="status-badge status-outline">待整理</span>
+                        <span class="status-badge status-draft">草案</span>
                         <span class="scope-badge scope-active">本輪製作</span>
 
                     </div>
@@ -393,21 +393,50 @@
 
                 <section class="metadata-card" aria-label="章節追溯資訊">
         <div class="metadata-grid">
-            <div><span>章節編號</span><code>05.5.1</code></div><div><span>規格狀態</span><code>待整理</code></div><div><span>Route</span><code>/monitoring</code></div><div><span>前端元件</span><code>src/views/Provider/MonitoringOverview.vue</code></div>
+            <div><span>章節編號</span><code>05.5.1</code></div><div><span>規格狀態</span><code>草案</code></div><div><span>Route</span><code>/monitoring</code></div><div><span>前端元件</span><code>src/views/Provider/MonitoringOverview.vue</code></div>
         </div>
     </section>
-
+                <section id="page-visual-overview" class="page-visual-overview" aria-labelledby="page-visual-title">
+        <div class="visual-overview-header">
+            <div>
+                <p class="visual-overview-kicker">PAGE ANATOMY · OVERVIEW FIRST</p>
+                <h2 id="page-visual-title">監控總覽畫面示意</h2>
+                <p>參照現行 /monitoring 原型；目前狀態與分析窗口分開，Production／DEMO 不混合。</p>
+            </div>
+            <button class="visual-toggle" type="button" data-anatomy-toggle aria-expanded="true" aria-controls="monitoring-overview-visual-panel">
+                <span data-anatomy-toggle-label>收合畫面示意</span>
+                <i aria-hidden="true">⌃</i>
+            </button>
+        </div>
+        <nav class="visual-quick-map" aria-label="頁面區塊快速導覽">
+            <a href="#5-監控範圍與查詢"><strong>01</strong><span>監控範圍與查詢</span><i aria-hidden="true">↘</i></a><a href="#6-五張摘要卡"><strong>02</strong><span>五張摘要卡</span><i aria-hidden="true">↘</i></a><a href="#7-關注項目"><strong>03</strong><span>關注項目</span><i aria-hidden="true">↘</i></a><a href="#8-遊戲監控列表"><strong>04</strong><span>遊戲監控列表</span><i aria-hidden="true">↘</i></a><a href="#9-遊戲監控詳情"><strong>05</strong><span>遊戲監控詳情</span><i aria-hidden="true">↘</i></a><a href="#11-頁面狀態與錯誤處理"><strong>06</strong><span>替代狀態與導流</span><i aria-hidden="true">↘</i></a>
+        </nav>
+        <div class="visual-scope-notes" aria-label="畫面閱讀邊界">
+            <span>閱讀邊界</span>
+            <small>Production / DEMO 單選</small><small>Test 排除</small><small>Risk Event ≠ Alert</small><small>本頁唯讀</small>
+        </div>
+        <div id="monitoring-overview-visual-panel" class="visual-overview-panel" data-anatomy-panel>
+            <figure class="page-anatomy ops-anatomy ops-anatomy--monitoring" aria-label="監控總覽六區塊畫面示意">
+  <div class="ops-anatomy__canvas">
+    <a class="anatomy-zone ops-anatomy__toolbar" href="#5-監控範圍與查詢" aria-label="前往第一區，監控範圍與查詢"><span class="anatomy-zone__number">01</span><span><small>MONITORING OVERVIEW</small><strong>遊戲監控總覽</strong><i>最後更新 10:24:18</i></span><b>Production　全部類型　全部遊戲　6 小時　↻</b></a>
+    <a class="anatomy-zone ops-anatomy__cards ops-anatomy__cards--five" href="#6-五張摘要卡" aria-label="前往第二區，五張摘要卡"><span class="anatomy-zone__number">02</span><span><small>服務健康</small><strong>22 / 24</strong></span><span><small>Round 成功率</small><strong>99.82%</strong></span><span><small>GGAP P95</small><strong>126 ms</strong></span><span><small>高風險告警</small><strong>3</strong></span><span><small>未處理異常</small><strong>5</strong></span></a>
+    <a class="anatomy-zone ops-anatomy__segments" href="#7-關注項目" aria-label="前往第三區，關注項目"><span class="anatomy-zone__number">03</span><strong>關注項目</strong><i class="is-active">全部 24</i><i>服務異常 2</i><i>Round 失敗 1</i><i>GGAP 延遲 2</i><i>高風險 3</i><i>未處理 5</i></a>
+    <div class="ops-anatomy__split ops-anatomy__split--wide">
+      <a class="anatomy-zone ops-anatomy__table" href="#8-遊戲監控列表" aria-label="前往第四區，遊戲監控列表"><span class="anatomy-zone__number">04</span><strong>遊戲監控列表</strong><small>狀態　遊戲　類型　版本　服務　Round 成功率　GGAP P95　告警　異常　檢查時間</small><i>異常　星際寶藏　老虎機　3.6.1　Error　97.8%　680 ms　2　1　10:24</i></a>
+      <a class="anatomy-zone ops-anatomy__detail" href="#9-遊戲監控詳情" aria-label="前往第五區，遊戲監控詳情"><span class="anatomy-zone__number">05</span><small>GAME MONITOR DETAIL</small><strong>星際寶藏</strong><i>服務健康 · Round · GGAP · Risk Event · Alert</i><b>查看關聯紀錄 →</b></a>
+    </div>
+    <a class="anatomy-zone ops-anatomy__states" href="#11-頁面狀態與錯誤處理" aria-label="前往第六區，頁面狀態與錯誤處理"><span class="anatomy-zone__number">06</span><strong>替代狀態與跨頁導流</strong><i>載入中</i><i>全部正常</i><i>查無結果</i><i>資料過期</i><i>局部失敗</i><i>全部失敗</i></a>
+  </div>
+  <div class="page-anatomy__legend"><span><i></i>目前狀態</span><span><i></i>分析窗口</span><small>參照現行 `/monitoring` 原型；Test 永不納入。</small></div>
+</figure>
+        </div>
+        <p class="visual-overview-disclaimer">畫面示意用於定位元件與閱讀順序；實際欄位、狀態與行為仍以本頁詳細規格及正式契約為準。</p>
+    </section>
+    <a class="visual-return" data-visual-return href="#page-visual-overview" hidden><span aria-hidden="true">↑</span> 回到畫面示意</a>
 
                 <div class="content-layout">
                     <article class="spec-content">
-                        <blockquote>
-<p>本章目前為「待整理」骨架。以下內容用來確定後續規格必須回答的問題，不代表尚未確認的行為已成為正式需求。</p>
-</blockquote>
-<h2 id="頁面定位">頁面定位</h2><p>已有內容原型；正式資料契約仍待整理。 目前已有內容原型；正式 API、權限與互動資料流仍待規格化。</p>
-<h2 id="規格來源">規格來源</h2><ul>
-<li><code>docs/PROVIDER_MONITORING_OVERVIEW_SPEC.md</code></li>
-</ul>
-<h2 id="既有程式對應">既有程式對應</h2><div class="table-scroll" tabindex="0"><table>
+                        <h2 id="章節狀態">章節狀態</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
 <th>項目</th>
@@ -415,7 +444,15 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>Route</td>
+<td>規格成熟度</td>
+<td>Draft — Batch B 完整頁面規格</td>
+</tr>
+<tr>
+<td>製作範圍</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>對應路由</td>
 <td><code>/monitoring</code></td>
 </tr>
 <tr>
@@ -423,32 +460,315 @@
 <td><code>src/views/Provider/MonitoringOverview.vue</code></td>
 </tr>
 <tr>
-<td>畫面現況</td>
-<td>已有內容原型</td>
+<td>主要來源</td>
+<td><code>PROVIDER_MONITORING_OVERVIEW_SPEC.md</code></td>
+</tr>
+<tr>
+<td>環境</td>
+<td>Production 或 DEMO 單選；Test 排除</td>
+</tr>
+<tr>
+<td>監控主體</td>
+<td>Provider 自身遊戲服務、Game Round、GGAP 直接對接及風控訊號</td>
 </tr>
 </tbody></table></div>
-<h2 id="後續完整章節骨架">後續完整章節骨架</h2><ol>
-<li>目的、使用者與主要使用情境。</li>
-<li>範圍、責任邊界與明確排除項目。</li>
-<li>名詞、資料來源、計算口徑與環境隔離。</li>
-<li>資訊架構、欄位、篩選、列表、詳情與互動規則。</li>
-<li>狀態模型、空白／載入／錯誤／權限不足狀態。</li>
-<li>API request／response、錯誤、分頁、排序與匯出契約。</li>
-<li>安全、權限、稽核、響應式與可存取性。</li>
-<li>前端、後端、整合、資料品質與 QA 驗收條件。</li>
-<li>待確認事項、責任人、阻擋範圍與規格完成條件。</li>
-</ol>
-<h2 id="本章完成條件">本章完成條件</h2><ul>
-<li>已逐條整併來源 Spec，且無互相矛盾的責任或名詞。</li>
-<li>與實際 route、左側導覽、頁面原型及元件對應完成核對。</li>
-<li>Draft、TBD 與 Confirmed 內容可清楚區分。</li>
-<li>前端與後端能據此估工、拆分介面契約並建立驗收案例。</li>
+<blockquote>
+<p>本頁用於觀察與導流，不執行風控處理。Provider 只監控自身服務與對 GGAP 的直接整合，不推斷 GGAP 與代理商間的下游狀態。</p>
+</blockquote>
+<h2 id="1-目的與使用情境">1. 目的與使用情境</h2><p>讓營運、技術、SRE 與風控人員在單一頁面確認目前服務健康、選定窗口內的 Round 成功率與 GGAP 延遲、各遊戲的異常集中位置，再導向 Risk Event、Alert 或 Game Round 追查。</p>
+<h2 id="2-範圍與責任邊界">2. 範圍與責任邊界</h2><h3 id="2-1-本頁包含">2.1 本頁包含</h3><ul>
+<li>Production／DEMO 分離的遊戲服務、Round、GGAP 直接對接與 Provider 風控指標。</li>
+<li>五張摘要卡、關注項目切換、每遊戲監控列表與大型詳情 Dialog。</li>
+<li>導向風控報表、告警處理及遊戲紀錄的 deep link。</li>
 </ul>
+<h3 id="2-2-本頁不包含">2.2 本頁不包含</h3><ul>
+<li>Test 資料、正式財務聚合、錢包或代理商／商戶／會員主資料。</li>
+<li>GGAP 對代理商的遊戲開放狀態或平台內部健康。</li>
+<li>隔離、解除、指派、結案或修改 Round 的操作。</li>
+<li>把同一問題的 Risk Event 與 Alert 相加成「總異常」。</li>
+</ul>
+<h2 id="3-核心名詞與指標">3. 核心名詞與指標</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>指標</th>
+<th>Draft 定義</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>服務健康</td>
+<td><code>healthy expected service games / expected service games</code>；維護與無資料需獨立表達。</td>
+</tr>
+<tr>
+<td>Round 成功率</td>
+<td><code>success / (success + failed + timeout)</code>；<code>processing</code> 不進分母。</td>
+</tr>
+<tr>
+<td>GGAP P95</td>
+<td>Provider 對 GGAP 成功回應樣本的 P95；整體狀態仍需同時考量 timeout／failure。</td>
+</tr>
+<tr>
+<td>高風險告警</td>
+<td>High／Critical 且未 closed／false positive 的不重複 <code>alert_id</code>。</td>
+</tr>
+<tr>
+<td>未處理異常</td>
+<td>pending／investigating 的不重複 <code>risk_event_id</code>。</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>Risk Event 是客觀異常紀錄；Alert 是需要人處理的工作單位，兩者狀態分開。</li>
+<li>目前狀態卡使用最新有效 snapshot；Round 成功率與 GGAP P95 使用已套用分析窗口。</li>
+<li>正式門檻、採樣、最小樣本、嚴重度及 stale threshold 依 <code>TBD-DAT-005</code>。</li>
+</ul>
+<h2 id="4-資訊架構與頁面區塊">4. 資訊架構與頁面區塊</h2><ol>
+<li>監控範圍與更新：環境、遊戲類型、遊戲、分析時間及最後更新。</li>
+<li>五張摘要卡：服務健康、Round 成功率、GGAP P95、高風險告警、未處理異常。</li>
+<li>關注項目：全部、服務異常、Round 失敗、GGAP 延遲、高風險告警、未處理異常。</li>
+<li>遊戲監控列表：每遊戲 × 環境的健康與導流。</li>
+<li>遊戲監控詳情：大型 Dialog 顯示服務、Round、GGAP、風控及關聯入口。</li>
+<li>替代狀態與跨頁導流：empty、stale、partial error、deep link。</li>
+</ol>
+<h2 id="5-監控範圍與查詢">5. 監控範圍與查詢</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>技術值</th>
+<th>預設</th>
+<th>規則</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>環境</td>
+<td><code>environment</code></td>
+<td>Production</td>
+<td>Production／DEMO 單選，不可混合。</td>
+</tr>
+<tr>
+<td>遊戲類型</td>
+<td><code>game_type</code></td>
+<td>全部</td>
+<td>選項來自 Provider 遊戲主資料。</td>
+</tr>
+<tr>
+<td>遊戲</td>
+<td><code>game_id</code></td>
+<td>全部</td>
+<td>顯示名稱與 ID；送穩定 ID。</td>
+</tr>
+<tr>
+<td>分析時間</td>
+<td><code>from</code>、<code>to</code></td>
+<td>近 6 小時</td>
+<td>快速 1h／6h／24h 或自訂；建議最大 7 日。</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>編輯條件後按查詢才套用；手動更新使用目前 applied filters。</li>
+<li>環境與遊戲條件同時套用目前狀態與期間指標；分析時間只套用期間指標。</li>
+<li>URL query 可保存非敏感篩選；不允許 <code>environment=all</code>。</li>
+</ul>
+<h2 id="6-五張摘要卡">6. 五張摘要卡</h2><ul>
+<li>服務健康、高風險告警、未處理異常顯示目前 snapshot。</li>
+<li>Round 成功率、GGAP P95 顯示套用窗口結果。</li>
+<li>每張卡顯示範圍、分子／分母或樣本量、狀態、最後資料時間；不可只顯示百分比。</li>
+<li>點擊卡片只能設定列表的關注項目或導向擁有頁，不改變其他摘要計算。</li>
+<li>高風險告警與未處理異常可能是同一問題，不可相加。</li>
+</ul>
+<h2 id="7-關注項目">7. 關注項目</h2><ul>
+<li>關注項目只篩選下方遊戲列表，不重新計算五張摘要卡。</li>
+<li>可選全部、服務異常、Round 失敗、GGAP 延遲、高風險告警、未處理異常；單選且再次點擊目前項目回到全部。</li>
+<li>顯示數量為符合該項目的遊戲列數或明確標示的事件數；正式口徑不可含糊。</li>
+</ul>
+<h2 id="8-遊戲監控列表">8. 遊戲監控列表</h2><p>列表以 <code>game_id × environment</code> 為一列，共 11 個主要欄位：</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th align="right">順序</th>
+<th>欄位</th>
+<th>規則</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>綜合狀態</td>
+<td>優先序：已隔離、異常、降級、無資料、維護、正常。</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>遊戲</td>
+<td>名稱主顯示、ID 次顯示。</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>類型</td>
+<td>繁中顯示值。</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td>版本</td>
+<td>該環境目前服務版本。</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td>遊戲服務</td>
+<td>最新服務健康與檢查摘要。</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td>Round 成功率</td>
+<td>套用分析窗口，含分子／分母。</td>
+</tr>
+<tr>
+<td align="right">7</td>
+<td>GGAP P95</td>
+<td>成功樣本 P95，並標示 timeout／failure。</td>
+</tr>
+<tr>
+<td align="right">8</td>
+<td>高風險告警</td>
+<td>不重複 active <code>alert_id</code>。</td>
+</tr>
+<tr>
+<td align="right">9</td>
+<td>未處理異常</td>
+<td>不重複 active <code>risk_event_id</code>。</td>
+</tr>
+<tr>
+<td align="right">10</td>
+<td>最後檢查</td>
+<td>含時區及 stale 狀態。</td>
+</tr>
+<tr>
+<td align="right">11</td>
+<td>詳情</td>
+<td>開啟本列大型 Dialog。</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>預設依綜合狀態優先序，再以嚴重度、最後檢查時間、<code>game_id</code> 穩定排序。</li>
+<li>排序與分頁由伺服器處理；摘要不受目前分頁影響。</li>
+</ul>
+<h2 id="9-遊戲監控詳情">9. 遊戲監控詳情</h2><p>大型 Dialog 至少包含：</p>
+<ol>
+<li>遊戲名稱／ID、環境、版本、綜合狀態與最後檢查。</li>
+<li>遊戲服務實例、端點、錯誤摘要與健康檢查。</li>
+<li>Round 成功／失敗／timeout／processing、成功率與窗口。</li>
+<li>GGAP 直接 request 的 P50／P95、樣本、timeout、failure 與最近錯誤。</li>
+<li>Risk Event 與 Alert 摘要，分別顯示 ID、狀態、嚴重度與數量。</li>
+<li>前往 <code>/reports</code>、<code>/monitoring/risk-reports</code>、<code>/monitoring/alerts</code> 的明確入口。</li>
+</ol>
+<p>詳情不得提供修改 Round 或告警處理按鈕；原始 payload 的顯示、複製與遮罩依 <code>TBD-SEC-002</code>。</p>
+<h2 id="10-跨頁導流">10. 跨頁導流</h2><ul>
+<li>Risk Event：<code>/monitoring/risk-reports?risk_event_id={id}&amp;environment={env}</code>。</li>
+<li>Alert：<code>/monitoring/alerts?alert_id={id}&amp;risk_event_id={id}&amp;environment={env}</code>。</li>
+<li>Game Round：<code>/reports?provider_round_id={id}</code> 或帶明確時間、環境與遊戲脈絡。</li>
+<li>GGAP request 紀錄頁仍 Deferred；可顯示 request ID，但不可承諾可用 route 或正式行為。</li>
+<li>目標頁需驗證 ID 與登入 scope；找不到時顯示錯誤，不可退回模糊列表冒充成功。</li>
+</ul>
+<h2 id="11-頁面狀態與錯誤處理">11. 頁面狀態與錯誤處理</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>狀態</th>
+<th>必要行為</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>初始／查詢中</td>
+<td>保留區塊 skeleton，停用重複查詢。</td>
+</tr>
+<tr>
+<td>手動更新</td>
+<td>使用 applied filters，顯示更新中與最後成功時間。</td>
+</tr>
+<tr>
+<td>全部正常</td>
+<td>顯示正常結論與完整列表，不以空白頁代替。</td>
+</tr>
+<tr>
+<td>查無結果</td>
+<td>保留篩選與摘要語意，提供清除條件。</td>
+</tr>
+<tr>
+<td>無資料／過期</td>
+<td>顯示 no-data／stale，不歸類正常。</td>
+</tr>
+<tr>
+<td>局部失敗</td>
+<td>成功指標可用；失敗欄位顯示 <code>—</code>、原因與重試。</td>
+</tr>
+<tr>
+<td>全部失敗</td>
+<td>整頁錯誤與重試；不得顯示舊值為目前狀態。</td>
+</tr>
+<tr>
+<td>權限不足</td>
+<td>隱藏不可見敏感資料；整頁無權則 Forbidden。</td>
+</tr>
+</tbody></table></div>
+<h2 id="12-api-契約草案">12. API 契約草案</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>必要輸入</th>
+<th>必要輸出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>監控摘要</td>
+<td>environment、game filters、analysis window</td>
+<td>五張卡、範圍、樣本、snapshot／window、資料時間</td>
+</tr>
+<tr>
+<td>遊戲監控列表</td>
+<td>filters、focus、sort、page</td>
+<td>11 欄、total、穩定排序、部分失敗標記</td>
+</tr>
+<tr>
+<td>遊戲監控詳情</td>
+<td>game_id、environment、window</td>
+<td>服務、Round、GGAP、Risk Event、Alert 與 deep links</td>
+</tr>
+</tbody></table></div>
+<p>回應需含 <code>generated_at</code>、<code>timezone</code>、<code>environment</code>、<code>observation_window</code>、<code>data_status</code>、<code>source_failures</code> 或等價欄位。正式 path、schema、門檻與 permission key 依 <code>TBD-API-001</code>、<code>TBD-API-004</code>、<code>TBD-DAT-005</code>、<code>TBD-SEC-001</code>。</p>
+<h2 id="13-響應式-無障礙與文案">13. 響應式、無障礙與文案</h2><ul>
+<li>Desktop 內容上限依 Portal <code>1500px</code>；Dialog 使用大型內容區，不縮成難讀窄抽屜。</li>
+<li>Tablet 摘要卡兩欄；Mobile 單欄並將列表轉為可展開卡片或保留可操作水平捲動。</li>
+<li>狀態、門檻超標與趨勢不能只靠顏色；提供文字、圖示、樣本與時間。</li>
+<li>Dialog 需管理焦點、Esc、標題關聯及關閉後焦點返回。</li>
+</ul>
+<h2 id="14-前後端交付要求">14. 前後端交付要求</h2><p>前端：分開管理 draft／applied filters、summary／list／detail request、局部失敗與過期狀態；deep link 保留環境及精確 ID。</p>
+<p>後端：排除 Test、強制單一環境、以一致窗口與門檻版本計算；保持 Risk Event／Alert ID 分離；回傳 Provider scope 內的直接 GGAP 訊號，不延伸下游推論。</p>
+<h2 id="15-驗收條件">15. 驗收條件</h2><ol>
+<li>Production／DEMO 不混合，Test 永不出現。</li>
+<li>目前狀態與分析窗口的時間語意清楚且不互相污染。</li>
+<li>五張卡公式、樣本、範圍及最後更新時間可辨識。</li>
+<li>關注項目只篩選列表，不改變摘要卡。</li>
+<li>列表含 11 欄與明確綜合狀態優先序。</li>
+<li>詳情完整呈現服務、Round、GGAP、Risk Event、Alert 且只讀。</li>
+<li>deep link 使用精確 ID，Deferred GGAP 頁不被假定完成。</li>
+<li>Loading、全部正常、empty、stale、partial／all error、Forbidden 可驗收。</li>
+</ol>
+<h2 id="16-測試重點">16. 測試重點</h2><ul>
+<li>環境切換、自訂時間上限、重複查詢與 response race。</li>
+<li>成功率分母、processing 排除、P95 樣本與 timeout／failure。</li>
+<li>綜合狀態 precedence、相同事件的 Event／Alert 不重複合計。</li>
+<li>詳情開關、焦點管理及三種 deep link 的有效／無效／無權案例。</li>
+<li>來源局部失敗、stale、無資料與全失敗。</li>
+</ul>
+<h2 id="17-待確認事項">17. 待確認事項</h2><ul>
+<li><code>TBD-DOM-001</code>、<code>TBD-DOM-004</code>：Round、Risk Event、Alert 與隔離模型。</li>
+<li><code>TBD-DAT-002</code>、<code>TBD-DAT-003</code>、<code>TBD-DAT-005</code>：識別碼、窗口、新鮮度、門檻與採樣。</li>
+<li><code>TBD-API-001</code>、<code>TBD-API-002</code>、<code>TBD-API-004</code>：共通、Round 與監控 API。</li>
+<li><code>TBD-SEC-001</code>、<code>TBD-SEC-002</code>：scope、permission、敏感資料與 payload。</li>
+<li><code>TBD-NFR-001</code>、<code>TBD-NFR-002</code>、<code>TBD-NFR-004</code>：效能、降級及前端品質。</li>
+<li><code>TBD-EXT-001</code>、<code>TBD-EXT-003</code>：GGAP 正式規格與系統權限模型。</li>
+</ul>
+<h2 id="18-placeholder-draft-移除條件">18. Placeholder／Draft 移除條件</h2><p>本頁已有內容原型，不使用 Placeholder。只有指標公式、門檻／採樣、API、資料新鮮度、權限及 deep link 契約核准並通過驗收後，才可改為 Confirmed。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#頁面定位">頁面定位</a><a class="outline-level-2" href="#規格來源">規格來源</a><a class="outline-level-2" href="#既有程式對應">既有程式對應</a><a class="outline-level-2" href="#後續完整章節骨架">後續完整章節骨架</a><a class="outline-level-2" href="#本章完成條件">本章完成條件</a></nav>
+        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與使用情境">1. 目的與使用情境</a><a class="outline-level-2" href="#2-範圍與責任邊界">2. 範圍與責任邊界</a><a class="outline-level-3" href="#2-1-本頁包含">2.1 本頁包含</a><a class="outline-level-3" href="#2-2-本頁不包含">2.2 本頁不包含</a><a class="outline-level-2" href="#3-核心名詞與指標">3. 核心名詞與指標</a><a class="outline-level-2" href="#4-資訊架構與頁面區塊">4. 資訊架構與頁面區塊</a><a class="outline-level-2" href="#5-監控範圍與查詢">5. 監控範圍與查詢</a><a class="outline-level-2" href="#6-五張摘要卡">6. 五張摘要卡</a><a class="outline-level-2" href="#7-關注項目">7. 關注項目</a><a class="outline-level-2" href="#8-遊戲監控列表">8. 遊戲監控列表</a><a class="outline-level-2" href="#9-遊戲監控詳情">9. 遊戲監控詳情</a><a class="outline-level-2" href="#10-跨頁導流">10. 跨頁導流</a><a class="outline-level-2" href="#11-頁面狀態與錯誤處理">11. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#12-api-契約草案">12. API 契約草案</a><a class="outline-level-2" href="#13-響應式-無障礙與文案">13. 響應式、無障礙與文案</a><a class="outline-level-2" href="#14-前後端交付要求">14. 前後端交付要求</a><a class="outline-level-2" href="#15-驗收條件">15. 驗收條件</a><a class="outline-level-2" href="#16-測試重點">16. 測試重點</a><a class="outline-level-2" href="#17-待確認事項">17. 待確認事項</a><a class="outline-level-2" href="#18-placeholder-draft-移除條件">18. Placeholder／Draft 移除條件</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -459,7 +779,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.9.0-batch-a-draft · 2026-08-14</span>
+                    <span>0.10.0-batch-b-draft · 2026-08-14</span>
                 </footer>
             </div>
         </main>

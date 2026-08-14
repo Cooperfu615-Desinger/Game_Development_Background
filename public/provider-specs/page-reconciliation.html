@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.9.0-batch-a-draft</span>
-            <span class="topbar-status">Phase 2 · Batch A Draft Complete</span>
+            <span>0.10.0-batch-b-draft</span>
+            <span class="topbar-status">Phase 2 · Batch B Draft Complete</span>
         </div>
     </header>
 
@@ -75,11 +75,11 @@
             <summary>05.1 總覽<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="dashboard-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="dashboard.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>儀表板</span>
 
                     </a>
@@ -159,19 +159,19 @@
             <summary>05.5 遊戲監控與風控<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="monitoring-risk-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="monitoring-overview.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>監控總覽</span>
 
                     </a><a href="risk-reports.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>風控報表</span>
 
                     </a><a href="risk-alerts.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>風控告警／處理</span>
 
                     </a>
@@ -500,7 +500,7 @@
 <div class="reconciliation-columns">
 <section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>本頁是 Provider 自身遊戲營運、財務、監控與風控的跨模組摘要入口。</li><li>正式財務與 Game Round 指標不得混入 DEMO／Test；金額以 Provider 點數為主。</li><li>Provider 不因摘要出現代理商、會員或通知脈絡而擁有其主資料。</li></ul></section>
 <section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有期間切換、營運狀態卡、指標卡、趨勢、待處理事項、遊戲概況與最新通知。</li><li>卡片數字、告警、通知及跨頁連結皆由前端 mock 提供。</li><li>DEMO 目前只出現在環境／發布狀態說明，不納入正式財務指標。</li></ul></section>
-<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>各摘要卡的資料來源、計算時間、更新頻率、失效與降級顯示仍待確認。</li><li>卡片導流、資料 scope 與 permission key 尚未形成正式契約。</li><li>通知中心已延後；儀表板上的通知區只能保留依賴標記，不可反推通知產品規格。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Batch B Draft 已定義即時狀態、期間摘要、趨勢、工作入口、遊戲概況及局部降級的時間語意。</li><li>Production 財務、Test 排除、精確 deep link 與各區塊驗收已有骨架；正式資料來源、API 與 permission key 仍待核准。</li><li>通知中心維持 Deferred；儀表板只保留依賴與降級規則，不反推通知產品規格。</li></ul></section>
 </div>
 </article>
 <article class="reconciliation-card reconciliation-aligned">
@@ -512,7 +512,7 @@
 <div class="reconciliation-columns">
 <section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 監控自身遊戲服務、Game Round、與 GGAP 直接對接及自身告警。</li><li>Test 不納入 Provider 風控監控；目前狀態與分析時間窗口必須分開。</li><li>GGAP 與代理商之間的平台監控不屬於 Provider 本頁。</li></ul></section>
 <section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有監控範圍／時間／關注項目查詢、五張摘要卡、遊戲監控列表與詳情 Dialog。</li><li>健康、成功率、延遲、告警及未處理異常皆以 mock 資料呈現。</li><li>可導向風控報表、告警處理及 Game Round，但目前只是前端 route。</li></ul></section>
-<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>指標公式、門檻、採樣、資料來源、更新頻率與失效判定尚待後端確認。</li><li>Production／DEMO 監控資料的差異、降級與無資料契約尚未核准。</li><li>查詢、詳情、跨頁 query、API 與權限尚待正式定義。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Batch B Draft 已定義五張卡公式、目前狀態／分析窗口、11 欄列表、詳情、狀態與 deep link。</li><li>Production／DEMO 單選、Test 排除、局部降級與無資料顯示已有交付骨架。</li><li>正式門檻、採樣、更新頻率、API schema、敏感欄位與 permission key 仍依集中 TBD 管理。</li></ul></section>
 </div>
 </article>
 <article class="reconciliation-card reconciliation-aligned">
@@ -524,7 +524,7 @@
 <div class="reconciliation-columns">
 <section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>本頁用於 Provider 自身 Risk Event 分析，不等同 Alert 工作佇列。</li><li>Test 不納入 Provider 風控；事件需可追溯至相關 Game Round。</li><li>Provider 隔離不等於 GGAP 代理商個別遊戲開關。</li></ul></section>
 <section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有摘要、待關注異常、查詢、Risk Event 列表、詳情與關聯 Game Round。</li><li>事件類型、嚴重度、門檻、自動緩解及 GGAP 通知均由 mock 呈現。</li><li>頁面偏分析與追蹤，處理操作主要導向告警頁。</li></ul></section>
-<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Risk Event schema、ID、enum、聚合、保存與資料更正規則尚待核准。</li><li>門檻、統計窗口、自動緩解與 GGAP 通知契約仍待正式確認。</li><li>查詢、詳情、匯出 API、敏感欄位與權限尚未定義。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Batch B Draft 已定義 rolling window、五張卡、待關注排序、15 欄列表、大型詳情與精確 deep link。</li><li>頁面維持唯讀，處理導向 Alert；Production／DEMO 單選與 Test 排除已有完整驗收骨架。</li><li>正式 Event schema／enum、門檻、保存、API、遮罩、匯出與 permission key 仍依集中 TBD 管理。</li></ul></section>
 </div>
 </article>
 <article class="reconciliation-card reconciliation-attention">
@@ -536,7 +536,7 @@
 <div class="reconciliation-columns">
 <section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Alert 是需要追蹤／處理的工作單位，與 Risk Event、緩解狀態及隔離狀態分開。</li><li>Test 不納入 Provider 風控；任何隔離都不得阻斷既有 Round 的必要結算、Callback 與 audit。</li><li>GGAP 通知狀態不代表 GGAP 已完成平台側處理。</li></ul></section>
 <section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有告警摘要、豐富查詢、工作佇列、詳情、時間線、指派、隔離／解除與結案等操作。</li><li>操作結果、狀態流轉、健康檢查、GGAP 通知及重試皆由前端 mock 模擬。</li><li>畫面擬真度高，容易被誤認為正式處理流程已核准。</li></ul></section>
-<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Alert 狀態機、操作前置條件、權限、併發、失敗與補償流程尚待核准。</li><li>自動緩解、隔離、解除、健康檢查及 GGAP 通知契約仍未正式確認。</li><li>工作佇列 API、操作稽核、保存與敏感資料規則尚待定義。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Batch B Draft 已定義五張工作卡、16 欄佇列、大型詳情、操作前置條件、四維狀態與衝突處理。</li><li>隔離只阻擋新 Launch、既有 Round 持續 Settle／Callback／audit，且 GGAP 通知不等同平台完成。</li><li>正式狀態機、allowed-actions、API、permission／核准、冪等、補償、保存與 audit 仍依集中 TBD 管理。</li></ul></section>
 </div>
 </article>
 </section><h3 id="批次-c-遊戲生命週期">批次 C｜遊戲生命週期</h3><section class="reconciliation-list" aria-label="批次 C 頁面校準">
@@ -731,7 +731,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.9.0-batch-a-draft · 2026-08-14</span>
+                    <span>0.10.0-batch-b-draft · 2026-08-14</span>
                 </footer>
             </div>
         </main>

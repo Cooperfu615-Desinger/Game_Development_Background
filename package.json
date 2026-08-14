@@ -12,7 +12,8 @@
     "spec:build": "node scripts/build-spec-site.mjs",
     "spec:check": "npm run spec:build && node scripts/check-spec-site.mjs",
     "spec:batch-a-check": "npm run spec:check && node scripts/check-phase-one-seal.mjs && node scripts/check-batch-a.mjs",
-    "spec:seal-check": "npm run spec:batch-a-check",
+    "spec:batch-b-check": "npm run spec:batch-a-check && node scripts/check-batch-b.mjs",
+    "spec:seal-check": "npm run spec:batch-b-check",
     "spec:seal": "npm run spec:seal-check && npm run type-check && npm run build",
     "type-check": "vue-tsc --noEmit",
     "preview": "vite preview"

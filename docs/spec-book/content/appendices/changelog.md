@@ -1,5 +1,14 @@
 # 版本紀錄
 
+## 0.10.0-batch-b-draft · 2026-08-14
+
+- 完成 Phase 2 Batch B：儀表板、監控總覽、風控報表、風控告警／處理四頁完整 Draft。
+- 建立跨模組摘要 → 監控觀察 → Risk Event 分析 → Alert 處理的責任鏈，分開目前狀態、分析窗口及各工作單位。
+- 四頁新增貼近現行 Provider 原型的 Overview-first HTML／CSS 畫面示意及六區塊快速導覽。
+- 明確定義 Production／DEMO 單選、Test 排除、Risk Event ≠ Alert、隔離只阻擋新 Launch 且既有 Round 持續完成。
+- 補齊查詢、欄位、排序、詳情、頁面狀態、deep link、API 責任、響應式、驗收與測試骨架。
+- GGAP、通知中心、系統設定仍維持 Deferred；正式門檻、schema、permission、核准、冪等與 audit 依集中 TBD 管理。
+
 ## 0.9.0-batch-a-draft · 2026-08-14
 
 - 完成 Phase 2 Batch A：遊戲紀錄、財務總覽、代理商 × 遊戲彙總三頁形成一致的 Game Round → 財務聚合 → 單筆追溯規格鏈。
@@ -79,6 +88,6 @@
 ## 後續版本方向
 
 - 依 A–D 批次整理 20 個 Active 頁面，持續維護遊戲紀錄 Baseline。
-- 優先處理會阻擋 Batch A 的 Game Round、財務、點數／USDT 與共通 API 契約。
+- 優先處理各批次集中 TBD，避免頁面個別發明 Game Round、財務、監控、風控、權限或整合契約。
 - 取得必要輸入後，再將 Deferred 頁面重新排入範圍。
 - 第一個正式核准版本輸出單一 HTML 與 PDF 快照。

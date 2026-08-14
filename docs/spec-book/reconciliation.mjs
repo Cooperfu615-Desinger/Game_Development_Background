@@ -14,9 +14,9 @@ export const pageReconciliation = {
         '卡片數字、告警、通知及跨頁連結皆由前端 mock 提供。',
         'DEMO 目前只出現在環境／發布狀態說明，不納入正式財務指標。',
     ], [
-        '各摘要卡的資料來源、計算時間、更新頻率、失效與降級顯示仍待確認。',
-        '卡片導流、資料 scope 與 permission key 尚未形成正式契約。',
-        '通知中心已延後；儀表板上的通知區只能保留依賴標記，不可反推通知產品規格。',
+        'Batch B Draft 已定義即時狀態、期間摘要、趨勢、工作入口、遊戲概況及局部降級的時間語意。',
+        'Production 財務、Test 排除、精確 deep link 與各區塊驗收已有骨架；正式資料來源、API 與 permission key 仍待核准。',
+        '通知中心維持 Deferred；儀表板只保留依賴與降級規則，不反推通知產品規格。',
     ]),
     'game-list': record('aligned', [
         'Provider 負責遊戲主資料、全域上架／下架狀態及各環境的遊戲可服務狀態。',
@@ -139,9 +139,9 @@ export const pageReconciliation = {
         '健康、成功率、延遲、告警及未處理異常皆以 mock 資料呈現。',
         '可導向風控報表、告警處理及 Game Round，但目前只是前端 route。',
     ], [
-        '指標公式、門檻、採樣、資料來源、更新頻率與失效判定尚待後端確認。',
-        'Production／DEMO 監控資料的差異、降級與無資料契約尚未核准。',
-        '查詢、詳情、跨頁 query、API 與權限尚待正式定義。',
+        'Batch B Draft 已定義五張卡公式、目前狀態／分析窗口、11 欄列表、詳情、狀態與 deep link。',
+        'Production／DEMO 單選、Test 排除、局部降級與無資料顯示已有交付骨架。',
+        '正式門檻、採樣、更新頻率、API schema、敏感欄位與 permission key 仍依集中 TBD 管理。',
     ]),
     'risk-reports': record('aligned', [
         '本頁用於 Provider 自身 Risk Event 分析，不等同 Alert 工作佇列。',
@@ -152,9 +152,9 @@ export const pageReconciliation = {
         '事件類型、嚴重度、門檻、自動緩解及 GGAP 通知均由 mock 呈現。',
         '頁面偏分析與追蹤，處理操作主要導向告警頁。',
     ], [
-        'Risk Event schema、ID、enum、聚合、保存與資料更正規則尚待核准。',
-        '門檻、統計窗口、自動緩解與 GGAP 通知契約仍待正式確認。',
-        '查詢、詳情、匯出 API、敏感欄位與權限尚未定義。',
+        'Batch B Draft 已定義 rolling window、五張卡、待關注排序、15 欄列表、大型詳情與精確 deep link。',
+        '頁面維持唯讀，處理導向 Alert；Production／DEMO 單選與 Test 排除已有完整驗收骨架。',
+        '正式 Event schema／enum、門檻、保存、API、遮罩、匯出與 permission key 仍依集中 TBD 管理。',
     ]),
     'risk-alerts': record('attention', [
         'Alert 是需要追蹤／處理的工作單位，與 Risk Event、緩解狀態及隔離狀態分開。',
@@ -165,9 +165,9 @@ export const pageReconciliation = {
         '操作結果、狀態流轉、健康檢查、GGAP 通知及重試皆由前端 mock 模擬。',
         '畫面擬真度高，容易被誤認為正式處理流程已核准。',
     ], [
-        'Alert 狀態機、操作前置條件、權限、併發、失敗與補償流程尚待核准。',
-        '自動緩解、隔離、解除、健康檢查及 GGAP 通知契約仍未正式確認。',
-        '工作佇列 API、操作稽核、保存與敏感資料規則尚待定義。',
+        'Batch B Draft 已定義五張工作卡、16 欄佇列、大型詳情、操作前置條件、四維狀態與衝突處理。',
+        '隔離只阻擋新 Launch、既有 Round 持續 Settle／Callback／audit，且 GGAP 通知不等同平台完成。',
+        '正式狀態機、allowed-actions、API、permission／核准、冪等、補償、保存與 audit 仍依集中 TBD 管理。',
     ]),
     'website-banners': record('aligned', [
         'Provider 可管理自身遊戲官網的 Banner 素材、文字與發布狀態。',

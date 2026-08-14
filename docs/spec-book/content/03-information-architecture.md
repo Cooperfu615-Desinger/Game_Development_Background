@@ -46,7 +46,14 @@ Batch A 已完成三頁完整 Draft：
 - 財務總覽：完成查詢、八張摘要卡、財務／活動趨勢、遊戲排行、匯出、狀態、API 責任與驗收規格。
 - 代理商 × 遊戲彙總：完成查詢、六張摘要卡、11 欄彙總、排序分頁、Game Round 導流、自訂匯出、狀態、API 責任與驗收規格。
 
-上述頁面仍是 Draft；正式公式、decimal 精度、狀態生命週期、API schema、權限與外部契約仍依集中 TBD 管理。其餘 Batch B–D 頁面維持 Active／Outline，等待後續批次整理。
+Batch B 已完成四頁完整 Draft：
+
+- 儀表板：完成即時狀態、Production 營運摘要、趨勢、待處理工作、遊戲概況與通知 Deferred 邊界。
+- 監控總覽：完成五張指標卡、目前狀態／分析窗口、11 欄遊戲列表、大型詳情與精確導流。
+- 風控報表：完成 Risk Event 滾動時間、五張摘要、待關注排序、15 欄列表、詳情與完整結果匯出。
+- 風控告警／處理：完成 Alert 五張工作卡、16 欄佇列、大型詳情、操作前置條件、隔離 Guardrail 與 audit 骨架。
+
+Batch A／B 頁面仍是 Draft；正式公式、門檻、decimal 精度、狀態生命週期、API schema、權限與外部契約仍依集中 TBD 管理。其餘 Batch C–D 頁面維持 Active／Outline，等待後續批次整理。
 
 ## 完整頁面矩陣
 

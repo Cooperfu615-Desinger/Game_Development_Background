@@ -1,0 +1,1335 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="21 個本輪頁面的來源、批次、逐面向完成度與待補主題。">
+    <meta name="color-scheme" content="light">
+    <title>第一階段頁面完成度矩陣｜Provider Portal 產品與系統規格書</title>
+    <link rel="stylesheet" href="assets/site.css">
+    <script src="assets/search-index.js" defer></script>
+    <script src="assets/site.js" defer></script>
+</head>
+<body data-page-id="page-readiness-matrix">
+    <a class="skip-link" href="#main-content">跳至主要內容</a>
+    <header class="topbar">
+        <button class="icon-button nav-trigger" type="button" data-nav-trigger aria-label="開啟規格目錄" aria-expanded="false" aria-controls="spec-navigation">
+            <span></span><span></span><span></span>
+        </button>
+        <a class="wordmark" href="index.html" aria-label="回到規格書首頁">
+            <span class="wordmark-mark" aria-hidden="true">▦</span>
+            <span><strong>Provider Portal</strong><small>產品與系統規格書</small></span>
+        </a>
+        <button class="search-trigger" type="button" data-search-trigger>
+            <span aria-hidden="true">⌕</span>
+            <span>搜尋規格</span>
+            <kbd>⌘ K</kbd>
+        </button>
+        <div class="topbar-meta">
+            <strong class="spec-context-label">SPEC</strong>
+            <span>0.4.0-readiness-audit</span>
+            <span class="topbar-status">Authoring Format Confirmed · Phase 1 Readiness Audited</span>
+        </div>
+    </header>
+
+    <div class="shell">
+        <aside class="sidebar" id="spec-navigation" data-sidebar>
+            <div class="sidebar-intro">
+                <span class="sidebar-kicker">SPECIFICATION MANUAL</span>
+                <p>2026-08-14 更新</p>
+            </div>
+            <nav aria-label="規格書章節">
+
+        <details class="nav-group" >
+            <summary>開始閱讀<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="index.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>規格書首頁</span>
+
+                    </a><a href="document-control.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>文件治理與使用方式</span>
+
+                    </a><a href="product-overview.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>產品定位與目標</span>
+
+                    </a><a href="system-boundary.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>系統與責任邊界</span>
+
+                    </a><a href="information-architecture.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>資訊架構與頁面地圖</span>
+
+                    </a><a href="common-domain-rules.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>共通領域規則</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.1 總覽<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="dashboard-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="dashboard.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>儀表板</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.2 遊戲管理<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="game-management-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="game-list.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲列表</span>
+
+                    </a><a href="game-environments.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>環境與發布</span>
+
+                    </a><a href="game-settings.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲設定</span>
+
+                    </a><a href="game-math.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>數值設定</span>
+
+                    </a><a href="game-versions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲版本</span>
+
+                    </a><a href="game-assets.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲素材</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.3 數據與報表<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="data-reporting-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="game-round-records.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲紀錄</span>
+                        <b>PILOT</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.4 遊戲商財務<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="provider-finance-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="finance-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>財務總覽</span>
+
+                    </a><a href="finance-agent-games.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>代理商 × 遊戲彙總</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.5 遊戲監控與風控<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="monitoring-risk-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="monitoring-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>監控總覽</span>
+
+                    </a><a href="risk-reports.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>風控報表</span>
+
+                    </a><a href="risk-alerts.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>風控告警／處理</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.6 GGAP 對接<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="ggap-integration-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>對接總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-catalog-sync.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲目錄同步</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-requests.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>請求與回呼紀錄</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-errors.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>錯誤與重試</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-settings.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>對接設定</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.7 通知中心<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="notifications-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="notifications.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>全部通知</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="notification-preferences.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>通知偏好</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.8 官方網站<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="official-website-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="website-banners.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>Banner 管理</span>
+
+                    </a><a href="website-content.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>內容管理</span>
+
+                    </a><a href="website-releases.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>發布紀錄</span>
+
+                    </a><a href="lobby-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>大廳總覽</span>
+
+                    </a><a href="lobby-games.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲清單</span>
+
+                    </a><a href="lobby-management.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲管理</span>
+
+                    </a><a href="lobby-demo.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>DEMO環境數據</span>
+
+                    </a><a href="lobby-preview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>大廳預覽</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.9 系統設定<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="system-settings-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>設定總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-permissions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>使用者與權限</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-api-keys.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>API key 與憑證</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-audit-logs.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>操作紀錄</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>共通規格<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="api-integration.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>API 與整合契約</span>
+
+                    </a><a href="security-permissions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>安全與權限</span>
+
+                    </a><a href="non-functional-requirements.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>非功能性需求</span>
+
+                    </a><a href="acceptance-qa.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>驗收與 QA</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" open>
+            <summary>附錄<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="data-dictionary.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>資料字典</span>
+
+                    </a><a href="status-enums.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>狀態與枚舉</span>
+
+                    </a><a href="route-page-matrix.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>Route 與頁面矩陣</span>
+
+                    </a><a href="open-issues.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>待決策與校正清單</span>
+
+                    </a><a href="changelog.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>版本紀錄</span>
+
+                    </a><a href="spec-book-authoring-guide.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>規格書撰寫與交接規範</span>
+
+                    </a><a href="page-readiness-matrix.html" aria-current="page">
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>第一階段頁面完成度矩陣</span>
+
+                    </a>
+            </div>
+        </details>
+
+            </nav>
+            <div class="sidebar-legend">
+                <p>規格狀態</p>
+                <span><i class="status-dot status-confirmed"></i>已確認</span><span><i class="status-dot status-draft"></i>草案</span><span><i class="status-dot status-outline"></i>待整理</span><span><i class="status-dot status-tbd"></i>待決策</span>
+            </div>
+        </aside>
+        <button class="sidebar-scrim" type="button" data-nav-close aria-label="關閉規格目錄"></button>
+
+        <main id="main-content" class="main-content" tabindex="-1">
+            <div class="page-frame ">
+                <header class="page-header">
+                    <div>
+                        <p class="eyebrow">附錄 G</p>
+                        <h1>第一階段頁面完成度矩陣</h1>
+                        <p class="page-summary">21 個本輪頁面的來源、批次、逐面向完成度與待補主題。</p>
+                    </div>
+                    <div class="page-status-stack">
+                        <span class="status-badge status-outline">待整理</span>
+
+
+                    </div>
+                </header>
+
+                <section class="metadata-card" aria-label="章節追溯資訊">
+        <div class="metadata-grid">
+            <div><span>章節編號</span><code>G</code></div><div><span>規格狀態</span><code>待整理</code></div>
+        </div>
+    </section>
+
+
+                <div class="content-layout">
+                    <article class="spec-content">
+                        <p>本章是規格整理工作的現況稽核，不是產品完成率，也不是開發進度。評級以目前可追溯的 Spec、頁面原型及程式對應為依據，用來決定接下來需要補齊什麼；不會把 mock 或推測升格為正式契約。</p>
+<h2 id="評級規則">評級規則</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>評級</th>
+<th>定義</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>完整（C）</td>
+<td>現有資料已明確涵蓋該面向，足以整理進完整頁面規格；仍可能含待核准契約</td>
+</tr>
+<tr>
+<td>部分（P）</td>
+<td>已有方向或片段內容，但不足以形成完整、可驗收的規格</td>
+</tr>
+<tr>
+<td>缺少（M）</td>
+<td>現有資料沒有頁面層級的有效定義，後續必須補寫或決策</td>
+</tr>
+<tr>
+<td>不適用（—）</td>
+<td>該面向不適用於此頁；不可用來代替「尚未整理」</td>
+</tr>
+</tbody></table></div>
+<blockquote>
+<p>完整不等於 Confirmed。成熟度、製作範圍與逐面向完成度是三個不同維度。</p>
+</blockquote>
+<h2 id="矩陣產生原則">矩陣產生原則</h2><ul>
+<li>本矩陣只包含 1 頁 Baseline 與 20 頁 Active；11 頁 Deferred 不進行內容完成度評估。</li>
+<li>Route、元件、原型、來源、成熟度與製作範圍取自集中 manifest。</li>
+<li>逐面向評級與待補主題維護於 <code>docs/spec-book/readiness.mjs</code>。</li>
+<li>「待補主題數」是本次稽核辨識的主題數，不等於正式 TBD ID 數量。</li>
+<li>每次頁面規格整理、產品決策或契約核准後，必須同步更新本矩陣。</li>
+</ul>
+<h2 id="本輪總覽">本輪總覽</h2><section class="readiness-summary-grid" aria-label="第一階段完成度摘要">
+<div><strong>21</strong><span>評估頁面</span><small>Baseline + Active</small></div>
+<div class="readiness-summary-complete"><strong>85</strong><span>完整面向</span><small>可進入頁面規格整理</small></div>
+<div class="readiness-summary-partial"><strong>108</strong><span>部分面向</span><small>需補成可驗收敘述</small></div>
+<div class="readiness-summary-missing"><strong>59</strong><span>缺少面向</span><small>需補寫或決策</small></div>
+</section><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>批次</th>
+<th align="right">頁面數</th>
+<th>內容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td align="right">3</td>
+<td>遊戲紀錄與財務鏈</td>
+</tr>
+<tr>
+<td>B</td>
+<td align="right">4</td>
+<td>儀表板、監控與風控鏈</td>
+</tr>
+<tr>
+<td>C</td>
+<td align="right">6</td>
+<td>遊戲生命週期</td>
+</tr>
+<tr>
+<td>D</td>
+<td align="right">8</td>
+<td>官方網站與遊戲大廳</td>
+</tr>
+</tbody></table></div>
+<h2 id="頁面清冊與批次">頁面清冊與批次</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th align="center">批次</th>
+<th>模組</th>
+<th>頁面</th>
+<th>Route</th>
+<th>前端元件</th>
+<th>原型</th>
+<th>成熟度</th>
+<th>製作範圍</th>
+<th>主要來源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">B</td>
+<td>總覽</td>
+<td><a href="dashboard.html">儀表板</a></td>
+<td><code>/dashboard</code></td>
+<td><code>src/views/Provider/Dashboard.vue</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td>本輪製作</td>
+<td><code>PROVIDER_DASHBOARD_SPEC.md</code></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td>遊戲管理</td>
+<td><a href="game-list.html">遊戲列表</a></td>
+<td><code>/games</code></td>
+<td><code>src/views/Games/Index.vue</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td>本輪製作</td>
+<td><code>GAME_LIST_SPEC.md</code></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td>遊戲管理</td>
+<td><a href="game-environments.html">環境與發布</a></td>
+<td><code>/games/environments</code></td>
+<td><code>src/views/Provider/Placeholder.vue</code></td>
+<td>Placeholder</td>
+<td>待整理</td>
+<td>本輪製作</td>
+<td><code>PROVIDER_PORTAL_SPEC.md</code><br><code>PROVIDER_GGAP_INTEGRATION_CONTRACT.md</code></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td>遊戲管理</td>
+<td><a href="game-settings.html">遊戲設定</a></td>
+<td><code>/games/settings</code></td>
+<td><code>src/views/Games/Settings.vue</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td>本輪製作</td>
+<td><code>PROVIDER_PORTAL_PAGE_MAP.md</code></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td>遊戲管理</td>
+<td><a href="game-math.html">數值設定</a></td>
+<td><code>/games/math</code></td>
+<td><code>src/views/Games/Math.vue</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td>本輪製作</td>
+<td><code>PROVIDER_RISK_CONTROL_SPEC.md</code></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td>遊戲管理</td>
+<td><a href="game-versions.html">遊戲版本</a></td>
+<td><code>/games/versions</code></td>
+<td><code>src/views/Games/Versions.vue</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td>本輪製作</td>
+<td><code>GAME_LIST_SPEC.md</code></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td>遊戲管理</td>
+<td><a href="game-assets.html">遊戲素材</a></td>
+<td><code>/games/assets</code></td>
+<td><code>src/views/Games/Assets.vue</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td>本輪製作</td>
+<td><code>PROVIDER_PORTAL_PAGE_MAP.md</code></td>
+</tr>
+<tr>
+<td align="center">A</td>
+<td>數據與報表</td>
+<td><a href="game-round-records.html">遊戲紀錄</a></td>
+<td><code>/reports</code></td>
+<td><code>src/views/Reports/ProviderGameRounds.vue</code></td>
+<td>內容原型</td>
+<td>草案</td>
+<td>基準範本</td>
+<td><code>GAME_ROUND_AND_REPORTING_SPEC.md</code><br><code>GAME_ROUND_RECORDS_SPEC.md</code><br><code>GAME_VENDOR_FINANCE_REPORTING_SPEC.md</code><br><code>PROVIDER_GGAP_INTEGRATION_CONTRACT.md</code><br><code>PROVIDER_PORTAL_UI_LAYOUT_SPEC.md</code></td>
+</tr>
+<tr>
+<td align="center">A</td>
+<td>遊戲商財務</td>
+<td><a href="finance-overview.html">財務總覽</a></td>
+<td><code>/finance</code></td>
+<td><code>src/views/Finance/Overview.vue</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td>本輪製作</td>
+<td><code>GAME_VENDOR_FINANCE_OVERVIEW_SPEC.md</code><br><code>GAME_VENDOR_FINANCE_REPORTING_SPEC.md</code></td>
+</tr>
+<tr>
+<td align="center">A</td>
+<td>遊戲商財務</td>
+<td><a href="finance-agent-games.html">代理商 × 遊戲彙總</a></td>
+<td><code>/finance/agent-games</code></td>
+<td><code>src/views/Finance/AgentGames.vue</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td>本輪製作</td>
+<td><code>GAME_VENDOR_FINANCE_AGENT_GAME_SPEC.md</code><br><code>GAME_VENDOR_FINANCE_REPORTING_SPEC.md</code></td>
+</tr>
+<tr>
+<td align="center">B</td>
+<td>遊戲監控與風控</td>
+<td><a href="monitoring-overview.html">監控總覽</a></td>
+<td><code>/monitoring</code></td>
+<td><code>src/views/Provider/MonitoringOverview.vue</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td>本輪製作</td>
+<td><code>PROVIDER_MONITORING_OVERVIEW_SPEC.md</code></td>
+</tr>
+<tr>
+<td align="center">B</td>
+<td>遊戲監控與風控</td>
+<td><a href="risk-reports.html">風控報表</a></td>
+<td><code>/monitoring/risk-reports</code></td>
+<td><code>src/views/Provider/RiskReports.vue</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td>本輪製作</td>
+<td><code>PROVIDER_RISK_REPORT_SPEC.md</code><br><code>PROVIDER_RISK_CONTROL_SPEC.md</code></td>
+</tr>
+<tr>
+<td align="center">B</td>
+<td>遊戲監控與風控</td>
+<td><a href="risk-alerts.html">風控告警／處理</a></td>
+<td><code>/monitoring/alerts</code></td>
+<td><code>src/views/Provider/RiskAlerts.vue</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td>本輪製作</td>
+<td><code>PROVIDER_RISK_ALERT_HANDLING_SPEC.md</code><br><code>PROVIDER_RISK_CONTROL_SPEC.md</code></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td>官方網站</td>
+<td><a href="website-banners.html">Banner 管理</a></td>
+<td><code>/website/banners</code></td>
+<td><code>src/views/GameWebsite/Banners.vue</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td>本輪製作</td>
+<td><code>GAME_WEBSITE_SPEC.md</code></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td>官方網站</td>
+<td><a href="website-content.html">內容管理</a></td>
+<td><code>/website/content</code></td>
+<td><code>src/views/GameWebsite/Content.vue</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td>本輪製作</td>
+<td><code>GAME_WEBSITE_SPEC.md</code></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td>官方網站</td>
+<td><a href="website-releases.html">發布紀錄</a></td>
+<td><code>/website/releases</code></td>
+<td><code>src/views/GameWebsite/Releases.vue</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td>本輪製作</td>
+<td><code>GAME_WEBSITE_SPEC.md</code></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td>官方網站</td>
+<td><a href="lobby-overview.html">大廳總覽</a></td>
+<td><code>/lobby</code></td>
+<td><code>src/views/GameLobby/Overview.vue</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td>本輪製作</td>
+<td><code>GAME_LOBBY_SPEC.md</code></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td>官方網站</td>
+<td><a href="lobby-games.html">遊戲清單</a></td>
+<td><code>/lobby/games</code></td>
+<td><code>src/views/GameLobby/Games.vue</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td>本輪製作</td>
+<td><code>GAME_LOBBY_SPEC.md</code></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td>官方網站</td>
+<td><a href="lobby-management.html">遊戲管理</a></td>
+<td><code>/lobby/management</code></td>
+<td><code>src/views/GameLobby/Management.vue</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td>本輪製作</td>
+<td><code>GAME_LOBBY_SPEC.md</code></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td>官方網站</td>
+<td><a href="lobby-demo.html">DEMO環境數據</a></td>
+<td><code>/lobby/demo</code></td>
+<td><code>src/views/GameLobby/DemoData.vue</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td>本輪製作</td>
+<td><code>GAME_LOBBY_SPEC.md</code></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td>官方網站</td>
+<td><a href="lobby-preview.html">大廳預覽</a></td>
+<td><code>/lobby/preview</code></td>
+<td><code>src/views/GameLobby/Preview.vue</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td>本輪製作</td>
+<td><code>GAME_LOBBY_SPEC.md</code></td>
+</tr>
+</tbody></table></div>
+<h2 id="產品與-ui-完成度">產品與 UI 完成度</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th align="center">批次</th>
+<th>頁面</th>
+<th align="center">目的與情境</th>
+<th align="center">責任邊界</th>
+<th align="center">畫面結構</th>
+<th align="center">欄位規則</th>
+<th align="center">互動行為</th>
+<th align="center">頁面狀態</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">B</td>
+<td><a href="dashboard.html">儀表板</a></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-list.html">遊戲列表</a></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-environments.html">環境與發布</a></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-settings.html">遊戲設定</a></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-math.html">數值設定</a></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-versions.html">遊戲版本</a></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-assets.html">遊戲素材</a></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+</tr>
+<tr>
+<td align="center">A</td>
+<td><a href="game-round-records.html">遊戲紀錄</a></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+</tr>
+<tr>
+<td align="center">A</td>
+<td><a href="finance-overview.html">財務總覽</a></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">A</td>
+<td><a href="finance-agent-games.html">代理商 × 遊戲彙總</a></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">B</td>
+<td><a href="monitoring-overview.html">監控總覽</a></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+</tr>
+<tr>
+<td align="center">B</td>
+<td><a href="risk-reports.html">風控報表</a></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">B</td>
+<td><a href="risk-alerts.html">風控告警／處理</a></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="website-banners.html">Banner 管理</a></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="website-content.html">內容管理</a></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="website-releases.html">發布紀錄</a></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="lobby-overview.html">大廳總覽</a></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="lobby-games.html">遊戲清單</a></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="lobby-management.html">遊戲管理</a></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="lobby-demo.html">DEMO環境數據</a></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="lobby-preview.html">大廳預覽</a></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+</tbody></table></div>
+<h2 id="開發交付完成度">開發交付完成度</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th align="center">批次</th>
+<th>頁面</th>
+<th align="center">API 契約</th>
+<th align="center">資料／計算</th>
+<th align="center">權限／稽核</th>
+<th align="center">響應式／無障礙</th>
+<th align="center">驗收／測試</th>
+<th align="center">跨頁依賴</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">B</td>
+<td><a href="dashboard.html">儀表板</a></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-list.html">遊戲列表</a></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-environments.html">環境與發布</a></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-settings.html">遊戲設定</a></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-math.html">數值設定</a></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-versions.html">遊戲版本</a></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-assets.html">遊戲素材</a></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">A</td>
+<td><a href="game-round-records.html">遊戲紀錄</a></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+</tr>
+<tr>
+<td align="center">A</td>
+<td><a href="finance-overview.html">財務總覽</a></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+</tr>
+<tr>
+<td align="center">A</td>
+<td><a href="finance-agent-games.html">代理商 × 遊戲彙總</a></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+</tr>
+<tr>
+<td align="center">B</td>
+<td><a href="monitoring-overview.html">監控總覽</a></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+</tr>
+<tr>
+<td align="center">B</td>
+<td><a href="risk-reports.html">風控報表</a></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+</tr>
+<tr>
+<td align="center">B</td>
+<td><a href="risk-alerts.html">風控告警／處理</a></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="website-banners.html">Banner 管理</a></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="website-content.html">內容管理</a></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="website-releases.html">發布紀錄</a></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="lobby-overview.html">大廳總覽</a></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="lobby-games.html">遊戲清單</a></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="lobby-management.html">遊戲管理</a></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="lobby-demo.html">DEMO環境數據</a></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-complete" title="完整">C</span><span class="sr-only">完整</span></td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="lobby-preview.html">大廳預覽</a></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+<td align="center"><span class="readiness-badge readiness-missing" title="缺少">M</span><span class="sr-only">缺少</span></td>
+<td align="center"><span class="readiness-badge readiness-partial" title="部分">P</span><span class="sr-only">部分</span></td>
+</tr>
+</tbody></table></div>
+<h2 id="待補主題與阻擋">待補主題與阻擋</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th align="center">批次</th>
+<th>頁面</th>
+<th align="right">待補主題數</th>
+<th>待補主題／阻擋</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">B</td>
+<td><a href="dashboard.html">儀表板</a></td>
+<td align="right">3</td>
+<td>1. 跨模組摘要的正式聚合口徑與資料來源<br>2. 更新頻率、資料新鮮度與降級顯示契約<br>3. 卡片導流與資料檢視權限</td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-list.html">遊戲列表</a></td>
+<td align="right">3</td>
+<td>1. 遊戲與環境狀態的正式來源及狀態轉換<br>2. 全域上架／下架 API、權限與操作稽核<br>3. Loading、error、permission denied 與批次操作規則</td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-environments.html">環境與發布</a></td>
+<td align="right">3</td>
+<td>1. Provider 自有發布流程、狀態與版本／素材綁定<br>2. 發布前驗證、失敗、歷程與回復策略<br>3. GGAP 同步與代理商開放控制契約（等待 GGAP 規格）</td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-settings.html">遊戲設定</a></td>
+<td align="right">3</td>
+<td>1. 設定分類、欄位 schema、預設值與驗證規則<br>2. 設定與遊戲版本／環境的綁定方式<br>3. 儲存、發布、權限與異動稽核契約</td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-math.html">數值設定</a></td>
+<td align="right">3</td>
+<td>1. 數值設定模型、精度、合法範圍與版本策略<br>2. 驗證、審核、發布及不可逆操作規則<br>3. 數值設定與風控監測門檻的責任關係</td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-versions.html">遊戲版本</a></td>
+<td align="right">3</td>
+<td>1. 版本生命週期、相容性、鎖定與狀態轉換<br>2. 版本與數值／素材／環境的發布綁定<br>3. 回復、刪除限制、權限與操作稽核</td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td><a href="game-assets.html">遊戲素材</a></td>
+<td align="right">3</td>
+<td>1. 素材類型、格式、大小、儲存與驗證規則<br>2. 素材與版本、語系、裝置及環境的綁定<br>3. 上傳、替換、發布、權限與稽核契約</td>
+</tr>
+<tr>
+<td align="center">A</td>
+<td><a href="game-round-records.html">遊戲紀錄</a></td>
+<td align="right">4</td>
+<td>1. 正式 Game Round 狀態 enum 與生命週期<br>2. Provider／GGAP Round ID、重送與冪等契約<br>3. 金額精度、會員識別遮罩、匯出與 permission key<br>4. 正式 API path、schema、錯誤碼與效能門檻</td>
+</tr>
+<tr>
+<td align="center">A</td>
+<td><a href="finance-overview.html">財務總覽</a></td>
+<td align="right">3</td>
+<td>1. 正式聚合口徑、點數／USDT 精度與資料更正規則<br>2. 摘要、趨勢與排行的 API／效能契約<br>3. 資料可見範圍、匯出與財務檢視權限</td>
+</tr>
+<tr>
+<td align="center">A</td>
+<td><a href="finance-agent-games.html">代理商 × 遊戲彙總</a></td>
+<td align="right">3</td>
+<td>1. 代理商識別快照來源與歷史名稱顯示規則<br>2. 聚合計算、精度、分頁排序與資料更正契約<br>3. 自訂匯出、Game Round 導流與權限 API</td>
+</tr>
+<tr>
+<td align="center">B</td>
+<td><a href="monitoring-overview.html">監控總覽</a></td>
+<td align="right">3</td>
+<td>1. 監控指標公式、門檻、採樣與資料來源<br>2. 更新頻率、資料延遲、可用性與降級契約<br>3. 查詢、詳情與跨頁導流 API／權限</td>
+</tr>
+<tr>
+<td align="center">B</td>
+<td><a href="risk-reports.html">風控報表</a></td>
+<td align="right">3</td>
+<td>1. Risk Event 正式 schema、enum 與聚合規則<br>2. 查詢、詳情、匯出 API 與保存期限<br>3. 敏感欄位、資料範圍與檢視權限</td>
+</tr>
+<tr>
+<td align="center">B</td>
+<td><a href="risk-alerts.html">風控告警／處理</a></td>
+<td align="right">3</td>
+<td>1. Alert 操作權限、狀態流轉、併發與失敗處理<br>2. 自動緩解、GGAP 通知及人工處理契約<br>3. 工作佇列 API、操作稽核與保存規則</td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="website-banners.html">Banner 管理</a></td>
+<td align="right">3</td>
+<td>1. Banner schema、媒體限制與裝置／語系規則<br>2. 排程、發布、版本、失敗與回復流程<br>3. 內容操作權限、API 與異動稽核</td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="website-content.html">內容管理</a></td>
+<td align="right">3</td>
+<td>1. 多語內容 schema、必填、驗證與 fallback 規則<br>2. 草稿、預覽、發布、失敗與版本流程<br>3. 內容操作權限、API 與異動稽核</td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="website-releases.html">發布紀錄</a></td>
+<td align="right">3</td>
+<td>1. 發布快照、狀態、版本與變更內容模型<br>2. 失敗、取消、回復及不可逆操作規則<br>3. 發布權限、API、操作人與稽核保存契約</td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="lobby-overview.html">大廳總覽</a></td>
+<td align="right">3</td>
+<td>1. 大廳公開狀態與檢查結果的正式計算規則<br>2. 總覽指標、資料來源與更新頻率<br>3. 跨頁導流、API 與資料檢視權限</td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="lobby-games.html">遊戲清單</a></td>
+<td align="right">3</td>
+<td>1. 遊戲納入條件、可見狀態、排序與環境隔離<br>2. 批次操作、失敗、衝突與儲存規則<br>3. 管理 API、權限與操作稽核</td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="lobby-management.html">遊戲管理</a></td>
+<td align="right">3</td>
+<td>1. 管理草稿、公開版本與變更集模型<br>2. 公開前驗證、衝突、失敗與回復規則<br>3. 發布 API、權限與操作稽核</td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="lobby-demo.html">DEMO環境數據</a></td>
+<td align="right">3</td>
+<td>1. DEMO 資料隔離、保存期限與重設規則<br>2. 展示指標的 schema、時間口徑與資料來源<br>3. DEMO 帳號、查詢 API 與檢視權限</td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td><a href="lobby-preview.html">大廳預覽</a></td>
+<td align="right">3</td>
+<td>1. 預覽資料來源、草稿版本與公開版本切換<br>2. 語系、裝置、環境模式與失效狀態<br>3. 預覽存取權、分享方式與 API 契約</td>
+</tr>
+</tbody></table></div>
+<h2 id="使用方式">使用方式</h2><ol>
+<li>先確認頁面所在批次與主要來源。</li>
+<li>優先處理標記為「缺少」且會影響資料、API、權限或驗收的面向。</li>
+<li>「部分」需在撰寫頁面規格時補成可驗收敘述，或明確轉為具 owner 的 TBD。</li>
+<li>頁面完成後重新評級；所有面向不必全部為「完整」，但任何保留的缺口都必須有明確阻擋範圍。</li>
+<li>Deferred 頁面只有在必要輸入齊備並重新排入 Active 後，才加入本矩陣。</li>
+</ol>
+
+                    </article>
+                    <aside class="page-outline" aria-label="本頁目錄">
+        <p>本頁目錄</p>
+        <nav><a class="outline-level-2" href="#評級規則">評級規則</a><a class="outline-level-2" href="#矩陣產生原則">矩陣產生原則</a><a class="outline-level-2" href="#本輪總覽">本輪總覽</a><a class="outline-level-2" href="#頁面清冊與批次">頁面清冊與批次</a><a class="outline-level-2" href="#產品與-ui-完成度">產品與 UI 完成度</a><a class="outline-level-2" href="#開發交付完成度">開發交付完成度</a><a class="outline-level-2" href="#待補主題與阻擋">待補主題與阻擋</a><a class="outline-level-2" href="#使用方式">使用方式</a></nav>
+        <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
+    </aside>
+                </div>
+
+                <nav class="previous-next" aria-label="上一章與下一章">
+        <a class="previous-link" href="spec-book-authoring-guide.html"><span>← 上一章</span><strong>規格書撰寫與交接規範</strong></a>
+        <span></span>
+    </nav>
+                <footer class="document-footer">
+                    <span>Provider Portal Product / Engineering</span>
+                    <span>0.4.0-readiness-audit · 2026-08-14</span>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <dialog class="search-dialog" data-search-dialog aria-labelledby="search-dialog-title">
+        <div class="search-dialog-header">
+            <div>
+                <p class="eyebrow">全文檢索</p>
+                <h2 id="search-dialog-title">搜尋規格書</h2>
+            </div>
+            <button class="icon-button dialog-close" type="button" data-search-close aria-label="關閉搜尋">×</button>
+        </div>
+        <label class="search-field">
+            <span class="sr-only">輸入章節、route、欄位或關鍵字</span>
+            <span aria-hidden="true">⌕</span>
+            <input type="search" data-search-input autocomplete="off" placeholder="例如：Game Round、/reports、USDT">
+        </label>
+        <p class="search-hint" data-search-hint>可搜尋章節名稱、內文、route、欄位與技術值。</p>
+        <div class="search-results" data-search-results></div>
+    </dialog>
+</body>
+</html>

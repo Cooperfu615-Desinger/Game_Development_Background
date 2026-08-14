@@ -11,6 +11,11 @@ import {
     scopeLabels,
     statusLabels,
 } from '../docs/spec-book/manifest.mjs'
+import {
+    pageReadiness,
+    readinessDimensions,
+    readinessLevels,
+} from '../docs/spec-book/readiness.mjs'
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url))
 const repositoryRoot = path.resolve(scriptDirectory, '..')
@@ -64,6 +69,7 @@ const documents = [
 ]
 
 const pageMatrixMarkdown = createPageMatrix()
+const readinessFragments = createReadinessFragments()
 const renderedDocuments = []
 
 for (const document of documents) {
@@ -87,6 +93,10 @@ for (const document of documents) {
         markdown = markdown.includes(marker)
             ? markdown.replace(marker, pageMatrixMarkdown)
             : `${markdown}\n\n${pageMatrixMarkdown}`
+    }
+
+    if (document.generatedReadiness) {
+        markdown = replaceReadinessMarkers(markdown, readinessFragments)
     }
 
     if (document.visualAtTop) {
@@ -592,6 +602,95 @@ function createPageMatrix() {
     return `| 模組 | 頁面 | Route | 畫面現況 | 規格狀態 | 製作範圍 | 前端元件 |
 | --- | --- | --- | --- | --- | --- | --- |
 ${rows.join('\n')}`
+}
+
+function createReadinessFragments() {
+    const assessedPages = allContentPages.filter((page) => ['baseline', 'active'].includes(page.scope))
+    const dimensions = [...readinessDimensions.productUi, ...readinessDimensions.delivery]
+    const levelCounts = Object.fromEntries(Object.keys(readinessLevels).map((key) => [key, 0]))
+
+    for (const page of assessedPages) {
+        const record = pageReadiness[page.id]
+        if (!record) throw new Error(`缺少頁面完成度資料：${page.id}`)
+        for (const dimension of dimensions) {
+            if (!readinessLevels[record[dimension.key]]) {
+                throw new Error(`${page.id} 的 ${dimension.key} 使用未知完成度：${record[dimension.key]}`)
+            }
+            levelCounts[record[dimension.key]] += 1
+        }
+    }
+
+    const batchCounts = Object.fromEntries(['A', 'B', 'C', 'D'].map((batch) => [batch, assessedPages.filter((page) => pageReadiness[page.id].batch === batch).length]))
+    const summary = `<section class="readiness-summary-grid" aria-label="第一階段完成度摘要">
+<div><strong>${assessedPages.length}</strong><span>評估頁面</span><small>Baseline + Active</small></div>
+<div class="readiness-summary-complete"><strong>${levelCounts.complete}</strong><span>完整面向</span><small>可進入頁面規格整理</small></div>
+<div class="readiness-summary-partial"><strong>${levelCounts.partial}</strong><span>部分面向</span><small>需補成可驗收敘述</small></div>
+<div class="readiness-summary-missing"><strong>${levelCounts.missing}</strong><span>缺少面向</span><small>需補寫或決策</small></div>
+</section>
+
+| 批次 | 頁面數 | 內容 |
+|---|---:|---|
+| A | ${batchCounts.A} | 遊戲紀錄與財務鏈 |
+| B | ${batchCounts.B} | 儀表板、監控與風控鏈 |
+| C | ${batchCounts.C} | 遊戲生命週期 |
+| D | ${batchCounts.D} | 官方網站與遊戲大廳 |`
+
+    const inventoryRows = assessedPages.map((page) => {
+        const module = modules.find((item) => item.id === page.moduleId)
+        const status = statusLabels[page.status] || statusLabels.outline
+        const scope = scopeLabels[page.scope] || scopeLabels.active
+        const prototype = page.prototype === 'complete' ? '內容原型' : 'Placeholder'
+        const sources = page.sources.map((source) => `<code>${escapeHtml(source.replace(/^docs\//, ''))}</code>`).join('<br>')
+        return `| ${pageReadiness[page.id].batch} | ${module.title} | [${page.title}](${page.id}.html) | \`${page.route}\` | \`${page.component}\` | ${prototype} | ${status.label} | ${scope.label} | ${sources} |`
+    }).join('\n')
+    const inventory = `| 批次 | 模組 | 頁面 | Route | 前端元件 | 原型 | 成熟度 | 製作範圍 | 主要來源 |
+|:---:|---|---|---|---|---|---|---|---|
+${inventoryRows}`
+
+    const productUi = createDimensionMatrix(assessedPages, readinessDimensions.productUi)
+    const delivery = createDimensionMatrix(assessedPages, readinessDimensions.delivery)
+    const blockerRows = assessedPages.map((page) => {
+        const record = pageReadiness[page.id]
+        const blockers = record.blockers.map((item, index) => `${index + 1}. ${escapeHtml(item)}`).join('<br>')
+        return `| ${record.batch} | [${page.title}](${page.id}.html) | ${record.blockers.length} | ${blockers} |`
+    }).join('\n')
+    const blockers = `| 批次 | 頁面 | 待補主題數 | 待補主題／阻擋 |
+|:---:|---|---:|---|
+${blockerRows}`
+
+    return { summary, inventory, productUi, delivery, blockers }
+}
+
+function createDimensionMatrix(pages, dimensions) {
+    const header = `| 批次 | 頁面 | ${dimensions.map((item) => item.label).join(' | ')} |`
+    const divider = `|:---:|---|${dimensions.map(() => ':---:').join('|')}|`
+    const rows = pages.map((page) => {
+        const record = pageReadiness[page.id]
+        return `| ${record.batch} | [${page.title}](${page.id}.html) | ${dimensions.map((item) => readinessBadge(record[item.key])).join(' | ')} |`
+    }).join('\n')
+    return `${header}\n${divider}\n${rows}`
+}
+
+function readinessBadge(level) {
+    const item = readinessLevels[level]
+    return `<span class="readiness-badge readiness-${item.tone}" title="${escapeHtml(item.label)}">${escapeHtml(item.shortLabel)}</span><span class="sr-only">${escapeHtml(item.label)}</span>`
+}
+
+function replaceReadinessMarkers(markdown, fragments) {
+    const markers = {
+        GENERATED_READINESS_SUMMARY: fragments.summary,
+        GENERATED_READINESS_INVENTORY: fragments.inventory,
+        GENERATED_READINESS_PRODUCT_UI: fragments.productUi,
+        GENERATED_READINESS_DELIVERY: fragments.delivery,
+        GENERATED_READINESS_BLOCKERS: fragments.blockers,
+    }
+    let result = markdown
+    for (const [marker, value] of Object.entries(markers)) {
+        const token = `<!-- ${marker} -->`
+        if (!result.includes(token)) throw new Error(`找不到完成度矩陣標記：${marker}`)
+        result = result.replace(token, value)
+    }
+    return result
 }
 
 function moduleScope(module) {

@@ -1,6 +1,6 @@
 # 遊戲商 Provider Portal 文件索引
 
-> 文件版本：2.11.0
+> 文件版本：2.12.0
 > 更新日期：2026-08-14
 > 文件狀態：Provider Portal 導覽與頁面原型已整理；規格網站結構與撰寫規範已定版，正式 API、權限、警戒門檻、更新頻率與資料契約仍待確認
 
@@ -29,6 +29,9 @@
 - [`spec-book/SPEC_BOOK_AUTHORING_GUIDE.md`](./spec-book/SPEC_BOOK_AUTHORING_GUIDE.md)
   - 規格網站的定版寫作方法、頁面模板、Overview-first 規則、驗收標準、維護流程與跨專案移植方式。
   - 文件可獨立複製至其他專案使用；Provider Portal 專案實例集中於最後一章。
+- [`../public/provider-specs/page-readiness-matrix.html`](../public/provider-specs/page-readiness-matrix.html)
+  - 第一階段 21 頁的集中清冊、A–D 批次、逐面向完成度及待補主題。
+  - 11 個 Deferred 頁面不納入內容評估，待必要規格與產品決策齊備後再重新排程。
 
 > 上述交接文件已依 Provider Portal 方向整理，並將「目前原型實況」與「目標規格草案」分開標示。正式 API 與資料欄位仍需由後端與 GGAP 對接團隊核准。
 

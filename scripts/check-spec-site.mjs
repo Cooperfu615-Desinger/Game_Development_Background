@@ -2,11 +2,14 @@ import { access, readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { appendices, crossCutting, foundation, modules, scopeLabels } from '../docs/spec-book/manifest.mjs'
+import { pageReadiness, readinessDimensions, readinessLevels } from '../docs/spec-book/readiness.mjs'
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url))
 const repositoryRoot = path.resolve(scriptDirectory, '..')
 const outputRoot = path.join(repositoryRoot, 'public/provider-specs')
 const contentPages = modules.flatMap((module) => module.pages)
+const assessedPages = contentPages.filter((page) => ['baseline', 'active'].includes(page.scope))
+const readinessDimensionList = [...readinessDimensions.productUi, ...readinessDimensions.delivery]
 const expectedIds = [
     'index',
     ...foundation.map((item) => item.id),
@@ -25,6 +28,14 @@ assert(contentPages.filter((page) => page.scope === 'deferred').length === 11, '
 assert(contentPages.filter((page) => page.scope === 'blocked').length === 0, '目前不應有 Blocked 頁')
 assert(contentPages.every((page) => scopeLabels[page.scope]), '所有內容頁都必須使用已定義的製作範圍')
 assert(contentPages.find((page) => page.id === 'game-environments')?.scope === 'active', '環境與發布應保留為 Active')
+assert(assessedPages.length === 21, '完成度矩陣應評估 21 頁')
+assert(Object.keys(pageReadiness).length === assessedPages.length, '完成度資料筆數應與本輪頁數一致')
+assert(assessedPages.every((page) => pageReadiness[page.id]), '所有 Baseline／Active 頁都必須有完成度資料')
+assert(contentPages.filter((page) => page.scope === 'deferred').every((page) => !pageReadiness[page.id]), 'Deferred 頁不應進行完成度評估')
+assert(readinessDimensionList.length === 12, '完成度矩陣應包含 12 個評估面向')
+assert(assessedPages.every((page) => readinessDimensionList.every((dimension) => readinessLevels[pageReadiness[page.id][dimension.key]])), '所有完成度值都必須使用已定義評級')
+assert(['A', 'B', 'C', 'D'].every((batch, index) => assessedPages.filter((page) => pageReadiness[page.id].batch === batch).length === [3, 4, 6, 8][index]), 'A–D 批次頁數應為 3、4、6、8')
+assert(assessedPages.every((page) => pageReadiness[page.id].blockers.length > 0), '每個本輪頁面都必須列出待補主題')
 assert(new Set(expectedIds).size === expectedIds.length, '文件 ID 不可重複')
 
 for (const asset of ['assets/site.css', 'assets/site.js', 'assets/search-index.js']) {
@@ -49,7 +60,7 @@ for (const id of expectedIds) {
     assert(html.includes('<html lang="zh-Hant">'), `${fileName} 缺少繁體中文語系宣告`)
     assert(html.includes('<main id="main-content"'), `${fileName} 缺少主要內容 landmark`)
     assert(html.includes('aria-current="page"'), `${fileName} 缺少目前導覽狀態`)
-    assert(!html.includes('GENERATED_PAGE_MATRIX'), `${fileName} 仍含未替換的生成標記`)
+    assert(!html.includes('GENERATED_'), `${fileName} 仍含未替換的生成標記`)
 
     const localHtmlLinks = [...html.matchAll(/href="([^"#?]+\.html)(?:[?#][^"]*)?"/g)].map((match) => match[1])
     for (const link of localHtmlLinks) {
@@ -82,9 +93,15 @@ assert(
 )
 
 const authoringGuideHtml = await readFile(path.join(outputRoot, 'spec-book-authoring-guide.html'), 'utf8')
-for (const requiredText of ['Overview first', '製作範圍必須獨立管理', '可複製的頁面規格模板', '移植至其他專案', 'Provider Portal 專案接續方式']) {
+for (const requiredText of ['Overview first', '製作範圍必須獨立管理', '逐面向完成度稽核', '可複製的頁面規格模板', '移植至其他專案', 'Provider Portal 專案接續方式']) {
     assert(authoringGuideHtml.includes(requiredText), `規格書撰寫與交接規範缺少必要內容：${requiredText}`)
 }
+
+const readinessHtml = await readFile(path.join(outputRoot, 'page-readiness-matrix.html'), 'utf8')
+for (const requiredText of ['21', '產品與 UI 完成度', '開發交付完成度', '待補主題與阻擋', 'GAME_ROUND_RECORDS_SPEC.md']) {
+    assert(readinessHtml.includes(requiredText), `第一階段完成度矩陣缺少必要內容：${requiredText}`)
+}
+assert((readinessHtml.match(/class="readiness-badge /g) || []).length === assessedPages.length * readinessDimensionList.length, '完成度矩陣評級數量不正確')
 
 for (const page of contentPages.filter((item) => item.scope === 'deferred')) {
     const html = await readFile(path.join(outputRoot, `${page.id}.html`), 'utf8')
@@ -100,6 +117,8 @@ assert(siteCss.includes('Provider Portal-aligned documentation skin'), '規格�
 assert(siteCss.includes('@media print'), '規格網站缺少列印樣式')
 assert(siteCss.includes('--annotation: #478eff'), '畫面示意編號應使用統一藍色')
 assert(siteCss.includes('width: 100%;\n    max-width: none;'), '規格內文應填滿目錄以外的主欄寬度')
+assert(siteCss.includes('.readiness-summary-grid'), '規格網站缺少完成度摘要樣式')
+assert(siteCss.includes('.readiness-badge.readiness-missing'), '規格網站缺少完成度評級樣式')
 
 const indexHtml = await readFile(path.join(outputRoot, 'index.html'), 'utf8')
 for (const relativeAsset of ['assets/site.css', 'assets/search-index.js', 'assets/site.js']) {

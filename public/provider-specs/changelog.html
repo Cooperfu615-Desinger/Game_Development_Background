@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.5.0-page-reconciliation</span>
-            <span class="topbar-status">Authoring Format Confirmed · Phase 1 Pages Reconciled</span>
+            <span>0.6.0-dependency-map</span>
+            <span class="topbar-status">Authoring Format Confirmed · Phase 1 Dependencies Mapped</span>
         </div>
     </header>
 
@@ -356,6 +356,10 @@
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>第一階段頁面三層校準</span>
 
+                    </a><a href="page-dependency-map.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>第一階段跨頁依賴圖</span>
+
                     </a>
             </div>
         </details>
@@ -392,7 +396,14 @@
 
                 <div class="content-layout">
                     <article class="spec-content">
-                        <h2 id="0-5-0-page-reconciliation-2026-08-14">0.5.0-page-reconciliation · 2026-08-14</h2><ul>
+                        <h2 id="0-6-0-dependency-map-2026-08-14">0.6.0-dependency-map · 2026-08-14</h2><ul>
+<li>新增第一階段四條核心跨頁依賴鏈。</li>
+<li>讓每條箭頭具備上游輸出、下游用途、Guardrail 與契約成熟度。</li>
+<li>21 個 Baseline／Active 頁面全部至少出現在一條依賴鏈。</li>
+<li>集中標示 GGAP 對接、通知中心與系統設定三項 Deferred 外部依賴。</li>
+<li>定義共用契約優先級，避免下游頁面重複發明 Game Round、財務、風控或發布口徑。</li>
+</ul>
+<h2 id="0-5-0-page-reconciliation-2026-08-14">0.5.0-page-reconciliation · 2026-08-14</h2><ul>
 <li>新增第一階段 21 頁三層校準表。</li>
 <li>逐頁區分已確認產品規則、現行原型實況與目標草案／待確認內容。</li>
 <li>標示大致一致、邊界注意及原型缺口，避免 mock 被誤讀為正式契約。</li>
@@ -440,7 +451,7 @@
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#0-5-0-page-reconciliation-2026-08-14">0.5.0-page-reconciliation · 2026-08-14</a><a class="outline-level-2" href="#0-4-0-readiness-audit-2026-08-14">0.4.0-readiness-audit · 2026-08-14</a><a class="outline-level-2" href="#0-3-0-scope-freeze-2026-08-14">0.3.0-scope-freeze · 2026-08-14</a><a class="outline-level-2" href="#0-2-0-authoring-baseline-2026-08-14">0.2.0-authoring-baseline · 2026-08-14</a><a class="outline-level-2" href="#0-1-0-structure-2026-08-13">0.1.0-structure · 2026-08-13</a><a class="outline-level-2" href="#後續版本方向">後續版本方向</a></nav>
+        <nav><a class="outline-level-2" href="#0-6-0-dependency-map-2026-08-14">0.6.0-dependency-map · 2026-08-14</a><a class="outline-level-2" href="#0-5-0-page-reconciliation-2026-08-14">0.5.0-page-reconciliation · 2026-08-14</a><a class="outline-level-2" href="#0-4-0-readiness-audit-2026-08-14">0.4.0-readiness-audit · 2026-08-14</a><a class="outline-level-2" href="#0-3-0-scope-freeze-2026-08-14">0.3.0-scope-freeze · 2026-08-14</a><a class="outline-level-2" href="#0-2-0-authoring-baseline-2026-08-14">0.2.0-authoring-baseline · 2026-08-14</a><a class="outline-level-2" href="#0-1-0-structure-2026-08-13">0.1.0-structure · 2026-08-13</a><a class="outline-level-2" href="#後續版本方向">後續版本方向</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -451,7 +462,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.5.0-page-reconciliation · 2026-08-14</span>
+                    <span>0.6.0-dependency-map · 2026-08-14</span>
                 </footer>
             </div>
         </main>

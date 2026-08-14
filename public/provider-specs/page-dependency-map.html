@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="四條核心業務鏈、共用契約與 Deferred 外部依賴。">
+    <meta name="color-scheme" content="light">
+    <title>第一階段跨頁依賴圖｜Provider Portal 產品與系統規格書</title>
+    <link rel="stylesheet" href="assets/site.css">
+    <script src="assets/search-index.js" defer></script>
+    <script src="assets/site.js" defer></script>
+</head>
+<body data-page-id="page-dependency-map">
+    <a class="skip-link" href="#main-content">跳至主要內容</a>
+    <header class="topbar">
+        <button class="icon-button nav-trigger" type="button" data-nav-trigger aria-label="開啟規格目錄" aria-expanded="false" aria-controls="spec-navigation">
+            <span></span><span></span><span></span>
+        </button>
+        <a class="wordmark" href="index.html" aria-label="回到規格書首頁">
+            <span class="wordmark-mark" aria-hidden="true">▦</span>
+            <span><strong>Provider Portal</strong><small>產品與系統規格書</small></span>
+        </a>
+        <button class="search-trigger" type="button" data-search-trigger>
+            <span aria-hidden="true">⌕</span>
+            <span>搜尋規格</span>
+            <kbd>⌘ K</kbd>
+        </button>
+        <div class="topbar-meta">
+            <strong class="spec-context-label">SPEC</strong>
+            <span>0.6.0-dependency-map</span>
+            <span class="topbar-status">Authoring Format Confirmed · Phase 1 Dependencies Mapped</span>
+        </div>
+    </header>
+
+    <div class="shell">
+        <aside class="sidebar" id="spec-navigation" data-sidebar>
+            <div class="sidebar-intro">
+                <span class="sidebar-kicker">SPECIFICATION MANUAL</span>
+                <p>2026-08-14 更新</p>
+            </div>
+            <nav aria-label="規格書章節">
+
+        <details class="nav-group" >
+            <summary>開始閱讀<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="index.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>規格書首頁</span>
+
+                    </a><a href="document-control.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>文件治理與使用方式</span>
+
+                    </a><a href="product-overview.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>產品定位與目標</span>
+
+                    </a><a href="system-boundary.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>系統與責任邊界</span>
+
+                    </a><a href="information-architecture.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>資訊架構與頁面地圖</span>
+
+                    </a><a href="common-domain-rules.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>共通領域規則</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.1 總覽<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="dashboard-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="dashboard.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>儀表板</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.2 遊戲管理<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="game-management-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="game-list.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲列表</span>
+
+                    </a><a href="game-environments.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>環境與發布</span>
+
+                    </a><a href="game-settings.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲設定</span>
+
+                    </a><a href="game-math.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>數值設定</span>
+
+                    </a><a href="game-versions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲版本</span>
+
+                    </a><a href="game-assets.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲素材</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.3 數據與報表<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="data-reporting-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="game-round-records.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲紀錄</span>
+                        <b>PILOT</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.4 遊戲商財務<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="provider-finance-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="finance-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>財務總覽</span>
+
+                    </a><a href="finance-agent-games.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>代理商 × 遊戲彙總</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.5 遊戲監控與風控<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="monitoring-risk-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="monitoring-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>監控總覽</span>
+
+                    </a><a href="risk-reports.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>風控報表</span>
+
+                    </a><a href="risk-alerts.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>風控告警／處理</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.6 GGAP 對接<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="ggap-integration-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>對接總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-catalog-sync.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲目錄同步</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-requests.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>請求與回呼紀錄</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-errors.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>錯誤與重試</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-settings.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>對接設定</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.7 通知中心<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="notifications-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="notifications.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>全部通知</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="notification-preferences.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>通知偏好</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.8 官方網站<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="official-website-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="website-banners.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>Banner 管理</span>
+
+                    </a><a href="website-content.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>內容管理</span>
+
+                    </a><a href="website-releases.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>發布紀錄</span>
+
+                    </a><a href="lobby-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>大廳總覽</span>
+
+                    </a><a href="lobby-games.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲清單</span>
+
+                    </a><a href="lobby-management.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲管理</span>
+
+                    </a><a href="lobby-demo.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>DEMO環境數據</span>
+
+                    </a><a href="lobby-preview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>大廳預覽</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.9 系統設定<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="system-settings-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>設定總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-permissions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>使用者與權限</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-api-keys.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>API key 與憑證</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-audit-logs.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>操作紀錄</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>共通規格<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="api-integration.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>API 與整合契約</span>
+
+                    </a><a href="security-permissions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>安全與權限</span>
+
+                    </a><a href="non-functional-requirements.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>非功能性需求</span>
+
+                    </a><a href="acceptance-qa.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>驗收與 QA</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" open>
+            <summary>附錄<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="data-dictionary.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>資料字典</span>
+
+                    </a><a href="status-enums.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>狀態與枚舉</span>
+
+                    </a><a href="route-page-matrix.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>Route 與頁面矩陣</span>
+
+                    </a><a href="open-issues.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>待決策與校正清單</span>
+
+                    </a><a href="changelog.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>版本紀錄</span>
+
+                    </a><a href="spec-book-authoring-guide.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>規格書撰寫與交接規範</span>
+
+                    </a><a href="page-readiness-matrix.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>第一階段頁面完成度矩陣</span>
+
+                    </a><a href="page-reconciliation.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>第一階段頁面三層校準</span>
+
+                    </a><a href="page-dependency-map.html" aria-current="page">
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>第一階段跨頁依賴圖</span>
+
+                    </a>
+            </div>
+        </details>
+
+            </nav>
+            <div class="sidebar-legend">
+                <p>規格狀態</p>
+                <span><i class="status-dot status-confirmed"></i>已確認</span><span><i class="status-dot status-draft"></i>草案</span><span><i class="status-dot status-outline"></i>待整理</span><span><i class="status-dot status-tbd"></i>待決策</span>
+            </div>
+        </aside>
+        <button class="sidebar-scrim" type="button" data-nav-close aria-label="關閉規格目錄"></button>
+
+        <main id="main-content" class="main-content" tabindex="-1">
+            <div class="page-frame ">
+                <header class="page-header">
+                    <div>
+                        <p class="eyebrow">附錄 I</p>
+                        <h1>第一階段跨頁依賴圖</h1>
+                        <p class="page-summary">四條核心業務鏈、共用契約與 Deferred 外部依賴。</p>
+                    </div>
+                    <div class="page-status-stack">
+                        <span class="status-badge status-outline">待整理</span>
+
+
+                    </div>
+                </header>
+
+                <section class="metadata-card" aria-label="章節追溯資訊">
+        <div class="metadata-grid">
+            <div><span>章節編號</span><code>I</code></div><div><span>規格狀態</span><code>待整理</code></div>
+        </div>
+    </section>
+
+
+                <div class="content-layout">
+                    <article class="spec-content">
+                        <p>本章說明 21 個本輪頁面如何共用產品主資料、業務紀錄、聚合口徑、狀態與發布輸入。箭頭代表「規格與資料依賴」，不是 runtime API 呼叫順序，也不表示使用者必須照箭頭操作。</p>
+<h2 id="閱讀規則">閱讀規則</h2><ul>
+<li>節點可連回對應頁面規格；群組節點可能包含多個內容頁。</li>
+<li>每條依賴都必須說明上游輸出、下游用途及不可違反的 guardrail。</li>
+<li>「邊界已確認」只表示責任與資料方向已清楚，不代表 schema 或 API 已核准。</li>
+<li>「契約待補」表示頁面關係合理，但欄位、狀態、同步或錯誤處理仍需正式定義。</li>
+<li>同一頁可出現在多條鏈，例如遊戲紀錄同時是財務來源與風控追溯終點。</li>
+</ul>
+<h2 id="依賴圖摘要">依賴圖摘要</h2><section class="dependency-summary-grid" aria-label="跨頁依賴圖摘要">
+<div><strong>4</strong><span>核心業務鏈</span><small>財務、風控、生命週期、官網大廳</small></div>
+<div><strong>21</strong><span>涵蓋頁面</span><small>全部 Baseline + Active</small></div>
+<div><strong>15</strong><span>依賴關係</span><small>7 條契約仍待補</small></div>
+<div><strong>3</strong><span>Deferred 依賴</span><small>只引用已確認責任邊界</small></div>
+</section><h2 id="四條核心業務鏈">四條核心業務鏈</h2><section class="dependency-chain" id="dependency-round-finance">
+<header class="dependency-chain__header">
+<div><span>CHAIN 01 · BATCH A → B</span><h3>Game Round 與財務鏈</h3><p>以 Production Game Round 作正式財務聚合，再向上提供營運摘要。</p></div>
+</header>
+<div class="dependency-flow" tabindex="0" aria-label="Game Round 與財務鏈流程">
+<article class="dependency-node">
+<span class="dependency-node__sequence">01</span>
+<strong>遊戲紀錄</strong>
+<p>正式業務明細與追溯基準</p>
+<nav aria-label="遊戲紀錄對應頁面"><a href="game-round-records.html">遊戲紀錄</a></nav>
+</article>
+<article class="dependency-edge dependency-edge-boundary">
+<div class="dependency-edge__arrow" aria-hidden="true"><i></i><span>→</span></div>
+<div class="dependency-edge__badges"><span>聚合／摘要</span><b>邊界已確認</b></div>
+<dl>
+<div><dt>上游輸出</dt><dd>有效 Production Game Round、點數金額、結算時間與狀態。</dd></div>
+<div><dt>下游用途</dt><dd>建立投注、派彩、GGR、玩家與趨勢聚合。</dd></div>
+<div class="dependency-edge__guardrail"><dt>Guardrail</dt><dd>DEMO／Test 不得混入；取消、回滾、失敗與更正規則需一致。</dd></div>
+</dl>
+</article>
+<article class="dependency-node">
+<span class="dependency-node__sequence">02</span>
+<strong>財務總覽</strong>
+<p>全域財務聚合與趨勢</p>
+<nav aria-label="財務總覽對應頁面"><a href="finance-overview.html">財務總覽</a></nav>
+</article>
+<article class="dependency-edge dependency-edge-draft">
+<div class="dependency-edge__arrow" aria-hidden="true"><i></i><span>→</span></div>
+<div class="dependency-edge__badges"><span>聚合／摘要</span><b>契約待補</b></div>
+<dl>
+<div><dt>上游輸出</dt><dd>共通時間、金額、匯率與有效資料口徑。</dd></div>
+<div><dt>下游用途</dt><dd>加入代理商 × 遊戲維度並可回查 Game Round。</dd></div>
+<div class="dependency-edge__guardrail"><dt>Guardrail</dt><dd>代理商是 GGAP 脈絡快照，不是 Provider 主資料。</dd></div>
+</dl>
+</article>
+<article class="dependency-node">
+<span class="dependency-node__sequence">03</span>
+<strong>代理商 × 遊戲</strong>
+<p>依外部代理商脈絡切分聚合</p>
+<nav aria-label="代理商 × 遊戲對應頁面"><a href="finance-agent-games.html">代理商 × 遊戲彙總</a></nav>
+</article>
+<article class="dependency-edge dependency-edge-draft">
+<div class="dependency-edge__arrow" aria-hidden="true"><i></i><span>→</span></div>
+<div class="dependency-edge__badges"><span>聚合／摘要</span><b>契約待補</b></div>
+<dl>
+<div><dt>上游輸出</dt><dd>授權範圍內的財務摘要、排行與異常訊號。</dd></div>
+<div><dt>下游用途</dt><dd>呈現跨模組營運摘要與工作入口。</dd></div>
+<div class="dependency-edge__guardrail"><dt>Guardrail</dt><dd>Dashboard 不得創造不同的財務公式或資料範圍。</dd></div>
+</dl>
+</article>
+<article class="dependency-node">
+<span class="dependency-node__sequence">04</span>
+<strong>儀表板</strong>
+<p>跨模組營運摘要</p>
+<nav aria-label="儀表板對應頁面"><a href="dashboard.html">儀表板</a></nav>
+</article>
+</div>
+</section><section class="dependency-chain" id="dependency-monitoring-risk">
+<header class="dependency-chain__header">
+<div><span>CHAIN 02 · BATCH B → A</span><h3>監控與風控鏈</h3><p>由服務監控發現異常，形成 Risk Event 與 Alert，最後回到 Game Round 追溯。</p></div>
+</header>
+<div class="dependency-flow" tabindex="0" aria-label="監控與風控鏈流程">
+<article class="dependency-node">
+<span class="dependency-node__sequence">01</span>
+<strong>監控總覽</strong>
+<p>服務健康與即時／窗口指標</p>
+<nav aria-label="監控總覽對應頁面"><a href="monitoring-overview.html">監控總覽</a></nav>
+</article>
+<article class="dependency-edge dependency-edge-draft">
+<div class="dependency-edge__arrow" aria-hidden="true"><i></i><span>→</span></div>
+<div class="dependency-edge__badges"><span>狀態／生命週期</span><b>契約待補</b></div>
+<dl>
+<div><dt>上游輸出</dt><dd>健康、成功率、延遲與資料品質異常訊號。</dd></div>
+<div><dt>下游用途</dt><dd>形成可分析的 Risk Event 與統計窗口。</dd></div>
+<div class="dependency-edge__guardrail"><dt>Guardrail</dt><dd>Test 不納入 Provider 風控；監控門檻不可直接視為正式風控門檻。</dd></div>
+</dl>
+</article>
+<article class="dependency-node">
+<span class="dependency-node__sequence">02</span>
+<strong>風控報表</strong>
+<p>Risk Event 分析與影響範圍</p>
+<nav aria-label="風控報表對應頁面"><a href="risk-reports.html">風控報表</a></nav>
+</article>
+<article class="dependency-edge dependency-edge-boundary">
+<div class="dependency-edge__arrow" aria-hidden="true"><i></i><span>→</span></div>
+<div class="dependency-edge__badges"><span>狀態／生命週期</span><b>邊界已確認</b></div>
+<dl>
+<div><dt>上游輸出</dt><dd>Risk Event ID、嚴重度、影響範圍與緩解脈絡。</dd></div>
+<div><dt>下游用途</dt><dd>建立需要追蹤或人工處理的 Alert。</dd></div>
+<div class="dependency-edge__guardrail"><dt>Guardrail</dt><dd>Risk Event、Alert、緩解與隔離狀態必須分離。</dd></div>
+</dl>
+</article>
+<article class="dependency-node">
+<span class="dependency-node__sequence">03</span>
+<strong>風控告警／處理</strong>
+<p>Alert 工作佇列與處理歷程</p>
+<nav aria-label="風控告警／處理對應頁面"><a href="risk-alerts.html">風控告警／處理</a></nav>
+</article>
+<article class="dependency-edge dependency-edge-boundary">
+<div class="dependency-edge__arrow" aria-hidden="true"><i></i><span>→</span></div>
+<div class="dependency-edge__badges"><span>導流／追溯</span><b>邊界已確認</b></div>
+<dl>
+<div><dt>上游輸出</dt><dd>Provider／GGAP Round ID、事件與 Alert 關聯。</dd></div>
+<div><dt>下游用途</dt><dd>核對單筆回合、錯誤、金額及時間軸。</dd></div>
+<div class="dependency-edge__guardrail"><dt>Guardrail</dt><dd>隔離不得阻斷既有 Round 的必要結算、Callback 與 audit。</dd></div>
+</dl>
+</article>
+<article class="dependency-node">
+<span class="dependency-node__sequence">04</span>
+<strong>Game Round 追溯</strong>
+<p>關聯明細與原始業務證據</p>
+<nav aria-label="Game Round 追溯對應頁面"><a href="game-round-records.html">遊戲紀錄</a></nav>
+</article>
+</div>
+</section><section class="dependency-chain" id="dependency-game-lifecycle">
+<header class="dependency-chain__header">
+<div><span>CHAIN 03 · BATCH C</span><h3>遊戲生命週期鏈</h3><p>從遊戲主資料進入設定、數值、版本、素材，最後組成可發布的環境版本。</p></div>
+</header>
+<div class="dependency-flow" tabindex="0" aria-label="遊戲生命週期鏈流程">
+<article class="dependency-node">
+<span class="dependency-node__sequence">01</span>
+<strong>遊戲列表</strong>
+<p>遊戲 ID、主資料與全域狀態</p>
+<nav aria-label="遊戲列表對應頁面"><a href="game-list.html">遊戲列表</a></nav>
+</article>
+<article class="dependency-edge dependency-edge-boundary">
+<div class="dependency-edge__arrow" aria-hidden="true"><i></i><span>→</span></div>
+<div class="dependency-edge__badges"><span>資料輸入</span><b>邊界已確認</b></div>
+<dl>
+<div><dt>上游輸出</dt><dd>game_id、遊戲類型、主資料與可設定能力。</dd></div>
+<div><dt>下游用途</dt><dd>限定設定所屬遊戲與可編輯範圍。</dd></div>
+<div class="dependency-edge__guardrail"><dt>Guardrail</dt><dd>不得衍生代理商、商戶或會員層級設定。</dd></div>
+</dl>
+</article>
+<article class="dependency-node">
+<span class="dependency-node__sequence">02</span>
+<strong>遊戲設定</strong>
+<p>一般設定與營運模板</p>
+<nav aria-label="遊戲設定對應頁面"><a href="game-settings.html">遊戲設定</a></nav>
+</article>
+<article class="dependency-edge dependency-edge-draft">
+<div class="dependency-edge__arrow" aria-hidden="true"><i></i><span>→</span></div>
+<div class="dependency-edge__badges"><span>資料輸入</span><b>契約待補</b></div>
+<dl>
+<div><dt>上游輸出</dt><dd>設定版本、環境與共通限制脈絡。</dd></div>
+<div><dt>下游用途</dt><dd>驗證數值設定的適用遊戲與環境。</dd></div>
+<div class="dependency-edge__guardrail"><dt>Guardrail</dt><dd>一般設定與數值模型應分開版本化，正式關聯待確認。</dd></div>
+</dl>
+</article>
+<article class="dependency-node">
+<span class="dependency-node__sequence">03</span>
+<strong>數值設定</strong>
+<p>RTP、波動度與數值版本</p>
+<nav aria-label="數值設定對應頁面"><a href="game-math.html">數值設定</a></nav>
+</article>
+<article class="dependency-edge dependency-edge-draft">
+<div class="dependency-edge__arrow" aria-hidden="true"><i></i><span>→</span></div>
+<div class="dependency-edge__badges"><span>狀態／生命週期</span><b>契約待補</b></div>
+<dl>
+<div><dt>上游輸出</dt><dd>已核准數值版本與生效條件。</dd></div>
+<div><dt>下游用途</dt><dd>綁定可發布的遊戲版本。</dd></div>
+<div class="dependency-edge__guardrail"><dt>Guardrail</dt><dd>RTP／賠率精度、審核與回復規則不得由畫面 mock 決定。</dd></div>
+</dl>
+</article>
+<article class="dependency-node">
+<span class="dependency-node__sequence">04</span>
+<strong>遊戲版本</strong>
+<p>程式／內容版本生命週期</p>
+<nav aria-label="遊戲版本對應頁面"><a href="game-versions.html">遊戲版本</a></nav>
+</article>
+<article class="dependency-edge dependency-edge-draft">
+<div class="dependency-edge__arrow" aria-hidden="true"><i></i><span>→</span></div>
+<div class="dependency-edge__badges"><span>資料輸入</span><b>契約待補</b></div>
+<dl>
+<div><dt>上游輸出</dt><dd>遊戲版本、相容條件與目標裝置／語系。</dd></div>
+<div><dt>下游用途</dt><dd>選擇對應素材版本並完成發布組合。</dd></div>
+<div class="dependency-edge__guardrail"><dt>Guardrail</dt><dd>素材不可形成與遊戲版本互相矛盾的獨立真實來源。</dd></div>
+</dl>
+</article>
+<article class="dependency-node">
+<span class="dependency-node__sequence">05</span>
+<strong>遊戲素材</strong>
+<p>版本、語系與裝置素材</p>
+<nav aria-label="遊戲素材對應頁面"><a href="game-assets.html">遊戲素材</a></nav>
+</article>
+<article class="dependency-edge dependency-edge-boundary">
+<div class="dependency-edge__arrow" aria-hidden="true"><i></i><span>→</span></div>
+<div class="dependency-edge__badges"><span>發布輸入</span><b>邊界已確認</b></div>
+<dl>
+<div><dt>上游輸出</dt><dd>通過驗證的程式版本、數值版本與素材組合。</dd></div>
+<div><dt>下游用途</dt><dd>執行環境發布、停用、維護及留下歷程。</dd></div>
+<div class="dependency-edge__guardrail"><dt>Guardrail</dt><dd>Provider 只控制全域狀態；代理商個別開放屬 GGAP。</dd></div>
+</dl>
+</article>
+<article class="dependency-node">
+<span class="dependency-node__sequence">06</span>
+<strong>環境與發布</strong>
+<p>Production／DEMO 發布與全域狀態</p>
+<nav aria-label="環境與發布對應頁面"><a href="game-environments.html">環境與發布</a></nav>
+</article>
+</div>
+</section><section class="dependency-chain" id="dependency-website-lobby">
+<header class="dependency-chain__header">
+<div><span>CHAIN 04 · BATCH C → D</span><h3>官網與遊戲大廳鏈</h3><p>共用 Provider 遊戲主資料與素材，建立官網內容、大廳公開資料、DEMO 投影及預覽。</p></div>
+</header>
+<div class="dependency-flow" tabindex="0" aria-label="官網與遊戲大廳鏈流程">
+<article class="dependency-node">
+<span class="dependency-node__sequence">01</span>
+<strong>遊戲主資料</strong>
+<p>遊戲 ID、名稱、版本、數值與素材參照</p>
+<nav aria-label="遊戲主資料對應頁面"><a href="game-list.html">遊戲列表</a></nav>
+</article>
+<article class="dependency-edge dependency-edge-boundary">
+<div class="dependency-edge__arrow" aria-hidden="true"><i></i><span>→</span></div>
+<div class="dependency-edge__badges"><span>資料輸入</span><b>邊界已確認</b></div>
+<dl>
+<div><dt>上游輸出</dt><dd>遊戲識別、名稱、版本、數值與可用素材參照。</dd></div>
+<div><dt>下游用途</dt><dd>建立 Provider 官網的 Banner 與靜態內容。</dd></div>
+<div class="dependency-edge__guardrail"><dt>Guardrail</dt><dd>官網不得複製出另一套遊戲主資料真實來源。</dd></div>
+</dl>
+</article>
+<article class="dependency-node">
+<span class="dependency-node__sequence">02</span>
+<strong>官方網站</strong>
+<p>Banner、靜態內容與網站發布紀錄</p>
+<nav aria-label="官方網站對應頁面"><a href="website-banners.html">Banner 管理</a><a href="website-content.html">內容管理</a><a href="website-releases.html">發布紀錄</a></nav>
+</article>
+<article class="dependency-edge dependency-edge-draft">
+<div class="dependency-edge__arrow" aria-hidden="true"><i></i><span>→</span></div>
+<div class="dependency-edge__badges"><span>發布輸入</span><b>契約待補</b></div>
+<dl>
+<div><dt>上游輸出</dt><dd>已發布的品牌、素材、語系與內容版本脈絡。</dd></div>
+<div><dt>下游用途</dt><dd>建立大廳公開內容與檢查清單。</dd></div>
+<div class="dependency-edge__guardrail"><dt>Guardrail</dt><dd>官網發布與遊戲全域上架是不同生命週期，正式關聯待確認。</dd></div>
+</dl>
+</article>
+<article class="dependency-node">
+<span class="dependency-node__sequence">03</span>
+<strong>遊戲大廳</strong>
+<p>公開遊戲清單、內容管理與檢查</p>
+<nav aria-label="遊戲大廳對應頁面"><a href="lobby-overview.html">大廳總覽</a><a href="lobby-games.html">遊戲清單</a><a href="lobby-management.html">遊戲管理</a></nav>
+</article>
+<article class="dependency-edge dependency-edge-boundary">
+<div class="dependency-edge__arrow" aria-hidden="true"><i></i><span>→</span></div>
+<div class="dependency-edge__badges"><span>隔離投影</span><b>邊界已確認</b></div>
+<dl>
+<div><dt>上游輸出</dt><dd>已選遊戲、公開資料、DEMO 可用狀態與展示設定。</dd></div>
+<div><dt>下游用途</dt><dd>產生隔離的 DEMO 活躍與遊戲表現資料。</dd></div>
+<div class="dependency-edge__guardrail"><dt>Guardrail</dt><dd>DEMO 不得混入 Production Game Round、財務或風控。</dd></div>
+</dl>
+</article>
+<article class="dependency-node">
+<span class="dependency-node__sequence">04</span>
+<strong>DEMO 環境數據</strong>
+<p>隔離展示指標與測試脈絡</p>
+<nav aria-label="DEMO 環境數據對應頁面"><a href="lobby-demo.html">DEMO環境數據</a></nav>
+</article>
+<article class="dependency-edge dependency-edge-boundary">
+<div class="dependency-edge__arrow" aria-hidden="true"><i></i><span>→</span></div>
+<div class="dependency-edge__badges"><span>隔離投影</span><b>邊界已確認</b></div>
+<dl>
+<div><dt>上游輸出</dt><dd>DEMO 遊戲清單、展示狀態與模擬餘額脈絡。</dd></div>
+<div><dt>下游用途</dt><dd>在 Desktop／Mobile／語系模式預覽玩家端成果。</dd></div>
+<div class="dependency-edge__guardrail"><dt>Guardrail</dt><dd>DEMO 餘額、玩家與 Session 只可作展示，不代表 Provider 錢包或會員主資料。</dd></div>
+</dl>
+</article>
+<article class="dependency-node">
+<span class="dependency-node__sequence">05</span>
+<strong>大廳預覽</strong>
+<p>玩家端樣式的預覽投影</p>
+<nav aria-label="大廳預覽對應頁面"><a href="lobby-preview.html">大廳預覽</a></nav>
+</article>
+</div>
+</section><h2 id="deferred-外部依賴">Deferred 外部依賴</h2><p>Deferred 模組不納入本輪頁面規格，但已確認的責任邊界仍會影響 Active 頁面。以下只記錄已知邊界及目前被阻擋的契約，不建立 Deferred 頁面的畫面或 API 草案。</p>
+<section class="deferred-dependency-grid" aria-label="Deferred 外部依賴">
+<article class="deferred-dependency-card">
+<header><span>DEFERRED INPUT</span><h3>GGAP 對接規格</h3><p>05.6 GGAP 對接（Deferred）</p></header>
+<div><strong>已知邊界</strong><p>GGAP 擁有平台、代理商個別遊戲開放、會員／錢包與平台帳務；Provider 只保留外部識別與整合脈絡。</p></div>
+<div><strong>待取得契約</strong><p>正式 API、認證、簽章、Callback、ACK、重試、同步與狀態 enum。</p></div>
+<nav aria-label="GGAP 對接規格影響頁面"><a href="game-environments.html">環境與發布</a><a href="game-round-records.html">遊戲紀錄</a><a href="finance-agent-games.html">代理商 × 遊戲彙總</a><a href="monitoring-overview.html">監控總覽</a><a href="risk-reports.html">風控報表</a><a href="risk-alerts.html">風控告警／處理</a></nav>
+</article>
+<article class="deferred-dependency-card">
+<header><span>DEFERRED INPUT</span><h3>通知中心規格</h3><p>05.7 通知中心（Deferred）</p></header>
+<div><strong>已知邊界</strong><p>Active 頁面可標示通知依賴或目前通知狀態，但不得反推通知類型、管道、偏好與生命週期。</p></div>
+<div><strong>待取得契約</strong><p>通知事件、優先級、已讀、保留、管道、偏好、權限與跨頁導流。</p></div>
+<nav aria-label="通知中心規格影響頁面"><a href="dashboard.html">儀表板</a><a href="risk-alerts.html">風控告警／處理</a></nav>
+</article>
+<article class="deferred-dependency-card">
+<header><span>DEFERRED INPUT</span><h3>系統設定規格</h3><p>05.9 系統設定（Deferred）</p></header>
+<div><strong>已知邊界</strong><p>所有 Active 頁仍需遵守 Provider scope、最小權限、敏感資料與操作稽核原則。</p></div>
+<div><strong>待取得契約</strong><p>使用者／角色模型、permission key、API key／憑證生命週期及 audit log UI。</p></div>
+<nav aria-label="系統設定規格影響頁面"><a href="dashboard.html">儀表板</a><a href="game-list.html">遊戲列表</a><a href="game-environments.html">環境與發布</a><a href="game-settings.html">遊戲設定</a><a href="game-math.html">數值設定</a><a href="game-versions.html">遊戲版本</a><a href="game-assets.html">遊戲素材</a><a href="game-round-records.html">遊戲紀錄</a><a href="finance-overview.html">財務總覽</a><a href="finance-agent-games.html">代理商 × 遊戲彙總</a><a href="monitoring-overview.html">監控總覽</a><a href="risk-reports.html">風控報表</a><a href="risk-alerts.html">風控告警／處理</a><a href="website-banners.html">Banner 管理</a><a href="website-content.html">內容管理</a><a href="website-releases.html">發布紀錄</a><a href="lobby-overview.html">大廳總覽</a><a href="lobby-games.html">遊戲清單</a><a href="lobby-management.html">遊戲管理</a><a href="lobby-demo.html">DEMO環境數據</a><a href="lobby-preview.html">大廳預覽</a></nav>
+</article>
+</section><h2 id="共用契約優先級">共用契約優先級</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th align="right">優先級</th>
+<th>共用契約</th>
+<th>主要影響鏈</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>Game Round ID、狀態、有效資料、點數、時間與環境隔離</td>
+<td>財務、監控與風控</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>遊戲 ID、版本、數值、素材與環境發布組合</td>
+<td>遊戲生命週期、官網與大廳</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>Risk Event、Alert、緩解、隔離與 Game Round 關聯</td>
+<td>監控與風控</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td>草稿、發布版本、語系、素材及 DEMO 投影</td>
+<td>官網與遊戲大廳</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td>Provider scope、permission key、敏感資料與 audit</td>
+<td>全部 Active 頁面</td>
+</tr>
+</tbody></table></div>
+<h2 id="使用方式">使用方式</h2><ol>
+<li>撰寫某頁前，先確認它需要哪些上游輸入，以及下游會使用哪些輸出。</li>
+<li>共用資料不可在下游頁面重新定義不同公式、狀態或環境範圍。</li>
+<li>「契約待補」的箭頭應轉成共用 TBD；不得在每頁各自發明一套欄位。</li>
+<li>上游規格變更時，依本圖檢查所有下游頁面、API、測試與驗收條件。</li>
+<li>Deferred 契約取得後，先更新責任邊界及共用契約，再回填受影響頁面。</li>
+</ol>
+
+                    </article>
+                    <aside class="page-outline" aria-label="本頁目錄">
+        <p>本頁目錄</p>
+        <nav><a class="outline-level-2" href="#閱讀規則">閱讀規則</a><a class="outline-level-2" href="#依賴圖摘要">依賴圖摘要</a><a class="outline-level-2" href="#四條核心業務鏈">四條核心業務鏈</a><a class="outline-level-2" href="#deferred-外部依賴">Deferred 外部依賴</a><a class="outline-level-2" href="#共用契約優先級">共用契約優先級</a><a class="outline-level-2" href="#使用方式">使用方式</a></nav>
+        <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
+    </aside>
+                </div>
+
+                <nav class="previous-next" aria-label="上一章與下一章">
+        <a class="previous-link" href="page-reconciliation.html"><span>← 上一章</span><strong>第一階段頁面三層校準</strong></a>
+        <span></span>
+    </nav>
+                <footer class="document-footer">
+                    <span>Provider Portal Product / Engineering</span>
+                    <span>0.6.0-dependency-map · 2026-08-14</span>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <dialog class="search-dialog" data-search-dialog aria-labelledby="search-dialog-title">
+        <div class="search-dialog-header">
+            <div>
+                <p class="eyebrow">全文檢索</p>
+                <h2 id="search-dialog-title">搜尋規格書</h2>
+            </div>
+            <button class="icon-button dialog-close" type="button" data-search-close aria-label="關閉搜尋">×</button>
+        </div>
+        <label class="search-field">
+            <span class="sr-only">輸入章節、route、欄位或關鍵字</span>
+            <span aria-hidden="true">⌕</span>
+            <input type="search" data-search-input autocomplete="off" placeholder="例如：Game Round、/reports、USDT">
+        </label>
+        <p class="search-hint" data-search-hint>可搜尋章節名稱、內文、route、欄位與技術值。</p>
+        <div class="search-results" data-search-results></div>
+    </dialog>
+</body>
+</html>

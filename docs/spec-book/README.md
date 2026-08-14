@@ -7,6 +7,7 @@
 - `manifest.mjs`：規格書章節樹、32 個內容頁、成熟度、製作範圍、route、來源規格與前端對應的集中索引。
 - `readiness.mjs`：本輪 21 頁的 A–D 批次、逐面向完成度與待補主題。
 - `reconciliation.mjs`：本輪 21 頁的已確認規則、原型實況、目標草案與校準狀態。
+- `dependencies.mjs`：四條核心業務鏈、依賴契約、Guardrail 與 Deferred 外部依賴。
 - `content/`：已整理成規格書章節的 Markdown 來源。
 - `SPEC_BOOK_AUTHORING_GUIDE.md`：已定版的撰寫、維護、驗收與跨專案移植規範；可獨立分享。
 - `public/provider-specs/`：自動產生的多頁 HTML 閱讀網站，不作為人工編輯來源。
@@ -32,6 +33,8 @@
 逐面向完成度只使用 `complete`、`partial`、`missing`、`na`，用來說明目前規格素材是否足夠，不代表產品或程式開發進度。
 
 頁面三層校準必須將 confirmed、prototype reality 與 unconfirmed target 分開；原型中可操作或可見的內容，不得直接寫成正式產品規則。
+
+跨頁依賴箭頭表示規格／資料依賴，不代表 runtime API 呼叫順序。共用資料口徑應在上游或共通章節定義，下游只引用，不可自行複製變體。
 
 ## 產生網站
 

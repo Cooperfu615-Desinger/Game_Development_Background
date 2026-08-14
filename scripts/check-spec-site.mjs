@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url'
 import { appendices, crossCutting, foundation, modules, scopeLabels } from '../docs/spec-book/manifest.mjs'
 import { pageReadiness, readinessDimensions, readinessLevels } from '../docs/spec-book/readiness.mjs'
 import { pageReconciliation, reconciliationStates } from '../docs/spec-book/reconciliation.mjs'
+import { deferredDependencies, dependencyChains, dependencyKinds, dependencyMaturity } from '../docs/spec-book/dependencies.mjs'
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url))
 const repositoryRoot = path.resolve(scriptDirectory, '..')
@@ -43,6 +44,20 @@ assert(contentPages.filter((page) => page.scope === 'deferred').every((page) => 
 assert(assessedPages.every((page) => reconciliationStates[pageReconciliation[page.id].state]), '所有頁面都必須使用已定義的校準狀態')
 assert(assessedPages.every((page) => ['confirmed', 'prototype', 'target'].every((key) => pageReconciliation[page.id][key].length > 0)), '每個本輪頁面都必須包含三層校準內容')
 assert(['aligned', 'attention', 'gap'].every((state, index) => assessedPages.filter((page) => pageReconciliation[page.id].state === state).length === [8, 12, 1][index]), '校準狀態頁數應為 8、12、1')
+const dependencyPageIds = new Set(dependencyChains.flatMap((chain) => chain.nodes.flatMap((node) => node.pageIds)))
+const dependencyEdges = dependencyChains.flatMap((chain) => chain.edges)
+assert(dependencyChains.length === 4, '跨頁依賴圖應包含四條核心業務鏈')
+assert(dependencyEdges.length === 15, '跨頁依賴圖應包含 15 條依賴關係')
+assert(assessedPages.every((page) => dependencyPageIds.has(page.id)), '所有 Baseline／Active 頁都必須出現在依賴圖')
+assert(contentPages.filter((page) => page.scope === 'deferred').every((page) => !dependencyPageIds.has(page.id)), 'Deferred 頁不可成為核心業務鏈節點')
+assert(dependencyChains.every((chain) => chain.edges.length === chain.nodes.length - 1), '每條核心業務鏈必須是可追溯的線性節點／箭頭序列')
+assert(dependencyChains.every((chain) => {
+    const nodeIds = new Set(chain.nodes.map((node) => node.id))
+    return chain.edges.every((edge) => nodeIds.has(edge.from) && nodeIds.has(edge.to) && dependencyKinds[edge.kind] && dependencyMaturity[edge.maturity])
+}), '依賴箭頭必須參照同鏈節點並使用已定義類型與成熟度')
+assert(deferredDependencies.length === 3, '應包含 GGAP、通知中心與系統設定三項 Deferred 依賴')
+assert(deferredDependencies.every((item) => item.targets.every((pageId) => assessedPages.some((page) => page.id === pageId))), 'Deferred 依賴只能指向 Baseline／Active 頁')
+assert(deferredDependencies.find((item) => item.id === 'settings-dependency')?.targets.length === assessedPages.length, '系統設定安全邊界應影響全部本輪頁面')
 assert(new Set(expectedIds).size === expectedIds.length, '文件 ID 不可重複')
 
 for (const asset of ['assets/site.css', 'assets/site.js', 'assets/search-index.js']) {
@@ -119,6 +134,15 @@ assert((reconciliationHtml.match(/class="reconciliation-confirmed"/g) || []).len
 assert((reconciliationHtml.match(/class="reconciliation-prototype"/g) || []).length === assessedPages.length, '三層校準缺少原型實況欄')
 assert((reconciliationHtml.match(/class="reconciliation-target"/g) || []).length === assessedPages.length, '三層校準缺少目標草案欄')
 
+const dependencyHtml = await readFile(path.join(outputRoot, 'page-dependency-map.html'), 'utf8')
+for (const requiredText of ['Game Round 與財務鏈', '監控與風控鏈', '遊戲生命週期鏈', '官網與遊戲大廳鏈', 'Deferred 外部依賴', 'DEMO 餘額、玩家與 Session']) {
+    assert(dependencyHtml.includes(requiredText), `第一階段跨頁依賴圖缺少必要內容：${requiredText}`)
+}
+assert((dependencyHtml.match(/class="dependency-chain"/g) || []).length === dependencyChains.length, '跨頁依賴圖業務鏈數量不正確')
+assert((dependencyHtml.match(/class="dependency-node"/g) || []).length === dependencyChains.reduce((total, chain) => total + chain.nodes.length, 0), '跨頁依賴圖節點數量不正確')
+assert((dependencyHtml.match(/class="dependency-edge /g) || []).length === dependencyEdges.length, '跨頁依賴圖箭頭數量不正確')
+assert((dependencyHtml.match(/class="deferred-dependency-card"/g) || []).length === deferredDependencies.length, 'Deferred 依賴卡片數量不正確')
+
 for (const page of contentPages.filter((item) => item.scope === 'deferred')) {
     const html = await readFile(path.join(outputRoot, `${page.id}.html`), 'utf8')
     for (const requiredText of ['延後製作', '重新啟動前需要的輸入', '不可作為前端、後端或 QA 的開發依據']) {
@@ -137,6 +161,8 @@ assert(siteCss.includes('.readiness-summary-grid'), '規格網站缺少完成度
 assert(siteCss.includes('.readiness-badge.readiness-missing'), '規格網站缺少完成度評級樣式')
 assert(siteCss.includes('.reconciliation-columns'), '規格網站缺少三層校準欄位樣式')
 assert(siteCss.includes('.reconciliation-state-attention'), '規格網站缺少校準狀態樣式')
+assert(siteCss.includes('.dependency-flow'), '規格網站缺少跨頁依賴流程樣式')
+assert(siteCss.includes('.dependency-edge__guardrail'), '規格網站缺少依賴 Guardrail 樣式')
 
 const indexHtml = await readFile(path.join(outputRoot, 'index.html'), 'utf8')
 for (const relativeAsset of ['assets/site.css', 'assets/search-index.js', 'assets/site.js']) {

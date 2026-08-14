@@ -20,6 +20,12 @@ import {
     pageReconciliation,
     reconciliationStates,
 } from '../docs/spec-book/reconciliation.mjs'
+import {
+    deferredDependencies,
+    dependencyChains,
+    dependencyKinds,
+    dependencyMaturity,
+} from '../docs/spec-book/dependencies.mjs'
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url))
 const repositoryRoot = path.resolve(scriptDirectory, '..')
@@ -75,6 +81,7 @@ const documents = [
 const pageMatrixMarkdown = createPageMatrix()
 const readinessFragments = createReadinessFragments()
 const reconciliationFragments = createReconciliationFragments()
+const dependencyFragments = createDependencyFragments()
 const renderedDocuments = []
 
 for (const document of documents) {
@@ -106,6 +113,10 @@ for (const document of documents) {
 
     if (document.generatedReconciliation) {
         markdown = replaceReconciliationMarkers(markdown, reconciliationFragments)
+    }
+
+    if (document.generatedDependencies) {
+        markdown = replaceDependencyMarkers(markdown, dependencyFragments)
     }
 
     if (document.visualAtTop) {
@@ -758,6 +769,99 @@ function replaceReconciliationMarkers(markdown, fragments) {
     for (const [marker, value] of Object.entries(markers)) {
         const token = `<!-- ${marker} -->`
         if (!result.includes(token)) throw new Error(`找不到頁面校準標記：${marker}`)
+        result = result.replace(token, value)
+    }
+    return result
+}
+
+function createDependencyFragments() {
+    const uniquePageIds = new Set(dependencyChains.flatMap((chain) => chain.nodes.flatMap((node) => node.pageIds)))
+    const edgeCount = dependencyChains.reduce((total, chain) => total + chain.edges.length, 0)
+    const draftCount = dependencyChains.flatMap((chain) => chain.edges).filter((edge) => edge.maturity === 'draft').length
+    const summary = `<section class="dependency-summary-grid" aria-label="跨頁依賴圖摘要">
+<div><strong>${dependencyChains.length}</strong><span>核心業務鏈</span><small>財務、風控、生命週期、官網大廳</small></div>
+<div><strong>${uniquePageIds.size}</strong><span>涵蓋頁面</span><small>全部 Baseline + Active</small></div>
+<div><strong>${edgeCount}</strong><span>依賴關係</span><small>${draftCount} 條契約仍待補</small></div>
+<div><strong>${deferredDependencies.length}</strong><span>Deferred 依賴</span><small>只引用已確認責任邊界</small></div>
+</section>`
+    const chains = dependencyChains.map((chain) => createDependencyChain(chain)).join('\n\n')
+    const deferred = `<section class="deferred-dependency-grid" aria-label="Deferred 外部依賴">
+${deferredDependencies.map((item) => createDeferredDependencyCard(item)).join('\n')}
+</section>`
+    return { summary, chains, deferred }
+}
+
+function createDependencyChain(chain) {
+    const edgeBySource = new Map(chain.edges.map((edge) => [edge.from, edge]))
+    const flow = chain.nodes.map((node, index) => {
+        const nodeHtml = createDependencyNode(node, index + 1)
+        const edge = edgeBySource.get(node.id)
+        return edge ? `${nodeHtml}\n${createDependencyEdge(edge)}` : nodeHtml
+    }).join('\n')
+
+    return `<section class="dependency-chain" id="dependency-${escapeHtml(chain.id)}">
+<header class="dependency-chain__header">
+<div><span>CHAIN ${escapeHtml(chain.number)} · BATCH ${escapeHtml(chain.batch)}</span><h3>${escapeHtml(chain.title)}</h3><p>${escapeHtml(chain.summary)}</p></div>
+</header>
+<div class="dependency-flow" tabindex="0" aria-label="${escapeHtml(chain.title)}流程">
+${flow}
+</div>
+</section>`
+}
+
+function createDependencyNode(node, sequence) {
+    const links = node.pageIds.map((pageId) => {
+        const page = allContentPages.find((item) => item.id === pageId)
+        if (!page) throw new Error(`依賴節點 ${node.id} 參照不存在頁面：${pageId}`)
+        return `<a href="${escapeHtml(page.id)}.html">${escapeHtml(page.title)}</a>`
+    }).join('')
+    return `<article class="dependency-node">
+<span class="dependency-node__sequence">${String(sequence).padStart(2, '0')}</span>
+<strong>${escapeHtml(node.label)}</strong>
+<p>${escapeHtml(node.role)}</p>
+<nav aria-label="${escapeHtml(node.label)}對應頁面">${links}</nav>
+</article>`
+}
+
+function createDependencyEdge(edge) {
+    const kind = dependencyKinds[edge.kind]
+    const maturity = dependencyMaturity[edge.maturity]
+    if (!kind || !maturity) throw new Error(`依賴 ${edge.from} → ${edge.to} 使用未知類型或成熟度`)
+    return `<article class="dependency-edge dependency-edge-${maturity.tone}">
+<div class="dependency-edge__arrow" aria-hidden="true"><i></i><span>→</span></div>
+<div class="dependency-edge__badges"><span>${escapeHtml(kind)}</span><b>${escapeHtml(maturity.label)}</b></div>
+<dl>
+<div><dt>上游輸出</dt><dd>${escapeHtml(edge.output)}</dd></div>
+<div><dt>下游用途</dt><dd>${escapeHtml(edge.consumer)}</dd></div>
+<div class="dependency-edge__guardrail"><dt>Guardrail</dt><dd>${escapeHtml(edge.guardrail)}</dd></div>
+</dl>
+</article>`
+}
+
+function createDeferredDependencyCard(item) {
+    const links = item.targets.map((pageId) => {
+        const page = allContentPages.find((candidate) => candidate.id === pageId)
+        if (!page) throw new Error(`Deferred 依賴 ${item.id} 參照不存在頁面：${pageId}`)
+        return `<a href="${escapeHtml(page.id)}.html">${escapeHtml(page.title)}</a>`
+    }).join('')
+    return `<article class="deferred-dependency-card">
+<header><span>DEFERRED INPUT</span><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.source)}</p></header>
+<div><strong>已知邊界</strong><p>${escapeHtml(item.knownBoundary)}</p></div>
+<div><strong>待取得契約</strong><p>${escapeHtml(item.blockedContract)}</p></div>
+<nav aria-label="${escapeHtml(item.title)}影響頁面">${links}</nav>
+</article>`
+}
+
+function replaceDependencyMarkers(markdown, fragments) {
+    const markers = {
+        GENERATED_DEPENDENCY_SUMMARY: fragments.summary,
+        GENERATED_DEPENDENCY_CHAINS: fragments.chains,
+        GENERATED_DEFERRED_DEPENDENCIES: fragments.deferred,
+    }
+    let result = markdown
+    for (const [marker, value] of Object.entries(markers)) {
+        const token = `<!-- ${marker} -->`
+        if (!result.includes(token)) throw new Error(`找不到跨頁依賴標記：${marker}`)
         result = result.replace(token, value)
     }
     return result

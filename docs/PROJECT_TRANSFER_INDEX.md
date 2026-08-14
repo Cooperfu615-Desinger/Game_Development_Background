@@ -2,7 +2,7 @@
 
 > 文件版本：2.17.0
 > 更新日期：2026-08-14
-> 文件狀態：規格網站第一階段已封版；第二階段 Batch A／B 共七頁已完成完整 Draft，正式 API、權限、精度、門檻與外部契約仍待確認
+> 文件狀態：規格網站第一階段已封版；第二階段 Batch A–C 共十三頁已完成完整 Draft，正式 API、權限、精度、門檻、發布生命週期與外部契約仍待確認
 
 ## 閱讀前提
 
@@ -50,6 +50,9 @@
 - [`../public/provider-specs/dashboard.html`](../public/provider-specs/dashboard.html)、[`../public/provider-specs/monitoring-overview.html`](../public/provider-specs/monitoring-overview.html)、[`../public/provider-specs/risk-reports.html`](../public/provider-specs/risk-reports.html)、[`../public/provider-specs/risk-alerts.html`](../public/provider-specs/risk-alerts.html)
   - 第二階段 Batch B 完整 Draft：跨模組摘要、服務與指標監控、Risk Event 分析及 Alert 處理。
   - 四頁均提供原型對齊的置頂六區畫面示意，並分開 Test、環境、時間、Event／Alert、隔離、GGAP 及 Deferred 通知邊界。
+- [`../public/provider-specs/game-list.html`](../public/provider-specs/game-list.html)、[`../public/provider-specs/game-environments.html`](../public/provider-specs/game-environments.html)、[`../public/provider-specs/game-settings.html`](../public/provider-specs/game-settings.html)、[`../public/provider-specs/game-math.html`](../public/provider-specs/game-math.html)、[`../public/provider-specs/game-versions.html`](../public/provider-specs/game-versions.html)、[`../public/provider-specs/game-assets.html`](../public/provider-specs/game-assets.html)
+  - 第二階段 Batch C 完整 Draft：遊戲主資料、設定、數值、程式版本、素材與 Production／DEMO 發布生命週期。
+  - 環境與發布仍是程式 Placeholder；規格已提供目標畫面、流程、狀態與移除條件，不代表正式發布操作已完成。
 
 > 上述交接文件已依 Provider Portal 方向整理，並將「目前原型實況」與「目標規格草案」分開標示。正式 API 與資料欄位仍需由後端與 GGAP 對接團隊核准。
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="目前使用 Placeholder；等待內容與契約整理。">
+    <meta name="description" content="Provider Production／DEMO 全域發布、維護、停用、回復與不可變歷程。">
     <meta name="color-scheme" content="light">
     <title>環境與發布｜Provider Portal 產品與系統規格書</title>
     <link rel="stylesheet" href="assets/site.css">
@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.10.0-batch-b-draft</span>
-            <span class="topbar-status">Phase 2 · Batch B Draft Complete</span>
+            <span>0.11.0-batch-c-draft</span>
+            <span class="topbar-status">Phase 2 · Batch C Draft Complete</span>
         </div>
     </header>
 
@@ -90,31 +90,31 @@
             <summary>05.2 遊戲管理<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="game-management-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="game-list.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲列表</span>
 
                     </a><a href="game-environments.html" aria-current="page">
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>環境與發布</span>
 
                     </a><a href="game-settings.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲設定</span>
 
                     </a><a href="game-math.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>數值設定</span>
 
                     </a><a href="game-versions.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲版本</span>
 
                     </a><a href="game-assets.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲素材</span>
 
                     </a>
@@ -382,10 +382,10 @@
                     <div>
                         <p class="eyebrow">05.2.2 · 遊戲管理</p>
                         <h1>環境與發布</h1>
-                        <p class="page-summary">目前使用 Placeholder；等待內容與契約整理。</p>
+                        <p class="page-summary">Provider Production／DEMO 全域發布、維護、停用、回復與不可變歷程。</p>
                     </div>
                     <div class="page-status-stack">
-                        <span class="status-badge status-outline">待整理</span>
+                        <span class="status-badge status-draft">草案</span>
                         <span class="scope-badge scope-active">本輪製作</span>
 
                     </div>
@@ -393,22 +393,50 @@
 
                 <section class="metadata-card" aria-label="章節追溯資訊">
         <div class="metadata-grid">
-            <div><span>章節編號</span><code>05.2.2</code></div><div><span>規格狀態</span><code>待整理</code></div><div><span>Route</span><code>/games/environments</code></div><div><span>前端元件</span><code>src/views/Provider/Placeholder.vue</code></div>
+            <div><span>章節編號</span><code>05.2.2</code></div><div><span>規格狀態</span><code>草案</code></div><div><span>Route</span><code>/games/environments</code></div><div><span>前端元件</span><code>src/views/Provider/Placeholder.vue</code></div>
         </div>
     </section>
-
+                <section id="page-visual-overview" class="page-visual-overview" aria-labelledby="page-visual-title">
+        <div class="visual-overview-header">
+            <div>
+                <p class="visual-overview-kicker">PAGE ANATOMY · OVERVIEW FIRST</p>
+                <h2 id="page-visual-title">環境與發布目標畫面示意</h2>
+                <p>本頁仍為 Placeholder；示意定義目標環境矩陣、發布佇列、預檢與歷程。</p>
+            </div>
+            <button class="visual-toggle" type="button" data-anatomy-toggle aria-expanded="true" aria-controls="game-environments-visual-panel">
+                <span data-anatomy-toggle-label>收合畫面示意</span>
+                <i aria-hidden="true">⌃</i>
+            </button>
+        </div>
+        <nav class="visual-quick-map" aria-label="頁面區塊快速導覽">
+            <a href="#4-環境摘要"><strong>01</strong><span>環境摘要</span><i aria-hidden="true">↘</i></a><a href="#5-查詢與環境矩陣"><strong>02</strong><span>查詢與遊戲脈絡</span><i aria-hidden="true">↘</i></a><a href="#5-查詢與環境矩陣"><strong>03</strong><span>環境矩陣</span><i aria-hidden="true">↘</i></a><a href="#6-待發布佇列"><strong>04</strong><span>待發布佇列</span><i aria-hidden="true">↘</i></a><a href="#7-發布詳情與操作"><strong>05</strong><span>發布詳情與操作</span><i aria-hidden="true">↘</i></a><a href="#9-頁面狀態與錯誤處理"><strong>06</strong><span>歷程與替代狀態</span><i aria-hidden="true">↘</i></a>
+        </nav>
+        <div class="visual-scope-notes" aria-label="畫面閱讀邊界">
+            <span>閱讀邊界</span>
+            <small>目標 Draft</small><small>程式仍為 Placeholder</small><small>Test 只讀</small><small>GGAP 代理商開關不在本頁</small>
+        </div>
+        <div id="game-environments-visual-panel" class="visual-overview-panel" data-anatomy-panel>
+            <figure class="page-anatomy lifecycle-anatomy lifecycle-anatomy--environments" aria-label="環境與發布六區塊畫面示意">
+  <div class="lifecycle-anatomy__canvas">
+    <a class="anatomy-zone lifecycle-anatomy__cards lifecycle-anatomy__cards--four" href="#4-環境摘要" aria-label="前往第一區，環境摘要"><span class="anatomy-zone__number">01</span><span><small>Production</small><strong>14</strong><i>可服務遊戲</i></span><span><small>DEMO</small><strong>12</strong><i>隔離環境</i></span><span><small>Test</small><strong>16</strong><i>只讀監控</i></span><span><small>待發布</small><strong>2</strong><i>待驗證／核准</i></span></a>
+    <a class="anatomy-zone lifecycle-anatomy__filters" href="#5-查詢與環境矩陣" aria-label="前往第二區，查詢與遊戲脈絡"><span class="anatomy-zone__number">02</span><strong>查詢與遊戲脈絡</strong><i>遊戲 ID／名稱</i><i>環境</i><i>環境狀態</i><i>發布工作狀態</i><i>版本</i><b>查詢</b></a>
+    <a class="anatomy-zone lifecycle-anatomy__matrix" href="#5-查詢與環境矩陣" aria-label="前往第三區，環境矩陣"><span class="anatomy-zone__number">03</span><strong>環境矩陣</strong><span><b>Production</b>v2.4.1 · 上架 · Healthy · 維護／停用</span><span><b>DEMO</b>v2.5.0-rc1 · 待啟用 · Healthy · 啟用</span><span><b>Test</b>v2.5.1-dev · 已部署 · 只讀</span></a>
+    <a class="anatomy-zone lifecycle-anatomy__table" href="#6-待發布佇列" aria-label="前往第四區，待發布佇列"><span class="anatomy-zone__number">04</span><strong>待發布佇列</strong><small>工作 ID　遊戲　目標環境　程式／數值／素材／設定版本　驗證　審核　建立時間　操作</small><i>rel-20260814-0021　星際寶藏　DEMO　v2.5.0 / math-18 / asset-07 / cfg-05　Passed　Approved　10:18</i></a>
+    <div class="lifecycle-anatomy__split">
+      <a class="anatomy-zone lifecycle-anatomy__detail" href="#7-發布詳情與操作" aria-label="前往第五區，發布詳情與操作"><span class="anatomy-zone__number">05</span><small>RELEASE DETAIL</small><strong>發布前檢查 8 / 8</strong><i>組合差異 · 影響範圍 · 健康檢查 · 理由 · 版本鎖</i></a>
+      <a class="anatomy-zone lifecycle-anatomy__states" href="#9-頁面狀態與錯誤處理" aria-label="前往第六區，歷程與替代狀態"><span class="anatomy-zone__number">06</span><strong>歷程與替代狀態</strong><i>執行中</i><i>部分失敗</i><i>版本衝突</i><i>回復</i><i>Forbidden</i></a>
+    </div>
+  </div>
+  <div class="page-anatomy__legend"><span><i></i>Provider 全域發布</span><span><i></i>Production 高風險操作</span><small>目標 Draft；現行頁仍為 Placeholder blueprint。</small></div>
+</figure>
+        </div>
+        <p class="visual-overview-disclaimer">畫面示意用於定位元件與閱讀順序；實際欄位、狀態與行為仍以本頁詳細規格及正式契約為準。</p>
+    </section>
+    <a class="visual-return" data-visual-return href="#page-visual-overview" hidden><span aria-hidden="true">↑</span> 回到畫面示意</a>
 
                 <div class="content-layout">
                     <article class="spec-content">
-                        <blockquote>
-<p>本章目前為「待整理」骨架。以下內容用來確定後續規格必須回答的問題，不代表尚未確認的行為已成為正式需求。</p>
-</blockquote>
-<h2 id="頁面定位">頁面定位</h2><p>目前使用 Placeholder；等待內容與契約整理。 目前為 Placeholder；必須達到 UI Layout Spec 的移除條件後才能替換。</p>
-<h2 id="規格來源">規格來源</h2><ul>
-<li><code>docs/PROVIDER_PORTAL_SPEC.md</code></li>
-<li><code>docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md</code></li>
-</ul>
-<h2 id="既有程式對應">既有程式對應</h2><div class="table-scroll" tabindex="0"><table>
+                        <h2 id="章節狀態">章節狀態</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
 <th>項目</th>
@@ -416,40 +444,153 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>Route</td>
+<td>規格成熟度</td>
+<td>Draft — Batch C 完整頁面規格</td>
+</tr>
+<tr>
+<td>製作範圍</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>對應路由</td>
 <td><code>/games/environments</code></td>
 </tr>
 <tr>
 <td>前端元件</td>
-<td><code>src/views/Provider/Placeholder.vue</code></td>
+<td><code>src/views/Provider/Placeholder.vue</code>（GameEnvironments）</td>
 </tr>
 <tr>
-<td>畫面現況</td>
-<td>Placeholder</td>
+<td>目前原型</td>
+<td>Placeholder blueprint；尚無正式發布操作</td>
+</tr>
+<tr>
+<td>頁面角色</td>
+<td>Provider Production／DEMO 全域啟用、維護、停用與歷程</td>
 </tr>
 </tbody></table></div>
-<h2 id="後續完整章節骨架">後續完整章節骨架</h2><ol>
-<li>目的、使用者與主要使用情境。</li>
-<li>範圍、責任邊界與明確排除項目。</li>
-<li>名詞、資料來源、計算口徑與環境隔離。</li>
-<li>資訊架構、欄位、篩選、列表、詳情與互動規則。</li>
-<li>狀態模型、空白／載入／錯誤／權限不足狀態。</li>
-<li>API request／response、錯誤、分頁、排序與匯出契約。</li>
-<li>安全、權限、稽核、響應式與可存取性。</li>
-<li>前端、後端、整合、資料品質與 QA 驗收條件。</li>
-<li>待確認事項、責任人、阻擋範圍與規格完成條件。</li>
-</ol>
-<h2 id="本章完成條件">本章完成條件</h2><ul>
-<li>已逐條整併來源 Spec，且無互相矛盾的責任或名詞。</li>
-<li>與實際 route、左側導覽、頁面原型及元件對應完成核對。</li>
-<li>Draft、TBD 與 Confirmed 內容可清楚區分。</li>
-<li>前端與後端能據此估工、拆分介面契約並建立驗收案例。</li>
+<blockquote>
+<p>本規格建立目標頁面與流程骨架，不宣告 Placeholder 已完成實作。Provider 只控制遊戲全域狀態；GGAP 對已上架遊戲的代理商個別開放仍屬 GGAP，正式整合等待外部規格。</p>
+</blockquote>
+<h2 id="1-目的與責任邊界">1. 目的與責任邊界</h2><ul>
+<li>比較同一遊戲在 Production、DEMO、Test 的目前版本、狀態、健康與可用動作。</li>
+<li>對已完成部署與驗證的發布組合，執行 Production／DEMO 啟用、維護、停用與回復。</li>
+<li>顯示發布前檢查、進行中工作、結果、失敗原因及不可變操作歷程。</li>
+<li>Test 只讀，版本部署與更新由前後端／DevOps 負責；Portal 不提供操作。</li>
+<li>DEMO 資料隔離；不得進入正式 Game Round、財務或 Provider 風控。</li>
 </ul>
+<h2 id="2-發布組合與-guardrail">2. 發布組合與 Guardrail</h2><p>Draft 發布組合至少包含 <code>game_id</code>、程式版本、已核准數值版本、素材版本、設定版本、目標環境與組合 checksum。正式關聯與鎖定規則依 <code>TBD-DOM-003</code>。</p>
+<ul>
+<li>Production／DEMO 可生效不同組合；不得要求同步。</li>
+<li>啟用、維護、停用只影響新 Launch；既有 Game Round 必須依規則完成 Settle、Callback 與 audit。</li>
+<li>Production 操作需權限、確認、版本併發與 audit；雙人核准待 <code>TBD-SEC-003</code>。</li>
+<li>GGAP 同步只顯示外部結果，不允許在本頁操作代理商個別開關。</li>
+</ul>
+<h2 id="3-六區塊資訊架構">3. 六區塊資訊架構</h2><ol>
+<li>環境摘要：Production、DEMO、Test 與待發布數量。</li>
+<li>查詢與遊戲脈絡：遊戲、環境、狀態、工作狀態與 deep link。</li>
+<li>環境矩陣：每遊戲三環境的版本、健康、狀態與 allowed action。</li>
+<li>待發布佇列：發布組合、驗證、審核與目標環境。</li>
+<li>發布詳情與確認：檢查結果、差異、風險、理由及執行結果。</li>
+<li>歷程與替代狀態：audit、失敗、回復、empty、Forbidden。</li>
+</ol>
+<h2 id="4-環境摘要">4. 環境摘要</h2><ul>
+<li>Production／DEMO 統計目前可服務遊戲；Test 統計已部署且可觀察項目；待發布統計 active release jobs。</li>
+<li>摘要使用完整 Provider scope，顯示最後更新與來源狀態；不得將 Test 算入前兩者。</li>
+<li>點擊摘要只設定下方列表 scope，不執行操作。</li>
+</ul>
+<h2 id="5-查詢與環境矩陣">5. 查詢與環境矩陣</h2><p>查詢條件：<code>game_id</code>／名稱、environment、environment status、release job status、version。由 <code>/games</code> deep link 進入時套用精確 <code>game_id</code> 與 environment。</p>
+<p>每遊戲 × 環境至少顯示：遊戲、環境、生效／部署版本、組合版本、狀態、服務健康、pending release、最後變更、GGAP 同步摘要、allowed actions。Test 的 allowed actions 永遠只讀。</p>
+<p>狀態維度必須分開：環境可服務狀態、部署狀態、發布工作狀態、審核狀態、GGAP 同步狀態，禁止用單一 status 覆蓋。</p>
+<h2 id="6-待發布佇列">6. 待發布佇列</h2><p>列表至少含 release job ID、遊戲、目標環境、程式／數值／素材／設定版本、組合 checksum、驗證、審核、建立人、建立／更新時間、操作。預設依 Production、驗證失敗、待審核、建立時間排序。</p>
+<ul>
+<li>只有通過組合完整性與相容性檢查的工作可送審／啟用。</li>
+<li>同一 <code>game_id × environment</code> 同時只能有一個會改變生效版本的 active job；正式併發策略待核准。</li>
+<li>刪除已執行工作不允許；草稿取消需保留 audit。</li>
+</ul>
+<h2 id="7-發布詳情與操作">7. 發布詳情與操作</h2><p>大型 Dialog／內容區包含：目標 snapshot、目前與目標組合差異、發布前檢查、環境健康、影響範圍、GGAP 依賴、審核、執行 timeline 與 audit。</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>動作</th>
+<th>Draft 前置條件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>啟用</td>
+<td>Production／DEMO；部署完成、檢查通過、核准、環境可用、version 未衝突。</td>
+</tr>
+<tr>
+<td>進入維護</td>
+<td>Production／DEMO；必填理由與時間；阻擋新 Launch。</td>
+</tr>
+<tr>
+<td>結束維護</td>
+<td>最新健康檢查通過；必填理由。</td>
+</tr>
+<tr>
+<td>停用</td>
+<td>Production／DEMO；高風險確認；只阻擋新 Launch。</td>
+</tr>
+<tr>
+<td>回復</td>
+<td>目標組合仍可用且通過檢查；建立新 release job，不改寫歷史。</td>
+</tr>
+</tbody></table></div>
+<p>操作需 idempotency key、optimistic concurrency、allowed actions、結果與 trace。前端 mock 不得顯示為正式成功。</p>
+<h2 id="8-ggap-與跨頁依賴">8. GGAP 與跨頁依賴</h2><ul>
+<li>上游：遊戲設定、已核准數值、程式版本、素材版本組成發布輸入。</li>
+<li>下游：遊戲列表取得環境 snapshot；官網／大廳只引用可公開的遊戲資料，不建立另一套主資料。</li>
+<li>GGAP 只接收 Provider 全域上架／Release 的整合結果；代理商個別開放由 GGAP 控制。</li>
+<li>GGAP 正式同步、ACK、錯誤與重試等待 <code>TBD-EXT-001</code>，本頁不自行發明契約。</li>
+</ul>
+<h2 id="9-頁面狀態與錯誤處理">9. 頁面狀態與錯誤處理</h2><p>支援 loading、empty、query error、partial source failure、preflight failed、approval pending／rejected、queued、running、succeeded、failed、rollback required、conflict、stale、Forbidden。失敗不得改變畫面至成功狀態；重新整理後需能由 job ID 恢復進度。</p>
+<h2 id="10-api-契約草案">10. API 契約草案</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>必要輸出／行為</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>摘要／矩陣</td>
+<td>三環境 snapshot、狀態維度、pending job、allowed actions。</td>
+</tr>
+<tr>
+<td>組合／預檢</td>
+<td>版本參照、checksum、validation items、warnings／blocking errors。</td>
+</tr>
+<tr>
+<td>發布操作</td>
+<td>job ID、version、idempotency、status、trace、audit。</td>
+</tr>
+<tr>
+<td>歷程／詳情</td>
+<td>before／target／result snapshot、actor、approval、timeline。</td>
+</tr>
+</tbody></table></div>
+<p>正式 path、schema、狀態機、補償與權限依 <code>TBD-DOM-003</code>、<code>TBD-API-005</code>、<code>TBD-SEC-003</code>、<code>TBD-NFR-003</code>。</p>
+<h2 id="11-響應式-無障礙與驗收">11. 響應式、無障礙與驗收</h2><p>本頁使用 Portal <code>1500px</code> 寬版。Desktop 顯示三欄矩陣與寬表；Mobile 依遊戲分組呈現三環境卡片，操作需保留明確目標、理由與確認。Dialog 管理焦點，狀態不只靠顏色。</p>
+<p>驗收條件：三環境獨立；Test 無操作；發布組合可追溯四類版本；狀態維度不合併；Production 操作具 preflight／核准／併發／audit 骨架；既有 Round 不受中斷；GGAP 代理商開關不出現在本頁；所有替代狀態可驗收。</p>
+<h2 id="12-測試重點">12. 測試重點</h2><ul>
+<li>Production／DEMO 不同版本、Test 只讀與跨環境 deep link。</li>
+<li>缺版本、相容性失敗、核准拒絕、版本衝突、重複送出與頁面重載。</li>
+<li>維護／停用期間新 Launch 與既有 Round Settle／Callback。</li>
+<li>GGAP 同步失敗不回滾已核准 Provider 狀態的正式補償策略（待契約）。</li>
+<li>390px 操作確認、鍵盤、長版本號與 timeline。</li>
+</ul>
+<h2 id="13-待確認事項">13. 待確認事項</h2><ul>
+<li><code>TBD-DOM-003</code>、<code>TBD-DOM-006</code>：發布組合、環境生命週期與 DEMO 模型。</li>
+<li><code>TBD-API-001</code>、<code>TBD-API-005</code>：共通及發布 API。</li>
+<li><code>TBD-SEC-001</code>、<code>TBD-SEC-003</code>：permission、核准、併發與 audit。</li>
+<li><code>TBD-NFR-003</code>、<code>TBD-NFR-004</code>：冪等／補償、響應式與可存取性。</li>
+<li><code>TBD-EXT-001</code>、<code>TBD-EXT-003</code>：GGAP 與系統權限規格。</li>
+</ul>
+<h2 id="14-placeholder-移除條件">14. Placeholder 移除條件</h2><p>只有目標頁的環境矩陣、待發布佇列、詳情／預檢、替代狀態與只讀 Test 已實作並通過 UI 驗收後，才可移除程式 Placeholder；改為 Confirmed 還需正式生命週期、API、權限與 GGAP 契約核准。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#頁面定位">頁面定位</a><a class="outline-level-2" href="#規格來源">規格來源</a><a class="outline-level-2" href="#既有程式對應">既有程式對應</a><a class="outline-level-2" href="#後續完整章節骨架">後續完整章節骨架</a><a class="outline-level-2" href="#本章完成條件">本章完成條件</a></nav>
+        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-發布組合與-guardrail">2. 發布組合與 Guardrail</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-環境摘要">4. 環境摘要</a><a class="outline-level-2" href="#5-查詢與環境矩陣">5. 查詢與環境矩陣</a><a class="outline-level-2" href="#6-待發布佇列">6. 待發布佇列</a><a class="outline-level-2" href="#7-發布詳情與操作">7. 發布詳情與操作</a><a class="outline-level-2" href="#8-ggap-與跨頁依賴">8. GGAP 與跨頁依賴</a><a class="outline-level-2" href="#9-頁面狀態與錯誤處理">9. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#10-api-契約草案">10. API 契約草案</a><a class="outline-level-2" href="#11-響應式-無障礙與驗收">11. 響應式、無障礙與驗收</a><a class="outline-level-2" href="#12-測試重點">12. 測試重點</a><a class="outline-level-2" href="#13-待確認事項">13. 待確認事項</a><a class="outline-level-2" href="#14-placeholder-移除條件">14. Placeholder 移除條件</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -460,7 +601,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.10.0-batch-b-draft · 2026-08-14</span>
+                    <span>0.11.0-batch-c-draft · 2026-08-14</span>
                 </footer>
             </div>
         </main>

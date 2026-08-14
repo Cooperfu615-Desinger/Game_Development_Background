@@ -14,8 +14,8 @@ let assertionCount = 0
 const batchBPageIds = ['dashboard', 'monitoring-overview', 'risk-reports', 'risk-alerts']
 const manifestPages = modules.flatMap((module) => module.pages)
 
-assert(book.version === '0.10.0-batch-b-draft', '規格網站版本應標示 Batch B Draft')
-assert(book.status.includes('Batch B Draft Complete'), '規格網站狀態應標示 Batch B Draft Complete')
+assert(['0.10.0-batch-b-draft', '0.11.0-batch-c-draft'].includes(book.version), '規格網站版本不得早於 Batch B Draft')
+assert(book.status.includes('Batch B Draft Complete') || book.status.includes('Batch C Draft Complete'), '規格網站狀態不得早於 Batch B Draft Complete')
 
 for (const pageId of batchBPageIds) {
     const page = manifestPages.find((item) => item.id === pageId)

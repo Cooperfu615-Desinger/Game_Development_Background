@@ -53,7 +53,16 @@ Batch B 已完成四頁完整 Draft：
 - 風控報表：完成 Risk Event 滾動時間、五張摘要、待關注排序、15 欄列表、詳情與完整結果匯出。
 - 風控告警／處理：完成 Alert 五張工作卡、16 欄佇列、大型詳情、操作前置條件、隔離 Guardrail 與 audit 骨架。
 
-Batch A／B 頁面仍是 Draft；正式公式、門檻、decimal 精度、狀態生命週期、API schema、權限與外部契約仍依集中 TBD 管理。其餘 Batch C–D 頁面維持 Active／Outline，等待後續批次整理。
+Batch C 已完成遊戲管理六頁完整 Draft：
+
+- 遊戲列表：三環境摘要、八類篩選、14 欄寬表、RTP Tips、詳情與導流。
+- 環境與發布：目標環境矩陣、發布組合、佇列、preflight、高風險操作及歷程；程式仍為 Placeholder。
+- 遊戲設定：維護／限紅模板、Provider 點數、基礎 enum、草稿、審核與版本 snapshot。
+- 數值設定：理論數值與 RTP 監控分離、模擬／驗證／審核及發布參照。
+- 遊戲版本：artifact、相容性、lineage、組合參照及建立新 release job 的回復模型。
+- 遊戲素材：不可變素材版本、安全預覽、檔案驗證／掃描、審核與引用。
+
+Batch A–C 頁面仍是 Draft；正式公式、門檻、decimal 精度、狀態生命週期、API schema、權限與外部契約仍依集中 TBD 管理。其餘 Batch D 頁面維持 Active／Outline，等待後續整理。
 
 ## 完整頁面矩陣
 

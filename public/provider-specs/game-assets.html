@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="已有內容原型；正式資料契約仍待整理。">
+    <meta name="description" content="不可變素材版本、語系／用途、檔案驗證、掃描、審核與發布參照。">
     <meta name="color-scheme" content="light">
     <title>遊戲素材｜Provider Portal 產品與系統規格書</title>
     <link rel="stylesheet" href="assets/site.css">
@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.10.0-batch-b-draft</span>
-            <span class="topbar-status">Phase 2 · Batch B Draft Complete</span>
+            <span>0.11.0-batch-c-draft</span>
+            <span class="topbar-status">Phase 2 · Batch C Draft Complete</span>
         </div>
     </header>
 
@@ -90,31 +90,31 @@
             <summary>05.2 遊戲管理<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="game-management-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="game-list.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲列表</span>
 
                     </a><a href="game-environments.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>環境與發布</span>
 
                     </a><a href="game-settings.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲設定</span>
 
                     </a><a href="game-math.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>數值設定</span>
 
                     </a><a href="game-versions.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲版本</span>
 
                     </a><a href="game-assets.html" aria-current="page">
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲素材</span>
 
                     </a>
@@ -382,10 +382,10 @@
                     <div>
                         <p class="eyebrow">05.2.6 · 遊戲管理</p>
                         <h1>遊戲素材</h1>
-                        <p class="page-summary">已有內容原型；正式資料契約仍待整理。</p>
+                        <p class="page-summary">不可變素材版本、語系／用途、檔案驗證、掃描、審核與發布參照。</p>
                     </div>
                     <div class="page-status-stack">
-                        <span class="status-badge status-outline">待整理</span>
+                        <span class="status-badge status-draft">草案</span>
                         <span class="scope-badge scope-active">本輪製作</span>
 
                     </div>
@@ -393,21 +393,50 @@
 
                 <section class="metadata-card" aria-label="章節追溯資訊">
         <div class="metadata-grid">
-            <div><span>章節編號</span><code>05.2.6</code></div><div><span>規格狀態</span><code>待整理</code></div><div><span>Route</span><code>/games/assets</code></div><div><span>前端元件</span><code>src/views/Games/Assets.vue</code></div>
+            <div><span>章節編號</span><code>05.2.6</code></div><div><span>規格狀態</span><code>草案</code></div><div><span>Route</span><code>/games/assets</code></div><div><span>前端元件</span><code>src/views/Games/Assets.vue</code></div>
         </div>
     </section>
-
+                <section id="page-visual-overview" class="page-visual-overview" aria-labelledby="page-visual-title">
+        <div class="visual-overview-header">
+            <div>
+                <p class="visual-overview-kicker">PAGE ANATOMY · OVERVIEW FIRST</p>
+                <h2 id="page-visual-title">遊戲素材畫面示意</h2>
+                <p>參照現行 /games/assets 原型；上傳入口目前無正式檔案傳輸或發布副作用。</p>
+            </div>
+            <button class="visual-toggle" type="button" data-anatomy-toggle aria-expanded="true" aria-controls="game-assets-visual-panel">
+                <span data-anatomy-toggle-label>收合畫面示意</span>
+                <i aria-hidden="true">⌃</i>
+            </button>
+        </div>
+        <nav class="visual-quick-map" aria-label="頁面區塊快速導覽">
+            <a href="#4-素材摘要"><strong>01</strong><span>素材摘要</span><i aria-hidden="true">↘</i></a><a href="#5-查詢與結果操作"><strong>02</strong><span>查詢條件</span><i aria-hidden="true">↘</i></a><a href="#5-查詢與結果操作"><strong>03</strong><span>結果與操作</span><i aria-hidden="true">↘</i></a><a href="#6-素材列表"><strong>04</strong><span>素材列表</span><i aria-hidden="true">↘</i></a><a href="#7-素材詳情"><strong>05</strong><span>素材詳情</span><i aria-hidden="true">↘</i></a><a href="#8-上傳與替換流程"><strong>06</strong><span>上傳與替換流程</span><i aria-hidden="true">↘</i></a>
+        </nav>
+        <div class="visual-scope-notes" aria-label="畫面閱讀邊界">
+            <span>閱讀邊界</span>
+            <small>不可變素材版本</small><small>安全預覽</small><small>掃描與審核</small><small>上傳目前為 mock</small>
+        </div>
+        <div id="game-assets-visual-panel" class="visual-overview-panel" data-anatomy-panel>
+            <figure class="page-anatomy lifecycle-anatomy lifecycle-anatomy--assets" aria-label="遊戲素材六區塊畫面示意">
+  <div class="lifecycle-anatomy__canvas">
+    <a class="anatomy-zone lifecycle-anatomy__cards lifecycle-anatomy__cards--four" href="#4-素材摘要" aria-label="前往第一區，素材摘要"><span class="anatomy-zone__number">01</span><span><small>素材版本</small><strong>86</strong><i>Published 62</i></span><span><small>支援語系</small><strong>4</strong><i>zh-TW default</i></span><span><small>關聯版本</small><strong>18</strong><i>精確參照</i></span><span><small>待處理</small><strong>3</strong><i>scan／review</i></span></a>
+    <a class="anatomy-zone lifecycle-anatomy__filters" href="#5-查詢與結果操作" aria-label="前往第二區，查詢條件"><span class="anatomy-zone__number">02</span><strong>查詢條件</strong><i>素材 ID／遊戲</i><i>遊戲</i><i>素材類型</i><i>語系</i><i>狀態</i><i>更新時間</i><b>查詢</b></a>
+    <a class="anatomy-zone lifecycle-anatomy__toolbar" href="#5-查詢與結果操作" aria-label="前往第三區，結果與操作"><span class="anatomy-zone__number">03</span><strong>86 筆素材版本</strong><small>applied filters · updated_at desc</small><i>上傳素材　匯出 metadata</i></a>
+    <a class="anatomy-zone lifecycle-anatomy__table lifecycle-anatomy__table--asset" href="#6-素材列表" aria-label="前往第四區，素材列表"><span class="anatomy-zone__number">04</span><strong>素材列表</strong><small>素材 ID　預覽　遊戲　類型　語系　用途　版本　尺寸　大小　狀態　掃描　關聯版本　更新　操作</small><i>asset-007　▣　星際寶藏　Banner　zh-TW　Lobby desktop　v4　1920×640　382KB　Approved　Passed　gver-024</i></a>
+    <div class="lifecycle-anatomy__split">
+      <a class="anatomy-zone lifecycle-anatomy__detail lifecycle-anatomy__detail--asset" href="#7-素材詳情" aria-label="前往第五區，素材詳情"><span class="anatomy-zone__number">05</span><small>ASSET DETAIL</small><strong>安全預覽 / asset-007-v4</strong><i>metadata · checksum · alt text · lineage · usage references</i></a>
+      <a class="anatomy-zone lifecycle-anatomy__actions" href="#8-上傳與替換流程" aria-label="前往第六區，上傳與替換流程"><span class="anatomy-zone__number">06</span><strong>上傳／替換</strong><i>草稿</i><i>檔案驗證</i><i>惡意檔案掃描</i><i>審核</i><i>失敗／衝突</i></a>
+    </div>
+  </div>
+  <div class="page-anatomy__legend"><span><i></i>不可變素材版本</span><span><i></i>檔案處理與審核</span><small>參照現行 `/games/assets` 原型；上傳入口目前無正式副作用。</small></div>
+</figure>
+        </div>
+        <p class="visual-overview-disclaimer">畫面示意用於定位元件與閱讀順序；實際欄位、狀態與行為仍以本頁詳細規格及正式契約為準。</p>
+    </section>
+    <a class="visual-return" data-visual-return href="#page-visual-overview" hidden><span aria-hidden="true">↑</span> 回到畫面示意</a>
 
                 <div class="content-layout">
                     <article class="spec-content">
-                        <blockquote>
-<p>本章目前為「待整理」骨架。以下內容用來確定後續規格必須回答的問題，不代表尚未確認的行為已成為正式需求。</p>
-</blockquote>
-<h2 id="頁面定位">頁面定位</h2><p>已有內容原型；正式資料契約仍待整理。 目前已有內容原型；正式 API、權限與互動資料流仍待規格化。</p>
-<h2 id="規格來源">規格來源</h2><ul>
-<li><code>docs/PROVIDER_PORTAL_PAGE_MAP.md</code></li>
-</ul>
-<h2 id="既有程式對應">既有程式對應</h2><div class="table-scroll" tabindex="0"><table>
+                        <h2 id="章節狀態">章節狀態</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
 <th>項目</th>
@@ -415,7 +444,15 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>Route</td>
+<td>規格成熟度</td>
+<td>Draft — Batch C 完整頁面規格</td>
+</tr>
+<tr>
+<td>製作範圍</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>對應路由</td>
 <td><code>/games/assets</code></td>
 </tr>
 <tr>
@@ -423,32 +460,99 @@
 <td><code>src/views/Games/Assets.vue</code></td>
 </tr>
 <tr>
-<td>畫面現況</td>
-<td>已有內容原型</td>
+<td>主要來源</td>
+<td><code>PROVIDER_PORTAL_PAGE_MAP.md</code>、現行原型</td>
+</tr>
+<tr>
+<td>頁面角色</td>
+<td>遊戲展示／營運素材、版本、語系與發布參照</td>
 </tr>
 </tbody></table></div>
-<h2 id="後續完整章節骨架">後續完整章節骨架</h2><ol>
-<li>目的、使用者與主要使用情境。</li>
-<li>範圍、責任邊界與明確排除項目。</li>
-<li>名詞、資料來源、計算口徑與環境隔離。</li>
-<li>資訊架構、欄位、篩選、列表、詳情與互動規則。</li>
-<li>狀態模型、空白／載入／錯誤／權限不足狀態。</li>
-<li>API request／response、錯誤、分頁、排序與匯出契約。</li>
-<li>安全、權限、稽核、響應式與可存取性。</li>
-<li>前端、後端、整合、資料品質與 QA 驗收條件。</li>
-<li>待確認事項、責任人、阻擋範圍與規格完成條件。</li>
-</ol>
-<h2 id="本章完成條件">本章完成條件</h2><ul>
-<li>已逐條整併來源 Spec，且無互相矛盾的責任或名詞。</li>
-<li>與實際 route、左側導覽、頁面原型及元件對應完成核對。</li>
-<li>Draft、TBD 與 Confirmed 內容可清楚區分。</li>
-<li>前端與後端能據此估工、拆分介面契約並建立驗收案例。</li>
+<blockquote>
+<p>現行上傳 Dialog 只建立前端 mock 草稿，沒有檔案傳輸、掃描、儲存或正式發布。素材替換不得原地覆寫已發布檔案；發布組合必須引用不可變素材版本。</p>
+</blockquote>
+<h2 id="1-目的與責任邊界">1. 目的與責任邊界</h2><ul>
+<li>管理 Provider 自身遊戲的 Icon、Banner、Loading、Table Skin 等素材及其語系／裝置用途。</li>
+<li>預覽 metadata、版本、檔案驗證、掃描、審核與遊戲版本關聯。</li>
+<li>建立上傳／替換草稿，通過處理後形成不可變素材版本，供發布組合引用。</li>
+<li>不管理代理商／商戶品牌素材或會員資料；官網／大廳只引用已核准資產。</li>
 </ul>
+<h2 id="2-素材模型">2. 素材模型</h2><ul>
+<li><code>asset_id</code> 表示素材邏輯項，<code>asset_version_id</code> 表示不可變檔案版本；storage key／URL 不作主鍵。</li>
+<li>至少保存 game_id、type、locale、device／usage、dimensions、file size、MIME、checksum、alt text、status、scan／validation、related game versions、owner、times。</li>
+<li>語系以繁中預設；fallback、支援清單與同類素材完整性依 <code>TBD-DAT-006</code>。</li>
+<li>已發布或被 release job 引用的素材版本不可覆寫／刪除；替換建立新版本。</li>
+</ul>
+<h2 id="3-六區塊資訊架構">3. 六區塊資訊架構</h2><ol>
+<li>素材摘要：總數、語系、關聯版本、待處理上傳。</li>
+<li>查詢條件：素材 ID、遊戲、類型、語系、狀態、更新時間。</li>
+<li>結果與操作：筆數、applied filters、上傳草稿、匯出。</li>
+<li>素材列表：預覽、metadata、版本、驗證與參照。</li>
+<li>素材詳情：安全預覽、checksum、usage、lineage 與引用。</li>
+<li>上傳／替換流程與替代狀態。</li>
+</ol>
+<h2 id="4-素材摘要">4. 素材摘要</h2><p>摘要分別顯示 asset versions、可用語系、被引用的遊戲版本及待掃描／待審核。需標示 scope 與更新時間；來源失敗不得顯示 0。「上傳方式：入口」不是業務指標，目標 UI 改為待處理工作。</p>
+<h2 id="5-查詢與結果操作">5. 查詢與結果操作</h2><p>查詢：keyword（asset／version ID、遊戲）、game_id、type、locale、usage／device、status、scan status、updated range。上傳建立草稿；匯出只含授權 metadata，預設不打包原始檔。</p>
+<h2 id="6-素材列表">6. 素材列表</h2><p>目標欄位：素材／版本 ID、安全縮圖、遊戲、類型、語系、usage／device、版本、尺寸、檔案大小、狀態、scan／validation、關聯遊戲版本、更新時間、操作。</p>
+<ul>
+<li>預覽使用受控衍生圖，不直接暴露私有 storage URL。</li>
+<li>MIME、extension、magic bytes、dimensions、size、checksum 均需後端驗證。</li>
+<li>預設待處理／失敗優先，再以 updated_at desc、asset version ID 穩定排序。</li>
+</ul>
+<h2 id="7-素材詳情">7. 素材詳情</h2><p>大型 Dialog 顯示安全預覽、完整 metadata、alt text、checksum、scan／validation、來源版本、替換 lineage、語系 fallback、使用中的遊戲版本／release jobs、owner、審核及 audit。下載原始檔需獨立權限與短效 URL。</p>
+<h2 id="8-上傳與替換流程">8. 上傳與替換流程</h2><p>流程：選遊戲／類型／locale／usage → 選檔 → client hint → server upload → MIME／尺寸／checksum／惡意檔案掃描 → metadata／alt text → 草稿 → 審核 → approved → 發布組合引用。</p>
+<ul>
+<li>失敗上傳可有限重試；同 checksum 重複檔需提示既有版本。</li>
+<li>替換建立新 <code>asset_version_id</code>，不得覆寫舊檔；已引用版本保持可重現。</li>
+<li>Production 使用的素材變更需理由、差異預覽與核准；正式檔案保存、刪除與 CDN 失效待契約。</li>
+</ul>
+<h2 id="9-頁面狀態與錯誤處理">9. 頁面狀態與錯誤處理</h2><p>支援 loading、empty、uploading、processing、scan failed、validation failed、review pending／rejected、storage／preview error、duplicate、conflict、export、Forbidden。上傳成功但處理失敗不可顯示 approved；離頁後可依 job ID 恢復。</p>
+<h2 id="10-api-契約草案">10. API 契約草案</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>必要輸出／行為</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>列表／詳情</td>
+<td>asset／version schema、safe preview、validation、scan、references、lineage。</td>
+</tr>
+<tr>
+<td>上傳</td>
+<td>upload session、限制、checksum、progress／job、idempotency、expiry。</td>
+</tr>
+<tr>
+<td>草稿／審核</td>
+<td>metadata、version、validation、approval、allowed actions、audit。</td>
+</tr>
+<tr>
+<td>下載／匯出</td>
+<td>短效授權 URL 或 metadata job、到期與 audit。</td>
+</tr>
+</tbody></table></div>
+<p>正式格式、大小、儲存、API、權限與保存依 <code>TBD-DAT-006</code>、<code>TBD-API-005</code>、<code>TBD-SEC-003</code>、<code>TBD-SEC-004</code>。</p>
+<h2 id="11-響應式-無障礙與驗收">11. 響應式、無障礙與驗收</h2><p>頁面使用主內容完整寬度。Mobile 素材卡片保留縮圖、ID、類型、語系、狀態、掃描與詳情；上傳需鍵盤可用、進度與錯誤可公告。所有圖像必須有可管理 alt text 或明確裝飾性標記。</p>
+<p>驗收條件：素材／版本 ID 分開；已引用檔案不可覆寫；語系與 usage 明確；預覽不暴露 storage；檔案驗證／掃描／審核骨架完整；上傳 mock 不冒充正式成功；Loading／processing／failure／Forbidden 可驗收。</p>
+<h2 id="12-測試重點">12. 測試重點</h2><ul>
+<li>錯 MIME／magic bytes、超尺寸／大小、惡意檔案、checksum 重複與網路中斷。</li>
+<li>替換被引用素材、審核衝突、權限撤銷、短效 URL 到期。</li>
+<li>locale fallback、缺 alt text、多裝置用途與 release 組合引用。</li>
+<li>390px 預覽、上傳進度、Dialog 焦點與鍵盤。</li>
+</ul>
+<h2 id="13-待確認事項">13. 待確認事項</h2><ul>
+<li><code>TBD-DOM-003</code>：素材版本與發布組合。</li>
+<li><code>TBD-DAT-006</code>：格式、尺寸、語系、usage、fallback 與 alt text。</li>
+<li><code>TBD-API-001</code>、<code>TBD-API-005</code>：共通／素材 API。</li>
+<li><code>TBD-SEC-001</code>、<code>TBD-SEC-003</code>、<code>TBD-SEC-004</code>：權限、核准、下載與保存。</li>
+<li><code>TBD-NFR-004</code>、<code>TBD-EXT-003</code>：前端驗收與角色模型。</li>
+</ul>
+<h2 id="14-draft-移除條件">14. Draft 移除條件</h2><p>素材 schema、檔案限制、掃描／儲存、版本／引用、上傳／審核、API 與權限核准並通過驗收後，才可改為 Confirmed。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#頁面定位">頁面定位</a><a class="outline-level-2" href="#規格來源">規格來源</a><a class="outline-level-2" href="#既有程式對應">既有程式對應</a><a class="outline-level-2" href="#後續完整章節骨架">後續完整章節骨架</a><a class="outline-level-2" href="#本章完成條件">本章完成條件</a></nav>
+        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-素材模型">2. 素材模型</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-素材摘要">4. 素材摘要</a><a class="outline-level-2" href="#5-查詢與結果操作">5. 查詢與結果操作</a><a class="outline-level-2" href="#6-素材列表">6. 素材列表</a><a class="outline-level-2" href="#7-素材詳情">7. 素材詳情</a><a class="outline-level-2" href="#8-上傳與替換流程">8. 上傳與替換流程</a><a class="outline-level-2" href="#9-頁面狀態與錯誤處理">9. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#10-api-契約草案">10. API 契約草案</a><a class="outline-level-2" href="#11-響應式-無障礙與驗收">11. 響應式、無障礙與驗收</a><a class="outline-level-2" href="#12-測試重點">12. 測試重點</a><a class="outline-level-2" href="#13-待確認事項">13. 待確認事項</a><a class="outline-level-2" href="#14-draft-移除條件">14. Draft 移除條件</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -459,7 +563,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.10.0-batch-b-draft · 2026-08-14</span>
+                    <span>0.11.0-batch-c-draft · 2026-08-14</span>
                 </footer>
             </div>
         </main>

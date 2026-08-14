@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.10.0-batch-b-draft</span>
-            <span class="topbar-status">Phase 2 · Batch B Draft Complete</span>
+            <span>0.11.0-batch-c-draft</span>
+            <span class="topbar-status">Phase 2 · Batch C Draft Complete</span>
         </div>
     </header>
 
@@ -90,31 +90,31 @@
             <summary>05.2 遊戲管理<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="game-management-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="game-list.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲列表</span>
 
                     </a><a href="game-environments.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>環境與發布</span>
 
                     </a><a href="game-settings.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲設定</span>
 
                     </a><a href="game-math.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>數值設定</span>
 
                     </a><a href="game-versions.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲版本</span>
 
                     </a><a href="game-assets.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲素材</span>
 
                     </a>
@@ -549,7 +549,7 @@
 <div class="reconciliation-columns">
 <section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 負責遊戲主資料、全域上架／下架狀態及各環境的遊戲可服務狀態。</li><li>Production、DEMO 與 Test 必須分開顯示；GGAP 另行控制各代理商是否開放已上架遊戲。</li><li>版本、數值與素材是 Provider 自有遊戲資料，但各自有獨立管理頁。</li></ul></section>
 <section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有遊戲搜尋、環境狀態篩選、摘要、寬表格、單筆詳情 Dialog 與跨頁入口。</li><li>版本發布操作明確標示等待「環境與發布」頁完成，目前以唯讀摘要呈現。</li><li>列表、狀態、RTP 與詳情均使用前端 mock。</li></ul></section>
-<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>正式遊戲狀態 enum、來源、轉換規則與全域上下架 API 尚待確認。</li><li>批次操作、權限、稽核、失敗與部分成功處理尚未定義。</li><li>GGAP 同步只可標示結果與依賴，不可在本頁建立代理商個別開關。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Batch C Draft 已定義三環境摘要、八類篩選、14 欄寬表、RTP Tips、詳情、狀態與精確導流。</li><li>Test 只讀、pending release、營運控制與 GGAP 同步的互斥語意及驗收已有骨架。</li><li>正式 enum、RTP／同步 API、permission 與外部 GGAP 契約仍依集中 TBD 管理。</li></ul></section>
 </div>
 </article>
 <article class="reconciliation-card reconciliation-gap">
@@ -561,7 +561,7 @@
 <div class="reconciliation-columns">
 <section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 負責 Production／DEMO 的版本與素材發布，以及遊戲的全域上架／下架。</li><li>GGAP 對已上架遊戲控制各代理商是否開放；該能力不屬於 Provider 本頁。</li><li>Test 可作開發驗證，但不得混入正式財務、Game Round 或 Provider 風控資料。</li></ul></section>
 <section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>目前仍使用共用 Placeholder，以環境矩陣、待發布摘要與版本狀態表呈現 blueprint。</li><li>Production、DEMO、Test 數量、版本與待發布佇列皆為 mock。</li><li>沒有正式發布操作、驗證結果、失敗狀態或發布詳情。</li></ul></section>
-<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>需建立 Provider 自有的發布生命週期、環境矩陣、發布前驗證與歷程規格。</li><li>版本／素材綁定、維護、停用、回復策略與高風險權限尚待確認。</li><li>GGAP 同步、重試及代理商開放狀態等待 GGAP 正式規格，只保留依賴邊界。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Batch C Draft 已定義環境矩陣、發布組合、待發布佇列、preflight、操作前置條件、歷程及替代狀態。</li><li>Production／DEMO 可分版、Test 只讀、既有 Round 不受阻斷及 Provider／GGAP 邊界已有完整驗收骨架。</li><li>程式仍為 Placeholder；正式狀態機、API、核准／併發、補償與 GGAP 同步仍依集中 TBD 管理。</li></ul></section>
 </div>
 </article>
 <article class="reconciliation-card reconciliation-attention">
@@ -573,7 +573,7 @@
 <div class="reconciliation-columns">
 <section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 負責自身遊戲設定，不延伸為代理商、商戶或會員層級的設定中心。</li><li>影響 Production 的設定變更必須與版本、環境及發布責任保持可追溯關係。</li></ul></section>
 <section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有維護週期模板、限紅模板與基礎選項三個設定區。</li><li>表單可在前端操作，包含正式環境是否需要審核等 mock 選項。</li><li>沒有正式儲存、驗證、版本綁定、權限或稽核資料流。</li></ul></section>
-<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>設定分類、欄位 schema、預設值、合法範圍與相依驗證尚待產品確認。</li><li>草稿／生效版本、Production 審核與環境套用方式尚未核准。</li><li>正式 API、permission key、並行修改與操作紀錄尚待定義。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Batch C Draft 已定義維護／限紅模板、Provider 點數、基礎 enum、版本 snapshot、草稿／驗證／送審與 audit。</li><li>原型 USD／TWD 選項不升格為契約；Production 變更不再被視為直接表單儲存。</li><li>正式 schema、時區／精度、API、permission、核准與併發仍依集中 TBD 管理。</li></ul></section>
 </div>
 </article>
 <article class="reconciliation-card reconciliation-attention">
@@ -585,7 +585,7 @@
 <div class="reconciliation-columns">
 <section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 負責遊戲數值、RTP、波動度及賠率相關主資料與版本。</li><li>數值設定與風控監測相關，但設定責任與異常監測責任不可混成同一資料模型。</li></ul></section>
 <section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有數值摘要、RTP 趨勢、查詢、版本列表、詳情 Dialog 與審核申請 Dialog。</li><li>「偏離 ≥ 5%」、審核狀態、樣本量與數值皆為展示 mock；匯出目前停用。</li><li>頁面同時呈現設定版本與監控結果，但尚無正式資料來源區分。</li></ul></section>
-<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>數值模型、精度、合法範圍、版本生命週期與生效環境尚待核准。</li><li>審核、發布、回復、不可逆操作與權限稽核尚未定義。</li><li>RTP 偏離門檻、樣本窗口及與 Risk Event 的關聯必須由正式風控規則決定。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Batch C Draft 已分開理論數值版本與監控 snapshot，定義趨勢、列表、詳情、模擬、驗證、審核及發布參照。</li><li>原型偏離 ≥ 5% 明確保留為 mock；Production／DEMO 分離且 Test 排除風控。</li><li>正式 decimal、賠率 schema、門檻／樣本、API、permission、審核與 audit 仍依集中 TBD 管理。</li></ul></section>
 </div>
 </article>
 <article class="reconciliation-card reconciliation-attention">
@@ -597,7 +597,7 @@
 <div class="reconciliation-columns">
 <section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 負責遊戲版本及全域發布，不管理商戶主資料或商戶層級發布。</li><li>版本需與遊戲、數值、素材及環境維持可追溯關係。</li></ul></section>
 <section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有摘要、版本／狀態／發布類型篩選、列表、新增發布入口、匯出與詳情 Dialog。</li><li>狀態包含已發布、測試中、維護中、待審核、已回滾，皆為 mock。</li><li>摘要中的「影響商戶」是展示欄位，不代表 Provider 建立或管理商戶主資料。</li></ul></section>
-<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>版本狀態、相容性、鎖定、發布單、回復與刪除限制尚待確認。</li><li>「影響範圍」應改以 Provider 可追溯的環境／遊戲脈絡定義，商戶資訊只能是外部快照。</li><li>新增、發布、回復、匯出 API、權限與稽核尚未形成契約。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Batch C Draft 已定義 version ID／artifact、相容性、精確組合參照、lineage、引用、審核及回復 job。</li><li>目標列表移除「影響商戶」管理語意，改用 Provider 環境／遊戲 scope；外部資料只能是 GGAP snapshot。</li><li>正式狀態、artifact 保存、API、permission、核准、匯出與 audit 仍依集中 TBD 管理。</li></ul></section>
 </div>
 </article>
 <article class="reconciliation-card reconciliation-aligned">
@@ -609,7 +609,7 @@
 <div class="reconciliation-columns">
 <section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 負責自身遊戲素材，素材需能關聯遊戲、版本、語系及使用情境。</li><li>素材管理不授予 Provider 維護代理商、商戶或會員資料的能力。</li></ul></section>
 <section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有素材摘要、搜尋與篩選、列表、詳情預覽及上傳 Dialog。</li><li>素材狀態、語系、關聯版本與上傳流程均為前端 mock。</li><li>目前沒有檔案實際上傳、掃描、儲存、發布或失敗資料流。</li></ul></section>
-<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>素材類型、格式、尺寸、大小、儲存、掃描及可存取性要求尚待確認。</li><li>素材版本、語系 fallback、裝置用途與發布綁定尚未核准。</li><li>上傳／替換／刪除限制、API、權限與稽核尚待定義。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Batch C Draft 已定義 asset／version ID、安全預覽、metadata、語系／usage、上傳、驗證、掃描、審核與 lineage。</li><li>替換建立不可變新版本，已引用素材不覆寫；上傳 mock 不被視為正式檔案成功。</li><li>正式格式／大小、fallback、儲存、API、下載／匯出、permission、保存與 audit 仍依集中 TBD 管理。</li></ul></section>
 </div>
 </article>
 </section><h3 id="批次-d-官方網站與遊戲大廳">批次 D｜官方網站與遊戲大廳</h3><section class="reconciliation-list" aria-label="批次 D 頁面校準">
@@ -731,7 +731,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.10.0-batch-b-draft · 2026-08-14</span>
+                    <span>0.11.0-batch-c-draft · 2026-08-14</span>
                 </footer>
             </div>
         </main>

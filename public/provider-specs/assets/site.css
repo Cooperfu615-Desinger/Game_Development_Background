@@ -3960,6 +3960,207 @@ body {
     .ops-anatomy__cards > span { border-right: 0; }
 }
 
+/* Phase 2 Batch C: game lifecycle anatomy */
+.lifecycle-anatomy {
+    --life-blue: #478eff;
+    --life-blue-soft: #ebf3ff;
+    --life-ink: #26354a;
+    --life-green: #438f7d;
+    --life-amber: #d99b2b;
+    color: var(--life-ink);
+    background: #eef2f7;
+}
+
+.lifecycle-anatomy__canvas {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    padding: 12px;
+    background: linear-gradient(135deg, #f7f9fc 0%, #eff3f8 100%);
+}
+
+.lifecycle-anatomy .anatomy-zone {
+    border-color: #d8e0eb;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, .97);
+    box-shadow: 0 4px 14px rgba(35, 53, 78, .06);
+}
+
+.lifecycle-anatomy .anatomy-zone:hover,
+.lifecycle-anatomy .anatomy-zone:focus-visible {
+    border-color: var(--life-blue);
+    box-shadow: 0 9px 24px rgba(71, 142, 255, .17);
+}
+
+.lifecycle-anatomy .anatomy-zone__number,
+.lifecycle-anatomy .anatomy-zone:hover .anatomy-zone__number,
+.lifecycle-anatomy .anatomy-zone:focus-visible .anatomy-zone__number {
+    color: #fff;
+    background: var(--life-blue);
+    border-radius: 9px 0 8px 0;
+}
+
+.lifecycle-anatomy__cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 34px 10px 10px;
+}
+
+.lifecycle-anatomy__cards--four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+.lifecycle-anatomy__cards > span {
+    min-width: 0;
+    padding: 3px 12px;
+    border-right: 1px solid #e2e8f0;
+}
+
+.lifecycle-anatomy__cards > span:last-child { border-right: 0; }
+.lifecycle-anatomy__cards small,
+.lifecycle-anatomy__cards strong,
+.lifecycle-anatomy__cards i { display: block; }
+.lifecycle-anatomy__cards small { color: #78869a; font-size: 7px; }
+.lifecycle-anatomy__cards strong { margin-top: 4px; color: var(--life-ink); font: 700 14px/1.2 var(--mono); }
+.lifecycle-anatomy__cards i { margin-top: 3px; color: var(--life-green); font-size: 6px; }
+
+.lifecycle-anatomy__filters {
+    min-height: 82px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px;
+    padding: 36px 12px 11px 43px;
+}
+
+.lifecycle-anatomy__filters > strong { margin-right: 7px; font-size: 11px; }
+.lifecycle-anatomy__filters > i,
+.lifecycle-anatomy__filters > b {
+    padding: 7px 9px;
+    color: #637187;
+    background: #f5f7fa;
+    border: 1px solid #dce3ec;
+    border-radius: 6px;
+    font-size: 6px;
+    font-style: normal;
+}
+.lifecycle-anatomy__filters > b { margin-left: auto; color: #fff; background: var(--life-blue); border-color: var(--life-blue); }
+
+.lifecycle-anatomy__toolbar {
+    min-height: 63px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 34px 13px 10px 43px;
+}
+.lifecycle-anatomy__toolbar > strong { font-size: 11px; }
+.lifecycle-anatomy__toolbar > small { color: #7d899b; font-size: 7px; }
+.lifecycle-anatomy__toolbar > i { color: #3577d4; font-size: 7px; font-style: normal; }
+
+.lifecycle-anatomy__table {
+    min-height: 118px;
+    padding: 38px 13px 13px;
+    overflow: hidden;
+}
+.lifecycle-anatomy__table > strong,
+.lifecycle-anatomy__table > small,
+.lifecycle-anatomy__table > i { display: block; }
+.lifecycle-anatomy__table > strong { font-size: 11px; }
+.lifecycle-anatomy__table > small { margin-top: 9px; padding: 8px; color: #f8faff; background: #3a4a61; border-radius: 5px; font-size: 6px; white-space: nowrap; }
+.lifecycle-anatomy__table > i { margin-top: 5px; padding: 8px; overflow: hidden; color: #647388; background: #f5f7fa; border: 1px solid #e3e8ef; border-radius: 5px; font-size: 6px; font-style: normal; text-overflow: ellipsis; white-space: nowrap; }
+.lifecycle-anatomy__table--asset > i::first-letter { color: var(--life-blue); }
+
+.lifecycle-anatomy__split {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 9px;
+}
+
+.lifecycle-anatomy__tip,
+.lifecycle-anatomy__detail,
+.lifecycle-anatomy__actions,
+.lifecycle-anatomy__states {
+    min-height: 116px;
+    padding: 38px 14px 13px;
+}
+
+.lifecycle-anatomy__tip small,
+.lifecycle-anatomy__detail small {
+    display: block;
+    color: #718098;
+    font: 700 7px/1.4 var(--mono);
+    letter-spacing: .11em;
+}
+.lifecycle-anatomy__tip strong,
+.lifecycle-anatomy__detail strong { display: block; margin-top: 5px; font-size: 12px; }
+.lifecycle-anatomy__tip i,
+.lifecycle-anatomy__detail i { display: block; margin-top: 12px; color: #66758a; font-size: 7px; }
+.lifecycle-anatomy__detail { border-left: 4px solid var(--life-blue) !important; }
+.lifecycle-anatomy__detail--asset { background: linear-gradient(135deg, #fff 0%, #eef5ff 100%) !important; }
+
+.lifecycle-anatomy__actions,
+.lifecycle-anatomy__states {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 7px;
+}
+.lifecycle-anatomy__actions > strong,
+.lifecycle-anatomy__states > strong { width: 100%; margin-bottom: 4px; font-size: 11px; }
+.lifecycle-anatomy__actions > i,
+.lifecycle-anatomy__states > i {
+    padding: 6px 7px;
+    color: #5e6d82;
+    background: #f3f6fa;
+    border: 1px solid #dce3ec;
+    border-radius: 6px;
+    font-size: 6px;
+    font-style: normal;
+}
+
+.lifecycle-anatomy__matrix {
+    display: grid;
+    grid-template-columns: auto repeat(3, minmax(0, 1fr));
+    align-items: center;
+    gap: 8px;
+    padding: 38px 12px 12px 43px;
+}
+.lifecycle-anatomy__matrix > strong { font-size: 11px; }
+.lifecycle-anatomy__matrix > span { padding: 10px; color: #66758a; background: #f5f7fa; border: 1px solid #dfe6ee; border-radius: 7px; font-size: 6px; }
+.lifecycle-anatomy__matrix > span b { display: block; margin-bottom: 4px; color: #2c5f9f; font-size: 7px; }
+
+.lifecycle-anatomy__chart {
+    min-height: 132px;
+    padding: 38px 14px 13px;
+}
+.lifecycle-anatomy__chart > strong,
+.lifecycle-anatomy__chart > small { display: block; }
+.lifecycle-anatomy__chart > strong { font-size: 11px; }
+.lifecycle-anatomy__chart > small { margin-top: 4px; color: #78869a; font-size: 7px; }
+.lifecycle-anatomy__chart > span { height: 55px; display: flex; align-items: end; gap: 9px; margin-top: 10px; padding: 0 12px; border-bottom: 1px solid #dce3ec; }
+.lifecycle-anatomy__chart > span i { width: 10%; height: 52%; background: #82b1fb; border-radius: 3px 3px 0 0; }
+.lifecycle-anatomy__chart > span i:nth-child(2) { height: 68%; }
+.lifecycle-anatomy__chart > span i:nth-child(3) { height: 88%; background: #e1a948; }
+.lifecycle-anatomy__chart > span i:nth-child(4) { height: 74%; }
+.lifecycle-anatomy__chart > span i:nth-child(5) { height: 91%; background: #e1a948; }
+.lifecycle-anatomy__chart > span i:nth-child(6) { height: 72%; }
+.lifecycle-anatomy__chart > span i:nth-child(7) { height: 79%; }
+
+@media (max-width: 760px) {
+    .lifecycle-anatomy__cards,
+    .lifecycle-anatomy__cards--four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .lifecycle-anatomy__cards > span { border-bottom: 1px solid #e2e8f0; }
+    .lifecycle-anatomy__toolbar { grid-template-columns: 1fr; }
+    .lifecycle-anatomy__filters > b { margin-left: 0; }
+    .lifecycle-anatomy__split { grid-template-columns: 1fr; }
+    .lifecycle-anatomy__matrix { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+    .lifecycle-anatomy__cards,
+    .lifecycle-anatomy__cards--four { grid-template-columns: 1fr; }
+    .lifecycle-anatomy__cards > span { border-right: 0; }
+}
+
 .metadata-card {
     margin: 0 0 18px;
     padding: 14px 18px;

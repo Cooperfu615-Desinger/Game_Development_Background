@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="已有內容原型；正式資料契約仍待整理。">
+    <meta name="description" content="程式版本、artifact、相容性、組合參照、lineage 與回復基準。">
     <meta name="color-scheme" content="light">
     <title>遊戲版本｜Provider Portal 產品與系統規格書</title>
     <link rel="stylesheet" href="assets/site.css">
@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.10.0-batch-b-draft</span>
-            <span class="topbar-status">Phase 2 · Batch B Draft Complete</span>
+            <span>0.11.0-batch-c-draft</span>
+            <span class="topbar-status">Phase 2 · Batch C Draft Complete</span>
         </div>
     </header>
 
@@ -90,31 +90,31 @@
             <summary>05.2 遊戲管理<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="game-management-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="game-list.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲列表</span>
 
                     </a><a href="game-environments.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>環境與發布</span>
 
                     </a><a href="game-settings.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲設定</span>
 
                     </a><a href="game-math.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>數值設定</span>
 
                     </a><a href="game-versions.html" aria-current="page">
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲版本</span>
 
                     </a><a href="game-assets.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲素材</span>
 
                     </a>
@@ -382,10 +382,10 @@
                     <div>
                         <p class="eyebrow">05.2.5 · 遊戲管理</p>
                         <h1>遊戲版本</h1>
-                        <p class="page-summary">已有內容原型；正式資料契約仍待整理。</p>
+                        <p class="page-summary">程式版本、artifact、相容性、組合參照、lineage 與回復基準。</p>
                     </div>
                     <div class="page-status-stack">
-                        <span class="status-badge status-outline">待整理</span>
+                        <span class="status-badge status-draft">草案</span>
                         <span class="scope-badge scope-active">本輪製作</span>
 
                     </div>
@@ -393,21 +393,50 @@
 
                 <section class="metadata-card" aria-label="章節追溯資訊">
         <div class="metadata-grid">
-            <div><span>章節編號</span><code>05.2.5</code></div><div><span>規格狀態</span><code>待整理</code></div><div><span>Route</span><code>/games/versions</code></div><div><span>前端元件</span><code>src/views/Games/Versions.vue</code></div>
+            <div><span>章節編號</span><code>05.2.5</code></div><div><span>規格狀態</span><code>草案</code></div><div><span>Route</span><code>/games/versions</code></div><div><span>前端元件</span><code>src/views/Games/Versions.vue</code></div>
         </div>
     </section>
-
+                <section id="page-visual-overview" class="page-visual-overview" aria-labelledby="page-visual-title">
+        <div class="visual-overview-header">
+            <div>
+                <p class="visual-overview-kicker">PAGE ANATOMY · OVERVIEW FIRST</p>
+                <h2 id="page-visual-title">遊戲版本畫面示意</h2>
+                <p>參照現行 /games/versions 原型；版本與 release job 分離，商戶不是管理維度。</p>
+            </div>
+            <button class="visual-toggle" type="button" data-anatomy-toggle aria-expanded="true" aria-controls="game-versions-visual-panel">
+                <span data-anatomy-toggle-label>收合畫面示意</span>
+                <i aria-hidden="true">⌃</i>
+            </button>
+        </div>
+        <nav class="visual-quick-map" aria-label="頁面區塊快速導覽">
+            <a href="#4-版本摘要"><strong>01</strong><span>版本摘要</span><i aria-hidden="true">↘</i></a><a href="#5-查詢與結果操作"><strong>02</strong><span>查詢條件</span><i aria-hidden="true">↘</i></a><a href="#5-查詢與結果操作"><strong>03</strong><span>結果與操作</span><i aria-hidden="true">↘</i></a><a href="#6-版本列表"><strong>04</strong><span>版本列表</span><i aria-hidden="true">↘</i></a><a href="#7-版本詳情"><strong>05</strong><span>版本詳情</span><i aria-hidden="true">↘</i></a><a href="#8-建立與回復申請"><strong>06</strong><span>建立與回復申請</span><i aria-hidden="true">↘</i></a>
+        </nav>
+        <div class="visual-scope-notes" aria-label="畫面閱讀邊界">
+            <span>閱讀邊界</span>
+            <small>版本 ≠ 發布工作</small><small>商戶非管理維度</small><small>精確組合參照</small><small>回復建立新 job</small>
+        </div>
+        <div id="game-versions-visual-panel" class="visual-overview-panel" data-anatomy-panel>
+            <figure class="page-anatomy lifecycle-anatomy lifecycle-anatomy--versions" aria-label="遊戲版本六區塊畫面示意">
+  <div class="lifecycle-anatomy__canvas">
+    <a class="anatomy-zone lifecycle-anatomy__cards lifecycle-anatomy__cards--four" href="#4-版本摘要" aria-label="前往第一區，版本摘要"><span class="anatomy-zone__number">01</span><span><small>版本紀錄</small><strong>24</strong><i>Available 16</i></span><span><small>待審核</small><strong>3</strong><i>Draft scope</i></span><span><small>回復基準</small><strong>保留</strong><i>immutable history</i></span><span><small>數值設定</small><strong>分離</strong><i>精確版本關聯</i></span></a>
+    <a class="anatomy-zone lifecycle-anatomy__filters" href="#5-查詢與結果操作" aria-label="前往第二區，查詢條件"><span class="anatomy-zone__number">02</span><strong>查詢條件</strong><i>版號／遊戲／版本 ID</i><i>遊戲</i><i>狀態</i><i>發布類型</i><i>建立時間</i><b>查詢</b></a>
+    <a class="anatomy-zone lifecycle-anatomy__toolbar" href="#5-查詢與結果操作" aria-label="前往第三區，結果與操作"><span class="anatomy-zone__number">03</span><strong>24 筆版本</strong><small>applied filters · updated_at desc</small><i>新增版本草稿　匯出完整結果</i></a>
+    <a class="anatomy-zone lifecycle-anatomy__table" href="#6-版本列表" aria-label="前往第四區，版本列表"><span class="anatomy-zone__number">04</span><strong>版本列表</strong><small>版本 ID　遊戲　程式版號　Build　狀態　類型　相容數值／素材　驗證　可用環境　回復基準　更新　操作</small><i>gver-024　星際寶藏　v2.5.0　build-481　Approved　Minor　math-18 / asset-07　Passed　Production + DEMO　v2.4.1</i></a>
+    <div class="lifecycle-anatomy__split">
+      <a class="anatomy-zone lifecycle-anatomy__detail" href="#7-版本詳情" aria-label="前往第五區，版本詳情"><span class="anatomy-zone__number">05</span><small>VERSION DETAIL</small><strong>gver-024 / v2.5.0</strong><i>artifact checksum · change log · compatibility · lineage · references</i></a>
+      <a class="anatomy-zone lifecycle-anatomy__actions" href="#8-建立與回復申請" aria-label="前往第六區，建立與回復申請"><span class="anatomy-zone__number">06</span><strong>版本操作</strong><i>建立草稿</i><i>驗證</i><i>送審</i><i>建立回復 release</i><i>衝突／失敗</i></a>
+    </div>
+  </div>
+  <div class="page-anatomy__legend"><span><i></i>程式版本</span><span><i></i>發布組合參照</span><small>參照現行 `/games/versions` 原型；商戶不是 Provider 管理維度。</small></div>
+</figure>
+        </div>
+        <p class="visual-overview-disclaimer">畫面示意用於定位元件與閱讀順序；實際欄位、狀態與行為仍以本頁詳細規格及正式契約為準。</p>
+    </section>
+    <a class="visual-return" data-visual-return href="#page-visual-overview" hidden><span aria-hidden="true">↑</span> 回到畫面示意</a>
 
                 <div class="content-layout">
                     <article class="spec-content">
-                        <blockquote>
-<p>本章目前為「待整理」骨架。以下內容用來確定後續規格必須回答的問題，不代表尚未確認的行為已成為正式需求。</p>
-</blockquote>
-<h2 id="頁面定位">頁面定位</h2><p>已有內容原型；正式資料契約仍待整理。 目前已有內容原型；正式 API、權限與互動資料流仍待規格化。</p>
-<h2 id="規格來源">規格來源</h2><ul>
-<li><code>docs/GAME_LIST_SPEC.md</code></li>
-</ul>
-<h2 id="既有程式對應">既有程式對應</h2><div class="table-scroll" tabindex="0"><table>
+                        <h2 id="章節狀態">章節狀態</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
 <th>項目</th>
@@ -415,7 +444,15 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>Route</td>
+<td>規格成熟度</td>
+<td>Draft — Batch C 完整頁面規格</td>
+</tr>
+<tr>
+<td>製作範圍</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>對應路由</td>
 <td><code>/games/versions</code></td>
 </tr>
 <tr>
@@ -423,32 +460,94 @@
 <td><code>src/views/Games/Versions.vue</code></td>
 </tr>
 <tr>
-<td>畫面現況</td>
-<td>已有內容原型</td>
+<td>主要來源</td>
+<td><code>GAME_LIST_SPEC.md</code>、現行原型</td>
+</tr>
+<tr>
+<td>頁面角色</td>
+<td>程式版本／Release 紀錄、相容性與回復基準</td>
 </tr>
 </tbody></table></div>
-<h2 id="後續完整章節骨架">後續完整章節骨架</h2><ol>
-<li>目的、使用者與主要使用情境。</li>
-<li>範圍、責任邊界與明確排除項目。</li>
-<li>名詞、資料來源、計算口徑與環境隔離。</li>
-<li>資訊架構、欄位、篩選、列表、詳情與互動規則。</li>
-<li>狀態模型、空白／載入／錯誤／權限不足狀態。</li>
-<li>API request／response、錯誤、分頁、排序與匯出契約。</li>
-<li>安全、權限、稽核、響應式與可存取性。</li>
-<li>前端、後端、整合、資料品質與 QA 驗收條件。</li>
-<li>待確認事項、責任人、阻擋範圍與規格完成條件。</li>
-</ol>
-<h2 id="本章完成條件">本章完成條件</h2><ul>
-<li>已逐條整併來源 Spec，且無互相矛盾的責任或名詞。</li>
-<li>與實際 route、左側導覽、頁面原型及元件對應完成核對。</li>
-<li>Draft、TBD 與 Confirmed 內容可清楚區分。</li>
-<li>前端與後端能據此估工、拆分介面契約並建立驗收案例。</li>
+<blockquote>
+<p>本頁管理 Provider 遊戲版本，不管理商戶主資料或商戶層級發布。原型的「影響商戶」是 mock 展示欄位；目標契約改用 Provider 可證明的環境／遊戲 scope，外部代理商／商戶資訊只能作 GGAP snapshot。</p>
+</blockquote>
+<h2 id="1-目的與責任邊界">1. 目的與責任邊界</h2><ul>
+<li>查詢程式版本、發布類型、狀態、組合關聯、驗證與回復基準。</li>
+<li>建立版本草稿、查看內容差異與相容性，供環境與發布選用。</li>
+<li>保留已發布版本與回復歷程，不原地改寫或刪除被引用版本。</li>
+<li>RTP／波動度／賠率表在數值設定；素材檔案在遊戲素材；環境生效在環境與發布。</li>
 </ul>
+<h2 id="2-版本模型">2. 版本模型</h2><ul>
+<li><code>game_version_id</code> 與語意版號／build ID 分開；版號顯示不得作唯一主鍵。</li>
+<li>版本至少含 game_id、program version、release type、status、artifact checksum、compatibility、created／updated、owner、change log。</li>
+<li>與數值、素材、設定的關聯是發布組合 snapshot，不將其資料複製成版本頁的另一真實來源。</li>
+<li>Draft 狀態方向：draft、testing、pending_review、approved、available、deprecated、archived；原型「已發布／已回滾」需在正式模型中拆清版本與 release job 狀態。</li>
+</ul>
+<h2 id="3-六區塊資訊架構">3. 六區塊資訊架構</h2><ol>
+<li>版本摘要：版本數、可用／待審核、回復基準、數值分離。</li>
+<li>查詢條件：遊戲、版號、狀態、發布類型、時間。</li>
+<li>結果與操作：筆數、applied filters、新增草稿、匯出。</li>
+<li>版本列表：程式、相容素材／數值、scope、驗證與狀態。</li>
+<li>版本詳情：checksum、change log、相容性、lineage 與引用。</li>
+<li>建立／回復申請與替代狀態。</li>
+</ol>
+<h2 id="4-版本摘要">4. 版本摘要</h2><p>摘要分開版本本身的 status 與 release job／環境生效狀態。版本總數、可用、待審核由完整 Provider scope 計算；「回復基準」表示歷史可追溯，不代表一鍵回滾已核准。</p>
+<h2 id="5-查詢與結果操作">5. 查詢與結果操作</h2><p>查詢：keyword（version ID／semver／build／遊戲）、game_id、version status、release type、created／updated range。新增按鈕建立版本草稿，不直接建立已發布紀錄。匯出完整 applied filters 結果，正式權限待核准。</p>
+<h2 id="6-版本列表">6. 版本列表</h2><p>目標欄位：版本 ID、遊戲、程式版號、build ID、版本狀態、發布類型、相容數值版本、相容素材版本、驗證狀態、可用環境、回復基準、更新時間、操作。</p>
+<ul>
+<li>原型「影響商戶」不得作目標主欄；若顯示外部影響，必須清楚標示 GGAP snapshot、來源與時間，且不提供維護入口。</li>
+<li>預設 pending／failed 優先，再以 updated_at desc、version ID 穩定排序。</li>
+<li>已被任何 release job／環境引用的版本不可刪除；archived 只限制新引用。</li>
+</ul>
+<h2 id="7-版本詳情">7. 版本詳情</h2><p>大型 Dialog 顯示版本 ID、game、semver／build、artifact URI 摘要與 checksum、狀態、release type、change log、相容平台／API、數值／素材／設定參照、測試／安全驗證、lineage、使用中的環境／release jobs 與 audit。</p>
+<h2 id="8-建立與回復申請">8. 建立與回復申請</h2><p>建立流程：草稿 → artifact 註冊 → 相容性／自動測試 → 送審 → approved／available。環境生效另由 <code>/games/environments</code> 建立 release job。</p>
+<p>回復不是把版本狀態改回去，而是選擇仍可用的舊組合建立新的 release job；需重新 preflight、理由、核准、version 與 audit。不可刪除或改寫原發布歷史。</p>
+<h2 id="9-頁面狀態與錯誤處理">9. 頁面狀態與錯誤處理</h2><p>支援 loading、empty、artifact missing、validation running／failed、review pending／rejected、incompatible reference、conflict、export、Forbidden。部分參照來源失敗時仍可看版本基本資料，但標示無法確認可發布性。</p>
+<h2 id="10-api-契約草案">10. API 契約草案</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>必要輸出／行為</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>列表／詳情</td>
+<td>版本 schema、artifact、checksum、compatibility、references、lineage。</td>
+</tr>
+<tr>
+<td>草稿／驗證／審核</td>
+<td>version、job、validation、approval、allowed actions、audit。</td>
+</tr>
+<tr>
+<td>引用查詢</td>
+<td>active environments、release jobs、math／asset／setting versions。</td>
+</tr>
+<tr>
+<td>匯出</td>
+<td>applied filters、完整結果、job／到期／權限。</td>
+</tr>
+</tbody></table></div>
+<p>正式生命週期、相容性、API、權限及檔案保存依集中 TBD。</p>
+<h2 id="11-響應式-無障礙與驗收">11. 響應式、無障礙與驗收</h2><p>頁面使用主內容完整寬度。Mobile 版本卡片保留 ID、版號、狀態、驗證、參照與詳情；長 checksum 可換行／複製。狀態不只靠顏色。</p>
+<p>驗收條件：版本與 release job 狀態分離；數值／素材／設定採精確參照；商戶不成為管理維度；被引用版本不可刪除；回復建立新 job；列表、詳情、驗證、衝突、Forbidden 可驗收。</p>
+<h2 id="12-測試重點">12. 測試重點</h2><ul>
+<li>相同 semver 不同 build、checksum 不符、artifact 缺失、相容性失敗。</li>
+<li>被引用／未引用版本的封存與刪除限制。</li>
+<li>送審衝突、重複建立、回復目標失效與環境 preflight。</li>
+<li>390px 長版號／checksum、表格、Dialog 與鍵盤。</li>
+</ul>
+<h2 id="13-待確認事項">13. 待確認事項</h2><ul>
+<li><code>TBD-DOM-003</code>：版本、release job 與發布組合生命週期。</li>
+<li><code>TBD-API-001</code>、<code>TBD-API-005</code>：共通／版本 API。</li>
+<li><code>TBD-SEC-001</code>、<code>TBD-SEC-003</code>、<code>TBD-SEC-004</code>：權限、高風險操作與匯出。</li>
+<li><code>TBD-NFR-004</code>、<code>TBD-EXT-003</code>：前端驗收與角色模型。</li>
+</ul>
+<h2 id="14-draft-移除條件">14. Draft 移除條件</h2><p>版本／artifact schema、狀態、相容性、引用、審核、回復、API 與權限核准並通過驗收後，才可改為 Confirmed。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#頁面定位">頁面定位</a><a class="outline-level-2" href="#規格來源">規格來源</a><a class="outline-level-2" href="#既有程式對應">既有程式對應</a><a class="outline-level-2" href="#後續完整章節骨架">後續完整章節骨架</a><a class="outline-level-2" href="#本章完成條件">本章完成條件</a></nav>
+        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-版本模型">2. 版本模型</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-版本摘要">4. 版本摘要</a><a class="outline-level-2" href="#5-查詢與結果操作">5. 查詢與結果操作</a><a class="outline-level-2" href="#6-版本列表">6. 版本列表</a><a class="outline-level-2" href="#7-版本詳情">7. 版本詳情</a><a class="outline-level-2" href="#8-建立與回復申請">8. 建立與回復申請</a><a class="outline-level-2" href="#9-頁面狀態與錯誤處理">9. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#10-api-契約草案">10. API 契約草案</a><a class="outline-level-2" href="#11-響應式-無障礙與驗收">11. 響應式、無障礙與驗收</a><a class="outline-level-2" href="#12-測試重點">12. 測試重點</a><a class="outline-level-2" href="#13-待確認事項">13. 待確認事項</a><a class="outline-level-2" href="#14-draft-移除條件">14. Draft 移除條件</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -459,7 +558,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.10.0-batch-b-draft · 2026-08-14</span>
+                    <span>0.11.0-batch-c-draft · 2026-08-14</span>
                 </footer>
             </div>
         </main>

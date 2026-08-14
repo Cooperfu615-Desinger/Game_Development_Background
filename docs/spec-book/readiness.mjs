@@ -30,35 +30,35 @@ export const pageReadiness = {
         '摘要／趨勢／工作入口的 API schema 與資料 scope 權限',
         '通知中心維持 Deferred，正式事件與完成回饋待後續整合',
     ]),
-    'game-list': readiness('C', ['complete', 'complete', 'complete', 'complete', 'complete', 'partial'], ['missing', 'partial', 'partial', 'partial', 'missing', 'complete'], [
-        '遊戲與環境狀態的正式來源及狀態轉換',
-        '全域上架／下架 API、權限與操作稽核',
-        'Loading、error、permission denied 與批次操作規則',
+    'game-list': readiness('C', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
+        '遊戲與三環境狀態的正式來源、enum 與轉換規則',
+        '列表／詳情／RTP／同步 API 及 Provider scope 權限',
+        'GGAP 同步詳細契約等待外部規格，本頁僅保留摘要',
     ]),
-    'game-environments': readiness('C', ['partial', 'partial', 'missing', 'missing', 'partial', 'missing'], ['missing', 'missing', 'missing', 'partial', 'missing', 'partial'], [
-        'Provider 自有發布流程、狀態與版本／素材綁定',
-        '發布前驗證、失敗、歷程與回復策略',
-        'GGAP 同步與代理商開放控制契約（等待 GGAP 規格）',
+    'game-environments': readiness('C', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
+        '正式發布組合、生命週期、狀態機與補償策略',
+        'Production 核准、allowed actions、併發、冪等與 audit 契約',
+        'GGAP 同步等待外部規格；程式仍需由 Placeholder 實作成目標頁',
     ]),
-    'game-settings': readiness('C', ['partial', 'partial', 'partial', 'partial', 'partial', 'missing'], ['missing', 'missing', 'missing', 'partial', 'missing', 'partial'], [
-        '設定分類、欄位 schema、預設值與驗證規則',
-        '設定與遊戲版本／環境的綁定方式',
-        '儲存、發布、權限與異動稽核契約',
+    'game-settings': readiness('C', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
+        '設定 schema、版本、時區、點數精度與相依驗證的正式契約',
+        '草稿／審核／生效與遊戲／環境套用 API',
+        'Production permission、併發、核准與 audit 契約',
     ]),
-    'game-math': readiness('C', ['partial', 'partial', 'partial', 'partial', 'partial', 'missing'], ['missing', 'partial', 'missing', 'partial', 'missing', 'partial'], [
-        '數值設定模型、精度、合法範圍與版本策略',
-        '驗證、審核、發布及不可逆操作規則',
-        '數值設定與風控監測門檻的責任關係',
+    'game-math': readiness('C', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
+        '數值 schema、decimal、賠率 checksum、模擬與相容性契約',
+        'RTP 監控窗口、樣本、偏離與正式風控門檻',
+        '審核／發布／回復 API、permission、匯出與 audit',
     ]),
-    'game-versions': readiness('C', ['partial', 'partial', 'partial', 'partial', 'partial', 'missing'], ['missing', 'partial', 'missing', 'partial', 'missing', 'partial'], [
-        '版本生命週期、相容性、鎖定與狀態轉換',
-        '版本與數值／素材／環境的發布綁定',
-        '回復、刪除限制、權限與操作稽核',
+    'game-versions': readiness('C', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
+        '版本／artifact schema、狀態、相容性與鎖定規則',
+        '數值／素材／設定參照及 release job API',
+        '審核、回復、封存／刪除限制、權限與 audit',
     ]),
-    'game-assets': readiness('C', ['partial', 'partial', 'partial', 'partial', 'partial', 'missing'], ['missing', 'missing', 'missing', 'partial', 'missing', 'partial'], [
-        '素材類型、格式、大小、儲存與驗證規則',
-        '素材與版本、語系、裝置及環境的綁定',
-        '上傳、替換、發布、權限與稽核契約',
+    'game-assets': readiness('C', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
+        '素材格式、尺寸、大小、語系／usage、fallback 與 alt text 契約',
+        '上傳 session、掃描、儲存、預覽、版本與引用 API',
+        '替換、審核、下載／匯出、權限、保存與 audit',
     ]),
     'game-round-records': readiness('A', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
         '正式 Game Round 狀態 enum 與生命週期',

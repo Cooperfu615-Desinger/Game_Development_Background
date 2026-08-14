@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.10.0-batch-b-draft</span>
-            <span class="topbar-status">Phase 2 · Batch B Draft Complete</span>
+            <span>0.11.0-batch-c-draft</span>
+            <span class="topbar-status">Phase 2 · Batch C Draft Complete</span>
         </div>
     </header>
 
@@ -90,31 +90,31 @@
             <summary>05.2 遊戲管理<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="game-management-module.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
                     </a><a href="game-list.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲列表</span>
 
                     </a><a href="game-environments.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>環境與發布</span>
 
                     </a><a href="game-settings.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲設定</span>
 
                     </a><a href="game-math.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>數值設定</span>
 
                     </a><a href="game-versions.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲版本</span>
 
                     </a><a href="game-assets.html" >
-                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>遊戲素材</span>
 
                     </a>
@@ -480,7 +480,16 @@
 <li>風控報表：完成 Risk Event 滾動時間、五張摘要、待關注排序、15 欄列表、詳情與完整結果匯出。</li>
 <li>風控告警／處理：完成 Alert 五張工作卡、16 欄佇列、大型詳情、操作前置條件、隔離 Guardrail 與 audit 骨架。</li>
 </ul>
-<p>Batch A／B 頁面仍是 Draft；正式公式、門檻、decimal 精度、狀態生命週期、API schema、權限與外部契約仍依集中 TBD 管理。其餘 Batch C–D 頁面維持 Active／Outline，等待後續批次整理。</p>
+<p>Batch C 已完成遊戲管理六頁完整 Draft：</p>
+<ul>
+<li>遊戲列表：三環境摘要、八類篩選、14 欄寬表、RTP Tips、詳情與導流。</li>
+<li>環境與發布：目標環境矩陣、發布組合、佇列、preflight、高風險操作及歷程；程式仍為 Placeholder。</li>
+<li>遊戲設定：維護／限紅模板、Provider 點數、基礎 enum、草稿、審核與版本 snapshot。</li>
+<li>數值設定：理論數值與 RTP 監控分離、模擬／驗證／審核及發布參照。</li>
+<li>遊戲版本：artifact、相容性、lineage、組合參照及建立新 release job 的回復模型。</li>
+<li>遊戲素材：不可變素材版本、安全預覽、檔案驗證／掃描、審核與引用。</li>
+</ul>
+<p>Batch A–C 頁面仍是 Draft；正式公式、門檻、decimal 精度、狀態生命週期、API schema、權限與外部契約仍依集中 TBD 管理。其餘 Batch D 頁面維持 Active／Outline，等待後續整理。</p>
 <h2 id="完整頁面矩陣">完整頁面矩陣</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
@@ -507,7 +516,7 @@
 <td><a href="game-list.html">遊戲列表</a></td>
 <td><code>/games</code></td>
 <td>內容原型</td>
-<td>待整理</td>
+<td>草案</td>
 <td>本輪製作</td>
 <td><code>src/views/Games/Index.vue</code></td>
 </tr>
@@ -516,7 +525,7 @@
 <td><a href="game-environments.html">環境與發布</a></td>
 <td><code>/games/environments</code></td>
 <td>Placeholder</td>
-<td>待整理</td>
+<td>草案</td>
 <td>本輪製作</td>
 <td><code>src/views/Provider/Placeholder.vue</code></td>
 </tr>
@@ -525,7 +534,7 @@
 <td><a href="game-settings.html">遊戲設定</a></td>
 <td><code>/games/settings</code></td>
 <td>內容原型</td>
-<td>待整理</td>
+<td>草案</td>
 <td>本輪製作</td>
 <td><code>src/views/Games/Settings.vue</code></td>
 </tr>
@@ -534,7 +543,7 @@
 <td><a href="game-math.html">數值設定</a></td>
 <td><code>/games/math</code></td>
 <td>內容原型</td>
-<td>待整理</td>
+<td>草案</td>
 <td>本輪製作</td>
 <td><code>src/views/Games/Math.vue</code></td>
 </tr>
@@ -543,7 +552,7 @@
 <td><a href="game-versions.html">遊戲版本</a></td>
 <td><code>/games/versions</code></td>
 <td>內容原型</td>
-<td>待整理</td>
+<td>草案</td>
 <td>本輪製作</td>
 <td><code>src/views/Games/Versions.vue</code></td>
 </tr>
@@ -552,7 +561,7 @@
 <td><a href="game-assets.html">遊戲素材</a></td>
 <td><code>/games/assets</code></td>
 <td>內容原型</td>
-<td>待整理</td>
+<td>草案</td>
 <td>本輪製作</td>
 <td><code>src/views/Games/Assets.vue</code></td>
 </tr>
@@ -798,7 +807,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.10.0-batch-b-draft · 2026-08-14</span>
+                    <span>0.11.0-batch-c-draft · 2026-08-14</span>
                 </footer>
             </div>
         </main>

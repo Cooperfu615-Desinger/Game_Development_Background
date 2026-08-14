@@ -1,5 +1,14 @@
 # 版本紀錄
 
+## 0.11.0-batch-c-draft · 2026-08-14
+
+- 完成 Phase 2 Batch C：遊戲列表、環境與發布、遊戲設定、數值設定、遊戲版本、遊戲素材六頁完整 Draft。
+- 建立遊戲主資料 → 設定 → 數值 → 程式版本 → 素材 → 環境發布的可追溯生命週期鏈。
+- 六頁新增貼近 Provider Portal 原型的 Overview-first HTML／CSS 畫面示意與六區快速導覽。
+- 將原型偏差校準為正式邊界：限紅以 Provider 點數為主、RTP 固定門檻維持 mock、商戶不作版本管理維度、素材採不可變版本。
+- 環境與發布保留目標 Draft 與 Placeholder 移除條件；Test 只讀、既有 Round 不因維護／停用中斷、代理商個別開關留在 GGAP。
+- 正式發布組合、API、permission、核准／併發、檔案與 GGAP 同步仍依集中 TBD 管理。
+
 ## 0.10.0-batch-b-draft · 2026-08-14
 
 - 完成 Phase 2 Batch B：儀表板、監控總覽、風控報表、風控告警／處理四頁完整 Draft。

@@ -1,10 +1,10 @@
 export const book = {
     title: 'Provider Portal 產品與系統規格書',
     shortTitle: 'Provider Portal Specs',
-    version: '0.10.0-batch-b-draft',
+    version: '0.11.0-batch-c-draft',
     updatedAt: '2026-08-14',
     owner: 'Provider Portal Product / Engineering',
-    status: 'Phase 2 · Batch B Draft Complete',
+    status: 'Phase 2 · Batch C Draft Complete',
     description: '供產品、前端、後端、QA 與 GGAP 對接團隊共同使用的 Provider Portal 規格入口。',
 }
 
@@ -98,12 +98,54 @@ export const modules = [
         title: '遊戲管理',
         summary: '遊戲主資料、版本、數值、素材及正式／DEMO 環境啟用。',
         pages: [
-            page('game-list', '遊戲列表', '/games', 'src/views/Games/Index.vue', 'complete', ['docs/GAME_LIST_SPEC.md']),
-            page('game-environments', '環境與發布', '/games/environments', 'src/views/Provider/Placeholder.vue', 'placeholder', ['docs/PROVIDER_PORTAL_SPEC.md', 'docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md']),
-            page('game-settings', '遊戲設定', '/games/settings', 'src/views/Games/Settings.vue', 'complete', ['docs/PROVIDER_PORTAL_PAGE_MAP.md']),
-            page('game-math', '數值設定', '/games/math', 'src/views/Games/Math.vue', 'complete', ['docs/PROVIDER_RISK_CONTROL_SPEC.md']),
-            page('game-versions', '遊戲版本', '/games/versions', 'src/views/Games/Versions.vue', 'complete', ['docs/GAME_LIST_SPEC.md']),
-            page('game-assets', '遊戲素材', '/games/assets', 'src/views/Games/Assets.vue', 'complete', ['docs/PROVIDER_PORTAL_PAGE_MAP.md']),
+            page('game-list', '遊戲列表', '/games', 'src/views/Games/Index.vue', 'complete', ['docs/GAME_LIST_SPEC.md'], gameLifecyclePage({
+                content: 'content/modules/game-management/game-list.md',
+                summary: 'Provider 遊戲主資料、Production／DEMO／Test 摘要、RTP 與管理入口。',
+                visualTitle: '遊戲列表畫面示意',
+                visualSummary: '參照現行 /games 原型；比較三環境、RTP 與同步摘要，不在列表直接發布。',
+                visualZones: zones(['環境摘要', '#4-環境摘要'], ['查詢條件', '#5-查詢與結果摘要'], ['結果摘要', '#5-查詢與結果摘要'], ['遊戲寬列表', '#6-遊戲列表規格'], ['RTP Tips 與狀態', '#7-rtp-tips-與狀態'], ['遊戲詳情', '#8-遊戲詳情與導流']),
+                visualNotes: ['三環境分離', 'Test 只讀', 'GGAP 同步 ≠ 代理商開放', '本頁不直接發布'],
+            })),
+            page('game-environments', '環境與發布', '/games/environments', 'src/views/Provider/Placeholder.vue', 'placeholder', ['docs/PROVIDER_PORTAL_SPEC.md', 'docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md'], gameLifecyclePage({
+                content: 'content/modules/game-management/game-environments.md',
+                summary: 'Provider Production／DEMO 全域發布、維護、停用、回復與不可變歷程。',
+                visualTitle: '環境與發布目標畫面示意',
+                visualSummary: '本頁仍為 Placeholder；示意定義目標環境矩陣、發布佇列、預檢與歷程。',
+                visualZones: zones(['環境摘要', '#4-環境摘要'], ['查詢與遊戲脈絡', '#5-查詢與環境矩陣'], ['環境矩陣', '#5-查詢與環境矩陣'], ['待發布佇列', '#6-待發布佇列'], ['發布詳情與操作', '#7-發布詳情與操作'], ['歷程與替代狀態', '#9-頁面狀態與錯誤處理']),
+                visualNotes: ['目標 Draft', '程式仍為 Placeholder', 'Test 只讀', 'GGAP 代理商開關不在本頁'],
+            })),
+            page('game-settings', '遊戲設定', '/games/settings', 'src/views/Games/Settings.vue', 'complete', ['docs/PROVIDER_PORTAL_PAGE_MAP.md'], gameLifecyclePage({
+                content: 'content/modules/game-management/game-settings.md',
+                summary: 'Provider 維護、限紅與基礎設定模板的版本、驗證、審核及遊戲套用。',
+                visualTitle: '遊戲設定畫面示意',
+                visualSummary: '參照現行 /games/settings 原型；表單編輯只形成草稿，Production 異動需核准。',
+                visualZones: zones(['設定摘要', '#4-設定摘要與脈絡'], ['設定脈絡', '#4-設定摘要與脈絡'], ['維護週期模板', '#5-維護週期模板'], ['限紅模板', '#6-限紅模板'], ['基礎選項', '#7-基礎選項'], ['草稿、審核與稽核', '#8-草稿審核與稽核']),
+                visualNotes: ['Provider 點數主值', 'Active 不可直改', 'Production 需核准', '不含 RTP／版本／素材'],
+            })),
+            page('game-math', '數值設定', '/games/math', 'src/views/Games/Math.vue', 'complete', ['docs/PROVIDER_RISK_CONTROL_SPEC.md'], gameLifecyclePage({
+                content: 'content/modules/game-management/game-math.md',
+                summary: '理論數值版本、RTP 監控 snapshot、模擬、驗證、審核與發布參照。',
+                visualTitle: '數值設定畫面示意',
+                visualSummary: '參照現行 /games/math 原型；數值設定與監控結果分離，固定偏離值僅為 mock。',
+                visualZones: zones(['數值摘要', '#4-數值摘要'], ['RTP 監控趨勢', '#5-rtp-監控趨勢'], ['查詢條件', '#6-查詢條件'], ['數值版本列表', '#7-數值版本列表'], ['數值詳情', '#8-數值詳情'], ['審核與狀態', '#9-審核與狀態']),
+                visualNotes: ['設定 ≠ 監控', 'Production / DEMO 分離', 'Test 排除風控', '門檻由正式規則決定'],
+            })),
+            page('game-versions', '遊戲版本', '/games/versions', 'src/views/Games/Versions.vue', 'complete', ['docs/GAME_LIST_SPEC.md'], gameLifecyclePage({
+                content: 'content/modules/game-management/game-versions.md',
+                summary: '程式版本、artifact、相容性、組合參照、lineage 與回復基準。',
+                visualTitle: '遊戲版本畫面示意',
+                visualSummary: '參照現行 /games/versions 原型；版本與 release job 分離，商戶不是管理維度。',
+                visualZones: zones(['版本摘要', '#4-版本摘要'], ['查詢條件', '#5-查詢與結果操作'], ['結果與操作', '#5-查詢與結果操作'], ['版本列表', '#6-版本列表'], ['版本詳情', '#7-版本詳情'], ['建立與回復申請', '#8-建立與回復申請']),
+                visualNotes: ['版本 ≠ 發布工作', '商戶非管理維度', '精確組合參照', '回復建立新 job'],
+            })),
+            page('game-assets', '遊戲素材', '/games/assets', 'src/views/Games/Assets.vue', 'complete', ['docs/PROVIDER_PORTAL_PAGE_MAP.md'], gameLifecyclePage({
+                content: 'content/modules/game-management/game-assets.md',
+                summary: '不可變素材版本、語系／用途、檔案驗證、掃描、審核與發布參照。',
+                visualTitle: '遊戲素材畫面示意',
+                visualSummary: '參照現行 /games/assets 原型；上傳入口目前無正式檔案傳輸或發布副作用。',
+                visualZones: zones(['素材摘要', '#4-素材摘要'], ['查詢條件', '#5-查詢與結果操作'], ['結果與操作', '#5-查詢與結果操作'], ['素材列表', '#6-素材列表'], ['素材詳情', '#7-素材詳情'], ['上傳與替換流程', '#8-上傳與替換流程']),
+                visualNotes: ['不可變素材版本', '安全預覽', '掃描與審核', '上傳目前為 mock'],
+            })),
         ],
     },
     {
@@ -325,6 +367,18 @@ function page(id, title, route, component, prototype, sources, overrides = {}) {
         sources,
         ...overrides,
     }
+}
+
+function gameLifecyclePage(overrides) {
+    return {
+        status: 'draft',
+        visualAtTop: true,
+        ...overrides,
+    }
+}
+
+function zones(...items) {
+    return items.map(([label, href], index) => ({ number: String(index + 1).padStart(2, '0'), label, href }))
 }
 
 function deferredPage(id, title, route, component, prototype, sources, deferredReason, requiredInputs) {

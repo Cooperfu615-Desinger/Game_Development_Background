@@ -1,0 +1,1487 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="已有內容原型；正式資料契約仍待整理。">
+    <meta name="color-scheme" content="light">
+    <title>遊戲紀錄｜Provider Portal 產品與系統規格書</title>
+    <link rel="stylesheet" href="assets/site.css">
+    <script src="assets/search-index.js" defer></script>
+    <script src="assets/site.js" defer></script>
+</head>
+<body data-page-id="game-round-records">
+    <a class="skip-link" href="#main-content">跳至主要內容</a>
+    <header class="topbar">
+        <button class="icon-button nav-trigger" type="button" data-nav-trigger aria-label="開啟規格目錄" aria-expanded="false" aria-controls="spec-navigation">
+            <span></span><span></span><span></span>
+        </button>
+        <a class="wordmark" href="index.html" aria-label="回到規格書首頁">
+            <span class="wordmark-mark" aria-hidden="true">▦</span>
+            <span><strong>Provider Portal</strong><small>產品與系統規格書</small></span>
+        </a>
+        <button class="search-trigger" type="button" data-search-trigger>
+            <span aria-hidden="true">⌕</span>
+            <span>搜尋規格</span>
+            <kbd>⌘ K</kbd>
+        </button>
+        <div class="topbar-meta">
+            <strong class="spec-context-label">SPEC</strong>
+            <span>0.2.0-authoring-baseline</span>
+            <span class="topbar-status">Authoring Format Confirmed · Content Draft</span>
+        </div>
+    </header>
+
+    <div class="shell">
+        <aside class="sidebar" id="spec-navigation" data-sidebar>
+            <div class="sidebar-intro">
+                <span class="sidebar-kicker">SPECIFICATION MANUAL</span>
+                <p>2026-08-14 更新</p>
+            </div>
+            <nav aria-label="規格書章節">
+
+        <details class="nav-group" >
+            <summary>開始閱讀<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="index.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>規格書首頁</span>
+
+                    </a><a href="document-control.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>文件治理與使用方式</span>
+
+                    </a><a href="product-overview.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>產品定位與目標</span>
+
+                    </a><a href="system-boundary.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>系統與責任邊界</span>
+
+                    </a><a href="information-architecture.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>資訊架構與頁面地圖</span>
+
+                    </a><a href="common-domain-rules.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>共通領域規則</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.1 總覽<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="dashboard-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="dashboard.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>儀表板</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.2 遊戲管理<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="game-management-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="game-list.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲列表</span>
+
+                    </a><a href="game-environments.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>環境與發布</span>
+
+                    </a><a href="game-settings.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲設定</span>
+
+                    </a><a href="game-math.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>數值設定</span>
+
+                    </a><a href="game-versions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲版本</span>
+
+                    </a><a href="game-assets.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲素材</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" open>
+            <summary>05.3 數據與報表<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="data-reporting-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="game-round-records.html" aria-current="page">
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲紀錄</span>
+                        <b>PILOT</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.4 遊戲商財務<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="provider-finance-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="finance-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>財務總覽</span>
+
+                    </a><a href="finance-agent-games.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>代理商 × 遊戲彙總</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.5 遊戲監控與風控<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="monitoring-risk-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="monitoring-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>監控總覽</span>
+
+                    </a><a href="risk-reports.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>風控報表</span>
+
+                    </a><a href="risk-alerts.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>風控告警／處理</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.6 GGAP 對接<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="ggap-integration-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="ggap-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>對接總覽</span>
+
+                    </a><a href="ggap-catalog-sync.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲目錄同步</span>
+
+                    </a><a href="ggap-requests.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>請求與回呼紀錄</span>
+
+                    </a><a href="ggap-errors.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>錯誤與重試</span>
+
+                    </a><a href="ggap-settings.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>對接設定</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.7 通知中心<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="notifications-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="notifications.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>全部通知</span>
+
+                    </a><a href="notification-preferences.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>通知偏好</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.8 官方網站<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="official-website-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="website-banners.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>Banner 管理</span>
+
+                    </a><a href="website-content.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>內容管理</span>
+
+                    </a><a href="website-releases.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>發布紀錄</span>
+
+                    </a><a href="lobby-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>大廳總覽</span>
+
+                    </a><a href="lobby-games.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲清單</span>
+
+                    </a><a href="lobby-management.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲管理</span>
+
+                    </a><a href="lobby-demo.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>DEMO環境數據</span>
+
+                    </a><a href="lobby-preview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>大廳預覽</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.9 系統設定<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="system-settings-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="settings-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>設定總覽</span>
+
+                    </a><a href="settings-permissions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>使用者與權限</span>
+
+                    </a><a href="settings-api-keys.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>API key 與憑證</span>
+
+                    </a><a href="settings-audit-logs.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>操作紀錄</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>共通規格<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="api-integration.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>API 與整合契約</span>
+
+                    </a><a href="security-permissions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>安全與權限</span>
+
+                    </a><a href="non-functional-requirements.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>非功能性需求</span>
+
+                    </a><a href="acceptance-qa.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>驗收與 QA</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>附錄<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="data-dictionary.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>資料字典</span>
+
+                    </a><a href="status-enums.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>狀態與枚舉</span>
+
+                    </a><a href="route-page-matrix.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>Route 與頁面矩陣</span>
+
+                    </a><a href="open-issues.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>待決策與校正清單</span>
+
+                    </a><a href="changelog.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>版本紀錄</span>
+
+                    </a><a href="spec-book-authoring-guide.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>規格書撰寫與交接規範</span>
+
+                    </a>
+            </div>
+        </details>
+
+            </nav>
+            <div class="sidebar-legend">
+                <p>規格狀態</p>
+                <span><i class="status-dot status-confirmed"></i>已確認</span><span><i class="status-dot status-draft"></i>草案</span><span><i class="status-dot status-outline"></i>待整理</span><span><i class="status-dot status-tbd"></i>待決策</span>
+            </div>
+        </aside>
+        <button class="sidebar-scrim" type="button" data-nav-close aria-label="關閉規格目錄"></button>
+
+        <main id="main-content" class="main-content" tabindex="-1">
+            <div class="page-frame ">
+                <header class="page-header">
+                    <div>
+                        <p class="eyebrow">05.3.1 · 數據與報表</p>
+                        <h1>遊戲紀錄</h1>
+                        <p class="page-summary">已有內容原型；正式資料契約仍待整理。</p>
+                    </div>
+                    <div class="page-status-stack">
+                        <span class="status-badge status-draft">草案</span>
+                        <span class="pilot-badge">PILOT 章節</span>
+                    </div>
+                </header>
+
+                <section class="metadata-card" aria-label="章節追溯資訊">
+        <div class="metadata-grid">
+            <div><span>章節編號</span><code>05.3.1</code></div><div><span>規格狀態</span><code>草案</code></div><div><span>Route</span><code>/reports</code></div><div><span>前端元件</span><code>src/views/Reports/ProviderGameRounds.vue</code></div>
+        </div>
+    </section>
+                <section id="page-visual-overview" class="page-visual-overview" aria-labelledby="page-visual-title">
+        <div class="visual-overview-header">
+            <div>
+                <p class="visual-overview-kicker">PAGE ANATOMY · OVERVIEW FIRST</p>
+                <h2 id="page-visual-title">頁面畫面示意</h2>
+                <p>參照現行 /reports 原型；先掌握整體頁面，再點選區塊閱讀詳細規格。</p>
+            </div>
+            <button class="visual-toggle" type="button" data-anatomy-toggle aria-expanded="true" aria-controls="game-round-records-visual-panel">
+                <span data-anatomy-toggle-label>收合畫面示意</span>
+                <i aria-hidden="true">⌃</i>
+            </button>
+        </div>
+        <nav class="visual-quick-map" aria-label="頁面區塊快速導覽">
+            <a href="#4-1-頁首行為"><strong>01</strong><span>頁首與資料範圍</span><i aria-hidden="true">↘</i></a><a href="#5-查詢條件"><strong>02</strong><span>查詢條件</span><i aria-hidden="true">↘</i></a><a href="#7-查詢摘要與彙總"><strong>03</strong><span>查詢摘要</span><i aria-hidden="true">↘</i></a><a href="#6-列表規格"><strong>04</strong><span>紀錄列表</span><i aria-hidden="true">↘</i></a><a href="#12-頁面狀態與錯誤處理"><strong>05</strong><span>替代狀態</span><i aria-hidden="true">↘</i></a><a href="#8-game-round-明細"><strong>06</strong><span>Game Round 明細</span><i aria-hidden="true">↘</i></a>
+        </nav>
+        <div class="visual-scope-notes" aria-label="畫面閱讀邊界">
+            <span>閱讀邊界</span>
+            <small>Production only</small><small>不含 DEMO / Test</small><small>Provider 點數為主</small><small>Mock 不等於正式契約</small>
+        </div>
+        <div id="game-round-records-visual-panel" class="visual-overview-panel" data-anatomy-panel>
+            <figure class="page-anatomy" aria-label="遊戲紀錄頁面六區塊畫面示意">
+    <div class="page-anatomy__canvas">
+        <div class="page-anatomy__main">
+            <a class="anatomy-zone anatomy-zone--header" href="#4-1-頁首行為" aria-label="前往第一區，頁首行為規格">
+                <span class="anatomy-zone__number">01</span>
+                <span class="anatomy-zone__body">
+                    <span class="anatomy-zone__kicker">數據與報表　›　遊戲紀錄</span>
+                    <strong>遊戲紀錄</strong>
+                    <small>正式 Game Round 的查詢、對帳與追蹤入口</small>
+                </span>
+                <span class="anatomy-zone__meta">最後更新 2026-08-13 12:00</span>
+                <span class="anatomy-zone__action">↻ 更新</span>
+                <span class="anatomy-scope-rail">
+                    <span class="anatomy-scope-item"><i>◉</i><small>資料範圍</small><strong>Production only</strong></span>
+                    <span class="anatomy-scope-item"><i>▤</i><small>金額邏輯</small><strong>點數為主</strong></span>
+                    <span class="anatomy-scope-item"><i>ⓘ</i><small>顯示原則</small><strong>USDT 於詳情提供</strong></span>
+                </span>
+            </a>
+            <a class="anatomy-zone anatomy-zone--filters" href="#5-查詢條件" aria-label="前往第二區，查詢條件規格">
+                <span class="anatomy-zone__number">02</span>
+                <span class="anatomy-zone__label">查詢條件</span>
+                <span class="anatomy-zone__description">依時間、遊戲、識別碼、會員與狀態查詢正式 Game Round。</span>
+                <span class="anatomy-field anatomy-field--wide">結算時間區間 <i>2026-08-13 00:00　—　23:59</i></span>
+                <span class="anatomy-field">遊戲名稱 / ID <i>搜尋遊戲</i></span>
+                <span class="anatomy-field">代理商名稱 / ID <i>全部代理商</i></span>
+                <span class="anatomy-field">遊戲類型 <i>全部類型　⌄</i></span>
+                <span class="anatomy-field">Provider Round ID <i>完整 ID</i></span>
+                <span class="anatomy-field">GGAP Round ID <i>完整 ID</i></span>
+                <span class="anatomy-field">會員 ID <i>輸入會員 ID</i></span>
+                <span class="anatomy-field">結算狀態 <i>全部狀態　⌄</i></span>
+                <span class="anatomy-filter-actions"><b>⌕　查詢</b><i>↻　重置</i></span>
+            </a>
+            <a class="anatomy-zone anatomy-zone--summary" href="#7-查詢摘要與彙總" aria-label="前往第三區，查詢摘要與彙總規格">
+                <span class="anatomy-zone__number">03</span>
+                <span class="anatomy-zone__label">查詢摘要</span>
+                <span class="anatomy-result-copy"><strong>目前顯示 17 筆正式 Game Round</strong><small>settled_at 新到舊排序 · Production only</small></span>
+                <span class="anatomy-stat"><small>投注額</small><strong>1.82M</strong></span>
+                <span class="anatomy-stat"><small>派彩額</small><strong>1.64M</strong></span>
+                <span class="anatomy-toolbar-actions"><i>↻</i><b>▧ CSV</b><b>▦ Excel</b></span>
+            </a>
+            <a class="anatomy-zone anatomy-zone--records" href="#6-列表規格" aria-label="前往第四區，紀錄列表規格">
+                <span class="anatomy-zone__number">04</span>
+                <span class="anatomy-zone__label">紀錄列表</span>
+                <span class="anatomy-table" aria-hidden="true">
+                    <span class="anatomy-table__row anatomy-table__row--head"><i>#</i><i>結算時間</i><i>Provider Round ID</i><i>GGAP Round ID</i><i>遊戲名稱</i><i>狀態</i><i>操作</i></span>
+                    <span class="anatomy-table__row"><i>1</i><i>15:18:42</i><i>round-…0098</i><i>ggap-r-8f31a9</i><i>星際寶藏</i><i class="anatomy-table__status">已結算</i><i class="anatomy-table__link">↗ 詳情</i></span>
+                    <span class="anatomy-table__row"><i>2</i><i>15:14:18</i><i>round-…0097</i><i>ggap-r-7c20dd</i><i>Skyline Crash</i><i class="anatomy-table__status">已結算</i><i class="anatomy-table__link">↗ 詳情</i></span>
+                    <span class="anatomy-table__row"><i>3</i><i>15:07:03</i><i>round-…0096</i><i>ggap-r-69b115</i><i>Mini Burst</i><i class="anatomy-table__status">處理中</i><i class="anatomy-table__link">↗ 詳情</i></span>
+                </span>
+                <span class="anatomy-pagination">1–17 / 17　　‹　›</span>
+            </a>
+            <a class="anatomy-zone anatomy-zone--states" href="#12-頁面狀態與錯誤處理" aria-label="前往第五區，頁面狀態與錯誤處理規格">
+                <span class="anatomy-zone__number">05</span>
+                <span class="anatomy-zone__label">替代狀態</span>
+                <span class="anatomy-state"><i>⌕</i>無資料</span>
+                <span class="anatomy-state anatomy-state--error"><i>!</i>查詢失敗</span>
+                <span class="anatomy-state"><i>⊘</i>權限不足</span>
+                <span class="anatomy-state"><i>⇩</i>匯出處理中</span>
+                <small class="anatomy-state-note">依情境取代列表內容，不與正常列表同時顯示</small>
+            </a>
+        </div>
+        <a class="anatomy-zone anatomy-zone--drawer" href="#8-game-round-明細" aria-label="前往第六區，Game Round 明細規格">
+            <span class="anatomy-zone__number">06</span>
+            <span class="anatomy-zone__label">Game Round 詳情 Dialog</span>
+            <span class="anatomy-drawer__title">round-20260805-0098 / Game Round 詳情 <i>×</i></span>
+            <span class="anatomy-drawer__hero"><small>PRODUCTION GAME ROUND</small><strong>星際寶藏</strong><i>slot-orbit · 老虎機 · 3.8.1</i></span>
+            <span class="anatomy-drawer__status">已結算</span>
+            <span class="anatomy-drawer__group"><strong>識別與狀態 <em>TRACEABILITY</em></strong><i>Provider / GGAP Round ID</i><i>Request ID / 狀態說明</i></span>
+            <span class="anatomy-drawer__group"><strong>遊戲與 GGAP 脈絡 <em>CONTEXT SNAPSHOT</em></strong><i>遊戲 / 版本 / 代理商</i><i>會員 / GGAP 幣別</i></span>
+            <span class="anatomy-drawer__group"><strong>時間 <em>EVENT TIMELINE</em></strong><i>建立 / 結算 / 更新時間</i></span>
+            <span class="anatomy-drawer__group anatomy-drawer__group--amount"><strong>金額與換算 <em>POINTS FIRST</em></strong><i>投注額　100.00　1.00 USDT</i><i>派彩額　260.00　2.60 USDT</i><i>玩家淨輸贏　+160.00　+1.60 USDT</i></span>
+            <small class="anatomy-drawer__note">現行原型：大型置中 Dialog<br>窄螢幕：接近全頁內容</small>
+        </a>
+    </div>
+    <div class="page-anatomy__legend" aria-label="示意圖說明">
+        <span><i></i>主要閱讀順序</span>
+        <span><i></i>替代畫面狀態</span>
+        <span><i></i>選取單筆後開啟</span>
+        <small>參照現行原型；固定 mock 值不代表正式資料契約。</small>
+    </div>
+</figure>
+        </div>
+        <p class="visual-overview-disclaimer">畫面示意用於定位元件與閱讀順序；實際欄位、狀態與行為仍以本頁詳細規格及正式契約為準。</p>
+    </section>
+    <a class="visual-return" data-visual-return href="#page-visual-overview" hidden><span aria-hidden="true">↑</span> 回到畫面示意</a>
+
+                <div class="content-layout">
+                    <article class="spec-content">
+                        <h2 id="章節狀態">章節狀態</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>內容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>規格成熟度</td>
+<td>Draft — 首個完整頁面規格範本</td>
+</tr>
+<tr>
+<td>對應路由</td>
+<td><code>/reports</code></td>
+</tr>
+<tr>
+<td>前端元件</td>
+<td><code>src/views/Reports/ProviderGameRounds.vue</code></td>
+</tr>
+<tr>
+<td>主要來源</td>
+<td><code>GAME_ROUND_RECORDS_SPEC.md</code>、<code>GAME_ROUND_AND_REPORTING_SPEC.md</code></td>
+</tr>
+<tr>
+<td>本頁資料環境</td>
+<td>Production only</td>
+</tr>
+<tr>
+<td>主要業務單位</td>
+<td>Game Round</td>
+</tr>
+</tbody></table></div>
+<blockquote>
+<p>本章同時作為後續內容頁規格的寫作範本。已確認規則與待確認內容分開呈現；標記為 Draft 或 TBD 的內容，在產品／後端確認前不得視為正式介面契約。</p>
+</blockquote>
+<h2 id="1-目的與使用情境">1. 目的與使用情境</h2><p>遊戲紀錄提供遊戲商營運、客服、財務與技術人員查詢正式環境的 Game Round，核對玩家投注、派彩、輸贏與交易識別資訊，並在發生客訴、對帳差異或整合異常時取得可追溯的單筆明細。</p>
+<p>主要使用情境：</p>
+<ol>
+<li>依時間、遊戲、幣別、狀態或識別碼查找特定 Game Round。</li>
+<li>從列表快速比較投注、有效投注、派彩及遊戲商輸贏。</li>
+<li>開啟單筆明細，核對 Provider 與 GGAP 雙方識別碼及時間軸。</li>
+<li>將目前查詢條件下的資料匯出，供營運分析或人工對帳。</li>
+<li>從監控、風控告警或財務報表帶入 Game Round 識別碼進行追查。</li>
+</ol>
+<h2 id="2-範圍與責任邊界">2. 範圍與責任邊界</h2><h3 id="2-1-本頁包含">2.1 本頁包含</h3><ul>
+<li>Provider 自有遊戲產生的正式 Game Round。</li>
+<li>Game Round 的查詢、排序、分頁、單筆明細與匯出入口。</li>
+<li>Provider 點數金額，以及依既定匯率換算的 USDT 對照值。</li>
+<li>Provider 與 GGAP 之間用於追蹤與對帳的識別資訊。</li>
+<li>資料狀態、建立時間、結算時間及必要的異常提示。</li>
+</ul>
+<h3 id="2-2-本頁不包含">2.2 本頁不包含</h3><ul>
+<li>DEMO 或 Test 環境的遊戲資料。</li>
+<li>Game Session；本產品以 Game Round 作為主要業務紀錄單位，不另外建立 Session 實體。</li>
+<li>會員、代理商、商戶主資料的建立或維護。</li>
+<li>會員錢包餘額、錢包調整或平台端資金操作。</li>
+<li>代理商個別遊戲開關；該控制權屬於 GGAP。</li>
+<li>直接修改、刪除或重算已成立的正式 Game Round。</li>
+</ul>
+<h3 id="2-3-資料可見性原則">2.3 資料可見性原則</h3><ul>
+<li>Provider Portal 僅顯示登入遊戲商所屬資料。</li>
+<li>商戶與代理商可作為 GGAP 整合脈絡，但不在本頁呈現其主資料維護能力。</li>
+<li>權限模型尚待正式定義；前端不可只依隱藏按鈕作為存取控制。</li>
+<li>查詢與匯出均應由後端執行資料範圍檢核。</li>
+</ul>
+<h2 id="3-名詞與計算口徑">3. 名詞與計算口徑</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>名詞</th>
+<th>定義</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Game Round</td>
+<td>一次可獨立追蹤、結算與對帳的遊戲回合，是本頁唯一主要紀錄單位。</td>
+</tr>
+<tr>
+<td>Provider 點數</td>
+<td>本系統正式金額的主要呈現與計算單位。</td>
+</tr>
+<tr>
+<td>USDT 對照值</td>
+<td>依指定匯率換算的參考金額，不取代 Provider 點數原值。</td>
+</tr>
+<tr>
+<td>投注金額</td>
+<td>Game Round 接受的原始投注點數。</td>
+</tr>
+<tr>
+<td>有效投注</td>
+<td>依遊戲規則可計入報表與結算口徑的投注點數。</td>
+</tr>
+<tr>
+<td>派彩金額</td>
+<td>Game Round 結果產生的派彩點數。</td>
+</tr>
+<tr>
+<td>遊戲商輸贏</td>
+<td>以遊戲商角度計算；暫定公式為「有效投注 − 派彩」，最終以財務口徑確認為準。</td>
+</tr>
+<tr>
+<td>Provider Round ID</td>
+<td>Provider 端的 Game Round 唯一識別碼。</td>
+</tr>
+<tr>
+<td>GGAP Round ID</td>
+<td>GGAP 端對應的 Game Round 識別碼。</td>
+</tr>
+</tbody></table></div>
+<blockquote>
+<p>金額欄位不得只顯示 USDT。若顯示換算值，必須同時保留 Provider 點數原值、換算匯率及匯率時間或版本，避免事後無法還原。</p>
+</blockquote>
+<h2 id="4-資訊架構與頁面區塊">4. 資訊架構與頁面區塊</h2><p>頁面由上至下分為六個區塊：</p>
+<ol>
+<li>頁首：標題、用途說明、最後資料更新時間與匯出入口。</li>
+<li>查詢條件：時間區間、識別碼、遊戲、幣別及狀態。</li>
+<li>查詢摘要：命中筆數、套用條件與必要的金額彙總。</li>
+<li>紀錄列表：主要欄位、排序、分頁與單筆明細入口。</li>
+<li>空白／錯誤狀態：無資料、查詢失敗、權限不足與匯出狀態。</li>
+<li>Game Round 明細：以側邊抽屜或獨立內容區呈現單筆完整資訊。</li>
+</ol>
+<h3 id="4-1-頁首行為">4.1 頁首行為</h3><ul>
+<li>頁面主標題使用「遊戲紀錄」。</li>
+<li>輔助說明明確指出「僅含正式環境 Game Round」。</li>
+<li>「匯出」依目前已套用的查詢條件執行，不得匯出使用者無權查看的資料。</li>
+<li>最後更新時間代表列表資料的查詢完成時間，不等同資料來源的最終結算時間。</li>
+</ul>
+<h2 id="5-查詢條件">5. 查詢條件</h2><h3 id="5-1-條件定義">5.1 條件定義</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>介面欄位</th>
+<th>技術欄位</th>
+<th>型別</th>
+<th>必填</th>
+<th>預設</th>
+<th>規則</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>時間類型</td>
+<td><code>time_type</code></td>
+<td>enum</td>
+<td>是</td>
+<td><code>settled_at</code></td>
+<td>Draft：可選結算時間或建立時間。</td>
+</tr>
+<tr>
+<td>起始時間</td>
+<td><code>start_at</code></td>
+<td>ISO 8601 datetime</td>
+<td>是</td>
+<td>當日 00:00</td>
+<td>與結束時間使用同一時區。</td>
+</tr>
+<tr>
+<td>結束時間</td>
+<td><code>end_at</code></td>
+<td>ISO 8601 datetime</td>
+<td>是</td>
+<td>查詢當下</td>
+<td>不得早於起始時間。</td>
+</tr>
+<tr>
+<td>遊戲商遊戲回合 ID</td>
+<td><code>provider_round_id</code></td>
+<td>string</td>
+<td>否</td>
+<td>空</td>
+<td>精確比對；忽略前後空白。</td>
+</tr>
+<tr>
+<td>GGAP 遊戲回合 ID</td>
+<td><code>ggap_round_id</code></td>
+<td>string</td>
+<td>否</td>
+<td>空</td>
+<td>精確比對；忽略前後空白。</td>
+</tr>
+<tr>
+<td>遊戲</td>
+<td><code>game_id</code></td>
+<td>string</td>
+<td>否</td>
+<td>全部</td>
+<td>顯示遊戲名稱，送出穩定 ID。</td>
+</tr>
+<tr>
+<td>遊戲類型</td>
+<td><code>game_type</code></td>
+<td>enum</td>
+<td>否</td>
+<td>全部</td>
+<td>選項沿用遊戲主資料定義。</td>
+</tr>
+<tr>
+<td>幣別</td>
+<td><code>currency</code></td>
+<td>enum</td>
+<td>否</td>
+<td>全部</td>
+<td>此處為 Provider 點數計價幣別／代碼。</td>
+</tr>
+<tr>
+<td>回合狀態</td>
+<td><code>round_status</code></td>
+<td>enum[]</td>
+<td>否</td>
+<td>全部</td>
+<td>可複選；正式列舉值待後端契約確認。</td>
+</tr>
+<tr>
+<td>每頁筆數</td>
+<td><code>page_size</code></td>
+<td>integer</td>
+<td>是</td>
+<td>20</td>
+<td>建議選項：20、50、100。</td>
+</tr>
+</tbody></table></div>
+<h3 id="5-2-查詢規則">5.2 查詢規則</h3><ul>
+<li>預設時間區間及最大可查區間屬營運與效能政策，列為 TBD。</li>
+<li>識別碼查詢若有值，可保留其他條件，但介面應提示實際套用的條件。</li>
+<li>按下「查詢」後才套用表單變更；「重設」恢復預設值並重新查詢。</li>
+<li>查詢條件需反映於 URL query string，以支援重新整理、書籤及跨頁帶入。</li>
+<li>URL 不得包含會員敏感資料；目前識別碼是否可放入 URL，須由資安與資料分級確認。</li>
+<li>時區固定顯示於日期選擇器與列表欄名附近，禁止以瀏覽器時區默默轉換。</li>
+<li>正式時區與日期格式目前沿用產品全域規則；若全域規則尚未確認，介面標示 <code>UTC+8</code> 只是 Draft，不得直接固化至 API。</li>
+</ul>
+<h3 id="5-3-驗證與提示">5.3 驗證與提示</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>情境</th>
+<th>介面反應</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>結束時間早於起始時間</td>
+<td>欄位下方顯示錯誤，不送出請求。</td>
+</tr>
+<tr>
+<td>區間超過上限</td>
+<td>顯示允許的最大範圍，不送出請求。</td>
+</tr>
+<tr>
+<td>無任何命中資料</td>
+<td>保留條件並顯示空白狀態，不以錯誤提示取代。</td>
+</tr>
+<tr>
+<td>識別碼格式不合法</td>
+<td>顯示格式說明；正式規則待 ID 契約確認。</td>
+</tr>
+<tr>
+<td>查詢逾時</td>
+<td>顯示可重試訊息並保留所有條件。</td>
+</tr>
+</tbody></table></div>
+<h2 id="6-列表規格">6. 列表規格</h2><h3 id="6-1-欄位順序">6.1 欄位順序</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th align="right">#</th>
+<th>顯示欄位</th>
+<th>技術欄位</th>
+<th>格式與行為</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>結算時間</td>
+<td><code>settled_at</code></td>
+<td><code>YYYY-MM-DD HH:mm:ss</code>＋明示時區；未結算顯示「—」。</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>遊戲商遊戲回合 ID</td>
+<td><code>provider_round_id</code></td>
+<td>等寬字；可複製；點擊開啟明細。</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>GGAP 遊戲回合 ID</td>
+<td><code>ggap_round_id</code></td>
+<td>等寬字；可複製；未取得時顯示「—」。</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td>遊戲名稱</td>
+<td><code>game_name</code></td>
+<td>主文字；必要時以 <code>game_id</code> 作輔助。</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td>遊戲類型</td>
+<td><code>game_type</code></td>
+<td>使用繁體中文顯示值，保留技術列舉於輔助資訊。</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td>會員識別碼</td>
+<td><code>member_ref</code></td>
+<td>僅顯示允許的遮罩或外部參照值；不得顯示會員主資料。</td>
+</tr>
+<tr>
+<td align="right">7</td>
+<td>幣別</td>
+<td><code>currency</code></td>
+<td>技術代碼，例如 <code>PTS</code>。</td>
+</tr>
+<tr>
+<td align="right">8</td>
+<td>投注金額</td>
+<td><code>bet_amount</code></td>
+<td>Provider 點數、右對齊、固定小數規則。</td>
+</tr>
+<tr>
+<td align="right">9</td>
+<td>有效投注</td>
+<td><code>valid_bet_amount</code></td>
+<td>Provider 點數、右對齊。</td>
+</tr>
+<tr>
+<td align="right">10</td>
+<td>派彩金額</td>
+<td><code>payout_amount</code></td>
+<td>Provider 點數、右對齊。</td>
+</tr>
+<tr>
+<td align="right">11</td>
+<td>遊戲商輸贏</td>
+<td><code>provider_net_amount</code></td>
+<td>Provider 角度；正負色彩不可作為唯一提示。</td>
+</tr>
+<tr>
+<td align="right">12</td>
+<td>USDT 對照值</td>
+<td><code>provider_net_usdt</code></td>
+<td>參考值；顯示換算提示，禁止取代點數欄位。</td>
+</tr>
+<tr>
+<td align="right">13</td>
+<td>回合狀態</td>
+<td><code>round_status</code></td>
+<td>狀態標籤；文字與色彩雙重辨識。</td>
+</tr>
+<tr>
+<td align="right">14</td>
+<td>建立時間</td>
+<td><code>created_at</code></td>
+<td><code>YYYY-MM-DD HH:mm:ss</code>＋明示時區。</td>
+</tr>
+<tr>
+<td align="right">15</td>
+<td>更新時間</td>
+<td><code>updated_at</code></td>
+<td>用於辨識後續狀態異動。</td>
+</tr>
+<tr>
+<td align="right">16</td>
+<td>操作</td>
+<td>—</td>
+<td>「查看明細」；不得提供編輯或刪除。</td>
+</tr>
+</tbody></table></div>
+<blockquote>
+<p>會員識別碼的來源、遮罩方式與名稱仍屬 TBD。Provider 不管理會員主資料；本欄僅供必要的交易追查，不能延伸為會員管理入口。</p>
+</blockquote>
+<h3 id="6-2-顯示格式">6.2 顯示格式</h3><ul>
+<li>金額以千分位呈現，負數使用前置負號；小數位依幣別設定，不由前端自行四捨五入為固定兩位。</li>
+<li><code>null</code>、缺值與數值 <code>0</code> 必須明確區分：缺值顯示「—」，零值顯示合法的 <code>0</code> 格式。</li>
+<li>ID 不換行並可複製；過長時可視覺截斷，但複製值與可存取名稱需保留完整內容。</li>
+<li>狀態標籤採繁體中文主標籤；API enum 原值可在明細或輔助提示顯示。</li>
+<li>表頭應保持可見；窄螢幕允許水平捲動，不可任意隱藏對帳必要欄位而未提供替代入口。</li>
+</ul>
+<h3 id="6-3-排序與分頁">6.3 排序與分頁</h3><ul>
+<li>預設以 <code>settled_at desc</code> 排序；未結算紀錄的順序規則列為 TBD。</li>
+<li>可排序欄位建議為結算時間、投注金額、有效投注、派彩、遊戲商輸贏及建立時間。</li>
+<li>排序由後端執行，前端不得只排序目前頁資料。</li>
+<li>切換排序或每頁筆數時回到第一頁。</li>
+<li>分頁需顯示總筆數、目前範圍、目前頁與總頁數；若後端採 cursor pagination，總頁數行為需另行調整。</li>
+<li>分頁模型（offset 或 cursor）尚未確認，列為 API 契約 TBD。</li>
+</ul>
+<h2 id="7-查詢摘要與彙總">7. 查詢摘要與彙總</h2><p>查詢結果上方顯示：</p>
+<ul>
+<li>命中總筆數。</li>
+<li>查詢時間區間與時區。</li>
+<li>已套用的非預設條件。</li>
+<li>Draft：投注、有效投注、派彩及遊戲商輸贏合計。</li>
+</ul>
+<p>若顯示合計：</p>
+<ul>
+<li>必須由後端針對完整查詢結果計算，不得加總目前頁資料冒充總計。</li>
+<li>不同幣別不可直接合併為單一 Provider 點數總額。</li>
+<li>USDT 對照總額需揭露換算口徑；若各筆匯率不同，須以逐筆換算後加總並清楚標示。</li>
+<li>合計與匯出使用相同查詢條件及資料版本策略。</li>
+</ul>
+<h2 id="8-game-round-明細">8. Game Round 明細</h2><h3 id="8-1-開啟與關閉">8.1 開啟與關閉</h3><ul>
+<li>從列表「遊戲商遊戲回合 ID」或「查看明細」開啟。</li>
+<li>Desktop 建議使用右側抽屜；Mobile 使用全頁內容。</li>
+<li>開啟後可將識別碼反映於 URL，確切路由模型列為 TBD。</li>
+<li>關閉後回到原列表捲動位置，保留查詢、排序及分頁。</li>
+<li>支援直接連結時，重新整理仍應載入相同 Game Round 或顯示明確的不存在／無權限狀態。</li>
+</ul>
+<h3 id="8-2-明細區塊">8.2 明細區塊</h3><h4 id="基本識別資訊">基本識別資訊</h4><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>顯示欄位</th>
+<th>技術欄位</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>遊戲商遊戲回合 ID</td>
+<td><code>provider_round_id</code></td>
+<td>必須唯一且可複製。</td>
+</tr>
+<tr>
+<td>GGAP 遊戲回合 ID</td>
+<td><code>ggap_round_id</code></td>
+<td>可為尚未取得；不可用空字串混同。</td>
+</tr>
+<tr>
+<td>外部交易追蹤 ID</td>
+<td><code>external_transaction_id</code></td>
+<td>是否存在與命名待整合契約確認。</td>
+</tr>
+<tr>
+<td>回合狀態</td>
+<td><code>round_status</code></td>
+<td>顯示中文標籤與技術值。</td>
+</tr>
+<tr>
+<td>資料環境</td>
+<td><code>environment</code></td>
+<td>本頁只允許 <code>production</code>。</td>
+</tr>
+</tbody></table></div>
+<h4 id="遊戲資訊">遊戲資訊</h4><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>顯示欄位</th>
+<th>技術欄位</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>遊戲 ID</td>
+<td><code>game_id</code></td>
+<td>對應 Provider 遊戲主資料。</td>
+</tr>
+<tr>
+<td>遊戲名稱</td>
+<td><code>game_name</code></td>
+<td>顯示回合成立時或查詢時名稱，版本策略待確認。</td>
+</tr>
+<tr>
+<td>遊戲類型</td>
+<td><code>game_type</code></td>
+<td>使用既有列舉。</td>
+</tr>
+<tr>
+<td>遊戲版本</td>
+<td><code>game_version</code></td>
+<td>應能追溯回合實際使用版本。</td>
+</tr>
+<tr>
+<td>數值版本</td>
+<td><code>math_version</code></td>
+<td>若適用，應能追溯回合實際規則版本。</td>
+</tr>
+</tbody></table></div>
+<h4 id="參與者與整合參照">參與者與整合參照</h4><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>顯示欄位</th>
+<th>技術欄位</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>會員識別碼</td>
+<td><code>member_ref</code></td>
+<td>只能呈現授權的外部參照或遮罩值。</td>
+</tr>
+<tr>
+<td>GGAP 參照</td>
+<td><code>ggap_reference</code></td>
+<td>格式待整合契約確認。</td>
+</tr>
+<tr>
+<td>來源系統</td>
+<td><code>source_system</code></td>
+<td>Draft；用於追查資料流，不作主資料管理。</td>
+</tr>
+</tbody></table></div>
+<h4 id="金額資訊">金額資訊</h4><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>顯示欄位</th>
+<th>技術欄位</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>投注金額</td>
+<td><code>bet_amount</code></td>
+<td>Provider 點數原值。</td>
+</tr>
+<tr>
+<td>有效投注</td>
+<td><code>valid_bet_amount</code></td>
+<td>Provider 點數原值。</td>
+</tr>
+<tr>
+<td>派彩金額</td>
+<td><code>payout_amount</code></td>
+<td>Provider 點數原值。</td>
+</tr>
+<tr>
+<td>遊戲商輸贏</td>
+<td><code>provider_net_amount</code></td>
+<td>Provider 角度；公式需與財務規格一致。</td>
+</tr>
+<tr>
+<td>幣別</td>
+<td><code>currency</code></td>
+<td>不得只由顯示符號推測。</td>
+</tr>
+<tr>
+<td>USDT 匯率</td>
+<td><code>usdt_rate</code></td>
+<td>匯率方向、精度與來源待確認。</td>
+</tr>
+<tr>
+<td>USDT 對照值</td>
+<td><code>provider_net_usdt</code></td>
+<td>僅供對照。</td>
+</tr>
+<tr>
+<td>匯率時間／版本</td>
+<td><code>rate_effective_at</code> / <code>rate_version</code></td>
+<td>至少需有一種可重現依據。</td>
+</tr>
+</tbody></table></div>
+<h4 id="時間軸">時間軸</h4><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>顯示欄位</th>
+<th>技術欄位</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>回合建立時間</td>
+<td><code>created_at</code></td>
+<td>必填。</td>
+</tr>
+<tr>
+<td>投注接受時間</td>
+<td><code>bet_accepted_at</code></td>
+<td>是否獨立紀錄待確認。</td>
+</tr>
+<tr>
+<td>結算時間</td>
+<td><code>settled_at</code></td>
+<td>未結算可為 <code>null</code>。</td>
+</tr>
+<tr>
+<td>最後更新時間</td>
+<td><code>updated_at</code></td>
+<td>用於追蹤狀態變化。</td>
+</tr>
+</tbody></table></div>
+<h4 id="原始資訊與事件">原始資訊與事件</h4><ul>
+<li>是否顯示原始 request／response、遊戲結果 payload 或狀態事件時間軸，屬資安、個資與支援流程的共同決策，現階段標示 TBD。</li>
+<li>若未來提供，敏感值必須遮罩，並設定獨立權限與稽核紀錄。</li>
+<li>原始 payload 不得成為列表必要欄位，也不得阻塞一般查詢。</li>
+</ul>
+<h2 id="9-狀態模型">9. 狀態模型</h2><p>正式 <code>round_status</code> enum 尚待 GGAP 整合契約與後端共同確認。介面骨架至少需區分以下語意，而非直接將下列英文視為已核准 API 值：</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>業務語意</th>
+<th>Draft 技術值</th>
+<th>是否終態</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>處理中</td>
+<td><code>processing</code></td>
+<td>否</td>
+<td>回合已建立但尚未完成結算。</td>
+</tr>
+<tr>
+<td>已結算</td>
+<td><code>settled</code></td>
+<td>是</td>
+<td>回合已完成正常結算。</td>
+</tr>
+<tr>
+<td>已取消</td>
+<td><code>cancelled</code></td>
+<td>是</td>
+<td>回合依規則取消；金額口徑待定。</td>
+</tr>
+<tr>
+<td>結算失敗</td>
+<td><code>failed</code></td>
+<td>否／待定</td>
+<td>需後續重試或人工處理。</td>
+</tr>
+<tr>
+<td>已調整</td>
+<td><code>adjusted</code></td>
+<td>是／待定</td>
+<td>是否允許及其財務處理方式尚未定義。</td>
+</tr>
+</tbody></table></div>
+<p>狀態規則：</p>
+<ul>
+<li>前端只依後端狀態呈現，不自行推導正式狀態。</li>
+<li>狀態變更需具備可追溯時間與來源。</li>
+<li>終態是否可再次變更、取消與調整的業務流程均列為 TBD。</li>
+<li>相同列舉需在遊戲紀錄、財務、監控、風控及匯出中採一致語意。</li>
+</ul>
+<h2 id="10-匯出規格">10. 匯出規格</h2><h3 id="10-1-觸發與範圍">10.1 觸發與範圍</h3><ul>
+<li>匯出套用目前已送出的查詢條件、排序及資料範圍權限。</li>
+<li>不應只匯出目前頁；預設為完整命中結果，但受單次上限與非同步策略限制。</li>
+<li>匯出格式暫定 CSV；XLSX 是否提供列為 TBD。</li>
+<li>大量資料應建立非同步匯出任務，完成後透過站內通知或匯出中心下載；實際流程待通知與後端規格確認。</li>
+</ul>
+<h3 id="10-2-匯出欄位">10.2 匯出欄位</h3><ul>
+<li>至少包含列表的 15 個資料欄位，不包含「操作」。</li>
+<li>時間欄位需包含時區或使用 ISO 8601。</li>
+<li>金額輸出原始精度，不以畫面格式化字串取代數值。</li>
+<li>USDT 對照值需一併輸出匯率與匯率版本／時間。</li>
+<li>匯出標頭語言、檔名格式、編碼與公式注入防護列為後端／資安驗收項目。</li>
+</ul>
+<h3 id="10-3-匯出狀態">10.3 匯出狀態</h3><p>介面至少區分：建立中、處理中、已完成、失敗、已過期。下載連結需具有效期與授權檢查，不得為永久公開網址。</p>
+<h2 id="11-api-契約草案">11. API 契約草案</h2><blockquote>
+<p>本節是前後端討論用 Draft，不是已核准的正式 API。路徑、欄位與分頁模型應在整合契約定稿後更新。</p>
+</blockquote>
+<h3 id="11-1-列表查詢">11.1 列表查詢</h3><p><code>GET /api/provider/v1/game-rounds</code></p>
+<p>建議 query parameters：</p>
+<pre><code class="language-text">time_type=settled_at
+start_at=2026-08-13T00:00:00+08:00
+end_at=2026-08-13T23:59:59+08:00
+provider_round_id=
+ggap_round_id=
+game_id=
+game_type=
+currency=
+round_status=
+sort=settled_at:desc
+page=1
+page_size=20
+</code></pre>
+<p>建議 response envelope：</p>
+<pre><code class="language-json">{
+  &quot;data&quot;: [],
+  &quot;pagination&quot;: {
+    &quot;page&quot;: 1,
+    &quot;page_size&quot;: 20,
+    &quot;total_items&quot;: 0,
+    &quot;total_pages&quot;: 0
+  },
+  &quot;summary&quot;: {
+    &quot;by_currency&quot;: []
+  },
+  &quot;meta&quot;: {
+    &quot;generated_at&quot;: &quot;2026-08-13T12:00:00+08:00&quot;,
+    &quot;timezone&quot;: &quot;Asia/Taipei&quot;
+  }
+}
+</code></pre>
+<h3 id="11-2-單筆明細">11.2 單筆明細</h3><p><code>GET /api/provider/v1/game-rounds/{provider_round_id}</code></p>
+<ul>
+<li>路徑識別碼採 Provider Round ID 或內部不可變 ID，待後端確認。</li>
+<li>查無資料與無權限不可洩漏額外資料；HTTP status 與錯誤碼需納入共用錯誤契約。</li>
+</ul>
+<h3 id="11-3-建立匯出任務">11.3 建立匯出任務</h3><p><code>POST /api/provider/v1/game-round-exports</code></p>
+<ul>
+<li>Request 重用已正規化的查詢條件。</li>
+<li>Response 回傳 export job ID、狀態、建立時間與預估／限制資訊。</li>
+<li>任務查詢、下載與過期策略需納入正式匯出契約。</li>
+</ul>
+<h3 id="11-4-共用契約要求">11.4 共用契約要求</h3><ul>
+<li>金額使用字串或可保證精度的 decimal 表達，禁止以 binary floating point 傳遞正式財務值。</li>
+<li>日期時間使用 ISO 8601 並包含 offset；另由 <code>meta.timezone</code> 說明顯示時區。</li>
+<li>Enum 使用穩定技術值，顯示文案由前端語系資源處理。</li>
+<li>錯誤回應需包含穩定 <code>code</code>、可顯示訊息或訊息 key、追蹤 ID，以及必要的欄位錯誤。</li>
+<li>列表與匯出需採一致的資料範圍、條件正規化與金額口徑。</li>
+</ul>
+<h2 id="12-頁面狀態與錯誤處理">12. 頁面狀態與錯誤處理</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>狀態</th>
+<th>必要介面</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>首次載入</td>
+<td>顯示列表骨架，不以全頁 Spinner 阻塞頁首與條件。</td>
+</tr>
+<tr>
+<td>重新查詢</td>
+<td>保留表單；列表顯示局部載入狀態並避免重複送出。</td>
+</tr>
+<tr>
+<td>無資料</td>
+<td>顯示「目前條件找不到正式遊戲紀錄」及重設條件入口。</td>
+</tr>
+<tr>
+<td>查詢失敗</td>
+<td>顯示可重試訊息與追蹤 ID；保留原查詢條件。</td>
+</tr>
+<tr>
+<td>明細載入失敗</td>
+<td>明細區顯示錯誤，不清空底層列表。</td>
+</tr>
+<tr>
+<td>無權限</td>
+<td>顯示權限不足，不透露資料是否存在。</td>
+</tr>
+<tr>
+<td>匯出建立中</td>
+<td>禁用重複觸發或提示已建立任務。</td>
+</tr>
+<tr>
+<td>匯出失敗</td>
+<td>顯示失敗原因類型與重試入口；不顯示內部例外。</td>
+</tr>
+<tr>
+<td>部分欄位缺值</td>
+<td>以「—」呈現並保留其他合法資料，不使整列崩潰。</td>
+</tr>
+</tbody></table></div>
+<h2 id="13-響應式與可存取性">13. 響應式與可存取性</h2><h3 id="13-1-desktop">13.1 Desktop</h3><ul>
+<li>查詢條件可採多欄排列，主要操作保持在一致位置。</li>
+<li>列表可水平捲動；識別碼、金額與操作欄的固定策略應以實際可用寬度測試。</li>
+<li>明細抽屜寬度需足以閱讀 ID、金額與表格，不應遮蔽關閉操作。</li>
+</ul>
+<h3 id="13-2-tablet-與-mobile">13.2 Tablet 與 Mobile</h3><ul>
+<li>查詢條件改為單欄或雙欄，操作按鈕需有清楚的套用／重設順序。</li>
+<li>表格保留水平捲動，或轉為以單筆摘要卡＋明細方式呈現；若採卡片，不得遺失對帳必要欄位。</li>
+<li>明細使用全頁呈現，提供明確返回列表操作並保留原狀態。</li>
+</ul>
+<h3 id="13-3-可存取性">13.3 可存取性</h3><ul>
+<li>所有表單欄位具程式可辨識的 label、錯誤說明與必填狀態。</li>
+<li>表格使用正確表頭關聯；排序按鈕提供目前排序狀態。</li>
+<li>鍵盤可操作查詢、分頁、複製 ID、開啟與關閉明細。</li>
+<li>焦點開啟明細時移入明細，關閉後回到原觸發元素。</li>
+<li>狀態與正負值不可僅依顏色傳達。</li>
+<li>載入完成、錯誤及匯出狀態需以適當 live region 通知輔助科技。</li>
+</ul>
+<h2 id="14-前端實作要求">14. 前端實作要求</h2><ul>
+<li>URL 是已套用查詢狀態的可重建來源，表單編輯狀態與已套用狀態分離。</li>
+<li>API request／response 透過明確型別與 mapper 轉為 view model，不在 template 內散落格式轉換。</li>
+<li>金額格式化集中處理並依幣別精度設定；不得使用 <code>Number</code> 進行正式金額運算。</li>
+<li>日期格式化集中處理，明示輸入與顯示時區。</li>
+<li>列舉顯示值由共用定義管理，不在元件中重複硬編碼。</li>
+<li>查詢競態需處理；較早的 response 不得覆蓋較新的查詢結果。</li>
+<li>列表、明細及匯出錯誤狀態分開管理。</li>
+<li>介面主文案使用台灣繁體中文，英文只保留技術值、ID、協定與必要選項輔助。</li>
+</ul>
+<h2 id="15-後端實作要求">15. 後端實作要求</h2><ul>
+<li>強制依登入 Provider 限制資料範圍，並對列表、明細、彙總、匯出採相同規則。</li>
+<li>Production 查詢不可混入 DEMO 或 Test 資料；環境隔離需在資料層或查詢層可驗證。</li>
+<li>查詢條件、排序欄位及區間上限採 allowlist 驗證。</li>
+<li>金額與匯率使用 decimal 精度；保留可重現換算結果的依據。</li>
+<li>大量查詢與匯出需有資源限制、逾時策略及必要的非同步處理。</li>
+<li>敏感識別資訊需依資料分級遮罩，查詢與匯出另行檢核權限。</li>
+<li>記錄必要稽核資訊，包括查詢追蹤 ID 與匯出建立／下載事件；正式稽核範圍待資安規格確認。</li>
+<li>索引與查詢計畫需以目標資料量驗證，不能只以 mock 資料判斷效能。</li>
+</ul>
+<h2 id="16-整合與資料一致性">16. 整合與資料一致性</h2><ul>
+<li>Provider Round ID 與 GGAP Round ID 的唯一性、生成方、交換時點與重送行為必須在整合契約中定義。</li>
+<li>Game Round 狀態與金額口徑需與遊戲商財務報表一致。</li>
+<li>風控告警若關聯 Game Round，應以穩定 ID 導向本頁，而非複製一份不同口徑的回合資料。</li>
+<li>匯率來源、方向、精度、有效時間與歷史重現策略需與財務模組共用。</li>
+<li>遊戲名稱、版本及數值版本應能反映回合成立時的實際內容；採 snapshot 或 join 現行主資料仍待決定。</li>
+<li>重送、冪等、延遲結算、取消、調整及資料更正流程需由 GGAP 整合契約與後端狀態模型共同補齊。</li>
+</ul>
+<h2 id="17-驗收條件">17. 驗收條件</h2><h3 id="17-1-功能驗收">17.1 功能驗收</h3><ol>
+<li>使用者可依有效時間區間查詢正式 Game Round，且列表不包含 DEMO／Test 資料。</li>
+<li>使用 Provider Round ID 或 GGAP Round ID 可精確定位授權範圍內的紀錄。</li>
+<li>切換排序與分頁時由後端取得正確資料，並保留其他查詢條件。</li>
+<li><code>0</code>、負數與缺值依規格正確顯示，不互相混淆。</li>
+<li>單筆明細可顯示識別、遊戲、金額與時間資訊，關閉後保留列表狀態。</li>
+<li>匯出套用與畫面一致的條件及資料權限，且不只匯出目前頁。</li>
+<li>不同幣別的彙總不會被直接加總為單一點數總額。</li>
+<li>USDT 對照值不會取代 Provider 點數，且具有匯率追溯資訊。</li>
+</ol>
+<h3 id="17-2-權限與隔離驗收">17.2 權限與隔離驗收</h3><ol>
+<li>無法透過修改 URL、query 或 ID 讀取其他 Provider 的 Game Round。</li>
+<li>無權限與不存在的回應不洩漏敏感資料。</li>
+<li>列表、明細、彙總與匯出採相同資料範圍。</li>
+<li>Test 資料不會進入正式查詢、彙總或匯出。</li>
+</ol>
+<h3 id="17-3-體驗與可存取性驗收">17.3 體驗與可存取性驗收</h3><ol>
+<li>查詢驗證錯誤可由鍵盤與輔助科技辨識。</li>
+<li>載入、空白、失敗與權限不足具有不同且可理解的狀態。</li>
+<li>1280px 寬度可完成查詢、閱讀列表與開啟明細，不發生頁面級非預期裁切。</li>
+<li>390px 寬度可完成相同核心流程，且明細返回後保留列表狀態。</li>
+<li>不依賴顏色即可辨識狀態與金額正負。</li>
+</ol>
+<h3 id="17-4-技術驗收">17.4 技術驗收</h3><ol>
+<li>金額傳輸與運算未使用會造成精度遺失的浮點流程。</li>
+<li>所有日期時間具明確 offset，畫面清楚標示顯示時區。</li>
+<li>查詢競態不會讓舊結果覆蓋新結果。</li>
+<li>失敗訊息保留可供支援追查的 request／trace ID。</li>
+<li>以預估正式資料量驗證列表查詢與匯出效能，門檻依非功能規格定稿。</li>
+</ol>
+<h2 id="18-測試情境清單">18. 測試情境清單</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>類別</th>
+<th>核心情境</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查詢</td>
+<td>預設條件、時間邊界、跨日、無資料、單一與多重條件、精確 ID。</td>
+</tr>
+<tr>
+<td>金額</td>
+<td>0、負數、大額、高精度、多幣別、匯率缺失。</td>
+</tr>
+<tr>
+<td>狀態</td>
+<td>處理中、已結算、取消、失敗、後續狀態更新。</td>
+</tr>
+<tr>
+<td>分頁</td>
+<td>首頁、末頁、查詢後總頁數改變、切換每頁筆數、排序。</td>
+</tr>
+<tr>
+<td>明細</td>
+<td>正常、缺欄位、找不到、無權限、直接連結、關閉後返回。</td>
+</tr>
+<tr>
+<td>匯出</td>
+<td>小量同步／非同步、大量超限、失敗重試、過期、權限變更。</td>
+</tr>
+<tr>
+<td>隔離</td>
+<td>跨 Provider ID、Test 資料混入嘗試、未授權匯出。</td>
+</tr>
+<tr>
+<td>響應式</td>
+<td>Desktop、Tablet、390px Mobile、長 ID、長遊戲名稱。</td>
+</tr>
+<tr>
+<td>可存取性</td>
+<td>鍵盤、焦點順序、表格表頭、錯誤宣告、狀態非色彩辨識。</td>
+</tr>
+</tbody></table></div>
+<h2 id="19-待確認事項">19. 待確認事項</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>待確認事項</th>
+<th>建議負責角色</th>
+<th>是否阻擋正式開發</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GR-001</td>
+<td>正式 <code>round_status</code> 列舉、終態與轉換規則。</td>
+<td>Product／Backend／GGAP</td>
+<td>是</td>
+</tr>
+<tr>
+<td>GR-002</td>
+<td>Provider Round ID 與 GGAP Round ID 的唯一性、生成與交換契約。</td>
+<td>Backend／GGAP</td>
+<td>是</td>
+</tr>
+<tr>
+<td>GR-003</td>
+<td>預設與最大查詢時間區間。</td>
+<td>Product／Backend／SRE</td>
+<td>否，阻擋驗收</td>
+</tr>
+<tr>
+<td>GR-004</td>
+<td>分頁採 offset 或 cursor，以及是否保證總筆數。</td>
+<td>Backend／Frontend</td>
+<td>是</td>
+</tr>
+<tr>
+<td>GR-005</td>
+<td>遊戲商輸贏的正式公式與取消／調整口徑。</td>
+<td>Product／Finance／Backend</td>
+<td>是</td>
+</tr>
+<tr>
+<td>GR-006</td>
+<td>USDT 匯率來源、方向、精度、有效時間與歷史重現。</td>
+<td>Finance／Backend</td>
+<td>是</td>
+</tr>
+<tr>
+<td>GR-007</td>
+<td>會員識別碼的來源、名稱、遮罩與查詢權限。</td>
+<td>Product／Security／GGAP</td>
+<td>是</td>
+</tr>
+<tr>
+<td>GR-008</td>
+<td>回合名稱與版本資訊採交易 snapshot 或查詢時 join。</td>
+<td>Backend／Data</td>
+<td>是</td>
+</tr>
+<tr>
+<td>GR-009</td>
+<td>明細是否可顯示原始 payload／事件時間軸及其權限。</td>
+<td>Security／Support／Backend</td>
+<td>否</td>
+</tr>
+<tr>
+<td>GR-010</td>
+<td>匯出格式、上限、非同步流程、保存期限及通知方式。</td>
+<td>Product／Backend／Frontend</td>
+<td>是</td>
+</tr>
+<tr>
+<td>GR-011</td>
+<td>URL 是否允許帶入 Round ID，以及資料分級限制。</td>
+<td>Security／Frontend</td>
+<td>否</td>
+</tr>
+<tr>
+<td>GR-012</td>
+<td>目標資料量、查詢延遲與匯出完成時間門檻。</td>
+<td>Product／Backend／SRE</td>
+<td>是，阻擋效能驗收</td>
+</tr>
+<tr>
+<td>GR-013</td>
+<td>正式 API 路徑、錯誤 envelope 與 trace ID 規則。</td>
+<td>Backend／Frontend</td>
+<td>是</td>
+</tr>
+<tr>
+<td>GR-014</td>
+<td>取消、調整、延遲結算與重送的處理流程。</td>
+<td>Product／Backend／GGAP</td>
+<td>是</td>
+</tr>
+</tbody></table></div>
+<h2 id="20-規格完成條件">20. 規格完成條件</h2><p>本章可由 Draft 升為 Confirmed 的條件：</p>
+<ol>
+<li>所有標記「阻擋正式開發」的待確認事項均有決議與責任人。</li>
+<li>正式 API schema、狀態 enum、錯誤契約與範例完成審查。</li>
+<li>金額、匯率及遊戲商輸贏口徑與財務模組一致。</li>
+<li>資料隔離、會員識別資訊與匯出權限通過資安審查。</li>
+<li>前端互動、響應式方案與可存取性驗收條件確認。</li>
+<li>GGAP 整合識別碼與 Game Round 生命週期契約定稿。</li>
+</ol>
+
+                    </article>
+                    <aside class="page-outline" aria-label="本頁目錄">
+        <p>本頁目錄</p>
+        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與使用情境">1. 目的與使用情境</a><a class="outline-level-2" href="#2-範圍與責任邊界">2. 範圍與責任邊界</a><a class="outline-level-3" href="#2-1-本頁包含">2.1 本頁包含</a><a class="outline-level-3" href="#2-2-本頁不包含">2.2 本頁不包含</a><a class="outline-level-3" href="#2-3-資料可見性原則">2.3 資料可見性原則</a><a class="outline-level-2" href="#3-名詞與計算口徑">3. 名詞與計算口徑</a><a class="outline-level-2" href="#4-資訊架構與頁面區塊">4. 資訊架構與頁面區塊</a><a class="outline-level-3" href="#4-1-頁首行為">4.1 頁首行為</a><a class="outline-level-2" href="#5-查詢條件">5. 查詢條件</a><a class="outline-level-3" href="#5-1-條件定義">5.1 條件定義</a><a class="outline-level-3" href="#5-2-查詢規則">5.2 查詢規則</a><a class="outline-level-3" href="#5-3-驗證與提示">5.3 驗證與提示</a><a class="outline-level-2" href="#6-列表規格">6. 列表規格</a><a class="outline-level-3" href="#6-1-欄位順序">6.1 欄位順序</a><a class="outline-level-3" href="#6-2-顯示格式">6.2 顯示格式</a><a class="outline-level-3" href="#6-3-排序與分頁">6.3 排序與分頁</a><a class="outline-level-2" href="#7-查詢摘要與彙總">7. 查詢摘要與彙總</a><a class="outline-level-2" href="#8-game-round-明細">8. Game Round 明細</a><a class="outline-level-3" href="#8-1-開啟與關閉">8.1 開啟與關閉</a><a class="outline-level-3" href="#8-2-明細區塊">8.2 明細區塊</a><a class="outline-level-2" href="#9-狀態模型">9. 狀態模型</a><a class="outline-level-2" href="#10-匯出規格">10. 匯出規格</a><a class="outline-level-3" href="#10-1-觸發與範圍">10.1 觸發與範圍</a><a class="outline-level-3" href="#10-2-匯出欄位">10.2 匯出欄位</a><a class="outline-level-3" href="#10-3-匯出狀態">10.3 匯出狀態</a><a class="outline-level-2" href="#11-api-契約草案">11. API 契約草案</a><a class="outline-level-3" href="#11-1-列表查詢">11.1 列表查詢</a><a class="outline-level-3" href="#11-2-單筆明細">11.2 單筆明細</a><a class="outline-level-3" href="#11-3-建立匯出任務">11.3 建立匯出任務</a><a class="outline-level-3" href="#11-4-共用契約要求">11.4 共用契約要求</a><a class="outline-level-2" href="#12-頁面狀態與錯誤處理">12. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#13-響應式與可存取性">13. 響應式與可存取性</a><a class="outline-level-3" href="#13-1-desktop">13.1 Desktop</a><a class="outline-level-3" href="#13-2-tablet-與-mobile">13.2 Tablet 與 Mobile</a><a class="outline-level-3" href="#13-3-可存取性">13.3 可存取性</a><a class="outline-level-2" href="#14-前端實作要求">14. 前端實作要求</a><a class="outline-level-2" href="#15-後端實作要求">15. 後端實作要求</a><a class="outline-level-2" href="#16-整合與資料一致性">16. 整合與資料一致性</a><a class="outline-level-2" href="#17-驗收條件">17. 驗收條件</a><a class="outline-level-3" href="#17-1-功能驗收">17.1 功能驗收</a><a class="outline-level-3" href="#17-2-權限與隔離驗收">17.2 權限與隔離驗收</a><a class="outline-level-3" href="#17-3-體驗與可存取性驗收">17.3 體驗與可存取性驗收</a><a class="outline-level-3" href="#17-4-技術驗收">17.4 技術驗收</a><a class="outline-level-2" href="#18-測試情境清單">18. 測試情境清單</a><a class="outline-level-2" href="#19-待確認事項">19. 待確認事項</a><a class="outline-level-2" href="#20-規格完成條件">20. 規格完成條件</a></nav>
+        <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
+    </aside>
+                </div>
+
+                <nav class="previous-next" aria-label="上一章與下一章">
+        <a class="previous-link" href="data-reporting-module.html"><span>← 上一章</span><strong>數據與報表</strong></a>
+        <a class="next-link" href="provider-finance-module.html"><span>下一章 →</span><strong>遊戲商財務</strong></a>
+    </nav>
+                <footer class="document-footer">
+                    <span>Provider Portal Product / Engineering</span>
+                    <span>0.2.0-authoring-baseline · 2026-08-14</span>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <dialog class="search-dialog" data-search-dialog aria-labelledby="search-dialog-title">
+        <div class="search-dialog-header">
+            <div>
+                <p class="eyebrow">全文檢索</p>
+                <h2 id="search-dialog-title">搜尋規格書</h2>
+            </div>
+            <button class="icon-button dialog-close" type="button" data-search-close aria-label="關閉搜尋">×</button>
+        </div>
+        <label class="search-field">
+            <span class="sr-only">輸入章節、route、欄位或關鍵字</span>
+            <span aria-hidden="true">⌕</span>
+            <input type="search" data-search-input autocomplete="off" placeholder="例如：Game Round、/reports、USDT">
+        </label>
+        <p class="search-hint" data-search-hint>可搜尋章節名稱、內文、route、欄位與技術值。</p>
+        <div class="search-results" data-search-results></div>
+    </dialog>
+</body>
+</html>

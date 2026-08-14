@@ -5,8 +5,12 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
+    "predev": "npm run spec:build",
     "dev": "vite",
+    "prebuild": "npm run spec:build",
     "build": "vite build",
+    "spec:build": "node scripts/build-spec-site.mjs",
+    "spec:check": "npm run spec:build && node scripts/check-spec-site.mjs",
     "type-check": "vue-tsc --noEmit",
     "preview": "vite preview"
   },

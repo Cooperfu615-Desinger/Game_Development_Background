@@ -1,8 +1,8 @@
 # 遊戲商 Provider Portal 文件索引
 
-> 文件版本：2.10.0
-> 更新日期：2026-08-11
-> 文件狀態：Provider Portal 導覽、頁面原型與監控／風控規格已整理；監控總覽前端 mock 原型已完成，正式 API、權限、警戒門檻、更新頻率與資料契約待確認
+> 文件版本：2.11.0
+> 更新日期：2026-08-14
+> 文件狀態：Provider Portal 導覽與頁面原型已整理；規格網站結構與撰寫規範已定版，正式 API、權限、警戒門檻、更新頻率與資料契約仍待確認
 
 ## 閱讀前提
 
@@ -26,6 +26,9 @@
 - [`handoff/frontend.md`](./handoff/frontend.md)
 - [`handoff/backend.md`](./handoff/backend.md)
 - [`handoff/api-contract.md`](./handoff/api-contract.md)
+- [`spec-book/SPEC_BOOK_AUTHORING_GUIDE.md`](./spec-book/SPEC_BOOK_AUTHORING_GUIDE.md)
+  - 規格網站的定版寫作方法、頁面模板、Overview-first 規則、驗收標準、維護流程與跨專案移植方式。
+  - 文件可獨立複製至其他專案使用；Provider Portal 專案實例集中於最後一章。
 
 > 上述交接文件已依 Provider Portal 方向整理，並將「目前原型實況」與「目標規格草案」分開標示。正式 API 與資料欄位仍需由後端與 GGAP 對接團隊核准。
 

@@ -1,0 +1,1304 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="可於本專案沿用，也可獨立移植至其他專案的規格網站方法、模板與品質標準。">
+    <meta name="color-scheme" content="light">
+    <title>規格書撰寫與交接規範｜Provider Portal 產品與系統規格書</title>
+    <link rel="stylesheet" href="assets/site.css">
+    <script src="assets/search-index.js" defer></script>
+    <script src="assets/site.js" defer></script>
+</head>
+<body data-page-id="spec-book-authoring-guide">
+    <a class="skip-link" href="#main-content">跳至主要內容</a>
+    <header class="topbar">
+        <button class="icon-button nav-trigger" type="button" data-nav-trigger aria-label="開啟規格目錄" aria-expanded="false" aria-controls="spec-navigation">
+            <span></span><span></span><span></span>
+        </button>
+        <a class="wordmark" href="index.html" aria-label="回到規格書首頁">
+            <span class="wordmark-mark" aria-hidden="true">▦</span>
+            <span><strong>Provider Portal</strong><small>產品與系統規格書</small></span>
+        </a>
+        <button class="search-trigger" type="button" data-search-trigger>
+            <span aria-hidden="true">⌕</span>
+            <span>搜尋規格</span>
+            <kbd>⌘ K</kbd>
+        </button>
+        <div class="topbar-meta">
+            <strong class="spec-context-label">SPEC</strong>
+            <span>0.2.0-authoring-baseline</span>
+            <span class="topbar-status">Authoring Format Confirmed · Content Draft</span>
+        </div>
+    </header>
+
+    <div class="shell">
+        <aside class="sidebar" id="spec-navigation" data-sidebar>
+            <div class="sidebar-intro">
+                <span class="sidebar-kicker">SPECIFICATION MANUAL</span>
+                <p>2026-08-14 更新</p>
+            </div>
+            <nav aria-label="規格書章節">
+
+        <details class="nav-group" >
+            <summary>開始閱讀<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="index.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>規格書首頁</span>
+
+                    </a><a href="document-control.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>文件治理與使用方式</span>
+
+                    </a><a href="product-overview.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>產品定位與目標</span>
+
+                    </a><a href="system-boundary.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>系統與責任邊界</span>
+
+                    </a><a href="information-architecture.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>資訊架構與頁面地圖</span>
+
+                    </a><a href="common-domain-rules.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>共通領域規則</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.1 總覽<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="dashboard-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="dashboard.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>儀表板</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.2 遊戲管理<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="game-management-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="game-list.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲列表</span>
+
+                    </a><a href="game-environments.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>環境與發布</span>
+
+                    </a><a href="game-settings.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲設定</span>
+
+                    </a><a href="game-math.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>數值設定</span>
+
+                    </a><a href="game-versions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲版本</span>
+
+                    </a><a href="game-assets.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲素材</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.3 數據與報表<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="data-reporting-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="game-round-records.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲紀錄</span>
+                        <b>PILOT</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.4 遊戲商財務<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="provider-finance-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="finance-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>財務總覽</span>
+
+                    </a><a href="finance-agent-games.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>代理商 × 遊戲彙總</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.5 遊戲監控與風控<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="monitoring-risk-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="monitoring-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>監控總覽</span>
+
+                    </a><a href="risk-reports.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>風控報表</span>
+
+                    </a><a href="risk-alerts.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>風控告警／處理</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.6 GGAP 對接<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="ggap-integration-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="ggap-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>對接總覽</span>
+
+                    </a><a href="ggap-catalog-sync.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲目錄同步</span>
+
+                    </a><a href="ggap-requests.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>請求與回呼紀錄</span>
+
+                    </a><a href="ggap-errors.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>錯誤與重試</span>
+
+                    </a><a href="ggap-settings.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>對接設定</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.7 通知中心<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="notifications-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="notifications.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>全部通知</span>
+
+                    </a><a href="notification-preferences.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>通知偏好</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.8 官方網站<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="official-website-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="website-banners.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>Banner 管理</span>
+
+                    </a><a href="website-content.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>內容管理</span>
+
+                    </a><a href="website-releases.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>發布紀錄</span>
+
+                    </a><a href="lobby-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>大廳總覽</span>
+
+                    </a><a href="lobby-games.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲清單</span>
+
+                    </a><a href="lobby-management.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲管理</span>
+
+                    </a><a href="lobby-demo.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>DEMO環境數據</span>
+
+                    </a><a href="lobby-preview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>大廳預覽</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.9 系統設定<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="system-settings-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="settings-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>設定總覽</span>
+
+                    </a><a href="settings-permissions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>使用者與權限</span>
+
+                    </a><a href="settings-api-keys.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>API key 與憑證</span>
+
+                    </a><a href="settings-audit-logs.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>操作紀錄</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>共通規格<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="api-integration.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>API 與整合契約</span>
+
+                    </a><a href="security-permissions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>安全與權限</span>
+
+                    </a><a href="non-functional-requirements.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>非功能性需求</span>
+
+                    </a><a href="acceptance-qa.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>驗收與 QA</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" open>
+            <summary>附錄<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="data-dictionary.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>資料字典</span>
+
+                    </a><a href="status-enums.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>狀態與枚舉</span>
+
+                    </a><a href="route-page-matrix.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>Route 與頁面矩陣</span>
+
+                    </a><a href="open-issues.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>待決策與校正清單</span>
+
+                    </a><a href="changelog.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>版本紀錄</span>
+
+                    </a><a href="spec-book-authoring-guide.html" aria-current="page">
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>規格書撰寫與交接規範</span>
+
+                    </a>
+            </div>
+        </details>
+
+            </nav>
+            <div class="sidebar-legend">
+                <p>規格狀態</p>
+                <span><i class="status-dot status-confirmed"></i>已確認</span><span><i class="status-dot status-draft"></i>草案</span><span><i class="status-dot status-outline"></i>待整理</span><span><i class="status-dot status-tbd"></i>待決策</span>
+            </div>
+        </aside>
+        <button class="sidebar-scrim" type="button" data-nav-close aria-label="關閉規格目錄"></button>
+
+        <main id="main-content" class="main-content" tabindex="-1">
+            <div class="page-frame ">
+                <header class="page-header">
+                    <div>
+                        <p class="eyebrow">附錄 F</p>
+                        <h1>規格書撰寫與交接規範</h1>
+                        <p class="page-summary">可於本專案沿用，也可獨立移植至其他專案的規格網站方法、模板與品質標準。</p>
+                    </div>
+                    <div class="page-status-stack">
+                        <span class="status-badge status-confirmed">已確認</span>
+
+                    </div>
+                </header>
+
+                <section class="metadata-card" aria-label="章節追溯資訊">
+        <div class="metadata-grid">
+            <div><span>章節編號</span><code>F</code></div><div><span>規格狀態</span><code>已確認</code></div>
+        </div>
+    </section>
+
+
+                <div class="content-layout">
+                    <article class="spec-content">
+                        <blockquote>
+<p>文件用途：建立可供產品、設計、前端、後端與 QA 共同開發及驗收的產品規格網站。<br>
+適用範圍：後台、平台、B2B 產品、營運系統及其他具多頁面、多角色或跨系統整合需求的專案。<br>
+建議交付形式：Markdown 作為可維護來源、HTML 作為主要閱讀介面、PDF 作為核准版本快照。<br>
+本文件可獨立複製至其他專案使用；最後一章才包含 Provider Portal 的專案實例。</p>
+</blockquote>
+<h2 id="1-目標與使用方式">1. 目標與使用方式</h2><p>本規範的目的不是統一文件外觀，而是建立一套能直接支援開發的規格工作方法。完成後的規格書應讓不同角色分別回答下列問題：</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>角色</th>
+<th>規格書必須能回答的問題</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Product／PM</td>
+<td>為什麼要做、服務誰、包含什麼、哪些尚未決定？</td>
+</tr>
+<tr>
+<td>UX／UI</td>
+<td>頁面結構、資訊優先級、狀態、響應式與互動如何運作？</td>
+</tr>
+<tr>
+<td>Frontend</td>
+<td>Route、元件、欄位、格式、操作、狀態與 API 如何對接？</td>
+</tr>
+<tr>
+<td>Backend</td>
+<td>資料範圍、查詢、計算、權限、錯誤、精度及整合契約為何？</td>
+</tr>
+<tr>
+<td>QA</td>
+<td>如何驗證正常、邊界、錯誤、權限、資料隔離與跨系統一致性？</td>
+</tr>
+<tr>
+<td>維運／支援</td>
+<td>發生異常時使用哪些 ID、時間與狀態追蹤？</td>
+</tr>
+</tbody></table></div>
+<p>規格書只有在「可以定位畫面、可以實作、可以驗收、可以追溯決策」時，才算完成。單純描述畫面內容、貼上截圖或列出 API 名稱，都不足以作為正式開發規格。</p>
+<h2 id="2-核心原則">2. 核心原則</h2><h3 id="2-1-單一可維護來源-多種閱讀輸出">2.1 單一可維護來源，多種閱讀輸出</h3><ul>
+<li>使用 Markdown 或同等純文字格式作為人工維護來源，方便版本控制、審查與差異比較。</li>
+<li>由來源自動產生多頁 HTML，提供目錄、搜尋、頁內跳轉、響應式與離線閱讀。</li>
+<li>已核准的里程碑可輸出 PDF 快照，作為不可變的版本紀錄。</li>
+<li>不直接修改產生後的 HTML；所有正式變更回到來源文件或產生器。</li>
+</ul>
+<p>建議關係如下：</p>
+<pre><code class="language-text">產品決策／既有規格／程式現況
+            ↓ 整理與校正
+Markdown 規格來源 + 集中索引
+            ↓ 自動產生
+HTML 規格網站 ──→ PDF 核准快照
+</code></pre>
+<h3 id="2-2-overview-first">2.2 Overview first</h3><p>使用者進入內容頁時，應先理解整體頁面，再閱讀細節。建議順序為：</p>
+<ol>
+<li>頁面標題、用途與規格狀態。</li>
+<li>Route、前端元件等追溯資訊。</li>
+<li>可點擊的頁面畫面示意與區塊索引。</li>
+<li>重要資料邊界或閱讀提醒。</li>
+<li>詳細功能、欄位、行為與狀態規格。</li>
+<li>API、權限、驗收條件及待決策事項。</li>
+</ol>
+<p>畫面示意是閱讀地圖，不是裝飾。每個區塊應能連到對應詳細章節；閱讀深入後，也要提供回到畫面示意的入口。</p>
+<h3 id="2-3-畫面-資料契約與-mock-分離">2.3 畫面、資料契約與 Mock 分離</h3><ul>
+<li>有畫面原型，不代表 API、權限、狀態或資料契約已確認。</li>
+<li>Mock 數字只用於說明排版與情境，不可被描述成正式預設值或計算結果。</li>
+<li>API path、enum、precision、permission key、限制門檻若未核准，必須標記 <code>Draft</code> 或 <code>TBD</code>。</li>
+<li>Prototype、DEMO、Test 與 Production 資料必須明確區分。</li>
+<li>規格內容要描述「必須成立的規則」，而不是只抄錄目前畫面。</li>
+</ul>
+<h3 id="2-4-共通規則只定義一次">2.4 共通規則只定義一次</h3><p>下列內容應集中於共通章節，頁面規格只補充例外或引用：</p>
+<ul>
+<li>名詞與領域模型。</li>
+<li>身分、角色、權限與資料範圍。</li>
+<li>金額、幣別、精度與正負方向。</li>
+<li>日期、時間、時區與格式。</li>
+<li>ID、追蹤碼與遮罩規則。</li>
+<li>分頁、排序、錯誤 envelope 與 HTTP 行為。</li>
+<li>Loading、空資料、錯誤與權限不足的共通呈現。</li>
+<li>響應式、無障礙、效能、稽核與可觀測性。</li>
+</ul>
+<p>重複定義會造成頁面間口徑漂移。若頁面需要不同規則，應明確寫成例外並說明原因。</p>
+<h3 id="2-5-每個未決事項都必須可管理">2.5 每個未決事項都必須可管理</h3><p>不可只寫「待確認」。每個 TBD 至少包含：</p>
+<ul>
+<li>穩定 ID。</li>
+<li>待確認問題。</li>
+<li>建議決策角色或 owner。</li>
+<li>是否阻擋前端、後端、QA 或上線。</li>
+<li>決策期限或目標版本（若已知）。</li>
+</ul>
+<h2 id="3-規格書的資訊架構">3. 規格書的資訊架構</h2><p>大型產品不應把所有內容塞在單一文件。建議分為五層：</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>層級</th>
+<th>內容</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>文件治理</td>
+<td>版本、狀態、優先級、變更規則</td>
+<td>說明規格如何被使用與核准</td>
+</tr>
+<tr>
+<td>產品基礎</td>
+<td>定位、使用者、責任邊界、資訊架構</td>
+<td>建立共同上下文</td>
+</tr>
+<tr>
+<td>功能模組</td>
+<td>依導覽或領域劃分的頁面集合</td>
+<td>讓讀者按工作範圍閱讀</td>
+</tr>
+<tr>
+<td>共通規格</td>
+<td>API、安全、權限、非功能、QA</td>
+<td>避免跨頁重複與矛盾</td>
+</tr>
+<tr>
+<td>附錄</td>
+<td>資料字典、enum、route 矩陣、TBD、版本紀錄</td>
+<td>集中追溯與治理資訊</td>
+</tr>
+</tbody></table></div>
+<h3 id="3-1-建議章節樹">3.1 建議章節樹</h3><pre><code class="language-text">00 文件治理與使用方式
+01 產品定位與目標
+02 系統與責任邊界
+03 資訊架構與頁面地圖
+04 共通領域規則
+05 功能模組
+   05.x 模組總覽
+   05.x.1 內容頁 A
+   05.x.2 內容頁 B
+06 API 與整合契約
+07 安全與權限
+08 非功能性需求
+09 驗收與 QA
+A  資料字典
+B  狀態與枚舉
+C  Route 與頁面矩陣
+D  待決策清單
+E  版本紀錄
+F  撰寫與交接規範
+</code></pre>
+<p>模組數量與編號可依產品調整，但「基礎、頁面、共通、附錄」四類責任不可混在一起。</p>
+<h2 id="4-文件狀態與成熟度">4. 文件狀態與成熟度</h2><h3 id="4-1-規格成熟度">4.1 規格成熟度</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>狀態</th>
+<th>定義</th>
+<th>可否直接開發</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>confirmed</code>／已確認</td>
+<td>產品與責任方已核准，可作為實作與驗收依據</td>
+<td>是</td>
+</tr>
+<tr>
+<td><code>draft</code>／草案</td>
+<td>方向已定，仍有局部欄位或契約待核准</td>
+<td>依阻擋項目判斷</td>
+</tr>
+<tr>
+<td><code>outline</code>／待整理</td>
+<td>已建立頁面、來源與責任範圍，內容尚不完整</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>tbd</code>／待決策</td>
+<td>核心決策尚未形成</td>
+<td>否</td>
+</tr>
+</tbody></table></div>
+<h3 id="4-2-原型成熟度必須獨立管理">4.2 原型成熟度必須獨立管理</h3><p>可另設 <code>complete</code>、<code>partial</code>、<code>placeholder</code> 等原型狀態，但不可用它取代規格成熟度。常見組合包括：</p>
+<ul>
+<li>畫面已完成、規格仍為 Draft：只能視為互動原型，不可推定正式 API。</li>
+<li>畫面為 Placeholder、規格已 Confirmed：可開始實作，但 UI 尚未完成。</li>
+<li>畫面與規格皆完成：仍需通過驗收與整合測試。</li>
+</ul>
+<h3 id="4-3-文件優先級">4.3 文件優先級</h3><p>每個專案應明確定義衝突時的判斷順序。建議預設為：</p>
+<ol>
+<li>最新核准的產品決策與 Confirmed 規格。</li>
+<li>最新平台或跨系統整合契約。</li>
+<li>最新 API 與前後端交接文件。</li>
+<li>實際程式碼、schema 與自動化測試。</li>
+<li>歷史或封存文件。</li>
+</ol>
+<p>若實際程式與核准規格不同，不可默認程式就是新規格；應先記錄差異並由責任方決定修程式或修規格。</p>
+<h2 id="5-規格網站內容頁版型">5. 規格網站內容頁版型</h2><h3 id="5-1-頁面由上至下的固定順序">5.1 頁面由上至下的固定順序</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th align="right">順序</th>
+<th>區塊</th>
+<th>內容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>頁面標頭</td>
+<td>模組、標題、用途摘要、規格狀態</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>追溯資訊</td>
+<td>章節編號、規格狀態、Route、主要前端元件</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>頁面畫面示意</td>
+<td>原型化結構、可點擊區塊、展開／收合</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td>閱讀邊界</td>
+<td>環境、資料範圍、金額口徑、Mock 提醒等少量標籤</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td>詳細規格</td>
+<td>目的、邊界、欄位、行為、狀態、契約與驗收</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td>頁內目錄</td>
+<td>桌機版固定於右側；窄版可隱藏或改為其他入口</td>
+</tr>
+<tr>
+<td align="right">7</td>
+<td>前後章導覽</td>
+<td>上一章、下一章與版本資訊</td>
+</tr>
+</tbody></table></div>
+<p>為減少無效空間，來源文件清單與原型成熟度可保留於集中索引，不必重複顯示在每個內容頁頂部。</p>
+<h3 id="5-2-寬度與閱讀密度">5.2 寬度與閱讀密度</h3><ul>
+<li>規格內文應填滿頁內目錄以外的主欄空間，不應再套用造成大面積空白的固定 <code>max-width</code>。</li>
+<li>右側目錄維持可掃描的窄欄，主欄與目錄只保留明確的 grid gap。</li>
+<li>表格在主欄內優先完整呈現；窄螢幕允許區域水平捲動，不應造成整頁水平溢位。</li>
+<li>內容寬度增加後，段落仍應透過標題、列表、表格與說明框維持掃讀性，避免形成無分段的超長行文。</li>
+</ul>
+<p>目前實作可採以下基準，再依品牌與螢幕範圍調整：</p>
+<pre><code class="language-css">.content-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 216px;
+  gap: clamp(28px, 3.5vw, 52px);
+}
+
+.spec-content {
+  width: 100%;
+  max-width: none;
+}
+</code></pre>
+<h2 id="6-頁面畫面示意規範">6. 頁面畫面示意規範</h2><h3 id="6-1-使用-html-css-而非只依賴截圖">6.1 使用 HTML／CSS，而非只依賴截圖</h3><p>HTML／CSS 示意適合作為主要方式，因為它可以：</p>
+<ul>
+<li>響應不同螢幕寬度。</li>
+<li>讓區塊直接連到詳細章節。</li>
+<li>使用文字搜尋與輔助科技。</li>
+<li>隨規格更新局部調整，不需重做整張圖片。</li>
+<li>明確標示哪些是結構、哪些是 Mock。</li>
+</ul>
+<p>截圖仍可用於像素級比對、歷史快照或無法快速重建的複雜畫面，但不應是唯一規格來源。WebView 或 iframe 可用於內部展示，卻容易受到環境、權限、版本與 runtime 影響，不適合作為長期、離線且可版本控制的主要規格內容。</p>
+<h3 id="6-2-擬真原則">6.2 擬真原則</h3><ul>
+<li>參照實際原型的元件類型、資訊密度、卡片、表格、抽屜與狀態，不只複製色票。</li>
+<li>規格網站可沿用產品的設計語言，但必須保留文件介面的辨識，例如狀態、章節與導覽。</li>
+<li>示意圖中的固定資料要能看出欄位用途，但不可暗示為正式回應值。</li>
+<li>不強制每一頁使用固定六區塊；區塊數量應由實際頁面解剖決定。</li>
+<li>圖上區塊編號、快速索引與對應章節必須一致。</li>
+<li>避免在 Overview 與示意圖內重複顯示相同標題或大面積圖說，將空間留給實際畫面。</li>
+</ul>
+<h3 id="6-3-互動與響應式">6.3 互動與響應式</h3><ul>
+<li>Desktop：完整畫面示意預設展開。</li>
+<li>Mobile：先顯示簡潔區塊索引，完整畫面示意預設收合。</li>
+<li>每個示意區塊使用一般 anchor 連結至詳細章節。</li>
+<li>目標章節短暫高亮，協助使用者確認跳轉位置。</li>
+<li>離開示意區後顯示「回到畫面示意」入口。</li>
+<li>列印時強制展開完整示意，隱藏展開按鈕與浮動控制。</li>
+</ul>
+<h3 id="6-4-標註色">6.4 標註色</h3><p>標註色是規格文件的閱讀輔助，不是產品狀態色。建議集中成設計 token，避免每頁自行定義。目前通用示例：</p>
+<pre><code class="language-css">:root {
+  --annotation: #478eff;
+  --annotation-ink: #ffffff;
+}
+</code></pre>
+<p>若移植至其他品牌，可替換 token，但必須維持對比度與全站一致性。</p>
+<h2 id="7-單一頁面規格的內容模型">7. 單一頁面規格的內容模型</h2><p>不是每頁都需要相同章節數量。下表區分必備與條件式內容：</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>章節</th>
+<th>要求</th>
+<th>使用時機</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>章節狀態</td>
+<td>必備</td>
+<td>所有頁面</td>
+</tr>
+<tr>
+<td>目的與使用情境</td>
+<td>必備</td>
+<td>說明使用者任務與業務價值</td>
+</tr>
+<tr>
+<td>範圍與責任邊界</td>
+<td>必備</td>
+<td>列出包含、不包含、資料可見性</td>
+</tr>
+<tr>
+<td>名詞與計算口徑</td>
+<td>必備或引用</td>
+<td>頁面有領域名詞、金額或公式時</td>
+</tr>
+<tr>
+<td>資訊架構與頁面區塊</td>
+<td>必備</td>
+<td>定義畫面順序與區塊責任</td>
+</tr>
+<tr>
+<td>查詢條件</td>
+<td>條件式</td>
+<td>列表、報表、搜尋頁</td>
+</tr>
+<tr>
+<td>列表／卡片／圖表規格</td>
+<td>條件式</td>
+<td>有集合式資料呈現時</td>
+</tr>
+<tr>
+<td>摘要與彙總</td>
+<td>條件式</td>
+<td>有統計卡、合計或趨勢時</td>
+</tr>
+<tr>
+<td>單筆明細</td>
+<td>條件式</td>
+<td>有抽屜、Dialog 或詳情頁時</td>
+</tr>
+<tr>
+<td>狀態模型</td>
+<td>條件式</td>
+<td>有生命週期、工作流或 enum 時</td>
+</tr>
+<tr>
+<td>匯出規格</td>
+<td>條件式</td>
+<td>有 CSV、Excel、PDF 或非同步匯出時</td>
+</tr>
+<tr>
+<td>API 契約</td>
+<td>必備或引用</td>
+<td>頁面需要後端資料時</td>
+</tr>
+<tr>
+<td>頁面狀態與錯誤處理</td>
+<td>必備</td>
+<td>至少含 Loading、Empty、Error、Forbidden</td>
+</tr>
+<tr>
+<td>響應式與可存取性</td>
+<td>必備</td>
+<td>說明 Desktop、Mobile 與鍵盤行為</td>
+</tr>
+<tr>
+<td>前端實作要求</td>
+<td>必備</td>
+<td>state、URL、格式化、競態與元件責任</td>
+</tr>
+<tr>
+<td>後端實作要求</td>
+<td>必備</td>
+<td>scope、驗證、精度、效能與 audit</td>
+</tr>
+<tr>
+<td>整合與資料一致性</td>
+<td>條件式</td>
+<td>跨服務、跨頁或跨系統時</td>
+</tr>
+<tr>
+<td>驗收條件</td>
+<td>必備</td>
+<td>必須可轉換成測試案例</td>
+</tr>
+<tr>
+<td>測試情境清單</td>
+<td>必備</td>
+<td>正常、邊界、錯誤、權限與響應式</td>
+</tr>
+<tr>
+<td>待確認事項</td>
+<td>必備</td>
+<td>沒有 TBD 時也應明確寫「無」</td>
+</tr>
+<tr>
+<td>規格完成條件</td>
+<td>必備</td>
+<td>說明何時可升為 Confirmed</td>
+</tr>
+</tbody></table></div>
+<h2 id="8-各類規格的寫法">8. 各類規格的寫法</h2><h3 id="8-1-欄位定義">8.1 欄位定義</h3><p>每個表單、列表或明細欄位至少說明：</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>介面名稱</td>
+<td>使用者看到的台灣繁體中文名稱</td>
+</tr>
+<tr>
+<td>技術欄位</td>
+<td>API、query 或 view model 的穩定 key</td>
+</tr>
+<tr>
+<td>型別</td>
+<td>string、decimal、enum、datetime 等</td>
+</tr>
+<tr>
+<td>必填</td>
+<td>Request 與 UI 是否必填</td>
+</tr>
+<tr>
+<td>預設</td>
+<td>無預設時明確寫「空」或「全部」</td>
+</tr>
+<tr>
+<td>格式</td>
+<td>小數位、千分位、時區、遮罩、截斷等</td>
+</tr>
+<tr>
+<td>行為</td>
+<td>排序、複製、跳轉、編輯、禁用條件</td>
+</tr>
+<tr>
+<td>邊界</td>
+<td>null、0、負數、超長、非法值的處理</td>
+</tr>
+<tr>
+<td>權限</td>
+<td>顯示、操作、匯出及敏感資料限制</td>
+</tr>
+</tbody></table></div>
+<p><code>null</code>、空字串、數值 <code>0</code> 與未授權不可使用相同顯示方式。這四種情況代表不同資料語意。</p>
+<h3 id="8-2-查詢-排序與分頁">8.2 查詢、排序與分頁</h3><ul>
+<li>區分「表單編輯狀態」與「已套用查詢狀態」。</li>
+<li>指定預設條件、最大範圍、驗證規則與重設行為。</li>
+<li>能重建的查詢條件應反映於 URL；敏感資料不可放入 URL。</li>
+<li>說明排序由前端或後端執行，不可默認只排序當頁。</li>
+<li>明確選擇 offset 或 cursor pagination；尚未決定時列為阻擋 API 的 TBD。</li>
+<li>切換條件、排序、頁面大小後的頁碼行為必須明確。</li>
+</ul>
+<h3 id="8-3-金額-比率與計算">8.3 金額、比率與計算</h3><ul>
+<li>說明主要計價單位、顯示單位與換算值的優先級。</li>
+<li>定義正負方向是使用者、商戶、平台或供應方視角。</li>
+<li>正式金額不得使用 binary floating point 運算或傳輸。</li>
+<li>定義 precision、rounding、匯率方向、來源與歷史重現方式。</li>
+<li>不同幣別不可直接加總，除非規格明確定義換算基準。</li>
+<li>Mock 合計與正式財務公式必須分開標示。</li>
+</ul>
+<h3 id="8-4-日期與時間">8.4 日期與時間</h3><ul>
+<li>API 使用 ISO 8601 並包含 offset，或另有明確 timezone metadata。</li>
+<li>說明查詢時間類型，例如建立時間、發生時間、結算時間。</li>
+<li>定義顯示時區、日界線、跨日與夏令時間策略。</li>
+<li>「最後更新時間」必須說明代表查詢完成、資料產生或來源同步時間。</li>
+</ul>
+<h3 id="8-5-狀態與錯誤">8.5 狀態與錯誤</h3><ul>
+<li>enum 使用穩定技術值；主介面顯示在地化文案。</li>
+<li>狀態需定義語意、可否操作、可否轉換與終態。</li>
+<li>Loading、Empty、Error、Forbidden、Partial data 不可混為同一狀態。</li>
+<li>錯誤至少包含穩定 code、可顯示訊息或 message key、trace ID，以及必要的欄位錯誤。</li>
+<li>前端隱藏按鈕不是權限控制；後端必須重新驗證 scope 與 action。</li>
+</ul>
+<h3 id="8-6-匯出">8.6 匯出</h3><ul>
+<li>說明匯出套用哪些查詢、排序與權限。</li>
+<li>說明匯出當頁或完整命中結果。</li>
+<li>定義格式、編碼、欄位、檔名、上限與公式注入防護。</li>
+<li>大量匯出需定義非同步任務、狀態、下載期限與通知方式。</li>
+<li>匯出與畫面必須採相同資料範圍與計算口徑。</li>
+</ul>
+<h3 id="8-7-api-契約">8.7 API 契約</h3><p>API 草案至少包含：</p>
+<ul>
+<li>HTTP method 與 path。</li>
+<li>path、query、header 與 body 欄位。</li>
+<li>Request／response example。</li>
+<li>Pagination、sorting、filtering。</li>
+<li>Amount、datetime、enum 的傳輸格式。</li>
+<li>Error envelope 與 HTTP status。</li>
+<li>權限與資料 scope。</li>
+<li>Idempotency、retry、timeout 與 audit（適用時）。</li>
+</ul>
+<p>尚未核准的 API 必須在章節開頭明示「Draft，不是正式契約」。</p>
+<h2 id="9-驗收條件與完成定義">9. 驗收條件與完成定義</h2><h3 id="9-1-驗收條件的分類">9.1 驗收條件的分類</h3><p>至少拆成：</p>
+<ol>
+<li>功能驗收：使用者任務、欄位、查詢、操作與狀態。</li>
+<li>權限與隔離：跨租戶、跨角色、直接修改 URL 或 ID。</li>
+<li>資料品質：精度、null、0、負數、時區、enum 與跨頁一致性。</li>
+<li>體驗與可存取性：鍵盤、焦點、螢幕閱讀器、非色彩辨識。</li>
+<li>技術與非功能：競態、效能、逾時、追蹤碼與正式資料量。</li>
+<li>整合驗收：跨服務識別碼、重送、冪等與狀態同步。</li>
+</ol>
+<h3 id="9-2-好的驗收條件">9.2 好的驗收條件</h3><p>好的驗收條件必須：</p>
+<ul>
+<li>可觀察，不使用「正常」、「適當」、「友善」等無法驗證的形容詞。</li>
+<li>包含前置條件、操作、預期結果與必要資料範圍。</li>
+<li>能區分正常、邊界、錯誤、權限與響應式情境。</li>
+<li>不依賴 Mock 的固定筆數或固定日期。</li>
+</ul>
+<h3 id="9-3-規格完成定義">9.3 規格完成定義</h3><p>內容頁可升為 Confirmed 的最低條件：</p>
+<ul>
+<li>目的、範圍與責任邊界已核准。</li>
+<li>阻擋開發的 TBD 已有決議。</li>
+<li>欄位、狀態、金額、時間與權限口徑一致。</li>
+<li>正式 API schema、enum 與錯誤契約已審查。</li>
+<li>Desktop、Mobile、Loading、Empty、Error、Forbidden 已定義。</li>
+<li>前端、後端與 QA 都能從文件形成各自工作項目。</li>
+<li>規格、原型、route 與程式對應已完成一次校正。</li>
+</ul>
+<h2 id="10-文字-格式與命名規則">10. 文字、格式與命名規則</h2><h3 id="10-1-語言">10.1 語言</h3><ul>
+<li>主介面與規格敘述使用目標市場的主要語言；台灣產品使用台灣繁體中文。</li>
+<li>英文保留於技術值、ID、protocol、method、enum、path、欄位名稱與必要選項輔助。</li>
+<li>同一名詞固定使用同一翻譯，不在不同頁面混用近義詞。</li>
+<li>技術值使用反引號，例如 <code>provider_round_id</code>、<code>GET /api/v1/items</code>。</li>
+</ul>
+<h3 id="10-2-敘述方式">10.2 敘述方式</h3><ul>
+<li>使用「必須／不得」表達正式要求。</li>
+<li>使用「建議」表達非強制方向。</li>
+<li>使用 <code>Draft</code> 表達已有方向但尚未核准。</li>
+<li>使用 <code>TBD</code> 表達尚待決策，並建立追蹤項目。</li>
+<li>每條規則只表達一件事，避免將多個條件藏在長句中。</li>
+<li>表格適合欄位與映射；列表適合規則；流程或狀態圖適合多步驟關係。</li>
+</ul>
+<h3 id="10-3-標題與-anchor">10.3 標題與 anchor</h3><ul>
+<li>標題使用穩定編號與名稱，避免頻繁改名造成外部連結失效。</li>
+<li>畫面區塊連結必須指向真實存在的 anchor。</li>
+<li>技術文件避免在標題使用過多符號，以免不同 Markdown renderer 產生不同 slug。</li>
+</ul>
+<h2 id="11-響應式-可存取性與列印">11. 響應式、可存取性與列印</h2><h3 id="11-1-desktop">11.1 Desktop</h3><ul>
+<li>顯示左側全站導覽、主內容與右側頁內目錄。</li>
+<li>頁面示意完整展開，主內容填滿可用欄寬。</li>
+<li>頁內目錄可 sticky，但不可遮蔽頁尾或重要操作。</li>
+</ul>
+<h3 id="11-2-mobile">11.2 Mobile</h3><ul>
+<li>左側導覽改為抽屜。</li>
+<li>右側頁內目錄隱藏或改為頁首入口。</li>
+<li>頁面示意預設收合，快速區塊索引保持可用。</li>
+<li>表格使用區域水平捲動或另有不遺失必要欄位的卡片方案。</li>
+<li>不允許整頁水平溢位。</li>
+</ul>
+<h3 id="11-3-可存取性">11.3 可存取性</h3><ul>
+<li>使用語意化 landmark、heading、table、nav、figure 與 button。</li>
+<li>所有互動支援鍵盤並具明確 focus 樣式。</li>
+<li>展開控制同步 <code>aria-expanded</code> 與 <code>aria-controls</code>。</li>
+<li>狀態、正負與嚴重度不可只依賴顏色。</li>
+<li>目標跳轉保留足夠 scroll offset，避免被固定頁首遮住。</li>
+<li>遵守 <code>prefers-reduced-motion</code>。</li>
+</ul>
+<h3 id="11-4-列印與離線">11.4 列印與離線</h3><ul>
+<li>使用相對資源路徑，確保產生後的 HTML 可離線閱讀。</li>
+<li>Print CSS 隱藏導覽、搜尋、浮動按鈕與非必要控制。</li>
+<li>列印時展開被收合的正式內容。</li>
+<li>表格避免被任意裁切；必要時調整字級或分頁策略。</li>
+</ul>
+<h2 id="12-維護流程">12. 維護流程</h2><h3 id="12-1-新增或整理一個頁面">12.1 新增或整理一個頁面</h3><ol>
+<li>確認產品定位、責任邊界與現行來源。</li>
+<li>核對目前 route、導覽、前端元件與實際畫面。</li>
+<li>在集中索引建立頁面 ID、模組、狀態與來源。</li>
+<li>先寫目的、包含、不包含與資料可見性。</li>
+<li>建立頁面區塊與 Overview 畫面示意。</li>
+<li>按功能補齊欄位、行為、狀態與條件式章節。</li>
+<li>整理 API、權限、前後端責任與資料一致性。</li>
+<li>將未決問題轉為具 owner 與阻擋範圍的 TBD。</li>
+<li>撰寫可轉換成測試案例的驗收條件。</li>
+<li>產生 HTML，執行結構、連結、響應式與 build 驗證。</li>
+</ol>
+<h3 id="12-2-正式決策變更">12.2 正式決策變更</h3><ol>
+<li>先更新規格來源與版本紀錄。</li>
+<li>更新集中索引中的狀態、來源或 route。</li>
+<li>同步原型、API schema、程式與測試。</li>
+<li>執行自動檢查與人工畫面 QA。</li>
+<li>若為核准里程碑，輸出 PDF 或版本化靜態快照。</li>
+</ol>
+<h3 id="12-3-不再適用的內容">12.3 不再適用的內容</h3><ul>
+<li>不直接刪除仍有追溯價值的舊決策。</li>
+<li>將失效文件移至 archive，標明取代版本與原因。</li>
+<li>歷史文件不得繼續出現在現行導覽或被引用為正式規格。</li>
+</ul>
+<h2 id="13-自動化與品質檢查">13. 自動化與品質檢查</h2><p>規格網站至少應自動檢查：</p>
+<ul>
+<li>文件 ID 不重複。</li>
+<li>所有索引頁與內容頁成功產生。</li>
+<li>本機 HTML 連結與 anchor 存在。</li>
+<li>語系、main landmark、目前導覽狀態存在。</li>
+<li>來源標記未洩漏至產生結果。</li>
+<li>Overview 出現在詳細內文之前。</li>
+<li>畫面示意的區塊數與快速索引一致。</li>
+<li>Print CSS、響應式樣式與必要資源存在。</li>
+<li>產生結果不依賴絕對本機路徑。</li>
+</ul>
+<p>人工 QA 至少包含：</p>
+<ul>
+<li>一個主要 Desktop 尺寸。</li>
+<li>一個寬螢幕尺寸，確認主欄沒有被不必要的最大寬度限制。</li>
+<li>390px Mobile。</li>
+<li>區塊跳轉、目標高亮、展開／收合與返回示意圖。</li>
+<li>表格、長 ID、長標題與程式碼的溢位。</li>
+<li>Browser console error／warning。</li>
+<li>列印預覽或 PDF（核准版本）。</li>
+</ul>
+<p>若規格網站與應用程式共用 repository，建議在 <code>dev</code> 與 <code>build</code> 前自動重新產生規格網站，避免閱讀到過期輸出。</p>
+<h2 id="14-可複製的頁面規格模板">14. 可複製的頁面規格模板</h2><p>以下模板是起點，不是必須保留所有空章節的表格作業。請刪除不適用章節，並補上本頁特有的風險與規則。</p>
+<pre><code class="language-markdown"># {頁面名稱}
+
+&lt;h2 id=&quot;章節狀態&quot;&gt;章節狀態&lt;/h2&gt;
+
+| 項目 | 內容 |
+| --- | --- |
+| 規格成熟度 | Draft／Confirmed |
+| 對應路由 | `/{route}` |
+| 前端元件 | `src/.../{Component}.vue` |
+| 主要來源 | `{SOURCE_SPEC}.md` |
+| 資料環境／範圍 | Production／DEMO／Tenant scope |
+| 主要業務單位 | {Entity／Aggregate} |
+
+&gt; Draft 內容不可視為正式介面契約；阻擋事項列於「待確認事項」。
+
+&lt;h2 id=&quot;1-目的與使用情境&quot;&gt;1. 目的與使用情境&lt;/h2&gt;
+
+說明誰在什麼情境下，為了完成什麼工作使用此頁。
+
+&lt;h2 id=&quot;2-範圍與責任邊界&quot;&gt;2. 範圍與責任邊界&lt;/h2&gt;
+
+&lt;h3 id=&quot;2-1-本頁包含&quot;&gt;2.1 本頁包含&lt;/h3&gt;
+
+- ...
+
+&lt;h3 id=&quot;2-2-本頁不包含&quot;&gt;2.2 本頁不包含&lt;/h3&gt;
+
+- ...
+
+&lt;h3 id=&quot;2-3-資料可見性與權限原則&quot;&gt;2.3 資料可見性與權限原則&lt;/h3&gt;
+
+- ...
+
+&lt;h2 id=&quot;3-名詞與計算口徑&quot;&gt;3. 名詞與計算口徑&lt;/h2&gt;
+
+| 名詞 | 定義 |
+| --- | --- |
+| ... | ... |
+
+&lt;h2 id=&quot;4-資訊架構與頁面區塊&quot;&gt;4. 資訊架構與頁面區塊&lt;/h2&gt;
+
+1. 頁首與主要操作。
+2. 查詢／輸入區。
+3. 摘要／結果區。
+4. 詳情或替代狀態。
+
+&lt;!-- PAGE_VISUAL_START --&gt;
+&lt;figure class=&quot;page-anatomy&quot; aria-label=&quot;{頁面名稱}畫面示意&quot;&gt;
+  &lt;!-- HTML/CSS 畫面示意；區塊連到下方章節 --&gt;
+&lt;/figure&gt;
+&lt;!-- PAGE_VISUAL_END --&gt;
+
+&lt;h2 id=&quot;5-查詢-輸入條件-適用時&quot;&gt;5. 查詢／輸入條件（適用時）&lt;/h2&gt;
+
+| 介面欄位 | 技術欄位 | 型別 | 必填 | 預設 | 規則 |
+| --- | --- | --- | --- | --- | --- |
+| ... | `...` | ... | ... | ... | ... |
+
+&lt;h2 id=&quot;6-主要內容-列表-圖表規格&quot;&gt;6. 主要內容／列表／圖表規格&lt;/h2&gt;
+
+&lt;h2 id=&quot;7-單筆明細或操作流程-適用時&quot;&gt;7. 單筆明細或操作流程（適用時）&lt;/h2&gt;
+
+&lt;h2 id=&quot;8-狀態模型-適用時&quot;&gt;8. 狀態模型（適用時）&lt;/h2&gt;
+
+&lt;h2 id=&quot;9-匯出規格-適用時&quot;&gt;9. 匯出規格（適用時）&lt;/h2&gt;
+
+&lt;h2 id=&quot;10-api-契約&quot;&gt;10. API 契約&lt;/h2&gt;
+
+&gt; Draft：本節供前後端討論，正式 schema 核准前不可視為固定契約。
+
+&lt;h2 id=&quot;11-頁面狀態與錯誤處理&quot;&gt;11. 頁面狀態與錯誤處理&lt;/h2&gt;
+
+| 狀態 | 必要介面與行為 |
+| --- | --- |
+| 首次載入 | ... |
+| 重新載入 | ... |
+| 無資料 | ... |
+| 查詢失敗 | ... |
+| 權限不足 | ... |
+
+&lt;h2 id=&quot;12-響應式與可存取性&quot;&gt;12. 響應式與可存取性&lt;/h2&gt;
+
+&lt;h2 id=&quot;13-前端實作要求&quot;&gt;13. 前端實作要求&lt;/h2&gt;
+
+&lt;h2 id=&quot;14-後端實作要求&quot;&gt;14. 後端實作要求&lt;/h2&gt;
+
+&lt;h2 id=&quot;15-整合與資料一致性-適用時&quot;&gt;15. 整合與資料一致性（適用時）&lt;/h2&gt;
+
+&lt;h2 id=&quot;16-驗收條件&quot;&gt;16. 驗收條件&lt;/h2&gt;
+
+&lt;h3 id=&quot;16-1-功能驗收&quot;&gt;16.1 功能驗收&lt;/h3&gt;
+
+&lt;h3 id=&quot;16-2-權限與隔離驗收&quot;&gt;16.2 權限與隔離驗收&lt;/h3&gt;
+
+&lt;h3 id=&quot;16-3-體驗與可存取性驗收&quot;&gt;16.3 體驗與可存取性驗收&lt;/h3&gt;
+
+&lt;h3 id=&quot;16-4-技術驗收&quot;&gt;16.4 技術驗收&lt;/h3&gt;
+
+&lt;h2 id=&quot;17-測試情境清單&quot;&gt;17. 測試情境清單&lt;/h2&gt;
+
+| 類別 | 核心情境 |
+| --- | --- |
+| 正常流程 | ... |
+| 邊界值 | ... |
+| 錯誤 | ... |
+| 權限 | ... |
+| 響應式 | ... |
+
+&lt;h2 id=&quot;18-待確認事項&quot;&gt;18. 待確認事項&lt;/h2&gt;
+
+| ID | 待確認事項 | 建議負責角色 | 是否阻擋開發／上線 |
+| --- | --- | --- | --- |
+| `{PAGE}-001` | ... | Product／Backend／Frontend | 是／否 |
+
+&lt;h2 id=&quot;19-規格完成條件&quot;&gt;19. 規格完成條件&lt;/h2&gt;
+
+- ...
+</code></pre>
+<h2 id="15-可複製的集中索引資料模型">15. 可複製的集中索引資料模型</h2><p>規格網站應以集中索引管理章節樹與追溯資訊。實作語言可替換，資料概念建議保留：</p>
+<pre><code class="language-js">{
+  id: &#39;item-records&#39;,
+  title: &#39;項目紀錄&#39;,
+  module: &#39;data-reporting&#39;,
+  route: &#39;/records&#39;,
+  component: &#39;src/views/Records/Index.vue&#39;,
+  specStatus: &#39;draft&#39;,
+  prototypeStatus: &#39;complete&#39;,
+  sources: [&#39;docs/ITEM_RECORDS_SPEC.md&#39;],
+  content: &#39;content/modules/records/item-records.md&#39;,
+  visualAtTop: true,
+  visualZones: [
+    { number: &#39;01&#39;, label: &#39;頁首&#39;, href: &#39;#4-1-頁首&#39; },
+    { number: &#39;02&#39;, label: &#39;查詢條件&#39;, href: &#39;#5-查詢條件&#39; },
+    { number: &#39;03&#39;, label: &#39;結果列表&#39;, href: &#39;#6-列表規格&#39; },
+    { number: &#39;04&#39;, label: &#39;單筆明細&#39;, href: &#39;#7-單筆明細&#39; },
+  ],
+  visualNotes: [&#39;Production only&#39;, &#39;Mock 不等於正式契約&#39;],
+}
+</code></pre>
+<p>集中索引負責「有哪些文件與頁面」，內容 Markdown 負責「規格是什麼」。不要在產生器中硬編碼個別頁面的業務內容。</p>
+<h2 id="16-常見反模式">16. 常見反模式</h2><ul>
+<li>只有截圖，沒有欄位、狀態、行為與資料規則。</li>
+<li>只有 UI 規格，沒有權限、錯誤、精度與後端責任。</li>
+<li>把目前 Mock 的數字當成正式預設或驗收值。</li>
+<li>用「同設計稿」、「正常處理」、「依後端回傳」取代明確契約。</li>
+<li>每頁各自定義時間、金額、enum 或錯誤格式。</li>
+<li>把 Placeholder 當成已完成規格，或把完整原型當成已確認 API。</li>
+<li>把 TBD 留在段落中，沒有 ID、owner 與阻擋範圍。</li>
+<li>直接修改產生後 HTML，導致下次 build 被覆蓋。</li>
+<li>規格內文再套固定最大寬度，寬螢幕留下大量無效空間。</li>
+<li>畫面示意與 Overview 重複顯示大標題和說明，推遲實際內容出現。</li>
+<li>桌機畫面成立，但 Mobile、列印或離線閱讀失效。</li>
+<li>規格更新後未核對 route、元件、schema 與測試。</li>
+</ul>
+<h2 id="17-交接清單">17. 交接清單</h2><p>交接時，接手者應能取得並確認：</p>
+<ul>
+<li><input disabled="" type="checkbox"> 規格網站入口與離線閱讀方式。</li>
+<li><input disabled="" type="checkbox"> 可維護來源與產生後輸出的區別。</li>
+<li><input disabled="" type="checkbox"> 集中索引、內容來源、樣式、互動與 build script 的位置。</li>
+<li><input disabled="" type="checkbox"> 規格狀態與原型狀態的差異。</li>
+<li><input disabled="" type="checkbox"> 文件優先級與正式決策流程。</li>
+<li><input disabled="" type="checkbox"> 共通規則、頁面規格、資料字典、enum 與 TBD 清單的位置。</li>
+<li><input disabled="" type="checkbox"> 如何新增頁面與 Overview 畫面示意。</li>
+<li><input disabled="" type="checkbox"> 如何執行 build、連結檢查、type-check 與畫面 QA。</li>
+<li><input disabled="" type="checkbox"> 目前已 Confirmed、Draft、Outline、TBD 的範圍。</li>
+<li><input disabled="" type="checkbox"> 哪些問題阻擋前端、後端、整合、QA 或上線。</li>
+<li><input disabled="" type="checkbox"> 版本紀錄、封存規則與核准快照位置。</li>
+</ul>
+<h2 id="18-移植至其他專案">18. 移植至其他專案</h2><p>最小移植步驟：</p>
+<ol>
+<li>複製本文件作為新專案的規格治理基準。</li>
+<li>建立集中索引，先列出模組、頁面、route、元件與成熟度。</li>
+<li>建立文件治理、產品定位、責任邊界、共通規則與 TBD 清單。</li>
+<li>選擇最複雜且具代表性的頁面作為 pilot。</li>
+<li>完成 pilot 的 Overview、完整頁面規格、API 草案與驗收條件。</li>
+<li>由產品、前端、後端與 QA 共同審查模板。</li>
+<li>定版後再批次整理其他頁面，避免一開始大量複製未確認結構。</li>
+<li>將規格 build 與檢查納入專案既有 CI 或 release 流程。</li>
+</ol>
+<p>移植時應替換：品牌、顏色 token、產品責任邊界、狀態名稱、目錄結構、技術棧與 build 指令。應保留：Overview-first、狀態分離、共通規則、可追溯 TBD、可驗收內容與自動產生流程。</p>
+<h2 id="19-provider-portal-專案接續方式">19. Provider Portal 專案接續方式</h2><p>本章是本專案的實際對應；獨立分享本規範時可保留作為參考案例，或整章移除。</p>
+<h3 id="19-1-檔案位置">19.1 檔案位置</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>角色</th>
+<th>路徑</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>本撰寫規範</td>
+<td><code>docs/spec-book/SPEC_BOOK_AUTHORING_GUIDE.md</code></td>
+</tr>
+<tr>
+<td>規格網站維護說明</td>
+<td><code>docs/spec-book/README.md</code></td>
+</tr>
+<tr>
+<td>集中索引</td>
+<td><code>docs/spec-book/manifest.mjs</code></td>
+</tr>
+<tr>
+<td>規格內容來源</td>
+<td><code>docs/spec-book/content/</code></td>
+</tr>
+<tr>
+<td>完整頁面範本</td>
+<td><code>docs/spec-book/content/modules/data-and-reporting/game-round-records.md</code></td>
+</tr>
+<tr>
+<td>網站樣式</td>
+<td><code>docs/spec-book/site/site.css</code></td>
+</tr>
+<tr>
+<td>網站互動</td>
+<td><code>docs/spec-book/site/site.js</code></td>
+</tr>
+<tr>
+<td>產生器</td>
+<td><code>scripts/build-spec-site.mjs</code></td>
+</tr>
+<tr>
+<td>自動檢查</td>
+<td><code>scripts/check-spec-site.mjs</code></td>
+</tr>
+<tr>
+<td>HTML 輸出</td>
+<td><code>public/provider-specs/</code></td>
+</tr>
+<tr>
+<td>HTML 入口</td>
+<td><code>public/provider-specs/index.html</code></td>
+</tr>
+</tbody></table></div>
+<h3 id="19-2-指令">19.2 指令</h3><pre><code class="language-bash">npm run spec:build
+npm run spec:check
+npm run type-check
+npm run build
+</code></pre>
+<p><code>npm run dev</code> 與 <code>npm run build</code> 前會先重新產生規格網站。請勿直接修改 <code>public/provider-specs/</code> 內的輸出檔。</p>
+<h3 id="19-3-已定版的閱讀介面">19.3 已定版的閱讀介面</h3><ul>
+<li>規格網站沿用 Provider Portal 的 Apple HIG 視覺語言，但保留文件導覽與狀態辨識。</li>
+<li>內容頁採 Overview-first。</li>
+<li>追溯卡顯示章節編號、規格狀態、Route 與前端元件。</li>
+<li>規格來源與原型狀態保留於 manifest，不在頁首重複顯示。</li>
+<li>畫面示意直接呈現實際頁面結構，不重複顯示大型 FIG 圖說頁首。</li>
+<li>示意編號使用 <code>#478eff</code> 藍底白字。</li>
+<li>Desktop 完整示意預設展開；Mobile 預設收合並保留區塊索引。</li>
+<li>規格內文填滿右側目錄以外的主欄，不設固定最大寬度。</li>
+<li>右側頁內目錄基準寬度為 <code>216px</code>，欄距為 <code>clamp(28px, 3.5vw, 52px)</code>。</li>
+<li>小於 <code>1380px</code> 時隱藏右側頁內目錄；小於 <code>620px</code> 套用 Mobile 示意與內容配置。</li>
+</ul>
+<h3 id="19-4-專案特有規則">19.4 專案特有規則</h3><ul>
+<li>Provider 不建立錢包，也不管理代理商、商戶或會員主資料。</li>
+<li>Game Round 是主要業務紀錄單位，不另建 Game Session。</li>
+<li>Production 財務與遊戲紀錄不得混入 DEMO 或 Test 資料。</li>
+<li>Test 不納入 Provider 風控監控。</li>
+<li>金額以 Provider 點數為主，USDT 為換算對照。</li>
+<li>GGAP 對已上架遊戲控制各代理商是否開放。</li>
+</ul>
+<p>上述領域規則屬 Provider Portal，不是本規範的通用要求；移植至其他產品時必須改成該產品自己的責任邊界與資料規則。</p>
+<h2 id="20-最終原則">20. 最終原則</h2><p>規格網站的價值不在於文件看起來完整，而在於它能持續降低溝通與返工成本。任何新增內容都應通過三個問題：</p>
+<ol>
+<li>這項內容是否讓讀者更快理解整體與責任邊界？</li>
+<li>這項內容是否足以讓前後端做出一致實作？</li>
+<li>這項內容是否能轉換成明確驗收與追蹤依據？</li>
+</ol>
+<p>若三者皆否，應刪除、合併或移至歷史附錄，把有效閱讀空間留給真正影響產品行為的規則。</p>
+
+                    </article>
+                    <aside class="page-outline" aria-label="本頁目錄">
+        <p>本頁目錄</p>
+        <nav><a class="outline-level-2" href="#1-目標與使用方式">1. 目標與使用方式</a><a class="outline-level-2" href="#2-核心原則">2. 核心原則</a><a class="outline-level-3" href="#2-1-單一可維護來源-多種閱讀輸出">2.1 單一可維護來源，多種閱讀輸出</a><a class="outline-level-3" href="#2-2-overview-first">2.2 Overview first</a><a class="outline-level-3" href="#2-3-畫面-資料契約與-mock-分離">2.3 畫面、資料契約與 Mock 分離</a><a class="outline-level-3" href="#2-4-共通規則只定義一次">2.4 共通規則只定義一次</a><a class="outline-level-3" href="#2-5-每個未決事項都必須可管理">2.5 每個未決事項都必須可管理</a><a class="outline-level-2" href="#3-規格書的資訊架構">3. 規格書的資訊架構</a><a class="outline-level-3" href="#3-1-建議章節樹">3.1 建議章節樹</a><a class="outline-level-2" href="#4-文件狀態與成熟度">4. 文件狀態與成熟度</a><a class="outline-level-3" href="#4-1-規格成熟度">4.1 規格成熟度</a><a class="outline-level-3" href="#4-2-原型成熟度必須獨立管理">4.2 原型成熟度必須獨立管理</a><a class="outline-level-3" href="#4-3-文件優先級">4.3 文件優先級</a><a class="outline-level-2" href="#5-規格網站內容頁版型">5. 規格網站內容頁版型</a><a class="outline-level-3" href="#5-1-頁面由上至下的固定順序">5.1 頁面由上至下的固定順序</a><a class="outline-level-3" href="#5-2-寬度與閱讀密度">5.2 寬度與閱讀密度</a><a class="outline-level-2" href="#6-頁面畫面示意規範">6. 頁面畫面示意規範</a><a class="outline-level-3" href="#6-1-使用-html-css-而非只依賴截圖">6.1 使用 HTML／CSS，而非只依賴截圖</a><a class="outline-level-3" href="#6-2-擬真原則">6.2 擬真原則</a><a class="outline-level-3" href="#6-3-互動與響應式">6.3 互動與響應式</a><a class="outline-level-3" href="#6-4-標註色">6.4 標註色</a><a class="outline-level-2" href="#7-單一頁面規格的內容模型">7. 單一頁面規格的內容模型</a><a class="outline-level-2" href="#8-各類規格的寫法">8. 各類規格的寫法</a><a class="outline-level-3" href="#8-1-欄位定義">8.1 欄位定義</a><a class="outline-level-3" href="#8-2-查詢-排序與分頁">8.2 查詢、排序與分頁</a><a class="outline-level-3" href="#8-3-金額-比率與計算">8.3 金額、比率與計算</a><a class="outline-level-3" href="#8-4-日期與時間">8.4 日期與時間</a><a class="outline-level-3" href="#8-5-狀態與錯誤">8.5 狀態與錯誤</a><a class="outline-level-3" href="#8-6-匯出">8.6 匯出</a><a class="outline-level-3" href="#8-7-api-契約">8.7 API 契約</a><a class="outline-level-2" href="#9-驗收條件與完成定義">9. 驗收條件與完成定義</a><a class="outline-level-3" href="#9-1-驗收條件的分類">9.1 驗收條件的分類</a><a class="outline-level-3" href="#9-2-好的驗收條件">9.2 好的驗收條件</a><a class="outline-level-3" href="#9-3-規格完成定義">9.3 規格完成定義</a><a class="outline-level-2" href="#10-文字-格式與命名規則">10. 文字、格式與命名規則</a><a class="outline-level-3" href="#10-1-語言">10.1 語言</a><a class="outline-level-3" href="#10-2-敘述方式">10.2 敘述方式</a><a class="outline-level-3" href="#10-3-標題與-anchor">10.3 標題與 anchor</a><a class="outline-level-2" href="#11-響應式-可存取性與列印">11. 響應式、可存取性與列印</a><a class="outline-level-3" href="#11-1-desktop">11.1 Desktop</a><a class="outline-level-3" href="#11-2-mobile">11.2 Mobile</a><a class="outline-level-3" href="#11-3-可存取性">11.3 可存取性</a><a class="outline-level-3" href="#11-4-列印與離線">11.4 列印與離線</a><a class="outline-level-2" href="#12-維護流程">12. 維護流程</a><a class="outline-level-3" href="#12-1-新增或整理一個頁面">12.1 新增或整理一個頁面</a><a class="outline-level-3" href="#12-2-正式決策變更">12.2 正式決策變更</a><a class="outline-level-3" href="#12-3-不再適用的內容">12.3 不再適用的內容</a><a class="outline-level-2" href="#13-自動化與品質檢查">13. 自動化與品質檢查</a><a class="outline-level-2" href="#14-可複製的頁面規格模板">14. 可複製的頁面規格模板</a><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與使用情境">1. 目的與使用情境</a><a class="outline-level-2" href="#2-範圍與責任邊界">2. 範圍與責任邊界</a><a class="outline-level-3" href="#2-1-本頁包含">2.1 本頁包含</a><a class="outline-level-3" href="#2-2-本頁不包含">2.2 本頁不包含</a><a class="outline-level-3" href="#2-3-資料可見性與權限原則">2.3 資料可見性與權限原則</a><a class="outline-level-2" href="#3-名詞與計算口徑">3. 名詞與計算口徑</a><a class="outline-level-2" href="#4-資訊架構與頁面區塊">4. 資訊架構與頁面區塊</a><a class="outline-level-2" href="#5-查詢-輸入條件-適用時">5. 查詢／輸入條件（適用時）</a><a class="outline-level-2" href="#6-主要內容-列表-圖表規格">6. 主要內容／列表／圖表規格</a><a class="outline-level-2" href="#7-單筆明細或操作流程-適用時">7. 單筆明細或操作流程（適用時）</a><a class="outline-level-2" href="#8-狀態模型-適用時">8. 狀態模型（適用時）</a><a class="outline-level-2" href="#9-匯出規格-適用時">9. 匯出規格（適用時）</a><a class="outline-level-2" href="#10-api-契約">10. API 契約</a><a class="outline-level-2" href="#11-頁面狀態與錯誤處理">11. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#12-響應式與可存取性">12. 響應式與可存取性</a><a class="outline-level-2" href="#13-前端實作要求">13. 前端實作要求</a><a class="outline-level-2" href="#14-後端實作要求">14. 後端實作要求</a><a class="outline-level-2" href="#15-整合與資料一致性-適用時">15. 整合與資料一致性（適用時）</a><a class="outline-level-2" href="#16-驗收條件">16. 驗收條件</a><a class="outline-level-3" href="#16-1-功能驗收">16.1 功能驗收</a><a class="outline-level-3" href="#16-2-權限與隔離驗收">16.2 權限與隔離驗收</a><a class="outline-level-3" href="#16-3-體驗與可存取性驗收">16.3 體驗與可存取性驗收</a><a class="outline-level-3" href="#16-4-技術驗收">16.4 技術驗收</a><a class="outline-level-2" href="#17-測試情境清單">17. 測試情境清單</a><a class="outline-level-2" href="#18-待確認事項">18. 待確認事項</a><a class="outline-level-2" href="#19-規格完成條件">19. 規格完成條件</a><a class="outline-level-2" href="#15-可複製的集中索引資料模型">15. 可複製的集中索引資料模型</a><a class="outline-level-2" href="#16-常見反模式">16. 常見反模式</a><a class="outline-level-2" href="#17-交接清單">17. 交接清單</a><a class="outline-level-2" href="#18-移植至其他專案">18. 移植至其他專案</a><a class="outline-level-2" href="#19-provider-portal-專案接續方式">19. Provider Portal 專案接續方式</a><a class="outline-level-3" href="#19-1-檔案位置">19.1 檔案位置</a><a class="outline-level-3" href="#19-2-指令">19.2 指令</a><a class="outline-level-3" href="#19-3-已定版的閱讀介面">19.3 已定版的閱讀介面</a><a class="outline-level-3" href="#19-4-專案特有規則">19.4 專案特有規則</a><a class="outline-level-2" href="#20-最終原則">20. 最終原則</a></nav>
+        <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
+    </aside>
+                </div>
+
+                <nav class="previous-next" aria-label="上一章與下一章">
+        <a class="previous-link" href="changelog.html"><span>← 上一章</span><strong>版本紀錄</strong></a>
+        <span></span>
+    </nav>
+                <footer class="document-footer">
+                    <span>Provider Portal Product / Engineering</span>
+                    <span>0.2.0-authoring-baseline · 2026-08-14</span>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <dialog class="search-dialog" data-search-dialog aria-labelledby="search-dialog-title">
+        <div class="search-dialog-header">
+            <div>
+                <p class="eyebrow">全文檢索</p>
+                <h2 id="search-dialog-title">搜尋規格書</h2>
+            </div>
+            <button class="icon-button dialog-close" type="button" data-search-close aria-label="關閉搜尋">×</button>
+        </div>
+        <label class="search-field">
+            <span class="sr-only">輸入章節、route、欄位或關鍵字</span>
+            <span aria-hidden="true">⌕</span>
+            <input type="search" data-search-input autocomplete="off" placeholder="例如：Game Round、/reports、USDT">
+        </label>
+        <p class="search-hint" data-search-hint>可搜尋章節名稱、內文、route、欄位與技術值。</p>
+        <div class="search-results" data-search-results></div>
+    </dialog>
+</body>
+</html>

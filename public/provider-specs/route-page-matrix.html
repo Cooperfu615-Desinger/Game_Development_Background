@@ -1,0 +1,956 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="32 個內容頁的集中追溯表。">
+    <meta name="color-scheme" content="light">
+    <title>Route 與頁面矩陣｜Provider Portal 產品與系統規格書</title>
+    <link rel="stylesheet" href="assets/site.css">
+    <script src="assets/search-index.js" defer></script>
+    <script src="assets/site.js" defer></script>
+</head>
+<body data-page-id="route-page-matrix">
+    <a class="skip-link" href="#main-content">跳至主要內容</a>
+    <header class="topbar">
+        <button class="icon-button nav-trigger" type="button" data-nav-trigger aria-label="開啟規格目錄" aria-expanded="false" aria-controls="spec-navigation">
+            <span></span><span></span><span></span>
+        </button>
+        <a class="wordmark" href="index.html" aria-label="回到規格書首頁">
+            <span class="wordmark-mark" aria-hidden="true">▦</span>
+            <span><strong>Provider Portal</strong><small>產品與系統規格書</small></span>
+        </a>
+        <button class="search-trigger" type="button" data-search-trigger>
+            <span aria-hidden="true">⌕</span>
+            <span>搜尋規格</span>
+            <kbd>⌘ K</kbd>
+        </button>
+        <div class="topbar-meta">
+            <strong class="spec-context-label">SPEC</strong>
+            <span>0.2.0-authoring-baseline</span>
+            <span class="topbar-status">Authoring Format Confirmed · Content Draft</span>
+        </div>
+    </header>
+
+    <div class="shell">
+        <aside class="sidebar" id="spec-navigation" data-sidebar>
+            <div class="sidebar-intro">
+                <span class="sidebar-kicker">SPECIFICATION MANUAL</span>
+                <p>2026-08-14 更新</p>
+            </div>
+            <nav aria-label="規格書章節">
+
+        <details class="nav-group" >
+            <summary>開始閱讀<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="index.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>規格書首頁</span>
+
+                    </a><a href="document-control.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>文件治理與使用方式</span>
+
+                    </a><a href="product-overview.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>產品定位與目標</span>
+
+                    </a><a href="system-boundary.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>系統與責任邊界</span>
+
+                    </a><a href="information-architecture.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>資訊架構與頁面地圖</span>
+
+                    </a><a href="common-domain-rules.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>共通領域規則</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.1 總覽<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="dashboard-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="dashboard.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>儀表板</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.2 遊戲管理<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="game-management-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="game-list.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲列表</span>
+
+                    </a><a href="game-environments.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>環境與發布</span>
+
+                    </a><a href="game-settings.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲設定</span>
+
+                    </a><a href="game-math.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>數值設定</span>
+
+                    </a><a href="game-versions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲版本</span>
+
+                    </a><a href="game-assets.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲素材</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.3 數據與報表<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="data-reporting-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="game-round-records.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲紀錄</span>
+                        <b>PILOT</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.4 遊戲商財務<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="provider-finance-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="finance-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>財務總覽</span>
+
+                    </a><a href="finance-agent-games.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>代理商 × 遊戲彙總</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.5 遊戲監控與風控<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="monitoring-risk-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="monitoring-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>監控總覽</span>
+
+                    </a><a href="risk-reports.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>風控報表</span>
+
+                    </a><a href="risk-alerts.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>風控告警／處理</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.6 GGAP 對接<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="ggap-integration-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="ggap-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>對接總覽</span>
+
+                    </a><a href="ggap-catalog-sync.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲目錄同步</span>
+
+                    </a><a href="ggap-requests.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>請求與回呼紀錄</span>
+
+                    </a><a href="ggap-errors.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>錯誤與重試</span>
+
+                    </a><a href="ggap-settings.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>對接設定</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.7 通知中心<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="notifications-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="notifications.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>全部通知</span>
+
+                    </a><a href="notification-preferences.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>通知偏好</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.8 官方網站<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="official-website-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="website-banners.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>Banner 管理</span>
+
+                    </a><a href="website-content.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>內容管理</span>
+
+                    </a><a href="website-releases.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>發布紀錄</span>
+
+                    </a><a href="lobby-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>大廳總覽</span>
+
+                    </a><a href="lobby-games.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲清單</span>
+
+                    </a><a href="lobby-management.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲管理</span>
+
+                    </a><a href="lobby-demo.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>DEMO環境數據</span>
+
+                    </a><a href="lobby-preview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>大廳預覽</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.9 系統設定<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="system-settings-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="settings-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>設定總覽</span>
+
+                    </a><a href="settings-permissions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>使用者與權限</span>
+
+                    </a><a href="settings-api-keys.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>API key 與憑證</span>
+
+                    </a><a href="settings-audit-logs.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>操作紀錄</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>共通規格<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="api-integration.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>API 與整合契約</span>
+
+                    </a><a href="security-permissions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>安全與權限</span>
+
+                    </a><a href="non-functional-requirements.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>非功能性需求</span>
+
+                    </a><a href="acceptance-qa.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>驗收與 QA</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" open>
+            <summary>附錄<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="data-dictionary.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>資料字典</span>
+
+                    </a><a href="status-enums.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>狀態與枚舉</span>
+
+                    </a><a href="route-page-matrix.html" aria-current="page">
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>Route 與頁面矩陣</span>
+
+                    </a><a href="open-issues.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>待決策與校正清單</span>
+
+                    </a><a href="changelog.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>版本紀錄</span>
+
+                    </a><a href="spec-book-authoring-guide.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>規格書撰寫與交接規範</span>
+
+                    </a>
+            </div>
+        </details>
+
+            </nav>
+            <div class="sidebar-legend">
+                <p>規格狀態</p>
+                <span><i class="status-dot status-confirmed"></i>已確認</span><span><i class="status-dot status-draft"></i>草案</span><span><i class="status-dot status-outline"></i>待整理</span><span><i class="status-dot status-tbd"></i>待決策</span>
+            </div>
+        </aside>
+        <button class="sidebar-scrim" type="button" data-nav-close aria-label="關閉規格目錄"></button>
+
+        <main id="main-content" class="main-content" tabindex="-1">
+            <div class="page-frame ">
+                <header class="page-header">
+                    <div>
+                        <p class="eyebrow">附錄 C</p>
+                        <h1>Route 與頁面矩陣</h1>
+                        <p class="page-summary">32 個內容頁的集中追溯表。</p>
+                    </div>
+                    <div class="page-status-stack">
+                        <span class="status-badge status-outline">待整理</span>
+
+                    </div>
+                </header>
+
+                <section class="metadata-card" aria-label="章節追溯資訊">
+        <div class="metadata-grid">
+            <div><span>章節編號</span><code>C</code></div><div><span>規格狀態</span><code>待整理</code></div>
+        </div>
+    </section>
+
+
+                <div class="content-layout">
+                    <article class="spec-content">
+                        <div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>模組</th>
+<th>頁面</th>
+<th>Route</th>
+<th>畫面現況</th>
+<th>規格狀態</th>
+<th>前端元件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>總覽</td>
+<td><a href="dashboard.html">儀表板</a></td>
+<td><code>/dashboard</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Provider/Dashboard.vue</code></td>
+</tr>
+<tr>
+<td>遊戲管理</td>
+<td><a href="game-list.html">遊戲列表</a></td>
+<td><code>/games</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Games/Index.vue</code></td>
+</tr>
+<tr>
+<td>遊戲管理</td>
+<td><a href="game-environments.html">環境與發布</a></td>
+<td><code>/games/environments</code></td>
+<td>Placeholder</td>
+<td>待整理</td>
+<td><code>src/views/Provider/Placeholder.vue</code></td>
+</tr>
+<tr>
+<td>遊戲管理</td>
+<td><a href="game-settings.html">遊戲設定</a></td>
+<td><code>/games/settings</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Games/Settings.vue</code></td>
+</tr>
+<tr>
+<td>遊戲管理</td>
+<td><a href="game-math.html">數值設定</a></td>
+<td><code>/games/math</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Games/Math.vue</code></td>
+</tr>
+<tr>
+<td>遊戲管理</td>
+<td><a href="game-versions.html">遊戲版本</a></td>
+<td><code>/games/versions</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Games/Versions.vue</code></td>
+</tr>
+<tr>
+<td>遊戲管理</td>
+<td><a href="game-assets.html">遊戲素材</a></td>
+<td><code>/games/assets</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Games/Assets.vue</code></td>
+</tr>
+<tr>
+<td>數據與報表</td>
+<td><a href="game-round-records.html">遊戲紀錄</a></td>
+<td><code>/reports</code></td>
+<td>內容原型</td>
+<td>草案</td>
+<td><code>src/views/Reports/ProviderGameRounds.vue</code></td>
+</tr>
+<tr>
+<td>遊戲商財務</td>
+<td><a href="finance-overview.html">財務總覽</a></td>
+<td><code>/finance</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Finance/Overview.vue</code></td>
+</tr>
+<tr>
+<td>遊戲商財務</td>
+<td><a href="finance-agent-games.html">代理商 × 遊戲彙總</a></td>
+<td><code>/finance/agent-games</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Finance/AgentGames.vue</code></td>
+</tr>
+<tr>
+<td>遊戲監控與風控</td>
+<td><a href="monitoring-overview.html">監控總覽</a></td>
+<td><code>/monitoring</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Provider/MonitoringOverview.vue</code></td>
+</tr>
+<tr>
+<td>遊戲監控與風控</td>
+<td><a href="risk-reports.html">風控報表</a></td>
+<td><code>/monitoring/risk-reports</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Provider/RiskReports.vue</code></td>
+</tr>
+<tr>
+<td>遊戲監控與風控</td>
+<td><a href="risk-alerts.html">風控告警／處理</a></td>
+<td><code>/monitoring/alerts</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Provider/RiskAlerts.vue</code></td>
+</tr>
+<tr>
+<td>GGAP 對接</td>
+<td><a href="ggap-overview.html">對接總覽</a></td>
+<td><code>/ggap</code></td>
+<td>Placeholder</td>
+<td>待整理</td>
+<td><code>src/views/Provider/Placeholder.vue</code></td>
+</tr>
+<tr>
+<td>GGAP 對接</td>
+<td><a href="ggap-catalog-sync.html">遊戲目錄同步</a></td>
+<td><code>/ggap/catalog-sync</code></td>
+<td>Placeholder</td>
+<td>待整理</td>
+<td><code>src/views/Provider/Placeholder.vue</code></td>
+</tr>
+<tr>
+<td>GGAP 對接</td>
+<td><a href="ggap-requests.html">請求與回呼紀錄</a></td>
+<td><code>/ggap/requests</code></td>
+<td>Placeholder</td>
+<td>待整理</td>
+<td><code>src/views/Provider/Placeholder.vue</code></td>
+</tr>
+<tr>
+<td>GGAP 對接</td>
+<td><a href="ggap-errors.html">錯誤與重試</a></td>
+<td><code>/ggap/errors</code></td>
+<td>Placeholder</td>
+<td>待整理</td>
+<td><code>src/views/Provider/Placeholder.vue</code></td>
+</tr>
+<tr>
+<td>GGAP 對接</td>
+<td><a href="ggap-settings.html">對接設定</a></td>
+<td><code>/ggap/settings</code></td>
+<td>Placeholder</td>
+<td>待整理</td>
+<td><code>src/views/Provider/Placeholder.vue</code></td>
+</tr>
+<tr>
+<td>通知中心</td>
+<td><a href="notifications.html">全部通知</a></td>
+<td><code>/notifications</code></td>
+<td>Placeholder</td>
+<td>待整理</td>
+<td><code>src/views/Provider/Placeholder.vue</code></td>
+</tr>
+<tr>
+<td>通知中心</td>
+<td><a href="notification-preferences.html">通知偏好</a></td>
+<td><code>/notifications/preferences</code></td>
+<td>Placeholder</td>
+<td>待整理</td>
+<td><code>src/views/Provider/Placeholder.vue</code></td>
+</tr>
+<tr>
+<td>官方網站</td>
+<td><a href="website-banners.html">Banner 管理</a></td>
+<td><code>/website/banners</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/GameWebsite/Banners.vue</code></td>
+</tr>
+<tr>
+<td>官方網站</td>
+<td><a href="website-content.html">內容管理</a></td>
+<td><code>/website/content</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/GameWebsite/Content.vue</code></td>
+</tr>
+<tr>
+<td>官方網站</td>
+<td><a href="website-releases.html">發布紀錄</a></td>
+<td><code>/website/releases</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/GameWebsite/Releases.vue</code></td>
+</tr>
+<tr>
+<td>官方網站</td>
+<td><a href="lobby-overview.html">大廳總覽</a></td>
+<td><code>/lobby</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/GameLobby/Overview.vue</code></td>
+</tr>
+<tr>
+<td>官方網站</td>
+<td><a href="lobby-games.html">遊戲清單</a></td>
+<td><code>/lobby/games</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/GameLobby/Games.vue</code></td>
+</tr>
+<tr>
+<td>官方網站</td>
+<td><a href="lobby-management.html">遊戲管理</a></td>
+<td><code>/lobby/management</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/GameLobby/Management.vue</code></td>
+</tr>
+<tr>
+<td>官方網站</td>
+<td><a href="lobby-demo.html">DEMO環境數據</a></td>
+<td><code>/lobby/demo</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/GameLobby/DemoData.vue</code></td>
+</tr>
+<tr>
+<td>官方網站</td>
+<td><a href="lobby-preview.html">大廳預覽</a></td>
+<td><code>/lobby/preview</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/GameLobby/Preview.vue</code></td>
+</tr>
+<tr>
+<td>系統設定</td>
+<td><a href="settings-overview.html">設定總覽</a></td>
+<td><code>/settings</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Settings/Index.vue</code></td>
+</tr>
+<tr>
+<td>系統設定</td>
+<td><a href="settings-permissions.html">使用者與權限</a></td>
+<td><code>/settings/permissions</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Settings/Permissions.vue</code></td>
+</tr>
+<tr>
+<td>系統設定</td>
+<td><a href="settings-api-keys.html">API key 與憑證</a></td>
+<td><code>/settings/api-keys</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Settings/ApiKeys.vue</code></td>
+</tr>
+<tr>
+<td>系統設定</td>
+<td><a href="settings-audit-logs.html">操作紀錄</a></td>
+<td><code>/system/logs</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/System/Logs.vue</code></td>
+</tr>
+</tbody></table></div>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>模組</th>
+<th>頁面</th>
+<th>Route</th>
+<th>畫面現況</th>
+<th>規格狀態</th>
+<th>前端元件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>總覽</td>
+<td><a href="dashboard.html">儀表板</a></td>
+<td><code>/dashboard</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Provider/Dashboard.vue</code></td>
+</tr>
+<tr>
+<td>遊戲管理</td>
+<td><a href="game-list.html">遊戲列表</a></td>
+<td><code>/games</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Games/Index.vue</code></td>
+</tr>
+<tr>
+<td>遊戲管理</td>
+<td><a href="game-environments.html">環境與發布</a></td>
+<td><code>/games/environments</code></td>
+<td>Placeholder</td>
+<td>待整理</td>
+<td><code>src/views/Provider/Placeholder.vue</code></td>
+</tr>
+<tr>
+<td>遊戲管理</td>
+<td><a href="game-settings.html">遊戲設定</a></td>
+<td><code>/games/settings</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Games/Settings.vue</code></td>
+</tr>
+<tr>
+<td>遊戲管理</td>
+<td><a href="game-math.html">數值設定</a></td>
+<td><code>/games/math</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Games/Math.vue</code></td>
+</tr>
+<tr>
+<td>遊戲管理</td>
+<td><a href="game-versions.html">遊戲版本</a></td>
+<td><code>/games/versions</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Games/Versions.vue</code></td>
+</tr>
+<tr>
+<td>遊戲管理</td>
+<td><a href="game-assets.html">遊戲素材</a></td>
+<td><code>/games/assets</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Games/Assets.vue</code></td>
+</tr>
+<tr>
+<td>數據與報表</td>
+<td><a href="game-round-records.html">遊戲紀錄</a></td>
+<td><code>/reports</code></td>
+<td>內容原型</td>
+<td>草案</td>
+<td><code>src/views/Reports/ProviderGameRounds.vue</code></td>
+</tr>
+<tr>
+<td>遊戲商財務</td>
+<td><a href="finance-overview.html">財務總覽</a></td>
+<td><code>/finance</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Finance/Overview.vue</code></td>
+</tr>
+<tr>
+<td>遊戲商財務</td>
+<td><a href="finance-agent-games.html">代理商 × 遊戲彙總</a></td>
+<td><code>/finance/agent-games</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Finance/AgentGames.vue</code></td>
+</tr>
+<tr>
+<td>遊戲監控與風控</td>
+<td><a href="monitoring-overview.html">監控總覽</a></td>
+<td><code>/monitoring</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Provider/MonitoringOverview.vue</code></td>
+</tr>
+<tr>
+<td>遊戲監控與風控</td>
+<td><a href="risk-reports.html">風控報表</a></td>
+<td><code>/monitoring/risk-reports</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Provider/RiskReports.vue</code></td>
+</tr>
+<tr>
+<td>遊戲監控與風控</td>
+<td><a href="risk-alerts.html">風控告警／處理</a></td>
+<td><code>/monitoring/alerts</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Provider/RiskAlerts.vue</code></td>
+</tr>
+<tr>
+<td>GGAP 對接</td>
+<td><a href="ggap-overview.html">對接總覽</a></td>
+<td><code>/ggap</code></td>
+<td>Placeholder</td>
+<td>待整理</td>
+<td><code>src/views/Provider/Placeholder.vue</code></td>
+</tr>
+<tr>
+<td>GGAP 對接</td>
+<td><a href="ggap-catalog-sync.html">遊戲目錄同步</a></td>
+<td><code>/ggap/catalog-sync</code></td>
+<td>Placeholder</td>
+<td>待整理</td>
+<td><code>src/views/Provider/Placeholder.vue</code></td>
+</tr>
+<tr>
+<td>GGAP 對接</td>
+<td><a href="ggap-requests.html">請求與回呼紀錄</a></td>
+<td><code>/ggap/requests</code></td>
+<td>Placeholder</td>
+<td>待整理</td>
+<td><code>src/views/Provider/Placeholder.vue</code></td>
+</tr>
+<tr>
+<td>GGAP 對接</td>
+<td><a href="ggap-errors.html">錯誤與重試</a></td>
+<td><code>/ggap/errors</code></td>
+<td>Placeholder</td>
+<td>待整理</td>
+<td><code>src/views/Provider/Placeholder.vue</code></td>
+</tr>
+<tr>
+<td>GGAP 對接</td>
+<td><a href="ggap-settings.html">對接設定</a></td>
+<td><code>/ggap/settings</code></td>
+<td>Placeholder</td>
+<td>待整理</td>
+<td><code>src/views/Provider/Placeholder.vue</code></td>
+</tr>
+<tr>
+<td>通知中心</td>
+<td><a href="notifications.html">全部通知</a></td>
+<td><code>/notifications</code></td>
+<td>Placeholder</td>
+<td>待整理</td>
+<td><code>src/views/Provider/Placeholder.vue</code></td>
+</tr>
+<tr>
+<td>通知中心</td>
+<td><a href="notification-preferences.html">通知偏好</a></td>
+<td><code>/notifications/preferences</code></td>
+<td>Placeholder</td>
+<td>待整理</td>
+<td><code>src/views/Provider/Placeholder.vue</code></td>
+</tr>
+<tr>
+<td>官方網站</td>
+<td><a href="website-banners.html">Banner 管理</a></td>
+<td><code>/website/banners</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/GameWebsite/Banners.vue</code></td>
+</tr>
+<tr>
+<td>官方網站</td>
+<td><a href="website-content.html">內容管理</a></td>
+<td><code>/website/content</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/GameWebsite/Content.vue</code></td>
+</tr>
+<tr>
+<td>官方網站</td>
+<td><a href="website-releases.html">發布紀錄</a></td>
+<td><code>/website/releases</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/GameWebsite/Releases.vue</code></td>
+</tr>
+<tr>
+<td>官方網站</td>
+<td><a href="lobby-overview.html">大廳總覽</a></td>
+<td><code>/lobby</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/GameLobby/Overview.vue</code></td>
+</tr>
+<tr>
+<td>官方網站</td>
+<td><a href="lobby-games.html">遊戲清單</a></td>
+<td><code>/lobby/games</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/GameLobby/Games.vue</code></td>
+</tr>
+<tr>
+<td>官方網站</td>
+<td><a href="lobby-management.html">遊戲管理</a></td>
+<td><code>/lobby/management</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/GameLobby/Management.vue</code></td>
+</tr>
+<tr>
+<td>官方網站</td>
+<td><a href="lobby-demo.html">DEMO環境數據</a></td>
+<td><code>/lobby/demo</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/GameLobby/DemoData.vue</code></td>
+</tr>
+<tr>
+<td>官方網站</td>
+<td><a href="lobby-preview.html">大廳預覽</a></td>
+<td><code>/lobby/preview</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/GameLobby/Preview.vue</code></td>
+</tr>
+<tr>
+<td>系統設定</td>
+<td><a href="settings-overview.html">設定總覽</a></td>
+<td><code>/settings</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Settings/Index.vue</code></td>
+</tr>
+<tr>
+<td>系統設定</td>
+<td><a href="settings-permissions.html">使用者與權限</a></td>
+<td><code>/settings/permissions</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Settings/Permissions.vue</code></td>
+</tr>
+<tr>
+<td>系統設定</td>
+<td><a href="settings-api-keys.html">API key 與憑證</a></td>
+<td><code>/settings/api-keys</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/Settings/ApiKeys.vue</code></td>
+</tr>
+<tr>
+<td>系統設定</td>
+<td><a href="settings-audit-logs.html">操作紀錄</a></td>
+<td><code>/system/logs</code></td>
+<td>內容原型</td>
+<td>待整理</td>
+<td><code>src/views/System/Logs.vue</code></td>
+</tr>
+</tbody></table></div>
+
+                    </article>
+
+                </div>
+
+                <nav class="previous-next" aria-label="上一章與下一章">
+        <a class="previous-link" href="status-enums.html"><span>← 上一章</span><strong>狀態與枚舉</strong></a>
+        <a class="next-link" href="open-issues.html"><span>下一章 →</span><strong>待決策與校正清單</strong></a>
+    </nav>
+                <footer class="document-footer">
+                    <span>Provider Portal Product / Engineering</span>
+                    <span>0.2.0-authoring-baseline · 2026-08-14</span>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <dialog class="search-dialog" data-search-dialog aria-labelledby="search-dialog-title">
+        <div class="search-dialog-header">
+            <div>
+                <p class="eyebrow">全文檢索</p>
+                <h2 id="search-dialog-title">搜尋規格書</h2>
+            </div>
+            <button class="icon-button dialog-close" type="button" data-search-close aria-label="關閉搜尋">×</button>
+        </div>
+        <label class="search-field">
+            <span class="sr-only">輸入章節、route、欄位或關鍵字</span>
+            <span aria-hidden="true">⌕</span>
+            <input type="search" data-search-input autocomplete="off" placeholder="例如：Game Round、/reports、USDT">
+        </label>
+        <p class="search-hint" data-search-hint>可搜尋章節名稱、內文、route、欄位與技術值。</p>
+        <div class="search-results" data-search-results></div>
+    </dialog>
+</body>
+</html>

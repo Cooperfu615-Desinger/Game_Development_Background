@@ -49,6 +49,14 @@ npm run spec:build
 
 執行 `npm run dev` 或 `npm run build` 前，也會自動重新產生規格網站。
 
+## 第一階段封版驗證
+
+```bash
+npm run spec:seal
+```
+
+此指令依序執行規格網站完整性、第一階段跨資料一致性、Vue／TypeScript 型別與正式建置。若資訊架構、製作範圍、核心產品邊界、依賴圖、集中 TBD 或 Deferred 狀態改變，必須重新執行並更新附錄 J《第一階段封版驗證報告》。
+
 ## 視覺對齊原則
 
 - 規格網站沿用 Provider Portal 的 Apple HIG 語言：淺灰底、白色毛玻璃導覽、Apple Blue 互動色、12px 卡片與柔和陰影。

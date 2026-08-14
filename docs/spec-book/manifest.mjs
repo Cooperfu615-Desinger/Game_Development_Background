@@ -1,10 +1,10 @@
 export const book = {
     title: 'Provider Portal 產品與系統規格書',
     shortTitle: 'Provider Portal Specs',
-    version: '0.7.0-tbd-registry',
+    version: '0.8.0-phase-one-seal',
     updatedAt: '2026-08-14',
     owner: 'Provider Portal Product / Engineering',
-    status: 'Authoring Format Confirmed · Phase 1 TBDs Centralized',
+    status: 'Authoring Format Confirmed · Phase 1 Sealed',
     description: '供產品、前端、後端、QA 與 GGAP 對接團隊共同使用的 Provider Portal 規格入口。',
 }
 
@@ -213,6 +213,7 @@ export const appendices = [
     { ...section('page-readiness-matrix', 'G', '第一階段頁面完成度矩陣', '21 個本輪頁面的來源、批次、逐面向完成度與待補主題。', 'content/appendices/page-readiness-matrix.md'), generatedReadiness: true },
     { ...section('page-reconciliation', 'H', '第一階段頁面三層校準', '逐頁區分已確認產品規則、現行原型實況與尚未確認的目標規格。', 'content/appendices/page-reconciliation.md'), generatedReconciliation: true },
     { ...section('page-dependency-map', 'I', '第一階段跨頁依賴圖', '四條核心業務鏈、共用契約與 Deferred 外部依賴。', 'content/appendices/page-dependency-map.md'), generatedDependencies: true },
+    { ...section('phase-one-validation-report', 'J', '第一階段封版驗證報告', '第一階段完整 Gate、覆蓋結果、核心邊界、注意事項與重開條件。', 'content/appendices/phase-one-validation-report.md'), status: 'confirmed' },
 ]
 
 function page(id, title, route, component, prototype, sources, overrides = {}) {

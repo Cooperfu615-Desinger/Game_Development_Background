@@ -169,6 +169,13 @@ assert((tbdHtml.match(/class="tbd-card"/g) || []).length === tbdRegistry.length,
 assert((tbdHtml.match(/class="tbd-priority tbd-priority-p0"/g) || []).length === tbdRegistry.filter((item) => item.priority === 'P0').length, '集中 TBD P0 數量不正確')
 assert(assessedPages.every((page) => tbdHtml.includes(`href="${page.id}.html"`)), '集中 TBD 頁面覆蓋索引必須連結所有本輪頁面')
 
+const sealReportHtml = await readFile(path.join(outputRoot, 'phase-one-validation-report.html'), 'utf8')
+for (const requiredText of ['第一階段封版 Gate', 'main@d827c59', 'Gate 結果', '251 項 assertion', '阻擋缺陷', '非阻擋注意事項', '封版判定與重開條件']) {
+    assert(sealReportHtml.includes(requiredText), `第一階段封版驗證報告缺少必要內容：${requiredText}`)
+}
+assert(sealReportHtml.includes('PASS'), '第一階段封版驗證報告缺少 PASS 結論')
+assert(sealReportHtml.includes('不表示 21 個頁面已全部成為 Confirmed 規格'), '第一階段封版報告必須避免被誤讀為全部規格已確認')
+
 for (const page of contentPages.filter((item) => item.scope === 'deferred')) {
     const html = await readFile(path.join(outputRoot, `${page.id}.html`), 'utf8')
     for (const requiredText of ['延後製作', '重新啟動前需要的輸入', '不可作為前端、後端或 QA 的開發依據']) {

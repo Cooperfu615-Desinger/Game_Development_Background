@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.7.0-tbd-registry</span>
-            <span class="topbar-status">Authoring Format Confirmed · Phase 1 TBDs Centralized</span>
+            <span>0.8.0-phase-one-seal</span>
+            <span class="topbar-status">Authoring Format Confirmed · Phase 1 Sealed</span>
         </div>
     </header>
 
@@ -360,6 +360,10 @@
                         <i class="status-dot status-outline" aria-hidden="true"></i>
                         <span>第一階段跨頁依賴圖</span>
 
+                    </a><a href="phase-one-validation-report.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>第一階段封版驗證報告</span>
+
                     </a>
             </div>
         </details>
@@ -396,7 +400,14 @@
 
                 <div class="content-layout">
                     <article class="spec-content">
-                        <h2 id="0-7-0-tbd-registry-2026-08-14">0.7.0-tbd-registry · 2026-08-14</h2><ul>
+                        <h2 id="0-8-0-phase-one-seal-2026-08-14">0.8.0-phase-one-seal · 2026-08-14</h2><ul>
+<li>以 <code>main@d827c59</code> 作為第一階段封版輸入基準，完成整體重新驗證。</li>
+<li>新增可重跑的 <code>spec:seal</code> Gate，交叉驗證 route、主導覽、元件、來源、第一階段覆蓋與核心產品邊界。</li>
+<li>確認 32 個內容頁、21 個本輪頁面、四條業務鏈、三項 Deferred 外部依賴及 30 項集中 TBD 彼此一致。</li>
+<li>新增第一階段封版驗證報告，記錄 PASS 結論、251 項 assertion、非阻擋注意事項與重開條件。</li>
+<li>封版僅代表第一階段規格整理輸入完整，不代表全部頁面、API、權限或 GGAP 契約已 Confirmed。</li>
+</ul>
+<h2 id="0-7-0-tbd-registry-2026-08-14">0.7.0-tbd-registry · 2026-08-14</h2><ul>
 <li>將跨頁待決策集中為 Domain、Data、API、Security、NFR、External 六類登錄。</li>
 <li>每項 TBD 具穩定 ID、工作優先級、狀態、責任方、需要時間、阻擋範圍、影響頁面與業務鏈。</li>
 <li>建立 21 頁影響矩陣，確認所有 Baseline／Active 頁面均可追溯至共用 TBD。</li>
@@ -449,8 +460,8 @@
 <li>依 <code>/reports</code> 原型補入可跳轉章節的六區塊 HTML/CSS 畫面解剖圖。</li>
 </ul>
 <h2 id="後續版本方向">後續版本方向</h2><ul>
-<li>建立本輪 21 頁的逐面向完成度矩陣與跨頁依賴圖。</li>
-<li>依核准批次整理 20 個 Active 頁面，持續維護遊戲紀錄 Baseline。</li>
+<li>依 A–D 批次整理 20 個 Active 頁面，持續維護遊戲紀錄 Baseline。</li>
+<li>優先處理會阻擋 Batch A 的 Game Round、財務、點數／USDT 與共通 API 契約。</li>
 <li>取得必要輸入後，再將 Deferred 頁面重新排入範圍。</li>
 <li>第一個正式核准版本輸出單一 HTML 與 PDF 快照。</li>
 </ul>
@@ -458,7 +469,7 @@
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#0-7-0-tbd-registry-2026-08-14">0.7.0-tbd-registry · 2026-08-14</a><a class="outline-level-2" href="#0-6-0-dependency-map-2026-08-14">0.6.0-dependency-map · 2026-08-14</a><a class="outline-level-2" href="#0-5-0-page-reconciliation-2026-08-14">0.5.0-page-reconciliation · 2026-08-14</a><a class="outline-level-2" href="#0-4-0-readiness-audit-2026-08-14">0.4.0-readiness-audit · 2026-08-14</a><a class="outline-level-2" href="#0-3-0-scope-freeze-2026-08-14">0.3.0-scope-freeze · 2026-08-14</a><a class="outline-level-2" href="#0-2-0-authoring-baseline-2026-08-14">0.2.0-authoring-baseline · 2026-08-14</a><a class="outline-level-2" href="#0-1-0-structure-2026-08-13">0.1.0-structure · 2026-08-13</a><a class="outline-level-2" href="#後續版本方向">後續版本方向</a></nav>
+        <nav><a class="outline-level-2" href="#0-8-0-phase-one-seal-2026-08-14">0.8.0-phase-one-seal · 2026-08-14</a><a class="outline-level-2" href="#0-7-0-tbd-registry-2026-08-14">0.7.0-tbd-registry · 2026-08-14</a><a class="outline-level-2" href="#0-6-0-dependency-map-2026-08-14">0.6.0-dependency-map · 2026-08-14</a><a class="outline-level-2" href="#0-5-0-page-reconciliation-2026-08-14">0.5.0-page-reconciliation · 2026-08-14</a><a class="outline-level-2" href="#0-4-0-readiness-audit-2026-08-14">0.4.0-readiness-audit · 2026-08-14</a><a class="outline-level-2" href="#0-3-0-scope-freeze-2026-08-14">0.3.0-scope-freeze · 2026-08-14</a><a class="outline-level-2" href="#0-2-0-authoring-baseline-2026-08-14">0.2.0-authoring-baseline · 2026-08-14</a><a class="outline-level-2" href="#0-1-0-structure-2026-08-13">0.1.0-structure · 2026-08-13</a><a class="outline-level-2" href="#後續版本方向">後續版本方向</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -469,7 +480,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.7.0-tbd-registry · 2026-08-14</span>
+                    <span>0.8.0-phase-one-seal · 2026-08-14</span>
                 </footer>
             </div>
         </main>

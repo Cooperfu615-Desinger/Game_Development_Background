@@ -1,5 +1,13 @@
 # 版本紀錄
 
+## 0.8.0-phase-one-seal · 2026-08-14
+
+- 以 `main@d827c59` 作為第一階段封版輸入基準，完成整體重新驗證。
+- 新增可重跑的 `spec:seal` Gate，交叉驗證 route、主導覽、元件、來源、第一階段覆蓋與核心產品邊界。
+- 確認 32 個內容頁、21 個本輪頁面、四條業務鏈、三項 Deferred 外部依賴及 30 項集中 TBD 彼此一致。
+- 新增第一階段封版驗證報告，記錄 PASS 結論、251 項 assertion、非阻擋注意事項與重開條件。
+- 封版僅代表第一階段規格整理輸入完整，不代表全部頁面、API、權限或 GGAP 契約已 Confirmed。
+
 ## 0.7.0-tbd-registry · 2026-08-14
 
 - 將跨頁待決策集中為 Domain、Data、API、Security、NFR、External 六類登錄。
@@ -61,7 +69,7 @@
 
 ## 後續版本方向
 
-- 建立本輪 21 頁的逐面向完成度矩陣與跨頁依賴圖。
-- 依核准批次整理 20 個 Active 頁面，持續維護遊戲紀錄 Baseline。
+- 依 A–D 批次整理 20 個 Active 頁面，持續維護遊戲紀錄 Baseline。
+- 優先處理會阻擋 Batch A 的 Game Round、財務、點數／USDT 與共通 API 契約。
 - 取得必要輸入後，再將 Deferred 頁面重新排入範圍。
 - 第一個正式核准版本輸出單一 HTML 與 PDF 快照。

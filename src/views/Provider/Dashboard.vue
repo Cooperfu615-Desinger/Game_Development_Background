@@ -3,6 +3,7 @@ import { computed, onBeforeUnmount, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Button from 'primevue/button'
 import Chart from 'primevue/chart'
+import { anomalyLabels, providerRiskState, severityLabels } from '@/mocks/providerRisk'
 
 type PeriodKey = 'today' | 'yesterday' | 'sevenDays'
 type TrendKey = 'rounds' | 'bet' | 'ggr' | 'players'
@@ -47,7 +48,7 @@ const period = ref<PeriodKey>('today')
 const trend = ref<TrendKey>('rounds')
 const gameView = ref<GameView>('popular')
 const refreshing = ref(false)
-const lastUpdated = ref(new Date(2026, 7, 13, 14, 32, 18))
+const lastUpdated = ref(providerRiskState.lastUpdatedAt)
 let refreshTimer: number | undefined
 
 const periodOptions: Array<{ label: string; value: PeriodKey }> = [
@@ -84,28 +85,37 @@ const periodMetrics: Record<PeriodKey, PeriodMetric> = {
     },
 }
 
-const statusCards: StatusCard[] = [
-    {
-        label: '正式環境服務', value: '42 / 45', status: '部分服務需關注',
-        note: '正常 42 · 維護 1 · 異常 2', icon: 'pi pi-server', tone: 'warning', route: '/monitoring',
-        tip: '目前應提供服務的正式環境遊戲中，健康狀態正常的遊戲數。',
-    },
-    {
-        label: 'GGAP 對接狀態', value: '99.82%', status: '連線正常',
-        note: 'P95 182 ms · 近 24 小時', icon: 'pi pi-link', tone: 'success', route: '/ggap',
-        tip: '僅計算遊戲商與 GGAP 直接對接的成功請求，不推論 GGAP 下游狀態。',
-    },
-    {
-        label: '待處理告警', value: '3', status: '1 筆嚴重',
-        note: '待處理 2 · 調查中 1', icon: 'pi pi-bell', tone: 'danger', route: '/monitoring/alerts',
-        tip: '目前尚未完成處理或覆核的高風險告警。',
-    },
-    {
-        label: '發布與維護', value: '2', status: '待發布',
-        note: '維護中 1 · 停用 2', icon: 'pi pi-upload', tone: 'info', route: '/games/environments',
-        tip: '顯示正式與 DEMO 環境的待發布版本，以及目前維護或停用狀態。',
-    },
-]
+const statusCards = computed<StatusCard[]>(() => {
+    const games = providerRiskState.monitoringGames.filter((game) => game.environment === 'production')
+    const expected = games.filter((game) => game.expectedService)
+    const healthy = expected.filter((game) => game.state === 'healthy').length
+    const p95Values = expected.map((game) => game.ggap.p95).filter((value): value is number => value !== null)
+    const worstP95 = p95Values.length ? Math.max(...p95Values) : null
+    const activeAlerts = providerRiskState.alerts.filter((alert) => alert.environment === 'production' && ['new', 'in_progress', 'monitoring'].includes(alert.status))
+    const activeEvents = providerRiskState.riskEvents.filter((event) => event.environment === 'production' && ['open', 'recovering'].includes(event.status))
+    return [
+        {
+            label: '正式環境服務', value: `${healthy} / ${expected.length}`, status: healthy === expected.length ? '全部健康' : '部分服務需關注',
+            note: `no_data ${expected.filter((game) => game.state === 'no_data').length} · 隔離 ${expected.filter((game) => game.state === 'isolated').length}`, icon: 'pi pi-server', tone: healthy === expected.length ? 'success' : 'warning', route: '/monitoring?environment=production',
+            tip: '只計算應提供服務的正式環境遊戲；no_data 不會算成健康。',
+        },
+        {
+            label: 'GGAP 直接對接 P95', value: worstP95 === null ? '無資料' : `${worstP95} ms`, status: worstP95 === null ? '不可判定' : worstP95 > 500 ? '需關注' : '連線正常',
+            note: 'Provider ↔ GGAP · 不推論下游', icon: 'pi pi-link', tone: worstP95 === null ? 'neutral' : worstP95 > 500 ? 'warning' : 'success', route: '/monitoring?environment=production',
+            tip: '只顯示 Provider 與 GGAP 的直接整合證據，不包含 GGAP Agent 或其下游。',
+        },
+        {
+            label: 'Active Alert', value: String(activeAlerts.length), status: `${activeAlerts.filter((alert) => ['high', 'critical'].includes(alert.severity)).length} 筆高風險`,
+            note: `New ${activeAlerts.filter((alert) => alert.status === 'new').length} · 處理 ${activeAlerts.filter((alert) => alert.status === 'in_progress').length} · 觀察 ${activeAlerts.filter((alert) => alert.status === 'monitoring').length}`, icon: 'pi pi-bell', tone: activeAlerts.some((alert) => alert.severity === 'critical') ? 'danger' : 'warning', route: '/monitoring/alerts?environment=production',
+            tip: 'Active Alert = new + in_progress + monitoring；不與 Risk Event 狀態合併。',
+        },
+        {
+            label: '未解決 Risk Event', value: String(activeEvents.length), status: `${activeEvents.filter((event) => event.status === 'open').length} 筆異常中`,
+            note: `Open ${activeEvents.filter((event) => event.status === 'open').length} · Recovering ${activeEvents.filter((event) => event.status === 'recovering').length}`, icon: 'pi pi-shield', tone: activeEvents.some((event) => event.severity === 'critical') ? 'danger' : 'info', route: '/monitoring/risk-reports?environment=production',
+            tip: '未解決 Risk Event = open + recovering；Resolved 與 Invalidated 仍分開保留。',
+        },
+    ]
+})
 
 const operatingMetrics = computed(() => {
     const values = periodMetrics[period.value]
@@ -164,13 +174,35 @@ const chartOptions = computed(() => ({
     },
 }))
 
-const actionItems = [
-    { title: '結算失敗率持續升高', meta: 'Neon Heist · 12 分鐘前', id: 'alt_01jz4m8v3k6q2d7p9x5n1c0bqa', label: '嚴重', tone: 'danger' as Tone, icon: 'pi pi-exclamation-triangle', route: '/monitoring/alerts?alert_id=alt_01jz4m8v3k6q2d7p9x5n1c0bqa' },
-    { title: '遊戲服務目前不可用', meta: 'Solar Garden · 18 分鐘前', id: 'rsk_01jz42n8w5q1d7c3m9x6v0bpea', label: '高', tone: 'danger' as Tone, icon: 'pi pi-server', route: '/monitoring/risk-reports?event_id=rsk_01jz42n8w5q1d7c3m9x6v0bpea' },
-    { title: 'GGAP 回呼重試失敗', meta: 'Neon Drift · 26 分鐘前', id: 'err_cb_0826', label: '需關注', tone: 'warning' as Tone, icon: 'pi pi-sync', route: '/ggap/errors' },
-    { title: '正式版本等待發布', meta: 'Crown of Fortune · 1 小時前', id: 'rel_v4.1.1', label: '待發布', tone: 'info' as Tone, icon: 'pi pi-upload', route: '/games/environments' },
-    { title: '健康資料超過有效時間', meta: 'Star Roulette · 2 小時前', id: 'health_expired_031', label: '無資料', tone: 'neutral' as Tone, icon: 'pi pi-clock', route: '/monitoring' },
-]
+const actionItems = computed(() => {
+    const severityRank = { critical: 5, high: 4, medium: 3, low: 2, info: 1 }
+    const alertItems = providerRiskState.alerts
+        .filter((alert) => alert.environment === 'production' && alert.status !== 'closed')
+        .sort((a, b) => severityRank[b.severity] - severityRank[a.severity] || b.updatedAt.getTime() - a.updatedAt.getTime())
+        .slice(0, 4)
+        .map((alert) => {
+            const event = providerRiskState.riskEvents.find((item) => item.riskEventId === alert.riskEventId)
+            return {
+                title: event ? anomalyLabels[event.anomalyType] : '風控告警待處理',
+                meta: `${event?.gameName ?? '未知遊戲'} · Alert ${alert.alertId} · Event ${alert.riskEventId}`,
+                id: alert.alertId,
+                label: severityLabels[alert.severity],
+                tone: (['critical', 'high'].includes(alert.severity) ? 'danger' : 'warning') as Tone,
+                icon: 'pi pi-exclamation-triangle',
+                route: `/monitoring/alerts?environment=${alert.environment}&alert_id=${alert.alertId}&risk_event_id=${alert.riskEventId}`,
+            }
+        })
+    const evidenceOnly = providerRiskState.riskEvents.find((event) => event.environment === 'production' && event.status === 'open' && !event.alertId)
+    if (evidenceOnly) alertItems.push({
+        title: anomalyLabels[evidenceOnly.anomalyType],
+        meta: `${evidenceOnly.gameName} · Event ${evidenceOnly.riskEventId} · 尚未建立 Alert`,
+        id: evidenceOnly.riskEventId,
+        label: severityLabels[evidenceOnly.severity],
+        tone: 'neutral', icon: 'pi pi-shield',
+        route: `/monitoring/risk-reports?environment=${evidenceOnly.environment}&risk_event_id=${evidenceOnly.riskEventId}`,
+    })
+    return alertItems
+})
 
 const popularGames: GameRow[] = [
     { name: 'Neon Heist', id: 'gm_neon_heist', status: '正常', tone: 'success', rounds: '18,420', players: '2,846', signal: '+12.4%', signalTone: 'up' },
@@ -216,6 +248,7 @@ function refreshDashboard() {
     refreshing.value = true
     refreshTimer = window.setTimeout(() => {
         lastUpdated.value = new Date()
+        providerRiskState.lastUpdatedAt = new Date()
         refreshing.value = false
     }, 520)
 }

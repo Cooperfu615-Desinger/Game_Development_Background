@@ -1,475 +1,306 @@
-# Provider 風控與異常事件規範
+# Provider 監控與風控共用產品規範
 
-> 版本：0.3.1
-> 更新日期：2026-08-11
-> 狀態：Provider Portal 第一版風控規範草案；事件門檻、API 欄位與 GGAP 對接狀態待確認
+> 版本：0.4.0
+> 更新日期：2026-08-17
+> 狀態：目前需求基準；正式 API path、資料表、門檻、權限與 GGAP payload 待取得 Backend 證據後對照
 
-本文件定義 Provider Portal 如何辨識、分類、查詢與處理 Provider 自己的遊戲、Game Round、服務與 GGAP 對接異常。
+本文件是 Provider Portal 監控總覽、風控報表與風控告警／處理頁面的共用上游，定義 Provider 自身監控、規則評估、Risk Event、Alert、Mitigation Job、隔離、GGAP 通知及稽核的產品契約。
 
-本文件是風控報表與風控告警／處理頁面的共同基礎。它先統一產品、前端、後端、QA 與 GGAP 對「失敗、逾時、延遲、資料異常、嚴重度」的理解；正式 API 狀態碼與實際門檻仍需由後端與 GGAP 對接團隊確認。
+目前需求基準以 [`Decision Pack 02｜監控與風控共用產品契約`](./spec-book/content/appendices/decision-pack-02-monitoring-risk.md) 為依據。尚未接上正式 Backend 不代表本文件的產品行為未成立；實作差異取得後以版本更新，不另維護競爭的事件或告警模型。
 
 ## 1. 規範目的
 
-- 統一遊戲商風控事件的名稱、定義與分類。
-- 建立監控總覽、風控報表與風控告警／處理之間的責任分工。
-- 讓每筆異常都可以回溯到遊戲、版本、Game Round 與 GGAP 對接事件。
-- 提供後端建立事件、前端呈現報表、QA 驗證狀態的共同依據。
-- 避免將 GGAP 平台的代理商、商戶、會員、錢包或平台風控責任混入 Provider Portal。
+- 統一 Monitoring Signal、Detection Result、Risk Event、Alert 與實際副作用的責任。
+- 讓每筆異常可追溯至規則版本、遊戲、環境、Game Round、GGAP 對接事件與處理工作。
+- 讓監控觀察、事件分析及人工處理各自使用正確資料單位。
+- 確保重複偵測、復發、緩解失敗、隔離與通知都可追蹤、可重試、可稽核。
+- 避免把 GGAP 平台、代理商、商戶、會員、錢包或下游風控責任混入 Provider Portal。
 
-## 2. 責任範圍
+## 2. 責任與資料邊界
 
-### 2.1 Provider Portal 負責
+### 2.1 Provider 負責
 
-- 遊戲商遊戲服務健康度。
-- 遊戲商遊戲的 Launch、Game Round、Settle 與相關回呼處理。
-- 遊戲商遊戲資料、版本、遊戲規則與數值結果異常。
-- 遊戲商與 GGAP 之間的請求、回應、Callback、重試與錯誤狀態。
-- 遊戲商自己的異常查詢、風險分析、告警處理與操作紀錄。
+- 自身遊戲服務、必要依賴及健康檢查。
+- Launch、Game Round、Settle、Callback 與直接 GGAP 對接的成功、錯誤、延遲及資料品質。
+- 遊戲版本、數值、RTP、派彩分布及其他遊戲商可觀測的 Game Math 異常。
+- 規則評估、Risk Event、Alert、Mitigation Job、隔離、恢復與稽核證據。
+- 對 GGAP 的隔離／解除等通知，以及本地狀態與 GGAP 回報的差異追蹤。
 
 ### 2.2 GGAP 負責
 
-- GGAP 平台整體健康與平台級風控。
-- 代理商、商戶、會員、平台錢包與平台交易風控。
-- GGAP 代理商側的幣別、金額轉換與平台結算。
-- GGAP 對多家遊戲商的聚合層級告警與平台處理。
+- GGAP 平台健康、聚合層級監控及平台風控。
+- 代理商、商戶、會員、平台錢包、平台交易及合規風控。
+- GGAP 與代理商之間的下游營運、遊戲開放、網路及會員驗證狀態。
+- 多家 Provider 的聚合判斷及 GGAP 自身處理流程。
 
-Provider Portal 可以保存 GGAP 傳入的代理商、商戶、會員與幣別脈絡，作為單筆 Game Round 或異常追蹤的關聯資料，但不建立上述主資料或平台風控規則。
+Provider 可以保存 GGAP 傳入的代理商、商戶、會員及幣別脈絡作為交易或異常 snapshot，但不建立或管理其主資料，也不得把未抵達 Provider 的下游問題推定為 Provider 已觀測事實。
 
-### 2.3 共用中文術語與顯示規則
+### 2.3 環境邊界
 
-Provider Portal 的主要介面以台灣繁體中文呈現；英文只在技術值、原始欄位名稱、協定資訊或選項輔助說明中保留。共用術語如下：
+- Production 與 DEMO 使用相同領域模型，但 Signal、規則版本、Detection Result、Risk Event、Alert、Mitigation Job、隔離及投遞狀態必須分開。
+- 查詢與摘要一次只使用一個環境，不得跨環境去重或聚合。
+- Test 完全排除，不產生 Provider Risk Event 或 Alert，也不進監控與風控摘要。
+- DEMO 的隔離或通知不得改變 Production 狀態；Production 的規則、門檻或事件也不得套用至 DEMO 資料。
 
-| 技術術語 | 一般畫面顯示 | 選項或詳情輔助顯示 |
-|---|---|---|
-| Risk Event | 風控事件 | 風控事件（Risk Event） |
-| Game Round | 遊戲回合 | 遊戲回合（Game Round） |
-| Provider | 遊戲商 | 遊戲商（Provider） |
-| Provider Game Round ID | 遊戲商遊戲回合 ID | 遊戲商遊戲回合 ID（Provider Game Round ID） |
-| GGAP Round ID | GGAP 遊戲回合 ID | GGAP 遊戲回合 ID（GGAP Round ID） |
-| Launch | 啟動 | 啟動（Launch） |
-| Settle | 結算 | 結算（Settle） |
-| Callback | 回呼 | 回呼（Callback） |
-| Request / Response | 請求／回應 | 請求（Request）／回應（Response） |
-| Error message | 錯誤訊息 | 錯誤訊息（Error message） |
-| Tips | 提示 | — |
+### 2.4 不可違反的操作邊界
 
-表格欄位、摘要卡與狀態標籤使用簡潔中文，避免每列重複英文。Production 顯示為「正式環境」、DEMO 顯示為「展示環境」，環境選項可使用「正式環境（Production）」與「展示環境（DEMO）」；Test 不納入本頁。Info、Low、Medium、High、Critical 一般顯示為「資訊、低、中、高、嚴重」，選項可附上英文原值。
-
-上述規則只改變顯示文字，不得翻譯或改動 API 值、路由、ID、錯誤碼、HTTP 狀態碼、版本號、原始欄位名稱與協定路徑。事件證據中的請求／回應摘要與時間線可翻譯說明文字，但應保留必要的 HTTP method、endpoint、狀態碼、識別碼與原始技術值。
+- 監控或風控不得直接修改投注、派彩、點數／USDT 換算、已結算 Game Round 或財務報表結果。
+- 隔離只阻擋精確範圍的新 Launch；既有 Game Round、Settle、Callback、查單與必要重試持續完成。
+- 隔離不等於 GGAP 針對個別代理商的遊戲開關，也不取代正式下架、回滾或財務補償。
+- 前端頁面是否開啟，不得影響後端偵測、持久化、執行核准工作或保存稽核證據。
 
 ## 3. 三個頁面的責任分工
 
-| 頁面 | 主要問題 | 可呈現內容 | 是否執行處理 |
+| 頁面 | 核心問題 | 主要資料單位 | 允許操作 |
 |---|---|---|---|
-| 監控總覽 | 現在是否有問題？ | 五張監控摘要卡、健康狀態、異常摘要與快速導向 | 不執行正式處理 |
-| 風控報表 | 發生了什麼問題？影響範圍為何？ | 查詢、摘要、待關注異常、事件列表、詳情與匯出 | 唯讀查詢分析 |
-| 風控告警／處理 | 接下來要怎麼處理？ | 告警佇列、處理狀態、隔離、解除、通知 GGAP、操作紀錄 | 可執行核准後的遊戲商操作 |
+| 監控總覽 | 現在是否健康、哪裡需要關注？ | 當前狀態、Signal 與分析窗口聚合 | 唯讀、篩選、重新整理與精確導流 |
+| 風控報表 | 發生了什麼、證據與影響為何？ | Risk Event | 唯讀查詢、詳情、匯出與導向 Alert／Game Round |
+| 風控告警／處理 | 誰負責、下一步做什麼、是否可結案？ | Alert | 接手、指派、備註、建立工作、隔離、解除、重送與結案 |
 
-風控報表不取代遊戲紀錄。需要查看單筆 Game Round 完整內容時，應導向 `/reports`「遊戲紀錄」頁面。
+Dashboard 只顯示上述來源的跨模組摘要與入口，不建立第四套 Risk Event、Alert 或健康狀態真實來源。風控報表不取代遊戲紀錄；單筆 Round 完整內容仍由 `/reports` 負責。
 
-## 4. 異常事件模型
+## 4. 共用領域模型
 
-每一筆風控異常應被視為一筆可追蹤的 `Risk Event`，至少包含以下概念欄位：
-
-| 欄位 | 說明 |
-|---|---|
-| Event ID | 遊戲商風控事件唯一識別碼，正式欄位名為 `risk_event_id` |
-| 發生時間 | 異常實際發生時間；另保留偵測時間 |
-| 異常來源 | Game Service、Game Round、GGAP Request、Callback、Data Quality 或 Game Math |
-| 異常類型 | 具體事件，例如結算失敗、請求逾時、資料缺失 |
-| 嚴重度 | Info、Low、Medium、High、Critical |
-| 處理狀態 | 待處理、調查中、已緩解、已關閉、誤報 |
-| 遊戲資訊 | Game ID、遊戲名稱、遊戲類型、遊戲版本 |
-| 環境 | Production 或 DEMO；Test 不納入 Provider 風控監控與告警 |
-| Round 關聯 | Provider Game Round ID、GGAP Round ID、會員 ID（若有） |
-| 事件數值 | 延遲、逾時、失敗率、異常數量、RTP 或派彩等相關數值 |
-| 原因資訊 | 錯誤碼、錯誤訊息、請求／回應摘要與重試次數 |
-| 操作紀錄 | 誰在何時執行了什麼處理、處理結果與備註 |
-
-單一事件可能關聯多個 Game Round，例如短時間大量結算失敗；此時應保存事件摘要與受影響 Round 數量，並提供查詢明細的入口。
-
-### 4.1 Event ID 規範
-
-Provider 風控事件的正式欄位名稱為 `risk_event_id`，前端畫面與報表欄位可顯示為 **Event ID**。
-
-#### 格式
-
-格式統一為：
+整體處理鏈固定為：
 
 ```text
-rsk_<ULID>
+Monitoring Signal
+→ Detection Result
+→ Risk Event
+→ Alert
+→ Mitigation Job
+→ Recovery / GGAP Delivery / Audit
 ```
 
-規則如下：
-
-- `rsk_` 是固定的小寫識別前綴。
-- `<ULID>` 為 26 字元的 Crockford Base32 ULID，API 與匯出使用小寫表示。
-- 範例：`rsk_01jz4m8v3k6q2d7p9x5n1c0bqa`。
-- Event ID 只使用 ASCII 字元，不包含 Provider ID、會員 ID、Game Round ID、金額或錯誤訊息。
-- Event ID 不作為業務排序依據；列表排序使用 `occurred_at` 或 `detected_at`。
-
-#### 產生與唯一性
-
-- 由 Provider 風控事件服務在第一次建立 `Risk Event` 時產生。
-- 事件一旦建立，`risk_event_id` 永久不變，不因嚴重度、處理狀態或事件內容更新而變更。
-- Event ID 在所有 Provider 範圍內必須唯一，不得重複使用或回收。
-- 建議資料庫建立唯一索引；API、列表、詳情、匯出與操作紀錄均使用同一個值。
-- 若事件建立失敗且沒有成功保存，不應先對外宣告該 ID 已成立；重新建立時產生新的 ID。
-
-#### 重試、去重與聚合
-
-- 同一個請求的重試不產生新的 `risk_event_id`，應保留原 ID 並累計重試次數與後續結果。
-- 同一個異常事件的狀態更新、告警升級、緩解與關閉都沿用原 ID。
-- 在同一個聚合時間窗口內，符合相同 Provider、環境、異常來源、異常類型、遊戲與錯誤特徵的重複發生，可聚合為同一個事件；保存 `first_seen_at`、`last_seen_at`、`occurrence_count` 與受影響 Round 數量。
-- 跨越新的聚合窗口、影響條件已改變，或前一事件已關閉後再次發生時，建立新的 Event ID，並可透過關聯欄位連結前後事件。
-- 原始請求、回應、日誌或單次偵測紀錄若需要逐筆追蹤，應另有 `occurrence_id`、`request_id` 或 `provider_event_id`，不可用多個 Event ID 代替。
-
-#### 與其他識別碼的關係
-
-| 識別碼 | 用途 | 是否等同 `risk_event_id` |
-|---|---|---|
-| `risk_event_id` | Provider 風控事件生命週期與報表追蹤 | 本規範的 Event ID |
-| `provider_event_id` | Provider 與 GGAP 對接事件、Callback 重送去重 | 否 |
-| `request_id` | 單次 API 請求追蹤與冪等 | 否 |
-| `round_id` | Provider Game Round 業務紀錄 | 否 |
-| `external_round_id` / `ggap_round_id` | GGAP Round 關聯識別 | 否 |
-
-一個 `risk_event_id` 可以關聯多個 `request_id`、`provider_event_id` 或 Game Round。若對接事件觸發風控事件，必須同時保存兩種識別碼，不得互相覆寫。
-
-對外通知 GGAP 時，若契約需要傳遞 Provider 風控事件識別，欄位名稱使用 `provider_risk_event_id`，值等於 Provider 的 `risk_event_id`；此欄位只作關聯追蹤，不取代 `provider_event_id` 的 Callback 去重用途。
-
-## 5. 核心狀態定義
-
-### 5.1 失敗（Failure）
-
-請求或業務流程已結束，但結果明確為失敗，或收到可判定為失敗的錯誤回應。
-
-**判定特徵：**
-
-- 已收到回應，且回應狀態表示失敗。
-- 或後端已判定流程無法完成並寫入失敗結果。
-- 不因單純尚未收到回應而直接判定為失敗。
-
-**例子：**
-
-- Settle 回應為 rejected 或 error。
-- Game Round 因必要欄位錯誤而無法結算。
-- Callback 收到明確的無效請求回應。
-
-### 5.2 逾時（Timeout）
-
-在規定等待時間內沒有收到必要回應，導致系統無法在預期時間內判定流程結果。
-
-**判定特徵：**
-
-- 請求已送出，但超過 timeout threshold 未收到回應。
-- 逾時不等於最終失敗；後續可能收到延遲回應、重試成功或被人工處理。
-- 逾時事件應保留首次發生時間、等待秒數與後續結果。
-
-### 5.3 延遲（Latency）
-
-請求最終成功或完成，但處理時間超過正常服務門檻。
-
-**判定特徵：**
-
-- 有完整的開始與完成時間。
-- 完成結果可以是成功，也可以另外產生失敗事件。
-- 延遲是時間量測結果；逾時是超過等待上限後仍沒有結果，兩者不可混為同一狀態。
-
-### 5.4 資料異常（Data Anomaly）
-
-資料存在缺失、格式錯誤、重複、矛盾或無法與關聯資料正確對應的情況。
-
-**第一版包含：**
-
-- 必填欄位缺失。
-- 欄位格式、型別或精度不符合契約。
-- Provider Game Round ID 或 GGAP Round ID 無法對應。
-- 同一事件或 Game Round 重複寫入。
-- Game Round 狀態與結算結果不一致。
-- Callback、重試結果與原始請求無法建立關聯。
-
-資料異常不直接等同於 GGAP 對帳不一致。Provider Portal 可以標記自身資料關聯問題；雙方財務對帳仍由財務與 GGAP 依對帳流程執行。
-
-## 6. 第一版異常分類
-
-### 6.1 遊戲服務異常（Game Service）
-
-- 遊戲服務不可用。
-- 健康檢查失敗。
-- 遊戲服務錯誤率升高。
-- 遊戲版本啟動失敗。
-
-### 6.2 Game Round 異常（Game Round）
-
-- Game Round 建立失敗。
-- Game Round 未完成或長時間停留在中間狀態。
-- Game Round 結算失敗。
-- 重複結算或重複寫入。
-- Game Round 狀態與結算結果不一致。
-
-### 6.3 GGAP 對接異常（Integration）
-
-- Launch 請求失敗。
-- Settle 請求失敗。
-- Callback 失敗或未收到。
-- 請求逾時。
-- 請求延遲超過門檻。
-- 重試次數達上限。
-- GGAP 回應錯誤或欄位無法解析。
-
-### 6.4 資料品質異常（Data Quality）
-
-- 必填資料缺失。
-- 資料格式或精度錯誤。
-- Round ID 關聯失敗。
-- 事件重複。
-- 狀態轉移不合法。
-
-### 6.5 遊戲數值異常（Game Math）
-
-- 實際 RTP 長時間偏離理論 RTP。
-- 派彩結果超過遊戲設定或限紅範圍。
-- 單筆派彩或短時間派彩量異常。
-- 點數換算結果不符合當時規則版本。
-
-遊戲數值異常需要搭配遊戲規則、數值設定與統計樣本量判斷，不能只依單筆結果直接判定為風控事件。正式門檻待數值團隊與產品確認。
-
-### 6.6 不納入第一版
-
-- 會員下注習慣或會員信用風險。
-- 代理商、商戶或平台交易風險。
-- 代理商側幣別與錢包異常。
-- GGAP 平台級詐欺、洗錢或合規風險。
-
-上述內容若未來需要，應由 GGAP 或其他負責模組另立規範。
-
-## 7. 嚴重度分類
-
-嚴重度應綜合影響範圍、持續時間、發生比例、是否影響結算與是否需要立即操作判斷。第一版先使用五級分類：
-
-| 等級 | 定義 | 例子 | 預設處理 |
+| 物件 | 正式責任 | 建議識別 | 保存原則 |
 |---|---|---|---|
-| Info | 已記錄但不代表異常，或已自動恢復的事件 | 單次可恢復延遲、重試成功 | 保留紀錄，通常不需人工處理 |
-| Low | 局部且影響有限，不影響主要結算流程 | 單筆資料格式錯誤、單一低影響服務警告 | 例行檢視 |
-| Medium | 需要調查，可能影響部分遊戲或 Round | 某款遊戲延遲升高、少量結算失敗 | 建立處理項目並追蹤 |
-| High | 已影響正常營運或持續擴大，需要優先處理 | 單款遊戲大量結算失敗、Callback 大量遺失 | 優先調查，評估暫停遊戲與通知 GGAP |
-| Critical | 大範圍服務中斷、資料正確性受損或可能造成大量錯誤結算 | 多款遊戲無法結算、重複結算造成資料風險 | 立即升級、限制影響並啟動處理流程 |
+| Monitoring Signal | 原始或聚合後的可觀測量測 | `signal_id` 或時間序列 key | 保存來源、時間、environment、scope、單位與資料品質 |
+| Detection Result | 某規則版本在某評估窗口的判斷 | `detection_result_id` | 命中與未命中都可追蹤樣本、門檻與結果原因 |
+| Risk Event | 同一異常生命週期的客觀紀錄 | `risk_event_id` | fingerprint 去重，累積 occurrence 與 evidence |
+| Alert | 需要人員接手與結案的工作項目 | `alert_id` | 第一版一個 Event 最多一個主要 Alert |
+| Mitigation Job | 一次具體緩解、隔離、解除或通知工作 | `mitigation_job_id` | 每次執行保存狀態、attempt、結果與錯誤 |
+| Isolation Control | Launch Gate 的希望與實際狀態 | `isolation_id` | 精確綁定 environment、game、version 與 scope |
+| GGAP Delivery | Provider 對 GGAP 的通知投遞 | `delivery_id` | outbox、冪等 key、有限重試與 ACK 追蹤 |
 
-嚴重度不應只由事件類型固定決定。同一類型的逾時可能因持續時間、受影響遊戲數與失敗比例不同而落在不同等級。
+### 4.1 關聯與基數
 
-## 8. 自動緩解、隔離與人工確認
+- 一個 Monitoring Signal 可以被多個規則版本評估。
+- 一個 Detection Result 只屬於一個規則版本及一個評估窗口。
+- 多次命中同一 fingerprint 的結果可累積至同一有效 Risk Event。
+- 第一版一個 Risk Event 對應零或一個主要 Alert；Info／Low 或不需人工處理的事件可以沒有 Alert。
+- 一個 Alert 可以關聯多個 Mitigation Job、Isolation Control 變更與 GGAP Delivery。
+- 一個 Risk Event 可以關聯多筆 Game Round；Risk Event 不取代 Round，也不得共用其識別碼。
 
-風控處理採用「系統先限制影響、人工再確認最終處置」的原則。自動動作必須可追蹤、可重試、可解除，並以最小影響範圍執行；前端頁面是否開啟，不得影響後端偵測與處理。
+### 4.2 識別與快照
 
-```mermaid
-flowchart LR
-    D["偵測異常"] --> E["建立 Risk Event"]
-    E --> R["套用規則與嚴重度"]
-    R -->|"無需緩解"| L["保存事件"]
-    R -->|"需要緩解"| M["執行自動緩解"]
-    M --> A["建立 Alert 並通知"]
-    A --> H["人工確認／維持／解除"]
-    H --> C["關閉事件"]
-```
+- `risk_event_id`、`alert_id`、`mitigation_job_id`、`isolation_id` 與 `delivery_id` 各自永久穩定，不因狀態更新而更換。
+- `provider_event_id` 用於 Provider／GGAP 對接事件，`request_id` 用於 logical command／冪等，兩者都不等於 `risk_event_id`。
+- Event 保存遊戲、版本、environment、規則版本、異常類型、嚴重度、first／last detected time、occurrence、影響範圍及 evidence snapshot。
+- 外部 Round、代理商或 opaque member reference 只作關聯脈絡，遵循正式遮罩與查詢權限，不形成 Provider 主資料。
+- 精確 ID 格式、資料表與唯一索引由 Backend 實作證據對照；產品要求是穩定、不可回收、跨頁一致且可追蹤。
 
-### 8.1 自動處理判斷
+## 5. Signal、Detection Result 與規則評估
 
-嚴重度只表示影響程度，不得單獨作為自動隔離條件。系統執行自動動作前，必須同時保存命中的 `rule_id`、`rule_version`、統計窗口、門檻、事件數值與處理範圍。
+### 5.1 第一版 Signal 來源
 
-| 嚴重度 | 預設系統行為 | 人工處理要求 |
+| 來源 | 典型量測／條件 |
+|---|---|
+| Game Service | health check、啟動成功率、錯誤率、依賴或資源異常 |
+| Game Round | 成功率、處理中逾時、狀態與結算結果不一致 |
+| GGAP Integration | request failure、timeout、P50／P95／P99 latency、Callback／ACK 異常 |
+| Data Quality | 必填缺值、重複 ID、非法狀態轉移、金額或版本不一致 |
+| Game Math | RTP、命中率、派彩分布或其他需滿足最小樣本的數值偏離 |
+
+失敗、逾時與延遲必須分開：失敗表示已有明確失敗結果；逾時表示等待上限內沒有必要結果；延遲表示流程已完成但耗時超過門檻。資料缺失、樣本不足與評估失敗不得被當成健康或數值 0。
+
+### 5.2 Rule Definition
+
+每個規則版本至少包含：
+
+- `rule_id`、`rule_version`、名稱、說明、狀態、建立及啟用時間。
+- Provider、environment、異常來源、遊戲、版本、endpoint 或其他適用 scope。
+- metric、聚合函式、分子、分母、排除條件、單位及資料來源。
+- observation window、evaluation interval、最小樣本量及允許資料延遲。
+- trigger threshold、recovery threshold、連續命中／健康窗口及嚴重度條件。
+- 是否建立 Alert、覆核時限、automation mode 與允許的動作模板。
+
+規則版本狀態使用 `inactive`、`active`、`retired`。已啟用版本不可原地修改；同一 `rule_id`、environment 與重疊 scope 同一時間只允許一個有效版本。Event 保存命中當下規則 snapshot，歷史不得套用新門檻重算。
+
+### 5.3 Detection Result
+
+Detection Result 至少保存：
+
+- `[window_start, window_end)`、`evaluated_at`、資料新鮮度與 environment。
+- `sample_count`、分子、分母、聚合值及單位。
+- trigger／recovery threshold、嚴重度區間與 `rule_version`。
+- `matched`、`no_data`、`insufficient_sample` 或 `evaluation_failed` 等結果原因。
+- 關聯遊戲、版本、endpoint、Round evidence 與可追蹤來源。
+
+規則可以要求連續 N 個窗口命中後才建立或升級 Event。恢復使用不同門檻形成 hysteresis，並通過連續健康窗口後才可完成恢復。
+
+## 6. Risk Event 生命週期
+
+Risk Event 只描述客觀異常是否仍存在，不表示是否有人接手、是否隔離或 GGAP 是否已 ACK。
+
+| API 值 | 顯示名稱 | 進入條件 | 可離開至 |
+|---|---|---|---|
+| `open` | 異常中 | 規則命中且異常仍存在，或恢復觀察期內再次命中 | `recovering`、`invalidated` |
+| `recovering` | 恢復觀察中 | 已低於恢復門檻，但尚未滿足連續健康窗口 | `resolved`、`open`、`invalidated` |
+| `resolved` | 已恢復 | 已滿足恢復門檻與連續健康窗口 | 終態；復發建立新 Event |
+| `invalidated` | 已作廢 | 證據無效、資料污染、規則錯誤或確認為重複事件 | 終態；不得計入有效風控統計 |
+
+Event 狀態由 Detection Result 與證據決定，不因接手、結案、誤報或隔離按鈕直接改變。`false_positive` 不是 Event 狀態；確認規則或資料無效時使用 `invalidated` 並保留原因。
+
+### 6.1 Fingerprint、去重與復發
+
+`event_fingerprint` 至少由 `provider_id`、environment、異常來源、異常類型、`rule_id`、遊戲／版本 scope 及必要業務維度產生，不包含每次變動的時間戳或實際值。
+
+- 同一 fingerprint 在 Event 有效時再次命中：沿用 `risk_event_id`，增加 `occurrence_count`、`last_detected_at` 與 evidence。
+- 指標短暫恢復後在恢復觀察期內再次命中：沿用原 Event，狀態回到 `open`。
+- Event 已 `resolved` 後再次命中：建立新的 Risk Event，透過 `recurrence_group_id` 連回先前事件。
+- 規則錯誤、資料污染或重複建檔：Event 轉為 `invalidated`，Detection Result 與 audit 仍保留。
+
+## 7. Alert 生命週期與結案
+
+Alert 只描述人工作業進度，與 Event、緩解、隔離及投遞狀態分開。
+
+| API 值 | 顯示名稱 | 主要語意 |
 |---|---|---|
-| Info | 保存事件；可記錄已成功的自動重試 | 通常不需處理 |
-| Low | 保存事件並列入例行檢視 | 視需要確認 |
-| Medium | 建立告警；可依核准規則重試或重新排隊 | 應於一般處理時限內確認 |
-| High | 建立高優先告警並通知；只有命中核准規則時才可暫停特定範圍的新 Launch | 優先確認是否維持或解除 |
-| Critical | 依核准規則執行最小範圍隔離、通知 GGAP 並建立緊急告警 | 立即確認影響、原因與後續處置 |
+| `new` | 待接手 | 工作項目已建立，尚未開始有效處理 |
+| `in_progress` | 處理中 | 已接手、調查或執行必要緩解 |
+| `monitoring` | 觀察中 | 主要影響已控制，等待健康觀察、解除或最終覆核 |
+| `closed` | 已結案 | 必要工作完成並記錄結案原因及結果 |
 
-第一版允許的自動緩解動作：
+Alert 可以從 `closed` 重新開啟至 `in_progress`，但必須保存原因、操作者及前後版本。結案結果使用獨立 `resolution_code`：
 
-- 依冪等鍵忽略重複請求或重複 Callback。
-- 對可重試錯誤進行有限次數、具退避機制的重試。
-- 將失敗 Callback 重新排入可靠佇列。
-- 暫停指定遊戲、版本或環境的新 Launch。
-- 建立告警、通知 Provider 人員及依契約通知 GGAP。
-
-### 8.2 隔離定義與限制
-
-本文件的「隔離」是 Provider 為避免影響擴大而採取的暫時性控制，不等於 GGAP 針對個別代理商設定的遊戲開關。
-
-- 隔離只阻擋指定範圍的新 Launch，不中斷既有 Game Round 的正常完成流程。
-- Settle、Callback、必要重試與稽核紀錄必須繼續運作，避免產生財務或資料不一致。
-- 隔離範圍應優先限制在單一遊戲、版本與環境；只有證據顯示影響擴大時才提升範圍。
-- 系統不得自動修改投注、派彩、已結算 Round 或換算結果，也不得以隔離取代正式回滾或補償流程。
-- 隔離是暫時狀態，必須建立告警並要求人工覆核。
-- 不採用單純到期即自動解除。解除前必須通過健康檢查並由具權限人員確認；超過覆核期限仍未處理時應升級告警。
-- 自動緩解失敗時必須將 `mitigation_status` 標記為失敗並升級告警，不得回報已隔離或已恢復。
-
-### 8.3 自動處理資料欄位
-
-Risk Event 或其關聯 Alert 至少應保存：
-
-| 欄位 | 說明 |
+| 值 | 使用情境 |
 |---|---|
-| `alert_id` | 告警唯一識別碼 |
-| `rule_id` / `rule_version` | 命中的規則及其版本 |
-| `mitigation_action` | retry、requeue_callback、block_new_launch、notify 等動作 |
-| `mitigation_status` | 自動緩解目前狀態 |
-| `mitigation_scope` | Provider、遊戲、版本、環境等實際作用範圍 |
-| `auto_handled_at` | 自動處理時間 |
-| `isolated_at` | 開始隔離時間；未隔離時為空 |
-| `review_due_at` | 人工覆核期限 |
-| `released_at` / `released_by` | 解除時間與操作者 |
-| `requires_review` | 是否仍需人工確認 |
-| `ggap_notification_status` | GGAP 通知、確認與重試狀態 |
+| `recovered` | 異常已恢復，必要緩解、解除及通知均完成 |
+| `false_positive` | 規則命中但確認不構成有效風險 |
+| `duplicate` | 與另一筆有效事件重複，保留主事件關聯 |
+| `accepted_risk` | 已評估並接受剩餘風險，需記錄原因與覆核 |
+| `manual_resolution` | 透過人工處置完成且不屬於其他分類 |
 
-`mitigation_status` 第一版使用下列值：
+Alert 結案守門條件：
 
-| API 值 | 顯示名稱 | 定義 |
+1. 已選擇 `resolution_code` 並填寫可稽核原因。
+2. 所有必要 Mitigation Job 已完成，或以具名核准明確豁免。
+3. 不存在套用中、解除中或失敗待處理的隔離工作。
+4. 若 desired state 為未隔離，Launch Gate actual state 也必須為未隔離。
+5. 必要 GGAP Delivery 已 `acknowledged`，或已依權限記錄人工豁免與後續責任人。
+6. 使用最新資料版本送出，未覆蓋其他操作者的更新。
+
+## 8. 嚴重度與自動化模式
+
+嚴重度使用 Info、Low、Medium、High、Critical，表示影響程度，不等同自動化授權。相同類型可以依影響範圍、持續時間、失敗比例、資料正確性及結算影響落在不同等級。
+
+| 模式 | 系統行為 | 適用原則 |
 |---|---|---|
-| `not_required` | 不需處理 | 事件不需要自動緩解 |
-| `pending` | 處理中 | 已決定執行，但動作尚未完成 |
-| `applied` | 已套用 | 緩解或隔離已成功生效 |
-| `failed` | 處理失敗 | 動作執行失敗，必須升級告警 |
-| `released` | 已解除 | 緩解限制已由授權流程解除 |
+| `observe_only` | 只建立 Detection Result／Event；必要時建立 Alert | 新規則、低信心或只需觀察 |
+| `approval_required` | 產生建議動作，待具權限人員確認後建立 Job | Production 或高影響動作 |
+| `automatic` | 命中核准政策後建立 Job，同時建立 Alert 供覆核 | 可逆、最小範圍且健康檢查可靠 |
 
-### 8.4 頁面導向原則
+automation mode 綁定規則版本與動作模板。前端不能提升模式、擴大 scope，或只因 Critical 就跳過授權與安全守門。
 
-監控總覽與風控報表都可直接導向「風控告警／處理」詳情，不要求使用者依序經過三張頁面。告警詳情需提供事件摘要、影響範圍、命中規則、自動動作、GGAP 通知狀態與操作紀錄，並保留返回風控報表及關聯 Game Round 的入口。
+## 9. Mitigation Job 與隔離控制
 
-## 9. 處理狀態與生命週期
+所有會改變營運狀態的動作都建立 Mitigation Job。Alert 按鈕只發出 command，不直接把 UI 點擊視為副作用成功。
 
-| 狀態 | 定義 |
+| Job 狀態 | 語意 |
 |---|---|
-| 待處理 | 已偵測且尚未由人員接手或確認 |
-| 調查中 | 已有人員接手，正在確認原因與影響範圍 |
-| 已緩解 | 已採取措施，主要影響停止或服務恢復，但仍可能需要後續檢討 |
-| 已關閉 | 原因、影響與處理結果已確認，事件完成結案 |
-| 誤報 | 經確認不構成實際異常，保留判定原因 |
+| `queued` | 已接受命令，等待執行 |
+| `running` | 執行中；相同冪等工作不得重複觸發 |
+| `succeeded` | 動作完成，已保存結果及驗證證據 |
+| `failed` | 停止重試或發生不可恢復錯誤，需要人工處理 |
+| `cancelled` | 尚未產生副作用前由核准流程取消 |
 
-建議生命週期：
+每個 Job 保存 `action_type`、target scope、requested／approved by、`idempotency_key`、attempt、開始／完成時間、前後狀態、錯誤、trace ID 與驗證結果。重試增加 attempt，不覆寫先前失敗證據。
 
-`偵測 → 待處理 → 調查中 → 已緩解 → 已關閉`
+### 9.1 隔離 desired／actual state
 
-事件若再次發生或影響擴大，可重新開啟或建立新的事件；不得直接覆蓋歷史處理紀錄。
+| 欄位 | 值 | 說明 |
+|---|---|---|
+| `desired_state` | `not_isolated`、`isolated` | 期望 Launch Gate 達成的狀態 |
+| `actual_state` | `not_isolated`、`applying`、`isolated`、`releasing`、`failed` | Launch Gate 回報的實際狀態 |
 
-## 10. 風控報表建議內容
+- UI 同時呈現 desired 與 actual；兩者不一致時不得提前宣告成功。
+- target 至少包含 environment、game，可縮小至 version 或 endpoint，不用模糊名稱作唯一 target。
+- 不採單純到期自動解除；解除前需最新健康檢查、必要觀察窗口與具權限確認。
+- 解除檢查的過期、無資料或部分失敗都不能視為通過。
+- 隔離／解除失敗保留 desired state，actual 標示 `failed` 並建立或升級 Alert。
 
-### 10.1 查詢條件
+Alert 詳情可用操作由 Backend 回傳 `allowed_actions`。前端顯示禁止原因；Backend 仍須驗證權限、最新版本、守門條件與 idempotency。
 
-- 時間區間。
-- 遊戲類型。
-- 遊戲。
-- 遊戲版本。
-- 異常來源。
-- 異常類型。
-- 嚴重度。
-- 處理狀態。
-- Provider Game Round ID。
-- GGAP Round ID。
-- 環境：Production 或 DEMO，單選且不可混合。
+## 10. GGAP Delivery、可靠性與稽核
 
-代理商、商戶與會員不列為第一版主要查詢維度；相關資訊只在事件詳情或導向 Game Round 時作為關聯脈絡呈現。
+Provider 的本地狀態變更與 GGAP 通知採 outbox 可靠投遞。第一版至少支援隔離已套用、隔離已解除、隔離 scope／原因更新等版本化通知能力；正式 event name 及 payload 待 GGAP Backend 對照。
 
-### 10.2 異常列表欄位
+每筆 Delivery 保存 `delivery_id`、event type、payload version、target environment、Risk Event／Alert／Isolation 關聯、精確 target、`idempotency_key`、payload snapshot、attempt、協定結果、GGAP trace ID 與 ACK 時間。
 
-- 發生時間。
-- 異常類型。
-- 異常來源。
-- 嚴重度。
-- 遊戲名稱與版本。
-- Provider Game Round ID。
-- GGAP Round ID。
-- 延遲／逾時時間或受影響數量。
-- 處理狀態。
-- 詳情入口。
+投遞狀態：
 
-列表預設依發生時間由新到舊排序；若事件是聚合事件，應額外顯示受影響 Game Round 數量與統計期間。
-
-### 10.3 事件詳情
-
-- 事件基本資料與時間線。
-- 遊戲、版本與環境。
-- Provider Game Round ID、GGAP Round ID。
-- Launch、Settle、Callback 與重試狀態。
-- 請求／回應摘要、錯誤碼與錯誤訊息。
-- 延遲、逾時、失敗次數與受影響數量。
-- 命中規則、自動緩解、隔離範圍與 GGAP 通知狀態。
-- 關聯遊戲紀錄入口。
-- 告警與處理紀錄。
-
-### 10.4 匯出
-
-第一版建議提供完整 CSV／Excel 匯出，至少包含列表欄位、事件定義、處理狀態、Round 關聯 ID 與事件數值。是否支援使用者自訂匯出欄位，待與其他報表的匯出方式統一。
-
-## 11. 門檻與統計規則
-
-以下項目需要後端、QA、數值團隊與 GGAP 對接團隊共同確認，暫不在本文件寫死數值：
-
-| 項目 | 待確認內容 |
+| 狀態 | 語意 |
 |---|---|
-| Timeout threshold | Launch、Settle、Callback 各自的等待上限 |
-| Latency threshold | 正常、警告與嚴重延遲的毫秒門檻 |
-| Failure rate | 失敗率的統計分母、時間窗口與告警門檻 |
-| Spike detection | 短時間異常量的基準與比較期間 |
-| Missing callback | 判定未收到 Callback 的等待時間 |
-| RTP deviation | 樣本量、統計期間、理論 RTP 偏移幅度 |
-| Payout anomaly | 單筆與區間派彩的判斷方式 |
-| Event aggregation | 多筆相同異常合併為一個事件的規則 |
+| `pending` | 已寫入 outbox，等待投遞 |
+| `sending` | 投遞中 |
+| `sent` | 請求已成功送出，尚未代表 GGAP 已確認 |
+| `acknowledged` | 收到符合契約的 GGAP ACK |
+| `failed` | 永久錯誤或有限重試耗盡 |
 
-所有門檻應支援版本化，事件建立時保存當時使用的規則版本，避免門檻修改後無法解釋歷史事件。
+- 本地交易同時寫入狀態變更與 outbox，避免通知永久遺失。
+- 暫時性錯誤依退避策略有限重試；人工重送沿用相同業務冪等 key，新增 attempt。
+- 通知失敗不自動解除已生效的安全隔離。
+- Provider actual state 與 GGAP 回報不一致時建立 reconciliation evidence，不以任一方最新值覆寫歷史。
+- Alert、Job、Isolation 與 Delivery 使用 version 或等價併發控制。
+- 接手、改派、備註、核准、隔離、解除、重送、豁免、結案與重新開啟均保存 actor、時間、原因、前後值、request／trace ID。
+- 通知中心屬 Deferred；不影響 Alert 工作佇列、Delivery 或 audit 正式保存。
 
-## 12. 後端與 GGAP 待確認資料
+## 11. 顯示與術語規則
 
-- Launch、Settle、Callback 的正式狀態枚舉與錯誤碼。
-- Provider Game Round ID 與 GGAP Round ID 的關聯方式。
-- 每種事件可取得的開始時間、完成時間、回應時間與重試時間。
-- 請求與回應是否保存完整內容，或只保存可供報表使用的摘要。
-- Callback 未收到、延遲與重試的判定來源。
-- GGAP 是否提供 Provider 可查詢的告警或通知回傳機制。
-- Provider 隔離或全域下架遊戲後，GGAP 的同步與玩家端行為。
-- 風控事件由哪個服務產生、保存與聚合。
-- 規則引擎、自動緩解執行器與告警服務的正式責任歸屬。
-- GGAP 風控隔離通知的 API、ACK、重試與失敗處理方式。
-- 隔離解除前的健康檢查、人工覆核時限與升級規則。
-- 事件保存期限、查詢期限與匯出上限。
-- Production 與 DEMO 使用同一事件模型，但查詢、摘要與告警不得混合統計。
+主要介面使用台灣繁體中文；API 值、ID、協定、錯誤碼、HTTP method、endpoint、版本與原始 payload 欄位維持英文。
 
-## 13. 第一版不處理的項目
+| 技術術語 | 一般顯示 |
+|---|---|
+| Monitoring Signal | 監控訊號 |
+| Detection Result | 偵測結果 |
+| Risk Event | 風控事件 |
+| Alert | 告警 |
+| Mitigation Job | 緩解工作 |
+| Isolation Control | 隔離控制 |
+| Game Round | 遊戲回合 |
+| Production／DEMO | 正式環境／展示環境 |
+| Info／Low／Medium／High／Critical | 資訊／低／中／高／嚴重 |
 
-- 直接在風控報表列表執行隔離、解除或全域下架遊戲。
-- 直接修改 Game Round、投注或派彩資料。
-- GGAP 對帳匹配與財務差異判定。
-- Provider 之外的會員、代理商或商戶風控規則。
-- 尚未經後端確認的自動補單、補送或強制結算。
-- 未經核准規則與門檻的自動隔離或自動停機。
-- 以自動處理直接修改投注、派彩、換算結果或已結算 Round。
+狀態標籤顯示中文，篩選選項或詳情可使用「中文（English）」輔助。不得翻譯或改動 `risk_event_id`、`alert_id`、`provider_event_id`、Round ID、Rule ID 或正式 enum 值。
 
-經核准的維持隔離、解除隔離、通知重送等營運操作，應放在「風控告警／處理」頁，並建立權限、確認、冪等與操作紀錄規則。投注、派彩、換算結果與已結算 Round 的修改仍屬禁止事項；未來若有補償需求，必須另立財務與 Game Round 補償規範。
+## 12. 外部驗證點
 
-## 14. 文件使用方式
+以下內容需要取得現行 Backend／GGAP Git 後填入實際值，但不改變上述產品行為：
 
-後續製作風控報表時，應依本文件先確認：
+1. 正式 API path、資料表、migration、enum 命名、唯一索引及狀態轉換實作。
+2. 指標來源、資料延遲、評估排程、第一批實際門檻與最小樣本。
+3. Launch Gate 實際整合點、可用 scope 及健康檢查介面。
+4. GGAP payload、簽章、event name、ACK、錯誤碼、重試及查詢契約。
+5. permission key、雙人核准角色、資料保存年限與 audit 匯出方式。
+6. 既有 Backend 的 Event、Alert、Job、Isolation 或 outbox 模型與本規格的差異。
 
-1. 事件是否屬於 Provider 責任範圍。
-2. 異常狀態是否符合本文件定義。
-3. 異常類型與嚴重度是否可以被清楚區分。
-4. 列表資料是否能導回 Game Round 或事件詳情。
-5. 門檻、狀態碼與資料來源是否已標記為已確認或待確認。
-6. 自動動作是否有核准規則、最小作用範圍、失敗處理與人工覆核流程。
+取得證據後輸出差異表，逐項選擇沿用現況、調整 Backend、調整規格或增加相容層，不直接以實作細節靜默覆蓋需求。
 
-本文件與 GGAP 最新規格或後端正式契約不一致時，須先由產品、後端與 GGAP 對接團隊確認後再更新。
+## 13. 第一版不處理
 
-## 15. 待確認清單
+- 會員下注行為、信用、詐欺、洗錢或合規風險。
+- 代理商、商戶、錢包、GGAP 平台或 GGAP 下游營運風控。
+- 在風控報表直接執行隔離、解除、全域下架或財務調整。
+- 自動補單、強制結算或修改已結算 Game Round。
+- 未經版本化規則、授權及最小 scope 控制的自動停機。
+- 以通知中心取代 Alert、Delivery 或正式稽核資料。
 
-- Provider 風控事件資料模型、ULID 產生方式與唯一索引的後端實作。
-- 異常類型是否採用上述第一版分類，及是否需要新增類型。
-- 嚴重度是否維持五級，以及每級的數值門檻。
-- Production 與 DEMO 的資料來源、隔離及通知流程是否已分開驗證。
-- RTP、派彩與點數換算異常是否納入第一版。
-- 風控報表是否提供自訂欄位匯出。
-- 風控告警／處理頁的操作權限與核准流程。
-- 各嚴重度可使用的自動緩解動作、覆核時限與升級方式。
-- 隔離解除所需健康檢查、核准角色與 GGAP 通知流程。
+## 14. 關聯文件
 
-監控總覽的完整頁面規格見 [`PROVIDER_MONITORING_OVERVIEW_SPEC.md`](./PROVIDER_MONITORING_OVERVIEW_SPEC.md)；風控報表的完整頁面規格見 [`PROVIDER_RISK_REPORT_SPEC.md`](./PROVIDER_RISK_REPORT_SPEC.md)；風控告警／處理的完整頁面規格見 [`PROVIDER_RISK_ALERT_HANDLING_SPEC.md`](./PROVIDER_RISK_ALERT_HANDLING_SPEC.md)。
+- [`Decision Pack 02｜監控與風控共用產品契約`](./spec-book/content/appendices/decision-pack-02-monitoring-risk.md)
+- [`PROVIDER_MONITORING_OVERVIEW_SPEC.md`](./PROVIDER_MONITORING_OVERVIEW_SPEC.md)
+- [`PROVIDER_RISK_REPORT_SPEC.md`](./PROVIDER_RISK_REPORT_SPEC.md)
+- [`PROVIDER_RISK_ALERT_HANDLING_SPEC.md`](./PROVIDER_RISK_ALERT_HANDLING_SPEC.md)
+- [`PROVIDER_DASHBOARD_SPEC.md`](./PROVIDER_DASHBOARD_SPEC.md)
+- [`PROVIDER_GGAP_INTEGRATION_CONTRACT.md`](./PROVIDER_GGAP_INTEGRATION_CONTRACT.md)
+- [`GAME_ROUND_RECORDS_SPEC.md`](./GAME_ROUND_RECORDS_SPEC.md)

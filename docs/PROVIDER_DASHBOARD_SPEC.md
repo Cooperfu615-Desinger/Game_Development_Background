@@ -1,8 +1,8 @@
 # Provider Portal 儀表板規格
 
-> 版本：0.1.0  
-> 更新日期：2026-08-13  
-> 狀態：前端 mock 原型已完成；正式 API、資料更新頻率、門檻與權限待確認
+> 版本：0.1.1
+> 更新日期：2026-08-17
+> 狀態：目前需求基準，前端 mock 原型已完成；正式 API、資料更新頻率、門檻與權限待 Backend 證據對照
 
 ## 1. 頁面定位
 
@@ -63,14 +63,14 @@
 |---|---|---|---|
 | 正式環境服務 | 正常遊戲數／應服務遊戲數 | 正常、維護、異常數量 | `/monitoring` |
 | GGAP 對接狀態 | 成功率 | P95 延遲與觀測期間 | `/ggap` |
-| 待處理告警 | 未完成告警數 | 嚴重、待處理與調查中數量 | `/monitoring/alerts` |
+| 待處理告警 | 未完成告警數 | 嚴重、待接手、處理中與觀察中數量 | `/monitoring/alerts` |
 | 發布與維護 | 待發布數 | 維護中與停用遊戲數量 | `/games/environments` |
 
 正式環境服務只將健康資料有效且整體狀態正常的遊戲計入分子。無資料、資料過期、維護、降級、隔離與異常不得視為正常。
 
 GGAP 成功率僅計算 Provider 與 GGAP 直接對接請求，不得將 GGAP 與代理商下游狀態顯示成 Provider 已觀測事實。
 
-待處理告警計入待處理、調查中與已緩解待覆核等尚未完成生命週期的告警；定義依 `PROVIDER_RISK_CONTROL_SPEC.md`。
+待處理告警計入 `new`、`in_progress` 與 `monitoring`，不納入 `closed`；`false_positive` 等結案結果使用 `resolution_code`，不是 Alert 狀態。卡片只讀取風控告警服務摘要，不在 Dashboard 重新推導另一套生命週期。
 
 ## 6. 營運數據摘要
 
@@ -97,12 +97,12 @@ GGAP 成功率僅計算 Provider 與 GGAP 直接對接請求，不得將 GGAP �
 預設顯示最高優先的 5 筆跨模組工作：
 
 - 嚴重或高風險告警。
-- 未解決且持續中的風控事件。
+- `open` 或 `recovering` 且仍需關注的 Risk Event。
 - 遊戲服務異常或健康資料過期。
 - GGAP 請求、回呼或重試失敗。
 - 待發布或需要維護確認的版本。
 
-每筆至少包含項目名稱、遊戲或來源、時間、嚴重度／狀態、可追蹤 ID 與處理頁 route。排序先依嚴重度，其次依是否逾期、是否持續中與最後更新時間。
+每筆至少包含項目名稱、遊戲或來源、時間、嚴重度／狀態、可追蹤 ID 與處理頁 route。排序先依嚴重度，其次依工作／通知失敗、是否逾期、Event 是否仍 `open` 與最後更新時間。Risk Event 與 Alert 同時出現時保留兩者 ID，不合併成一筆新的 Dashboard 事件。
 
 ## 9. 遊戲營運概況
 
@@ -162,3 +162,4 @@ GGAP 成功率僅計算 Provider 與 GGAP 直接對接請求，不得將 GGAP �
 - [`PROVIDER_MONITORING_OVERVIEW_SPEC.md`](./PROVIDER_MONITORING_OVERVIEW_SPEC.md)
 - [`PROVIDER_RISK_CONTROL_SPEC.md`](./PROVIDER_RISK_CONTROL_SPEC.md)
 - [`PROVIDER_RISK_ALERT_HANDLING_SPEC.md`](./PROVIDER_RISK_ALERT_HANDLING_SPEC.md)
+- [`Decision Pack 02｜監控與風控共用產品契約`](./spec-book/content/appendices/decision-pack-02-monitoring-risk.md)

@@ -1,8 +1,8 @@
 # 遊戲商 Provider Portal 文件索引
 
-> 文件版本：2.22.0
+> 文件版本：2.23.0
 > 更新日期：2026-08-17
-> 文件狀態：規格網站已進入第三階段；Game Round／投注／財務及監控／風控兩份共用產品契約均已形成目前需求基準；正式 API、權限、精度、實際門檻、發布生命週期與外部契約仍待取得證據後對照
+> 文件狀態：規格網站已進入第三階段；Game Round／投注／財務及監控／風控兩份共用產品契約均已形成目前需求基準；Decision Pack 02 已同步至監控與風控原始 Spec MD，正式 API、權限、精度、實際門檻、發布生命週期與外部契約仍待取得證據後對照
 
 ## 閱讀前提
 
@@ -53,6 +53,7 @@
 - [`../public/provider-specs/decision-pack-02-monitoring-risk.html`](../public/provider-specs/decision-pack-02-monitoring-risk.html)
   - 第三階段監控與風控共用產品契約，直接表達目前希望具備的 Signal、Detection Result、Risk Event、Alert、Mitigation Job、隔離、GGAP 通知與稽核能力。
   - 本包是產品需求基準，不採逐題核准問卷；現行 Portal 仍為前端 mock，實際 Backend 與 GGAP 契約差異取得後再以版本更新。
+  - 內容已同步至 `PROVIDER_MONITORING_OVERVIEW_SPEC.md`、`PROVIDER_RISK_CONTROL_SPEC.md`、`PROVIDER_RISK_REPORT_SPEC.md`、`PROVIDER_RISK_ALERT_HANDLING_SPEC.md`，Dashboard 只保留摘要與導流引用。
 - [`../public/provider-specs/game-round-records.html`](../public/provider-specs/game-round-records.html)、[`../public/provider-specs/finance-overview.html`](../public/provider-specs/finance-overview.html)、[`../public/provider-specs/finance-agent-games.html`](../public/provider-specs/finance-agent-games.html)
   - 第二階段 Batch A 完整 Draft：Game Round 查詢、全域財務摘要及代理商 × 遊戲彙總。
   - 三頁均提供原型對齊的置頂畫面示意、完整規格、跨頁導流、驗收與集中 TBD 對照。

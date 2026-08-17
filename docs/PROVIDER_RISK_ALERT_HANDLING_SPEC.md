@@ -1,270 +1,260 @@
 # 遊戲商風控告警／處理頁面規格
 
-> 版本：0.2.0
-> 更新日期：2026-08-11
-> 狀態：產品方向已確認，前端完整模擬原型已完成；正式 API、權限與核准契約待確認
+> 版本：0.3.0
+> 更新日期：2026-08-17
+> 狀態：目前需求基準；現行前端為 mock，正式 command、Job、權限與 GGAP Delivery 待後續實作
 
-本文件定義 Provider Portal「風控告警／處理」頁面的摘要、工作佇列、Alert 詳情、人工操作與狀態流轉。Risk Event、嚴重度、隔離及自動緩解共同規則統一依 [`PROVIDER_RISK_CONTROL_SPEC.md`](./PROVIDER_RISK_CONTROL_SPEC.md) 執行。
+本文件定義 Provider Portal「風控告警／處理」頁面的摘要、工作佇列、Alert 詳情、人工操作、Mitigation Job、隔離、GGAP Delivery 與結案守門。共用模型以 [`PROVIDER_RISK_CONTROL_SPEC.md`](./PROVIDER_RISK_CONTROL_SPEC.md) 及 [`Decision Pack 02`](./spec-book/content/appendices/decision-pack-02-monitoring-risk.md) 為上游。
 
 ## 1. 頁面定位
 
-本頁回答「現在有哪些告警需要人員介入，以及接下來可以做什麼」。它是遊戲商風控的操作工作台，不是單純報表。
+本頁回答「現在有哪些告警需要人員介入、誰負責、下一步做什麼，以及是否可以結案」。它是遊戲商風控的工作台，不是即時監控或唯讀歷史報表。
 
 本頁負責：
 
-- 顯示需要人工確認的 Alert。
-- 呈現系統已執行的自動緩解、隔離與 GGAP 通知結果。
-- 指派、覆核、維持或解除隔離、重送通知與結案。
-- 保存完整處理歷程與稽核資料。
+- 顯示需要人工確認的 Alert 與營運優先度。
+- 接手、指派、備註、覆核及依權限送出具體 command。
+- 呈現 Mitigation Job、隔離 desired／actual state、健康驗證與 GGAP Delivery。
+- 依完整守門條件結案或重新開啟 Alert。
+- 保存操作、核准、執行、通知及失敗的完整稽核資料。
 
-本頁不得修改投注、派彩、換算結果、遊戲回合或直接執行強制結算。
+本頁不得修改投注、派彩、換算結果、Game Round 或直接執行強制結算。按鈕送出只代表 command 被接受；副作用是否成功必須以 Job、Launch Gate 或 Delivery 實際狀態為準。
 
-## 2. Risk Event 與 Alert 關係
+## 2. Risk Event、Alert 與工作的關係
 
-- Risk Event 是客觀異常紀錄，不因處理完成而消失。
-- Alert 是需要人員處理的工作項目；Info、Low 事件不一定建立 Alert。
-- Medium、High、Critical 是否建立 Alert 由版本化規則決定。
-- 第一版一個 Risk Event 對應一個主要 Alert；升級、通知重送、解除與重新開啟保存在同一 Alert 的處理歷程。
-- `alert_status` 與 `assignee` 分開保存。系統可能已自動緩解，但 Alert 仍尚未有人接手。
+- Risk Event 是客觀異常紀錄，狀態只使用 `open`、`recovering`、`resolved`、`invalidated`。
+- Alert 是人工作業項目，狀態只使用 `new`、`in_progress`、`monitoring`、`closed`。
+- 第一版一個 Risk Event 對應零或一個主要 Alert；Info／Low 或不需人工介入的 Event 可以沒有 Alert。
+- 一個 Alert 可以關聯多個 Mitigation Job、Isolation Control 變更及 GGAP Delivery。
+- Event 已 `resolved` 不代表 Alert 已完成結案；Alert `closed` 也不得直接把 Event 改為 `resolved`。
+- `false_positive` 是 Alert 結案的 `resolution_code`，不是 Event 或 Alert status。
+- assignee、waiting reason、Job、隔離及 Delivery 狀態都使用獨立欄位／資源，不塞入 `alert_status`。
 
 ## 3. 資料範圍
 
 | 項目 | 定義 |
 |---|---|
 | 主要資料單位 | Provider Risk Alert |
-| 預設範圍 | 尚未結案的 Alert |
-| 環境 | Production 或 DEMO |
+| 預設範圍 | `new`、`in_progress`、`monitoring` |
+| 環境 | Production 或 DEMO，單選且不可混合 |
 | 預設環境 | Production |
 | 不納入環境 | Test |
-| 歷史資料 | 已結案與誤報，透過篩選查詢 |
+| 歷史資料 | `closed`，可依 `resolution_code` 查詢 |
+| 時間區間 | Alert `created_at`；只影響佇列及歷史查詢，不改變目前狀態摘要語意 |
 
-本頁摘要顯示目前待處理狀態，不套用風控報表的近 1／3／5 日統計。建立時間區間只用於工作佇列及歷史查詢。
+由監控總覽或風控報表帶入完整 `alert_id`／`risk_event_id` 時，本頁自動切換至 Alert 所屬 environment 並開啟詳情。找不到、無權限或 ID 關聯不一致時顯示明確錯誤，不靜默開啟其他 Alert。
 
-## 4. 告警摘要卡
+## 4. 五張告警摘要卡
 
-五張摘要卡允許同一 Alert 重複計入不同營運條件，數字不要求互相加總。
+同一 Alert 可同時符合不同營運條件，卡片數字不要求互相加總。
 
-| 摘要卡 | 數據定義 | Tips 內容 |
+| 摘要卡 | 數據定義 | 提示內容 |
 |---|---|---|
-| 待接手告警 | 尚未有人接手的有效 Alert | Critical、High、Medium 數量與最久等待時間 |
-| 高風險告警 | 尚未結案且非誤報的 High／Critical Alert | 受影響遊戲與隔離狀態 |
-| 隔離中 | 目前仍阻擋新遊戲啟動的遊戲、版本或環境數量 | 遊戲、版本、環境與隔離持續時間 |
-| 自動處理失敗 | 自動緩解、隔離或 GGAP 通知失敗 | 緩解失敗與通知失敗數量 |
-| 逾期未覆核 | 已超過 `review_due_at` 且尚未完成覆核 | 負責人、逾期時間與處理狀態 |
+| 待接手告警 | `alert_status=new` 且 `assignee_id=null` | 嚴重度、最久等待時間與未指派遊戲 |
+| 高風險告警 | High／Critical 且狀態不是 `closed` | 遊戲、Event 狀態、隔離及負責人 |
+| 隔離中 | `isolation_actual_state=isolated` 的不重複 target | desired／actual、scope、持續時間與覆核期限 |
+| 工作或通知失敗 | Mitigation Job、Isolation Control 或 GGAP Delivery 為 `failed` | 工作類型、attempt、錯誤與最後時間 |
+| 逾期未覆核 | 已超過 `review_due_at` 且狀態不是 `closed` | 負責人、等待原因、逾期時間與未完成工作 |
 
-摘要卡可點擊並套用下方工作佇列篩選。已結案與誤報不放摘要卡。
+摘要卡可套用佇列快捷條件。切換卡片時回到有效 Alert 範圍，清除互相衝突的狀態條件；再次點擊同一卡片只清除 shortcut。
 
 ## 5. 查詢條件
 
 ### 5.1 主要條件
 
-- 告警狀態：待處理、調查中、已緩解、已結案、誤報。
-- 嚴重度：Medium、High、Critical。
-- 環境：Production、DEMO。
-- 遊戲。
-- 異常類型。
-- 負責人。
-- 是否逾期。
+- Alert 狀態：待接手（`new`）、處理中（`in_progress`）、觀察中（`monitoring`）、已結案（`closed`）。
+- 嚴重度：Medium、High、Critical；必要時允許查詢規則建立的其他等級 Alert。
+- environment：Production、DEMO。
+- 遊戲、異常類型、負責人及是否逾期。
 
 ### 5.2 進階條件
 
-- Alert ID。
-- Risk Event ID。
-- 異常來源。
-- 遊戲版本。
-- 自動緩解狀態。
-- 隔離狀態。
-- GGAP 通知狀態。
-- 遊戲商遊戲回合 ID（Provider Game Round ID）。
-- GGAP 遊戲回合 ID（GGAP Round ID）。
+- `alert_id`、`risk_event_id`。
+- `resolution_code`：`recovered`、`false_positive`、`duplicate`、`accepted_risk`、`manual_resolution`。
+- 異常來源、遊戲版本、waiting reason。
+- Mitigation Job type／status。
+- Isolation desired／actual state。
+- GGAP Delivery status。
+- Provider Game Round ID、GGAP Round ID。
 - Alert 建立時間區間。
 
-## 6. 工作佇列
+「未指派」查詢使用 query 語意或專用 filter value；不得把 sentinel 寫入正式 `assignee_id`、Alert 或 audit。
 
-欄位順序：
+## 6. 工作佇列
 
 | 順序 | 欄位 |
 |---:|---|
 | 1 | 嚴重度 |
 | 2 | Alert ID |
-| 3 | Risk Event ID |
+| 3 | Risk Event ID／Event 狀態 |
 | 4 | 建立時間 |
-| 5 | 環境 |
+| 5 | environment |
 | 6 | 遊戲名稱 |
 | 7 | 遊戲版本 |
 | 8 | 異常類型 |
-| 9 | 受影響遊戲回合數 |
-| 10 | 告警狀態 |
-| 11 | 負責人 |
-| 12 | 自動緩解狀態 |
-| 13 | 隔離狀態 |
-| 14 | GGAP 通知狀態 |
+| 9 | 受影響 Game Round 數 |
+| 10 | Alert 狀態 |
+| 11 | 負責人／waiting reason |
+| 12 | Mitigation Job 彙總狀態 |
+| 13 | 隔離 desired／actual state |
+| 14 | GGAP Delivery 狀態 |
 | 15 | 覆核期限 |
 | 16 | 操作：查看／處理 |
 
-預設排序優先度：
+預設排序：Critical → 工作／通知失敗 → 已逾期 → High → Medium；相同優先度依 `review_due_at` 由近到遠，沒有期限時依 `created_at` 由新到舊。
 
-1. Critical。
-2. 自動處理失敗。
-3. 已逾期。
-4. High。
-5. Medium。
-6. 相同優先度依 `review_due_at` 由近到遠。
-7. 沒有覆核期限時依 Alert 建立時間由新到舊。
-
-列表只提供查看／處理入口，不直接放置解除隔離、誤報或結案按鈕。
+列表只提供詳情入口，不直接放置隔離、解除、結案或重送按鈕。排序先作用於完整結果再分頁；狀態及 target 必須來自同一資料版本。
 
 ## 7. Alert 詳情
 
-Alert 詳情需提供足夠資訊完成處理，不強迫使用者先返回風控報表。
+詳情使用可容納完整內容的大型 Dialog 或獨立內容頁，至少包含：
 
-### 7.1 告警摘要
+### 7.1 Alert 摘要
 
-- 嚴重度、Alert ID、Risk Event ID。
-- 告警狀態、環境、遊戲、Game ID 與版本。
-- 建立時間、覆核期限、逾期狀態與負責人。
+- 嚴重度、Alert ID、Risk Event ID、Event 狀態。
+- Alert 狀態、environment、遊戲、Game ID、版本、負責人及 waiting reason。
+- 建立、更新、覆核期限、逾期及資料版本。
 
-### 7.2 目前影響
+### 7.2 異常與影響
 
-- 異常是否仍持續。
-- 受影響遊戲回合數。
-- 首次與最後發生時間。
-- 新遊戲啟動是否可用。
-- 既有遊戲回合的結算／回呼是否正常。
-- 目前隔離範圍。
+- 異常來源、類型、`event_fingerprint`、首次／最後偵測及 occurrence。
+- Event 是否 `open`、`recovering`、`resolved` 或 `invalidated`。
+- 受影響 Round、服務、遊戲版本及新 Launch 是否可用。
+- 既有 Round、Settle、Callback 及查單是否持續運作。
 
-### 7.3 判斷依據
+### 7.3 Detection Result 與規則
 
-- 異常來源、異常類型。
-- Rule ID、規則版本、判斷門檻、實際數值與統計窗口。
-- 錯誤碼、請求與回應摘要。
+- Detection Result ID、Rule ID、Rule Version 及 automation mode。
+- 評估窗口、樣本、資料新鮮度、門檻、實際值與結果原因。
+- 錯誤碼、請求／回應摘要與可追蹤 evidence。
 
-### 7.4 自動緩解結果
+### 7.4 Mitigation Job
 
-- 執行動作、狀態、開始與完成時間。
-- 實際作用範圍、重試次數與失敗原因。
+- Job ID、action type、target、status、requested／approved by。
+- idempotency key、attempt、開始／完成時間、前後狀態、結果與錯誤。
+- 健康驗證版本、時間、樣本窗口、結果與失敗項目。
 
-### 7.5 GGAP 通知
+### 7.5 隔離控制
 
-- 通知事件類型、`provider_event_id`。
-- 送出時間、ACK 或錯誤結果。
-- 重送次數與最後結果。
+- Isolation ID、environment、game、version／endpoint scope。
+- `desired_state` 與 `actual_state`，以及兩者不一致的原因。
+- 套用／解除工作、健康檢查、覆核期限及失敗狀態。
 
-### 7.6 關聯資料
+### 7.6 GGAP Delivery
 
-- 遊戲商遊戲回合 ID、GGAP 遊戲回合 ID 與導向遊戲紀錄入口。
-- Risk Event 詳情入口。
-- 完整請求紀錄入口；敏感資訊需遮罩。
+- Delivery ID、event type、payload version、idempotency key 與 payload snapshot。
+- `pending`、`sending`、`sent`、`acknowledged`、`failed` 狀態。
+- attempt、最後送出、協定結果、GGAP trace ID、ACK 及 reconciliation evidence。
 
-### 7.7 處理歷程
+### 7.7 關聯資料與時間線
 
-- 自動偵測、嚴重度升級、緩解、隔離與通知。
-- 接手、指派、備註、維持或解除隔離。
-- 重送通知、誤報、結案與重新開啟。
+- Provider／GGAP Round ID 與遊戲紀錄入口。
+- Risk Event 詳情、request／Callback evidence 入口；敏感資訊依權限遮罩。
+- Detection、Event、Alert、Job、隔離、Delivery、接手、指派、備註、豁免、結案及重新開啟的 append-only timeline。
 
-頁面右側或底部設置固定處理操作區。送出操作前必須取得最新 Alert 狀態，避免併發操作覆蓋。
+詳情右側或底部設置固定操作區。所有操作前取得最新 Alert、Job、Isolation 與 Delivery version，不覆蓋其他操作者更新。
 
 ## 8. 處理操作
 
-| 操作 | 使用時機 | 執行結果 |
+| 操作 | 使用時機 | 正式結果 |
 |---|---|---|
-| 接手處理 | 尚未有人負責 | 指派目前使用者；待處理改為調查中，若系統已緩解則保留已緩解 |
-| 指派／改派 | 交由其他人處理 | 更新負責人，Alert 狀態不變 |
-| 新增處理備註 | 補充判斷或交接 | 寫入處理歷程 |
-| 標記已緩解 | 影響已停止但尚未結案 | 狀態改為已緩解 |
-| 維持隔離 | 問題尚未排除 | 保留隔離並設定下次覆核期限 |
-| 解除隔離 | 健康檢查通過 | 恢復新遊戲啟動並通知 GGAP |
-| 重試自動處理 | 自動緩解失敗 | 重新執行原核准動作 |
-| 重送 GGAP 通知 | 通知或 ACK 失敗 | 以相同事件識別冪等重送 |
-| 標記誤報 | 確認沒有實際異常 | 改為誤報並保存原因 |
-| 結案 | 原因、影響與結果均確認 | 改為已結案 |
-| 重新開啟 | 已結案或誤報需再次追蹤 | 回到調查中並保存原因 |
+| 接手處理 | `new` 且未指派 | 指派目前使用者，Alert 進入 `in_progress` |
+| 指派／改派 | 交由其他人處理 | 更新 assignee；狀態不自動改變 |
+| 新增備註 | 調查、交接或補充證據 | 寫入 append-only timeline |
+| 轉入觀察 | 主要影響已控制 | Alert 進入 `monitoring`，設定健康觀察與覆核條件 |
+| 維持隔離 | 問題尚未排除 | 建立／確認隔離 command 與 Job，設定下一次覆核期限 |
+| 解除隔離 | 最新健康檢查通過 | 建立解除 Job；actual state 成功回到 `not_isolated` 後才算完成 |
+| 重試工作 | Job 失敗且仍允許重試 | 沿用業務 idempotency key，新增 attempt，不覆寫失敗證據 |
+| 重送 GGAP 通知 | Delivery 失敗或 ACK 未完成 | 沿用業務 idempotency key，新增 delivery attempt |
+| 結案 | 所有守門條件成立 | 選擇 `resolution_code`、填原因，Alert 進入 `closed` |
+| 重新開啟 | 已結案但需再次處理 | Alert 進入 `in_progress`，保存原因、actor 與前後版本 |
 
-## 9. 狀態流轉與限制
+按鈕是否可用由 Backend 回傳 `allowed_actions`；前端需顯示禁止原因。Backend 仍須重新驗證權限、最新版本、守門條件、target scope 及 idempotency。
+
+## 9. Alert 狀態與結案守門條件
 
 主要流程：
 
-`待處理 → 調查中 → 已緩解 → 已結案`
+```text
+new → in_progress → monitoring → closed
+```
 
-例外流程：
+- `monitoring` 若異常再次命中或觀察失敗，可回到 `in_progress`。
+- `closed` 重新開啟只回到 `in_progress`，不得回到 `new` 偽裝為新工作。
+- `false_positive`、`duplicate` 等只存在於 `resolution_code`，不建立額外 status。
 
-- `待處理／調查中 → 誤報`
-- `已緩解 → 解除隔離後標記誤報`
-- `已結案／誤報 → 重新開啟 → 調查中`
+Alert 只有在以下條件全部成立時才可 `closed`：
 
-Alert API 狀態建議使用 `pending`、`investigating`、`mitigated`、`closed`、`false_positive`。Alert 的 `closed` 顯示為「已結案」；Risk Event 的 `closed` 在風控報表顯示為「已關閉」，用詞不同是為了區分工作項目與客觀事件，但兩者仍應在結案流程中同步更新並留下時間線。
+1. 已選擇 `resolution_code` 並填寫可稽核原因。
+2. 所有必要 Mitigation Job 已 `succeeded`，或有具名核准豁免。
+3. 不存在 `queued`、`running` 或 `failed` 待處理的必要工作。
+4. 若 desired state 是 `not_isolated`，actual state 也必須為 `not_isolated`。
+5. 必要 GGAP Delivery 已 `acknowledged`，或已記錄具權限豁免與後續責任人。
+6. 使用最新資料 version，沒有併發衝突。
 
-操作限制：
+以 `false_positive` 結案時，若已有隔離仍須先解除或明確記錄核准豁免；不得靠改 resolution code 隱藏仍生效的 Launch Gate。
 
-- 解除隔離前必須顯示最新健康檢查結果。
-- 維持隔離必須填寫原因與下一次覆核時間。
-- 有效隔離尚未解除、GGAP 通知仍失敗或必要動作仍在執行時，不允許結案。
-- 標記誤報前若已有隔離，必須先解除。
-- 解除隔離、誤報、結案與重新開啟必須填寫原因。
-- 所有操作都需防止重複提交，保存操作者、前後狀態、時間、原因與 Request ID。
-- 正式權限、是否需要雙人核准與覆核 SLA 待後端及需求方確認。
+## 10. Job、隔離與 Delivery 狀態分離
 
-## 10. Alert 與緩解狀態分離
+| 維度 | 正式值／目的 |
+|---|---|
+| `alert_status` | `new`、`in_progress`、`monitoring`、`closed` |
+| `mitigation_job_status` | `queued`、`running`、`succeeded`、`failed`、`cancelled` |
+| `isolation_desired_state` | `not_isolated`、`isolated` |
+| `isolation_actual_state` | `not_isolated`、`applying`、`isolated`、`releasing`、`failed` |
+| `ggap_delivery_status` | `pending`、`sending`、`sent`、`acknowledged`、`failed` |
 
-Alert 處理狀態與自動緩解狀態不可合併為同一欄位：
+Alert 可以仍為 `new` 但自動隔離已成功，也可以在 `monitoring` 時等待 GGAP ACK。UI 必須同時顯示各維度，不能用單一「已緩解」覆蓋工作、隔離與通知真實狀態。
 
-- Alert 可能尚未有人接手，但自動隔離已成功。
-- Alert 可能正在調查，但 GGAP 通知重送已成功。
-- Alert 已緩解不等於隔離已解除，也不等於已結案。
-- Alert 已結案時不得仍有未完成的必要緩解或通知工作。
+## 11. 冪等、併發、權限與稽核
 
-`mitigation_status` 使用 `not_required`、`pending`、`applied`、`failed`、`released`；Alert 顯示名稱與生命週期依主風控規範。
+- 每個 command 接受 `idempotency_key`；相同 key／相同 payload 回傳原結果，相同 key／不同 payload 必須拒絕。
+- Alert、Job、Isolation 與 Delivery 使用 version 或等價 optimistic concurrency control。
+- 所有敏感操作需權限、二次確認、原因及完整 audit；雙人核准角色與 permission key 待系統設定規格補齊。
+- 接手、改派、備註、轉入觀察、維持隔離、解除、重試、重送、豁免、結案及重開均保存 actor、時間、原因、前後值、request／trace ID。
+- 操作發生部分成功時逐項顯示實際狀態，不以 Alert 狀態掩蓋失敗的 Job 或 Delivery。
 
-## 11. 空資料與錯誤狀態
+## 12. 空資料與錯誤狀態
 
 - 沒有有效 Alert 時顯示目前無待處理告警。
-- 篩選無結果時保留條件並提供重置操作。
-- 自動緩解或 GGAP 通知失敗必須顯示失敗，不得以無資料取代。
-- 送出操作後若資料版本已變更，提示重新載入最新狀態，不覆蓋其他人的操作。
+- 篩選無結果時保留條件並提供重置。
+- Job、Isolation 或 Delivery 失敗必須顯示失敗及重試／處理入口，不以無資料代替。
+- version 衝突時要求重新載入最新狀態，不覆蓋其他人操作。
+- 權限不足顯示唯讀詳情及禁止原因，不隱藏已發生的必要證據。
 
-## 12. 原型階段限制
+## 13. 現行原型與後續實作
 
-- 第一版先完成頁面、詳情與操作確認視窗骨架，使用模擬資料。
-- 操作按鈕可呈現狀態變化與歷程，不接正式隔離、健康檢查或 GGAP API。
-- 原型不得暗示已真的關閉遊戲、通知 GGAP 或修改正式資料。
-- Test 不出現在環境、摘要、佇列或詳情資料中。
+目前 `/monitoring/alerts` 已具備 Production／DEMO、摘要、篩選、16 欄佇列、詳情 Dialog、時間線、操作確認與 mock 狀態變化，可保留其資訊架構與高擬真畫面。
 
-## 12.1 前端原型完成範圍
+後續開發需完成以下校正：
 
-目前 `/monitoring/alerts` 已承接完整工作台原型，包含：
+| 現行 mock | 目標結果 |
+|---|---|
+| 舊的待處理／調查中／已緩解／誤報狀態 | 改為 `new`／`in_progress`／`monitoring`／`closed`＋`resolution_code` |
+| 按鈕直接改前端本地狀態 | 建立 command、Job、實際狀態與 audit |
+| 單一自動緩解／隔離顯示 | 拆分 Job status 與 isolation desired／actual state |
+| 模擬 GGAP 通知 | outbox、Delivery、ACK、有限重試與 reconciliation |
+| 前端自行判斷操作可用 | Backend `allowed_actions`＋正式權限／version／idempotency 驗證 |
 
-- Production／DEMO 單選、預設未結案／非誤報範圍、主要與進階篩選、Alert 建立時間區間。
-- 五張依目前環境與模擬狀態動態計算的摘要卡；摘要提示顯示實際分類與明細，點擊後套用工作佇列快捷篩選。點擊任一摘要卡會回到 `status: active` 的有效告警範圍，清除會互相衝突的其他條件，只保留目前環境與該張卡 shortcut；再次點擊同一卡片只清除 shortcut，仍維持有效告警範圍。
-- 16 欄工作佇列、依規格的逐層優先排序、分頁、載入／空資料／查詢錯誤狀態與完整篩選結果匯出入口。
-- `alert_id`／`risk_event_id` query 導入、風控事件／請求紀錄入口、關聯遊戲回合導向 `/reports`；告警詳情的風控事件入口會以完整 `risk_event_id` 導向報表並自動開啟對應事件。
-- 大型告警詳情 Dialog、健康檢查、處理時間線與固定操作區；所有操作僅更新前端模擬狀態，不呼叫隔離、GGAP 通知或正式資料 API。
-- 操作確認 Dialog、必要原因／覆核時間／負責人欄位、重複送出防護，以及有效隔離、通知失敗、執行中動作與誤報前置條件等禁止狀態。
-- 篩選器的「未指派」使用 `__unassigned__` sentinel，僅供查詢條件比對；正式 Alert 的 `assignee`、處理時間線與 UI 不會寫入或顯示此值。指派／改派只提供實際可指派人員，未指派 Alert 仍可由「接手處理」完成認領。
+現行 mock 不代表已真的隔離遊戲、通知 GGAP 或修改正式資料。Test 不得出現在環境、摘要、佇列或詳情。
 
-此節只描述可供產品與 QA 驗收的前端原型行為，不代表正式角色權限、雙人核准、冪等與後端狀態碼已確定。
+## 14. 驗收方向
 
-## 12.2 中文術語呈現
+- 預設顯示 Production 的 `new`、`in_progress`、`monitoring` Alert。
+- Production 與 DEMO 單選且資料、Job、隔離與 Delivery 不混合；Test 不出現。
+- 摘要卡、查詢、佇列與詳情使用一致的新 Alert 狀態及 resolution code。
+- Risk Event、Alert、Job、Isolation、Delivery 與 audit 的 ID、狀態及 timeline 可分別追蹤。
+- UI 同時顯示隔離 desired／actual，不在 applying／releasing 時提前宣告成功。
+- 所有動作建立 command／Job 或 Delivery，不把按鈕點擊當成功。
+- 結案守門完整；有效隔離、失敗工作或必要 ACK 未完成時不能結案。
+- 不提供修改財務、投注、派彩或 Game Round 的入口。
 
-- 一般畫面、摘要卡、表格、詳情與操作確認視窗以風控報表已建立的繁體中文術語為主：告警、風控事件、遊戲回合、正式環境、展示環境、嚴重／高／中、回呼、結算、啟動、請求、回應、錯誤訊息與規則 ID。
-- 篩選選項可同時顯示中文與英文對照，例如「正式環境（Production）」、「嚴重（Critical）」與「回呼（Callback）」，以便對照正式規格值。
-- `alert_id`、`risk_event_id`、遊戲商遊戲回合 ID（Provider Game Round ID）／GGAP 遊戲回合 ID（GGAP Round ID）、`provider_event_id`、API 路徑、錯誤碼、版本號與正式欄位值保持原樣；只有顯示標籤與模擬敘述翻譯為中文。
-- 原型／模擬資料、健康檢查、請求紀錄、錯誤訊息與處理時間線的可見敘述使用繁體中文；不代表正式資料已被改寫。
+## 15. 關聯文件
 
-## 13. 驗收方向
-
-- 五張摘要卡與 Tips 定義正確且可作為佇列快捷篩選。
-- 預設只顯示尚未結案的 Production Alert。
-- Production 與 DEMO 可切換且不混合。
-- 工作佇列欄位、順序與營運優先排序符合本文件。
-- 告警詳情具備判斷、緩解、GGAP 通知、遊戲回合關聯及處理歷程。
-- 所有操作只出現在詳情處理區並依狀態控制可用性。
-- 隔離未解除或必要通知失敗時不能結案。
-- 不提供修改財務或遊戲回合資料的入口。
-
-## 14. 關聯文件
-
+- [`Decision Pack 02｜監控與風控共用產品契約`](./spec-book/content/appendices/decision-pack-02-monitoring-risk.md)
 - [`PROVIDER_RISK_CONTROL_SPEC.md`](./PROVIDER_RISK_CONTROL_SPEC.md)
 - [`PROVIDER_RISK_REPORT_SPEC.md`](./PROVIDER_RISK_REPORT_SPEC.md)
+- [`PROVIDER_MONITORING_OVERVIEW_SPEC.md`](./PROVIDER_MONITORING_OVERVIEW_SPEC.md)
 - [`PROVIDER_GGAP_INTEGRATION_CONTRACT.md`](./PROVIDER_GGAP_INTEGRATION_CONTRACT.md)
 - [`GAME_ROUND_RECORDS_SPEC.md`](./GAME_ROUND_RECORDS_SPEC.md)
 - [`PROVIDER_PORTAL_UI_LAYOUT_SPEC.md`](./PROVIDER_PORTAL_UI_LAYOUT_SPEC.md)

@@ -1,10 +1,10 @@
 # 遊戲商監控總覽頁面規格
 
-> 版本：0.2.0
-> 更新日期：2026-08-11
-> 狀態：前端獨立 mock 原型已完成；正式健康、Game Round、GGAP、Risk Event、Alert API、警戒門檻與更新頻率待確認
+> 版本：0.3.0
+> 更新日期：2026-08-17
+> 狀態：目前需求基準，前端獨立 mock 原型已完成；正式資料來源、API、門檻與更新頻率待 Backend 證據對照
 
-本文件定義 Provider Portal「監控總覽」頁面的責任範圍、五張摘要卡、查詢條件、遊戲監控列表、詳情與跨頁導向。異常事件、嚴重度、告警、自動緩解與隔離規則統一依 [`PROVIDER_RISK_CONTROL_SPEC.md`](./PROVIDER_RISK_CONTROL_SPEC.md) 執行。
+本文件定義 Provider Portal「監控總覽」頁面的責任範圍、五張摘要卡、查詢條件、遊戲監控列表、詳情與跨頁導向。Signal、Detection Result、Risk Event、Alert、Mitigation Job 與隔離規則統一依 [`PROVIDER_RISK_CONTROL_SPEC.md`](./PROVIDER_RISK_CONTROL_SPEC.md) 及 [`Decision Pack 02`](./spec-book/content/appendices/decision-pack-02-monitoring-risk.md) 執行。
 
 ## 1. 頁面定位
 
@@ -52,6 +52,15 @@ GGAP 直接對接異常不得直接改寫成遊戲商服務異常。當遊戲本
 
 若未來 GGAP 主動提供下游狀態，只能作為「GGAP 回報」的參考脈絡，不納入遊戲服務健康數字，除非另立並核准端到端可用性規格。
 
+### 2.4 Signal 與 Detection Result
+
+本頁呈現的健康、成功率、延遲、錯誤率及資料新鮮度來自 Monitoring Signal 與分析窗口聚合。Risk Event 只能由版本化規則的 Detection Result 建立，不得由前端看到紅色數值後自行推定。
+
+- Signal 保存來源、environment、scope、時間、單位及資料品質。
+- Detection Result 保存 `[window_start, window_end)`、規則版本、樣本、門檻、實際值與結果原因。
+- `no_data`、`insufficient_sample` 及 `evaluation_failed` 不得顯示為健康或數值 0。
+- 本頁可以合併顯示整體狀態，但詳情需保留 Game Service、Game Round、GGAP Integration、Data Quality 與 Game Math 的原始來源。
+
 ## 3. 資料範圍與時間語意
 
 | 項目 | 定義 |
@@ -74,9 +83,9 @@ GGAP 直接對接異常不得直接改寫成遊戲商服務異常。當遊戲本
 
 - 遊戲服務健康。
 - 高風險告警。
-- 未處理異常。
+- 未恢復異常。
 
-舊告警或事件即使早於目前分析區間，只要仍未結案或未完成處理，就不得被時間條件隱藏。
+告警或事件即使早於目前分析區間，只要 Alert 仍為 `new`／`in_progress`／`monitoring`，或 Risk Event 仍為 `open`／`recovering`，就不得被時間條件隱藏。
 
 查詢送出後，GGAP 摘要卡、遊戲監控列表與遊戲詳情必須共用同一組 `appliedFilters` 分析時間資料；不得讓摘要保留近 24 小時數值、只有列表或詳情切換為其他區間。近 1 小時、近 6 小時、近 24 小時與有效的自訂時間都必須取得對應期間資料。
 
@@ -132,7 +141,7 @@ GGAP 直接對接異常不得直接改寫成遊戲商服務異常。當遊戲本
 - 遊戲回合失敗。
 - GGAP 延遲／逾時。
 - 高風險告警。
-- 未處理異常。
+- 未恢復異常。
 
 關注項目只篩選遊戲監控列表，不重新計算摘要卡。點擊摘要卡會套用對應關注項目；再次點擊同一卡片會清除快捷條件並回到「全部」。
 
@@ -142,7 +151,7 @@ GGAP 直接對接異常不得直接改寫成遊戲商服務異常。當遊戲本
 | 遊戲回合成功率 | 遊戲回合失敗 |
 | GGAP 請求延遲 | GGAP 延遲／逾時 |
 | 高風險告警 | 高風險告警 |
-| 未處理異常 | 未處理異常 |
+| 未恢復異常 | 未恢復異常 |
 
 ### 5.4 查詢與更新操作
 
@@ -255,39 +264,39 @@ GGAP 直接對接異常不得直接改寫成遊戲商服務異常。當遊戲本
 
 ### 6.5 高風險告警
 
-主要數值為目前尚未結案、尚未標記誤報，且嚴重度為「嚴重」或「高」的不重複 `alert_id` 數量。
+主要數值為目前 `alert_status` 是 `new`、`in_progress` 或 `monitoring`，且嚴重度為「嚴重」或「高」的不重複 `alert_id` 數量。
 
-納入待處理、調查中，以及已緩解但尚未完成覆核或結案的 Alert。不納入已結案、誤報與 Test。此卡不受分析時間區間限制，必須標示「目前未結案告警」。
+納入待接手、處理中及觀察中的 Alert；不納入 `closed` 與 Test。`false_positive` 是結案 `resolution_code`，不是 Alert 狀態。此卡不受分析時間區間限制，必須標示「目前未結案告警」。
 
 提示至少顯示：
 
 - 嚴重與高的數量。
-- 待處理、調查中與已緩解待覆核數量。
-- 逾期未覆核與自動處理失敗數量。
-- 最多五筆優先告警的遊戲、異常類型、嚴重度、隔離與處理狀態。
+- 待接手、處理中與觀察中數量。
+- 逾期未覆核、Mitigation Job／隔離或 GGAP Delivery 失敗數量。
+- 最多五筆優先告警的遊戲、異常類型、嚴重度、隔離 actual state 與 Alert 狀態。
 
-提示排序：嚴重、自動處理失敗、已逾期、高、最後更新時間由新到舊。排序需與風控告警／處理工作佇列一致。
+提示排序：嚴重、工作／隔離／投遞失敗、已逾期、高、最後更新時間由新到舊。排序需與風控告警／處理工作佇列一致。
 
-狀態判斷：沒有高風險告警為正常；只有「高」為警告；存在「嚴重」、自動處理失敗或逾期為危險。
+狀態判斷：沒有高風險告警為正常；只有「高」為警告；存在「嚴重」、工作／隔離／投遞失敗或逾期為危險。
 
-### 6.6 未處理異常
+### 6.6 未恢復異常
 
-主要數值為目前狀態為「待處理」或「調查中」的不重複 `risk_event_id` 數量，包含所有嚴重度與尚未建立 Alert 的事件。
+主要數值為目前 `risk_event_status` 是 `open` 或 `recovering` 的不重複 `risk_event_id` 數量，包含所有嚴重度及尚未建立 Alert 的事件。
 
-不納入已緩解、已關閉、誤報與 Test。此卡不受分析時間區間限制，必須標示「目前未完成事件」。
+不納入 `resolved`、`invalidated` 與 Test。此卡不受分析時間區間限制，必須標示「目前尚未恢復事件」。Event 狀態只反映異常是否仍存在，不表示是否已有人接手。
 
 提示至少顯示：
 
-- 待處理與調查中數量。
+- 異常中與恢復觀察中數量。
 - 仍持續發生與尚未建立 Alert 的數量。
 - 遊戲回合、遊戲服務、GGAP 請求、回呼、資料品質與遊戲數值等異常來源分布。
 - 最多五筆需優先確認事件的遊戲、異常類型、嚴重度與狀態。
 
 提示排序：嚴重、高、仍持續發生、尚未建立 Alert、最後發生時間由新到舊。
 
-沒有未處理異常為正常；只有資訊、低或中為警告；存在高、嚴重或仍持續發生為危險。
+沒有未恢復異常為正常；只有資訊、低或中為警告；存在高、嚴重或仍持續發生為危險。
 
-高風險告警以 `alert_id` 計算，未處理異常以 `risk_event_id` 計算。兩張卡可能關聯同一問題，數字不得相加。
+高風險告警以 `alert_id` 計算，未恢復異常以 `risk_event_id` 計算。兩張卡可能關聯同一問題，數字不得相加。
 
 ## 7. 遊戲監控列表
 
@@ -307,7 +316,7 @@ GGAP 直接對接異常不得直接改寫成遊戲商服務異常。當遊戲本
 | 6 | 遊戲回合成功率 | 目前分析時間內成功率 |
 | 7 | GGAP 請求延遲 | 目前分析時間內 P95 |
 | 8 | 高風險告警 | 目前未結案的高／嚴重 Alert 數 |
-| 9 | 未處理異常 | 目前待處理／調查中 Risk Event 數 |
+| 9 | 未恢復異常 | 目前 `open`／`recovering` Risk Event 數 |
 | 10 | 最後檢查時間 | 最近健康資料更新時間 |
 | 11 | 操作 | 查看監控詳情 |
 
@@ -333,7 +342,7 @@ GGAP 直接對接異常不得直接改寫成遊戲商服務異常。當遊戲本
 3. 降級。
 4. 無資料。
 5. 存在高風險告警。
-6. 存在未處理異常。
+6. 存在未恢復異常。
 7. 維護中。
 8. 正常。
 9. 相同條件依最後檢查時間由新到舊。
@@ -364,8 +373,8 @@ GGAP 直接對接異常不得直接改寫成遊戲商服務異常。當遊戲本
 
 ### 8.4 風控與告警
 
-- 高風險 Alert 摘要、嚴重度、狀態、逾期、隔離與自動處理結果。
-- 未處理 Risk Event 摘要、異常來源、類型、是否持續與是否已有 Alert。
+- 高風險 Alert 摘要、嚴重度、狀態、逾期、Mitigation Job、隔離 desired／actual 與 GGAP Delivery 結果。
+- 未恢復 Risk Event 摘要、異常來源、類型、`open`／`recovering` 狀態、是否持續與是否已有 Alert。
 
 ### 8.5 導向入口
 
@@ -374,7 +383,7 @@ GGAP 直接對接異常不得直接改寫成遊戲商服務異常。當遊戲本
 - 查看遊戲紀錄。
 - 查看 GGAP 請求紀錄；在 GGAP 頁面規格與 route query 契約完成前，可先保留入口與原型提示。
 
-詳情維持唯讀，不直接執行隔離、關閉遊戲、重送通知、修改 Game Round、標記誤報或結案。
+詳情維持唯讀，不直接執行隔離、關閉遊戲、重送通知、修改 Game Round、以誤報原因結案或其他 Alert 操作。
 
 ## 9. 導向契約
 
@@ -411,7 +420,7 @@ GGAP 直接對接異常不得直接改寫成遊戲商服務異常。當遊戲本
 - 圖示按鈕需有 `aria-label` 與 tooltip；資訊提示需支援鍵盤 focus。
 - 一般畫面使用台灣繁體中文；選項可保留中文／英文對照，ID、API、錯誤碼、HTTP 狀態碼與版本值維持原文。
 
-## 12. 原型限制與後端待確認
+## 12. 原型限制與外部驗證點
 
 前端第一版獨立 mock 原型已完成，包含畫面、查詢影響範圍、提示、列表、詳情、狀態與導向。以下內容待後端與 GGAP 對接團隊確認：
 
@@ -419,9 +428,10 @@ GGAP 直接對接異常不得直接改寫成遊戲商服務異常。當遊戲本
 - 各遊戲、環境、遊戲類型與 API 的降級及異常門檻。
 - Provider Game Round 的成功、失敗、逾時與 `finalized_at` 正式定義。
 - GGAP 雙向請求的計時點、P95 聚合方式、逾時與重試規則。
-- 遊戲、Risk Event、Alert 與請求紀錄的關聯欄位。
+- 遊戲、Detection Result、Risk Event、Alert、Mitigation Job 與請求紀錄的關聯欄位。
 - 自動更新 API、快取、查詢上限與部分來源失敗格式。
 - GGAP 請求紀錄的正式 route query 契約。
+- 規則評估排程、資料延遲、最小樣本、trigger／recovery threshold 與連續健康窗口。
 
 原型不得因 mock data 方便而加入 Test、代理商管理、會員管理、GGAP 下游推論或正式處理操作。
 
@@ -442,6 +452,7 @@ GGAP 直接對接異常不得直接改寫成遊戲商服務異常。當遊戲本
 ## 14. 關聯文件
 
 - [`PROVIDER_RISK_CONTROL_SPEC.md`](./PROVIDER_RISK_CONTROL_SPEC.md)
+- [`Decision Pack 02｜監控與風控共用產品契約`](./spec-book/content/appendices/decision-pack-02-monitoring-risk.md)
 - [`PROVIDER_RISK_REPORT_SPEC.md`](./PROVIDER_RISK_REPORT_SPEC.md)
 - [`PROVIDER_RISK_ALERT_HANDLING_SPEC.md`](./PROVIDER_RISK_ALERT_HANDLING_SPEC.md)
 - [`PROVIDER_GGAP_INTEGRATION_CONTRACT.md`](./PROVIDER_GGAP_INTEGRATION_CONTRACT.md)

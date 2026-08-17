@@ -1,10 +1,10 @@
 # Provider 風控報表頁面規格
 
-> 版本：0.1.0
-> 更新日期：2026-08-10
-> 狀態：產品方向已確認，前端原型已完成（mock data）；正式 API 契約待確認
+> 版本：0.2.0
+> 更新日期：2026-08-17
+> 狀態：目前需求基準，前端原型已完成（mock data）；正式 API、資料表與門檻待 Backend 證據對照
 
-本文件定義 Provider Portal「風控報表」頁面的資料範圍、摘要、待關注異常、查詢、列表與 Risk Event 詳情。異常定義、Event ID、嚴重度、處理生命週期與自動緩解規則統一依 [`PROVIDER_RISK_CONTROL_SPEC.md`](./PROVIDER_RISK_CONTROL_SPEC.md) 執行。
+本文件定義 Provider Portal「風控報表」頁面的資料範圍、摘要、待關注異常、查詢、列表與 Risk Event 詳情。Risk Event 生命週期、fingerprint、規則版本、Mitigation Job 與隔離規則統一依 [`PROVIDER_RISK_CONTROL_SPEC.md`](./PROVIDER_RISK_CONTROL_SPEC.md) 及 [`Decision Pack 02`](./spec-book/content/appendices/decision-pack-02-monitoring-risk.md) 執行。
 
 ## 1. 頁面定位
 
@@ -50,22 +50,22 @@
 | 摘要卡 | 數據定義 | Tips 內容 |
 |---|---|---|
 | 異常事件總數 | 指定範圍內建立的全部 Risk Event | Failure、Timeout、Latency、Data Anomaly 等分類數量 |
-| 未解決 | 狀態為待處理 | 各嚴重度數量與最久未處理時間 |
-| 處理中 | 狀態為調查中，或已緩解但尚未結案 | 調查中與已緩解數量 |
-| 已解決 | 狀態為已關閉或誤報 | 正常關閉、誤報與平均處理時間 |
-| 高風險事件 | High 或 Critical，且狀態不為已關閉或誤報 | 受影響遊戲、隔離狀態與 GGAP 通知狀態 |
+| 異常中 | `risk_event_status=open` | 各嚴重度、持續時間與仍在命中的數量 |
+| 恢復觀察中 | `risk_event_status=recovering` | 已低於恢復門檻、健康窗口與可能回到 `open` 的事件 |
+| 已結束 | `resolved` 或 `invalidated` | 已恢復、已作廢及各自原因；兩者不得混成成功率 |
+| 高風險事件 | High 或 Critical，且狀態為 `open`／`recovering` | 受影響遊戲、Alert、隔離 actual state 與 GGAP Delivery 狀態 |
 
 摘要卡依目前時間、環境及其他已套用篩選條件計算完整結果，不受列表分頁影響。卡片標題旁提供 info 或 Tips 入口，不把公式與狀態映射長期顯示在主畫面。
 
 ## 5. 待關注異常
 
-待關注異常固定顯示最多五筆狀態不為已關閉或誤報的 High／Critical 事件，作為快速查看與處理入口，不單純顯示最新五筆。
+待關注異常固定顯示最多五筆狀態為 `open` 或 `recovering` 的 High／Critical 事件，作為快速查看與處理入口，不單純顯示最新五筆。
 
 排序優先度：
 
 1. Critical。
 2. 自動緩解失敗。
-3. 尚未隔離或 GGAP 通知失敗。
+3. 隔離 desired／actual 不一致、Mitigation Job 或 GGAP Delivery 失敗。
 4. High。
 5. 相同條件下依 `detected_at` 由新到舊。
 
@@ -77,8 +77,8 @@
 - 遊戲名稱與版本。
 - 異常類型。
 - 受影響 Game Round 數。
-- 處理狀態。
-- 自動緩解與隔離狀態。
+- Event 狀態。
+- 關聯 Alert、Mitigation Job 與隔離 desired／actual state。
 - 查看詳情或前往處理入口。
 
 沒有待關注事件時顯示清楚的正常狀態，不保留空白列表骨架。
@@ -93,16 +93,16 @@
 - 遊戲。
 - 異常類型。
 - 嚴重度。
-- 處理狀態：未解決、處理中、已解決。
+- Event 狀態：異常中（`open`）、恢復觀察中（`recovering`）、已恢復（`resolved`）、已作廢（`invalidated`）。
 
 ### 6.2 進階條件
 
 - Risk Event ID。
 - 遊戲版本。
 - 異常來源。
-- 自動緩解狀態。
-- 是否隔離。
-- GGAP 通知狀態。
+- Mitigation Job 狀態。
+- 隔離 desired／actual state。
+- GGAP Delivery 狀態。
 - Provider Game Round ID。
 - GGAP Round ID。
 
@@ -123,10 +123,10 @@ Risk Event ID 與 Round ID 使用完整值精確查詢。代理商、商戶與�
 | 7 | 遊戲名稱 |
 | 8 | 遊戲版本 |
 | 9 | 受影響 Game Round 數 |
-| 10 | 處理狀態 |
-| 11 | 自動緩解狀態 |
-| 12 | 隔離狀態 |
-| 13 | GGAP 通知狀態 |
+| 10 | Event 狀態 |
+| 11 | Mitigation Job 彙總狀態 |
+| 12 | 隔離 desired／actual state |
+| 13 | GGAP Delivery 狀態 |
 | 14 | 最後更新時間 |
 | 15 | 操作：查看詳情／前往處理 |
 
@@ -139,27 +139,28 @@ Risk Event ID 與 Round ID 使用完整值精確查詢。代理商、商戶與�
 ### 8.1 事件摘要
 
 - Risk Event ID、嚴重度、環境。
-- 異常來源、異常類型、處理狀態。
-- 首次偵測、最後發生、發生次數。
+- 異常來源、異常類型、Event 狀態。
+- 首次偵測、最後發生、發生次數、`event_fingerprint` 與 `recurrence_group_id`。
 
 ### 8.2 影響範圍
 
 - 遊戲名稱、Game ID、版本。
 - 受影響 Game Round 數與是否仍持續發生。
-- 自動緩解與隔離範圍。
+- 關聯 Alert、Mitigation Job、隔離 scope、desired state 與 actual state。
 
 ### 8.3 異常判斷依據
 
-- Rule ID、規則版本。
+- Detection Result ID、Rule ID、規則版本。
 - 判斷門檻、實際數值與統計窗口。
+- `sample_count`、分子、分母、資料新鮮度及 `matched`／`no_data`／`insufficient_sample`／`evaluation_failed` 結果。
 - 錯誤碼、延遲或逾時資訊。
 - 請求與回應摘要。
 
 ### 8.4 自動緩解與 GGAP 通知
 
-- 執行動作、結果、時間與失敗原因。
-- 隔離狀態與範圍。
-- GGAP 通知、ACK 與重試結果。
+- Mitigation Job 的 action、狀態、attempt、結果、時間與失敗原因。
+- 隔離 desired／actual state、scope、健康驗證與失敗原因。
+- GGAP Delivery 的 outbox、投遞、ACK、重試與 reconciliation 結果。
 
 ### 8.5 關聯 Game Round
 
@@ -170,7 +171,7 @@ Risk Event ID 與 Round ID 使用完整值精確查詢。代理商、商戶與�
 
 ### 8.6 事件時間線
 
-- 偵測、升級、緩解、通知、人工接手、解除與結案紀錄。
+- Detection Result、Event 建立／累積／恢復／復發、Alert、Job、隔離、通知、人工接手與結案紀錄。
 
 ## 9. 導向與操作邊界
 
@@ -191,7 +192,7 @@ Risk Event ID 與 Round ID 使用完整值精確查詢。代理商、商戶與�
 
 - 前端原型已完成畫面與規格骨架，使用完整 mock data，不接正式 API。
 - Tips、篩選、詳情、分頁與匯出可先呈現入口及預期狀態，不要求完成真實資料流。
-- 正式異常門檻、Rule ID、聚合方式、處理 SLA 與 GGAP ACK 仍待後端確認。
+- 正式異常門檻、資料來源、Rule ID、fingerprint 實作、處理 SLA 與 GGAP ACK 仍待 Backend 證據對照。
 - Test 不得因 mock data 方便而出現在環境篩選或摘要中。
 
 ### 11.1 繁體中文顯示規則
@@ -211,13 +212,14 @@ Risk Event ID 與 Round ID 使用完整值精確查詢。代理商、商戶與�
 - 五張摘要卡定義與 Tips 正確。
 - 待關注異常依營運優先度顯示最多五筆。
 - 查詢條件、列表欄位與順序符合本文件。
-- Risk Event 詳情具備完整證據、關聯 Round 與時間線。
+- Risk Event 詳情具備 Detection Result、fingerprint、完整證據、關聯 Round、Alert／Job 與時間線。
 - 只有存在 Alert 的事件顯示前往處理入口。
 - 本頁不提供任何會改變營運狀態的操作。
 
 ## 13. 關聯文件
 
 - [`PROVIDER_RISK_CONTROL_SPEC.md`](./PROVIDER_RISK_CONTROL_SPEC.md)
+- [`Decision Pack 02｜監控與風控共用產品契約`](./spec-book/content/appendices/decision-pack-02-monitoring-risk.md)
 - [`PROVIDER_RISK_ALERT_HANDLING_SPEC.md`](./PROVIDER_RISK_ALERT_HANDLING_SPEC.md)
 - [`PROVIDER_GGAP_INTEGRATION_CONTRACT.md`](./PROVIDER_GGAP_INTEGRATION_CONTRACT.md)
 - [`GAME_ROUND_RECORDS_SPEC.md`](./GAME_ROUND_RECORDS_SPEC.md)

@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.15.0-phase-three-pack-02-baseline</span>
-            <span class="topbar-status">Phase 3 · Monitoring &amp; Risk Baseline</span>
+            <span>0.16.0-phase-three-contract-baselines</span>
+            <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
 
@@ -369,8 +369,8 @@
                         <span>第二階段封版驗證報告</span>
 
                     </a><a href="decision-pack-01-round-finance.html" >
-                        <i class="status-dot status-draft" aria-hidden="true"></i>
-                        <span>Decision Pack 01｜Game Round、時間與財務基準</span>
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>Decision Pack 01｜Game Round、投注與財務共用產品契約</span>
 
                     </a><a href="decision-pack-02-monitoring-risk.html" >
                         <i class="status-dot status-confirmed" aria-hidden="true"></i>
@@ -412,7 +412,16 @@
 
                 <div class="content-layout">
                     <article class="spec-content">
-                        <h2 id="0-15-0-phase-three-pack-02-baseline-2026-08-17">0.15.0-phase-three-pack-02-baseline · 2026-08-17</h2><ul>
+                        <h2 id="0-16-0-phase-three-contract-baselines-2026-08-17">0.16.0-phase-three-contract-baselines · 2026-08-17</h2><ul>
+<li>將 Decision Pack 01 從 Backend Evidence Pending 審閱問卷重寫為 Game Round、投注與財務的目前需求基準，與 Decision Pack 02 使用一致治理方式。</li>
+<li>正式定義 Game Round 1:N Bet、<code>bet_mode</code>、<code>payout_scope</code>、append-only 事件／結算版本，以及 <code>round_count</code> 與 <code>bet_count</code> 分離口徑。</li>
+<li>建立遊戲投注結構、固定投注幣別倍率、下注限額方案三層模型；Provider 擁有限額方案，GGAP 只同步、開放與指派。</li>
+<li>分開 Provider Points、投注倍率、顯示幣別與 USDT 正式結算，保留 <code>USDT_ONLY</code>／<code>NATIVE_CURRENCY</code> 兩種版本化對接模式。</li>
+<li>補齊 UTC／台北顯示／北京日結的時間角色、鎖定日結與營運報表重算差異，以及 adjustment／reversal／reconciliation 行為。</li>
+<li>將 schema、enum、payload、精度、排程、permission 與 GGAP Backend 實際能力保留為外部差異驗證點，不再用其阻擋產品需求成立。</li>
+<li>現行 Portal Vue 原型與原始頁面 Spec MD 尚未同步；後續依「規格網站 → 原始 Spec MD → 新開發 session」順序處理。</li>
+</ul>
+<h2 id="0-15-0-phase-three-pack-02-baseline-2026-08-17">0.15.0-phase-three-pack-02-baseline · 2026-08-17</h2><ul>
 <li>建立 Decision Pack 02《監控與風控共用產品契約》，以目前需求基準取代替代方案與逐題核准問卷。</li>
 <li>定義 Monitoring Signal → Detection Result → Risk Event → Alert → Mitigation Job → Recovery 的分層領域模型與追蹤關係。</li>
 <li>將 Risk Event 統一為 <code>open</code>、<code>recovering</code>、<code>resolved</code>、<code>invalidated</code>，Alert 統一為 <code>new</code>、<code>in_progress</code>、<code>monitoring</code>、<code>closed</code>；誤報改由 <code>resolution_code</code> 表達。</li>
@@ -543,7 +552,7 @@
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#0-15-0-phase-three-pack-02-baseline-2026-08-17">0.15.0-phase-three-pack-02-baseline · 2026-08-17</a><a class="outline-level-2" href="#0-14-1-phase-three-pack-01-evidence-pending-2026-08-17">0.14.1-phase-three-pack-01-evidence-pending · 2026-08-17</a><a class="outline-level-2" href="#0-14-0-phase-three-pack-01-draft-2026-08-14">0.14.0-phase-three-pack-01-draft · 2026-08-14</a><a class="outline-level-2" href="#0-13-0-phase-two-seal-2026-08-14">0.13.0-phase-two-seal · 2026-08-14</a><a class="outline-level-2" href="#0-12-0-batch-d-draft-2026-08-14">0.12.0-batch-d-draft · 2026-08-14</a><a class="outline-level-2" href="#0-11-0-batch-c-draft-2026-08-14">0.11.0-batch-c-draft · 2026-08-14</a><a class="outline-level-2" href="#0-10-0-batch-b-draft-2026-08-14">0.10.0-batch-b-draft · 2026-08-14</a><a class="outline-level-2" href="#0-9-0-batch-a-draft-2026-08-14">0.9.0-batch-a-draft · 2026-08-14</a><a class="outline-level-2" href="#0-8-0-phase-one-seal-2026-08-14">0.8.0-phase-one-seal · 2026-08-14</a><a class="outline-level-2" href="#0-7-0-tbd-registry-2026-08-14">0.7.0-tbd-registry · 2026-08-14</a><a class="outline-level-2" href="#0-6-0-dependency-map-2026-08-14">0.6.0-dependency-map · 2026-08-14</a><a class="outline-level-2" href="#0-5-0-page-reconciliation-2026-08-14">0.5.0-page-reconciliation · 2026-08-14</a><a class="outline-level-2" href="#0-4-0-readiness-audit-2026-08-14">0.4.0-readiness-audit · 2026-08-14</a><a class="outline-level-2" href="#0-3-0-scope-freeze-2026-08-14">0.3.0-scope-freeze · 2026-08-14</a><a class="outline-level-2" href="#0-2-0-authoring-baseline-2026-08-14">0.2.0-authoring-baseline · 2026-08-14</a><a class="outline-level-2" href="#0-1-0-structure-2026-08-13">0.1.0-structure · 2026-08-13</a><a class="outline-level-2" href="#後續版本方向">後續版本方向</a></nav>
+        <nav><a class="outline-level-2" href="#0-16-0-phase-three-contract-baselines-2026-08-17">0.16.0-phase-three-contract-baselines · 2026-08-17</a><a class="outline-level-2" href="#0-15-0-phase-three-pack-02-baseline-2026-08-17">0.15.0-phase-three-pack-02-baseline · 2026-08-17</a><a class="outline-level-2" href="#0-14-1-phase-three-pack-01-evidence-pending-2026-08-17">0.14.1-phase-three-pack-01-evidence-pending · 2026-08-17</a><a class="outline-level-2" href="#0-14-0-phase-three-pack-01-draft-2026-08-14">0.14.0-phase-three-pack-01-draft · 2026-08-14</a><a class="outline-level-2" href="#0-13-0-phase-two-seal-2026-08-14">0.13.0-phase-two-seal · 2026-08-14</a><a class="outline-level-2" href="#0-12-0-batch-d-draft-2026-08-14">0.12.0-batch-d-draft · 2026-08-14</a><a class="outline-level-2" href="#0-11-0-batch-c-draft-2026-08-14">0.11.0-batch-c-draft · 2026-08-14</a><a class="outline-level-2" href="#0-10-0-batch-b-draft-2026-08-14">0.10.0-batch-b-draft · 2026-08-14</a><a class="outline-level-2" href="#0-9-0-batch-a-draft-2026-08-14">0.9.0-batch-a-draft · 2026-08-14</a><a class="outline-level-2" href="#0-8-0-phase-one-seal-2026-08-14">0.8.0-phase-one-seal · 2026-08-14</a><a class="outline-level-2" href="#0-7-0-tbd-registry-2026-08-14">0.7.0-tbd-registry · 2026-08-14</a><a class="outline-level-2" href="#0-6-0-dependency-map-2026-08-14">0.6.0-dependency-map · 2026-08-14</a><a class="outline-level-2" href="#0-5-0-page-reconciliation-2026-08-14">0.5.0-page-reconciliation · 2026-08-14</a><a class="outline-level-2" href="#0-4-0-readiness-audit-2026-08-14">0.4.0-readiness-audit · 2026-08-14</a><a class="outline-level-2" href="#0-3-0-scope-freeze-2026-08-14">0.3.0-scope-freeze · 2026-08-14</a><a class="outline-level-2" href="#0-2-0-authoring-baseline-2026-08-14">0.2.0-authoring-baseline · 2026-08-14</a><a class="outline-level-2" href="#0-1-0-structure-2026-08-13">0.1.0-structure · 2026-08-13</a><a class="outline-level-2" href="#後續版本方向">後續版本方向</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -554,7 +563,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.15.0-phase-three-pack-02-baseline · 2026-08-17</span>
+                    <span>0.16.0-phase-three-contract-baselines · 2026-08-17</span>
                 </footer>
             </div>
         </main>

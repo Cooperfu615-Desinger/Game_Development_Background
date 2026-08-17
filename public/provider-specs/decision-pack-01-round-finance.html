@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="五項核心 TBD 的建議方案、替代方案、影響與二十個核准問題。">
+    <meta name="description" content="Round 1:N Bet、識別快照、時間／日結、三層投注設定、USDT 與財務調帳的目前需求基準。">
     <meta name="color-scheme" content="light">
-    <title>Decision Pack 01｜Game Round、時間與財務基準｜Provider Portal 產品與系統規格書</title>
+    <title>Decision Pack 01｜Game Round、投注與財務共用產品契約｜Provider Portal 產品與系統規格書</title>
     <link rel="stylesheet" href="assets/site.css">
     <script src="assets/search-index.js" defer></script>
     <script src="assets/site.js" defer></script>
@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.15.0-phase-three-pack-02-baseline</span>
-            <span class="topbar-status">Phase 3 · Monitoring &amp; Risk Baseline</span>
+            <span>0.16.0-phase-three-contract-baselines</span>
+            <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
 
@@ -369,8 +369,8 @@
                         <span>第二階段封版驗證報告</span>
 
                     </a><a href="decision-pack-01-round-finance.html" aria-current="page">
-                        <i class="status-dot status-draft" aria-hidden="true"></i>
-                        <span>Decision Pack 01｜Game Round、時間與財務基準</span>
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>Decision Pack 01｜Game Round、投注與財務共用產品契約</span>
 
                     </a><a href="decision-pack-02-monitoring-risk.html" >
                         <i class="status-dot status-confirmed" aria-hidden="true"></i>
@@ -393,11 +393,11 @@
                 <header class="page-header">
                     <div>
                         <p class="eyebrow">附錄 L</p>
-                        <h1>Decision Pack 01｜Game Round、時間與財務基準</h1>
-                        <p class="page-summary">五項核心 TBD 的建議方案、替代方案、影響與二十個核准問題。</p>
+                        <h1>Decision Pack 01｜Game Round、投注與財務共用產品契約</h1>
+                        <p class="page-summary">Round 1:N Bet、識別快照、時間／日結、三層投注設定、USDT 與財務調帳的目前需求基準。</p>
                     </div>
                     <div class="page-status-stack">
-                        <span class="status-badge status-draft">草案</span>
+                        <span class="status-badge status-confirmed">已確認</span>
 
 
                     </div>
@@ -405,713 +405,729 @@
 
                 <section class="metadata-card" aria-label="章節追溯資訊">
         <div class="metadata-grid">
-            <div><span>章節編號</span><code>L</code></div><div><span>規格狀態</span><code>草案</code></div>
+            <div><span>章節編號</span><code>L</code></div><div><span>規格狀態</span><code>已確認</code></div>
         </div>
     </section>
 
 
                 <div class="content-layout">
                     <article class="spec-content">
-                        <section class="decision-pack-hero" data-pack="DP / 01" aria-label="Decision Pack 01 摘要">
+                        <section class="decision-pack-hero decision-pack-hero--round" data-pack="DP / 01" aria-label="Decision Pack 01 摘要">
   <div class="decision-pack-hero__identity">
-    <span>PHASE 3 · DECISION DOSSIER 01</span>
-    <strong>先統一一筆 Round，再統一所有報表</strong>
-    <p>本包已完成五個跨頁 TBD 的初步拆分；目前暫存並等待 GGAP 測試環境實際 Backend Git。既有建議、問題與暫定方向均保留，但不視為正式契約。</p>
+    <span>PHASE 3 · PRODUCT CONTRACT 01</span>
+    <strong>從一筆 Game Round，建立可銜接、可統計、可對帳的共同語言</strong>
+    <p>本包直接定義 Provider Portal 希望具備的 Round、Bet、投注設定、時間、幣別與正式財務能力，作為產品、前端、後端、QA、Finance 與 GGAP 對接的共同分析基準；實際 Backend 差異於取得證據後以版本更新處理。</p>
   </div>
   <div class="decision-pack-hero__stats">
-    <div><strong>05</strong><span>集中 TBD</span></div>
+    <div><strong>06</strong><span>共用契約群組</span></div>
     <div><strong>07</strong><span>直接影響頁面</span></div>
-    <div><strong>02</strong><span>P0 Domain</span></div>
-    <div><strong>03</strong><span>Data 契約</span></div>
+    <div><strong>02</strong><span>對接資料模式</span></div>
+    <div><strong>01</strong><span>正式結算幣別</span></div>
   </div>
-  <nav class="decision-pack-hero__nav" aria-label="五項決策快速導覽">
-    <a href="#1-game-round-正式生命週期"><b>01</b><span>Round 生命週期</span></a>
+  <nav class="decision-pack-hero__nav decision-pack-hero__nav--six" aria-label="六項契約快速導覽">
+    <a href="#1-game-round-bet-與結算生命週期"><b>01</b><span>Round 與 Bet</span></a>
     <a href="#2-跨系統識別碼與交易快照"><b>02</b><span>識別與快照</span></a>
-    <a href="#3-時間-時區與統計窗口"><b>03</b><span>時間與窗口</span></a>
-    <a href="#4-點數-usdt-匯率與精度"><b>04</b><span>點數與 USDT</span></a>
-    <a href="#5-正式財務指標與正負方向"><b>05</b><span>財務公式</span></a>
+    <a href="#3-時間-統計窗口與日結帳期"><b>03</b><span>時間與日結</span></a>
+    <a href="#4-遊戲投注結構-幣別倍率與下注限額"><b>04</b><span>投注設定</span></a>
+    <a href="#5-provider-points-usdt-匯率與精度"><b>05</b><span>幣別與精度</span></a>
+    <a href="#6-財務指標-調整與正式結算邊界"><b>06</b><span>財務與調帳</span></a>
   </nav>
-</section><h2 id="決策包狀態">決策包狀態</h2><div class="table-scroll" tabindex="0"><table>
+</section><h2 id="文件定位">文件定位</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
 <th>項目</th>
-<th>內容</th>
+<th>目前需求基準</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>決策包編號</td>
+<td>契約編號</td>
 <td><code>DP-01</code></td>
 </tr>
 <tr>
-<td>成熟度</td>
-<td>Backend Evidence Pending Draft — 已完成初步拆分，等待 GGAP 實際後端證據後重開</td>
-</tr>
-<tr>
-<td>納入 TBD</td>
-<td><code>TBD-DOM-001</code>、<code>TBD-DOM-002</code>、<code>TBD-DAT-001</code>、<code>TBD-DAT-002</code>、<code>TBD-DAT-003</code></td>
+<td>主題</td>
+<td>Game Round、Bet、識別快照、時間／日結、投注設定、Provider Points／USDT 與正式財務</td>
 </tr>
 <tr>
 <td>直接影響頁面</td>
 <td>遊戲紀錄、財務總覽、代理商 × 遊戲彙總、儀表板、監控總覽、風控報表、風控告警／處理</td>
 </tr>
 <tr>
-<td>不在本包決定</td>
-<td>GGAP 正式欄位／簽章／Callback、API path、permission key、全系統保存年限、棋牌與多人結算</td>
+<td>主要業務單位</td>
+<td>Game Round；不另建 Provider Game Session</td>
 </tr>
 <tr>
-<td>建議核准順序</td>
-<td>Round 生命週期 → 識別碼 → 時間 → 金額 → 財務公式</td>
+<td>正式資料環境</td>
+<td>Production only；DEMO、Test 不進正式遊戲紀錄與財務，Test 不進 Provider 風控</td>
+</tr>
+<tr>
+<td>現行程式</td>
+<td>七個頁面已有前端 mock；正式資料模型、API、持久化、結算與對接副作用尚待後續實作</td>
+</tr>
+<tr>
+<td>文件用途</td>
+<td>表達目前希望具備的完整產品功能；交付評估後的調整以新版本修訂</td>
 </tr>
 </tbody></table></div>
-<blockquote>
-<p>本包不直接變更集中 TBD 狀態。只有責任方確認選項、記錄決議，並同步更新共通規格、頁面、資料字典、enum 與測試後，對應 TBD 才能視為收斂。</p>
-</blockquote>
-<h2 id="暫存紀錄-2026-08-17">暫存紀錄｜2026-08-17</h2><p>本包目前不是放棄或結案，而是停止在缺少實際後端證據時繼續推定契約。GGAP 聚合原型可作方向佐證，但其前端 mock、文件候選值與實際測試環境後端仍可能不同。</p>
-<p>暫定保留方向：</p>
-<ol>
-<li>Provider Portal 繼續以 Game Round 為主要業務紀錄；對接層容許 <code>Round 1:N Bet</code>，自製遊戲可依版本使用 <code>single</code> 或 <code>multiple</code> 模式。</li>
-<li>Bet 數量與派彩範圍分開治理；<code>payout_scope</code> 可依遊戲版本採逐筆、Round 級或混合模式。</li>
-<li>投注設定拆為遊戲投注結構、固定投注幣別倍率及下注限額方案；固定倍率不是財務匯率，限額檢核最後的 <code>Total Bet</code>。</li>
-<li>Provider 擁有下注限額方案與版本；GGAP 只同步、開放與指派，不修改 Provider 的限額內容。</li>
-<li>對接資料模型保留 <code>USDT_ONLY</code> 與 <code>NATIVE_CURRENCY</code>；產品優先評估 USDT-only，但需 GGAP 後端確認非 USDT 會員錢包的轉接責任。</li>
-<li>正式狀態 enum、時間 API、decimal scale／rounding、資料表、唯一鍵與 Callback payload 不在本次原型分析中定案。</li>
+<p>本包不把「尚未取得 GGAP 或現行 Backend Git」解讀為產品需求尚未成立。產品與資料語意依本包描述；資料表、API path、正式 payload、精度位數、權限 key 與排程實作等技術值，待取得證據後對照修正。</p>
+<h2 id="不可違反的產品邊界">不可違反的產品邊界</h2><ol>
+<li>Game Round 是 Provider 的主要業務紀錄；正式模型支援一個 Round 包含一筆或多筆 Bet，但不因此另建 Provider Game Session。</li>
+<li>Provider 負責遊戲主資料、版本、數值、素材、全域上下架、Round 紀錄、遊戲商財務及自身監控風控；不建立代理商、商戶、會員或錢包主資料。</li>
+<li>GGAP 可對已上架遊戲控制各代理商是否開放；Provider 不把這類開關收回自身管理。</li>
+<li>Production、DEMO、Test 必須隔離。正式 Round、財務與結算只使用 Production；DEMO／Test 不得以篩選遺漏的方式混入正式資料。</li>
+<li>Provider Points 是遊戲數值與 Portal 比較主值；投注幣別固定倍率、會員顯示幣別及正式結算匯率是不同概念，不得共用一個 <code>rate</code> 欄位。</li>
+<li>Provider 與 GGAP 的正式結算幣別固定為 USDT；原生幣別模式只增加交易脈絡，不改變正式結算幣別。</li>
+<li>原始請求、Round、Bet、結算版本、Callback、回滾與調整證據採 append-only；不得靜默刪除、覆寫或用假負值 Round 掩蓋更正。</li>
 </ol>
-<p>重開本包所需證據：</p>
-<ul>
-<li>GGAP 測試環境實際部署的 Backend Repository、Branch／Tag／Commit。</li>
-<li>Round、Bet、Transaction、Settlement 的 migration、model、enum 與狀態轉換。</li>
-<li>時間 query、帳期、延遲 Callback 與日結排程實作。</li>
-<li>金額精度、rounding、匯率與序列化規則及測試。</li>
-<li>Launch、Bet、Win、Refund、Rollback、查單與冪等契約。</li>
-</ul>
-<p>在取得上述證據前，Q1–Q20、五項集中 TBD 與受影響頁面仍維持 Draft／Partial，不因本次暫存而暗中核准。</p>
-<h2 id="已確認且不可違反的邊界">已確認且不可違反的邊界</h2><ol>
-<li>Game Round 是 Provider 的主要業務紀錄單位，不另建正式 Game Session 模組。</li>
-<li>Production、DEMO、Test 必須隔離；正式財務與遊戲紀錄只使用 Production，Test 不進 Provider 風控。</li>
-<li>Provider 不建立代理商、商戶、會員或錢包主資料；外部識別只作交易脈絡與追蹤快照。</li>
-<li>Provider 點數是主值，USDT 是每筆 Round 保存的換算對照；歷史資料不得套用最新匯率重算。</li>
-<li>原始 Round、結算版本與更正證據不得被靜默刪除或覆寫。</li>
-</ol>
-<h2 id="決策地圖">決策地圖</h2><div class="table-scroll" tabindex="0"><table>
+<h2 id="整體契約鏈">整體契約鏈</h2><ol class="round-contract-flow" aria-label="Game Round 與財務契約鏈">
+  <li><b>01</b><strong>Game Context</strong><span>遊戲、版本、環境與投注設定版本</span></li>
+  <li><b>02</b><strong>Game Round</strong><span>一次玩家業務回合與跨系統追蹤主體</span></li>
+  <li><b>03</b><strong>Bet 1:N</strong><span>一筆或多筆實際投注及其不可變證據</span></li>
+  <li><b>04</b><strong>Payout / Settlement</strong><span>依派彩範圍建立一次有效財務效果</span></li>
+  <li><b>05</b><strong>Adjustment</strong><span>回滾、更正、差異與版本化調帳</span></li>
+  <li><b>06</b><strong>Reports / Daily Settlement</strong><span>營運報表與鎖定日結各自可追溯</span></li>
+</ol><p>鏈上每一層都保存自己的 ID、時間、狀態與版本。頁面可以把資料組成一列或一個抽屜，但不得因此省略 Bet、結算、調整或對接證據的正式層次。</p>
+<hr>
+<h2 id="1-game-round-bet-與結算生命週期">1. Game Round、Bet 與結算生命週期</h2><div class="decision-item-meta"><span>DP01-01</span><a href="open-issues.html#tbd-dom-001">TBD-DOM-001</a><a href="open-issues.html#tbd-dom-002">TBD-DOM-002</a><i>Product · Backend · Data · GGAP</i></div><aside class="decision-recommendation">
+  <strong>目前需求基準</strong>
+  <p>一個玩家業務回合只建立一個 Game Round；正式模型支援 Round 1:N Bet。Round 保存目前業務狀態，Bet、派彩、請求 attempt、Callback、結算版本、回滾與更正另存不可變證據。</p>
+</aside><h3 id="1-1-核心物件與基數">1.1 核心物件與基數</h3><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
-<th align="center">順序</th>
-<th>集中 TBD</th>
-<th>本次需要形成的答案</th>
-<th>後續解鎖</th>
+<th>物件</th>
+<th>正式責任</th>
+<th>基數／關聯</th>
+<th>保存原則</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">1</td>
-<td><a href="open-issues.html#tbd-dom-001"><code>TBD-DOM-001</code></a></td>
-<td>Round 狀態、終態、重試、回滾與更正模型</td>
-<td>狀態 enum、有效 Round、監控與追蹤</td>
+<td>Game Round</td>
+<td>Provider 的主要業務與查詢單位</td>
+<td>一個 Round 包含 1:N Bet</td>
+<td>一個業務回合只建立一次；重送與重試不得產生重複 Round</td>
 </tr>
 <tr>
-<td align="center">2</td>
-<td><a href="open-issues.html#tbd-dat-002"><code>TBD-DAT-002</code></a></td>
-<td>Provider／GGAP／request ID 角色與 snapshot 規則</td>
-<td>查詢、deep link、冪等與歷史追溯</td>
+<td>Bet</td>
+<td>一次實際投注效果</td>
+<td>N:1 Round</td>
+<td>每筆具 <code>bet_id</code>、金額、時間、狀態與設定 snapshot</td>
 </tr>
 <tr>
-<td align="center">3</td>
-<td><a href="open-issues.html#tbd-dat-003"><code>TBD-DAT-003</code></a></td>
-<td>儲存時區、顯示時區、查詢欄位與時間邊界</td>
-<td>報表期間、跨頁導流與測試案例</td>
+<td>Payout</td>
+<td>派彩效果</td>
+<td>依 <code>payout_scope</code> 關聯 Bet、Round 或兩者</td>
+<td>每份金額只能進正式聚合一次</td>
 </tr>
 <tr>
-<td align="center">4</td>
-<td><a href="open-issues.html#tbd-dat-001"><code>TBD-DAT-001</code></a></td>
-<td>decimal、匯率方向、量化與歷史重現</td>
-<td>金額 schema、顯示、匯出與聚合</td>
+<td>Settlement Version</td>
+<td>某次有效結算結果</td>
+<td>一個 Round 可有多個版本，只有一版目前有效</td>
+<td>新版本追加，不覆寫舊版本</td>
 </tr>
 <tr>
-<td align="center">5</td>
-<td><a href="open-issues.html#tbd-dom-002"><code>TBD-DOM-002</code></a></td>
-<td>有效 Round、玩家淨輸贏、GGR 與回滾口徑</td>
-<td>財務 API、Dashboard 與正式驗收</td>
+<td>Round Event／Attempt</td>
+<td>請求、重試、Callback、狀態轉移等證據</td>
+<td>N:1 Round</td>
+<td>append-only，保存前後狀態、原因與 trace</td>
+</tr>
+<tr>
+<td>Adjustment／Reversal</td>
+<td>更正、沖回或跨期差異</td>
+<td>關聯原 Round、Bet、Settlement</td>
+<td>使用 signed amount 與明確原因，不建立假負值 Round</td>
 </tr>
 </tbody></table></div>
-<hr>
-<h2 id="1-game-round-正式生命週期">1. Game Round 正式生命週期</h2><div class="decision-item-meta"><span>DP01-01</span><a href="open-issues.html#tbd-dom-001">TBD-DOM-001</a><b>P0</b><i>Product · Backend · GGAP</i></div><h3 id="要解決的矛盾">要解決的矛盾</h3><p>目前頁面已有 <code>processing</code>、<code>settled</code>、<code>cancelled</code>、<code>rollback</code>、<code>failed</code>，但尚未定義哪些是終態、暫時失敗是否立刻變成 <code>failed</code>、重試是否建立新 Round，以及更正與回滾如何保留歷史。因此同一筆資料可能在遊戲紀錄、財務與監控被不同方式解讀。</p>
-<h3 id="建議方案-a-round-狀態與處理事件分離">建議方案 A｜Round 狀態與處理事件分離</h3><aside class="decision-recommendation">
-  <strong>建議採用</strong>
-  <p>一個玩家業務回合只建立一個 Provider Round。Round 保存目前業務狀態；每次請求、重試、結算、更正與回滾另存 append-only event。重試不建立新 Round，也不覆蓋先前證據。</p>
-</aside><p>建議狀態：</p>
-<div class="table-scroll" tabindex="0"><table>
+<p>遊戲版本必須宣告：</p>
+<ul>
+<li><code>bet_mode=single</code>：一個 Round 通常只有一筆 Bet。</li>
+<li><code>bet_mode=multiple</code>：一個 Round 可包含多筆 Bet，供魚機、棋牌或其他複合玩法銜接。</li>
+<li><code>payout_scope=bet</code>：派彩逐筆對應 Bet。</li>
+<li><code>payout_scope=round</code>：派彩只在 Round 層結算。</li>
+<li><code>payout_scope=hybrid</code>：同時存在 Bet 與 Round 層效果；必須以 settlement line 或等價來源標記實際入帳範圍，避免重複計算。</li>
+</ul>
+<p>支援 <code>multiple</code> 是聚合相容能力，不要求所有自製遊戲改成多 Bet，也不在本包提前規定各種棋牌桌局或多人玩法細節。每款遊戲依實際玩法選擇版本模式。</p>
+<h3 id="1-2-round-狀態">1.2 Round 狀態</h3><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
-<th>API 候選值</th>
+<th>API 值</th>
 <th>顯示名稱</th>
 <th align="right">財務效果</th>
-<th align="center">是否終態</th>
-<th>建議轉換</th>
+<th align="center">終態</th>
+<th>主要轉換</th>
 </tr>
 </thead>
 <tbody><tr>
 <td><code>processing</code></td>
 <td>處理中</td>
-<td align="right">無</td>
+<td align="right">尚無有效結算</td>
 <td align="center">否</td>
 <td><code>settled</code>、<code>cancelled</code>、<code>failed</code></td>
 </tr>
 <tr>
 <td><code>settled</code></td>
 <td>已結算</td>
-<td align="right">有</td>
+<td align="right">依目前有效 settlement version</td>
 <td align="center">條件式</td>
-<td>可因完整沖回進入 <code>rolled_back</code>；金額更正仍維持 <code>settled</code> 並增加版本</td>
+<td>可追加更正版本；完整沖回後進入 <code>rolled_back</code></td>
 </tr>
 <tr>
 <td><code>cancelled</code></td>
 <td>已取消</td>
 <td align="right">無</td>
 <td align="center">是</td>
-<td>不恢復；若重新投注應建立新的業務 Round</td>
+<td>不恢復；重新投注建立新的業務 Round</td>
 </tr>
 <tr>
 <td><code>failed</code></td>
 <td>結算失敗</td>
-<td align="right">無</td>
+<td align="right">無有效結算</td>
 <td align="center">是</td>
-<td>只在有限重試耗盡後使用；遲到結果需走明確更正流程</td>
+<td>只在有限重試耗盡後成立；遲到結果走 reconciliation／correction</td>
 </tr>
 <tr>
 <td><code>rolled_back</code></td>
 <td>已回滾</td>
-<td align="right">原效果已完整沖回</td>
+<td align="right">原有效效果已完整沖回</td>
 <td align="center">是</td>
 <td>不直接改回 <code>settled</code></td>
 </tr>
 </tbody></table></div>
-<p>建議行為：</p>
-<ul>
-<li>Provider 第一次接受可識別的業務請求時建立 Round，初始為 <code>processing</code>。</li>
-<li>同一 logical request 的網路重送沿用相同 <code>request_id</code>，不得重複建立 Round 或重複產生財務效果。</li>
-<li>暫時性逾時或單次 attempt 失敗記錄在 event，不立即把 Round 標為 <code>failed</code>。</li>
-<li>有效結算保存 <code>settlement_version=1</code>；後續金額更正增加版本並保留前一版，不建立第二筆 Game Round。</li>
-<li>完整沖回使用 <code>rolled_back</code>；目前原型值 <code>rollback</code> 是否改名需在核准時一併決定。</li>
-<li>不提供刪除正式 Game Round 的一般操作。</li>
+<p>正式 canonical 值採 <code>rolled_back</code>。既有原型、舊資料或外部輸入若使用 <code>rollback</code>，只在相容層映射為 <code>rolled_back</code>，不得讓兩個值同時成為正式狀態。</p>
+<h3 id="1-3-冪等-重試與遲到結果">1.3 冪等、重試與遲到結果</h3><ul>
+<li>Provider 第一次接受可識別業務請求時建立 Round，初始狀態為 <code>processing</code>。</li>
+<li>同一 logical command 的網路重送沿用同一 <code>request_id</code>／idempotency key，回傳相同結果，不重複建立 Round、Bet 或財務效果。</li>
+<li>暫時性逾時與單次 attempt 失敗只記錄事件；有限重試耗盡後才把 Round 標記為 <code>failed</code>。</li>
+<li><code>failed</code> 後到達的有效 Callback 不得靜默把狀態改回 <code>settled</code>；必須建立 reconciliation case，再由明確 correction 流程形成新結算版本。</li>
+<li><code>settled</code> 的部分金額更正維持 Round 為 <code>settled</code> 並增加 <code>settlement_version</code>；只有完整沖回才進入 <code>rolled_back</code>。</li>
+<li>正式 Game Round 不提供一般刪除操作。</li>
 </ul>
-<h3 id="替代方案比較">替代方案比較</h3><div class="table-scroll" tabindex="0"><table>
-<thead>
-<tr>
-<th>方案</th>
-<th>說明</th>
-<th>優點</th>
-<th>主要風險</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>A｜狀態＋事件分離</td>
-<td>一個 Round、狀態快照、append-only event</td>
-<td>可追溯、可冪等、財務不重複</td>
-<td>後端需建立事件與版本模型</td>
-</tr>
-<tr>
-<td>B｜只保留簡化終態</td>
-<td>Round 只保留處理中／已結算／已取消，錯誤全部在 log</td>
-<td>模型較小</td>
-<td>Portal 難以直接查詢失敗與回滾</td>
-</tr>
-<tr>
-<td>C｜每次重試／回滾建立新 Round</td>
-<td>每個動作都是新 Round</td>
-<td>寫入流程直觀</td>
-<td>容易重複計數，破壞「一列一 Round」與追溯關係，不建議</td>
-</tr>
-</tbody></table></div>
-<h3 id="請責任方確認">請責任方確認</h3><ol class="decision-question-list">
-  <li><b>Q1</b><span>是否採用「一個業務 Round＋append-only event」模型？</span></li>
-  <li><b>Q2</b><span>正式 API 值使用 <code>rolled_back</code>，還是保留原型的 <code>rollback</code>？</span></li>
-  <li><b>Q3</b><span><code>failed</code> 是否只在有限重試耗盡後成立，且視為終態？</span></li>
-  <li><b>Q4</b><span>部分金額更正是否維持 <code>settled</code> 並增加 <code>settlement_version</code>？</span></li>
-</ol><hr>
-<h2 id="2-跨系統識別碼與交易快照">2. 跨系統識別碼與交易快照</h2><div class="decision-item-meta"><span>DP01-02</span><a href="open-issues.html#tbd-dat-002">TBD-DAT-002</a><b>P0</b><i>Backend · Data · GGAP · Security</i></div><h3 id="要解決的矛盾-2">要解決的矛盾</h3><p>Provider Round ID、GGAP Round ID、request ID 與 event ID 都出現在追蹤流程，但其唯一性與重送角色尚未分開。代理商、會員與遊戲名稱也可能被誤寫成「查詢當下 join 的最新主資料」，造成歷史紀錄被改名或無法重現。</p>
-<h3 id="建議方案-a-provider-id-為主鍵-外部-id-與脈絡採不可變快照">建議方案 A｜Provider ID 為主鍵，外部 ID 與脈絡採不可變快照</h3><aside class="decision-recommendation">
-  <strong>建議採用</strong>
-  <p><code>round_id</code> 是 Provider 唯一主鍵；<code>external_round_id</code> 只作 GGAP 對照與查詢。重送依 logical <code>request_id</code> 去重。Round 保存當時遊戲版本與外部脈絡 snapshot，不依賴查詢當下的外部主資料。</p>
-</aside><div class="table-scroll" tabindex="0"><table>
+<h3 id="1-4-計數與金額聚合單位">1.4 計數與金額聚合單位</h3><p><code>Round 1:N Bet</code> 成立後，Round 數與 Bet 數必須分開：</p>
+<pre><code class="language-text">round_count = count(distinct effective round_id)
+bet_count   = count(effective bet_id)
+average_bet = total_bet / bet_count
+</code></pre>
+<ul>
+<li><code>single</code> 遊戲的 <code>round_count</code> 與 <code>bet_count</code> 通常相同；<code>multiple</code> 遊戲不相同。</li>
+<li>完整沖回或無有效財務效果的資料不進目前有效計數；調整紀錄本身不增加 Round 或 Bet 筆數。</li>
+<li>表格若顯示「投注筆數」必須使用 <code>bet_count</code>；若顯示「局數／Round 數」使用 <code>round_count</code>，不得再用同一欄位名稱互換。</li>
+<li>金額依有效 settlement line 聚合，並依 <code>payout_scope</code> 確保每份投注或派彩只計算一次。</li>
+</ul>
+<hr>
+<h2 id="2-跨系統識別碼與交易快照">2. 跨系統識別碼與交易快照</h2><div class="decision-item-meta"><span>DP01-02</span><a href="open-issues.html#tbd-dat-002">TBD-DAT-002</a><i>Backend · Data · GGAP · Security</i></div><aside class="decision-recommendation">
+  <strong>目前需求基準</strong>
+  <p><code>round_id</code> 是 Provider 的查詢與追蹤主鍵；Bet、交易、結算、調整與事件各自具識別碼。GGAP 與其他外部 ID 保留來源脈絡及複合唯一性，不直接取代 Provider 主鍵。</p>
+</aside><h3 id="2-1-識別碼責任">2.1 識別碼責任</h3><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
 <th>識別</th>
-<th>建議責任</th>
-<th>建議唯一性／索引</th>
-<th>不得用來做什麼</th>
+<th>建立方／責任</th>
+<th>唯一性與用途</th>
 </tr>
 </thead>
 <tbody><tr>
 <td><code>round_id</code></td>
-<td>Provider 建立</td>
-<td>建議全域唯一；資料隔離仍強制帶 <code>provider_id</code> 與 <code>environment</code></td>
-<td>不從 GGAP ID 推導，不承載可變商業資訊</td>
+<td>Provider</td>
+<td>Provider 內部主鍵；所有頁面與 evidence 可由此追溯</td>
 </tr>
 <tr>
-<td><code>external_round_id</code></td>
-<td>GGAP 提供或映射</td>
-<td>在 GGAP 契約確認前只建可查詢索引，不假設全域唯一</td>
-<td>不作 Provider primary key</td>
+<td><code>bet_id</code></td>
+<td>Provider 或依對接契約映射</td>
+<td>一筆 Bet 的穩定識別；同一 Bet 的重送不得產生新 ID</td>
+</tr>
+<tr>
+<td><code>transaction_id</code></td>
+<td>產生該資金／遊戲交易的一方</td>
+<td>區分 Bet、Win、Refund、Rollback 等 transaction</td>
+</tr>
+<tr>
+<td><code>external_round_id</code>／<code>external_bet_id</code></td>
+<td>GGAP 或外部來源</td>
+<td>對接查詢與比對；不假設跨 provider、environment、source 全域唯一</td>
 </tr>
 <tr>
 <td><code>request_id</code></td>
-<td>logical command 發起方提供／Provider 接收</td>
-<td>同一操作重送沿用；不同操作使用新值</td>
-<td>不等同 Round ID 或 event ID</td>
+<td>logical command 發起方</td>
+<td>指令與冪等層級；不同操作使用不同值，不等同 Round 或 Event</td>
 </tr>
 <tr>
 <td><code>provider_event_id</code></td>
-<td>Provider 建立</td>
-<td>每個 append-only event 唯一</td>
-<td>不等同 Risk Event ID</td>
+<td>Provider</td>
+<td>一筆 append-only domain／integration event</td>
 </tr>
 <tr>
-<td><code>risk_event_id</code>／<code>alert_id</code></td>
-<td>Provider 風控建立</td>
-<td>依各自模型唯一</td>
-<td>不取代 Round 或 request 追蹤</td>
+<td><code>settlement_id</code></td>
+<td>結算服務</td>
+<td>一個正式結算或 settlement line 的穩定識別</td>
+</tr>
+<tr>
+<td><code>adjustment_id</code></td>
+<td>調整服務</td>
+<td>一筆回滾、更正或差異調帳的穩定識別</td>
 </tr>
 </tbody></table></div>
-<p>Round 建議保存：</p>
+<p>外部識別在正式契約未保證全域唯一前，至少以 <code>provider_id + environment + source_system + external_id</code> 建立複合唯一鍵或去重範圍。所有 UI 查詢與 deep link 必須保留環境脈絡，避免 Production 與 DEMO 撞號。</p>
+<h3 id="2-2-round-與-bet-snapshot">2.2 Round 與 Bet snapshot</h3><p>每筆 Round 至少保存交易當下的：</p>
 <ul>
-<li><code>game_id</code>、<code>game_name_snapshot</code>、<code>game_type</code>、實際 <code>release_id</code>／版本。</li>
-<li><code>agent_id</code> 與可取得的 <code>agent_name_snapshot</code>；只代表交易脈絡，不形成 Provider 代理商主資料。</li>
-<li><code>member_id</code> 或 GGAP 提供的 opaque member reference；遮罩與查詢權限交由 <code>TBD-SEC-002</code>。</li>
-<li><code>merchant_id</code> 若整合追蹤必要，可保存為後端受限快照，但不進 Provider UI、查詢與財務維度。</li>
-<li>snapshot 缺值保存為 <code>null</code> 與來源狀態，不用日後最新名稱靜默回填歷史。</li>
+<li><code>provider_id</code>、<code>environment</code>、<code>game_id</code>、<code>game_name_snapshot</code>、<code>game_type</code>、<code>release_id</code>／實際版本。</li>
+<li><code>bet_mode</code>、<code>payout_scope</code> 及三層投注設定的版本識別。</li>
+<li>GGAP 提供的 <code>agent_id</code> 與可取得的 <code>agent_name_snapshot</code>；只代表交易脈絡，不形成 Provider 代理商主資料。</li>
+<li>GGAP 提供的 opaque <code>member_ref</code>；遮罩、查詢與匯出權限依安全契約處理，Provider 不建立會員主檔。</li>
+<li><code>merchant_id</code> 若對接追蹤必要，只作後端受限脈絡，不作 Provider UI 或正式財務維度。</li>
+<li>資料來源、payload version、trace ID 與建立時可得的外部狀態。</li>
 </ul>
-<h3 id="替代方案比較-2">替代方案比較</h3><div class="table-scroll" tabindex="0"><table>
+<p>每筆 Bet 另保存 <code>bet_id</code>、Bet 序號、實際 <code>total_bet</code>、幣別／點數金額、時間、狀態及對應 payout／settlement 關聯。</p>
+<p>snapshot 缺值保存為 <code>null</code> 並記錄來源狀態；不得查詢時 join 最新名稱後靜默改寫歷史。若基於授權必須更新顯示名稱，應保存獨立的 display override 與稽核，不改動原始 snapshot。</p>
+<h3 id="2-3-追蹤鏈">2.3 追蹤鏈</h3><p>遊戲紀錄明細應可從 <code>round_id</code> 追到 Bet、transaction、settlement version、adjustment、request／Callback attempt 與 GGAP trace。財務、監控或風控導向遊戲紀錄時，也必須攜帶足以還原相同環境、時間基準及識別範圍的 query。</p>
+<p>Provider 可保存外部識別及名稱快照，但不得因此提供代理商、商戶、會員或錢包的新增、編輯、停用或主檔治理功能。</p>
+<hr>
+<h2 id="3-時間-統計窗口與日結帳期">3. 時間、統計窗口與日結帳期</h2><div class="decision-item-meta"><span>DP01-03</span><a href="open-issues.html#tbd-dat-003">TBD-DAT-003</a><i>Product · Backend · Data · Finance · SRE</i></div><aside class="decision-recommendation">
+  <strong>目前需求基準</strong>
+  <p>所有事件保存 absolute instant，API 使用 RFC 3339 並帶 offset；查詢採半開區間 <code>[from, to)</code>。Portal 顯示、營運報表與正式日結的時區角色分開保存，不因目前都落在 UTC+8 而合併語意。</p>
+</aside><h3 id="3-1-時間欄位">3.1 時間欄位</h3><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
-<th>方案</th>
-<th>說明</th>
-<th>優點</th>
-<th>主要風險</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>A｜Provider 主鍵＋外部對照＋snapshot</td>
-<td>Provider 內部穩定主鍵，GGAP 與名稱作歷史快照</td>
-<td>可追溯、外部變更不改寫歷史</td>
-<td>資料欄位較多，需治理敏感識別</td>
-</tr>
-<tr>
-<td>B｜GGAP Round ID 直接作主鍵</td>
-<td>不建立 Provider Round ID</td>
-<td>欄位較少</td>
-<td>綁定外部唯一性與格式，跨環境／重送風險高</td>
-</tr>
-<tr>
-<td>C｜只存 ID、查詢時 join 最新名稱</td>
-<td>歷史名稱不保存</td>
-<td>儲存較少</td>
-<td>報表無法重現當時脈絡，不建議用於財務</td>
-</tr>
-</tbody></table></div>
-<h3 id="請責任方確認-2">請責任方確認</h3><ol class="decision-question-list">
-  <li><b>Q5</b><span><code>round_id</code> 是否由 Provider 建立並作唯一主鍵？正式格式由 Backend 另提 schema。</span></li>
-  <li><b>Q6</b><span>在取得 GGAP 契約前，是否同意不對 <code>external_round_id</code> 宣告全域唯一？</span></li>
-  <li><b>Q7</b><span>遊戲、版本與代理商名稱是否採交易當下 snapshot，禁止以最新名稱覆寫歷史？</span></li>
-  <li><b>Q8</b><span><code>merchant_id</code> 是否維持後端受限追蹤欄位，不進 Provider UI 與報表維度？</span></li>
-</ol><hr>
-<h2 id="3-時間-時區與統計窗口">3. 時間、時區與統計窗口</h2><div class="decision-item-meta"><span>DP01-03</span><a href="open-issues.html#tbd-dat-003">TBD-DAT-003</a><b>P1</b><i>Product · Backend · Data · SRE</i></div><h3 id="要解決的矛盾-3">要解決的矛盾</h3><p>財務已明確使用 <code>settled_at</code>，但遊戲紀錄同時要查詢尚未產生 <code>settled_at</code> 的 <code>processing</code>／<code>failed</code> Round。若同一個「時間區間」在不同狀態下偷偷改用不同欄位，使用者與 QA 都無法判斷結果。</p>
-<h3 id="建議方案-a-儲存-utc-顯示台北-時間基準必須明示">建議方案 A｜儲存 UTC、顯示台北、時間基準必須明示</h3><aside class="decision-recommendation">
-  <strong>建議採用</strong>
-  <p>所有事件保存 absolute instant，API 使用 RFC 3339 並帶 offset；Portal 預設以 <code>Asia/Taipei</code> 顯示與切日。財務固定依 <code>settled_at</code>；遊戲紀錄增加明確 <code>time_basis</code>，不得依狀態暗中切換。</p>
-</aside><div class="table-scroll" tabindex="0"><table>
-<thead>
-<tr>
-<th>時間欄位</th>
+<th>欄位</th>
 <th>正式語意</th>
 <th>主要用途</th>
-<th align="center">是否可變</th>
 </tr>
 </thead>
 <tbody><tr>
 <td><code>created_at</code></td>
 <td>Provider 建立 Round 紀錄的技術時間</td>
-<td>未結算／失敗追查、資料寫入追蹤</td>
-<td align="center">否</td>
+<td>未結算／失敗追查與寫入追蹤</td>
 </tr>
 <tr>
 <td><code>started_at</code></td>
 <td>遊戲玩法開始時間</td>
-<td>遊戲時長與未來多人玩法；現行單人遊戲可空</td>
-<td align="center">否</td>
+<td>遊戲時長；現行不提供時可為 <code>null</code></td>
+</tr>
+<tr>
+<td><code>bet_at</code></td>
+<td>Bet 被接受的業務時間</td>
+<td>Bet 排序、交易證據與延遲分析</td>
 </tr>
 <tr>
 <td><code>settled_at</code></td>
-<td>有效結算版本完成時間</td>
-<td>正式遊戲紀錄預設排序、財務與報表統計</td>
-<td align="center">原始值否；更正另留版本時間</td>
+<td>目前有效結算完成時間</td>
+<td>正式財務、報表及遊戲紀錄預設統計</td>
 </tr>
 <tr>
 <td><code>updated_at</code></td>
 <td>Round 最新狀態／版本寫入時間</td>
 <td>資料新鮮度與支援追查</td>
-<td align="center">是</td>
 </tr>
 <tr>
 <td>event <code>occurred_at</code></td>
-<td>重試、更正、回滾等事件實際發生時間</td>
-<td>事件時間軸與 audit</td>
-<td align="center">否</td>
+<td>重試、Callback、更正或回滾實際發生時間</td>
+<td>timeline、audit 與 reconciliation</td>
 </tr>
 </tbody></table></div>
-<p>建議查詢規則：</p>
-<ul>
+<p>原始時間不可被改寫；若後續收到更可信的業務時間，應保存來源版本與修正紀錄。<code>settled_at=null</code> 不得以 <code>created_at</code> 冒充結算時間。</p>
+<h3 id="3-2-四個時間角色">3.2 四個時間角色</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>角色</th>
+<th>第一版基準</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>儲存／傳輸時間</td>
+<td>UTC absolute instant；RFC 3339</td>
+<td>跨系統交換與排序</td>
+</tr>
+<tr>
+<td><code>display_timezone</code></td>
+<td>Portal 預設 <code>Asia/Taipei</code></td>
+<td>畫面格式化與使用者輸入日區間</td>
+</tr>
+<tr>
+<td><code>report_timezone</code></td>
+<td>API／匯出明確回傳；第一版預設 <code>Asia/Taipei</code></td>
+<td>營運報表切日與圖表 bucket</td>
+</tr>
+<tr>
+<td><code>settlement_timezone</code></td>
+<td>GGAP 日結語意使用北京時區 <code>Asia/Shanghai</code></td>
+<td>正式帳期、匯率鎖定與日結批次</td>
+</tr>
+</tbody></table></div>
+<p>台北與北京目前同為 UTC+8，不代表兩者可以共用一個無名稱 offset。日後規則、地區或排程改變時，兩個角色仍須可獨立版本化。</p>
+<h3 id="3-3-查詢與統計窗口">3.3 查詢與統計窗口</h3><ul>
 <li>財務總覽、代理商 × 遊戲彙總與 Dashboard 財務數字固定使用 <code>settled_at</code>。</li>
-<li>遊戲紀錄預設 <code>time_basis=settled_at</code>；需要查詢 <code>processing</code>、<code>failed</code> 或技術寫入紀錄時，使用者明確切換 <code>time_basis=created_at</code>。</li>
-<li>財務頁導向遊戲紀錄時必須帶入 <code>time_basis=settled_at</code>，避免同一期間筆數不一致。</li>
-<li>所有區間採半開區間 <code>[from, to)</code>；日區間依 <code>Asia/Taipei</code> 產生邊界後轉成 UTC 傳輸。</li>
-<li>API 回傳原始時間含 <code>Z</code> 或明確 offset，並在 <code>meta.timezone</code> 說明顯示／聚合時區。</li>
-<li><code>settled_at=null</code> 不得被填入 <code>created_at</code> 冒充結算時間。</li>
+<li>遊戲紀錄預設 <code>time_basis=settled_at</code>；查詢 <code>processing</code>、<code>failed</code> 或寫入異常時，使用者明確切換 <code>time_basis=created_at</code>。</li>
+<li>財務跨頁導向遊戲紀錄時必須帶 <code>time_basis=settled_at</code>、相同 <code>[from,to)</code>、environment 與有效資料版本。</li>
+<li>API request／response 必須明示 <code>time_basis</code>、timezone 與區間；不得依 Round 狀態暗中切換時間欄位。</li>
+<li>即時／歷史營運報表回傳 <code>data_version</code> 與 <code>calculated_at</code>，允許因後續更正以新版本重算。</li>
 </ul>
-<h3 id="替代方案比較-3">替代方案比較</h3><div class="table-scroll" tabindex="0"><table>
+<h3 id="3-4-正式日結">3.4 正式日結</h3><p>正式日結保存 <code>business_date</code>、<code>settlement_timezone</code>、<code>settlement_batch_id</code>、rate snapshot、資料截止點與鎖定版本。依現行 GGAP 技術規格，日結以北京時區為語意基準：00:00 鎖定適用匯率，01:00 執行 T-1 帳期；若實際 Backend 排程不同，後續以差異表修訂時間值，但仍保留「匯率鎖定」與「結算批次不可變」兩項能力。</p>
+<p>已鎖定日結不得因營運報表重算而被覆寫。後到 Callback、回滾或更正造成跨期差異時，建立 adjustment／reversal 並落在可追溯的新批次。</p>
+<hr>
+<h2 id="4-遊戲投注結構-幣別倍率與下注限額">4. 遊戲投注結構、幣別倍率與下注限額</h2><div class="decision-item-meta"><span>DP01-04</span><a href="open-issues.html#tbd-dat-001">TBD-DAT-001</a><i>Product · Game Math · Backend · GGAP</i></div><aside class="decision-recommendation">
+  <strong>目前需求基準</strong>
+  <p>投注設定拆成「遊戲投注結構、投注幣別倍率、下注限額方案」三層。遊戲先計算最後的 <code>total_bet</code>，再以固定、版本化的產品倍率映射各幣別，最後由限額方案驗證；固定倍率不是即時市場匯率。</p>
+</aside><h3 id="4-1-三層模型">4.1 三層模型</h3><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
-<th>方案</th>
-<th>說明</th>
-<th>優點</th>
-<th>主要風險</th>
+<th>層級</th>
+<th>責任</th>
+<th>典型內容</th>
+<th>版本化要求</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>A｜明確 <code>time_basis</code></td>
-<td>財務固定結算時間；Round 頁可明確切換</td>
-<td>語意可測、未結算資料可查</td>
-<td>Round 頁需增加控制與 query 契約</td>
+<td>遊戲投注結構</td>
+<td>定義一款遊戲如何組成最終投注額</td>
+<td>Bet、Coin Value、Multiplier、Lines、Bet Level 或遊戲專屬元件</td>
+<td>隨遊戲／版本保存；不同遊戲可不同</td>
 </tr>
 <tr>
-<td>B｜所有頁都用 <code>created_at</code></td>
-<td>單一時間欄位</td>
-<td>查詢簡單</td>
-<td>財務跨日與延遲結算口徑錯誤</td>
+<td>投注幣別倍率</td>
+<td>將同一投注階梯映射成各幣別可接受的固定產品金額</td>
+<td><code>currency_code</code>、<code>multiplier_value</code>、生效區間與取位規則</td>
+<td>建立 <code>bet_currency_profile_id/version</code>；不得隨市場匯率浮動</td>
 </tr>
 <tr>
-<td>C｜依狀態自動選欄位</td>
-<td>UI 不增加控制</td>
-<td>畫面較少</td>
-<td>同一區間混合不同時間語意，不建議</td>
+<td>下注限額方案</td>
+<td>限制每筆最終投注額及必要的日／局／功能上限</td>
+<td>min／max total bet、允許 bet level、遊戲／版本／幣別 scope</td>
+<td>建立 <code>limit_scheme_id/version</code>；已發布版本不可原地改寫</td>
 </tr>
 </tbody></table></div>
-<h3 id="請責任方確認-3">請責任方確認</h3><ol class="decision-question-list">
-  <li><b>Q9</b><span>Portal 的預設顯示與統計日是否固定為 <code>Asia/Taipei</code>？</span></li>
-  <li><b>Q10</b><span>是否採用半開區間 <code>[from, to)</code>，API 以 RFC 3339 absolute instant 傳輸？</span></li>
-  <li><b>Q11</b><span>遊戲紀錄是否增加明確的 <code>time_basis</code>，預設 <code>settled_at</code>、追查未結算時使用 <code>created_at</code>？</span></li>
-  <li><b>Q12</b><span>財務跨頁導流是否一律鎖定 <code>time_basis=settled_at</code>？</span></li>
-</ol><hr>
-<h2 id="4-點數-usdt-匯率與精度">4. 點數、USDT、匯率與精度</h2><div class="decision-item-meta"><span>DP01-04</span><a href="open-issues.html#tbd-dat-001">TBD-DAT-001</a><b>P0</b><i>Finance · Backend · GGAP</i></div><h3 id="要解決的矛盾-4">要解決的矛盾</h3><p>目前已確認使用 decimal string、保存當次換算結果與 <code>conversion_rule_id</code>，但尚未決定點數／USDT scale、匯率方向、量化時點及 rounding mode。若各 API 或報表自行取位，總覽加總可能無法回到單筆 Round。</p>
-<h3 id="建議方案-a-provider-固定計算-profile-每筆-round-鎖定換算版本">建議方案 A｜Provider 固定計算 profile＋每筆 Round 鎖定換算版本</h3><aside class="decision-recommendation">
-  <strong>建議採用</strong>
-  <p>第一版由 Provider 設定固定的 points、USDT 與 rate 計算 profile；傳輸一律使用 decimal string。每筆 Round 保存 canonical rate、方向、rule ID、量化後的各金額與規則版本，報表只加總保存值。</p>
-</aside><p>建議契約骨架：</p>
-<div class="table-scroll" tabindex="0"><table>
-<thead>
-<tr>
-<th>項目</th>
-<th>建議</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>傳輸型別</td>
-<td>JSON decimal string；不得使用 JavaScript binary float 作正式值</td>
-</tr>
-<tr>
-<td>canonical 匯率方向</td>
-<td>建議 <code>usdt_per_point</code>，公式為 <code>usdt = points × rate</code>；若採其他方向必須在欄位名明示</td>
-</tr>
-<tr>
-<td>Round 保存</td>
-<td><code>bet_points</code>、<code>payout_points</code>、<code>net_result_points</code>、三個對應 USDT、<code>conversion_rate</code>、<code>conversion_rule_id</code></td>
-</tr>
-<tr>
-<td>量化時點</td>
-<td>每筆 Round 結算版本建立時量化並保存；聚合時不再次逐筆換率</td>
-</tr>
-<tr>
-<td>歷史重現</td>
-<td>使用保存值與 rule snapshot；不得套用最新 rate 重算</td>
-</tr>
-<tr>
-<td>顯示精度</td>
-<td>可少於儲存精度，但完整值仍可在詳情／匯出依權限提供</td>
-</tr>
-</tbody></table></div>
-<p>建議計算順序：</p>
-<pre><code class="language-text">player_net_points = payout_points - bet_points
-ggr_points        = bet_points - payout_points
-
-bet_usdt          = quantize(bet_points × rate)
-payout_usdt       = quantize(payout_points × rate)
-player_net_usdt   = quantize((payout_points - bet_points) × rate)
-ggr_usdt          = quantize((bet_points - payout_points) × rate)
+<p>PP 老虎機畫面中的 Bet、Coin Value、Bet Multiplier 與 Total Bet 屬於第一層「遊戲投注結構」。它能說明遊戲如何組成投注，但不能單獨決定幣別倍率或 Provider 下注限額。</p>
+<h3 id="4-2-固定倍率">4.2 固定倍率</h3><p>投注幣別倍率是產品設定，不是金融換匯：</p>
+<ul>
+<li>各幣別使用經產品確認的固定相對比例，讓投注階梯符合當地常用面額與遊戲體驗。</li>
+<li>美金、台幣、越南盾等比率只可作規劃示例；實際值必須以版本化 profile 發布，不在程式中硬編碼示例數字。</li>
+<li>profile 調整只影響生效後的新 Launch／Round；歷史 Round 使用自己的 <code>bet_currency_profile_id/version</code> 還原。</li>
+<li>倍率欄位名稱必須帶用途，例如 <code>bet_currency_multiplier</code>，不得與 <code>settlement_rate</code> 或 GGAP <code>base_rate</code> 共用。</li>
+</ul>
+<h3 id="4-3-限額驗證與責任">4.3 限額驗證與責任</h3><ul>
+<li>Provider 擁有下注限額方案內容、版本與全域有效性；GGAP 只同步、開放或依代理商指派，不得修改 Provider 方案內容。</li>
+<li>限額以遊戲完成所有元件計算後的 <code>total_bet</code> 驗證，不逐一限制 Coin Value、Multiplier 等 UI 元件。</li>
+<li>Launch 回應應包含或可取得生效的投注結構、幣別倍率與限額版本；下注時 Backend 仍須以正式版本重新驗證，不能只信任前端。</li>
+<li>方案可依 game、version、environment、currency 與其他必要 scope 建立，但不得用代理商主檔作 Provider 內部管理來源。</li>
+<li>版本未發布、幣別不支援、金額不在允許階梯或超出 min／max 時拒絕 Bet，回傳可辨識錯誤碼且不建立有效財務效果。</li>
+<li>已開始 Round 使用啟動時鎖定的設定版本完成；後續停用或調整不回寫歷史。</li>
+</ul>
+<p>每筆 Round 至少 snapshot：</p>
+<pre><code class="language-text">bet_structure_version
+bet_currency_profile_id / bet_currency_profile_version
+limit_scheme_id / limit_scheme_version
+actual_total_bet
 </code></pre>
-<p><code>player_net_usdt</code> 不得用已量化的 <code>payout_usdt - bet_usdt</code> 反推，避免雙重四捨五入。正式 scale 與 rounding mode 仍需 Finance／Backend 填入：</p>
+<hr>
+<h2 id="5-provider-points-usdt-匯率與精度">5. Provider Points、USDT、匯率與精度</h2><div class="decision-item-meta"><span>DP01-05</span><a href="open-issues.html#tbd-dat-001">TBD-DAT-001</a><a href="open-issues.html#tbd-ext-001">TBD-EXT-001</a><i>Finance · Backend · Data · GGAP</i></div><aside class="decision-recommendation">
+  <strong>目前需求基準</strong>
+  <p>Provider Points、投注幣別倍率、會員顯示幣別與正式結算幣別分層保存。Provider 與 GGAP 正式結算固定使用 USDT；每次換算都帶明確方向、來源、版本與 snapshot，歷史不得套用最新值重算。</p>
+</aside><h3 id="5-1-四種金額角色">5.1 四種金額角色</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>角色</th>
+<th>用途</th>
+<th align="center">是否正式結算</th>
+<th>主要規則</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Provider Points</td>
+<td>遊戲數值、投注／派彩主值及 Portal 比較</td>
+<td align="center">否</td>
+<td>由 Provider 保存，跨遊戲與報表使用一致語意</td>
+</tr>
+<tr>
+<td><code>bet_currency_multiplier</code></td>
+<td>投注階梯的固定產品映射</td>
+<td align="center">否</td>
+<td>不跟隨市場匯率；見第 4 節</td>
+</tr>
+<tr>
+<td><code>display_currency</code>／native amount</td>
+<td>GGAP 會員錢包或前端顯示脈絡</td>
+<td align="center">否</td>
+<td>Provider 不建立或管理該錢包，只保存必要交易 snapshot</td>
+</tr>
+<tr>
+<td><code>settlement_currency</code></td>
+<td>Provider 與 GGAP 正式結算</td>
+<td align="center">是</td>
+<td>固定 <code>USDT</code></td>
+</tr>
+</tbody></table></div>
+<p>欄位不得只命名為 <code>currency</code>、<code>amount</code> 或 <code>rate</code>。API、資料表與匯出必須用名稱或同層 metadata 說明金額角色與換算方向。</p>
+<h3 id="5-2-兩種-ggap-對接資料模式">5.2 兩種 GGAP 對接資料模式</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>模式</th>
+<th>對接行為</th>
+<th>正式結算</th>
+<th>第一版策略</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>USDT_ONLY</code></td>
+<td>Provider 對 GGAP 的 Bet／Win 傳送 USDT；Provider 同時保存 Points 與轉換 snapshot</td>
+<td>USDT</td>
+<td>預設啟用，降低兩邊重複換算與對帳差異</td>
+</tr>
+<tr>
+<td><code>NATIVE_CURRENCY</code></td>
+<td>額外保存並傳送契約允許的原生顯示幣別／金額及其換算 snapshot</td>
+<td>仍為 USDT</td>
+<td>保留切換能力；實際啟用幣別與 payload 待 GGAP Backend 驗證</td>
+</tr>
+</tbody></table></div>
+<p>模式由版本化 integration profile 控制，至少依 GGAP environment 與契約版本生效。切換只影響新交易，不重寫既有 Round；同一交易不得同時用兩種模式產生兩份正式財務效果。</p>
+<h3 id="5-3-換算方向與-snapshot">5.3 換算方向與 snapshot</h3><p>Provider Points 對 USDT 的 rate 必須以欄位名稱固定方向，例如：</p>
+<pre><code class="language-text">provider_points_per_usdt = N
+amount_usdt = amount_points / provider_points_per_usdt
+</code></pre>
+<p>若正式 Backend 選擇反向欄位，則必須明確命名為 <code>usdt_per_provider_point</code>，不得只存模糊的 <code>conversion_rate</code>。</p>
+<p>GGAP 原生顯示幣別換算使用獨立的 <code>base_rate</code> 語意：</p>
+<pre><code class="language-text">base_rate = N display_currency per 1 USDT
+amount_usdt = amount_native / base_rate
+</code></pre>
+<p>兩條 rate 可以來自不同 profile，絕不能拿第 4 節的固定投注幣別倍率代替。每筆有效 settlement version 至少保存：</p>
+<ul>
+<li>原始 Points、USDT 及有使用時的 native amount／currency。</li>
+<li>rate 值、方向、<code>conversion_rule_id</code>／rate ID、來源與生效時間。</li>
+<li>integration mode、payload version、量化前必要中間值與量化後正式金額。</li>
+<li><code>calculated_at</code>、settlement version 及可回溯的規則 snapshot。</li>
+</ul>
+<h3 id="5-4-decimal-量化與顯示">5.4 Decimal、量化與顯示</h3><ul>
+<li>所有正式金額與 rate 以 JSON decimal string 傳輸；不得以 JavaScript binary float 作為正式計算值。</li>
+<li>Points、USDT、native amount 與 rate 各自具有固定 storage／calculation scale；正式位數由 Backend／Finance 對照 GGAP 契約填入。</li>
+<li>一個 calculation profile 只能使用一個明確 rounding mode；不得由前端或各報表自行決定。</li>
+<li>每筆 settlement version 建立時完成換算與量化；營運聚合加總已保存的正式值，不套用最新 rate。</li>
+<li>顯示精度可少於儲存精度，但詳情與匯出必須能依權限提供可對帳值。</li>
+<li>若要計算淨額，先以未量化的同一來源算式計算，再依 profile 量化；不得用兩個已分別取位的顯示值相減冒充正式淨額。</li>
+</ul>
+<hr>
+<h2 id="6-財務指標-調整與正式結算邊界">6. 財務指標、調整與正式結算邊界</h2><div class="decision-item-meta"><span>DP01-06</span><a href="open-issues.html#tbd-dom-002">TBD-DOM-002</a><a href="open-issues.html#tbd-dat-001">TBD-DAT-001</a><i>Product · Finance · Backend · Data · QA</i></div><aside class="decision-recommendation">
+  <strong>目前需求基準</strong>
+  <p>正式報表以 Production 中有效 Bet、Payout、Settlement 與 Adjustment 為唯一來源。玩家淨輸贏與 Provider GGR 使用相反視角；營運報表可版本化重算，鎖定日結只能用後續調整修正。</p>
+</aside><h3 id="6-1-正式公式與方向">6.1 正式公式與方向</h3><p>對目前非多人共池玩法，基本方向為：</p>
+<pre><code class="language-text">player_net = total_payout - total_bet
+provider_ggr = total_bet - total_payout
+</code></pre>
 <div class="table-scroll" tabindex="0"><table>
-<thead>
-<tr>
-<th>待填參數</th>
-<th>候選方向</th>
-<th>本包建議</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>points_scale</code></td>
-<td>Provider 全域固定／依遊戲變動</td>
-<td>第一版全域固定；顯示 scale 可依遊戲</td>
-</tr>
-<tr>
-<td><code>usdt_scale</code></td>
-<td>依 GGAP 契約固定</td>
-<td>等 GGAP 確認具體位數，不先假設</td>
-</tr>
-<tr>
-<td><code>rate_scale</code></td>
-<td>高於金額 scale</td>
-<td>Backend 提出足以避免中間運算損失的固定值</td>
-</tr>
-<tr>
-<td><code>rounding_mode</code></td>
-<td>HALF_UP／HALF_EVEN／DOWN 等</td>
-<td>Finance 選定唯一模式並寫入 rule version</td>
-</tr>
-</tbody></table></div>
-<h3 id="替代方案比較-4">替代方案比較</h3><div class="table-scroll" tabindex="0"><table>
-<thead>
-<tr>
-<th>方案</th>
-<th>說明</th>
-<th>優點</th>
-<th>主要風險</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>A｜固定 profile＋Round snapshot</td>
-<td>固定 scale／rounding，每 Round 鎖定版本</td>
-<td>容易重現、前後端一致</td>
-<td>需先核准 profile</td>
-</tr>
-<tr>
-<td>B｜各遊戲自行定 scale</td>
-<td>每款遊戲可不同</td>
-<td>彈性最高</td>
-<td>報表、匯出與比較複雜，第一版不建議</td>
-</tr>
-<tr>
-<td>C｜查詢時使用最新匯率</td>
-<td>不保存 Round 換算值</td>
-<td>儲存較少</td>
-<td>歷史數字會改變，違反既有邊界</td>
-</tr>
-</tbody></table></div>
-<h3 id="請責任方確認-4">請責任方確認</h3><ol class="decision-question-list">
-  <li><b>Q13</b><span>canonical rate 是否採 <code>usdt_per_point</code>，並以欄位名稱固定方向？</span></li>
-  <li><b>Q14</b><span>第一版是否採 Provider 全域固定 points scale，而非每款遊戲各自定義？</span></li>
-  <li><b>Q15</b><span>請 Finance／Backend 填入 points、USDT、rate scale 與唯一 rounding mode。</span></li>
-  <li><b>Q16</b><span>是否確認聚合只加總每筆 Round 保存的量化值，不以最新 rate 重算？</span></li>
-</ol><hr>
-<h2 id="5-正式財務指標與正負方向">5. 正式財務指標與正負方向</h2><div class="decision-item-meta"><span>DP01-05</span><a href="open-issues.html#tbd-dom-002">TBD-DOM-002</a><b>P0</b><i>Product · Finance · Backend</i></div><h3 id="要解決的矛盾-5">要解決的矛盾</h3><p>目前原型已使用「玩家淨輸贏＝派彩－投注」與「Provider GGR＝投注－派彩」，但取消、失敗、回滾、部分更正與跨期更正尚未形成唯一口徑。若只在前端以目前狀態過濾，歷史報表可能無法說明數字變化。</p>
-<h3 id="建議方案-a-有效-round-集合-帶版本的-signed-adjustment">建議方案 A｜有效 Round 集合＋帶版本的 signed adjustment</h3><aside class="decision-recommendation">
-  <strong>建議採用</strong>
-  <p>一般財務只統計 Production 中目前有效的 settled Round。玩家淨輸贏採玩家角度，GGR 採 Provider 角度。更正與回滾以可追溯的 signed adjustment／settlement version 反映，不刪除原始 Round。</p>
-</aside><h3 id="建議正式公式-限現行老虎機與單人-crash">建議正式公式（限現行老虎機與單人 Crash）</h3><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
 <th>指標</th>
-<th>建議定義</th>
-<th>正負方向</th>
+<th>定義</th>
+<th>正值代表</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>有效 Round</td>
-<td><code>environment=production</code>、來源可驗證、去重完成、目前具有效 <code>settled</code> 結算版本</td>
-<td>取消、失敗與完整回滾不納入</td>
+<td><code>total_bet</code></td>
+<td>有效 Bet 金額加總</td>
+<td>玩家投注增加</td>
 </tr>
 <tr>
-<td>投注筆數</td>
-<td>有效 Round 數量</td>
-<td>非負整數</td>
+<td><code>total_payout</code></td>
+<td>依 <code>payout_scope</code> 計入一次的有效派彩金額</td>
+<td>玩家取得派彩增加</td>
 </tr>
 <tr>
-<td>投注總額</td>
-<td><code>SUM(effective_bet_points)</code></td>
-<td>非負</td>
+<td><code>player_net</code></td>
+<td><code>total_payout - total_bet</code></td>
+<td>玩家淨贏</td>
 </tr>
 <tr>
-<td>派彩總額</td>
-<td><code>SUM(effective_payout_points)</code></td>
-<td>非負；更正由版本／delta 調整</td>
+<td><code>provider_ggr</code></td>
+<td><code>total_bet - total_payout</code></td>
+<td>Provider 毛遊戲收入為正</td>
 </tr>
 <tr>
-<td>玩家淨輸贏</td>
-<td><code>SUM(payout_points - bet_points)</code></td>
-<td>正值＝玩家淨贏；負值＝玩家淨輸</td>
+<td><code>round_count</code></td>
+<td>有效 <code>round_id</code> 去重數</td>
+<td>有效局數</td>
 </tr>
 <tr>
-<td>Provider GGR</td>
-<td><code>SUM(bet_points - payout_points)</code></td>
-<td>正值＝Provider 毛收入；負值＝Provider 淨虧</td>
+<td><code>bet_count</code></td>
+<td>有效 <code>bet_id</code> 數</td>
+<td>有效投注筆數</td>
 </tr>
 <tr>
-<td>平均投注額</td>
-<td>投注總額 ÷ 投注筆數</td>
-<td>分母 0 時 API 回 <code>null</code>、UI 顯示 <code>—</code></td>
+<td><code>average_bet</code></td>
+<td><code>total_bet / bet_count</code></td>
+<td>每筆 Bet 平均金額</td>
 </tr>
 <tr>
-<td>玩家人數</td>
-<td>查詢範圍內有效 Round 的 distinct opaque <code>member_id</code></td>
-<td>各分組人數不可直接相加</td>
-</tr>
-<tr>
-<td>人均投注額</td>
-<td>投注總額 ÷ distinct 玩家人數</td>
-<td>分母 0 時 API 回 <code>null</code>、UI 顯示 <code>—</code></td>
+<td><code>member_count</code></td>
+<td>distinct opaque <code>member_ref</code></td>
+<td>該查詢範圍的不重複會員脈絡數</td>
 </tr>
 </tbody></table></div>
-<p>建議狀態處理：</p>
-<div class="table-scroll" tabindex="0"><table>
-<thead>
-<tr>
-<th>Round 狀態／事件</th>
-<th>一般財務</th>
-<th>查詢與稽核</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>processing</code></td>
-<td>不納入</td>
-<td>可在遊戲紀錄查詢</td>
-</tr>
-<tr>
-<td><code>settled</code></td>
-<td>納入目前有效結算版本</td>
-<td>保留所有 settlement version</td>
-</tr>
-<tr>
-<td><code>cancelled</code></td>
-<td>不納入</td>
-<td>保留取消原因與時間</td>
-</tr>
-<tr>
-<td><code>failed</code></td>
-<td>不納入</td>
-<td>保留 attempts 與最終原因</td>
-</tr>
-<tr>
-<td><code>rolled_back</code></td>
-<td>原財務效果完整沖回</td>
-<td>原結算與 reversal event 均保留</td>
-</tr>
-<tr>
-<td>settlement adjustment</td>
-<td>以 signed delta 更新有效結果</td>
-<td>保存前後版本、原因、操作者與時間</td>
-</tr>
-</tbody></table></div>
-<p>跨期更正建議：</p>
-<ul>
-<li>即時營運報表允許舊期間數字因後續更正而改變，但回應必須帶 <code>calculated_at</code> 與 <code>data_version</code>。</li>
-<li>原始 <code>settled_at</code> 不因更正而被覆寫；更正 event 另有 <code>occurred_at</code>。</li>
-<li>是否建立日結／月結鎖定快照、重開會計期間與正式保存年限，交由 <code>TBD-DAT-004</code> 後續決策。</li>
-<li>本公式不推定棋牌、本金返還、Bonus、Jackpot、稅、費用或分潤；新增玩法前需另行確認 effective bet／payout 定義。</li>
+<p><code>member_count</code> 是非可加總指標：各代理商、遊戲或日期分組的 distinct count 相加不一定等於總數。API 必須直接回傳查詢範圍總 distinct 值。</p>
+<h3 id="6-2-有效資料與重複計算防護">6.2 有效資料與重複計算防護</h3><ul>
+<li>只納入 Production；DEMO、Test 必須在資料來源／partition 層隔離，而不是只靠前端預設篩選。</li>
+<li><code>cancelled</code>、<code>failed</code> 及完整 <code>rolled_back</code> 不產生目前有效投注／派彩效果。</li>
+<li><code>settled</code> 使用目前有效 settlement version；舊版本仍保存但不重複聚合。</li>
+<li><code>payout_scope=bet</code> 時加總 Bet 級 payout；<code>payout_scope=round</code> 時只加總 Round 級 payout；<code>hybrid</code> 依 settlement line 的入帳標記計一次。</li>
+<li>Adjustment 以 signed amount 影響指定財務指標與帳期，不增加 Round／Bet 計數。</li>
+<li>同一 transaction、settlement line、adjustment 或 Callback 的冪等重送不得增加第二次財務效果。</li>
 </ul>
-<h3 id="替代方案比較-5">替代方案比較</h3><div class="table-scroll" tabindex="0"><table>
+<h3 id="6-3-營運報表與正式結算">6.3 營運報表與正式結算</h3><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
-<th>方案</th>
-<th>說明</th>
-<th>優點</th>
-<th>主要風險</th>
+<th>面向</th>
+<th>Provider 營運報表</th>
+<th>GGAP 正式日結</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>A｜有效集合＋signed adjustment</td>
-<td>原始 Round 不變，更正以版本／delta 可追溯</td>
-<td>財務可重現、監控可解釋</td>
-<td>聚合需支援資料版本與重算</td>
+<td>目的</td>
+<td>即時查詢、營運分析、問題追蹤</td>
+<td>雙方對帳與正式應收／應付</td>
 </tr>
 <tr>
-<td>B｜直接覆寫原 Round 金額</td>
-<td>只保留最後值</td>
-<td>查詢簡單</td>
-<td>無法 audit、無法解釋歷史變動，不建議</td>
+<td>時間</td>
+<td>依查詢 <code>time_basis</code>／report timezone</td>
+<td>依 <code>business_date</code>／settlement timezone</td>
 </tr>
 <tr>
-<td>C｜回滾建立負值新 Game Round</td>
-<td>用新 Round 沖銷</td>
-<td>聚合表面簡單</td>
-<td>破壞一列一業務 Round、投注筆數容易失真</td>
+<td>更新</td>
+<td>新 settlement version 或 correction 後可重算</td>
+<td>鎖定後不改寫；差異進新 adjustment／reversal</td>
+</tr>
+<tr>
+<td>追溯</td>
+<td><code>data_version</code>、<code>calculated_at</code></td>
+<td><code>settlement_batch_id</code>、rate snapshot、locked version</td>
+</tr>
+<tr>
+<td>維度</td>
+<td>遊戲、版本、代理商快照等分析維度</td>
+<td><code>provider_id + settlement_currency + period</code> 為正式主維度</td>
 </tr>
 </tbody></table></div>
-<h3 id="請責任方確認-5">請責任方確認</h3><ol class="decision-question-list">
-  <li><b>Q17</b><span>玩家淨輸贏是否固定採玩家角度，GGR 固定採 Provider 角度，兩者在現行玩法互為相反數？</span></li>
-  <li><b>Q18</b><span>一般財務是否只納入 Production 中目前有效的 settled Round？</span></li>
-  <li><b>Q19</b><span>更正／回滾是否採 settlement version＋signed adjustment，禁止覆寫或建立假 Round？</span></li>
-  <li><b>Q20</b><span>即時歷史報表是否允許因後續更正重算，並用 <code>data_version</code>／<code>calculated_at</code> 追溯？</span></li>
-</ol><h2 id="6-一次審閱清單">6. 一次審閱清單</h2><p>責任方可以先依下表記錄方向；「同意建議」仍需在正式決議紀錄填寫確認人與日期。</p>
-<div class="table-scroll" tabindex="0"><table>
+<p>代理商 × 遊戲是 Provider 分析與追查維度，不是 Provider 與 GGAP 的正式結算主鍵。正式 <code>provider_payable</code> 也不等同 GGR；GGAP 若套用 provider cost、固定費、分成或 adjustment，必須保存各自 line item、公式版本與來源，不能用單一 GGR 欄位替代。</p>
+<h3 id="6-4-調整-回滾與對帳差異">6.4 調整、回滾與對帳差異</h3><ul>
+<li>部分金額更正：建立新 settlement version 或 adjustment，保存原值、新值、delta、原因與責任人。</li>
+<li>完整沖回：Round 進入 <code>rolled_back</code>，建立 reversal 連回原始 transaction／settlement；不得刪除原資料。</li>
+<li>跨期更正：營運報表可在新 <code>data_version</code> 呈現重算結果；正式日結以新帳期 adjustment 反映。</li>
+<li>Provider 與 GGAP 金額、狀態或 rate snapshot 不一致時建立 reconciliation evidence，顯示雙方值與差異，不以任一方最新值靜默覆蓋。</li>
+<li>所有人工調整需具權限、原因、前後值、actor、時間、request／trace ID 與必要覆核。</li>
+</ul>
+<h2 id="七個頁面的產品分工">七個頁面的產品分工</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
-<th>決策組</th>
-<th align="right">核准問題</th>
-<th>建議結果</th>
-<th>審閱結果</th>
+<th>頁面</th>
+<th>核心問題</th>
+<th>主要資料單位</th>
+<th>邊界</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>Round 生命週期</td>
-<td align="right">Q1–Q4</td>
-<td>採方案 A；確認 enum 命名與 <code>failed</code> 終態</td>
-<td>待填</td>
+<td>遊戲紀錄</td>
+<td>單筆 Round 發生了什麼？</td>
+<td>Round＋Bet＋交易／結算／調整證據</td>
+<td>追溯明細，不自行重算另一套財務</td>
 </tr>
 <tr>
-<td>識別與快照</td>
-<td align="right">Q5–Q8</td>
-<td>採方案 A；GGAP 外部唯一性維持等待</td>
-<td>待填</td>
+<td>財務總覽</td>
+<td>指定期間整體投注、派彩與 GGR 如何？</td>
+<td>有效財務效果聚合</td>
+<td>使用 <code>settled_at</code> 與正式公式</td>
 </tr>
 <tr>
-<td>時間與窗口</td>
-<td align="right">Q9–Q12</td>
-<td>採方案 A；台北顯示、UTC 傳輸、明確 <code>time_basis</code></td>
-<td>待填</td>
+<td>代理商 × 遊戲彙總</td>
+<td>哪些代理商脈絡與遊戲構成結果？</td>
+<td>分析維度聚合</td>
+<td>不成為正式結算主維度或代理商主檔</td>
 </tr>
 <tr>
-<td>點數與 USDT</td>
-<td align="right">Q13–Q16</td>
-<td>採方案 A；具體 scale／rounding 由 Finance／Backend 填入</td>
-<td>待填</td>
+<td>儀表板</td>
+<td>現在最重要的業務摘要為何？</td>
+<td>已定義來源的摘要</td>
+<td>不建立獨立計算口徑</td>
 </tr>
 <tr>
-<td>財務公式</td>
-<td align="right">Q17–Q20</td>
-<td>採方案 A；有效 Round＋signed adjustment</td>
-<td>待填</td>
+<td>監控總覽</td>
+<td>Round 流程目前是否健康？</td>
+<td>狀態／延遲／錯誤率</td>
+<td>不修改財務結果</td>
+</tr>
+<tr>
+<td>風控報表</td>
+<td>哪些異常與 Round 證據有關？</td>
+<td>Risk Event＋Round 關聯</td>
+<td>不取代 Round 或 settlement</td>
+</tr>
+<tr>
+<td>風控告警／處理</td>
+<td>誰處理異常，是否需要緩解？</td>
+<td>Alert＋Mitigation Job</td>
+<td>隔離不取消既有 Round 或竄改金額</td>
 </tr>
 </tbody></table></div>
-<h2 id="7-決議後同步清單">7. 決議後同步清單</h2><p>本包核准後應一次更新：</p>
+<h2 id="原型與後續實作對照">原型與後續實作對照</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>現行 Portal</th>
+<th>本規格要求的後續結果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>遊戲紀錄與財務頁面</td>
+<td>已有高擬真 mock、篩選、列表、摘要與明細</td>
+<td>接上 Round 1:N Bet、正式計數與版本化財務來源</td>
+</tr>
+<tr>
+<td>Round 狀態</td>
+<td>使用 mock 狀態與單列資料</td>
+<td>canonical enum、append-only event、reconciliation 與相容映射</td>
+</tr>
+<tr>
+<td>投注設定</td>
+<td>頁面已有遊戲／數值設定骨架</td>
+<td>三層版本模型、Launch snapshot 與 Backend 驗證</td>
+</tr>
+<tr>
+<td>Points／USDT</td>
+<td>目前以展示換算值為主</td>
+<td>金額角色分層、integration mode、rate snapshot 與 decimal profile</td>
+</tr>
+<tr>
+<td>財務與日結</td>
+<td>mock 加總與趨勢</td>
+<td>營運報表版本、正式 settlement batch、adjustment 與 reconciliation</td>
+</tr>
+<tr>
+<td>跨頁導流</td>
+<td>已有 query／deep link 概念</td>
+<td>傳遞 environment、time basis、版本與穩定識別</td>
+</tr>
+</tbody></table></div>
+<p>目前這個 session 只重寫規格網站內容，不修改 Portal Vue 原型或原始頁面 Spec MD。後續應先將本包同步至來源 Spec MD，再由新的開發 session 依三方一致內容實作原型與 Backend 契約。</p>
+<h2 id="外部驗證點">外部驗證點</h2><p>以下內容不改變產品功能方向，但需在取得 GGAP 或現行 Backend Git 後填入實際值並產出差異表：</p>
 <ol>
-<li><a href="common-domain-rules.html"><code>共通領域規則</code></a>：Round、環境、金額與時間正式規則。</li>
-<li><a href="data-dictionary.html"><code>資料字典</code></a>：ID、snapshot、decimal、rate 與 timestamp 欄位。</li>
-<li><a href="status-enums.html"><code>狀態與枚舉</code></a>：Round enum、終態與轉換。</li>
-<li><a href="game-round-records.html"><code>遊戲紀錄</code></a>：時間基準、狀態、詳情、排序與驗收。</li>
-<li><a href="finance-overview.html"><code>財務總覽</code></a>與<a href="finance-agent-games.html"><code>代理商 × 遊戲彙總</code></a>：有效 Round、公式、正負與資料版本。</li>
-<li>儀表板、監控總覽、風控報表與風控告警：只引用同一 Round／時間／金額語意，不另立公式。</li>
-<li><a href="open-issues.html"><code>待決策與校正清單</code></a>：保留 TBD ID，補上正式決議、日期、證據與剩餘限制。</li>
+<li>Round、Bet、Transaction、Settlement、Adjustment 的 migration、model、enum、唯一鍵及實際狀態轉換。</li>
+<li>Launch、Bet、Win、Refund、Rollback、查單、Callback 的 path、payload version、簽章、錯誤碼與冪等契約。</li>
+<li>正式 decimal storage／calculation／display scale、rounding mode、rate ID、rate 來源與序列化規則。</li>
+<li><code>USDT_ONLY</code> 的實際 payload，以及 <code>NATIVE_CURRENCY</code> 是否已被 GGAP Backend 支援、可啟用幣別與切換 scope。</li>
+<li>時間 query、Callback 延遲處理、00:00 匯率鎖定、01:00 T-1 日結及 settlement job 的實際 mapping。</li>
+<li>GGAP provider cost、固定費、分成、調整與 payable line item 的正式公式及 settlement schema。</li>
+<li>正式 permission key、敏感 member reference 遮罩、雙人覆核、資料保存年限與 audit 匯出方式。</li>
 </ol>
-<h2 id="8-本包完成條件">8. 本包完成條件</h2><p>Decision Pack 01 只有在以下條件都成立後才可標記 Confirmed：</p>
+<p>取得證據後，逐項選擇「沿用現況、調整 Backend、調整規格或增加相容層」，不得直接用既有實作靜默覆蓋本需求基準。</p>
+<h2 id="規格同步範圍">規格同步範圍</h2><p>本包完成審閱後，下一步同步更新：</p>
 <ul>
-<li>Q1–Q20 均有明確答案，或拆成具 owner 與期限的新 TBD。</li>
-<li>Product、Finance、Backend 對五組核心決策完成審閱；涉及 GGAP 的外部唯一性與 USDT 契約仍可明確維持 External。</li>
-<li>共通規格、資料字典、enum、七個直接影響頁面與 QA 情境同步更新。</li>
-<li>原型若需要新增 <code>time_basis</code> 或調整 <code>rollback</code> 命名，已決定修改方式與相容策略。</li>
-<li>自動 Gate 確認集中 TBD、決策包、頁面引用與生成 HTML 沒有脫節。</li>
+<li><code>docs/GAME_ROUND_AND_REPORTING_SPEC.md</code></li>
+<li><code>docs/GAME_ROUND_RECORDS_SPEC.md</code></li>
+<li><code>docs/GAME_VENDOR_FINANCE_REPORTING_SPEC.md</code></li>
+<li><code>docs/GAME_VENDOR_FINANCE_OVERVIEW_SPEC.md</code></li>
+<li><code>docs/GAME_VENDOR_FINANCE_AGENT_GAME_SPEC.md</code></li>
+<li><code>docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md</code></li>
+<li>規格網站的遊戲紀錄、財務、儀表板、監控與風控頁面，以及共通 enum、資料字典、API／QA 章節</li>
 </ul>
+<p>同步時以本包的 Round／Bet 基數、三層投注設定、幣別角色、時間角色與財務公式為上游；頁面文件只描述各自呈現與操作，不重複發明不同口徑。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#決策包狀態">決策包狀態</a><a class="outline-level-2" href="#暫存紀錄-2026-08-17">暫存紀錄｜2026-08-17</a><a class="outline-level-2" href="#已確認且不可違反的邊界">已確認且不可違反的邊界</a><a class="outline-level-2" href="#決策地圖">決策地圖</a><a class="outline-level-2" href="#1-game-round-正式生命週期">1. Game Round 正式生命週期</a><a class="outline-level-3" href="#要解決的矛盾">要解決的矛盾</a><a class="outline-level-3" href="#建議方案-a-round-狀態與處理事件分離">建議方案 A｜Round 狀態與處理事件分離</a><a class="outline-level-3" href="#替代方案比較">替代方案比較</a><a class="outline-level-3" href="#請責任方確認">請責任方確認</a><a class="outline-level-2" href="#2-跨系統識別碼與交易快照">2. 跨系統識別碼與交易快照</a><a class="outline-level-3" href="#要解決的矛盾-2">要解決的矛盾</a><a class="outline-level-3" href="#建議方案-a-provider-id-為主鍵-外部-id-與脈絡採不可變快照">建議方案 A｜Provider ID 為主鍵，外部 ID 與脈絡採不可變快照</a><a class="outline-level-3" href="#替代方案比較-2">替代方案比較</a><a class="outline-level-3" href="#請責任方確認-2">請責任方確認</a><a class="outline-level-2" href="#3-時間-時區與統計窗口">3. 時間、時區與統計窗口</a><a class="outline-level-3" href="#要解決的矛盾-3">要解決的矛盾</a><a class="outline-level-3" href="#建議方案-a-儲存-utc-顯示台北-時間基準必須明示">建議方案 A｜儲存 UTC、顯示台北、時間基準必須明示</a><a class="outline-level-3" href="#替代方案比較-3">替代方案比較</a><a class="outline-level-3" href="#請責任方確認-3">請責任方確認</a><a class="outline-level-2" href="#4-點數-usdt-匯率與精度">4. 點數、USDT、匯率與精度</a><a class="outline-level-3" href="#要解決的矛盾-4">要解決的矛盾</a><a class="outline-level-3" href="#建議方案-a-provider-固定計算-profile-每筆-round-鎖定換算版本">建議方案 A｜Provider 固定計算 profile＋每筆 Round 鎖定換算版本</a><a class="outline-level-3" href="#替代方案比較-4">替代方案比較</a><a class="outline-level-3" href="#請責任方確認-4">請責任方確認</a><a class="outline-level-2" href="#5-正式財務指標與正負方向">5. 正式財務指標與正負方向</a><a class="outline-level-3" href="#要解決的矛盾-5">要解決的矛盾</a><a class="outline-level-3" href="#建議方案-a-有效-round-集合-帶版本的-signed-adjustment">建議方案 A｜有效 Round 集合＋帶版本的 signed adjustment</a><a class="outline-level-3" href="#建議正式公式-限現行老虎機與單人-crash">建議正式公式（限現行老虎機與單人 Crash）</a><a class="outline-level-3" href="#替代方案比較-5">替代方案比較</a><a class="outline-level-3" href="#請責任方確認-5">請責任方確認</a><a class="outline-level-2" href="#6-一次審閱清單">6. 一次審閱清單</a><a class="outline-level-2" href="#7-決議後同步清單">7. 決議後同步清單</a><a class="outline-level-2" href="#8-本包完成條件">8. 本包完成條件</a></nav>
+        <nav><a class="outline-level-2" href="#文件定位">文件定位</a><a class="outline-level-2" href="#不可違反的產品邊界">不可違反的產品邊界</a><a class="outline-level-2" href="#整體契約鏈">整體契約鏈</a><a class="outline-level-2" href="#1-game-round-bet-與結算生命週期">1. Game Round、Bet 與結算生命週期</a><a class="outline-level-3" href="#1-1-核心物件與基數">1.1 核心物件與基數</a><a class="outline-level-3" href="#1-2-round-狀態">1.2 Round 狀態</a><a class="outline-level-3" href="#1-3-冪等-重試與遲到結果">1.3 冪等、重試與遲到結果</a><a class="outline-level-3" href="#1-4-計數與金額聚合單位">1.4 計數與金額聚合單位</a><a class="outline-level-2" href="#2-跨系統識別碼與交易快照">2. 跨系統識別碼與交易快照</a><a class="outline-level-3" href="#2-1-識別碼責任">2.1 識別碼責任</a><a class="outline-level-3" href="#2-2-round-與-bet-snapshot">2.2 Round 與 Bet snapshot</a><a class="outline-level-3" href="#2-3-追蹤鏈">2.3 追蹤鏈</a><a class="outline-level-2" href="#3-時間-統計窗口與日結帳期">3. 時間、統計窗口與日結帳期</a><a class="outline-level-3" href="#3-1-時間欄位">3.1 時間欄位</a><a class="outline-level-3" href="#3-2-四個時間角色">3.2 四個時間角色</a><a class="outline-level-3" href="#3-3-查詢與統計窗口">3.3 查詢與統計窗口</a><a class="outline-level-3" href="#3-4-正式日結">3.4 正式日結</a><a class="outline-level-2" href="#4-遊戲投注結構-幣別倍率與下注限額">4. 遊戲投注結構、幣別倍率與下注限額</a><a class="outline-level-3" href="#4-1-三層模型">4.1 三層模型</a><a class="outline-level-3" href="#4-2-固定倍率">4.2 固定倍率</a><a class="outline-level-3" href="#4-3-限額驗證與責任">4.3 限額驗證與責任</a><a class="outline-level-2" href="#5-provider-points-usdt-匯率與精度">5. Provider Points、USDT、匯率與精度</a><a class="outline-level-3" href="#5-1-四種金額角色">5.1 四種金額角色</a><a class="outline-level-3" href="#5-2-兩種-ggap-對接資料模式">5.2 兩種 GGAP 對接資料模式</a><a class="outline-level-3" href="#5-3-換算方向與-snapshot">5.3 換算方向與 snapshot</a><a class="outline-level-3" href="#5-4-decimal-量化與顯示">5.4 Decimal、量化與顯示</a><a class="outline-level-2" href="#6-財務指標-調整與正式結算邊界">6. 財務指標、調整與正式結算邊界</a><a class="outline-level-3" href="#6-1-正式公式與方向">6.1 正式公式與方向</a><a class="outline-level-3" href="#6-2-有效資料與重複計算防護">6.2 有效資料與重複計算防護</a><a class="outline-level-3" href="#6-3-營運報表與正式結算">6.3 營運報表與正式結算</a><a class="outline-level-3" href="#6-4-調整-回滾與對帳差異">6.4 調整、回滾與對帳差異</a><a class="outline-level-2" href="#七個頁面的產品分工">七個頁面的產品分工</a><a class="outline-level-2" href="#原型與後續實作對照">原型與後續實作對照</a><a class="outline-level-2" href="#外部驗證點">外部驗證點</a><a class="outline-level-2" href="#規格同步範圍">規格同步範圍</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -1122,7 +1138,7 @@ ggr_usdt          = quantize((bet_points - payout_points) × rate)
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.15.0-phase-three-pack-02-baseline · 2026-08-17</span>
+                    <span>0.16.0-phase-three-contract-baselines · 2026-08-17</span>
                 </footer>
             </div>
         </main>

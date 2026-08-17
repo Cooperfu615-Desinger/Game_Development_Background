@@ -5378,6 +5378,91 @@ body {
     background: rgba(72, 204, 178, 0.16);
 }
 
+.decision-pack-hero--round {
+    background:
+        radial-gradient(circle at 86% 8%, rgba(242, 201, 76, 0.24), transparent 28%),
+        radial-gradient(circle at 14% 112%, rgba(71, 142, 255, 0.3), transparent 38%),
+        linear-gradient(135deg, #10253c 0%, #173b63 54%, #155f84 100%);
+}
+
+.decision-pack-hero--round .decision-pack-hero__identity > span {
+    color: #a8ceff;
+}
+
+.decision-pack-hero__nav--six {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.round-contract-flow {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    margin: 18px 0 28px;
+    padding: 0;
+    overflow: hidden;
+    background: linear-gradient(120deg, #f7faff, #f4f8fd);
+    border: 1px solid #d6e2f0;
+    border-radius: 14px;
+    list-style: none;
+}
+
+.round-contract-flow li {
+    position: relative;
+    min-width: 0;
+    margin: 0;
+    padding: 18px 16px 17px;
+    border-right: 1px solid #d6e2f0;
+}
+
+.round-contract-flow li:last-child {
+    border-right: 0;
+}
+
+.round-contract-flow li:not(:last-child)::after {
+    content: "›";
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    right: -8px;
+    width: 16px;
+    height: 22px;
+    display: grid;
+    place-items: center;
+    color: #478eff;
+    background: #f5f8fd;
+    font-family: var(--mono);
+    font-size: 18px;
+    transform: translateY(-50%);
+}
+
+.round-contract-flow b,
+.round-contract-flow strong,
+.round-contract-flow span {
+    display: block;
+}
+
+.round-contract-flow b {
+    color: #276fcf;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.08em;
+}
+
+.round-contract-flow strong {
+    margin-top: 8px;
+    overflow-wrap: anywhere;
+    color: #183e5f;
+    font-family: var(--mono);
+    font-size: 10px;
+    line-height: 1.35;
+}
+
+.round-contract-flow span {
+    margin-top: 7px;
+    color: #687b8f;
+    font-size: 9px;
+    line-height: 1.55;
+}
+
 .risk-contract-flow {
     display: grid;
     grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -5720,6 +5805,38 @@ body {
         border-bottom: 0;
     }
 
+    .decision-pack-hero__nav--six {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .decision-pack-hero__nav--six a:nth-child(2n) {
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .decision-pack-hero__nav--six a:nth-child(3n) {
+        border-right: 0;
+    }
+
+    .decision-pack-hero__nav--six a:last-child {
+        grid-column: auto;
+    }
+
+    .round-contract-flow {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .round-contract-flow li:nth-child(3) {
+        border-right: 0;
+    }
+
+    .round-contract-flow li:nth-child(-n + 3) {
+        border-bottom: 1px solid #d6e2f0;
+    }
+
+    .round-contract-flow li:nth-child(3)::after {
+        display: none;
+    }
+
     .risk-contract-flow {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
@@ -5766,6 +5883,23 @@ body {
         border-bottom: 0;
     }
 
+    .decision-pack-hero__nav--six {
+        grid-template-columns: 1fr;
+    }
+
+    .decision-pack-hero__nav--six a,
+    .decision-pack-hero__nav--six a:nth-child(2n),
+    .decision-pack-hero__nav--six a:nth-child(3n),
+    .decision-pack-hero__nav--six a:last-child {
+        grid-column: auto;
+        border-right: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .decision-pack-hero__nav--six a:last-child {
+        border-bottom: 0;
+    }
+
     .decision-item-meta i {
         width: 100%;
         margin-left: 0;
@@ -5797,6 +5931,24 @@ body {
     .risk-contract-flow li:not(:last-child)::after {
         display: none;
     }
+
+    .round-contract-flow {
+        grid-template-columns: 1fr;
+    }
+
+    .round-contract-flow li,
+    .round-contract-flow li:nth-child(3) {
+        border-right: 0;
+        border-bottom: 1px solid #d6e2f0;
+    }
+
+    .round-contract-flow li:last-child {
+        border-bottom: 0;
+    }
+
+    .round-contract-flow li:not(:last-child)::after {
+        display: none;
+    }
 }
 
 @media print {
@@ -5817,7 +5969,8 @@ body {
     .decision-recommendation,
     .decision-question-list,
     .decision-item-meta,
-    .risk-contract-flow {
+    .risk-contract-flow,
+    .round-contract-flow {
         break-inside: avoid;
     }
 }

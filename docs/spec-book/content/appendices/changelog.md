@@ -1,5 +1,15 @@
 # 版本紀錄
 
+## 0.16.0-phase-three-contract-baselines · 2026-08-17
+
+- 將 Decision Pack 01 從 Backend Evidence Pending 審閱問卷重寫為 Game Round、投注與財務的目前需求基準，與 Decision Pack 02 使用一致治理方式。
+- 正式定義 Game Round 1:N Bet、`bet_mode`、`payout_scope`、append-only 事件／結算版本，以及 `round_count` 與 `bet_count` 分離口徑。
+- 建立遊戲投注結構、固定投注幣別倍率、下注限額方案三層模型；Provider 擁有限額方案，GGAP 只同步、開放與指派。
+- 分開 Provider Points、投注倍率、顯示幣別與 USDT 正式結算，保留 `USDT_ONLY`／`NATIVE_CURRENCY` 兩種版本化對接模式。
+- 補齊 UTC／台北顯示／北京日結的時間角色、鎖定日結與營運報表重算差異，以及 adjustment／reversal／reconciliation 行為。
+- 將 schema、enum、payload、精度、排程、permission 與 GGAP Backend 實際能力保留為外部差異驗證點，不再用其阻擋產品需求成立。
+- 現行 Portal Vue 原型與原始頁面 Spec MD 尚未同步；後續依「規格網站 → 原始 Spec MD → 新開發 session」順序處理。
+
 ## 0.15.0-phase-three-pack-02-baseline · 2026-08-17
 
 - 建立 Decision Pack 02《監控與風控共用產品契約》，以目前需求基準取代替代方案與逐題核准問卷。

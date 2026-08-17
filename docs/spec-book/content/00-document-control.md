@@ -9,8 +9,8 @@
 | 文件名稱 | Provider Portal 產品與系統規格書 |
 | 適用產品 | GGAP Provider Portal |
 | 主要讀者 | 產品、前端、後端、QA、GGAP 對接團隊 |
-| 目前版本 | `0.15.0-phase-three-pack-02-baseline` |
-| 目前狀態 | Phase 3 · Monitoring & Risk Baseline |
+| 目前版本 | `0.16.0-phase-three-contract-baselines` |
+| 目前狀態 | Phase 3 · Product Contract Baselines |
 | 主要語言 | 台灣繁體中文；技術值與協定名稱保留英文 |
 
 ## 規格狀態定義
@@ -82,6 +82,6 @@
 
 第二階段 Batch A–D 共 21 頁已完成 Draft 封版驗證；產品與 UI、響應式、驗收及跨頁依賴骨架均通過 Gate，API、資料與權限仍維持 Partial，30 項集中 TBD 維持 Open。驗證結果、Deferred 邊界與第三階段入口見附錄 K《第二階段封版驗證報告》。
 
-第三階段已建立附錄 L《Decision Pack 01｜Game Round、時間與財務基準》，將 Round 生命週期、跨系統識別與快照、時間與統計窗口、點數／USDT、正式財務公式五項集中 TBD 整理為建議方案、替代方案及 Q1–Q20 核准問題。2026-08-17 完成 GGAP 聚合原型初步分析後，本包暫存為 Backend Evidence Pending，保留既有拆分結果與暫定方向，等待 GGAP 測試環境實際 Backend Git 後重開；五項 TBD 的狀態未變更，亦不代表其建議已成為正式契約。
+第三階段附錄 L《Decision Pack 01｜Game Round、投注與財務共用產品契約》已改以「目前需求基準」定位，直接定義 Round 1:N Bet、識別快照、時間／日結、遊戲投注結構／幣別倍率／下注限額、Provider Points／USDT 及正式財務調帳。它不再使用替代方案或 Q1–Q20 核准問卷；現行 Portal 仍為前端 mock，資料表、payload、精度、排程與 GGAP Backend 支援能力列為取得證據後的差異驗證點。
 
 第三階段附錄 M《Decision Pack 02｜監控與風控共用產品契約》採用「目前需求基準」定位，不再以替代方案或逐題核准問卷表達。它直接定義 Signal → Detection Result → Risk Event → Alert → Mitigation Job → Recovery 的完整產品閉環，以及規則版本、事件／告警生命週期、隔離、GGAP 通知、可靠性與稽核要求。現行三個頁面仍是前端 mock；API path、實際門檻、permission key、資料表與 GGAP payload 屬外部驗證點，取得證據後以版本差異更新，不降低目前功能需求的完整度。

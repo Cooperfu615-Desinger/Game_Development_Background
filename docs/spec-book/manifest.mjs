@@ -1,10 +1,10 @@
 export const book = {
     title: 'Provider Portal 產品與系統規格書',
     shortTitle: 'Provider Portal Specs',
-    version: '0.15.0-phase-three-pack-02-baseline',
+    version: '0.16.0-phase-three-contract-baselines',
     updatedAt: '2026-08-17',
     owner: 'Provider Portal Product / Engineering',
-    status: 'Phase 3 · Monitoring & Risk Baseline',
+    status: 'Phase 3 · Product Contract Baselines',
     description: '供產品、前端、後端、QA 與 GGAP 對接團隊共同使用的 Provider Portal 規格入口。',
 }
 
@@ -409,7 +409,7 @@ export const appendices = [
     { ...section('page-dependency-map', 'I', '第一階段跨頁依賴圖', '四條核心業務鏈、共用契約與 Deferred 外部依賴。', 'content/appendices/page-dependency-map.md'), generatedDependencies: true },
     { ...section('phase-one-validation-report', 'J', '第一階段封版驗證報告', '第一階段完整 Gate、覆蓋結果、核心邊界、注意事項與重開條件。', 'content/appendices/phase-one-validation-report.md'), status: 'confirmed' },
     { ...section('phase-two-validation-report', 'K', '第二階段封版驗證報告', 'Batch A–D 完整 Draft 的跨批次 Gate、交付覆蓋、Deferred 邊界與第三階段入口。', 'content/appendices/phase-two-validation-report.md'), status: 'confirmed' },
-    { ...section('decision-pack-01-round-finance', 'L', 'Decision Pack 01｜Game Round、時間與財務基準', '五項核心 TBD 的建議方案、替代方案、影響與二十個核准問題。', 'content/appendices/decision-pack-01-round-finance.md'), status: 'draft' },
+    { ...section('decision-pack-01-round-finance', 'L', 'Decision Pack 01｜Game Round、投注與財務共用產品契約', 'Round 1:N Bet、識別快照、時間／日結、三層投注設定、USDT 與財務調帳的目前需求基準。', 'content/appendices/decision-pack-01-round-finance.md'), status: 'confirmed' },
     { ...section('decision-pack-02-monitoring-risk', 'M', 'Decision Pack 02｜監控與風控共用產品契約', 'Signal、Detection Result、Risk Event、Alert、緩解、隔離、GGAP 通知與稽核的目前需求基準。', 'content/appendices/decision-pack-02-monitoring-risk.md'), status: 'confirmed' },
 ]
 

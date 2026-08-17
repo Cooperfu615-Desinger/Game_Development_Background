@@ -17,11 +17,11 @@
 
 ## Phase 3 決策包
 
-- [`DP-01｜Game Round、時間與財務基準`](decision-pack-01-round-finance.html) 已將 `TBD-DOM-001`、`TBD-DOM-002`、`TBD-DAT-001`、`TBD-DAT-002`、`TBD-DAT-003` 整理成建議方案、替代方案及 Q1–Q20 核准問題；目前暫存為 Backend Evidence Pending，等待 GGAP 實際後端 Git 後重開。
-- DP-01 的決策包是審閱材料，不是決議本身；其五項 TBD 仍等待實際 Backend 證據。
+- [`DP-01｜Game Round、投注與財務共用產品契約`](decision-pack-01-round-finance.html) 直接記錄目前希望具備的 Round 1:N Bet、識別快照、時間／日結、三層投注設定、USDT 與財務調帳能力。
+- DP-01 是產品需求基準；本頁仍集中追蹤實際 schema、enum、payload、精度、排程、permission 與 GGAP Backend 支援能力等外部驗證點。
 - [`DP-02｜監控與風控共用產品契約`](decision-pack-02-monitoring-risk.html) 直接記錄目前希望具備的產品功能，定義 Signal、Detection Result、Risk Event、Alert、Mitigation Job、隔離、GGAP 通知與稽核的完整閉環。
 - DP-02 是產品需求基準；本頁仍集中追蹤 API path、資料表、實際門檻、permission key、GGAP payload 與後端實作證據等外部驗證點。
-- 取得責任方或後端證據後，以版本紀錄更新規格與剩餘限制，不直接刪除原始問題或靜默覆蓋需求。
+- 取得責任方或後端證據後，以版本紀錄更新規格與剩餘限制，不直接刪除原始問題或靜默覆蓋需求。集中 TBD 的 Partial／Definition／External 狀態代表技術契約仍待對照，不把已成立的產品需求降回審閱問卷。
 
 ## 六類 TBD 登錄
 

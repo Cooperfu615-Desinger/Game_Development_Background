@@ -8,85 +8,114 @@ const scriptDirectory = path.dirname(fileURLToPath(import.meta.url))
 const repositoryRoot = path.resolve(scriptDirectory, '..')
 const outputRoot = path.join(repositoryRoot, 'public/provider-specs')
 const decisionPackId = 'decision-pack-01-round-finance'
-const decisionPackPath = path.join(outputRoot, `${decisionPackId}.html`)
-const scope = {
-    'TBD-DOM-001': { priority: 'P0', status: 'partial' },
-    'TBD-DOM-002': { priority: 'P0', status: 'partial' },
-    'TBD-DAT-001': { priority: 'P0', status: 'partial' },
-    'TBD-DAT-002': { priority: 'P0', status: 'partial' },
-    'TBD-DAT-003': { priority: 'P1', status: 'partial' },
-}
-const deferredPages = modules.flatMap((module) => module.pages).filter((page) => page.scope === 'deferred')
 const decisionPack = appendices.find((item) => item.id === decisionPackId)
-const html = await readFile(decisionPackPath, 'utf8')
+const html = await readFile(path.join(outputRoot, `${decisionPackId}.html`), 'utf8')
 const css = await readFile(path.join(outputRoot, 'assets/site.css'), 'utf8')
 const searchIndex = await readFile(path.join(outputRoot, 'assets/search-index.js'), 'utf8')
 const openIssues = await readFile(path.join(outputRoot, 'open-issues.html'), 'utf8')
 const documentControl = await readFile(path.join(outputRoot, 'document-control.html'), 'utf8')
 const changelog = await readFile(path.join(outputRoot, 'changelog.html'), 'utf8')
 const projectIndex = await readFile(path.join(repositoryRoot, 'docs/PROJECT_TRANSFER_INDEX.md'), 'utf8')
+const deferredPages = modules.flatMap((module) => module.pages).filter((page) => page.scope === 'deferred')
+const expectedTbd = {
+    'TBD-DOM-001': { priority: 'P0', status: 'partial' },
+    'TBD-DOM-002': { priority: 'P0', status: 'partial' },
+    'TBD-DAT-001': { priority: 'P0', status: 'partial' },
+    'TBD-DAT-002': { priority: 'P0', status: 'partial' },
+    'TBD-DAT-003': { priority: 'P1', status: 'partial' },
+    'TBD-EXT-001': { priority: 'P0', status: 'external' },
+}
 const failures = []
 let assertionCount = 0
 
-assert(book.version === '0.15.0-phase-three-pack-02-baseline', '規格網站版本必須包含 Decision Pack 02 Baseline')
-assert(book.status === 'Phase 3 · Monitoring & Risk Baseline', '規格網站狀態必須標示 Monitoring & Risk Baseline')
+assert(book.version === '0.16.0-phase-three-contract-baselines', '規格網站版本必須標示兩份 Product Contract Baselines')
+assert(book.status === 'Phase 3 · Product Contract Baselines', '規格網站狀態必須標示 Product Contract Baselines')
 assert(Boolean(decisionPack), 'manifest 必須包含 Decision Pack 01')
 assert(decisionPack?.number === 'L', 'Decision Pack 01 必須使用附錄 L')
-assert(decisionPack?.status === 'draft', 'Decision Pack 01 在核准前必須維持 Draft')
+assert(decisionPack?.status === 'confirmed', 'Decision Pack 01 必須標示為目前已確認的產品需求基準')
 assert(decisionPack?.content === 'content/appendices/decision-pack-01-round-finance.md', 'Decision Pack 01 必須指向正式 Markdown 來源')
 
-for (const [id, expected] of Object.entries(scope)) {
+for (const [id, expected] of Object.entries(expectedTbd)) {
     const item = tbdRegistry.find((candidate) => candidate.id === id)
     assert(Boolean(item), `集中 TBD 缺少 ${id}`)
-    assert(item?.priority === expected.priority, `${id} 優先級不得被決策包改寫`)
-    assert(item?.status === expected.status, `${id} 未核准前必須維持 ${expected.status}`)
-    assert(html.includes(`open-issues.html#${id.toLowerCase()}`), `Decision Pack 01 缺少 ${id} 的集中登錄連結`)
+    assert(item?.priority === expected.priority, `${id} 優先級不得被產品基準暗中改寫`)
+    assert(item?.status === expected.status, `${id} 的外部驗證狀態不得被產品基準暗中改寫`)
+    assert(html.includes(`open-issues.html#${id.toLowerCase()}`), `Decision Pack 01 缺少 ${id} 的集中追蹤連結`)
 }
 
 assert(tbdRegistry.length === 30, 'Decision Pack 01 不得增加、刪除或暗中解決集中 TBD')
 assert(deferredPages.length === 11, 'GGAP、通知中心與系統設定的 11 個 Deferred 頁面必須維持不變')
-assert(deferredPages.every((page) => page.status === 'outline' && !page.content), 'Deferred 頁面不得因決策包產生推測規格')
+assert(deferredPages.every((page) => page.status === 'outline' && !page.content), 'Deferred 頁面不得因 Decision Pack 01 產生推測內容')
 
 for (const text of [
-    'Decision Pack 01｜Game Round、時間與財務基準',
-    'Round 狀態與處理事件分離',
-    'Provider ID 為主鍵',
-    '時間基準必須明示',
-    'Provider 固定計算 profile',
-    '有效 Round 集合＋帶版本的 signed adjustment',
-    'TBD-DAT-004',
-    '不在本包決定',
-    'GGAP 正式欄位',
-    '暫存紀錄｜2026-08-17',
+    'Decision Pack 01｜Game Round、投注與財務共用產品契約',
+    '目前需求基準',
     'Round 1:N Bet',
+    'bet_mode=single',
+    'bet_mode=multiple',
+    'payout_scope=bet',
+    'payout_scope=round',
+    'payout_scope=hybrid',
+    'rolled_back',
+    'round_count',
+    'bet_count',
+    'average_bet',
+    'external_round_id',
+    'settlement_id',
+    'adjustment_id',
+    'time_basis=settled_at',
+    'Asia/Taipei',
+    'Asia/Shanghai',
+    'settlement_batch_id',
+    '遊戲投注結構',
+    '投注幣別倍率',
+    '下注限額方案',
+    'bet_currency_multiplier',
+    'limit_scheme_id',
     'USDT_ONLY',
-    '重開本包所需證據',
+    'NATIVE_CURRENCY',
+    'settlement_currency',
+    'provider_points_per_usdt',
+    'base_rate',
+    'decimal string',
+    'player_net',
+    'provider_ggr',
+    'provider_payable',
+    'reconciliation evidence',
+    '外部驗證點',
 ]) {
     assert(html.includes(text), `Decision Pack 01 缺少必要內容：${text}`)
 }
 
-assert((html.match(/class="decision-item-meta"/g) || []).length === 5, 'Decision Pack 01 必須包含五個決策單元')
-assert((html.match(/class="decision-recommendation"/g) || []).length === 5, '每個決策單元必須包含一個建議方案')
-assert((html.match(/<b>Q(?:[1-9]|1[0-9]|20)<\/b>/g) || []).length === 20, 'Decision Pack 01 必須包含 Q1–Q20')
-for (const anchor of [
-    '1-game-round-正式生命週期',
-    '2-跨系統識別碼與交易快照',
-    '3-時間-時區與統計窗口',
-    '4-點數-usdt-匯率與精度',
-    '5-正式財務指標與正負方向',
-]) {
-    assert(html.includes(`href="#${anchor}"`), `決策包摘要缺少快速導覽：${anchor}`)
-    assert(html.includes(`id="${anchor}"`), `決策包缺少快速導覽目標：${anchor}`)
-}
+assert((html.match(/class="decision-item-meta"/g) || []).length === 6, 'Decision Pack 01 必須包含六個契約群組')
+assert((html.match(/class="decision-recommendation"/g) || []).length === 6, '每個契約群組必須包含目前需求基準')
+assert((html.match(/<li><b>0[1-6]<\/b><strong>/g) || []).length === 6, 'Decision Pack 01 必須包含六段 Round／財務契約鏈')
+assert(!html.includes('請責任方確認'), 'Decision Pack 01 不應再使用逐題核准問卷')
+assert(!html.includes('替代方案比較'), 'Decision Pack 01 不應再使用替代方案比較')
+assert(!html.includes('Backend Evidence Pending'), 'Decision Pack 01 不應再標示 Backend Evidence Pending')
+assert(!html.includes('<b>Q1</b>'), 'Decision Pack 01 不應保留 Q1–Q20 審閱表')
 assert(!html.includes('GENERATED_'), 'Decision Pack 01 不得包含未替換的生成標記')
 
+for (const anchor of [
+    '1-game-round-bet-與結算生命週期',
+    '2-跨系統識別碼與交易快照',
+    '3-時間-統計窗口與日結帳期',
+    '4-遊戲投注結構-幣別倍率與下注限額',
+    '5-provider-points-usdt-匯率與精度',
+    '6-財務指標-調整與正式結算邊界',
+]) {
+    assert(html.includes(`href="#${anchor}"`), `Decision Pack 01 摘要缺少快速導覽：${anchor}`)
+    assert(html.includes(`id="${anchor}"`), `Decision Pack 01 缺少快速導覽目標：${anchor}`)
+}
+
 for (const selector of [
-    '.decision-pack-hero',
-    '.decision-pack-hero__stats',
-    '.decision-pack-hero__nav',
+    '.decision-pack-hero--round',
+    '.decision-pack-hero__nav--six',
+    '.round-contract-flow',
+    '.round-contract-flow li:not(:last-child)::after',
     '.decision-item-meta',
     '.decision-recommendation',
-    '.decision-question-list',
+    'content: attr(data-pack)',
     '@media (max-width: 900px)',
     '@media (max-width: 620px)',
     '@media print',
@@ -94,14 +123,16 @@ for (const selector of [
     assert(css.includes(selector), `Decision Pack 01 缺少網站樣式：${selector}`)
 }
 
+assert(html.includes('data-pack="DP / 01"'), 'Decision Pack 01 必須顯示正確識別')
+assert(html.includes('status-badge status-confirmed">已確認'), 'Decision Pack 01 必須顯示產品需求基準已確認狀態')
 assert(searchIndex.includes(`"url":"${decisionPackId}.html"`), 'Decision Pack 01 必須進入全文搜尋索引')
-assert(openIssues.includes(`${decisionPackId}.html`), '集中 TBD 頁必須提供 Decision Pack 01 入口')
-assert(openIssues.includes('決策包是審閱材料，不是決議本身'), '集中 TBD 頁必須清楚區分決策包與正式決議')
+assert(openIssues.includes(`${decisionPackId}.html`), '集中追蹤頁必須提供 Decision Pack 01 入口')
+assert(openIssues.includes('Round 1:N Bet'), '集中追蹤頁必須說明 Decision Pack 01 的產品需求基準')
 assert(documentControl.includes(book.version), '文件治理頁必須同步 Decision Pack 01 版本')
-assert(documentControl.includes('五項 TBD 的狀態未變更'), '文件治理頁必須揭露五項 TBD 尚未核准')
-assert(changelog.includes('Q1–Q20'), '版本紀錄必須記載 Decision Pack 01 核准問題範圍')
+assert(documentControl.includes('Round 1:N Bet'), '文件治理頁必須記錄 Decision Pack 01 的核心模型')
+assert(changelog.includes('0.16.0-phase-three-contract-baselines'), '版本紀錄必須記載 Decision Pack 01 重寫')
 assert(projectIndex.includes(`${decisionPackId}.html`), '專案交接索引必須提供 Decision Pack 01 入口')
-assert(projectIndex.includes('五項集中 TBD 尚未核准'), '專案交接索引必須揭露決策狀態')
+assert(projectIndex.includes('現行 Portal 仍為前端 mock'), '專案交接索引必須揭露現行程式狀態')
 
 if (failures.length) {
     console.error(`Decision Pack 01 validation failed (${failures.length}/${assertionCount})`)
@@ -109,7 +140,7 @@ if (failures.length) {
     process.exitCode = 1
 } else {
     console.log(`Decision Pack 01 validation passed: ${assertionCount} assertions`)
-    console.log('Coverage: 5 open TBDs / 5 recommendations / 20 approval questions / 11 Deferred pages preserved')
+    console.log('Coverage: 6 contract groups / 6-step Round-finance chain / 6 tracked verification items / 11 Deferred pages preserved')
 }
 
 function assert(condition, message) {

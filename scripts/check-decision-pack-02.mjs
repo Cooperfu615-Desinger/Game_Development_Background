@@ -30,8 +30,8 @@ const expectedTbd = {
 const failures = []
 let assertionCount = 0
 
-assert(book.version === '0.15.0-phase-three-pack-02-baseline', '規格網站版本必須標示 Decision Pack 02 Baseline')
-assert(book.status === 'Phase 3 · Monitoring & Risk Baseline', '規格網站狀態必須標示 Monitoring & Risk Baseline')
+assert(book.version === '0.16.0-phase-three-contract-baselines', '規格網站版本必須標示兩份 Product Contract Baselines')
+assert(book.status === 'Phase 3 · Product Contract Baselines', '規格網站狀態必須標示 Product Contract Baselines')
 assert(Boolean(decisionPack), 'manifest 必須包含 Decision Pack 02')
 assert(decisionPack?.number === 'M', 'Decision Pack 02 必須使用附錄 M')
 assert(decisionPack?.status === 'confirmed', 'Decision Pack 02 必須標示為目前已確認的產品需求基準')
@@ -114,7 +114,7 @@ assert(openIssues.includes(`${decisionPackId}.html`), '集中追蹤頁必須提�
 assert(openIssues.includes('產品需求基準'), '集中追蹤頁必須說明 Decision Pack 02 定位')
 assert(documentControl.includes(book.version), '文件治理頁必須同步 Decision Pack 02 版本')
 assert(documentControl.includes('Signal → Detection Result → Risk Event → Alert → Mitigation Job → Recovery'), '文件治理頁必須記錄完整處理閉環')
-assert(changelog.includes('0.15.0-phase-three-pack-02-baseline'), '版本紀錄必須記載 Decision Pack 02')
+assert(changelog.includes('0.16.0-phase-three-contract-baselines'), '版本紀錄必須記載兩份 Product Contract Baselines')
 assert(projectIndex.includes(`${decisionPackId}.html`), '專案交接索引必須提供 Decision Pack 02 入口')
 assert(projectIndex.includes('現行 Portal 仍為前端 mock'), '專案交接索引必須揭露現行程式狀態')
 

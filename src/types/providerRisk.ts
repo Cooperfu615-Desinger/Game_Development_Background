@@ -14,6 +14,7 @@ export type GgapDeliveryStatus = 'pending' | 'sending' | 'sent' | 'acknowledged'
 export type HealthVerificationResult = 'passed' | 'failed' | 'partial' | 'no_data' | 'stale'
 export type MonitoringState = 'healthy' | 'degraded' | 'critical' | 'isolated' | 'no_data' | 'maintenance'
 export type CommandOutcome = 'success' | 'failed' | 'version_conflict' | 'permission_denied'
+export type RiskWaiverType = 'job' | 'delivery' | 'isolation'
 
 export type AlertAction =
     | 'takeover'
@@ -146,6 +147,16 @@ export interface GgapDelivery {
     reconciliationEvidence: string
 }
 
+export interface RiskWaiver {
+    waiverId: string
+    type: RiskWaiverType
+    target: string
+    grantedBy: string
+    grantedAt: Date
+    permission: 'risk_control.override'
+    reason: string
+}
+
 export interface RiskEvent {
     riskEventId: string
     eventFingerprint: string
@@ -193,7 +204,7 @@ export interface RiskAlert {
     mitigationJobs: MitigationJob[]
     isolation: IsolationControl | null
     deliveries: GgapDelivery[]
-    namedWaivers: string[]
+    namedWaivers: RiskWaiver[]
     timeline: AuditTimelineItem[]
 }
 
@@ -217,6 +228,20 @@ export interface MonitoringGgapMetric {
     sourceSignalId: string
 }
 
+export interface MonitoringPeriodBucket {
+    bucketId: string
+    startedAt: Date
+    endedAt: Date
+    round: Omit<MonitoringRoundMetric, 'sourceSignalId'>
+    ggap: {
+        latencySamples: number[]
+        timeouts: number | null
+        failures: number | null
+        retries: number | null
+        dataOutcome: DetectionOutcome
+    }
+}
+
 export interface MonitoringGame {
     environment: ProviderEnvironment
     gameType: ProviderGameType
@@ -230,6 +255,7 @@ export interface MonitoringGame {
     dataFreshness: string
     round: MonitoringRoundMetric
     ggap: MonitoringGgapMetric
+    periodBuckets: MonitoringPeriodBucket[]
     riskEventIds: string[]
     providerRoundId: string | null
 }

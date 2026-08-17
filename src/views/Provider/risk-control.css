@@ -18,6 +18,8 @@
 .rc-card-body { padding: 1rem; }
 .rc-control-card { padding: .9rem 1rem; }
 .rc-control-row { justify-content: space-between; flex-wrap: wrap; }
+.rc-custom-time { display: flex; align-items: end; gap: .75rem; flex-wrap: wrap; }
+.rc-checkbox { display: flex; align-items: center; align-self: end; min-height: 38px; gap: .45rem; }
 .rc-segment { display: inline-flex; gap: .2rem; padding: .22rem; border-radius: 11px; background: #edf1f6; }
 .rc-segment button { border: 0; border-radius: 8px; padding: .48rem .75rem; background: transparent; color: #566579; cursor: pointer; font: inherit; font-size: .85rem; font-weight: 650; }
 .rc-segment button.is-active { background: #fff; color: #0a66c2; box-shadow: 0 1px 4px rgb(15 31 50 / 14%); }
@@ -103,6 +105,7 @@
     .rc-label { min-width: 0; }
     .rc-control-row, .rc-actions { align-items: stretch; }
     .rc-control-row { flex-direction: column; }
+    .rc-custom-time { align-items: stretch; flex-direction: column; }
     .rc-actions { flex-wrap: wrap; }
     .rc-actions > * { flex: 1; }
     .rc-drawer { width: 100vw; }

@@ -11,6 +11,7 @@ import type {
     IsolationControl,
     MitigationJob,
     MonitoringGame,
+    MonitoringPeriodBucket,
     MonitoringSignal,
     ProviderEnvironment,
     RiskAlert,
@@ -451,8 +452,49 @@ const alerts: RiskAlert[] = [
     ),
 ]
 
-function monitoringGame(input: MonitoringGame): MonitoringGame {
-    return input
+function createPeriodBuckets(input: Omit<MonitoringGame, 'periodBuckets'>): MonitoringPeriodBucket[] {
+    const seed = [...input.gameId].reduce((total, character) => total + character.charCodeAt(0), 0)
+    const waves = [0.72, 0.88, 1.04, 1.22, 1.12, 0.94]
+
+    return Array.from({ length: 168 }, (_, hour) => {
+        const endedAt = new Date(baseNow.getTime() - hour * 60 * 60 * 1000)
+        const startedAt = new Date(endedAt.getTime() - 60 * 60 * 1000)
+        const wave = waves[(hour + seed) % waves.length]
+        const historicalFactor = hour < 24 ? 1 : 0.76 + ((hour + seed) % 5) * 0.07
+        const distribute = (value: number | null) => value === null ? null : Math.max(0, Math.round((value / 24) * wave * historicalFactor))
+        const baseLatency = input.ggap.p50
+        const latencyWave = 0.88 + ((hour + seed) % 7) * 0.045
+
+        return {
+            bucketId: `${input.environment}_${input.gameId}_${hour}`,
+            startedAt,
+            endedAt,
+            round: {
+                success: distribute(input.round.success),
+                failed: distribute(input.round.failed),
+                timeout: distribute(input.round.timeout),
+                processing: distribute(input.round.processing),
+                dataOutcome: input.round.dataOutcome,
+            },
+            ggap: {
+                latencySamples: baseLatency === null ? [] : [
+                    Math.round(baseLatency * 0.78 * latencyWave),
+                    Math.round(baseLatency * 0.96 * latencyWave),
+                    Math.round(baseLatency * 1.08 * latencyWave),
+                    Math.round((input.ggap.p95 ?? baseLatency) * latencyWave),
+                    Math.round((input.ggap.p99 ?? input.ggap.p95 ?? baseLatency) * latencyWave),
+                ],
+                timeouts: distribute(input.ggap.timeouts),
+                failures: distribute(input.ggap.failures),
+                retries: distribute(input.ggap.retries),
+                dataOutcome: input.ggap.dataOutcome,
+            },
+        }
+    })
+}
+
+function monitoringGame(input: Omit<MonitoringGame, 'periodBuckets'>): MonitoringGame {
+    return { ...input, periodBuckets: createPeriodBuckets(input) }
 }
 
 const monitoringGames: MonitoringGame[] = [
@@ -502,7 +544,9 @@ function latestJobAttempts(alert: RiskAlert) {
 }
 
 function latestNecessaryDelivery(alert: RiskAlert) {
-    return [...alert.deliveries].reverse().find((item) => item.necessary) ?? null
+    return [...alert.deliveries]
+        .filter((item) => item.necessary)
+        .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime() || b.attempt - a.attempt)[0] ?? null
 }
 
 function recomputeAllowedActions(alert: RiskAlert) {
@@ -538,16 +582,29 @@ function pushAudit(alert: RiskAlert, type: string, title: string, description: s
     providerRiskState.lastUpdatedAt = new Date()
 }
 
+function hasNamedWaiver(alert: RiskAlert, type: 'job' | 'delivery' | 'isolation', target: string) {
+    return alert.namedWaivers.some((waiver) => waiver.type === type && waiver.target === target && waiver.permission === 'risk_control.override')
+}
+
 function closeGateFailures(alert: RiskAlert, resolutionCode?: AlertResolutionCode | null, reason = '') {
     const failures: string[] = []
     if (!resolutionCode) failures.push('尚未選擇 resolution_code。')
     if (!reason.trim()) failures.push('尚未填寫可稽核的結案原因。')
-    const pendingJobs = latestJobAttempts(alert).filter((item) => item.necessary && ['queued', 'running', 'failed'].includes(item.status))
-    if (pendingJobs.length && !alert.namedWaivers.some((item) => item.startsWith('job:'))) failures.push(`仍有 ${pendingJobs.length} 筆必要工作 queued／running／failed。`)
-    if (alert.isolation?.desiredState === 'not_isolated' && alert.isolation.actualState !== 'not_isolated') failures.push('隔離 desired 已是 not_isolated，但 actual 尚未回到 not_isolated。')
-    if (alert.isolation && ['applying', 'releasing', 'failed'].includes(alert.isolation.actualState)) failures.push(`隔離 actual_state=${alert.isolation.actualState}，仍不可結案。`)
+    latestJobAttempts(alert)
+        .filter((item) => item.necessary && item.status !== 'succeeded' && !hasNamedWaiver(alert, 'job', item.idempotencyKey))
+        .forEach((item) => failures.push(`必要工作 ${item.actionType} 的最新 attempt=${item.attempt} 為 ${item.status}，且無對應 job waiver。`))
+
+    const isolation = alert.isolation
+    if (isolation && ['applying', 'releasing', 'failed'].includes(isolation.actualState)) {
+        failures.push(`隔離 actual_state=${isolation.actualState}，仍不可結案。`)
+    } else if (isolation && isolation.desiredState === 'not_isolated' && isolation.actualState !== 'not_isolated') {
+        failures.push('隔離 desired 已是 not_isolated，但 actual 尚未回到 not_isolated。')
+    }
+    if (isolation && (isolation.desiredState === 'isolated' || isolation.actualState === 'isolated') && !hasNamedWaiver(alert, 'isolation', isolation.targetScope)) {
+        failures.push(`${resolutionCode === 'false_positive' ? 'false_positive ' : ''}仍有生效 Launch Gate ${isolation.targetScope}；必須解除至 not_isolated 或取得對應 isolation waiver。`)
+    }
     const necessaryDelivery = latestNecessaryDelivery(alert)
-    if (necessaryDelivery && necessaryDelivery.status !== 'acknowledged' && !alert.namedWaivers.some((item) => item.startsWith('delivery:'))) failures.push(`必要 GGAP Delivery 尚未 acknowledged（${necessaryDelivery.status}）。`)
+    if (necessaryDelivery && necessaryDelivery.status !== 'acknowledged' && !hasNamedWaiver(alert, 'delivery', necessaryDelivery.idempotencyKey)) failures.push(`必要 GGAP Delivery ${necessaryDelivery.deliveryId} 尚未 acknowledged（${necessaryDelivery.status}），且無對應 delivery waiver。`)
     return failures
 }
 

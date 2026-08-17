@@ -1,7 +1,7 @@
 export const book = {
     title: 'Provider Portal 產品與系統規格書',
     shortTitle: 'Provider Portal Specs',
-    version: '0.16.0-phase-three-contract-baselines',
+    version: '0.17.0-phase-three-pack-03-baseline',
     updatedAt: '2026-08-17',
     owner: 'Provider Portal Product / Engineering',
     status: 'Phase 3 · Product Contract Baselines',
@@ -411,6 +411,7 @@ export const appendices = [
     { ...section('phase-two-validation-report', 'K', '第二階段封版驗證報告', 'Batch A–D 完整 Draft 的跨批次 Gate、交付覆蓋、Deferred 邊界與第三階段入口。', 'content/appendices/phase-two-validation-report.md'), status: 'confirmed' },
     { ...section('decision-pack-01-round-finance', 'L', 'Decision Pack 01｜Game Round、投注與財務共用產品契約', 'Round 1:N Bet、識別快照、時間／日結、三層投注設定、USDT 與財務調帳的目前需求基準。', 'content/appendices/decision-pack-01-round-finance.md'), status: 'confirmed' },
     { ...section('decision-pack-02-monitoring-risk', 'M', 'Decision Pack 02｜監控與風控共用產品契約', 'Signal、Detection Result、Risk Event、Alert、緩解、隔離、GGAP 通知與稽核的目前需求基準。', 'content/appendices/decision-pack-02-monitoring-risk.md'), status: 'confirmed' },
+    { ...section('decision-pack-03-game-release-lifecycle', 'N', 'Decision Pack 03｜遊戲版本與發布生命週期', 'Game、Version、Artifact、環境晉級、快速／高風險發布、全域可用性、回滾與既有 Round 相容的目前需求基準。', 'content/appendices/decision-pack-03-game-release-lifecycle.md'), status: 'confirmed' },
 ]
 
 function page(id, title, route, component, prototype, sources, overrides = {}) {

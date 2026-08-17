@@ -14,7 +14,7 @@ let assertionCount = 0
 const batchBPageIds = ['dashboard', 'monitoring-overview', 'risk-reports', 'risk-alerts']
 const manifestPages = modules.flatMap((module) => module.pages)
 
-assert(['0.10.0-batch-b-draft', '0.11.0-batch-c-draft', '0.12.0-batch-d-draft', '0.13.0-phase-two-seal', '0.14.0-phase-three-pack-01-draft', '0.14.1-phase-three-pack-01-evidence-pending', '0.15.0-phase-three-pack-02-baseline', '0.16.0-phase-three-contract-baselines'].includes(book.version), '規格網站版本不得早於 Batch B Draft')
+assert(['0.10.0-batch-b-draft', '0.11.0-batch-c-draft', '0.12.0-batch-d-draft', '0.13.0-phase-two-seal', '0.14.0-phase-three-pack-01-draft', '0.14.1-phase-three-pack-01-evidence-pending', '0.15.0-phase-three-pack-02-baseline', '0.16.0-phase-three-contract-baselines', '0.17.0-phase-three-pack-03-baseline'].includes(book.version), '規格網站版本不得早於 Batch B Draft')
 assert(book.status.includes('Batch B Draft Complete') || book.status.includes('Batch C Draft Complete') || book.status.includes('Batch D Draft Complete') || book.status.includes('Draft Sealed') || book.status.includes('Decision Pack 01 Draft') || book.status.includes('Pack 01 Backend Evidence Pending') || book.status.includes('Monitoring & Risk Baseline') || book.status.includes('Product Contract Baselines'), '規格網站狀態不得早於 Batch B Draft Complete')
 
 for (const pageId of batchBPageIds) {

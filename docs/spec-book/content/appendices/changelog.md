@@ -1,5 +1,16 @@
 # 版本紀錄
 
+## 0.17.0-phase-three-pack-03-baseline · 2026-08-17
+
+- 建立 Decision Pack 03《遊戲版本與發布生命週期》，作為 Game、Version、Artifact、Release 與 Active Release 的目前需求基準。
+- 定義 `draft` → `candidate` → `approved` → `published` → `retired` 的版本生命週期，並與每個環境的 Release 結果分開。
+- 固定 Test → DEMO → Production 的同一 Artifact 晉級與資料隔離規則；Test 不進正式監控風控，DEMO 不進正式 Round 或財務。
+- 採用「標準快速發布＋高風險發布」雙通道：日常版本由單一發布管理者配合自動檢查完成，數值、金額、契約、migration、安全及無安全回滾等變更才要求第二人核准。
+- 定義 Provider 全域可用性與 GGAP 代理商遊戲開關的兩層 Launch Gate，上架等待 ACK，下架／維護／暫停則先在 Provider 立即拒絕新 Launch。
+- 補齊發布失敗、自動／人工回滾、隔離 desired／actual state、緊急停用、恢復守門與不可逆 migration 的安全行為。
+- 明確保持 Game Round 為主要業務單位：Launch Context 只作短期路由，Round 永久固定原 Version／Build／Release／數值快照。
+- 現有 Backend Git、CI/CD、GGAP payload、permission 與 audit 僅列為後續實作接軌檢查，不阻擋本產品需求基準成立；本版本不修改 Portal Vue 原型或原始頁面 Spec MD。
+
 ## 0.16.0-phase-three-contract-baselines · 2026-08-17
 
 - 將 Decision Pack 01 從 Backend Evidence Pending 審閱問卷重寫為 Game Round、投注與財務的目前需求基準，與 Decision Pack 02 使用一致治理方式。

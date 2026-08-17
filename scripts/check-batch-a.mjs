@@ -14,7 +14,7 @@ let assertionCount = 0
 const batchAPageIds = ['game-round-records', 'finance-overview', 'finance-agent-games']
 const manifestPages = modules.flatMap((module) => module.pages)
 
-assert(['0.9.0-batch-a-draft', '0.10.0-batch-b-draft', '0.11.0-batch-c-draft', '0.12.0-batch-d-draft', '0.13.0-phase-two-seal', '0.14.0-phase-three-pack-01-draft', '0.14.1-phase-three-pack-01-evidence-pending', '0.15.0-phase-three-pack-02-baseline', '0.16.0-phase-three-contract-baselines'].includes(book.version), '規格網站版本不得早於 Batch A Draft')
+assert(['0.9.0-batch-a-draft', '0.10.0-batch-b-draft', '0.11.0-batch-c-draft', '0.12.0-batch-d-draft', '0.13.0-phase-two-seal', '0.14.0-phase-three-pack-01-draft', '0.14.1-phase-three-pack-01-evidence-pending', '0.15.0-phase-three-pack-02-baseline', '0.16.0-phase-three-contract-baselines', '0.17.0-phase-three-pack-03-baseline'].includes(book.version), '規格網站版本不得早於 Batch A Draft')
 
 for (const pageId of batchAPageIds) {
     const page = manifestPages.find((item) => item.id === pageId)

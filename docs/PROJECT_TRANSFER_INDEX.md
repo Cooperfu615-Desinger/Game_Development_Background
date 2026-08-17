@@ -1,8 +1,8 @@
 # 遊戲商 Provider Portal 文件索引
 
-> 文件版本：2.23.0
+> 文件版本：2.24.0
 > 更新日期：2026-08-17
-> 文件狀態：規格網站已進入第三階段；Game Round／投注／財務及監控／風控兩份共用產品契約均已形成目前需求基準；Decision Pack 02 已同步至監控與風控原始 Spec MD，正式 API、權限、精度、實際門檻、發布生命週期與外部契約仍待取得證據後對照
+> 文件狀態：規格網站已進入第三階段；Decision Pack 01、02、03 均已形成目前需求基準；Decision Pack 02 已同步至監控與風控原始 Spec MD，Decision Pack 03 尚未同步原始頁面 Spec MD 或 Portal 原型，Backend Git 只作後續實作 Mapping
 
 ## 閱讀前提
 
@@ -54,6 +54,10 @@
   - 第三階段監控與風控共用產品契約，直接表達目前希望具備的 Signal、Detection Result、Risk Event、Alert、Mitigation Job、隔離、GGAP 通知與稽核能力。
   - 本包是產品需求基準，不採逐題核准問卷；現行 Portal 仍為前端 mock，實際 Backend 與 GGAP 契約差異取得後再以版本更新。
   - 內容已同步至 `PROVIDER_MONITORING_OVERVIEW_SPEC.md`、`PROVIDER_RISK_CONTROL_SPEC.md`、`PROVIDER_RISK_REPORT_SPEC.md`、`PROVIDER_RISK_ALERT_HANDLING_SPEC.md`，Dashboard 只保留摘要與導流引用。
+- [`../public/provider-specs/decision-pack-03-game-release-lifecycle.html`](../public/provider-specs/decision-pack-03-game-release-lifecycle.html)
+  - 第三階段遊戲版本與發布生命週期共用產品契約，定義 Game、Version、Artifact、Release、三環境晉級、快速／高風險發布、Provider 全域可用性、GGAP 代理商開關邊界、回滾與既有 Game Round 相容。
+  - 本包是目前需求基準，不等待 Backend Git 才成立；現有資料表、CI/CD、Launch Token、GGAP payload、permission 與 audit 只在後續建立實作差異表。
+  - 本次只完成規格網站；遊戲管理頁 Spec MD 與 Portal Vue 原型尚未同步，後續依「規格網站 → Spec MD → 新開發 session」進行。
 - [`../public/provider-specs/game-round-records.html`](../public/provider-specs/game-round-records.html)、[`../public/provider-specs/finance-overview.html`](../public/provider-specs/finance-overview.html)、[`../public/provider-specs/finance-agent-games.html`](../public/provider-specs/finance-agent-games.html)
   - 第二階段 Batch A 完整 Draft：Game Round 查詢、全域財務摘要及代理商 × 遊戲彙總。
   - 三頁均提供原型對齊的置頂畫面示意、完整規格、跨頁導流、驗收與集中 TBD 對照。

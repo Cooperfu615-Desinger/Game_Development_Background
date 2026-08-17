@@ -478,7 +478,7 @@ function createHomeMarkdown() {
 
 ## 本階段輸出界線
 
-規格網站的撰寫格式與第一階段製作範圍已定版，第二階段 21 頁完整 Draft 已封版。第三階段的 [Decision Pack 01｜Game Round、投注與財務共用產品契約](decision-pack-01-round-finance.html) 與 [Decision Pack 02｜監控與風控共用產品契約](decision-pack-02-monitoring-risk.html) 均已整理為目前需求基準，直接描述希望具備的核心功能與跨頁資料語意；實際 Backend 與 GGAP 差異於取得證據後以版本更新處理。32 個內容頁中另有 11 頁延後，僅保留等待原因與必要輸入。
+規格網站的撰寫格式與第一階段製作範圍已定版，第二階段 21 頁完整 Draft 已封版。第三階段的 [Decision Pack 01｜Game Round、投注與財務共用產品契約](decision-pack-01-round-finance.html)、[Decision Pack 02｜監控與風控共用產品契約](decision-pack-02-monitoring-risk.html) 與 [Decision Pack 03｜遊戲版本與發布生命週期](decision-pack-03-game-release-lifecycle.html) 均已整理為目前需求基準，直接描述希望具備的核心功能與跨頁資料語意；實際 Backend 與 GGAP 差異於取得證據後以版本更新處理。32 個內容頁中另有 11 頁延後，僅保留等待原因與必要輸入。
 
 ## 四個不可混淆的核心原則
 

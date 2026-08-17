@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.16.0-phase-three-contract-baselines</span>
+            <span>0.17.0-phase-three-pack-03-baseline</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -376,6 +376,10 @@
                         <i class="status-dot status-confirmed" aria-hidden="true"></i>
                         <span>Decision Pack 02｜監控與風控共用產品契約</span>
 
+                    </a><a href="decision-pack-03-game-release-lifecycle.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>Decision Pack 03｜遊戲版本與發布生命週期</span>
+
                     </a>
             </div>
         </details>
@@ -434,7 +438,7 @@
 </tr>
 <tr>
 <td>目前版本</td>
-<td><code>0.16.0-phase-three-contract-baselines</code></td>
+<td><code>0.17.0-phase-three-pack-03-baseline</code></td>
 </tr>
 <tr>
 <td>目前狀態</td>
@@ -545,6 +549,7 @@
 <p>第二階段 Batch A–D 共 21 頁已完成 Draft 封版驗證；產品與 UI、響應式、驗收及跨頁依賴骨架均通過 Gate，API、資料與權限仍維持 Partial，30 項集中 TBD 維持 Open。驗證結果、Deferred 邊界與第三階段入口見附錄 K《第二階段封版驗證報告》。</p>
 <p>第三階段附錄 L《Decision Pack 01｜Game Round、投注與財務共用產品契約》已改以「目前需求基準」定位，直接定義 Round 1:N Bet、識別快照、時間／日結、遊戲投注結構／幣別倍率／下注限額、Provider Points／USDT 及正式財務調帳。它不再使用替代方案或 Q1–Q20 核准問卷；現行 Portal 仍為前端 mock，資料表、payload、精度、排程與 GGAP Backend 支援能力列為取得證據後的差異驗證點。</p>
 <p>第三階段附錄 M《Decision Pack 02｜監控與風控共用產品契約》採用「目前需求基準」定位，不再以替代方案或逐題核准問卷表達。它直接定義 Signal → Detection Result → Risk Event → Alert → Mitigation Job → Recovery 的完整產品閉環，以及規則版本、事件／告警生命週期、隔離、GGAP 通知、可靠性與稽核要求。現行三個頁面仍是前端 mock；API path、實際門檻、permission key、資料表與 GGAP payload 屬外部驗證點，取得證據後以版本差異更新，不降低目前功能需求的完整度。</p>
+<p>第三階段附錄 N《Decision Pack 03｜遊戲版本與發布生命週期》採用「目前需求基準」定位，直接定義 Game、Version、Artifact、Release、Test／DEMO／Production 晉級、標準快速發布＋高風險發布、Provider 全域可用性、GGAP 代理商開關邊界、回滾與既有 Game Round 相容。日常發布以自動檢查與單一發布管理者加速，數值、金額、契約、資料結構及安全變更才要求第二人核准；Backend Git 只用於後續實作 Mapping，不阻擋本產品需求成立。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
@@ -560,7 +565,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.16.0-phase-three-contract-baselines · 2026-08-17</span>
+                    <span>0.17.0-phase-three-pack-03-baseline · 2026-08-17</span>
                 </footer>
             </div>
         </main>

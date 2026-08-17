@@ -1,0 +1,1033 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Signal、Detection Result、Risk Event、Alert、緩解、隔離、GGAP 通知與稽核的目前需求基準。">
+    <meta name="color-scheme" content="light">
+    <title>Decision Pack 02｜監控與風控共用產品契約｜Provider Portal 產品與系統規格書</title>
+    <link rel="stylesheet" href="assets/site.css">
+    <script src="assets/search-index.js" defer></script>
+    <script src="assets/site.js" defer></script>
+</head>
+<body data-page-id="decision-pack-02-monitoring-risk">
+    <a class="skip-link" href="#main-content">跳至主要內容</a>
+    <header class="topbar">
+        <button class="icon-button nav-trigger" type="button" data-nav-trigger aria-label="開啟規格目錄" aria-expanded="false" aria-controls="spec-navigation">
+            <span></span><span></span><span></span>
+        </button>
+        <a class="wordmark" href="index.html" aria-label="回到規格書首頁">
+            <span class="wordmark-mark" aria-hidden="true">▦</span>
+            <span><strong>Provider Portal</strong><small>產品與系統規格書</small></span>
+        </a>
+        <button class="search-trigger" type="button" data-search-trigger>
+            <span aria-hidden="true">⌕</span>
+            <span>搜尋規格</span>
+            <kbd>⌘ K</kbd>
+        </button>
+        <div class="topbar-meta">
+            <strong class="spec-context-label">SPEC</strong>
+            <span>0.15.0-phase-three-pack-02-baseline</span>
+            <span class="topbar-status">Phase 3 · Monitoring &amp; Risk Baseline</span>
+        </div>
+    </header>
+
+    <div class="shell">
+        <aside class="sidebar" id="spec-navigation" data-sidebar>
+            <div class="sidebar-intro">
+                <span class="sidebar-kicker">SPECIFICATION MANUAL</span>
+                <p>2026-08-17 更新</p>
+            </div>
+            <nav aria-label="規格書章節">
+
+        <details class="nav-group" >
+            <summary>開始閱讀<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="index.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>規格書首頁</span>
+
+                    </a><a href="document-control.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>文件治理與使用方式</span>
+
+                    </a><a href="product-overview.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>產品定位與目標</span>
+
+                    </a><a href="system-boundary.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>系統與責任邊界</span>
+
+                    </a><a href="information-architecture.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>資訊架構與頁面地圖</span>
+
+                    </a><a href="common-domain-rules.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>共通領域規則</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.1 總覽<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="dashboard-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="dashboard.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>儀表板</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.2 遊戲管理<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="game-management-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="game-list.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲列表</span>
+
+                    </a><a href="game-environments.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>環境與發布</span>
+
+                    </a><a href="game-settings.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲設定</span>
+
+                    </a><a href="game-math.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>數值設定</span>
+
+                    </a><a href="game-versions.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲版本</span>
+
+                    </a><a href="game-assets.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲素材</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.3 數據與報表<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="data-reporting-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="game-round-records.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲紀錄</span>
+                        <b>PILOT</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.4 遊戲商財務<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="provider-finance-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="finance-overview.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>財務總覽</span>
+
+                    </a><a href="finance-agent-games.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>代理商 × 遊戲彙總</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.5 遊戲監控與風控<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="monitoring-risk-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="monitoring-overview.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>監控總覽</span>
+
+                    </a><a href="risk-reports.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>風控報表</span>
+
+                    </a><a href="risk-alerts.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>風控告警／處理</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.6 GGAP 對接<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="ggap-integration-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>對接總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-catalog-sync.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲目錄同步</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-requests.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>請求與回呼紀錄</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-errors.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>錯誤與重試</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-settings.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>對接設定</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.7 通知中心<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="notifications-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="notifications.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>全部通知</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="notification-preferences.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>通知偏好</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.8 官方網站<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="official-website-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="website-banners.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>Banner 管理</span>
+
+                    </a><a href="website-content.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>內容管理</span>
+
+                    </a><a href="website-releases.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>發布紀錄</span>
+
+                    </a><a href="lobby-overview.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>大廳總覽</span>
+
+                    </a><a href="lobby-games.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲清單</span>
+
+                    </a><a href="lobby-management.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲管理</span>
+
+                    </a><a href="lobby-demo.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>DEMO環境數據</span>
+
+                    </a><a href="lobby-preview.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>大廳預覽</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.9 系統設定<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="system-settings-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>設定總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-permissions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>使用者與權限</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-api-keys.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>API key 與憑證</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-audit-logs.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>操作紀錄</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>共通規格<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="api-integration.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>API 與整合契約</span>
+
+                    </a><a href="security-permissions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>安全與權限</span>
+
+                    </a><a href="non-functional-requirements.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>非功能性需求</span>
+
+                    </a><a href="acceptance-qa.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>驗收與 QA</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" open>
+            <summary>附錄<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="data-dictionary.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>資料字典</span>
+
+                    </a><a href="status-enums.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>狀態與枚舉</span>
+
+                    </a><a href="route-page-matrix.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>Route 與頁面矩陣</span>
+
+                    </a><a href="open-issues.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>待決策與校正清單</span>
+
+                    </a><a href="changelog.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>版本紀錄</span>
+
+                    </a><a href="spec-book-authoring-guide.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>規格書撰寫與交接規範</span>
+
+                    </a><a href="page-readiness-matrix.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>第一階段頁面完成度矩陣</span>
+
+                    </a><a href="page-reconciliation.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>第一階段頁面三層校準</span>
+
+                    </a><a href="page-dependency-map.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>第一階段跨頁依賴圖</span>
+
+                    </a><a href="phase-one-validation-report.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>第一階段封版驗證報告</span>
+
+                    </a><a href="phase-two-validation-report.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>第二階段封版驗證報告</span>
+
+                    </a><a href="decision-pack-01-round-finance.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>Decision Pack 01｜Game Round、時間與財務基準</span>
+
+                    </a><a href="decision-pack-02-monitoring-risk.html" aria-current="page">
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>Decision Pack 02｜監控與風控共用產品契約</span>
+
+                    </a>
+            </div>
+        </details>
+
+            </nav>
+            <div class="sidebar-legend">
+                <p>規格狀態</p>
+                <span><i class="status-dot status-confirmed"></i>已確認</span><span><i class="status-dot status-draft"></i>草案</span><span><i class="status-dot status-outline"></i>待整理</span><span><i class="status-dot status-tbd"></i>待決策</span>
+            </div>
+        </aside>
+        <button class="sidebar-scrim" type="button" data-nav-close aria-label="關閉規格目錄"></button>
+
+        <main id="main-content" class="main-content" tabindex="-1">
+            <div class="page-frame ">
+                <header class="page-header">
+                    <div>
+                        <p class="eyebrow">附錄 M</p>
+                        <h1>Decision Pack 02｜監控與風控共用產品契約</h1>
+                        <p class="page-summary">Signal、Detection Result、Risk Event、Alert、緩解、隔離、GGAP 通知與稽核的目前需求基準。</p>
+                    </div>
+                    <div class="page-status-stack">
+                        <span class="status-badge status-confirmed">已確認</span>
+
+
+                    </div>
+                </header>
+
+                <section class="metadata-card" aria-label="章節追溯資訊">
+        <div class="metadata-grid">
+            <div><span>章節編號</span><code>M</code></div><div><span>規格狀態</span><code>已確認</code></div>
+        </div>
+    </section>
+
+
+                <div class="content-layout">
+                    <article class="spec-content">
+                        <section class="decision-pack-hero decision-pack-hero--risk" data-pack="DP / 02" aria-label="Decision Pack 02 摘要">
+  <div class="decision-pack-hero__identity">
+    <span>PHASE 3 · PRODUCT CONTRACT 02</span>
+    <strong>從可觀測訊號，到可追蹤、可處理、可復原的風控閉環</strong>
+    <p>本包直接定義 Provider Portal 希望具備的監控與風控功能，作為老闆、產品、前端、後端、QA 與 SRE 的共同分析基準；實際 Backend 與 GGAP 契約差異，於取得證據後以版本更新處理。</p>
+  </div>
+  <div class="decision-pack-hero__stats">
+    <div><strong>05</strong><span>共用契約群組</span></div>
+    <div><strong>03</strong><span>核心內容頁</span></div>
+    <div><strong>02</strong><span>納管環境</span></div>
+    <div><strong>01</strong><span>完整處理閉環</span></div>
+  </div>
+  <nav class="decision-pack-hero__nav" aria-label="五項契約快速導覽">
+    <a href="#1-領域模型與責任鏈"><b>01</b><span>領域模型</span></a>
+    <a href="#2-risk-event-與-alert-生命週期"><b>02</b><span>事件與告警</span></a>
+    <a href="#3-規則評估與嚴重度"><b>03</b><span>規則評估</span></a>
+    <a href="#4-緩解工作與隔離控制"><b>04</b><span>緩解與隔離</span></a>
+    <a href="#5-ggap-通知-可靠性與稽核"><b>05</b><span>可靠性與稽核</span></a>
+  </nav>
+</section><h2 id="文件定位">文件定位</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>目前需求基準</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>契約編號</td>
+<td><code>DP-02</code></td>
+</tr>
+<tr>
+<td>主題</td>
+<td>Provider 自身監控、Risk Event、Alert、Mitigation Job、隔離與 GGAP 通知</td>
+</tr>
+<tr>
+<td>直接影響頁面</td>
+<td>監控總覽、風控報表、風控告警／處理</td>
+</tr>
+<tr>
+<td>間接影響頁面</td>
+<td>儀表板、遊戲紀錄、遊戲環境與發布</td>
+</tr>
+<tr>
+<td>納管環境</td>
+<td>Production 與 DEMO 分開評估；Test 完全排除</td>
+</tr>
+<tr>
+<td>現行程式</td>
+<td>三個頁面已有高擬真前端 mock；正式偵測、持久化與副作用尚待後續實作</td>
+</tr>
+<tr>
+<td>文件用途</td>
+<td>表達目前希望的完整產品功能；交付評估後的調整以新版本修訂</td>
+</tr>
+</tbody></table></div>
+<p>本包不把「尚未接上正式 Backend」解讀為產品內容未成立。產品行為依本包描述；API path、資料表、權限 key、實際門檻數值及 GGAP payload 等實作細節，待取得後端證據後對照修正。</p>
+<h2 id="不可違反的產品邊界">不可違反的產品邊界</h2><ol>
+<li>Provider 只監控自身遊戲服務、Game Round、遊戲數值、資料品質及與 GGAP 的直接對接，不監控 GGAP 與代理商之間的下游營運。</li>
+<li>Production 與 DEMO 的資料、規則、事件、告警及隔離狀態必須分開；Test 不產生 Provider Risk Event 或 Alert。</li>
+<li>Risk Event 是客觀異常紀錄；Alert 是需要人員處理的工作項目，兩者不得共用同一狀態欄位。</li>
+<li>隔離只阻擋指定範圍的新 Launch；已開始的 Game Round 必須繼續完成，不得因隔離中斷結算。</li>
+<li>監控與風控不得直接修改投注、派彩、換算結果或已結算 Game Round，也不得以隔離取代正式回滾或補償。</li>
+<li>前端頁面是否開啟，不得影響後端持續偵測、建立事件、執行核准動作或保存稽核證據。</li>
+</ol>
+<h2 id="整體處理鏈">整體處理鏈</h2><ol class="risk-contract-flow" aria-label="監控與風控處理鏈">
+  <li><b>01</b><strong>Monitoring Signal</strong><span>服務、Round、對接與數值的原始量測</span></li>
+  <li><b>02</b><strong>Detection Result</strong><span>單次規則評估結果與完整證據</span></li>
+  <li><b>03</b><strong>Risk Event</strong><span>去重後的客觀異常生命週期</span></li>
+  <li><b>04</b><strong>Alert</strong><span>需要接手、調查與結案的工作項目</span></li>
+  <li><b>05</b><strong>Mitigation Job</strong><span>可重試、可驗證的緩解或隔離工作</span></li>
+  <li><b>06</b><strong>Recovery</strong><span>健康驗證、解除、通知與完整稽核</span></li>
+</ol><p>鏈上每一層都保存自己的 ID、時間、狀態與版本，不以一個巨型 <code>status</code> 代替所有進度。上游證據不可因下游結案而被刪除或覆寫。</p>
+<hr>
+<h2 id="1-領域模型與責任鏈">1. 領域模型與責任鏈</h2><div class="decision-item-meta"><span>DP02-01</span><a href="open-issues.html#tbd-dom-004">TBD-DOM-004</a><a href="open-issues.html#tbd-dat-005">TBD-DAT-005</a><i>Product · Risk · Backend · SRE</i></div><aside class="decision-recommendation">
+  <strong>目前需求基準</strong>
+  <p>監控量測、規則判斷、客觀事件、人工工作與實際副作用分層保存。任何頁面都不得把 Signal、Risk Event、Alert 或隔離狀態當成同一筆資料。</p>
+</aside><h3 id="1-1-核心物件">1.1 核心物件</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>物件</th>
+<th>正式責任</th>
+<th>建議主識別</th>
+<th>保存原則</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Monitoring Signal</td>
+<td>原始或聚合後的可觀測量測</td>
+<td><code>signal_id</code> 或時間序列 key</td>
+<td>保留來源、時間、環境、scope 與資料品質</td>
+</tr>
+<tr>
+<td>Detection Result</td>
+<td>某規則版本在某次評估窗口的判斷</td>
+<td><code>detection_result_id</code></td>
+<td>不論命中與否均可追蹤評估時間、樣本與門檻</td>
+</tr>
+<tr>
+<td>Risk Event</td>
+<td>同一異常在一段生命週期中的客觀紀錄</td>
+<td><code>risk_event_id</code></td>
+<td>以 fingerprint 去重，累積 occurrence 與 evidence</td>
+</tr>
+<tr>
+<td>Alert</td>
+<td>需要人員接手與結案的工作項目</td>
+<td><code>alert_id</code></td>
+<td>第一版一個 Risk Event 最多一個主要 Alert</td>
+</tr>
+<tr>
+<td>Mitigation Job</td>
+<td>一次具體緩解、隔離、解除或通知工作</td>
+<td><code>mitigation_job_id</code></td>
+<td>每次執行獨立保存狀態、attempt、結果與錯誤</td>
+</tr>
+<tr>
+<td>Isolation Control</td>
+<td>Launch Gate 希望狀態與實際狀態</td>
+<td><code>isolation_id</code></td>
+<td>以 environment、game、version、scope 精確控制</td>
+</tr>
+<tr>
+<td>GGAP Delivery</td>
+<td>Provider 對 GGAP 的對接通知投遞</td>
+<td><code>delivery_id</code></td>
+<td>使用 outbox、冪等 key、有限重試與 ACK 追蹤</td>
+</tr>
+</tbody></table></div>
+<h3 id="1-2-關聯與基數">1.2 關聯與基數</h3><ul>
+<li>一個 Monitoring Signal 可以被多個規則版本評估。</li>
+<li>一個 Detection Result 只屬於一個規則版本與一個評估窗口。</li>
+<li>多次命中同一 fingerprint 的結果可累積到同一個有效 Risk Event。</li>
+<li>第一版一個 Risk Event 對應零或一個主要 Alert；Info／Low 或不需人工處理的事件可以沒有 Alert。</li>
+<li>一個 Alert 可以關聯多個 Mitigation Job、隔離變更與 GGAP Delivery。</li>
+<li>同一 Risk Event 可關聯多筆 Game Round 作證據，但 Risk Event 不取代 Game Round。</li>
+</ul>
+<h3 id="1-3-fingerprint-去重與復發">1.3 Fingerprint、去重與復發</h3><p><code>event_fingerprint</code> 至少由 <code>provider_id</code>、<code>environment</code>、異常來源、異常類型、<code>rule_id</code>、遊戲／版本 scope 及必要業務維度產生；不得包含會隨每次評估變動的時間戳或實際數值。</p>
+<ul>
+<li>同一 fingerprint 在 Event 尚未結束時再次命中：沿用 <code>risk_event_id</code>，增加 <code>occurrence_count</code>、<code>last_detected_at</code> 與 evidence。</li>
+<li>指標短暫恢復後又在恢復觀察期內命中：沿用原 Event，狀態回到 <code>open</code>。</li>
+<li>Event 已 <code>resolved</code> 後再次命中：建立新的 Risk Event，透過 <code>recurrence_group_id</code> 連回先前事件。</li>
+<li>規則錯誤、資料污染或重複建檔：Event 可標記 <code>invalidated</code>，但原始 Detection Result 與稽核證據仍保留。</li>
+</ul>
+<hr>
+<h2 id="2-risk-event-與-alert-生命週期">2. Risk Event 與 Alert 生命週期</h2><div class="decision-item-meta"><span>DP02-02</span><a href="open-issues.html#tbd-dom-004">TBD-DOM-004</a><a href="open-issues.html#tbd-dat-004">TBD-DAT-004</a><i>Product · Risk · Backend · QA</i></div><aside class="decision-recommendation">
+  <strong>目前需求基準</strong>
+  <p>Risk Event 只描述異常是否仍存在；Alert 只描述人工作業進度。指派、等待原因、緩解、隔離與 GGAP 通知均使用獨立欄位或資源。</p>
+</aside><h3 id="2-1-risk-event-狀態">2.1 Risk Event 狀態</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>API 值</th>
+<th>顯示名稱</th>
+<th>進入條件</th>
+<th>可離開至</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>open</code></td>
+<td>異常中</td>
+<td>規則命中且異常仍存在，或恢復觀察期內再次命中</td>
+<td><code>recovering</code>、<code>invalidated</code></td>
+</tr>
+<tr>
+<td><code>recovering</code></td>
+<td>恢復觀察中</td>
+<td>已低於恢復門檻，但尚未滿足連續健康窗口</td>
+<td><code>resolved</code>、<code>open</code>、<code>invalidated</code></td>
+</tr>
+<tr>
+<td><code>resolved</code></td>
+<td>已恢復</td>
+<td>已滿足恢復門檻與連續健康窗口</td>
+<td>終態；復發建立新 Event</td>
+</tr>
+<tr>
+<td><code>invalidated</code></td>
+<td>已作廢</td>
+<td>證據無效、資料污染、規則錯誤或確認為重複事件</td>
+<td>終態；不得計入有效風控統計</td>
+</tr>
+</tbody></table></div>
+<p>Event 狀態由偵測與證據決定，不因使用者「接手」或「結案」直接改變。<code>resolved</code> 也不代表關聯 Alert 已完成結案作業。</p>
+<h3 id="2-2-alert-狀態">2.2 Alert 狀態</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>API 值</th>
+<th>顯示名稱</th>
+<th>主要語意</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>new</code></td>
+<td>待接手</td>
+<td>已建立工作項目，尚未開始有效處理</td>
+</tr>
+<tr>
+<td><code>in_progress</code></td>
+<td>處理中</td>
+<td>已接手、調查或執行必要緩解</td>
+</tr>
+<tr>
+<td><code>monitoring</code></td>
+<td>觀察中</td>
+<td>主要影響已控制，等待健康觀察、解除或最終覆核</td>
+</tr>
+<tr>
+<td><code>closed</code></td>
+<td>已結案</td>
+<td>必要工作完成，已記錄結案原因與結果</td>
+</tr>
+</tbody></table></div>
+<p>Alert 可以重新開啟至 <code>in_progress</code>，但必須保存重新開啟原因、操作者與前後版本。<code>false_positive</code> 不再是 Alert 狀態，而是結案時的 <code>resolution_code</code>。</p>
+<p>第一版 <code>resolution_code</code>：</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>值</th>
+<th>使用情境</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>recovered</code></td>
+<td>異常已恢復，必要緩解、解除與通知均完成</td>
+</tr>
+<tr>
+<td><code>false_positive</code></td>
+<td>規則命中但確認不構成有效風險</td>
+</tr>
+<tr>
+<td><code>duplicate</code></td>
+<td>與另一筆有效事件重複，保留關聯主事件</td>
+</tr>
+<tr>
+<td><code>accepted_risk</code></td>
+<td>已評估並接受剩餘風險；必須填寫原因及覆核資訊</td>
+</tr>
+<tr>
+<td><code>manual_resolution</code></td>
+<td>透過人工處置完成，且不屬於以上分類</td>
+</tr>
+</tbody></table></div>
+<h3 id="2-3-必須分開的狀態維度">2.3 必須分開的狀態維度</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>維度</th>
+<th>目的</th>
+<th>範例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>alert_status</code></td>
+<td>人工作業進度</td>
+<td><code>new</code>、<code>in_progress</code>、<code>monitoring</code>、<code>closed</code></td>
+</tr>
+<tr>
+<td><code>assignee_id</code></td>
+<td>目前負責人</td>
+<td>未指派時為 <code>null</code>，不得用假帳號 sentinel 儲存</td>
+</tr>
+<tr>
+<td><code>waiting_reason</code></td>
+<td>目前等待事項</td>
+<td>健康觀察、GGAP ACK、核准或外部處理</td>
+</tr>
+<tr>
+<td><code>mitigation_status</code></td>
+<td>關聯工作的彙總狀態</td>
+<td>無需、等待、執行中、成功、部分失敗、失敗</td>
+</tr>
+<tr>
+<td><code>isolation_actual_state</code></td>
+<td>Launch Gate 實際狀態</td>
+<td>未隔離、套用中、隔離中、解除中、失敗</td>
+</tr>
+<tr>
+<td><code>ggap_notification_status</code></td>
+<td>對接投遞結果</td>
+<td>無需、待送、已送、已確認、失敗</td>
+</tr>
+</tbody></table></div>
+<h3 id="2-4-結案守門條件">2.4 結案守門條件</h3><p>Alert 只有在以下條件全部成立時才可 <code>closed</code>：</p>
+<ol>
+<li>已選擇 <code>resolution_code</code> 並填寫可稽核原因。</li>
+<li>所有必要 Mitigation Job 均已完成，或以具名核准方式明確豁免。</li>
+<li>不存在仍在套用、解除或失敗待處理的隔離工作。</li>
+<li>若 desired state 為未隔離，Launch Gate 的 actual state 也必須是未隔離。</li>
+<li>必要 GGAP 通知已 <code>acknowledged</code>，或已依權限記錄人工豁免與後續責任人。</li>
+<li>Alert 使用最新資料版本送出，未覆蓋其他操作者的更新。</li>
+</ol>
+<hr>
+<h2 id="3-規則評估與嚴重度">3. 規則評估與嚴重度</h2><div class="decision-item-meta"><span>DP02-03</span><a href="open-issues.html#tbd-dat-005">TBD-DAT-005</a><a href="open-issues.html#tbd-dat-003">TBD-DAT-003</a><i>Risk · SRE · Game Math · Backend</i></div><aside class="decision-recommendation">
+  <strong>目前需求基準</strong>
+  <p>規則必須版本化並保存完整評估快照。門檻不寫死在前端；觸發與恢復使用不同條件，並以最小樣本與連續窗口避免抖動。</p>
+</aside><h3 id="3-1-rule-definition">3.1 Rule Definition</h3><p>每個規則版本至少包含：</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>分類</th>
+<th>必要內容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>識別與版本</td>
+<td><code>rule_id</code>、<code>rule_version</code>、名稱、說明、狀態、建立／啟用時間</td>
+</tr>
+<tr>
+<td>適用範圍</td>
+<td>Provider、environment、異常來源、遊戲、版本、endpoint 或其他業務維度</td>
+</tr>
+<tr>
+<td>量測定義</td>
+<td>metric、聚合函式、分子、分母、排除條件與資料來源</td>
+</tr>
+<tr>
+<td>評估節奏</td>
+<td>observation window、evaluation interval、最小樣本量與允許資料延遲</td>
+</tr>
+<tr>
+<td>判斷條件</td>
+<td>trigger threshold、recovery threshold、連續命中／健康窗口</td>
+</tr>
+<tr>
+<td>嚴重度</td>
+<td>Info、Low、Medium、High、Critical 的分級條件與升降級規則</td>
+</tr>
+<tr>
+<td>後續政策</td>
+<td>是否建立 Alert、覆核時限、automation mode 及允許的動作模板</td>
+</tr>
+</tbody></table></div>
+<p>已啟用版本不可原地修改。調整門檻或 scope 必須建立新版本；Risk Event 保存命中當下的規則版本與判斷快照，歷史事件不套用新門檻重算。</p>
+<p>規則版本狀態使用 <code>inactive</code>、<code>active</code>、<code>retired</code>。同一 <code>rule_id</code>、environment 與重疊 scope 在同一時間只允許一個有效版本。</p>
+<h3 id="3-2-評估結果">3.2 評估結果</h3><p>Detection Result 至少保存：</p>
+<ul>
+<li>評估窗口 <code>[window_start, window_end)</code>、<code>evaluated_at</code> 與資料新鮮度。</li>
+<li><code>sample_count</code>、分子、分母、聚合值及單位。</li>
+<li>trigger／recovery threshold、嚴重度區間與 <code>rule_version</code>。</li>
+<li><code>matched</code>、<code>no_data</code>、<code>insufficient_sample</code> 或 <code>evaluation_failed</code> 等結果原因。</li>
+<li>關聯遊戲、版本、environment、endpoint 與可追蹤來源。</li>
+</ul>
+<p><code>no_data</code>、樣本不足與評估失敗不得被當成健康。它們可依規則形成 Data Quality 或 Monitoring Pipeline 類型的 Risk Event，但不能偽造業務指標為 0。</p>
+<h3 id="3-3-觸發-恢復與嚴重度">3.3 觸發、恢復與嚴重度</h3><ul>
+<li>規則可要求連續 N 個窗口命中後才建立或升級 Risk Event。</li>
+<li>恢復門檻必須與觸發門檻分離，形成 hysteresis，避免指標在邊界反覆開關。</li>
+<li><code>recovering</code> 必須通過連續健康窗口才可 <code>resolved</code>。</li>
+<li>嚴重度表示影響程度，不等於自動化授權；Critical 也必須由 automation policy 決定能否自動隔離。</li>
+<li>事件嚴重度升級沿用同一 <code>risk_event_id</code> 並保留歷程；降級不刪除先前高嚴重度證據。</li>
+<li>Production 與 DEMO 可使用不同規則版本與門檻，但不可混合樣本或共用 Event。</li>
+</ul>
+<h3 id="3-4-第一版規則類型">3.4 第一版規則類型</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>來源</th>
+<th>典型指標／條件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Game Service</td>
+<td>health check、啟動成功率、錯誤率、資源或依賴異常</td>
+</tr>
+<tr>
+<td>Game Round</td>
+<td>成功率、處理中逾時、狀態與結算結果不一致</td>
+</tr>
+<tr>
+<td>GGAP Integration</td>
+<td>request failure、timeout、P95／P99 latency、Callback／ACK 異常</td>
+</tr>
+<tr>
+<td>Data Quality</td>
+<td>必填缺值、重複 ID、非法狀態轉移、金額或版本不一致</td>
+</tr>
+<tr>
+<td>Game Math</td>
+<td>RTP、命中率、派彩分布或其他需滿足最小樣本的數值偏離</td>
+</tr>
+</tbody></table></div>
+<p>正式數值門檻與樣本量由後端、SRE、風控及數值團隊依遊戲與環境設定；本規格定義的是必須具備的設定能力與判斷行為。</p>
+<hr>
+<h2 id="4-緩解工作與隔離控制">4. 緩解工作與隔離控制</h2><div class="decision-item-meta"><span>DP02-04</span><a href="open-issues.html#tbd-api-004">TBD-API-004</a><a href="open-issues.html#tbd-sec-003">TBD-SEC-003</a><i>Risk · Backend · SRE · Security</i></div><aside class="decision-recommendation">
+  <strong>目前需求基準</strong>
+  <p>所有會改變營運狀態的動作都建立 Mitigation Job。Alert 只發出意圖，不直接把按鈕點擊當成成功；系統必須回報實際執行狀態與健康驗證結果。</p>
+</aside><h3 id="4-1-automation-mode">4.1 Automation Mode</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>模式</th>
+<th>系統行為</th>
+<th>適用原則</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>observe_only</code></td>
+<td>只建立證據與 Event；必要時建立 Alert</td>
+<td>新規則、低信心或只需觀察的場景</td>
+</tr>
+<tr>
+<td><code>approval_required</code></td>
+<td>產生建議動作，等待具權限人員確認後建立 Job</td>
+<td>高影響、Production 或需要覆核的動作</td>
+</tr>
+<tr>
+<td><code>automatic</code></td>
+<td>命中核准政策後直接建立 Job，同時建立 Alert 供人工覆核</td>
+<td>可逆、最小作用範圍且已有可靠健康檢查的動作</td>
+</tr>
+</tbody></table></div>
+<p>automation mode 綁定規則版本與動作模板；前端不得自行提升模式或擴大作用範圍。</p>
+<h3 id="4-2-mitigation-job">4.2 Mitigation Job</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>狀態</th>
+<th>語意</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>queued</code></td>
+<td>已接受命令，等待執行</td>
+</tr>
+<tr>
+<td><code>running</code></td>
+<td>執行中；不得重複觸發同一冪等工作</td>
+</tr>
+<tr>
+<td><code>succeeded</code></td>
+<td>動作已完成，並保存結果與驗證證據</td>
+</tr>
+<tr>
+<td><code>failed</code></td>
+<td>已停止重試或發生不可恢復錯誤，需要人工處理</td>
+</tr>
+<tr>
+<td><code>cancelled</code></td>
+<td>尚未產生副作用前由核准流程取消</td>
+</tr>
+</tbody></table></div>
+<p>每個 Job 保存 <code>action_type</code>、target scope、requested by、approved by、<code>idempotency_key</code>、attempt、開始／完成時間、前後狀態、錯誤、trace ID 及驗證結果。重試建立新的 attempt，不覆寫前一次失敗證據。</p>
+<h3 id="4-3-隔離-desired-actual-state">4.3 隔離 desired／actual state</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>值</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>desired_state</code></td>
+<td><code>not_isolated</code>、<code>isolated</code></td>
+<td>目前期望 Launch Gate 達成的狀態</td>
+</tr>
+<tr>
+<td><code>actual_state</code></td>
+<td><code>not_isolated</code>、<code>applying</code>、<code>isolated</code>、<code>releasing</code>、<code>failed</code></td>
+<td>Launch Gate 回報的實際狀態</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>UI 必須同時呈現 desired 與 actual；兩者不一致時顯示「套用中／解除中／失敗」，不得提前宣告成功。</li>
+<li>隔離 target 至少包含 environment、game；可再縮小至 version 或 endpoint。不得用模糊名稱作唯一 target。</li>
+<li>隔離只阻擋新 Launch，既有 Game Round、Callback、結算及必要查單仍繼續處理。</li>
+<li>不採用單純到期自動解除。解除前必須完成最新健康檢查、必要觀察窗口與具權限確認。</li>
+<li>隔離或解除失敗時保留 desired state，actual state 標示 <code>failed</code>，建立或升級 Alert。</li>
+<li>GGAP 的代理商個別遊戲開關不等於 Provider 隔離；Provider 不管理其代理商開放設定。</li>
+</ul>
+<h3 id="4-4-健康驗證與可用操作">4.4 健康驗證與可用操作</h3><p>解除前的 health verification 至少回傳檢查版本、檢查時間、対象 scope、結果、失敗項目、樣本窗口及資料新鮮度。過期、無資料或部分失敗不能視為通過。</p>
+<p>Alert 詳情的操作按鈕由後端回傳 <code>allowed_actions</code> 決定，前端仍可顯示禁止原因。後端必須再次驗證權限、最新版本、守門條件與 idempotency，不得信任前端顯示狀態。</p>
+<hr>
+<h2 id="5-ggap-通知-可靠性與稽核">5. GGAP 通知、可靠性與稽核</h2><div class="decision-item-meta"><span>DP02-05</span><a href="open-issues.html#tbd-nfr-003">TBD-NFR-003</a><a href="open-issues.html#tbd-ext-001">TBD-EXT-001</a><i>Backend · SRE · GGAP · Security</i></div><aside class="decision-recommendation">
+  <strong>目前需求基準</strong>
+  <p>Provider 的本地狀態變更與 GGAP 通知採 outbox 可靠投遞。重送沿用相同業務冪等 key；通知失敗必須可見、可重試且不回滾已正確生效的安全隔離。</p>
+</aside><h3 id="5-1-ggap-delivery">5.1 GGAP Delivery</h3><p>Provider 至少對以下事件提供版本化通知能力：隔離已套用、隔離已解除、隔離範圍或原因更新。正式 event name 及 payload 由取得 GGAP Backend 契約後對照。</p>
+<p>每筆 Delivery 至少保存：</p>
+<ul>
+<li><code>delivery_id</code>、<code>event_type</code>、<code>payload_version</code> 與 target GGAP environment。</li>
+<li><code>risk_event_id</code>、<code>alert_id</code>、<code>isolation_id</code> 及精確遊戲／版本／環境 scope。</li>
+<li><code>idempotency_key</code>、payload snapshot、建立時間及預期狀態。</li>
+<li>attempt 次數、最後送出時間、HTTP／協定結果、GGAP trace ID 與 ACK 時間。</li>
+</ul>
+<p>投遞狀態使用 <code>pending</code>、<code>sending</code>、<code>sent</code>、<code>acknowledged</code>、<code>failed</code>。<code>sent</code> 只代表請求已成功送出；只有符合契約的 ACK 才能標記 <code>acknowledged</code>。</p>
+<h3 id="5-2-重試-補償與狀態真實性">5.2 重試、補償與狀態真實性</h3><ul>
+<li>本地交易完成狀態變更與 outbox 寫入，避免狀態已變更但通知永久遺失。</li>
+<li>暫時性錯誤依退避策略有限重試；永久錯誤或重試耗盡標記 <code>failed</code> 並升級 Alert。</li>
+<li>人工重送沿用相同業務冪等 key，新增 delivery attempt，不建立重複隔離效果。</li>
+<li>通知失敗不應自動解除已生效的安全隔離；需由人員查看本地 actual state 與 GGAP 回報後決定後續處理。</li>
+<li>若 GGAP 回報與 Provider actual state 不一致，建立 reconciliation evidence 並顯示需要人工確認，不以任一方最新值靜默覆寫歷史。</li>
+</ul>
+<h3 id="5-3-併發-權限與稽核">5.3 併發、權限與稽核</h3><ul>
+<li>Alert、Mitigation Job、Isolation Control 與 Delivery 都具備 <code>version</code> 或等價併發控制。</li>
+<li>所有 command 接受 <code>idempotency_key</code>；相同 key 與相同 payload 回傳原結果，相同 key 與不同 payload 必須拒絕。</li>
+<li>接手、改派、備註、維持隔離、解除、重試、豁免、結案與重新開啟均保存 actor、時間、原因、前後值、request／trace ID。</li>
+<li>權限 key 與雙人核准角色待系統設定規格補齊；在此之前，產品行為仍要求後端強制授權、敏感操作重新確認及完整 audit。</li>
+<li>系統通知中心屬 Deferred，不影響 Alert 工作佇列、GGAP Delivery 或操作時間線的正式保存。</li>
+</ul>
+<h2 id="三個頁面的產品分工">三個頁面的產品分工</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>頁面</th>
+<th>核心問題</th>
+<th>主要單位</th>
+<th>允許操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>監控總覽</td>
+<td>現在是否健康、哪裡需要關注？</td>
+<td>當前狀態與分析窗口</td>
+<td>唯讀、篩選、重新整理與精確導流</td>
+</tr>
+<tr>
+<td>風控報表</td>
+<td>發生了什麼、證據與影響為何？</td>
+<td>Risk Event</td>
+<td>唯讀查詢、詳情、匯出與導向 Alert／Game Round</td>
+</tr>
+<tr>
+<td>風控告警／處理</td>
+<td>誰負責、下一步做什麼、是否可結案？</td>
+<td>Alert</td>
+<td>接手、指派、備註、緩解、隔離、解除、重送與結案</td>
+</tr>
+</tbody></table></div>
+<p>Dashboard 只顯示跨模組摘要與工作入口，不建立另一套 Risk Event 或 Alert 真實來源。遊戲紀錄只提供關聯 Game Round 證據，不承擔告警處理。</p>
+<h2 id="原型與後續實作對照">原型與後續實作對照</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>現行 Portal</th>
+<th>本規格要求的後續結果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>三個頁面、篩選、列表、詳情、deep link</td>
+<td>已有高擬真 mock</td>
+<td>保留資訊架構並換用正式模型</td>
+</tr>
+<tr>
+<td>目前狀態 enum</td>
+<td>Event／Alert 處理概念混用</td>
+<td>改為本包的 Event 與 Alert 獨立生命週期</td>
+</tr>
+<tr>
+<td>操作按鈕</td>
+<td>只修改前端本地狀態</td>
+<td>建立 command、Job、實際狀態與 audit</td>
+</tr>
+<tr>
+<td>規則與指標</td>
+<td>固定 mock 數字與情境</td>
+<td>版本化規則、Detection Result 與正式資料來源</td>
+</tr>
+<tr>
+<td>隔離與解除</td>
+<td>模擬成功／失敗畫面</td>
+<td>Launch Gate desired／actual state 與健康驗證</td>
+</tr>
+<tr>
+<td>GGAP 通知</td>
+<td>模擬狀態</td>
+<td>outbox、冪等、ACK、重試與 reconciliation</td>
+</tr>
+</tbody></table></div>
+<p>目前這個 session 只建立規格網站內容，不修改 <code>MonitoringOverview.vue</code>、<code>RiskReports.vue</code> 或 <code>RiskAlerts.vue</code>。後續開發 session 應以本包、同步後的原始 Spec MD 及頁面規格共同實作。</p>
+<h2 id="外部驗證點">外部驗證點</h2><p>以下內容不改變產品功能方向，但需在取得 GGAP 或現行 Backend Git 後填入實際值：</p>
+<ol>
+<li>正式 API path、資料表、migration、enum 命名及狀態轉換實作。</li>
+<li>指標來源、查詢方式、資料延遲、評估排程及第一批實際門檻。</li>
+<li>Launch Gate 的實際整合點、scope 能力與健康檢查介面。</li>
+<li>GGAP payload、簽章、event name、ACK、錯誤碼、重試與查詢契約。</li>
+<li>正式 permission key、雙人核准角色、資料保存年限及 audit 匯出方式。</li>
+<li>既有 Backend 若已有 Event、Alert 或 Job 模型，與本包的欄位及狀態差異。</li>
+</ol>
+<p>取得證據後應輸出差異表，逐項選擇「沿用現況、調整 Backend、調整規格或增加相容層」，不得直接用實作細節靜默覆蓋本需求基準。</p>
+<h2 id="規格同步範圍">規格同步範圍</h2><p>本包完成審閱後，下一步同步更新：</p>
+<ul>
+<li><code>docs/PROVIDER_RISK_CONTROL_SPEC.md</code></li>
+<li><code>docs/PROVIDER_MONITORING_OVERVIEW_SPEC.md</code></li>
+<li><code>docs/PROVIDER_RISK_REPORT_SPEC.md</code></li>
+<li><code>docs/PROVIDER_RISK_ALERT_HANDLING_SPEC.md</code></li>
+<li>規格網站的監控總覽、風控報表、風控告警／處理、共通 enum、資料字典及 API／QA 章節</li>
+</ul>
+<p>同步時以本包的領域模型與生命週期為上游，頁面文件只描述各自呈現與操作，不重複發明不同狀態。</p>
+
+                    </article>
+                    <aside class="page-outline" aria-label="本頁目錄">
+        <p>本頁目錄</p>
+        <nav><a class="outline-level-2" href="#文件定位">文件定位</a><a class="outline-level-2" href="#不可違反的產品邊界">不可違反的產品邊界</a><a class="outline-level-2" href="#整體處理鏈">整體處理鏈</a><a class="outline-level-2" href="#1-領域模型與責任鏈">1. 領域模型與責任鏈</a><a class="outline-level-3" href="#1-1-核心物件">1.1 核心物件</a><a class="outline-level-3" href="#1-2-關聯與基數">1.2 關聯與基數</a><a class="outline-level-3" href="#1-3-fingerprint-去重與復發">1.3 Fingerprint、去重與復發</a><a class="outline-level-2" href="#2-risk-event-與-alert-生命週期">2. Risk Event 與 Alert 生命週期</a><a class="outline-level-3" href="#2-1-risk-event-狀態">2.1 Risk Event 狀態</a><a class="outline-level-3" href="#2-2-alert-狀態">2.2 Alert 狀態</a><a class="outline-level-3" href="#2-3-必須分開的狀態維度">2.3 必須分開的狀態維度</a><a class="outline-level-3" href="#2-4-結案守門條件">2.4 結案守門條件</a><a class="outline-level-2" href="#3-規則評估與嚴重度">3. 規則評估與嚴重度</a><a class="outline-level-3" href="#3-1-rule-definition">3.1 Rule Definition</a><a class="outline-level-3" href="#3-2-評估結果">3.2 評估結果</a><a class="outline-level-3" href="#3-3-觸發-恢復與嚴重度">3.3 觸發、恢復與嚴重度</a><a class="outline-level-3" href="#3-4-第一版規則類型">3.4 第一版規則類型</a><a class="outline-level-2" href="#4-緩解工作與隔離控制">4. 緩解工作與隔離控制</a><a class="outline-level-3" href="#4-1-automation-mode">4.1 Automation Mode</a><a class="outline-level-3" href="#4-2-mitigation-job">4.2 Mitigation Job</a><a class="outline-level-3" href="#4-3-隔離-desired-actual-state">4.3 隔離 desired／actual state</a><a class="outline-level-3" href="#4-4-健康驗證與可用操作">4.4 健康驗證與可用操作</a><a class="outline-level-2" href="#5-ggap-通知-可靠性與稽核">5. GGAP 通知、可靠性與稽核</a><a class="outline-level-3" href="#5-1-ggap-delivery">5.1 GGAP Delivery</a><a class="outline-level-3" href="#5-2-重試-補償與狀態真實性">5.2 重試、補償與狀態真實性</a><a class="outline-level-3" href="#5-3-併發-權限與稽核">5.3 併發、權限與稽核</a><a class="outline-level-2" href="#三個頁面的產品分工">三個頁面的產品分工</a><a class="outline-level-2" href="#原型與後續實作對照">原型與後續實作對照</a><a class="outline-level-2" href="#外部驗證點">外部驗證點</a><a class="outline-level-2" href="#規格同步範圍">規格同步範圍</a></nav>
+        <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
+    </aside>
+                </div>
+
+                <nav class="previous-next" aria-label="上一章與下一章">
+        <a class="previous-link" href="decision-pack-01-round-finance.html"><span>← 上一章</span><strong>Decision Pack 01｜Game Round、時間與財務基準</strong></a>
+        <span></span>
+    </nav>
+                <footer class="document-footer">
+                    <span>Provider Portal Product / Engineering</span>
+                    <span>0.15.0-phase-three-pack-02-baseline · 2026-08-17</span>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <dialog class="search-dialog" data-search-dialog aria-labelledby="search-dialog-title">
+        <div class="search-dialog-header">
+            <div>
+                <p class="eyebrow">全文檢索</p>
+                <h2 id="search-dialog-title">搜尋規格書</h2>
+            </div>
+            <button class="icon-button dialog-close" type="button" data-search-close aria-label="關閉搜尋">×</button>
+        </div>
+        <label class="search-field">
+            <span class="sr-only">輸入章節、route、欄位或關鍵字</span>
+            <span aria-hidden="true">⌕</span>
+            <input type="search" data-search-input autocomplete="off" placeholder="例如：Game Round、/reports、USDT">
+        </label>
+        <p class="search-hint" data-search-hint>可搜尋章節名稱、內文、route、欄位與技術值。</p>
+        <div class="search-results" data-search-results></div>
+    </dialog>
+</body>
+</html>

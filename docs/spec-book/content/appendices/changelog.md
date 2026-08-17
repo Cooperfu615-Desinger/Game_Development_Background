@@ -1,5 +1,31 @@
 # 版本紀錄
 
+## 0.15.0-phase-three-pack-02-baseline · 2026-08-17
+
+- 建立 Decision Pack 02《監控與風控共用產品契約》，以目前需求基準取代替代方案與逐題核准問卷。
+- 定義 Monitoring Signal → Detection Result → Risk Event → Alert → Mitigation Job → Recovery 的分層領域模型與追蹤關係。
+- 將 Risk Event 統一為 `open`、`recovering`、`resolved`、`invalidated`，Alert 統一為 `new`、`in_progress`、`monitoring`、`closed`；誤報改由 `resolution_code` 表達。
+- 補齊 fingerprint 去重與復發、規則版本、觸發／恢復窗口、最小樣本、嚴重度與 automation mode。
+- 定義 Mitigation Job、隔離 desired／actual state、Launch Gate、健康驗證及既有 Game Round 保留行為。
+- 定義 GGAP outbox 投遞、冪等、ACK、有限重試、狀態對帳、併發控制與完整 audit。
+- 現行三個 Portal 頁面仍維持前端 mock；本版本只新增規格網站內容，不修改原型程式。
+
+## 0.14.1-phase-three-pack-01-evidence-pending · 2026-08-17
+
+- 完成 GGAP 聚合原型的初步契約分析，確認其可作方向佐證，但不能取代測試環境實際 Backend Git。
+- 將 Decision Pack 01 暫存為 Backend Evidence Pending；保留五項 TBD、五組建議與 Q1–Q20，不將任何外部依賴誤標為已確認。
+- 記錄暫定方向：Provider 維持 Round 核心、對接層容許 `Round 1:N Bet`、投注設定採三層模型、下注限額由 Provider 擁有，以及 USDT-only 的條件式建議。
+- 集中列出重開 Pack 01 所需的狀態 enum、時間 API、精度／rounding、實際資料表與 Callback payload 證據。
+- 第三階段後續先討論 Decision Pack 02；Pack 01 待 GGAP Backend Evidence 到位後重新校準。
+
+## 0.14.0-phase-three-pack-01-draft · 2026-08-14
+
+- 建立第一份共用契約決策包，集中處理 Game Round 生命週期、識別與快照、時間窗口、點數／USDT 及財務公式五項 TBD。
+- 每項決策均提供現況矛盾、建議方案、替代方案、影響與核准問題，共形成 Q1–Q20 的一次審閱清單。
+- 規格網站新增可快速導覽的 Decision Dossier 版型，並將決策包納入側欄、全文搜尋與版本治理。
+- 五項集中 TBD 仍維持原狀態；在責任方核准及同步共通規格、頁面、資料字典、enum 與測試前，不視為正式決議。
+- `TBD-DAT-004`、GGAP 正式契約、API path、permission key 及 Deferred 模組不在本包決定。
+
 ## 0.13.0-phase-two-seal · 2026-08-14
 
 - 完成 Phase 2 Batch A–D 共 21 個完整 Draft 頁的跨批次封版驗證。

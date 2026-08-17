@@ -1,0 +1,1148 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="五項核心 TBD 的建議方案、替代方案、影響與二十個核准問題。">
+    <meta name="color-scheme" content="light">
+    <title>Decision Pack 01｜Game Round、時間與財務基準｜Provider Portal 產品與系統規格書</title>
+    <link rel="stylesheet" href="assets/site.css">
+    <script src="assets/search-index.js" defer></script>
+    <script src="assets/site.js" defer></script>
+</head>
+<body data-page-id="decision-pack-01-round-finance">
+    <a class="skip-link" href="#main-content">跳至主要內容</a>
+    <header class="topbar">
+        <button class="icon-button nav-trigger" type="button" data-nav-trigger aria-label="開啟規格目錄" aria-expanded="false" aria-controls="spec-navigation">
+            <span></span><span></span><span></span>
+        </button>
+        <a class="wordmark" href="index.html" aria-label="回到規格書首頁">
+            <span class="wordmark-mark" aria-hidden="true">▦</span>
+            <span><strong>Provider Portal</strong><small>產品與系統規格書</small></span>
+        </a>
+        <button class="search-trigger" type="button" data-search-trigger>
+            <span aria-hidden="true">⌕</span>
+            <span>搜尋規格</span>
+            <kbd>⌘ K</kbd>
+        </button>
+        <div class="topbar-meta">
+            <strong class="spec-context-label">SPEC</strong>
+            <span>0.15.0-phase-three-pack-02-baseline</span>
+            <span class="topbar-status">Phase 3 · Monitoring &amp; Risk Baseline</span>
+        </div>
+    </header>
+
+    <div class="shell">
+        <aside class="sidebar" id="spec-navigation" data-sidebar>
+            <div class="sidebar-intro">
+                <span class="sidebar-kicker">SPECIFICATION MANUAL</span>
+                <p>2026-08-17 更新</p>
+            </div>
+            <nav aria-label="規格書章節">
+
+        <details class="nav-group" >
+            <summary>開始閱讀<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="index.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>規格書首頁</span>
+
+                    </a><a href="document-control.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>文件治理與使用方式</span>
+
+                    </a><a href="product-overview.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>產品定位與目標</span>
+
+                    </a><a href="system-boundary.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>系統與責任邊界</span>
+
+                    </a><a href="information-architecture.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>資訊架構與頁面地圖</span>
+
+                    </a><a href="common-domain-rules.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>共通領域規則</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.1 總覽<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="dashboard-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="dashboard.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>儀表板</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.2 遊戲管理<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="game-management-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="game-list.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲列表</span>
+
+                    </a><a href="game-environments.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>環境與發布</span>
+
+                    </a><a href="game-settings.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲設定</span>
+
+                    </a><a href="game-math.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>數值設定</span>
+
+                    </a><a href="game-versions.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲版本</span>
+
+                    </a><a href="game-assets.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲素材</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.3 數據與報表<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="data-reporting-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="game-round-records.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲紀錄</span>
+                        <b>PILOT</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.4 遊戲商財務<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="provider-finance-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="finance-overview.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>財務總覽</span>
+
+                    </a><a href="finance-agent-games.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>代理商 × 遊戲彙總</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.5 遊戲監控與風控<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="monitoring-risk-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="monitoring-overview.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>監控總覽</span>
+
+                    </a><a href="risk-reports.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>風控報表</span>
+
+                    </a><a href="risk-alerts.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>風控告警／處理</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.6 GGAP 對接<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="ggap-integration-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>對接總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-catalog-sync.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲目錄同步</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-requests.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>請求與回呼紀錄</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-errors.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>錯誤與重試</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-settings.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>對接設定</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.7 通知中心<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="notifications-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="notifications.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>全部通知</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="notification-preferences.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>通知偏好</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.8 官方網站<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="official-website-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="website-banners.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>Banner 管理</span>
+
+                    </a><a href="website-content.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>內容管理</span>
+
+                    </a><a href="website-releases.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>發布紀錄</span>
+
+                    </a><a href="lobby-overview.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>大廳總覽</span>
+
+                    </a><a href="lobby-games.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲清單</span>
+
+                    </a><a href="lobby-management.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲管理</span>
+
+                    </a><a href="lobby-demo.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>DEMO環境數據</span>
+
+                    </a><a href="lobby-preview.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>大廳預覽</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.9 系統設定<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="system-settings-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>設定總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-permissions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>使用者與權限</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-api-keys.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>API key 與憑證</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-audit-logs.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>操作紀錄</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>共通規格<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="api-integration.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>API 與整合契約</span>
+
+                    </a><a href="security-permissions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>安全與權限</span>
+
+                    </a><a href="non-functional-requirements.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>非功能性需求</span>
+
+                    </a><a href="acceptance-qa.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>驗收與 QA</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" open>
+            <summary>附錄<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="data-dictionary.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>資料字典</span>
+
+                    </a><a href="status-enums.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>狀態與枚舉</span>
+
+                    </a><a href="route-page-matrix.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>Route 與頁面矩陣</span>
+
+                    </a><a href="open-issues.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>待決策與校正清單</span>
+
+                    </a><a href="changelog.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>版本紀錄</span>
+
+                    </a><a href="spec-book-authoring-guide.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>規格書撰寫與交接規範</span>
+
+                    </a><a href="page-readiness-matrix.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>第一階段頁面完成度矩陣</span>
+
+                    </a><a href="page-reconciliation.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>第一階段頁面三層校準</span>
+
+                    </a><a href="page-dependency-map.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>第一階段跨頁依賴圖</span>
+
+                    </a><a href="phase-one-validation-report.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>第一階段封版驗證報告</span>
+
+                    </a><a href="phase-two-validation-report.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>第二階段封版驗證報告</span>
+
+                    </a><a href="decision-pack-01-round-finance.html" aria-current="page">
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>Decision Pack 01｜Game Round、時間與財務基準</span>
+
+                    </a><a href="decision-pack-02-monitoring-risk.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>Decision Pack 02｜監控與風控共用產品契約</span>
+
+                    </a>
+            </div>
+        </details>
+
+            </nav>
+            <div class="sidebar-legend">
+                <p>規格狀態</p>
+                <span><i class="status-dot status-confirmed"></i>已確認</span><span><i class="status-dot status-draft"></i>草案</span><span><i class="status-dot status-outline"></i>待整理</span><span><i class="status-dot status-tbd"></i>待決策</span>
+            </div>
+        </aside>
+        <button class="sidebar-scrim" type="button" data-nav-close aria-label="關閉規格目錄"></button>
+
+        <main id="main-content" class="main-content" tabindex="-1">
+            <div class="page-frame ">
+                <header class="page-header">
+                    <div>
+                        <p class="eyebrow">附錄 L</p>
+                        <h1>Decision Pack 01｜Game Round、時間與財務基準</h1>
+                        <p class="page-summary">五項核心 TBD 的建議方案、替代方案、影響與二十個核准問題。</p>
+                    </div>
+                    <div class="page-status-stack">
+                        <span class="status-badge status-draft">草案</span>
+
+
+                    </div>
+                </header>
+
+                <section class="metadata-card" aria-label="章節追溯資訊">
+        <div class="metadata-grid">
+            <div><span>章節編號</span><code>L</code></div><div><span>規格狀態</span><code>草案</code></div>
+        </div>
+    </section>
+
+
+                <div class="content-layout">
+                    <article class="spec-content">
+                        <section class="decision-pack-hero" data-pack="DP / 01" aria-label="Decision Pack 01 摘要">
+  <div class="decision-pack-hero__identity">
+    <span>PHASE 3 · DECISION DOSSIER 01</span>
+    <strong>先統一一筆 Round，再統一所有報表</strong>
+    <p>本包已完成五個跨頁 TBD 的初步拆分；目前暫存並等待 GGAP 測試環境實際 Backend Git。既有建議、問題與暫定方向均保留，但不視為正式契約。</p>
+  </div>
+  <div class="decision-pack-hero__stats">
+    <div><strong>05</strong><span>集中 TBD</span></div>
+    <div><strong>07</strong><span>直接影響頁面</span></div>
+    <div><strong>02</strong><span>P0 Domain</span></div>
+    <div><strong>03</strong><span>Data 契約</span></div>
+  </div>
+  <nav class="decision-pack-hero__nav" aria-label="五項決策快速導覽">
+    <a href="#1-game-round-正式生命週期"><b>01</b><span>Round 生命週期</span></a>
+    <a href="#2-跨系統識別碼與交易快照"><b>02</b><span>識別與快照</span></a>
+    <a href="#3-時間-時區與統計窗口"><b>03</b><span>時間與窗口</span></a>
+    <a href="#4-點數-usdt-匯率與精度"><b>04</b><span>點數與 USDT</span></a>
+    <a href="#5-正式財務指標與正負方向"><b>05</b><span>財務公式</span></a>
+  </nav>
+</section><h2 id="決策包狀態">決策包狀態</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>內容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>決策包編號</td>
+<td><code>DP-01</code></td>
+</tr>
+<tr>
+<td>成熟度</td>
+<td>Backend Evidence Pending Draft — 已完成初步拆分，等待 GGAP 實際後端證據後重開</td>
+</tr>
+<tr>
+<td>納入 TBD</td>
+<td><code>TBD-DOM-001</code>、<code>TBD-DOM-002</code>、<code>TBD-DAT-001</code>、<code>TBD-DAT-002</code>、<code>TBD-DAT-003</code></td>
+</tr>
+<tr>
+<td>直接影響頁面</td>
+<td>遊戲紀錄、財務總覽、代理商 × 遊戲彙總、儀表板、監控總覽、風控報表、風控告警／處理</td>
+</tr>
+<tr>
+<td>不在本包決定</td>
+<td>GGAP 正式欄位／簽章／Callback、API path、permission key、全系統保存年限、棋牌與多人結算</td>
+</tr>
+<tr>
+<td>建議核准順序</td>
+<td>Round 生命週期 → 識別碼 → 時間 → 金額 → 財務公式</td>
+</tr>
+</tbody></table></div>
+<blockquote>
+<p>本包不直接變更集中 TBD 狀態。只有責任方確認選項、記錄決議，並同步更新共通規格、頁面、資料字典、enum 與測試後，對應 TBD 才能視為收斂。</p>
+</blockquote>
+<h2 id="暫存紀錄-2026-08-17">暫存紀錄｜2026-08-17</h2><p>本包目前不是放棄或結案，而是停止在缺少實際後端證據時繼續推定契約。GGAP 聚合原型可作方向佐證，但其前端 mock、文件候選值與實際測試環境後端仍可能不同。</p>
+<p>暫定保留方向：</p>
+<ol>
+<li>Provider Portal 繼續以 Game Round 為主要業務紀錄；對接層容許 <code>Round 1:N Bet</code>，自製遊戲可依版本使用 <code>single</code> 或 <code>multiple</code> 模式。</li>
+<li>Bet 數量與派彩範圍分開治理；<code>payout_scope</code> 可依遊戲版本採逐筆、Round 級或混合模式。</li>
+<li>投注設定拆為遊戲投注結構、固定投注幣別倍率及下注限額方案；固定倍率不是財務匯率，限額檢核最後的 <code>Total Bet</code>。</li>
+<li>Provider 擁有下注限額方案與版本；GGAP 只同步、開放與指派，不修改 Provider 的限額內容。</li>
+<li>對接資料模型保留 <code>USDT_ONLY</code> 與 <code>NATIVE_CURRENCY</code>；產品優先評估 USDT-only，但需 GGAP 後端確認非 USDT 會員錢包的轉接責任。</li>
+<li>正式狀態 enum、時間 API、decimal scale／rounding、資料表、唯一鍵與 Callback payload 不在本次原型分析中定案。</li>
+</ol>
+<p>重開本包所需證據：</p>
+<ul>
+<li>GGAP 測試環境實際部署的 Backend Repository、Branch／Tag／Commit。</li>
+<li>Round、Bet、Transaction、Settlement 的 migration、model、enum 與狀態轉換。</li>
+<li>時間 query、帳期、延遲 Callback 與日結排程實作。</li>
+<li>金額精度、rounding、匯率與序列化規則及測試。</li>
+<li>Launch、Bet、Win、Refund、Rollback、查單與冪等契約。</li>
+</ul>
+<p>在取得上述證據前，Q1–Q20、五項集中 TBD 與受影響頁面仍維持 Draft／Partial，不因本次暫存而暗中核准。</p>
+<h2 id="已確認且不可違反的邊界">已確認且不可違反的邊界</h2><ol>
+<li>Game Round 是 Provider 的主要業務紀錄單位，不另建正式 Game Session 模組。</li>
+<li>Production、DEMO、Test 必須隔離；正式財務與遊戲紀錄只使用 Production，Test 不進 Provider 風控。</li>
+<li>Provider 不建立代理商、商戶、會員或錢包主資料；外部識別只作交易脈絡與追蹤快照。</li>
+<li>Provider 點數是主值，USDT 是每筆 Round 保存的換算對照；歷史資料不得套用最新匯率重算。</li>
+<li>原始 Round、結算版本與更正證據不得被靜默刪除或覆寫。</li>
+</ol>
+<h2 id="決策地圖">決策地圖</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th align="center">順序</th>
+<th>集中 TBD</th>
+<th>本次需要形成的答案</th>
+<th>後續解鎖</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td><a href="open-issues.html#tbd-dom-001"><code>TBD-DOM-001</code></a></td>
+<td>Round 狀態、終態、重試、回滾與更正模型</td>
+<td>狀態 enum、有效 Round、監控與追蹤</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td><a href="open-issues.html#tbd-dat-002"><code>TBD-DAT-002</code></a></td>
+<td>Provider／GGAP／request ID 角色與 snapshot 規則</td>
+<td>查詢、deep link、冪等與歷史追溯</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td><a href="open-issues.html#tbd-dat-003"><code>TBD-DAT-003</code></a></td>
+<td>儲存時區、顯示時區、查詢欄位與時間邊界</td>
+<td>報表期間、跨頁導流與測試案例</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td><a href="open-issues.html#tbd-dat-001"><code>TBD-DAT-001</code></a></td>
+<td>decimal、匯率方向、量化與歷史重現</td>
+<td>金額 schema、顯示、匯出與聚合</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td><a href="open-issues.html#tbd-dom-002"><code>TBD-DOM-002</code></a></td>
+<td>有效 Round、玩家淨輸贏、GGR 與回滾口徑</td>
+<td>財務 API、Dashboard 與正式驗收</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="1-game-round-正式生命週期">1. Game Round 正式生命週期</h2><div class="decision-item-meta"><span>DP01-01</span><a href="open-issues.html#tbd-dom-001">TBD-DOM-001</a><b>P0</b><i>Product · Backend · GGAP</i></div><h3 id="要解決的矛盾">要解決的矛盾</h3><p>目前頁面已有 <code>processing</code>、<code>settled</code>、<code>cancelled</code>、<code>rollback</code>、<code>failed</code>，但尚未定義哪些是終態、暫時失敗是否立刻變成 <code>failed</code>、重試是否建立新 Round，以及更正與回滾如何保留歷史。因此同一筆資料可能在遊戲紀錄、財務與監控被不同方式解讀。</p>
+<h3 id="建議方案-a-round-狀態與處理事件分離">建議方案 A｜Round 狀態與處理事件分離</h3><aside class="decision-recommendation">
+  <strong>建議採用</strong>
+  <p>一個玩家業務回合只建立一個 Provider Round。Round 保存目前業務狀態；每次請求、重試、結算、更正與回滾另存 append-only event。重試不建立新 Round，也不覆蓋先前證據。</p>
+</aside><p>建議狀態：</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>API 候選值</th>
+<th>顯示名稱</th>
+<th align="right">財務效果</th>
+<th align="center">是否終態</th>
+<th>建議轉換</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>processing</code></td>
+<td>處理中</td>
+<td align="right">無</td>
+<td align="center">否</td>
+<td><code>settled</code>、<code>cancelled</code>、<code>failed</code></td>
+</tr>
+<tr>
+<td><code>settled</code></td>
+<td>已結算</td>
+<td align="right">有</td>
+<td align="center">條件式</td>
+<td>可因完整沖回進入 <code>rolled_back</code>；金額更正仍維持 <code>settled</code> 並增加版本</td>
+</tr>
+<tr>
+<td><code>cancelled</code></td>
+<td>已取消</td>
+<td align="right">無</td>
+<td align="center">是</td>
+<td>不恢復；若重新投注應建立新的業務 Round</td>
+</tr>
+<tr>
+<td><code>failed</code></td>
+<td>結算失敗</td>
+<td align="right">無</td>
+<td align="center">是</td>
+<td>只在有限重試耗盡後使用；遲到結果需走明確更正流程</td>
+</tr>
+<tr>
+<td><code>rolled_back</code></td>
+<td>已回滾</td>
+<td align="right">原效果已完整沖回</td>
+<td align="center">是</td>
+<td>不直接改回 <code>settled</code></td>
+</tr>
+</tbody></table></div>
+<p>建議行為：</p>
+<ul>
+<li>Provider 第一次接受可識別的業務請求時建立 Round，初始為 <code>processing</code>。</li>
+<li>同一 logical request 的網路重送沿用相同 <code>request_id</code>，不得重複建立 Round 或重複產生財務效果。</li>
+<li>暫時性逾時或單次 attempt 失敗記錄在 event，不立即把 Round 標為 <code>failed</code>。</li>
+<li>有效結算保存 <code>settlement_version=1</code>；後續金額更正增加版本並保留前一版，不建立第二筆 Game Round。</li>
+<li>完整沖回使用 <code>rolled_back</code>；目前原型值 <code>rollback</code> 是否改名需在核准時一併決定。</li>
+<li>不提供刪除正式 Game Round 的一般操作。</li>
+</ul>
+<h3 id="替代方案比較">替代方案比較</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>說明</th>
+<th>優點</th>
+<th>主要風險</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A｜狀態＋事件分離</td>
+<td>一個 Round、狀態快照、append-only event</td>
+<td>可追溯、可冪等、財務不重複</td>
+<td>後端需建立事件與版本模型</td>
+</tr>
+<tr>
+<td>B｜只保留簡化終態</td>
+<td>Round 只保留處理中／已結算／已取消，錯誤全部在 log</td>
+<td>模型較小</td>
+<td>Portal 難以直接查詢失敗與回滾</td>
+</tr>
+<tr>
+<td>C｜每次重試／回滾建立新 Round</td>
+<td>每個動作都是新 Round</td>
+<td>寫入流程直觀</td>
+<td>容易重複計數，破壞「一列一 Round」與追溯關係，不建議</td>
+</tr>
+</tbody></table></div>
+<h3 id="請責任方確認">請責任方確認</h3><ol class="decision-question-list">
+  <li><b>Q1</b><span>是否採用「一個業務 Round＋append-only event」模型？</span></li>
+  <li><b>Q2</b><span>正式 API 值使用 <code>rolled_back</code>，還是保留原型的 <code>rollback</code>？</span></li>
+  <li><b>Q3</b><span><code>failed</code> 是否只在有限重試耗盡後成立，且視為終態？</span></li>
+  <li><b>Q4</b><span>部分金額更正是否維持 <code>settled</code> 並增加 <code>settlement_version</code>？</span></li>
+</ol><hr>
+<h2 id="2-跨系統識別碼與交易快照">2. 跨系統識別碼與交易快照</h2><div class="decision-item-meta"><span>DP01-02</span><a href="open-issues.html#tbd-dat-002">TBD-DAT-002</a><b>P0</b><i>Backend · Data · GGAP · Security</i></div><h3 id="要解決的矛盾-2">要解決的矛盾</h3><p>Provider Round ID、GGAP Round ID、request ID 與 event ID 都出現在追蹤流程，但其唯一性與重送角色尚未分開。代理商、會員與遊戲名稱也可能被誤寫成「查詢當下 join 的最新主資料」，造成歷史紀錄被改名或無法重現。</p>
+<h3 id="建議方案-a-provider-id-為主鍵-外部-id-與脈絡採不可變快照">建議方案 A｜Provider ID 為主鍵，外部 ID 與脈絡採不可變快照</h3><aside class="decision-recommendation">
+  <strong>建議採用</strong>
+  <p><code>round_id</code> 是 Provider 唯一主鍵；<code>external_round_id</code> 只作 GGAP 對照與查詢。重送依 logical <code>request_id</code> 去重。Round 保存當時遊戲版本與外部脈絡 snapshot，不依賴查詢當下的外部主資料。</p>
+</aside><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>識別</th>
+<th>建議責任</th>
+<th>建議唯一性／索引</th>
+<th>不得用來做什麼</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>round_id</code></td>
+<td>Provider 建立</td>
+<td>建議全域唯一；資料隔離仍強制帶 <code>provider_id</code> 與 <code>environment</code></td>
+<td>不從 GGAP ID 推導，不承載可變商業資訊</td>
+</tr>
+<tr>
+<td><code>external_round_id</code></td>
+<td>GGAP 提供或映射</td>
+<td>在 GGAP 契約確認前只建可查詢索引，不假設全域唯一</td>
+<td>不作 Provider primary key</td>
+</tr>
+<tr>
+<td><code>request_id</code></td>
+<td>logical command 發起方提供／Provider 接收</td>
+<td>同一操作重送沿用；不同操作使用新值</td>
+<td>不等同 Round ID 或 event ID</td>
+</tr>
+<tr>
+<td><code>provider_event_id</code></td>
+<td>Provider 建立</td>
+<td>每個 append-only event 唯一</td>
+<td>不等同 Risk Event ID</td>
+</tr>
+<tr>
+<td><code>risk_event_id</code>／<code>alert_id</code></td>
+<td>Provider 風控建立</td>
+<td>依各自模型唯一</td>
+<td>不取代 Round 或 request 追蹤</td>
+</tr>
+</tbody></table></div>
+<p>Round 建議保存：</p>
+<ul>
+<li><code>game_id</code>、<code>game_name_snapshot</code>、<code>game_type</code>、實際 <code>release_id</code>／版本。</li>
+<li><code>agent_id</code> 與可取得的 <code>agent_name_snapshot</code>；只代表交易脈絡，不形成 Provider 代理商主資料。</li>
+<li><code>member_id</code> 或 GGAP 提供的 opaque member reference；遮罩與查詢權限交由 <code>TBD-SEC-002</code>。</li>
+<li><code>merchant_id</code> 若整合追蹤必要，可保存為後端受限快照，但不進 Provider UI、查詢與財務維度。</li>
+<li>snapshot 缺值保存為 <code>null</code> 與來源狀態，不用日後最新名稱靜默回填歷史。</li>
+</ul>
+<h3 id="替代方案比較-2">替代方案比較</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>說明</th>
+<th>優點</th>
+<th>主要風險</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A｜Provider 主鍵＋外部對照＋snapshot</td>
+<td>Provider 內部穩定主鍵，GGAP 與名稱作歷史快照</td>
+<td>可追溯、外部變更不改寫歷史</td>
+<td>資料欄位較多，需治理敏感識別</td>
+</tr>
+<tr>
+<td>B｜GGAP Round ID 直接作主鍵</td>
+<td>不建立 Provider Round ID</td>
+<td>欄位較少</td>
+<td>綁定外部唯一性與格式，跨環境／重送風險高</td>
+</tr>
+<tr>
+<td>C｜只存 ID、查詢時 join 最新名稱</td>
+<td>歷史名稱不保存</td>
+<td>儲存較少</td>
+<td>報表無法重現當時脈絡，不建議用於財務</td>
+</tr>
+</tbody></table></div>
+<h3 id="請責任方確認-2">請責任方確認</h3><ol class="decision-question-list">
+  <li><b>Q5</b><span><code>round_id</code> 是否由 Provider 建立並作唯一主鍵？正式格式由 Backend 另提 schema。</span></li>
+  <li><b>Q6</b><span>在取得 GGAP 契約前，是否同意不對 <code>external_round_id</code> 宣告全域唯一？</span></li>
+  <li><b>Q7</b><span>遊戲、版本與代理商名稱是否採交易當下 snapshot，禁止以最新名稱覆寫歷史？</span></li>
+  <li><b>Q8</b><span><code>merchant_id</code> 是否維持後端受限追蹤欄位，不進 Provider UI 與報表維度？</span></li>
+</ol><hr>
+<h2 id="3-時間-時區與統計窗口">3. 時間、時區與統計窗口</h2><div class="decision-item-meta"><span>DP01-03</span><a href="open-issues.html#tbd-dat-003">TBD-DAT-003</a><b>P1</b><i>Product · Backend · Data · SRE</i></div><h3 id="要解決的矛盾-3">要解決的矛盾</h3><p>財務已明確使用 <code>settled_at</code>，但遊戲紀錄同時要查詢尚未產生 <code>settled_at</code> 的 <code>processing</code>／<code>failed</code> Round。若同一個「時間區間」在不同狀態下偷偷改用不同欄位，使用者與 QA 都無法判斷結果。</p>
+<h3 id="建議方案-a-儲存-utc-顯示台北-時間基準必須明示">建議方案 A｜儲存 UTC、顯示台北、時間基準必須明示</h3><aside class="decision-recommendation">
+  <strong>建議採用</strong>
+  <p>所有事件保存 absolute instant，API 使用 RFC 3339 並帶 offset；Portal 預設以 <code>Asia/Taipei</code> 顯示與切日。財務固定依 <code>settled_at</code>；遊戲紀錄增加明確 <code>time_basis</code>，不得依狀態暗中切換。</p>
+</aside><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>時間欄位</th>
+<th>正式語意</th>
+<th>主要用途</th>
+<th align="center">是否可變</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>created_at</code></td>
+<td>Provider 建立 Round 紀錄的技術時間</td>
+<td>未結算／失敗追查、資料寫入追蹤</td>
+<td align="center">否</td>
+</tr>
+<tr>
+<td><code>started_at</code></td>
+<td>遊戲玩法開始時間</td>
+<td>遊戲時長與未來多人玩法；現行單人遊戲可空</td>
+<td align="center">否</td>
+</tr>
+<tr>
+<td><code>settled_at</code></td>
+<td>有效結算版本完成時間</td>
+<td>正式遊戲紀錄預設排序、財務與報表統計</td>
+<td align="center">原始值否；更正另留版本時間</td>
+</tr>
+<tr>
+<td><code>updated_at</code></td>
+<td>Round 最新狀態／版本寫入時間</td>
+<td>資料新鮮度與支援追查</td>
+<td align="center">是</td>
+</tr>
+<tr>
+<td>event <code>occurred_at</code></td>
+<td>重試、更正、回滾等事件實際發生時間</td>
+<td>事件時間軸與 audit</td>
+<td align="center">否</td>
+</tr>
+</tbody></table></div>
+<p>建議查詢規則：</p>
+<ul>
+<li>財務總覽、代理商 × 遊戲彙總與 Dashboard 財務數字固定使用 <code>settled_at</code>。</li>
+<li>遊戲紀錄預設 <code>time_basis=settled_at</code>；需要查詢 <code>processing</code>、<code>failed</code> 或技術寫入紀錄時，使用者明確切換 <code>time_basis=created_at</code>。</li>
+<li>財務頁導向遊戲紀錄時必須帶入 <code>time_basis=settled_at</code>，避免同一期間筆數不一致。</li>
+<li>所有區間採半開區間 <code>[from, to)</code>；日區間依 <code>Asia/Taipei</code> 產生邊界後轉成 UTC 傳輸。</li>
+<li>API 回傳原始時間含 <code>Z</code> 或明確 offset，並在 <code>meta.timezone</code> 說明顯示／聚合時區。</li>
+<li><code>settled_at=null</code> 不得被填入 <code>created_at</code> 冒充結算時間。</li>
+</ul>
+<h3 id="替代方案比較-3">替代方案比較</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>說明</th>
+<th>優點</th>
+<th>主要風險</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A｜明確 <code>time_basis</code></td>
+<td>財務固定結算時間；Round 頁可明確切換</td>
+<td>語意可測、未結算資料可查</td>
+<td>Round 頁需增加控制與 query 契約</td>
+</tr>
+<tr>
+<td>B｜所有頁都用 <code>created_at</code></td>
+<td>單一時間欄位</td>
+<td>查詢簡單</td>
+<td>財務跨日與延遲結算口徑錯誤</td>
+</tr>
+<tr>
+<td>C｜依狀態自動選欄位</td>
+<td>UI 不增加控制</td>
+<td>畫面較少</td>
+<td>同一區間混合不同時間語意，不建議</td>
+</tr>
+</tbody></table></div>
+<h3 id="請責任方確認-3">請責任方確認</h3><ol class="decision-question-list">
+  <li><b>Q9</b><span>Portal 的預設顯示與統計日是否固定為 <code>Asia/Taipei</code>？</span></li>
+  <li><b>Q10</b><span>是否採用半開區間 <code>[from, to)</code>，API 以 RFC 3339 absolute instant 傳輸？</span></li>
+  <li><b>Q11</b><span>遊戲紀錄是否增加明確的 <code>time_basis</code>，預設 <code>settled_at</code>、追查未結算時使用 <code>created_at</code>？</span></li>
+  <li><b>Q12</b><span>財務跨頁導流是否一律鎖定 <code>time_basis=settled_at</code>？</span></li>
+</ol><hr>
+<h2 id="4-點數-usdt-匯率與精度">4. 點數、USDT、匯率與精度</h2><div class="decision-item-meta"><span>DP01-04</span><a href="open-issues.html#tbd-dat-001">TBD-DAT-001</a><b>P0</b><i>Finance · Backend · GGAP</i></div><h3 id="要解決的矛盾-4">要解決的矛盾</h3><p>目前已確認使用 decimal string、保存當次換算結果與 <code>conversion_rule_id</code>，但尚未決定點數／USDT scale、匯率方向、量化時點及 rounding mode。若各 API 或報表自行取位，總覽加總可能無法回到單筆 Round。</p>
+<h3 id="建議方案-a-provider-固定計算-profile-每筆-round-鎖定換算版本">建議方案 A｜Provider 固定計算 profile＋每筆 Round 鎖定換算版本</h3><aside class="decision-recommendation">
+  <strong>建議採用</strong>
+  <p>第一版由 Provider 設定固定的 points、USDT 與 rate 計算 profile；傳輸一律使用 decimal string。每筆 Round 保存 canonical rate、方向、rule ID、量化後的各金額與規則版本，報表只加總保存值。</p>
+</aside><p>建議契約骨架：</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>建議</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>傳輸型別</td>
+<td>JSON decimal string；不得使用 JavaScript binary float 作正式值</td>
+</tr>
+<tr>
+<td>canonical 匯率方向</td>
+<td>建議 <code>usdt_per_point</code>，公式為 <code>usdt = points × rate</code>；若採其他方向必須在欄位名明示</td>
+</tr>
+<tr>
+<td>Round 保存</td>
+<td><code>bet_points</code>、<code>payout_points</code>、<code>net_result_points</code>、三個對應 USDT、<code>conversion_rate</code>、<code>conversion_rule_id</code></td>
+</tr>
+<tr>
+<td>量化時點</td>
+<td>每筆 Round 結算版本建立時量化並保存；聚合時不再次逐筆換率</td>
+</tr>
+<tr>
+<td>歷史重現</td>
+<td>使用保存值與 rule snapshot；不得套用最新 rate 重算</td>
+</tr>
+<tr>
+<td>顯示精度</td>
+<td>可少於儲存精度，但完整值仍可在詳情／匯出依權限提供</td>
+</tr>
+</tbody></table></div>
+<p>建議計算順序：</p>
+<pre><code class="language-text">player_net_points = payout_points - bet_points
+ggr_points        = bet_points - payout_points
+
+bet_usdt          = quantize(bet_points × rate)
+payout_usdt       = quantize(payout_points × rate)
+player_net_usdt   = quantize((payout_points - bet_points) × rate)
+ggr_usdt          = quantize((bet_points - payout_points) × rate)
+</code></pre>
+<p><code>player_net_usdt</code> 不得用已量化的 <code>payout_usdt - bet_usdt</code> 反推，避免雙重四捨五入。正式 scale 與 rounding mode 仍需 Finance／Backend 填入：</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>待填參數</th>
+<th>候選方向</th>
+<th>本包建議</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>points_scale</code></td>
+<td>Provider 全域固定／依遊戲變動</td>
+<td>第一版全域固定；顯示 scale 可依遊戲</td>
+</tr>
+<tr>
+<td><code>usdt_scale</code></td>
+<td>依 GGAP 契約固定</td>
+<td>等 GGAP 確認具體位數，不先假設</td>
+</tr>
+<tr>
+<td><code>rate_scale</code></td>
+<td>高於金額 scale</td>
+<td>Backend 提出足以避免中間運算損失的固定值</td>
+</tr>
+<tr>
+<td><code>rounding_mode</code></td>
+<td>HALF_UP／HALF_EVEN／DOWN 等</td>
+<td>Finance 選定唯一模式並寫入 rule version</td>
+</tr>
+</tbody></table></div>
+<h3 id="替代方案比較-4">替代方案比較</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>說明</th>
+<th>優點</th>
+<th>主要風險</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A｜固定 profile＋Round snapshot</td>
+<td>固定 scale／rounding，每 Round 鎖定版本</td>
+<td>容易重現、前後端一致</td>
+<td>需先核准 profile</td>
+</tr>
+<tr>
+<td>B｜各遊戲自行定 scale</td>
+<td>每款遊戲可不同</td>
+<td>彈性最高</td>
+<td>報表、匯出與比較複雜，第一版不建議</td>
+</tr>
+<tr>
+<td>C｜查詢時使用最新匯率</td>
+<td>不保存 Round 換算值</td>
+<td>儲存較少</td>
+<td>歷史數字會改變，違反既有邊界</td>
+</tr>
+</tbody></table></div>
+<h3 id="請責任方確認-4">請責任方確認</h3><ol class="decision-question-list">
+  <li><b>Q13</b><span>canonical rate 是否採 <code>usdt_per_point</code>，並以欄位名稱固定方向？</span></li>
+  <li><b>Q14</b><span>第一版是否採 Provider 全域固定 points scale，而非每款遊戲各自定義？</span></li>
+  <li><b>Q15</b><span>請 Finance／Backend 填入 points、USDT、rate scale 與唯一 rounding mode。</span></li>
+  <li><b>Q16</b><span>是否確認聚合只加總每筆 Round 保存的量化值，不以最新 rate 重算？</span></li>
+</ol><hr>
+<h2 id="5-正式財務指標與正負方向">5. 正式財務指標與正負方向</h2><div class="decision-item-meta"><span>DP01-05</span><a href="open-issues.html#tbd-dom-002">TBD-DOM-002</a><b>P0</b><i>Product · Finance · Backend</i></div><h3 id="要解決的矛盾-5">要解決的矛盾</h3><p>目前原型已使用「玩家淨輸贏＝派彩－投注」與「Provider GGR＝投注－派彩」，但取消、失敗、回滾、部分更正與跨期更正尚未形成唯一口徑。若只在前端以目前狀態過濾，歷史報表可能無法說明數字變化。</p>
+<h3 id="建議方案-a-有效-round-集合-帶版本的-signed-adjustment">建議方案 A｜有效 Round 集合＋帶版本的 signed adjustment</h3><aside class="decision-recommendation">
+  <strong>建議採用</strong>
+  <p>一般財務只統計 Production 中目前有效的 settled Round。玩家淨輸贏採玩家角度，GGR 採 Provider 角度。更正與回滾以可追溯的 signed adjustment／settlement version 反映，不刪除原始 Round。</p>
+</aside><h3 id="建議正式公式-限現行老虎機與單人-crash">建議正式公式（限現行老虎機與單人 Crash）</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>指標</th>
+<th>建議定義</th>
+<th>正負方向</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>有效 Round</td>
+<td><code>environment=production</code>、來源可驗證、去重完成、目前具有效 <code>settled</code> 結算版本</td>
+<td>取消、失敗與完整回滾不納入</td>
+</tr>
+<tr>
+<td>投注筆數</td>
+<td>有效 Round 數量</td>
+<td>非負整數</td>
+</tr>
+<tr>
+<td>投注總額</td>
+<td><code>SUM(effective_bet_points)</code></td>
+<td>非負</td>
+</tr>
+<tr>
+<td>派彩總額</td>
+<td><code>SUM(effective_payout_points)</code></td>
+<td>非負；更正由版本／delta 調整</td>
+</tr>
+<tr>
+<td>玩家淨輸贏</td>
+<td><code>SUM(payout_points - bet_points)</code></td>
+<td>正值＝玩家淨贏；負值＝玩家淨輸</td>
+</tr>
+<tr>
+<td>Provider GGR</td>
+<td><code>SUM(bet_points - payout_points)</code></td>
+<td>正值＝Provider 毛收入；負值＝Provider 淨虧</td>
+</tr>
+<tr>
+<td>平均投注額</td>
+<td>投注總額 ÷ 投注筆數</td>
+<td>分母 0 時 API 回 <code>null</code>、UI 顯示 <code>—</code></td>
+</tr>
+<tr>
+<td>玩家人數</td>
+<td>查詢範圍內有效 Round 的 distinct opaque <code>member_id</code></td>
+<td>各分組人數不可直接相加</td>
+</tr>
+<tr>
+<td>人均投注額</td>
+<td>投注總額 ÷ distinct 玩家人數</td>
+<td>分母 0 時 API 回 <code>null</code>、UI 顯示 <code>—</code></td>
+</tr>
+</tbody></table></div>
+<p>建議狀態處理：</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>Round 狀態／事件</th>
+<th>一般財務</th>
+<th>查詢與稽核</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>processing</code></td>
+<td>不納入</td>
+<td>可在遊戲紀錄查詢</td>
+</tr>
+<tr>
+<td><code>settled</code></td>
+<td>納入目前有效結算版本</td>
+<td>保留所有 settlement version</td>
+</tr>
+<tr>
+<td><code>cancelled</code></td>
+<td>不納入</td>
+<td>保留取消原因與時間</td>
+</tr>
+<tr>
+<td><code>failed</code></td>
+<td>不納入</td>
+<td>保留 attempts 與最終原因</td>
+</tr>
+<tr>
+<td><code>rolled_back</code></td>
+<td>原財務效果完整沖回</td>
+<td>原結算與 reversal event 均保留</td>
+</tr>
+<tr>
+<td>settlement adjustment</td>
+<td>以 signed delta 更新有效結果</td>
+<td>保存前後版本、原因、操作者與時間</td>
+</tr>
+</tbody></table></div>
+<p>跨期更正建議：</p>
+<ul>
+<li>即時營運報表允許舊期間數字因後續更正而改變，但回應必須帶 <code>calculated_at</code> 與 <code>data_version</code>。</li>
+<li>原始 <code>settled_at</code> 不因更正而被覆寫；更正 event 另有 <code>occurred_at</code>。</li>
+<li>是否建立日結／月結鎖定快照、重開會計期間與正式保存年限，交由 <code>TBD-DAT-004</code> 後續決策。</li>
+<li>本公式不推定棋牌、本金返還、Bonus、Jackpot、稅、費用或分潤；新增玩法前需另行確認 effective bet／payout 定義。</li>
+</ul>
+<h3 id="替代方案比較-5">替代方案比較</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>說明</th>
+<th>優點</th>
+<th>主要風險</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A｜有效集合＋signed adjustment</td>
+<td>原始 Round 不變，更正以版本／delta 可追溯</td>
+<td>財務可重現、監控可解釋</td>
+<td>聚合需支援資料版本與重算</td>
+</tr>
+<tr>
+<td>B｜直接覆寫原 Round 金額</td>
+<td>只保留最後值</td>
+<td>查詢簡單</td>
+<td>無法 audit、無法解釋歷史變動，不建議</td>
+</tr>
+<tr>
+<td>C｜回滾建立負值新 Game Round</td>
+<td>用新 Round 沖銷</td>
+<td>聚合表面簡單</td>
+<td>破壞一列一業務 Round、投注筆數容易失真</td>
+</tr>
+</tbody></table></div>
+<h3 id="請責任方確認-5">請責任方確認</h3><ol class="decision-question-list">
+  <li><b>Q17</b><span>玩家淨輸贏是否固定採玩家角度，GGR 固定採 Provider 角度，兩者在現行玩法互為相反數？</span></li>
+  <li><b>Q18</b><span>一般財務是否只納入 Production 中目前有效的 settled Round？</span></li>
+  <li><b>Q19</b><span>更正／回滾是否採 settlement version＋signed adjustment，禁止覆寫或建立假 Round？</span></li>
+  <li><b>Q20</b><span>即時歷史報表是否允許因後續更正重算，並用 <code>data_version</code>／<code>calculated_at</code> 追溯？</span></li>
+</ol><h2 id="6-一次審閱清單">6. 一次審閱清單</h2><p>責任方可以先依下表記錄方向；「同意建議」仍需在正式決議紀錄填寫確認人與日期。</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>決策組</th>
+<th align="right">核准問題</th>
+<th>建議結果</th>
+<th>審閱結果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Round 生命週期</td>
+<td align="right">Q1–Q4</td>
+<td>採方案 A；確認 enum 命名與 <code>failed</code> 終態</td>
+<td>待填</td>
+</tr>
+<tr>
+<td>識別與快照</td>
+<td align="right">Q5–Q8</td>
+<td>採方案 A；GGAP 外部唯一性維持等待</td>
+<td>待填</td>
+</tr>
+<tr>
+<td>時間與窗口</td>
+<td align="right">Q9–Q12</td>
+<td>採方案 A；台北顯示、UTC 傳輸、明確 <code>time_basis</code></td>
+<td>待填</td>
+</tr>
+<tr>
+<td>點數與 USDT</td>
+<td align="right">Q13–Q16</td>
+<td>採方案 A；具體 scale／rounding 由 Finance／Backend 填入</td>
+<td>待填</td>
+</tr>
+<tr>
+<td>財務公式</td>
+<td align="right">Q17–Q20</td>
+<td>採方案 A；有效 Round＋signed adjustment</td>
+<td>待填</td>
+</tr>
+</tbody></table></div>
+<h2 id="7-決議後同步清單">7. 決議後同步清單</h2><p>本包核准後應一次更新：</p>
+<ol>
+<li><a href="common-domain-rules.html"><code>共通領域規則</code></a>：Round、環境、金額與時間正式規則。</li>
+<li><a href="data-dictionary.html"><code>資料字典</code></a>：ID、snapshot、decimal、rate 與 timestamp 欄位。</li>
+<li><a href="status-enums.html"><code>狀態與枚舉</code></a>：Round enum、終態與轉換。</li>
+<li><a href="game-round-records.html"><code>遊戲紀錄</code></a>：時間基準、狀態、詳情、排序與驗收。</li>
+<li><a href="finance-overview.html"><code>財務總覽</code></a>與<a href="finance-agent-games.html"><code>代理商 × 遊戲彙總</code></a>：有效 Round、公式、正負與資料版本。</li>
+<li>儀表板、監控總覽、風控報表與風控告警：只引用同一 Round／時間／金額語意，不另立公式。</li>
+<li><a href="open-issues.html"><code>待決策與校正清單</code></a>：保留 TBD ID，補上正式決議、日期、證據與剩餘限制。</li>
+</ol>
+<h2 id="8-本包完成條件">8. 本包完成條件</h2><p>Decision Pack 01 只有在以下條件都成立後才可標記 Confirmed：</p>
+<ul>
+<li>Q1–Q20 均有明確答案，或拆成具 owner 與期限的新 TBD。</li>
+<li>Product、Finance、Backend 對五組核心決策完成審閱；涉及 GGAP 的外部唯一性與 USDT 契約仍可明確維持 External。</li>
+<li>共通規格、資料字典、enum、七個直接影響頁面與 QA 情境同步更新。</li>
+<li>原型若需要新增 <code>time_basis</code> 或調整 <code>rollback</code> 命名，已決定修改方式與相容策略。</li>
+<li>自動 Gate 確認集中 TBD、決策包、頁面引用與生成 HTML 沒有脫節。</li>
+</ul>
+
+                    </article>
+                    <aside class="page-outline" aria-label="本頁目錄">
+        <p>本頁目錄</p>
+        <nav><a class="outline-level-2" href="#決策包狀態">決策包狀態</a><a class="outline-level-2" href="#暫存紀錄-2026-08-17">暫存紀錄｜2026-08-17</a><a class="outline-level-2" href="#已確認且不可違反的邊界">已確認且不可違反的邊界</a><a class="outline-level-2" href="#決策地圖">決策地圖</a><a class="outline-level-2" href="#1-game-round-正式生命週期">1. Game Round 正式生命週期</a><a class="outline-level-3" href="#要解決的矛盾">要解決的矛盾</a><a class="outline-level-3" href="#建議方案-a-round-狀態與處理事件分離">建議方案 A｜Round 狀態與處理事件分離</a><a class="outline-level-3" href="#替代方案比較">替代方案比較</a><a class="outline-level-3" href="#請責任方確認">請責任方確認</a><a class="outline-level-2" href="#2-跨系統識別碼與交易快照">2. 跨系統識別碼與交易快照</a><a class="outline-level-3" href="#要解決的矛盾-2">要解決的矛盾</a><a class="outline-level-3" href="#建議方案-a-provider-id-為主鍵-外部-id-與脈絡採不可變快照">建議方案 A｜Provider ID 為主鍵，外部 ID 與脈絡採不可變快照</a><a class="outline-level-3" href="#替代方案比較-2">替代方案比較</a><a class="outline-level-3" href="#請責任方確認-2">請責任方確認</a><a class="outline-level-2" href="#3-時間-時區與統計窗口">3. 時間、時區與統計窗口</a><a class="outline-level-3" href="#要解決的矛盾-3">要解決的矛盾</a><a class="outline-level-3" href="#建議方案-a-儲存-utc-顯示台北-時間基準必須明示">建議方案 A｜儲存 UTC、顯示台北、時間基準必須明示</a><a class="outline-level-3" href="#替代方案比較-3">替代方案比較</a><a class="outline-level-3" href="#請責任方確認-3">請責任方確認</a><a class="outline-level-2" href="#4-點數-usdt-匯率與精度">4. 點數、USDT、匯率與精度</a><a class="outline-level-3" href="#要解決的矛盾-4">要解決的矛盾</a><a class="outline-level-3" href="#建議方案-a-provider-固定計算-profile-每筆-round-鎖定換算版本">建議方案 A｜Provider 固定計算 profile＋每筆 Round 鎖定換算版本</a><a class="outline-level-3" href="#替代方案比較-4">替代方案比較</a><a class="outline-level-3" href="#請責任方確認-4">請責任方確認</a><a class="outline-level-2" href="#5-正式財務指標與正負方向">5. 正式財務指標與正負方向</a><a class="outline-level-3" href="#要解決的矛盾-5">要解決的矛盾</a><a class="outline-level-3" href="#建議方案-a-有效-round-集合-帶版本的-signed-adjustment">建議方案 A｜有效 Round 集合＋帶版本的 signed adjustment</a><a class="outline-level-3" href="#建議正式公式-限現行老虎機與單人-crash">建議正式公式（限現行老虎機與單人 Crash）</a><a class="outline-level-3" href="#替代方案比較-5">替代方案比較</a><a class="outline-level-3" href="#請責任方確認-5">請責任方確認</a><a class="outline-level-2" href="#6-一次審閱清單">6. 一次審閱清單</a><a class="outline-level-2" href="#7-決議後同步清單">7. 決議後同步清單</a><a class="outline-level-2" href="#8-本包完成條件">8. 本包完成條件</a></nav>
+        <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
+    </aside>
+                </div>
+
+                <nav class="previous-next" aria-label="上一章與下一章">
+        <a class="previous-link" href="phase-two-validation-report.html"><span>← 上一章</span><strong>第二階段封版驗證報告</strong></a>
+        <a class="next-link" href="decision-pack-02-monitoring-risk.html"><span>下一章 →</span><strong>Decision Pack 02｜監控與風控共用產品契約</strong></a>
+    </nav>
+                <footer class="document-footer">
+                    <span>Provider Portal Product / Engineering</span>
+                    <span>0.15.0-phase-three-pack-02-baseline · 2026-08-17</span>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <dialog class="search-dialog" data-search-dialog aria-labelledby="search-dialog-title">
+        <div class="search-dialog-header">
+            <div>
+                <p class="eyebrow">全文檢索</p>
+                <h2 id="search-dialog-title">搜尋規格書</h2>
+            </div>
+            <button class="icon-button dialog-close" type="button" data-search-close aria-label="關閉搜尋">×</button>
+        </div>
+        <label class="search-field">
+            <span class="sr-only">輸入章節、route、欄位或關鍵字</span>
+            <span aria-hidden="true">⌕</span>
+            <input type="search" data-search-input autocomplete="off" placeholder="例如：Game Round、/reports、USDT">
+        </label>
+        <p class="search-hint" data-search-hint>可搜尋章節名稱、內文、route、欄位與技術值。</p>
+        <div class="search-results" data-search-results></div>
+    </dialog>
+</body>
+</html>

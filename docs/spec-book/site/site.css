@@ -5334,6 +5334,494 @@ body {
     }
 }
 
+/* Phase 3 decision dossiers */
+.decision-pack-hero {
+    position: relative;
+    overflow: hidden;
+    margin: 0 0 34px;
+    color: #edf5ff;
+    background:
+        radial-gradient(circle at 88% 12%, rgba(71, 142, 255, 0.5), transparent 28%),
+        linear-gradient(135deg, #10253c 0%, #173b63 56%, #0f5f86 100%);
+    border: 1px solid rgba(71, 142, 255, 0.38);
+    border-radius: 18px;
+    box-shadow: 0 18px 45px rgba(21, 53, 83, 0.2);
+}
+
+.decision-pack-hero::after {
+    content: attr(data-pack);
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    color: rgba(255, 255, 255, 0.14);
+    font-family: var(--mono);
+    font-size: clamp(28px, 4.5vw, 64px);
+    font-weight: 800;
+    letter-spacing: -0.08em;
+    pointer-events: none;
+}
+
+.decision-pack-hero--risk {
+    background:
+        radial-gradient(circle at 86% 10%, rgba(72, 204, 178, 0.32), transparent 30%),
+        radial-gradient(circle at 12% 110%, rgba(71, 142, 255, 0.22), transparent 36%),
+        linear-gradient(135deg, #10253c 0%, #153c52 52%, #12645f 100%);
+    border-color: rgba(72, 204, 178, 0.34);
+}
+
+.decision-pack-hero--risk .decision-pack-hero__identity > span {
+    color: #8ee4d1;
+}
+
+.decision-pack-hero--risk .decision-pack-hero__nav a:hover,
+.decision-pack-hero--risk .decision-pack-hero__nav a:focus-visible {
+    background: rgba(72, 204, 178, 0.16);
+}
+
+.risk-contract-flow {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    margin: 18px 0 28px;
+    padding: 0;
+    overflow: hidden;
+    background: linear-gradient(120deg, #f7fbff, #f1faf8);
+    border: 1px solid #d5e5e6;
+    border-radius: 14px;
+    list-style: none;
+}
+
+.risk-contract-flow li {
+    position: relative;
+    min-width: 0;
+    margin: 0;
+    padding: 18px 16px 17px;
+    border-right: 1px solid #d5e5e6;
+}
+
+.risk-contract-flow li:last-child {
+    border-right: 0;
+}
+
+.risk-contract-flow li:not(:last-child)::after {
+    content: "›";
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    right: -8px;
+    width: 16px;
+    height: 22px;
+    display: grid;
+    place-items: center;
+    color: #2d8c83;
+    background: #f4faf9;
+    font-family: var(--mono);
+    font-size: 18px;
+    transform: translateY(-50%);
+}
+
+.risk-contract-flow b,
+.risk-contract-flow strong,
+.risk-contract-flow span {
+    display: block;
+}
+
+.risk-contract-flow b {
+    color: #2d8c83;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.08em;
+}
+
+.risk-contract-flow strong {
+    margin-top: 8px;
+    overflow-wrap: anywhere;
+    color: #183e4e;
+    font-family: var(--mono);
+    font-size: 10px;
+    line-height: 1.35;
+}
+
+.risk-contract-flow span {
+    margin-top: 7px;
+    color: #687b83;
+    font-size: 9px;
+    line-height: 1.55;
+}
+
+.decision-pack-hero__identity {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    padding: 34px 34px 28px;
+}
+
+.decision-pack-hero__identity > span {
+    color: #8fc3ff;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 750;
+    letter-spacing: 0.16em;
+}
+
+.decision-pack-hero__identity > strong {
+    display: block;
+    margin-top: 10px;
+    color: #fff;
+    font-family: var(--display);
+    font-size: clamp(24px, 3vw, 38px);
+    line-height: 1.18;
+    letter-spacing: -0.025em;
+}
+
+.decision-pack-hero__identity p {
+    max-width: 680px;
+    margin: 13px 0 0;
+    color: rgba(237, 245, 255, 0.72);
+    font-size: 13px;
+}
+
+.decision-pack-hero__stats {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.decision-pack-hero__stats div {
+    padding: 18px 24px;
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.decision-pack-hero__stats div:last-child {
+    border-right: 0;
+}
+
+.decision-pack-hero__stats strong,
+.decision-pack-hero__stats span {
+    display: block;
+}
+
+.decision-pack-hero__stats strong {
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 21px;
+    line-height: 1;
+}
+
+.decision-pack-hero__stats span {
+    margin-top: 7px;
+    color: rgba(237, 245, 255, 0.62);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+}
+
+.decision-pack-hero__nav {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    background: rgba(5, 20, 36, 0.28);
+}
+
+.decision-pack-hero__nav a {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 14px 16px;
+    color: rgba(255, 255, 255, 0.82);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+}
+
+.decision-pack-hero__nav a:last-child {
+    border-right: 0;
+}
+
+.decision-pack-hero__nav a:hover,
+.decision-pack-hero__nav a:focus-visible {
+    color: #fff;
+    background: rgba(71, 142, 255, 0.2);
+}
+
+.decision-pack-hero__nav b {
+    display: grid;
+    place-items: center;
+    flex: 0 0 27px;
+    width: 27px;
+    height: 27px;
+    color: #fff;
+    background: var(--annotation);
+    border-radius: 7px;
+    font-family: var(--mono);
+    font-size: 9px;
+}
+
+.decision-pack-hero__nav span {
+    overflow: hidden;
+    font-size: 10px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.decision-item-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: -7px 0 23px;
+    padding: 10px 12px;
+    background: #f5f8fc;
+    border: 1px solid #dce6f2;
+    border-left: 4px solid var(--annotation);
+    border-radius: 8px;
+}
+
+.decision-item-meta span,
+.decision-item-meta a,
+.decision-item-meta b,
+.decision-item-meta i {
+    min-height: 24px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 9px;
+    border-radius: 999px;
+    font-family: var(--mono);
+    font-size: 9px;
+    font-style: normal;
+    text-decoration: none;
+}
+
+.decision-item-meta span {
+    color: #fff;
+    background: #173b63;
+}
+
+.decision-item-meta a {
+    color: var(--petrol-dark);
+    background: var(--petrol-wash);
+}
+
+.decision-item-meta b {
+    color: #8a3c2b;
+    background: #fff0eb;
+}
+
+.decision-item-meta i {
+    margin-left: auto;
+    color: var(--ink-soft);
+    background: var(--surface);
+    border: 1px solid var(--line);
+}
+
+.decision-recommendation {
+    position: relative;
+    margin: 16px 0 24px;
+    padding: 18px 20px 18px 64px;
+    color: #183f4a;
+    background: linear-gradient(120deg, #edf8f5, #f7fbfa);
+    border: 1px solid #cfe6df;
+    border-radius: 12px;
+}
+
+.decision-recommendation::before {
+    content: "✓";
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    background: var(--data-teal);
+    border-radius: 50%;
+    font-weight: 800;
+}
+
+.decision-recommendation strong {
+    color: var(--data-teal);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+}
+
+.decision-recommendation p {
+    margin: 5px 0 0;
+    font-size: 13px;
+}
+
+.decision-question-list {
+    margin: 15px 0 30px;
+    padding: 0;
+    list-style: none;
+    border: 1px solid #d9e3ef;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.decision-question-list li {
+    display: grid;
+    grid-template-columns: 46px minmax(0, 1fr);
+    align-items: stretch;
+    margin: 0;
+    border-bottom: 1px solid #e3eaf2;
+}
+
+.decision-question-list li:last-child {
+    border-bottom: 0;
+}
+
+.decision-question-list b {
+    display: grid;
+    place-items: center;
+    color: var(--petrol-dark);
+    background: #eef5ff;
+    border-right: 1px solid #d9e3ef;
+    font-family: var(--mono);
+    font-size: 10px;
+}
+
+.decision-question-list span {
+    padding: 12px 14px;
+    font-size: 12px;
+}
+
+@media (max-width: 900px) {
+    .decision-pack-hero__stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .decision-pack-hero__stats div:nth-child(2) {
+        border-right: 0;
+    }
+
+    .decision-pack-hero__stats div:nth-child(-n + 2) {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .decision-pack-hero__nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .decision-pack-hero__nav a {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .decision-pack-hero__nav a:nth-child(2n) {
+        border-right: 0;
+    }
+
+    .decision-pack-hero__nav a:last-child {
+        grid-column: 1 / -1;
+        border-bottom: 0;
+    }
+
+    .risk-contract-flow {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .risk-contract-flow li:nth-child(3) {
+        border-right: 0;
+    }
+
+    .risk-contract-flow li:nth-child(-n + 3) {
+        border-bottom: 1px solid #d5e5e6;
+    }
+
+    .risk-contract-flow li:nth-child(3)::after {
+        display: none;
+    }
+}
+
+@media (max-width: 620px) {
+    .decision-pack-hero {
+        border-radius: 13px;
+    }
+
+    .decision-pack-hero__identity {
+        padding: 26px 20px 22px;
+    }
+
+    .decision-pack-hero__stats div {
+        padding: 14px 16px;
+    }
+
+    .decision-pack-hero__nav {
+        grid-template-columns: 1fr;
+    }
+
+    .decision-pack-hero__nav a,
+    .decision-pack-hero__nav a:nth-child(2n),
+    .decision-pack-hero__nav a:last-child {
+        grid-column: auto;
+        border-right: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .decision-pack-hero__nav a:last-child {
+        border-bottom: 0;
+    }
+
+    .decision-item-meta i {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .decision-recommendation {
+        padding: 56px 16px 16px;
+    }
+
+    .decision-recommendation::before {
+        top: 15px;
+        left: 16px;
+    }
+
+    .risk-contract-flow {
+        grid-template-columns: 1fr;
+    }
+
+    .risk-contract-flow li,
+    .risk-contract-flow li:nth-child(3) {
+        border-right: 0;
+        border-bottom: 1px solid #d5e5e6;
+    }
+
+    .risk-contract-flow li:last-child {
+        border-bottom: 0;
+    }
+
+    .risk-contract-flow li:not(:last-child)::after {
+        display: none;
+    }
+}
+
+@media print {
+    .decision-pack-hero {
+        color: #000;
+        background: #fff;
+        border: 1px solid #777;
+        box-shadow: none;
+        break-inside: avoid;
+    }
+
+    .decision-pack-hero__identity > strong,
+    .decision-pack-hero__stats strong,
+    .decision-pack-hero__nav a {
+        color: #000;
+    }
+
+    .decision-recommendation,
+    .decision-question-list,
+    .decision-item-meta,
+    .risk-contract-flow {
+        break-inside: avoid;
+    }
+}
+
 @media (max-width: 1180px) {
     .visual-quick-map {
         grid-template-columns: repeat(3, minmax(0, 1fr));

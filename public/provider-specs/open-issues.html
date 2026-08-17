@@ -27,8 +27,8 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.13.0-phase-two-seal</span>
-            <span class="topbar-status">Phase 2 · Draft Sealed</span>
+            <span>0.15.0-phase-three-pack-02-baseline</span>
+            <span class="topbar-status">Phase 3 · Monitoring &amp; Risk Baseline</span>
         </div>
     </header>
 
@@ -36,7 +36,7 @@
         <aside class="sidebar" id="spec-navigation" data-sidebar>
             <div class="sidebar-intro">
                 <span class="sidebar-kicker">SPECIFICATION MANUAL</span>
-                <p>2026-08-14 更新</p>
+                <p>2026-08-17 更新</p>
             </div>
             <nav aria-label="規格書章節">
 
@@ -368,6 +368,14 @@
                         <i class="status-dot status-confirmed" aria-hidden="true"></i>
                         <span>第二階段封版驗證報告</span>
 
+                    </a><a href="decision-pack-01-round-finance.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>Decision Pack 01｜Game Round、時間與財務基準</span>
+
+                    </a><a href="decision-pack-02-monitoring-risk.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>Decision Pack 02｜監控與風控共用產品契約</span>
+
                     </a>
             </div>
         </details>
@@ -438,6 +446,13 @@
 <td>不阻擋骨架撰寫，但需在正式驗收前完成。</td>
 </tr>
 </tbody></table></div>
+<h2 id="phase-3-決策包">Phase 3 決策包</h2><ul>
+<li><a href="decision-pack-01-round-finance.html"><code>DP-01｜Game Round、時間與財務基準</code></a> 已將 <code>TBD-DOM-001</code>、<code>TBD-DOM-002</code>、<code>TBD-DAT-001</code>、<code>TBD-DAT-002</code>、<code>TBD-DAT-003</code> 整理成建議方案、替代方案及 Q1–Q20 核准問題；目前暫存為 Backend Evidence Pending，等待 GGAP 實際後端 Git 後重開。</li>
+<li>DP-01 的決策包是審閱材料，不是決議本身；其五項 TBD 仍等待實際 Backend 證據。</li>
+<li><a href="decision-pack-02-monitoring-risk.html"><code>DP-02｜監控與風控共用產品契約</code></a> 直接記錄目前希望具備的產品功能，定義 Signal、Detection Result、Risk Event、Alert、Mitigation Job、隔離、GGAP 通知與稽核的完整閉環。</li>
+<li>DP-02 是產品需求基準；本頁仍集中追蹤 API path、資料表、實際門檻、permission key、GGAP payload 與後端實作證據等外部驗證點。</li>
+<li>取得責任方或後端證據後，以版本紀錄更新規格與剩餘限制，不直接刪除原始問題或靜默覆蓋需求。</li>
+</ul>
 <h2 id="六類-tbd-登錄">六類 TBD 登錄</h2><h3 id="01-domain-產品領域與生命週期">01 Domain｜產品領域與生命週期</h3><section class="tbd-card-list tbd-category-domain" aria-label="產品領域與生命週期 TBD">
 <article class="tbd-card" id="tbd-dom-001">
 <header class="tbd-card__header">
@@ -996,7 +1011,7 @@
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#治理規則">治理規則</a><a class="outline-level-2" href="#集中摘要">集中摘要</a><a class="outline-level-2" href="#六類-tbd-登錄">六類 TBD 登錄</a><a class="outline-level-3" href="#01-domain-產品領域與生命週期">01 Domain｜產品領域與生命週期</a><a class="outline-level-3" href="#02-data-資料-計算與保存">02 Data｜資料、計算與保存</a><a class="outline-level-3" href="#03-api-介面與整合契約">03 API｜介面與整合契約</a><a class="outline-level-3" href="#04-security-權限-敏感資料與稽核">04 Security｜權限、敏感資料與稽核</a><a class="outline-level-3" href="#05-nfr-效能-可靠性與可用性">05 NFR｜效能、可靠性與可用性</a><a class="outline-level-3" href="#06-external-外部規格與延後模組依賴">06 External｜外部規格與延後模組依賴</a><a class="outline-level-2" href="#頁面覆蓋索引">頁面覆蓋索引</a><a class="outline-level-2" href="#game-round-既有-id-對照">Game Round 既有 ID 對照</a><a class="outline-level-2" href="#決議完成條件">決議完成條件</a></nav>
+        <nav><a class="outline-level-2" href="#治理規則">治理規則</a><a class="outline-level-2" href="#集中摘要">集中摘要</a><a class="outline-level-2" href="#phase-3-決策包">Phase 3 決策包</a><a class="outline-level-2" href="#六類-tbd-登錄">六類 TBD 登錄</a><a class="outline-level-3" href="#01-domain-產品領域與生命週期">01 Domain｜產品領域與生命週期</a><a class="outline-level-3" href="#02-data-資料-計算與保存">02 Data｜資料、計算與保存</a><a class="outline-level-3" href="#03-api-介面與整合契約">03 API｜介面與整合契約</a><a class="outline-level-3" href="#04-security-權限-敏感資料與稽核">04 Security｜權限、敏感資料與稽核</a><a class="outline-level-3" href="#05-nfr-效能-可靠性與可用性">05 NFR｜效能、可靠性與可用性</a><a class="outline-level-3" href="#06-external-外部規格與延後模組依賴">06 External｜外部規格與延後模組依賴</a><a class="outline-level-2" href="#頁面覆蓋索引">頁面覆蓋索引</a><a class="outline-level-2" href="#game-round-既有-id-對照">Game Round 既有 ID 對照</a><a class="outline-level-2" href="#決議完成條件">決議完成條件</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -1007,7 +1022,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.13.0-phase-two-seal · 2026-08-14</span>
+                    <span>0.15.0-phase-three-pack-02-baseline · 2026-08-17</span>
                 </footer>
             </div>
         </main>

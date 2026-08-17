@@ -478,7 +478,7 @@ function createHomeMarkdown() {
 
 ## 本階段輸出界線
 
-規格網站的撰寫格式與第一階段製作範圍已定版。32 個內容頁中，21 頁納入本輪（1 頁基準範本、20 頁本輪製作），11 頁延後。延後頁面只保留等待原因與必要輸入，不建立畫面、欄位、API 或驗收草案。
+規格網站的撰寫格式與第一階段製作範圍已定版，第二階段 21 頁完整 Draft 已封版。第三階段的 [Decision Pack 02｜監控與風控共用產品契約](decision-pack-02-monitoring-risk.html) 已整理為目前需求基準，直接描述希望具備的監控、事件、告警、緩解、隔離、GGAP 通知與稽核能力；實際 Backend 與 GGAP 差異於取得證據後以版本更新處理。[Decision Pack 01](decision-pack-01-round-finance.html) 則維持 Backend Evidence Pending，等待 GGAP 測試環境實際 Backend Git 後重開。32 個內容頁中另有 11 頁延後，僅保留等待原因與必要輸入。
 
 ## 四個不可混淆的核心原則
 

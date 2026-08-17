@@ -1,8 +1,8 @@
 # 遊戲商 Provider Portal 文件索引
 
-> 文件版本：2.19.0
+> 文件版本：2.21.0
 > 更新日期：2026-08-14
-> 文件狀態：規格網站第二階段已完成 Draft 封版；Batch A–D 共二十一頁通過跨批次驗證，正式 API、權限、精度、門檻、發布生命週期與外部契約仍待第三階段確認
+> 文件狀態：規格網站已進入第三階段；監控與風控共用產品契約已形成目前需求基準，Game Round／時間／財務決策包等待 GGAP Backend Git 後重開；正式 API、權限、精度、實際門檻、發布生命週期與外部契約仍待取得證據後對照
 
 ## 閱讀前提
 
@@ -47,6 +47,12 @@
 - [`../public/provider-specs/phase-two-validation-report.html`](../public/provider-specs/phase-two-validation-report.html)
   - 第二階段 Batch A–D 共 21 頁的跨批次 Gate、交付覆蓋、網站追溯、Deferred 邊界及重開條件。
   - Draft Seal 代表規格骨架可進入第三階段共用契約收斂；API、資料、權限與 30 項集中 TBD 尚未 Confirmed。
+- [`../public/provider-specs/decision-pack-01-round-finance.html`](../public/provider-specs/decision-pack-01-round-finance.html)
+  - 第三階段第一份決策包，集中整理 Game Round 生命週期、跨系統識別與快照、時間窗口、點數／USDT 及正式財務公式。
+  - 內含五組建議／替代方案與 Q1–Q20 核准問題；目前暫存為 Backend Evidence Pending，等待 GGAP 測試環境實際 Backend Git 後重開，五項集中 TBD 尚未核准。
+- [`../public/provider-specs/decision-pack-02-monitoring-risk.html`](../public/provider-specs/decision-pack-02-monitoring-risk.html)
+  - 第三階段監控與風控共用產品契約，直接表達目前希望具備的 Signal、Detection Result、Risk Event、Alert、Mitigation Job、隔離、GGAP 通知與稽核能力。
+  - 本包是產品需求基準，不採逐題核准問卷；現行 Portal 仍為前端 mock，實際 Backend 與 GGAP 契約差異取得後再以版本更新。
 - [`../public/provider-specs/game-round-records.html`](../public/provider-specs/game-round-records.html)、[`../public/provider-specs/finance-overview.html`](../public/provider-specs/finance-overview.html)、[`../public/provider-specs/finance-agent-games.html`](../public/provider-specs/finance-agent-games.html)
   - 第二階段 Batch A 完整 Draft：Game Round 查詢、全域財務摘要及代理商 × 遊戲彙總。
   - 三頁均提供原型對齊的置頂畫面示意、完整規格、跨頁導流、驗收與集中 TBD 對照。

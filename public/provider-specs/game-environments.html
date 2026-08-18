@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.18.0-phase-three-pack-03-source-aligned</span>
+            <span>0.19.0-phase-three-pack-03-reconciled</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -380,6 +380,10 @@
                         <i class="status-dot status-confirmed" aria-hidden="true"></i>
                         <span>Decision Pack 03｜遊戲版本與發布生命週期</span>
 
+                    </a><a href="decision-pack-03-implementation-reconciliation.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>Decision Pack 03｜原型實作差異清單</span>
+
                     </a>
             </div>
         </details>
@@ -409,7 +413,7 @@
 
                 <section class="metadata-card" aria-label="章節追溯資訊">
         <div class="metadata-grid">
-            <div><span>章節編號</span><code>05.2.2</code></div><div><span>規格狀態</span><code>草案</code></div><div><span>Route</span><code>/games/environments</code></div><div><span>前端元件</span><code>src/views/Provider/Placeholder.vue</code></div>
+            <div><span>章節編號</span><code>05.2.2</code></div><div><span>規格狀態</span><code>草案</code></div><div><span>Route</span><code>/games/environments</code></div><div><span>前端元件</span><code>src/views/Games/Environments.vue</code></div>
         </div>
     </section>
                 <section id="page-visual-overview" class="page-visual-overview" aria-labelledby="page-visual-title">
@@ -417,7 +421,7 @@
             <div>
                 <p class="visual-overview-kicker">PAGE ANATOMY · OVERVIEW FIRST</p>
                 <h2 id="page-visual-title">環境與發布目標畫面示意</h2>
-                <p>本頁仍為 Placeholder；示意定義目標環境矩陣、發布佇列、預檢與歷程。</p>
+                <p>參照現行 /games/environments 原型；呈現環境矩陣、發布佇列、預檢、雙通道與歷程。</p>
             </div>
             <button class="visual-toggle" type="button" data-anatomy-toggle aria-expanded="true" aria-controls="game-environments-visual-panel">
                 <span data-anatomy-toggle-label>收合畫面示意</span>
@@ -429,7 +433,7 @@
         </nav>
         <div class="visual-scope-notes" aria-label="畫面閱讀邊界">
             <span>閱讀邊界</span>
-            <small>需求基準已確認</small><small>程式仍為 Placeholder</small><small>Test 可快速發布</small><small>GGAP 代理商開關不在本頁</small>
+            <small>內容原型已完成</small><small>正式副作用待 Backend</small><small>Test 可快速發布</small><small>GGAP 代理商開關不在本頁</small>
         </div>
         <div id="game-environments-visual-panel" class="visual-overview-panel" data-anatomy-panel>
             <figure class="page-anatomy lifecycle-anatomy lifecycle-anatomy--environments" aria-label="環境與發布六區塊畫面示意">
@@ -443,7 +447,7 @@
       <a class="anatomy-zone lifecycle-anatomy__states" href="#9-頁面狀態與錯誤處理" aria-label="前往第六區，歷程與替代狀態"><span class="anatomy-zone__number">06</span><strong>歷程與替代狀態</strong><i>執行中</i><i>部分失敗</i><i>版本衝突</i><i>回復</i><i>Forbidden</i></a>
     </div>
   </div>
-  <div class="page-anatomy__legend"><span><i></i>三環境 Release</span><span><i></i>快速／高風險通道</span><small>需求基準已確認；現行頁仍為 Placeholder。</small></div>
+  <div class="page-anatomy__legend"><span><i></i>三環境 Release</span><span><i></i>快速／高風險通道</span><small>內容原型已完成；正式發布副作用仍待 Backend／CI/CD。</small></div>
 </figure>
         </div>
         <p class="visual-overview-disclaimer">畫面示意用於定位元件與閱讀順序；實際欄位、狀態與行為仍以本頁詳細規格及正式契約為準。</p>
@@ -473,11 +477,11 @@
 </tr>
 <tr>
 <td>前端元件</td>
-<td><code>src/views/Provider/Placeholder.vue</code>（GameEnvironments）</td>
+<td><code>src/views/Games/Environments.vue</code></td>
 </tr>
 <tr>
 <td>目前原型</td>
-<td>Placeholder blueprint；尚無正式發布操作</td>
+<td>內容原型已完成；發布操作僅更新 MSW／記憶體 mock</td>
 </tr>
 <tr>
 <td>頁面角色</td>
@@ -485,7 +489,7 @@
 </tr>
 </tbody></table></div>
 <blockquote>
-<p>現行程式仍是 Placeholder，但本頁產品行為已依 Decision Pack 03 成立。Provider 管理三環境 Release 與遊戲全域可用性；GGAP 只管理已可用遊戲的代理商個別開放。實際 CI/CD 與 GGAP payload 取得後只做 Mapping。</p>
+<p>現行內容原型已依 Decision Pack 03 完成三環境 Release 與遊戲全域可用性流程。GGAP 只管理已可用遊戲的代理商個別開放；目前所有操作皆為前端 mock，實際 Backend、CI/CD 與 GGAP payload 取得後再做 Mapping。</p>
 </blockquote>
 <h2 id="1-目的與責任邊界">1. 目的與責任邊界</h2><ul>
 <li>比較同一遊戲在 Production、DEMO、Test 的目前版本、狀態、健康與可用動作。</li>
@@ -610,12 +614,12 @@
 <li><code>TBD-NFR-003</code>、<code>TBD-NFR-004</code>：冪等／補償、響應式與可存取性。</li>
 <li><code>TBD-EXT-001</code>、<code>TBD-EXT-003</code>：GGAP 與系統權限規格。</li>
 </ul>
-<h2 id="14-placeholder-移除條件">14. Placeholder 移除條件</h2><p>只有目標頁的環境矩陣、待發布佇列、快速／高風險通道、詳情／預檢、回滾、全域可用性與替代狀態已實作並通過 UI 驗收後，才可移除程式 Placeholder。產品行為已確認；正式 API、permission 與 GGAP 契約取得後建立 Mapping。</p>
+<h2 id="14-正式實作接軌條件">14. 正式實作接軌條件</h2><p>環境矩陣、待發布佇列、快速／高風險通道、詳情／預檢、回滾、全域可用性與替代狀態已完成原型及 UI 驗收。正式上線前仍須接入持久化 API、CI/CD、permission、audit、補償與 GGAP 契約；不得把目前 mock 成功訊息視為真實發布完成。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-release-與-guardrail">2. Release 與 Guardrail</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-環境摘要">4. 環境摘要</a><a class="outline-level-2" href="#5-查詢與環境矩陣">5. 查詢與環境矩陣</a><a class="outline-level-2" href="#6-待發布佇列">6. 待發布佇列</a><a class="outline-level-2" href="#7-發布詳情與操作">7. 發布詳情與操作</a><a class="outline-level-2" href="#8-ggap-與跨頁依賴">8. GGAP 與跨頁依賴</a><a class="outline-level-2" href="#9-頁面狀態與錯誤處理">9. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#10-api-契約草案">10. API 契約草案</a><a class="outline-level-2" href="#11-響應式-無障礙與驗收">11. 響應式、無障礙與驗收</a><a class="outline-level-2" href="#12-測試重點">12. 測試重點</a><a class="outline-level-2" href="#13-待確認事項">13. 待確認事項</a><a class="outline-level-2" href="#14-placeholder-移除條件">14. Placeholder 移除條件</a></nav>
+        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-release-與-guardrail">2. Release 與 Guardrail</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-環境摘要">4. 環境摘要</a><a class="outline-level-2" href="#5-查詢與環境矩陣">5. 查詢與環境矩陣</a><a class="outline-level-2" href="#6-待發布佇列">6. 待發布佇列</a><a class="outline-level-2" href="#7-發布詳情與操作">7. 發布詳情與操作</a><a class="outline-level-2" href="#8-ggap-與跨頁依賴">8. GGAP 與跨頁依賴</a><a class="outline-level-2" href="#9-頁面狀態與錯誤處理">9. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#10-api-契約草案">10. API 契約草案</a><a class="outline-level-2" href="#11-響應式-無障礙與驗收">11. 響應式、無障礙與驗收</a><a class="outline-level-2" href="#12-測試重點">12. 測試重點</a><a class="outline-level-2" href="#13-待確認事項">13. 待確認事項</a><a class="outline-level-2" href="#14-正式實作接軌條件">14. 正式實作接軌條件</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -626,7 +630,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.18.0-phase-three-pack-03-source-aligned · 2026-08-18</span>
+                    <span>0.19.0-phase-three-pack-03-reconciled · 2026-08-18</span>
                 </footer>
             </div>
         </main>

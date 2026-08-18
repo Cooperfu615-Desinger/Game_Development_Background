@@ -14,7 +14,7 @@ let assertionCount = 0
 const batchCPageIds = ['game-list', 'game-environments', 'game-settings', 'game-math', 'game-versions', 'game-assets']
 const manifestPages = modules.flatMap((module) => module.pages)
 
-assert(['0.11.0-batch-c-draft', '0.12.0-batch-d-draft', '0.13.0-phase-two-seal', '0.14.0-phase-three-pack-01-draft', '0.14.1-phase-three-pack-01-evidence-pending', '0.15.0-phase-three-pack-02-baseline', '0.16.0-phase-three-contract-baselines', '0.17.0-phase-three-pack-03-baseline', '0.18.0-phase-three-pack-03-source-aligned'].includes(book.version), '規格網站版本不得早於 Batch C Draft')
+assert(['0.11.0-batch-c-draft', '0.12.0-batch-d-draft', '0.13.0-phase-two-seal', '0.14.0-phase-three-pack-01-draft', '0.14.1-phase-three-pack-01-evidence-pending', '0.15.0-phase-three-pack-02-baseline', '0.16.0-phase-three-contract-baselines', '0.17.0-phase-three-pack-03-baseline', '0.18.0-phase-three-pack-03-source-aligned', '0.19.0-phase-three-pack-03-reconciled'].includes(book.version), '規格網站版本不得早於 Batch C Draft')
 assert(book.status.includes('Batch C Draft Complete') || book.status.includes('Batch D Draft Complete') || book.status.includes('Draft Sealed') || book.status.includes('Decision Pack 01 Draft') || book.status.includes('Pack 01 Backend Evidence Pending') || book.status.includes('Monitoring & Risk Baseline') || book.status.includes('Product Contract Baselines'), '規格網站狀態不得早於 Batch C Draft Complete')
 
 for (const pageId of batchCPageIds) {
@@ -49,7 +49,7 @@ const listHtml = await readFile(path.join(outputRoot, 'game-list.html'), 'utf8')
 for (const text of ['14 欄', '本列表不直接發布', '全域可用性與 Release 分離', 'RTP Tips']) assert(listHtml.includes(text), `遊戲列表缺少：${text}`)
 
 const environmentsHtml = await readFile(path.join(outputRoot, 'game-environments.html'), 'utf8')
-for (const text of ['程式仍為 Placeholder', '同一 Artifact', '快速／高風險通道', '代理商個別開放由 GGAP 控制']) assert(environmentsHtml.includes(text), `環境與發布缺少：${text}`)
+for (const text of ['內容原型已完成', '同一 Artifact', '快速／高風險通道', '代理商個別開放由 GGAP 控制']) assert(environmentsHtml.includes(text), `環境與發布缺少：${text}`)
 
 const settingsHtml = await readFile(path.join(outputRoot, 'game-settings.html'), 'utf8')
 for (const text of ['Provider 點數', 'USD／TWD 選項不是正式契約', 'active 模板需複製新版本']) assert(settingsHtml.includes(text), `遊戲設定缺少：${text}`)

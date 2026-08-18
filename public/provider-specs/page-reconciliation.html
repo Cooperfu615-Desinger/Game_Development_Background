@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.18.0-phase-three-pack-03-source-aligned</span>
+            <span>0.19.0-phase-three-pack-03-reconciled</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -380,6 +380,10 @@
                         <i class="status-dot status-confirmed" aria-hidden="true"></i>
                         <span>Decision Pack 03｜遊戲版本與發布生命週期</span>
 
+                    </a><a href="decision-pack-03-implementation-reconciliation.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>Decision Pack 03｜原型實作差異清單</span>
+
                     </a>
             </div>
         </details>
@@ -467,8 +471,8 @@
 <h2 id="本輪校準摘要">本輪校準摘要</h2><section class="reconciliation-summary-grid" aria-label="第一階段三層校準摘要">
 <div><strong>21</strong><span>校準頁面</span><small>Baseline + Active</small></div>
 <div class="reconciliation-summary-aligned"><strong>8</strong><span>大致一致</span><small>方向符合已確認邊界</small></div>
-<div class="reconciliation-summary-attention"><strong>12</strong><span>邊界注意</span><small>需標示 mock 或責任限制</small></div>
-<div class="reconciliation-summary-gap"><strong>1</strong><span>原型缺口</span><small>需先補足頁面結構</small></div>
+<div class="reconciliation-summary-attention"><strong>13</strong><span>邊界注意</span><small>需標示 mock 或責任限制</small></div>
+<div class="reconciliation-summary-gap"><strong>0</strong><span>原型缺口</span><small>需先補足頁面結構</small></div>
 </section><h2 id="21-頁校準結果">21 頁校準結果</h2><h3 id="批次-a-遊戲紀錄與財務鏈">批次 A｜遊戲紀錄與財務鏈</h3><section class="reconciliation-list" aria-label="批次 A 頁面校準">
 <article class="reconciliation-card reconciliation-aligned">
 <header class="reconciliation-card__header">
@@ -568,16 +572,16 @@
 <section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Pack 03 同步後已定義三環境摘要、14 欄寬表、RTP Tips、Active Release、全域可用性與精確導流。</li><li>本列表不直接發布；Test 操作導向環境頁，全域可用性、Release 與 GGAP 同步語意分離。</li><li>正式 RTP／同步 API、permission 與外部 GGAP payload 待實作 Mapping。</li></ul></section>
 </div>
 </article>
-<article class="reconciliation-card reconciliation-gap">
+<article class="reconciliation-card reconciliation-attention">
 <header class="reconciliation-card__header">
 <div><span>BATCH C · 遊戲管理</span><h4><a href="game-environments.html">環境與發布</a></h4><code>/games/environments</code></div>
-<span class="reconciliation-state reconciliation-state-gap">原型缺口</span>
+<span class="reconciliation-state reconciliation-state-attention">邊界注意</span>
 </header>
-<p class="reconciliation-state-note">現行畫面不足以呈現已確認責任或頁面仍為 Placeholder。</p>
+<p class="reconciliation-state-note">原型含 mock、暫名或可能被誤讀為正式能力的內容。</p>
 <div class="reconciliation-columns">
 <section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 負責 Test／DEMO／Production 的版本與 Artifact 發布，以及遊戲的全域上架／下架。</li><li>GGAP 對已上架遊戲控制各代理商是否開放；該能力不屬於 Provider 本頁。</li><li>Test 可作開發驗證，但不得混入正式財務、Game Round 或 Provider 風控資料。</li></ul></section>
-<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>目前仍使用共用 Placeholder，以環境矩陣、待發布摘要與版本狀態表呈現 blueprint。</li><li>Production、DEMO、Test 數量、版本與待發布佇列皆為 mock。</li><li>沒有正式發布操作、驗證結果、失敗狀態或發布詳情。</li></ul></section>
-<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Pack 03 同步後已定義環境矩陣、Version／Artifact、待發布佇列、preflight、快速／高風險通道、回滾及歷程。</li><li>Test 可快速發布，同一 Artifact 晉級 DEMO／Production，既有 Round 固定原版本，Provider／GGAP Gate 分離。</li><li>程式仍為 Placeholder；正式 API、permission、CI/CD、補償與 GGAP payload 待實作 Mapping。</li></ul></section>
+<section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有三環境矩陣、待發布佇列、快速／高風險通道、發布詳情、驗證結果、回復與替代狀態。</li><li>Production、DEMO、Test、Version、Artifact、Release 與 Active Release 共用集中前端模型。</li><li>操作只更新 MSW／記憶體 mock，不會觸發 CI/CD、流量切換、持久化或 GGAP 通知。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Pack 03 同步後已定義環境矩陣、Version／Artifact、待發布佇列、preflight、快速／高風險通道、回滾及歷程。</li><li>Test 可快速發布，同一 Artifact 晉級 DEMO／Production，既有 Round 固定原版本，Provider／GGAP Gate 分離。</li><li>內容原型已完成；正式 API、permission、CI/CD、補償與 GGAP payload 待實作 Mapping。</li></ul></section>
 </div>
 </article>
 <article class="reconciliation-card reconciliation-attention">
@@ -747,7 +751,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.18.0-phase-three-pack-03-source-aligned · 2026-08-18</span>
+                    <span>0.19.0-phase-three-pack-03-reconciled · 2026-08-18</span>
                 </footer>
             </div>
         </main>

@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Provider 自身遊戲服務、Game Round、GGAP 直接對接與風控訊號總覽。">
+    <meta name="description" content="逐項對照 DP03 需求基準、目前 Portal 原型、mock 限制、Provider Backend 與 GGAP 待接軌內容。">
     <meta name="color-scheme" content="light">
-    <title>監控總覽｜Provider Portal 產品與系統規格書</title>
+    <title>Decision Pack 03｜原型實作差異清單｜Provider Portal 產品與系統規格書</title>
     <link rel="stylesheet" href="assets/site.css">
     <script src="assets/search-index.js" defer></script>
     <script src="assets/site.js" defer></script>
 </head>
-<body data-page-id="monitoring-overview">
+<body data-page-id="decision-pack-03-implementation-reconciliation">
     <a class="skip-link" href="#main-content">跳至主要內容</a>
     <header class="topbar">
         <button class="icon-button nav-trigger" type="button" data-nav-trigger aria-label="開啟規格目錄" aria-expanded="false" aria-controls="spec-navigation">
@@ -155,14 +155,14 @@
             </div>
         </details>
 
-        <details class="nav-group" open>
+        <details class="nav-group" >
             <summary>05.5 遊戲監控與風控<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="monitoring-risk-module.html" >
                         <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>模組總覽</span>
 
-                    </a><a href="monitoring-overview.html" aria-current="page">
+                    </a><a href="monitoring-overview.html" >
                         <i class="status-dot status-draft" aria-hidden="true"></i>
                         <span>監控總覽</span>
 
@@ -321,7 +321,7 @@
             </div>
         </details>
 
-        <details class="nav-group" >
+        <details class="nav-group" open>
             <summary>附錄<span aria-hidden="true"></span></summary>
             <div class="nav-items">
                 <a href="data-dictionary.html" >
@@ -380,7 +380,7 @@
                         <i class="status-dot status-confirmed" aria-hidden="true"></i>
                         <span>Decision Pack 03｜遊戲版本與發布生命週期</span>
 
-                    </a><a href="decision-pack-03-implementation-reconciliation.html" >
+                    </a><a href="decision-pack-03-implementation-reconciliation.html" aria-current="page">
                         <i class="status-dot status-confirmed" aria-hidden="true"></i>
                         <span>Decision Pack 03｜原型實作差異清單</span>
 
@@ -400,402 +400,484 @@
             <div class="page-frame ">
                 <header class="page-header">
                     <div>
-                        <p class="eyebrow">05.5.1 · 遊戲監控與風控</p>
-                        <h1>監控總覽</h1>
-                        <p class="page-summary">Provider 自身遊戲服務、Game Round、GGAP 直接對接與風控訊號總覽。</p>
+                        <p class="eyebrow">附錄 O</p>
+                        <h1>Decision Pack 03｜原型實作差異清單</h1>
+                        <p class="page-summary">逐項對照 DP03 需求基準、目前 Portal 原型、mock 限制、Provider Backend 與 GGAP 待接軌內容。</p>
                     </div>
                     <div class="page-status-stack">
-                        <span class="status-badge status-draft">草案</span>
-                        <span class="scope-badge scope-active">本輪製作</span>
+                        <span class="status-badge status-confirmed">已確認</span>
+
 
                     </div>
                 </header>
 
                 <section class="metadata-card" aria-label="章節追溯資訊">
         <div class="metadata-grid">
-            <div><span>章節編號</span><code>05.5.1</code></div><div><span>規格狀態</span><code>草案</code></div><div><span>Route</span><code>/monitoring</code></div><div><span>前端元件</span><code>src/views/Provider/MonitoringOverview.vue</code></div>
+            <div><span>章節編號</span><code>O</code></div><div><span>規格狀態</span><code>已確認</code></div>
         </div>
     </section>
-                <section id="page-visual-overview" class="page-visual-overview" aria-labelledby="page-visual-title">
-        <div class="visual-overview-header">
-            <div>
-                <p class="visual-overview-kicker">PAGE ANATOMY · OVERVIEW FIRST</p>
-                <h2 id="page-visual-title">監控總覽畫面示意</h2>
-                <p>參照現行 /monitoring 原型；目前狀態與分析窗口分開，Production／DEMO 不混合。</p>
-            </div>
-            <button class="visual-toggle" type="button" data-anatomy-toggle aria-expanded="true" aria-controls="monitoring-overview-visual-panel">
-                <span data-anatomy-toggle-label>收合畫面示意</span>
-                <i aria-hidden="true">⌃</i>
-            </button>
-        </div>
-        <nav class="visual-quick-map" aria-label="頁面區塊快速導覽">
-            <a href="#5-監控範圍與查詢"><strong>01</strong><span>監控範圍與查詢</span><i aria-hidden="true">↘</i></a><a href="#6-五張摘要卡"><strong>02</strong><span>五張摘要卡</span><i aria-hidden="true">↘</i></a><a href="#7-關注項目"><strong>03</strong><span>關注項目</span><i aria-hidden="true">↘</i></a><a href="#8-遊戲監控列表"><strong>04</strong><span>遊戲監控列表</span><i aria-hidden="true">↘</i></a><a href="#9-遊戲監控詳情"><strong>05</strong><span>遊戲監控詳情</span><i aria-hidden="true">↘</i></a><a href="#11-頁面狀態與錯誤處理"><strong>06</strong><span>替代狀態與導流</span><i aria-hidden="true">↘</i></a>
-        </nav>
-        <div class="visual-scope-notes" aria-label="畫面閱讀邊界">
-            <span>閱讀邊界</span>
-            <small>Production / DEMO 單選</small><small>Test 排除</small><small>Risk Event ≠ Alert</small><small>本頁唯讀</small>
-        </div>
-        <div id="monitoring-overview-visual-panel" class="visual-overview-panel" data-anatomy-panel>
-            <figure class="page-anatomy ops-anatomy ops-anatomy--monitoring" aria-label="監控總覽六區塊畫面示意">
-  <div class="ops-anatomy__canvas">
-    <a class="anatomy-zone ops-anatomy__toolbar" href="#5-監控範圍與查詢" aria-label="前往第一區，監控範圍與查詢"><span class="anatomy-zone__number">01</span><span><small>MONITORING OVERVIEW</small><strong>遊戲監控總覽</strong><i>最後更新 10:24:18</i></span><b>Production　全部類型　全部遊戲　6 小時　↻</b></a>
-    <a class="anatomy-zone ops-anatomy__cards ops-anatomy__cards--five" href="#6-五張摘要卡" aria-label="前往第二區，五張摘要卡"><span class="anatomy-zone__number">02</span><span><small>服務健康</small><strong>22 / 24</strong></span><span><small>Round 成功率</small><strong>99.82%</strong></span><span><small>GGAP P95</small><strong>126 ms</strong></span><span><small>高風險告警</small><strong>3</strong></span><span><small>未處理異常</small><strong>5</strong></span></a>
-    <a class="anatomy-zone ops-anatomy__segments" href="#7-關注項目" aria-label="前往第三區，關注項目"><span class="anatomy-zone__number">03</span><strong>關注項目</strong><i class="is-active">全部 24</i><i>服務異常 2</i><i>Round 失敗 1</i><i>GGAP 延遲 2</i><i>高風險 3</i><i>未處理 5</i></a>
-    <div class="ops-anatomy__split ops-anatomy__split--wide">
-      <a class="anatomy-zone ops-anatomy__table" href="#8-遊戲監控列表" aria-label="前往第四區，遊戲監控列表"><span class="anatomy-zone__number">04</span><strong>遊戲監控列表</strong><small>狀態　遊戲　類型　版本　服務　Round 成功率　GGAP P95　告警　異常　檢查時間</small><i>異常　星際寶藏　老虎機　3.6.1　Error　97.8%　680 ms　2　1　10:24</i></a>
-      <a class="anatomy-zone ops-anatomy__detail" href="#9-遊戲監控詳情" aria-label="前往第五區，遊戲監控詳情"><span class="anatomy-zone__number">05</span><small>GAME MONITOR DETAIL</small><strong>星際寶藏</strong><i>服務健康 · Round · GGAP · Risk Event · Alert</i><b>查看關聯紀錄 →</b></a>
-    </div>
-    <a class="anatomy-zone ops-anatomy__states" href="#11-頁面狀態與錯誤處理" aria-label="前往第六區，頁面狀態與錯誤處理"><span class="anatomy-zone__number">06</span><strong>替代狀態與跨頁導流</strong><i>載入中</i><i>全部正常</i><i>查無結果</i><i>資料過期</i><i>局部失敗</i><i>全部失敗</i></a>
-  </div>
-  <div class="page-anatomy__legend"><span><i></i>目前狀態</span><span><i></i>分析窗口</span><small>參照現行 `/monitoring` 原型；Test 永不納入。</small></div>
-</figure>
-        </div>
-        <p class="visual-overview-disclaimer">畫面示意用於定位元件與閱讀順序；實際欄位、狀態與行為仍以本頁詳細規格及正式契約為準。</p>
-    </section>
-    <a class="visual-return" data-visual-return href="#page-visual-overview" hidden><span aria-hidden="true">↑</span> 回到畫面示意</a>
+
 
                 <div class="content-layout">
                     <article class="spec-content">
-                        <h2 id="章節狀態">章節狀態</h2><div class="table-scroll" tabindex="0"><table>
-<thead>
-<tr>
-<th>項目</th>
-<th>內容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>規格成熟度</td>
-<td>Draft — Batch B 完整頁面規格</td>
-</tr>
-<tr>
-<td>製作範圍</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>對應路由</td>
-<td><code>/monitoring</code></td>
-</tr>
-<tr>
-<td>前端元件</td>
-<td><code>src/views/Provider/MonitoringOverview.vue</code></td>
-</tr>
-<tr>
-<td>主要來源</td>
-<td><code>PROVIDER_MONITORING_OVERVIEW_SPEC.md</code></td>
-</tr>
-<tr>
-<td>環境</td>
-<td>Production 或 DEMO 單選；Test 排除</td>
-</tr>
-<tr>
-<td>監控主體</td>
-<td>Provider 自身遊戲服務、Game Round、GGAP 直接對接及風控訊號</td>
-</tr>
-</tbody></table></div>
-<blockquote>
-<p>本頁用於觀察與導流，不執行風控處理。Provider 只監控自身服務與對 GGAP 的直接整合，不推斷 GGAP 與代理商間的下游狀態。</p>
-</blockquote>
-<h2 id="1-目的與使用情境">1. 目的與使用情境</h2><p>讓營運、技術、SRE 與風控人員在單一頁面確認目前服務健康、選定窗口內的 Round 成功率與 GGAP 延遲、各遊戲的異常集中位置，再導向 Risk Event、Alert 或 Game Round 追查。</p>
-<h2 id="2-範圍與責任邊界">2. 範圍與責任邊界</h2><h3 id="2-1-本頁包含">2.1 本頁包含</h3><ul>
-<li>Production／DEMO 分離的遊戲服務、Round、GGAP 直接對接與 Provider 風控指標。</li>
-<li>五張摘要卡、關注項目切換、每遊戲監控列表與大型詳情 Dialog。</li>
-<li>導向風控報表、告警處理及遊戲紀錄的 deep link。</li>
-</ul>
-<h3 id="2-2-本頁不包含">2.2 本頁不包含</h3><ul>
-<li>Test 資料、正式財務聚合、錢包或代理商／商戶／會員主資料。</li>
-<li>GGAP 對代理商的遊戲開放狀態或平台內部健康。</li>
-<li>隔離、解除、指派、結案或修改 Round 的操作。</li>
-<li>把同一問題的 Risk Event 與 Alert 相加成「總異常」。</li>
-</ul>
-<h2 id="3-核心名詞與指標">3. 核心名詞與指標</h2><div class="table-scroll" tabindex="0"><table>
-<thead>
-<tr>
-<th>指標</th>
-<th>Draft 定義</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>服務健康</td>
-<td><code>healthy expected service games / expected service games</code>；維護與無資料需獨立表達。</td>
-</tr>
-<tr>
-<td>Round 成功率</td>
-<td><code>success / (success + failed + timeout)</code>；<code>processing</code> 不進分母。</td>
-</tr>
-<tr>
-<td>GGAP P95</td>
-<td>Provider 對 GGAP 成功回應樣本的 P95；整體狀態仍需同時考量 timeout／failure。</td>
-</tr>
-<tr>
-<td>高風險告警</td>
-<td>High／Critical 且未 closed／false positive 的不重複 <code>alert_id</code>。</td>
-</tr>
-<tr>
-<td>未處理異常</td>
-<td>pending／investigating 的不重複 <code>risk_event_id</code>。</td>
-</tr>
-</tbody></table></div>
-<ul>
-<li>Risk Event 是客觀異常紀錄；Alert 是需要人處理的工作單位，兩者狀態分開。</li>
-<li>目前狀態卡使用最新有效 snapshot；Round 成功率與 GGAP P95 使用已套用分析窗口。</li>
-<li>正式門檻、採樣、最小樣本、嚴重度及 stale threshold 依 <code>TBD-DAT-005</code>。</li>
-</ul>
-<h2 id="4-資訊架構與頁面區塊">4. 資訊架構與頁面區塊</h2><ol>
-<li>監控範圍與更新：環境、遊戲類型、遊戲、分析時間及最後更新。</li>
-<li>五張摘要卡：服務健康、Round 成功率、GGAP P95、高風險告警、未處理異常。</li>
-<li>關注項目：全部、服務異常、Round 失敗、GGAP 延遲、高風險告警、未處理異常。</li>
-<li>遊戲監控列表：每遊戲 × 環境的健康與導流。</li>
-<li>遊戲監控詳情：大型 Dialog 顯示服務、Round、GGAP、風控及關聯入口。</li>
-<li>替代狀態與跨頁導流：empty、stale、partial error、deep link。</li>
+                        <h2 id="1-文件定位">1. 文件定位</h2><p>本文件記錄 Decision Pack 03《遊戲版本與發布生命週期》與目前 Provider Portal 原型之間的實作對照，作為產品、前端、後端、QA 與 GGAP 對接團隊的共同交接基準。</p>
+<p>它回答三個問題：</p>
+<ol>
+<li>哪些產品能力已經能在 Portal 原型中檢視與操作。</li>
+<li>哪些操作目前只有前端 mock，不代表正式 Backend、CI/CD 或 GGAP 副作用。</li>
+<li>取得 Provider／GGAP Backend Git 後，還需要完成哪些 Mapping 與正式驗證。</li>
 </ol>
-<h2 id="5-監控範圍與查詢">5. 監控範圍與查詢</h2><div class="table-scroll" tabindex="0"><table>
-<thead>
-<tr>
-<th>欄位</th>
-<th>技術值</th>
-<th>預設</th>
-<th>規則</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>環境</td>
-<td><code>environment</code></td>
-<td>Production</td>
-<td>Production／DEMO 單選，不可混合。</td>
-</tr>
-<tr>
-<td>遊戲類型</td>
-<td><code>game_type</code></td>
-<td>全部</td>
-<td>選項來自 Provider 遊戲主資料。</td>
-</tr>
-<tr>
-<td>遊戲</td>
-<td><code>game_id</code></td>
-<td>全部</td>
-<td>顯示名稱與 ID；送穩定 ID。</td>
-</tr>
-<tr>
-<td>分析時間</td>
-<td><code>from</code>、<code>to</code></td>
-<td>近 6 小時</td>
-<td>快速 1h／6h／24h 或自訂；建議最大 7 日。</td>
-</tr>
-</tbody></table></div>
-<ul>
-<li>編輯條件後按查詢才套用；手動更新使用目前 applied filters。</li>
-<li>環境與遊戲條件同時套用目前狀態與期間指標；分析時間只套用期間指標。</li>
-<li>URL query 可保存非敏感篩選；不允許 <code>environment=all</code>。</li>
-</ul>
-<h2 id="6-五張摘要卡">6. 五張摘要卡</h2><ul>
-<li>服務健康、高風險告警、未處理異常顯示目前 snapshot。</li>
-<li>Round 成功率、GGAP P95 顯示套用窗口結果。</li>
-<li>每張卡顯示範圍、分子／分母或樣本量、狀態、最後資料時間；不可只顯示百分比。</li>
-<li>點擊卡片只能設定列表的關注項目或導向擁有頁，不改變其他摘要計算。</li>
-<li>高風險告警與未處理異常可能是同一問題，不可相加。</li>
-</ul>
-<h2 id="7-關注項目">7. 關注項目</h2><ul>
-<li>關注項目只篩選下方遊戲列表，不重新計算五張摘要卡。</li>
-<li>可選全部、服務異常、Round 失敗、GGAP 延遲、高風險告警、未處理異常；單選且再次點擊目前項目回到全部。</li>
-<li>顯示數量為符合該項目的遊戲列數或明確標示的事件數；正式口徑不可含糊。</li>
-</ul>
-<h2 id="8-遊戲監控列表">8. 遊戲監控列表</h2><p>列表以 <code>game_id × environment</code> 為一列，共 11 個主要欄位：</p>
 <div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
-<th align="right">順序</th>
-<th>欄位</th>
-<th>規則</th>
+<th>項目</th>
+<th>本次基準</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="right">1</td>
-<td>綜合狀態</td>
-<td>優先序：已隔離、異常、降級、無資料、維護、正常。</td>
+<td>上游需求</td>
+<td>Decision Pack 03｜遊戲版本與發布生命週期</td>
 </tr>
 <tr>
-<td align="right">2</td>
-<td>遊戲</td>
-<td>名稱主顯示、ID 次顯示。</td>
+<td>原型實作提交</td>
+<td><code>a1d5098</code>（P0）、<code>c774bf8</code>（P1）</td>
 </tr>
 <tr>
-<td align="right">3</td>
-<td>類型</td>
-<td>繁中顯示值。</td>
+<td>程式分支</td>
+<td><code>codex/provider-monitoring-risk</code></td>
 </tr>
 <tr>
-<td align="right">4</td>
-<td>版本</td>
-<td>該環境目前服務版本。</td>
+<td>對照日期</td>
+<td>2026-08-18（Asia/Taipei）</td>
 </tr>
 <tr>
-<td align="right">5</td>
-<td>遊戲服務</td>
-<td>最新服務健康與檢查摘要。</td>
+<td>對照範圍</td>
+<td>六個遊戲管理頁、共用生命週期 mock、Game Round 不可變快照</td>
 </tr>
 <tr>
-<td align="right">6</td>
-<td>Round 成功率</td>
-<td>套用分析窗口，含分子／分母。</td>
-</tr>
-<tr>
-<td align="right">7</td>
-<td>GGAP P95</td>
-<td>成功樣本 P95，並標示 timeout／failure。</td>
-</tr>
-<tr>
-<td align="right">8</td>
-<td>高風險告警</td>
-<td>不重複 active <code>alert_id</code>。</td>
-</tr>
-<tr>
-<td align="right">9</td>
-<td>未處理異常</td>
-<td>不重複 active <code>risk_event_id</code>。</td>
-</tr>
-<tr>
-<td align="right">10</td>
-<td>最後檢查</td>
-<td>含時區及 stale 狀態。</td>
-</tr>
-<tr>
-<td align="right">11</td>
-<td>詳情</td>
-<td>開啟本列大型 Dialog。</td>
+<td>不代表</td>
+<td>正式資料表、API、CI/CD、權限、Audit、Launch Gate 或 GGAP 串接已完成</td>
 </tr>
 </tbody></table></div>
-<ul>
-<li>預設依綜合狀態優先序，再以嚴重度、最後檢查時間、<code>game_id</code> 穩定排序。</li>
-<li>排序與分頁由伺服器處理；摘要不受目前分頁影響。</li>
-</ul>
-<h2 id="9-遊戲監控詳情">9. 遊戲監控詳情</h2><p>大型 Dialog 至少包含：</p>
-<ol>
-<li>遊戲名稱／ID、環境、版本、綜合狀態與最後檢查。</li>
-<li>遊戲服務實例、端點、錯誤摘要與健康檢查。</li>
-<li>Round 成功／失敗／timeout／processing、成功率與窗口。</li>
-<li>GGAP 直接 request 的 P50／P95、樣本、timeout、failure 與最近錯誤。</li>
-<li>Risk Event 與 Alert 摘要，分別顯示 ID、狀態、嚴重度與數量。</li>
-<li>前往 <code>/reports</code>、<code>/monitoring/risk-reports</code>、<code>/monitoring/alerts</code> 的明確入口。</li>
-</ol>
-<p>詳情不得提供修改 Round 或告警處理按鈕；原始 payload 的顯示、複製與遮罩依 <code>TBD-SEC-002</code>。</p>
-<h2 id="10-跨頁導流">10. 跨頁導流</h2><ul>
-<li>Risk Event：<code>/monitoring/risk-reports?risk_event_id={id}&amp;environment={env}</code>。</li>
-<li>Alert：<code>/monitoring/alerts?alert_id={id}&amp;risk_event_id={id}&amp;environment={env}</code>。</li>
-<li>Game Round：<code>/reports?provider_round_id={id}</code> 或帶明確時間、環境與遊戲脈絡。</li>
-<li>GGAP request 紀錄頁仍 Deferred；可顯示 request ID，但不可承諾可用 route 或正式行為。</li>
-<li>目標頁需驗證 ID 與登入 scope；找不到時顯示錯誤，不可退回模糊列表冒充成功。</li>
-</ul>
-<h2 id="11-頁面狀態與錯誤處理">11. 頁面狀態與錯誤處理</h2><div class="table-scroll" tabindex="0"><table>
+<h2 id="2-差異狀態定義">2. 差異狀態定義</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
 <th>狀態</th>
-<th>必要行為</th>
+<th>定義</th>
+<th>可用方式</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>初始／查詢中</td>
-<td>保留區塊 skeleton，停用重複查詢。</td>
+<td><code>ALIGNED_PROTOTYPE</code></td>
+<td>畫面、資訊架構與主要互動已對齊 DP03</td>
+<td>可供產品審閱、前後端拆解與 QA 建立情境</td>
 </tr>
 <tr>
-<td>手動更新</td>
-<td>使用 applied filters，顯示更新中與最後成功時間。</td>
+<td><code>MOCK_ONLY</code></td>
+<td>原型可操作，但只更新瀏覽器記憶體中的 mock</td>
+<td>不可視為正式副作用或正式資料契約</td>
 </tr>
 <tr>
-<td>全部正常</td>
-<td>顯示正常結論與完整列表，不以空白頁代替。</td>
+<td><code>BACKEND_PENDING</code></td>
+<td>產品行為已定義，等待 Provider Backend、資料庫或部署工具實作</td>
+<td>取得 Backend Git 後建立欄位、enum、API 與工作流 Mapping</td>
 </tr>
 <tr>
-<td>查無結果</td>
-<td>保留篩選與摘要語意，提供清除條件。</td>
+<td><code>GGAP_PENDING</code></td>
+<td>Provider 責任已定義，但外部事件、ACK 或代理商開關契約待 GGAP 證據</td>
+<td>取得 GGAP Git／規格後補 payload、冪等、重試與錯誤對照</td>
 </tr>
 <tr>
-<td>無資料／過期</td>
-<td>顯示 no-data／stale，不歸類正常。</td>
-</tr>
-<tr>
-<td>局部失敗</td>
-<td>成功指標可用；失敗欄位顯示 <code>—</code>、原因與重試。</td>
-</tr>
-<tr>
-<td>全部失敗</td>
-<td>整頁錯誤與重試；不得顯示舊值為目前狀態。</td>
-</tr>
-<tr>
-<td>權限不足</td>
-<td>隱藏不可見敏感資料；整頁無權則 Forbidden。</td>
+<td><code>OUT_OF_SCOPE</code></td>
+<td>不屬於本輪 DP03 原型實作</td>
+<td>不以本清單推測內容或標記完成</td>
 </tr>
 </tbody></table></div>
-<h2 id="12-api-契約草案">12. API 契約草案</h2><div class="table-scroll" tabindex="0"><table>
+<p><code>ALIGNED_PROTOTYPE</code> 只表示原型已足以表達需求，不表示正式系統已完成。正式上線判定必須同時通過 Backend、GGAP、安全、資料與部署驗收。</p>
+<h2 id="3-整體結論">3. 整體結論</h2><p>DP03 的主要 Portal 原型差異已完成修正：Game、Version、Artifact、Release、Active Release、三環境、全域可用性與 Game Round 快照已使用同一組前端領域模型。六個遊戲管理頁不再各自維護互相矛盾的版本與發布狀態，<code>/games/environments</code> 也已由 Placeholder 替換為內容原型。</p>
+<p>目前剩餘差異集中在正式副作用，而不是畫面骨架：資料仍由 MSW 與記憶體 mock 提供；發布不會觸發 CI/CD；上架不會送出 GGAP 事件；核准與權限沒有正式身分驗證；Game Round 快照尚未由 Backend 永久保存。</p>
+<div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
-<th>能力</th>
-<th>必要輸入</th>
-<th>必要輸出</th>
+<th>對照層</th>
+<th>結論</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>監控摘要</td>
-<td>environment、game filters、analysis window</td>
-<td>五張卡、範圍、樣本、snapshot／window、資料時間</td>
+<td>產品責任與頁面分工</td>
+<td>已對齊原型</td>
 </tr>
 <tr>
-<td>遊戲監控列表</td>
-<td>filters、focus、sort、page</td>
-<td>11 欄、total、穩定排序、部分失敗標記</td>
+<td>主要狀態與跨頁資料語意</td>
+<td>已對齊原型</td>
 </tr>
 <tr>
-<td>遊戲監控詳情</td>
-<td>game_id、environment、window</td>
-<td>服務、Round、GGAP、Risk Event、Alert 與 deep links</td>
+<td>Prototype 互動與替代狀態</td>
+<td>已完成並驗收</td>
+</tr>
+<tr>
+<td>正式 API／資料持久化</td>
+<td>待 Provider Backend</td>
+</tr>
+<tr>
+<td>真實建置／部署／回滾</td>
+<td>待 CI/CD 與 SRE 工具</td>
+</tr>
+<tr>
+<td>GGAP Launch Gate／事件 ACK</td>
+<td>待 GGAP Backend／契約</td>
+</tr>
+<tr>
+<td>正式權限、Audit 與通知</td>
+<td>待 Backend 與系統設定規格</td>
 </tr>
 </tbody></table></div>
-<p>回應需含 <code>generated_at</code>、<code>timezone</code>、<code>environment</code>、<code>observation_window</code>、<code>data_status</code>、<code>source_failures</code> 或等價欄位。正式 path、schema、門檻與 permission key 依 <code>TBD-API-001</code>、<code>TBD-API-004</code>、<code>TBD-DAT-005</code>、<code>TBD-SEC-001</code>。</p>
-<h2 id="13-響應式-無障礙與文案">13. 響應式、無障礙與文案</h2><ul>
-<li>Desktop 內容上限依 Portal <code>1500px</code>；Dialog 使用大型內容區，不縮成難讀窄抽屜。</li>
-<li>Tablet 摘要卡兩欄；Mobile 單欄並將列表轉為可展開卡片或保留可操作水平捲動。</li>
-<li>狀態、門檻超標與趨勢不能只靠顏色；提供文字、圖示、樣本與時間。</li>
-<li>Dialog 需管理焦點、Esc、標題關聯及關閉後焦點返回。</li>
+<h2 id="4-頁面與程式對照">4. 頁面與程式對照</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>頁面</th>
+<th>Route／元件</th>
+<th>已完成的原型能力</th>
+<th>目前限制</th>
+<th>狀態</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>遊戲列表</td>
+<td><code>/games</code> · <code>src/views/Games/Index.vue</code></td>
+<td>由 Active Release 推導三環境版本；分開 Release、全域可用性、GGAP 同步與 RTP 摘要；提供精確導流</td>
+<td>RTP 與同步值為 mock；不執行發布</td>
+<td><code>ALIGNED_PROTOTYPE</code></td>
+</tr>
+<tr>
+<td>遊戲版本</td>
+<td><code>/games/versions</code> · <code>src/views/Games/Versions.vue</code></td>
+<td>Version／Artifact 分離、六狀態、不可變 build 資訊、候選成熟度、版本草稿與 Release 關聯</td>
+<td>建立 Artifact 與驗證結果為 mock</td>
+<td><code>ALIGNED_PROTOTYPE</code>＋<code>MOCK_ONLY</code></td>
+</tr>
+<tr>
+<td>環境與發布</td>
+<td><code>/games/environments</code> · <code>src/views/Games/Environments.vue</code></td>
+<td>三環境矩陣、待處理佇列、快速／高風險通道、覆核、發布、回復、全域狀態與 deep link</td>
+<td>不觸發 CI/CD、流量切換、健康檢查或 GGAP 通知</td>
+<td><code>ALIGNED_PROTOTYPE</code>＋<code>MOCK_ONLY</code></td>
+</tr>
+<tr>
+<td>遊戲設定</td>
+<td><code>/games/settings</code> · <code>src/views/Games/Settings.vue</code></td>
+<td>投注結構、固定幣別倍率、USDT 限額方案、設定快照及複製新草稿</td>
+<td>沒有正式驗證、持久化、核准與併發控制</td>
+<td><code>ALIGNED_PROTOTYPE</code>＋<code>MOCK_ONLY</code></td>
+</tr>
+<tr>
+<td>數值設定</td>
+<td><code>/games/math</code> · <code>src/views/Games/Math.vue</code></td>
+<td>數值快照、理論／實際 RTP、Paytable、樣本、Guarded Lane、複製與送審</td>
+<td>模擬樣本與覆核為 mock；沒有真實 Math Engine</td>
+<td><code>ALIGNED_PROTOTYPE</code>＋<code>MOCK_ONLY</code></td>
+</tr>
+<tr>
+<td>遊戲素材</td>
+<td><code>/games/assets</code> · <code>src/views/Games/Assets.vue</code></td>
+<td>不可變 Asset ID、Bundle、checksum、storage ref、後繼素材與 Version 關聯</td>
+<td>只建立 metadata；未上傳、掃描或儲存真實檔案</td>
+<td><code>ALIGNED_PROTOTYPE</code>＋<code>MOCK_ONLY</code></td>
+</tr>
+<tr>
+<td>遊戲紀錄</td>
+<td><code>/reports</code> · <code>src/views/Reports/ProviderGameRounds.vue</code></td>
+<td>詳情與匯出保存 Version、Build、Release、設定、數值、素材、投注結構、幣別倍率及限額快照</td>
+<td>快照由 mock 建立，尚未由正式 Round 建立流程強制保存</td>
+<td><code>ALIGNED_PROTOTYPE</code>＋<code>BACKEND_PENDING</code></td>
+</tr>
+</tbody></table></div>
+<h2 id="5-八組-dp03-契約對照">5. 八組 DP03 契約對照</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>DP03 契約</th>
+<th>原型證據</th>
+<th>已對齊內容</th>
+<th>剩餘正式差異</th>
+<th>判定</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DP03-01 核心物件</td>
+<td><code>providerGameLifecycle.ts</code>、Version／Environment 頁</td>
+<td>Game、Version、Build Artifact、Release、Environment 分開建模</td>
+<td>正式 schema、主鍵、migration、append-only status event</td>
+<td><code>BACKEND_PENDING</code></td>
+</tr>
+<tr>
+<td>DP03-02 狀態生命週期</td>
+<td>Version／Release 列表與詳情</td>
+<td>Version 成熟度與 Release 結果分離；Active Release 不複製到 Game</td>
+<td>後端 allowed actions、狀態守門、取消與失敗重試</td>
+<td><code>BACKEND_PENDING</code></td>
+</tr>
+<tr>
+<td>DP03-03 三環境晉級</td>
+<td>Environment matrix</td>
+<td>Test、DEMO、Production 分離；正式候選保存同一 build 關聯</td>
+<td>真實憑證、資料庫、Artifact promotion 與環境隔離證據</td>
+<td><code>BACKEND_PENDING</code></td>
+</tr>
+<tr>
+<td>DP03-04 雙發布通道</td>
+<td>Release 詳情與待處理佇列</td>
+<td>Fast／Guarded Lane、一般一人確認與高風險第二人覆核</td>
+<td>真實風險分類、身分分離、排程、部署鎖與 CI/CD</td>
+<td><code>BACKEND_PENDING</code></td>
+</tr>
+<tr>
+<td>DP03-05 可用性與 GGAP</td>
+<td>Game list、Environment availability</td>
+<td>Production Release、Provider global status、GGAP sync 分開</td>
+<td>outbox、ACK、代理商開關查核、重試與狀態對帳</td>
+<td><code>GGAP_PENDING</code></td>
+</tr>
+<tr>
+<td>DP03-06 回滾與緊急控制</td>
+<td>新 Rollback Release、<code>suspended</code> 狀態</td>
+<td>回復建立新 Release，不覆寫原發布紀錄</td>
+<td>真實健康檢查、自動回滾、隔離 desired／actual state、Forward Fix</td>
+<td><code>BACKEND_PENDING</code></td>
+</tr>
+<tr>
+<td>DP03-07 Launch／Round 相容</td>
+<td>Game Round 詳情與匯出</td>
+<td>Round 保存完整生命週期快照，不依目前 Active Version 重算</td>
+<td>Launch Token 綁定、晚到 Callback、Bet／Settlement 共同快照與保存期</td>
+<td><code>BACKEND_PENDING</code>＋<code>GGAP_PENDING</code></td>
+</tr>
+<tr>
+<td>DP03-08 權限與稽核</td>
+<td>原型操作提示與 timeline</td>
+<td>畫面已區分覆核、發布、回復與緊急狀態</td>
+<td>正式角色、permission、第二人限制、Audit、通知事件與保存</td>
+<td><code>BACKEND_PENDING</code></td>
+</tr>
+</tbody></table></div>
+<h2 id="6-已完成的共用前端基礎">6. 已完成的共用前端基礎</h2><h3 id="6-1-集中生命週期模型">6.1 集中生命週期模型</h3><p><code>src/types/providerGameLifecycle.ts</code> 與 <code>src/mocks/providerGameLifecycle.ts</code> 已成為六個遊戲管理頁共同使用的原型資料來源，包含：</p>
+<ul>
+<li>Game 與 Provider 全域可用性。</li>
+<li>Game Version 與不可變 Build Artifact。</li>
+<li>Release Record、風險通道、驗證、核准與 timeline。</li>
+<li>Test／DEMO／Production 的 Active／Pending Release。</li>
+<li>遊戲設定、數值、素材與下注限額快照。</li>
+<li>固定投注幣別倍率 <code>USDT：USD：TWD：VND = 1：1：30：2000</code>。</li>
 </ul>
-<h2 id="14-前後端交付要求">14. 前後端交付要求</h2><p>前端：分開管理 draft／applied filters、summary／list／detail request、局部失敗與過期狀態；deep link 保留環境及精確 ID。</p>
-<p>後端：排除 Test、強制單一環境、以一致窗口與門檻版本計算；保持 Risk Event／Alert ID 分離；回傳 Provider scope 內的直接 GGAP 訊號，不延伸下游推論。</p>
-<h2 id="15-驗收條件">15. 驗收條件</h2><ol>
-<li>Production／DEMO 不混合，Test 永不出現。</li>
-<li>目前狀態與分析窗口的時間語意清楚且不互相污染。</li>
-<li>五張卡公式、樣本、範圍及最後更新時間可辨識。</li>
-<li>關注項目只篩選列表，不改變摘要卡。</li>
-<li>列表含 11 欄與明確綜合狀態優先序。</li>
-<li>詳情完整呈現服務、Round、GGAP、Risk Event、Alert 且只讀。</li>
-<li>deep link 使用精確 ID，Deferred GGAP 頁不被假定完成。</li>
-<li>Loading、全部正常、empty、stale、partial／all error、Forbidden 可驗收。</li>
+<h3 id="6-2-集中-mock-api">6.2 集中 mock API</h3><p><code>src/mocks/handlers/providerGameLifecycle.ts</code> 已提供查詢、建立版本草稿、版本狀態、覆核、發布、回復、全域可用性、設定複製、數值複製／送審與素材建立等原型端點。</p>
+<p>這些端點只用來驗證前端工作流與狀態呈現。重新整理或重新啟動 MSW 後資料可能重置，也沒有正式交易、部署或稽核保證。</p>
+<h3 id="6-3-round-不可變快照">6.3 Round 不可變快照</h3><p><code>src/types/gameRound.ts</code> 與 <code>src/mocks/handlers/providerGameRounds.ts</code> 已加入：</p>
+<ul>
+<li><code>game_version</code>、<code>build_id</code>、<code>release_id</code>。</li>
+<li><code>settings_snapshot_id</code>、<code>math_snapshot_id</code>、<code>asset_bundle_id</code>。</li>
+<li>理論 RTP、投注結構、固定幣別倍率及下注限額方案快照。</li>
+<li>環境與快照建立時間。</li>
+</ul>
+<p>同一組欄位已進入 Game Round 詳情與 CSV／XLSX 匯出資料。正式 Backend 必須在 Round 建立時保存，不得在查詢時用目前設定回填。</p>
+<h2 id="7-mock-only-行為清單">7. Mock-only 行為清單</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>行為</th>
+<th>原型目前做法</th>
+<th>正式實作要求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>建立 Version</td>
+<td>在記憶體陣列新增草稿</td>
+<td>DB transaction、唯一鍵、版本規則、actor 與 audit</td>
+</tr>
+<tr>
+<td>建立 Artifact</td>
+<td>Version 轉 Candidate 時產生 mock build／checksum</td>
+<td>CI build、Artifact Registry、manifest、簽章與不可變儲存</td>
+</tr>
+<tr>
+<td>覆核 Release</td>
+<td>將第一筆 pending approval 改為 approved</td>
+<td>身分與權限驗證、提交者分離、樂觀鎖與 append-only event</td>
+</tr>
+<tr>
+<td>執行 Release</td>
+<td>直接把 mock Environment 指向新 Release</td>
+<td>preflight、部署、健康檢查、原子切換、觀察與失敗補償</td>
+</tr>
+<tr>
+<td>回復</td>
+<td>建立新的 mock Release</td>
+<td>使用保留 Artifact、相容性檢查、真實流量切換與事故關聯</td>
+</tr>
+<tr>
+<td>全域狀態</td>
+<td>更新 Game 與 Environment mock</td>
+<td>Provider Launch Gate 立即生效、可靠投遞 GGAP、ACK／重試</td>
+</tr>
+<tr>
+<td>設定／數值草稿</td>
+<td>複製前端物件並產生 ID</td>
+<td>schema 驗證、版本引用、審核、併發與不可變保存</td>
+</tr>
+<tr>
+<td>素材草稿</td>
+<td>產生 metadata 與 mock checksum</td>
+<td>upload session、病毒掃描、物件儲存、媒體驗證與 CDN</td>
+</tr>
+<tr>
+<td>RTP／樣本</td>
+<td>使用固定 mock 數值</td>
+<td>由 Production Round／Math Engine 產生可追溯統計</td>
+</tr>
+<tr>
+<td>Game Round 快照</td>
+<td>handler 依 mock 資料組裝</td>
+<td>Round 建立 transaction 永久固定，Bet／Settlement／Callback 沿用</td>
+</tr>
+</tbody></table></div>
+<h2 id="8-待-provider-backend-與部署工具-mapping">8. 待 Provider Backend 與部署工具 Mapping</h2><p>取得 Provider Backend Git 後，至少需逐項確認：</p>
+<ol>
+<li>Game、Version、Artifact、Release、Environment、Approval、Status History 與 Audit 的資料表及關聯。</li>
+<li>正式 ID、enum、時間欄位、Decimal 精度、錯誤碼、分頁與 idempotency 格式。</li>
+<li>Candidate 綁定設定、數值、素材與 Artifact manifest 的 transaction 邊界。</li>
+<li>Test → DEMO → Production 是否能 promotion 同一 Artifact，是否存在重新 build 風險。</li>
+<li>發布 preflight、排程、併發鎖、健康驗證、原子切換、自動回滾與補償工具。</li>
+<li>Provider Launch Gate、維護、暫停、隔離 desired／actual state 與既有 Round 例外路徑。</li>
+<li>Launch Token／Context 是否保存 Version、Build、Release 與 environment。</li>
+<li>Round、Bet、Settlement、Cancel、Refund 與 Callback 是否共同引用不可變快照。</li>
+<li>角色、permission、第二人核准、緊急權限、敏感欄位及 append-only Audit。</li>
+<li>素材 upload、掃描、儲存、CDN、checksum、版本引用與保存政策。</li>
 </ol>
-<h2 id="16-測試重點">16. 測試重點</h2><ul>
-<li>環境切換、自訂時間上限、重複查詢與 response race。</li>
-<li>成功率分母、processing 排除、P95 樣本與 timeout／failure。</li>
-<li>綜合狀態 precedence、相同事件的 Event／Alert 不重複合計。</li>
-<li>詳情開關、焦點管理及三種 deep link 的有效／無效／無權案例。</li>
-<li>來源局部失敗、stale、無資料與全失敗。</li>
+<p>每一項使用以下結果之一，不以猜測填值：<code>已存在</code>、<code>部分存在</code>、<code>尚未存在</code>、<code>與需求衝突</code>、<code>僅命名不同</code>、<code>無法由 Git 判斷</code>。</p>
+<h2 id="9-待-ggap-mapping">9. 待 GGAP Mapping</h2><p>取得 GGAP Backend Git 或正式契約後，需補齊：</p>
+<ul>
+<li>Provider 遊戲目錄與 Active Release 的同步事件名稱及 payload。</li>
+<li>Provider global status 上架、維護、暫停、退役的事件版本。</li>
+<li>GGAP ACK、idempotency key、簽章、重試、死信與狀態對帳。</li>
+<li>GGAP 代理商遊戲開關與 Provider 全域可用性的最終 Launch Gate 判斷順序。</li>
+<li>Launch request／token 中的 Game、Version、Build、Release 與 environment 欄位。</li>
+<li>新 Release 切換期間舊 Token、舊 Round、晚到 Callback 與強制失效策略。</li>
+<li>同步失敗、長時間未 ACK、Provider 緊急停用及服務恢復的錯誤碼與通知方式。</li>
 </ul>
-<h2 id="17-待確認事項">17. 待確認事項</h2><ul>
-<li><code>TBD-DOM-001</code>、<code>TBD-DOM-004</code>：Round、Risk Event、Alert 與隔離模型。</li>
-<li><code>TBD-DAT-002</code>、<code>TBD-DAT-003</code>、<code>TBD-DAT-005</code>：識別碼、窗口、新鮮度、門檻與採樣。</li>
-<li><code>TBD-API-001</code>、<code>TBD-API-002</code>、<code>TBD-API-004</code>：共通、Round 與監控 API。</li>
-<li><code>TBD-SEC-001</code>、<code>TBD-SEC-002</code>：scope、permission、敏感資料與 payload。</li>
-<li><code>TBD-NFR-001</code>、<code>TBD-NFR-002</code>、<code>TBD-NFR-004</code>：效能、降級及前端品質。</li>
-<li><code>TBD-EXT-001</code>、<code>TBD-EXT-003</code>：GGAP 正式規格與系統權限模型。</li>
+<p>Provider 不因等待 GGAP Mapping 而改變責任邊界：Provider 先保護自身 Launch Gate；GGAP 仍負責代理商、商戶、會員與錢包側資格。</p>
+<h2 id="10-非本輪範圍">10. 非本輪範圍</h2><p>以下內容維持 <code>OUT_OF_SCOPE</code>，不因 DP03 原型完成而自動升格：</p>
+<ul>
+<li>GGAP 對接五頁的完整規格與原型。</li>
+<li>通知中心兩頁。</li>
+<li>系統設定四頁與正式使用者／權限管理。</li>
+<li>真實 CI/CD、雲端資源、Secret、Artifact Registry 與正式環境操作。</li>
+<li>Backend schema、migration、資料保存與 production deployment。</li>
 </ul>
-<h2 id="18-placeholder-draft-移除條件">18. Placeholder／Draft 移除條件</h2><p>本頁已有內容原型，不使用 Placeholder。只有指標公式、門檻／採樣、API、資料新鮮度、權限及 deep link 契約核准並通過驗收後，才可改為 Confirmed。</p>
+<h2 id="11-驗證證據">11. 驗證證據</h2><p>P0、P1 完成後已執行：</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>驗證</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>npm run spec:decision-pack-03-source-check</code></td>
+<td>PASS；92 assertions</td>
+</tr>
+<tr>
+<td><code>npm run spec:seal</code></td>
+<td>PASS</td>
+</tr>
+<tr>
+<td><code>npm run type-check</code></td>
+<td>PASS</td>
+</tr>
+<tr>
+<td><code>npm run build</code></td>
+<td>PASS；1529 modules transformed</td>
+</tr>
+<tr>
+<td><code>git diff --check</code></td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>Desktop 1440 × 1000</td>
+<td>六個生命週期頁與 Game Round 相關頁無頁面級水平溢位</td>
+</tr>
+<tr>
+<td>Mobile 390 × 844</td>
+<td>非表格控制項在可視範圍；寬表格使用容器內捲動</td>
+</tr>
+<tr>
+<td>Browser Console</td>
+<td>0 error</td>
+</tr>
+</tbody></table></div>
+<p>互動抽驗包含：設定快照複製後原紀錄不變、數值草稿進入 Guarded Lane、素材建立新 Asset／supersedes 關係、Test 最新驗證版本顯示、Release deep link，以及 Game Round 完整生命週期快照。</p>
+<p>Build 仍只有既知的 Browserslist <code>caniuse-lite</code> 八個月未更新提示；依既定安排，待整份規格書完成後一次更新。</p>
+<h2 id="12-正式上線前阻擋清單">12. 正式上線前阻擋清單</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>優先層級</th>
+<th>必要條件</th>
+<th>未完成時的限制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>上線阻擋</td>
+<td>正式資料持久化與不可變 history／audit</td>
+<td>不可把 mock 狀態當正式發布事實</td>
+</tr>
+<tr>
+<td>上線阻擋</td>
+<td>CI/CD、同 Artifact 晉級、健康檢查、原子切換與回滾</td>
+<td>不可執行 Production 發布</td>
+</tr>
+<tr>
+<td>上線阻擋</td>
+<td>Launch Gate、Round 快照與晚到交易相容</td>
+<td>不可保證版本切換後金額與 Round 正確</td>
+</tr>
+<tr>
+<td>上線阻擋</td>
+<td>正式角色、permission、第二人核准與緊急權限</td>
+<td>不可開放高風險或緊急操作</td>
+</tr>
+<tr>
+<td>整合阻擋</td>
+<td>GGAP 事件、ACK、冪等、重試與代理商 Gate</td>
+<td>不可宣告外部遊戲開放狀態一致</td>
+</tr>
+<tr>
+<td>功能阻擋</td>
+<td>真實素材 upload／scan／storage</td>
+<td>不可把素材原型視為正式資產管理</td>
+</tr>
+<tr>
+<td>後續優化</td>
+<td>完整通知、操作紀錄查詢、部署觀察圖表</td>
+<td>不阻擋原型審閱，但需在正式營運前安排</td>
+</tr>
+</tbody></table></div>
+<h2 id="13-維護與重開條件">13. 維護與重開條件</h2><p>發生下列任一情況時，必須更新本清單並重跑驗證：</p>
+<ol>
+<li>DP03 產品責任、Version／Release 狀態或三環境晉級規則改變。</li>
+<li>Provider Backend Git、資料表、CI/CD 或權限證據到位。</li>
+<li>GGAP payload、ACK、Launch Gate 或代理商開關契約到位。</li>
+<li>六個遊戲管理頁或 Game Round 快照欄位增加、刪除或改名。</li>
+<li>原型操作開始觸發真實外部副作用。</li>
+</ol>
+<p>後續 Mapping 只補實際命名與能力差異；若 Backend 現況與需求衝突，應留下「與需求衝突」紀錄並由產品決定調整方向，不得用現況程式靜默覆蓋 Decision Pack 03。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與使用情境">1. 目的與使用情境</a><a class="outline-level-2" href="#2-範圍與責任邊界">2. 範圍與責任邊界</a><a class="outline-level-3" href="#2-1-本頁包含">2.1 本頁包含</a><a class="outline-level-3" href="#2-2-本頁不包含">2.2 本頁不包含</a><a class="outline-level-2" href="#3-核心名詞與指標">3. 核心名詞與指標</a><a class="outline-level-2" href="#4-資訊架構與頁面區塊">4. 資訊架構與頁面區塊</a><a class="outline-level-2" href="#5-監控範圍與查詢">5. 監控範圍與查詢</a><a class="outline-level-2" href="#6-五張摘要卡">6. 五張摘要卡</a><a class="outline-level-2" href="#7-關注項目">7. 關注項目</a><a class="outline-level-2" href="#8-遊戲監控列表">8. 遊戲監控列表</a><a class="outline-level-2" href="#9-遊戲監控詳情">9. 遊戲監控詳情</a><a class="outline-level-2" href="#10-跨頁導流">10. 跨頁導流</a><a class="outline-level-2" href="#11-頁面狀態與錯誤處理">11. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#12-api-契約草案">12. API 契約草案</a><a class="outline-level-2" href="#13-響應式-無障礙與文案">13. 響應式、無障礙與文案</a><a class="outline-level-2" href="#14-前後端交付要求">14. 前後端交付要求</a><a class="outline-level-2" href="#15-驗收條件">15. 驗收條件</a><a class="outline-level-2" href="#16-測試重點">16. 測試重點</a><a class="outline-level-2" href="#17-待確認事項">17. 待確認事項</a><a class="outline-level-2" href="#18-placeholder-draft-移除條件">18. Placeholder／Draft 移除條件</a></nav>
+        <nav><a class="outline-level-2" href="#1-文件定位">1. 文件定位</a><a class="outline-level-2" href="#2-差異狀態定義">2. 差異狀態定義</a><a class="outline-level-2" href="#3-整體結論">3. 整體結論</a><a class="outline-level-2" href="#4-頁面與程式對照">4. 頁面與程式對照</a><a class="outline-level-2" href="#5-八組-dp03-契約對照">5. 八組 DP03 契約對照</a><a class="outline-level-2" href="#6-已完成的共用前端基礎">6. 已完成的共用前端基礎</a><a class="outline-level-3" href="#6-1-集中生命週期模型">6.1 集中生命週期模型</a><a class="outline-level-3" href="#6-2-集中-mock-api">6.2 集中 mock API</a><a class="outline-level-3" href="#6-3-round-不可變快照">6.3 Round 不可變快照</a><a class="outline-level-2" href="#7-mock-only-行為清單">7. Mock-only 行為清單</a><a class="outline-level-2" href="#8-待-provider-backend-與部署工具-mapping">8. 待 Provider Backend 與部署工具 Mapping</a><a class="outline-level-2" href="#9-待-ggap-mapping">9. 待 GGAP Mapping</a><a class="outline-level-2" href="#10-非本輪範圍">10. 非本輪範圍</a><a class="outline-level-2" href="#11-驗證證據">11. 驗證證據</a><a class="outline-level-2" href="#12-正式上線前阻擋清單">12. 正式上線前阻擋清單</a><a class="outline-level-2" href="#13-維護與重開條件">13. 維護與重開條件</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
 
                 <nav class="previous-next" aria-label="上一章與下一章">
-        <a class="previous-link" href="monitoring-risk-module.html"><span>← 上一章</span><strong>遊戲監控與風控</strong></a>
-        <a class="next-link" href="risk-reports.html"><span>下一章 →</span><strong>風控報表</strong></a>
+        <a class="previous-link" href="decision-pack-03-game-release-lifecycle.html"><span>← 上一章</span><strong>Decision Pack 03｜遊戲版本與發布生命週期</strong></a>
+        <span></span>
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>

@@ -31,18 +31,18 @@ export const pageReconciliation = {
         '本列表不直接發布；Test 操作導向環境頁，全域可用性、Release 與 GGAP 同步語意分離。',
         '正式 RTP／同步 API、permission 與外部 GGAP payload 待實作 Mapping。',
     ]),
-    'game-environments': record('gap', [
+    'game-environments': record('attention', [
         'Provider 負責 Test／DEMO／Production 的版本與 Artifact 發布，以及遊戲的全域上架／下架。',
         'GGAP 對已上架遊戲控制各代理商是否開放；該能力不屬於 Provider 本頁。',
         'Test 可作開發驗證，但不得混入正式財務、Game Round 或 Provider 風控資料。',
     ], [
-        '目前仍使用共用 Placeholder，以環境矩陣、待發布摘要與版本狀態表呈現 blueprint。',
-        'Production、DEMO、Test 數量、版本與待發布佇列皆為 mock。',
-        '沒有正式發布操作、驗證結果、失敗狀態或發布詳情。',
+        '已有三環境矩陣、待發布佇列、快速／高風險通道、發布詳情、驗證結果、回復與替代狀態。',
+        'Production、DEMO、Test、Version、Artifact、Release 與 Active Release 共用集中前端模型。',
+        '操作只更新 MSW／記憶體 mock，不會觸發 CI/CD、流量切換、持久化或 GGAP 通知。',
     ], [
         'Pack 03 同步後已定義環境矩陣、Version／Artifact、待發布佇列、preflight、快速／高風險通道、回滾及歷程。',
         'Test 可快速發布，同一 Artifact 晉級 DEMO／Production，既有 Round 固定原版本，Provider／GGAP Gate 分離。',
-        '程式仍為 Placeholder；正式 API、permission、CI/CD、補償與 GGAP payload 待實作 Mapping。',
+        '內容原型已完成；正式 API、permission、CI/CD、補償與 GGAP payload 待實作 Mapping。',
     ]),
     'game-settings': record('attention', [
         'Provider 負責自身遊戲設定，不延伸為代理商、商戶或會員層級的設定中心。',

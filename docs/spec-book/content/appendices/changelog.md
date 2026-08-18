@@ -1,5 +1,13 @@
 # 版本紀錄
 
+## 0.19.0-phase-three-pack-03-reconciled · 2026-08-18
+
+- 新增附錄 O《Decision Pack 03｜原型實作差異清單》，逐項區分 `ALIGNED_PROTOTYPE`、`MOCK_ONLY`、`BACKEND_PENDING`、`GGAP_PENDING` 與 `OUT_OF_SCOPE`。
+- 記錄 P0 `a1d5098`、P1 `c774bf8` 的七頁程式對照、八組 DP03 契約、集中前端模型、mock-only 行為及驗證證據。
+- 將「環境與發布」現況由 Placeholder 更新為內容原型；全站目前為 25 個內容原型、7 個 Placeholder，Deferred 範圍仍維持 11 頁。
+- 集中列出 Provider Backend、CI/CD、權限、Audit、Game Round 快照與 GGAP event／ACK／Launch Gate 的待接軌項目及正式上線阻擋條件。
+- 本版本只校正規格網站與現況追溯，不把 mock 操作宣告為正式發布能力。
+
 ## 0.18.0-phase-three-pack-03-source-aligned · 2026-08-18
 
 - 將 Decision Pack 03 回寫至 `PROVIDER_PORTAL_SPEC.md`、`PROVIDER_GGAP_INTEGRATION_CONTRACT.md`、`GAME_LIST_SPEC.md`、導覽與頁面地圖。

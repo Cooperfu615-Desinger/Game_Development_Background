@@ -7,11 +7,11 @@
 | 規格成熟度 | 目前需求基準 — 已同步 Decision Pack 03 |
 | 製作範圍 | Active |
 | 對應路由 | `/games/environments` |
-| 前端元件 | `src/views/Provider/Placeholder.vue`（GameEnvironments） |
-| 目前原型 | Placeholder blueprint；尚無正式發布操作 |
+| 前端元件 | `src/views/Games/Environments.vue` |
+| 目前原型 | 內容原型已完成；發布操作僅更新 MSW／記憶體 mock |
 | 頁面角色 | Test → DEMO → Production 晉級、Active Release、回滾與 Provider 全域可用性 |
 
-> 現行程式仍是 Placeholder，但本頁產品行為已依 Decision Pack 03 成立。Provider 管理三環境 Release 與遊戲全域可用性；GGAP 只管理已可用遊戲的代理商個別開放。實際 CI/CD 與 GGAP payload 取得後只做 Mapping。
+> 現行內容原型已依 Decision Pack 03 完成三環境 Release 與遊戲全域可用性流程。GGAP 只管理已可用遊戲的代理商個別開放；目前所有操作皆為前端 mock，實際 Backend、CI/CD 與 GGAP payload 取得後再做 Mapping。
 
 ## 1. 目的與責任邊界
 
@@ -52,7 +52,7 @@
       <a class="anatomy-zone lifecycle-anatomy__states" href="#9-頁面狀態與錯誤處理" aria-label="前往第六區，歷程與替代狀態"><span class="anatomy-zone__number">06</span><strong>歷程與替代狀態</strong><i>執行中</i><i>部分失敗</i><i>版本衝突</i><i>回復</i><i>Forbidden</i></a>
     </div>
   </div>
-  <div class="page-anatomy__legend"><span><i></i>三環境 Release</span><span><i></i>快速／高風險通道</span><small>需求基準已確認；現行頁仍為 Placeholder。</small></div>
+  <div class="page-anatomy__legend"><span><i></i>三環境 Release</span><span><i></i>快速／高風險通道</span><small>內容原型已完成；正式發布副作用仍待 Backend／CI/CD。</small></div>
 </figure>
 <!-- PAGE_VISUAL_END -->
 
@@ -138,6 +138,6 @@
 - `TBD-NFR-003`、`TBD-NFR-004`：冪等／補償、響應式與可存取性。
 - `TBD-EXT-001`、`TBD-EXT-003`：GGAP 與系統權限規格。
 
-## 14. Placeholder 移除條件
+## 14. 正式實作接軌條件
 
-只有目標頁的環境矩陣、待發布佇列、快速／高風險通道、詳情／預檢、回滾、全域可用性與替代狀態已實作並通過 UI 驗收後，才可移除程式 Placeholder。產品行為已確認；正式 API、permission 與 GGAP 契約取得後建立 Mapping。
+環境矩陣、待發布佇列、快速／高風險通道、詳情／預檢、回滾、全域可用性與替代狀態已完成原型及 UI 驗收。正式上線前仍須接入持久化 API、CI/CD、permission、audit、補償與 GGAP 契約；不得把目前 mock 成功訊息視為真實發布完成。

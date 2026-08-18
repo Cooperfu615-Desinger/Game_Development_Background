@@ -23,8 +23,8 @@ const failures = []
 let assertionCount = 0
 
 assert(contentPages.length === 32, '內容頁總數必須維持 32')
-assert(contentPages.filter((page) => page.prototype === 'complete').length === 24, '已有內容原型頁必須維持 24')
-assert(contentPages.filter((page) => page.prototype === 'placeholder').length === 8, 'Placeholder 頁必須維持 8')
+assert(contentPages.filter((page) => page.prototype === 'complete').length === 25, '已有內容原型頁必須維持 25')
+assert(contentPages.filter((page) => page.prototype === 'placeholder').length === 7, 'Placeholder 頁必須維持 7')
 assert(assessedPages.length === 21, '第一階段 Baseline／Active 頁必須維持 21')
 assert(deferredPages.length === 11, 'Deferred 頁必須維持 11')
 assert(modules.length === 9, 'Provider 主資訊架構必須維持九個工作群組')

@@ -23,8 +23,8 @@ const expectedIds = [
 const failures = []
 
 assert(contentPages.length === 32, `內容頁應為 32，實際為 ${contentPages.length}`)
-assert(contentPages.filter((page) => page.prototype === 'complete').length === 24, '已有內容原型頁應為 24')
-assert(contentPages.filter((page) => page.prototype === 'placeholder').length === 8, 'Placeholder 頁應為 8')
+assert(contentPages.filter((page) => page.prototype === 'complete').length === 25, '已有內容原型頁應為 25')
+assert(contentPages.filter((page) => page.prototype === 'placeholder').length === 7, 'Placeholder 頁應為 7')
 assert(contentPages.filter((page) => page.scope === 'baseline').length === 1, 'Baseline 頁應為 1')
 assert(contentPages.filter((page) => page.scope === 'active').length === 20, 'Active 頁應為 20')
 assert(contentPages.filter((page) => page.scope === 'deferred').length === 11, 'Deferred 頁應為 11')
@@ -44,7 +44,7 @@ assert(assessedPages.every((page) => pageReconciliation[page.id]), '所有 Basel
 assert(contentPages.filter((page) => page.scope === 'deferred').every((page) => !pageReconciliation[page.id]), 'Deferred 頁不應建立三層校準')
 assert(assessedPages.every((page) => reconciliationStates[pageReconciliation[page.id].state]), '所有頁面都必須使用已定義的校準狀態')
 assert(assessedPages.every((page) => ['confirmed', 'prototype', 'target'].every((key) => pageReconciliation[page.id][key].length > 0)), '每個本輪頁面都必須包含三層校準內容')
-assert(['aligned', 'attention', 'gap'].every((state, index) => assessedPages.filter((page) => pageReconciliation[page.id].state === state).length === [8, 12, 1][index]), '校準狀態頁數應為 8、12、1')
+assert(['aligned', 'attention', 'gap'].every((state, index) => assessedPages.filter((page) => pageReconciliation[page.id].state === state).length === [8, 13, 0][index]), '校準狀態頁數應為 8、13、0')
 const dependencyPageIds = new Set(dependencyChains.flatMap((chain) => chain.nodes.flatMap((node) => node.pageIds)))
 const dependencyEdges = dependencyChains.flatMap((chain) => chain.edges)
 assert(dependencyChains.length === 4, '跨頁依賴圖應包含四條核心業務鏈')

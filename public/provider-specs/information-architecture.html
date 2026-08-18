@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.18.0-phase-three-pack-03-source-aligned</span>
+            <span>0.19.0-phase-three-pack-03-reconciled</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -380,6 +380,10 @@
                         <i class="status-dot status-confirmed" aria-hidden="true"></i>
                         <span>Decision Pack 03｜遊戲版本與發布生命週期</span>
 
+                    </a><a href="decision-pack-03-implementation-reconciliation.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>Decision Pack 03｜原型實作差異清單</span>
+
                     </a>
             </div>
         </details>
@@ -433,13 +437,13 @@
 </thead>
 <tbody><tr>
 <td>已有內容原型</td>
-<td align="right">24</td>
+<td align="right">25</td>
 <td>已具備主要畫面內容；不代表正式 API 或權限完成</td>
 </tr>
 <tr>
 <td>Placeholder</td>
-<td align="right">8</td>
-<td>已有 route 與 mock blueprint，主要規格或內容待整理</td>
+<td align="right">7</td>
+<td>已有 route 與延後原因；主要規格或內容待整理</td>
 </tr>
 <tr>
 <td>Redirect</td>
@@ -482,7 +486,7 @@
 <li><strong>通知中心</strong>：通知類型、生命週期、偏好及權限仍待產品定義。</li>
 <li><strong>系統設定</strong>：Provider 使用者、角色、權限、憑證與操作稽核模型仍待完成。</li>
 </ul>
-<h3 id="環境與發布的本輪邊界">環境與發布的本輪邊界</h3><p>「環境與發布」仍列為 Active，但本輪只整理 Provider 自有責任：Production／DEMO 環境、遊戲全域上架／下架、版本與素材發布、發布前驗證，以及發布狀態／歷程。GGAP 同步、各代理商個別開放、跨系統重試與正式整合契約只標示責任邊界與依賴，等待 GGAP 規格後補充，不得自行推定。</p>
+<h3 id="環境與發布的本輪邊界">環境與發布的本輪邊界</h3><p>「環境與發布」仍列為 Active，內容原型已完成 Production／DEMO／Test、遊戲全域上架／下架、版本與素材發布、發布前驗證，以及發布狀態／歷程。所有操作目前只使用前端 mock；GGAP 同步、各代理商個別開放、跨系統重試與正式整合契約只標示責任邊界與依賴，等待 Backend／GGAP 證據後補充，不得自行推定。</p>
 <h2 id="第二階段製作進度">第二階段製作進度</h2><p>Batch A 已完成三頁完整 Draft：</p>
 <ul>
 <li>遊戲紀錄：維護既有 Baseline，補齊兩個財務頁的資料來源、deep link 與集中 TBD 對照。</li>
@@ -499,7 +503,7 @@
 <p>Batch C 已完成遊戲管理六頁完整 Draft：</p>
 <ul>
 <li>遊戲列表：三環境摘要、八類篩選、14 欄寬表、RTP Tips、詳情與導流。</li>
-<li>環境與發布：目標環境矩陣、發布組合、佇列、preflight、高風險操作及歷程；程式仍為 Placeholder。</li>
+<li>環境與發布：已完成三環境矩陣、發布組合、佇列、preflight、快速／高風險通道、回復及歷程內容原型；正式副作用仍待 Backend／CI/CD。</li>
 <li>遊戲設定：維護／限紅模板、Provider 點數、基礎 enum、草稿、審核與版本 snapshot。</li>
 <li>數值設定：理論數值與 RTP 監控分離、模擬／驗證／審核及發布參照。</li>
 <li>遊戲版本：artifact、相容性、lineage、組合參照及建立新 release job 的回復模型。</li>
@@ -551,10 +555,10 @@
 <td>遊戲管理</td>
 <td><a href="game-environments.html">環境與發布</a></td>
 <td><code>/games/environments</code></td>
-<td>Placeholder</td>
+<td>內容原型</td>
 <td>草案</td>
 <td>本輪製作</td>
-<td><code>src/views/Provider/Placeholder.vue</code></td>
+<td><code>src/views/Games/Environments.vue</code></td>
 </tr>
 <tr>
 <td>遊戲管理</td>
@@ -834,7 +838,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.18.0-phase-three-pack-03-source-aligned · 2026-08-18</span>
+                    <span>0.19.0-phase-three-pack-03-reconciled · 2026-08-18</span>
                 </footer>
             </div>
         </main>

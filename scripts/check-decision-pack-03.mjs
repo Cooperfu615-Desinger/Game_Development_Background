@@ -31,7 +31,7 @@ const expectedTbd = {
 const failures = []
 let assertionCount = 0
 
-assert(book.version === '0.18.0-phase-three-pack-03-source-aligned', '規格網站版本必須標示 Decision Pack 03 原始 Spec MD 已同步')
+assert(book.version === '0.19.0-phase-three-pack-03-reconciled', '規格網站版本必須標示 Decision Pack 03 原型實作差異已整理')
 assert(book.status === 'Phase 3 · Product Contract Baselines', '規格網站狀態必須維持 Product Contract Baselines')
 assert(Boolean(decisionPack), 'manifest 必須包含 Decision Pack 03')
 assert(decisionPack?.number === 'N', 'Decision Pack 03 必須使用附錄 N')
@@ -48,8 +48,8 @@ for (const [id, status] of Object.entries(expectedTbd)) {
 assert(tbdRegistry.length === 30, 'Decision Pack 03 不得增加、刪除或暗中解決集中 TBD')
 assert(deferredPages.length === 11, 'GGAP、通知中心與系統設定的 11 個 Deferred 頁面必須維持不變')
 assert(deferredPages.every((page) => page.status === 'outline' && !page.content), 'Deferred 頁面不得因 Decision Pack 03 產生推測內容')
-assert(environmentPage?.prototype === 'placeholder', '環境與發布原型在本次規格網站工作後仍必須維持 Placeholder')
-assert(environmentPage?.component === 'src/views/Provider/Placeholder.vue', 'Decision Pack 03 不得偽裝環境與發布原型已實作')
+assert(environmentPage?.prototype === 'complete', '環境與發布必須標示為已有內容原型')
+assert(environmentPage?.component === 'src/views/Games/Environments.vue', '環境與發布 manifest 必須追溯實際原型元件')
 
 for (const text of [
     'Decision Pack 03｜遊戲版本與發布生命週期',
@@ -136,10 +136,10 @@ assert(openIssues.includes('實作 Mapping'), '集中追蹤頁必須說明 Backe
 assert(documentControl.includes(book.version), '文件治理頁必須同步 Decision Pack 03 版本')
 assert(documentControl.includes('標準快速發布＋高風險發布'), '文件治理頁必須記錄簡化後的雙通道')
 assert(changelog.includes('0.18.0-phase-three-pack-03-source-aligned'), '版本紀錄必須記載 Decision Pack 03 Spec MD 同步')
-assert(projectIndex.includes('文件版本：2.25.0'), '專案交接索引必須同步 Decision Pack 03 Spec MD 文件版本')
+assert(projectIndex.includes('文件版本：2.26.0'), '專案交接索引必須同步 Decision Pack 03 實作差異文件版本')
 assert(projectIndex.includes(`${decisionPackId}.html`), '專案交接索引必須提供 Decision Pack 03 入口')
 assert(projectIndex.includes('Decision Pack 02、03 已同步至對應原始 Spec MD'), '專案交接索引必須記錄 Pack 03 Spec MD 已同步')
-assert(projectIndex.includes('Portal Vue 原型留給新開發 session 實作'), '專案交接索引必須保留 Portal 原型後續順序')
+assert(projectIndex.includes('decision-pack-03-implementation-reconciliation.html'), '專案交接索引必須提供 Decision Pack 03 實作差異清單入口')
 
 if (failures.length) {
     console.error(`Decision Pack 03 validation failed (${failures.length}/${assertionCount})`)

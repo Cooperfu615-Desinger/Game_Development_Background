@@ -1,8 +1,8 @@
 # 遊戲商 Provider Portal 文件索引
 
-> 文件版本：2.25.0
+> 文件版本：2.26.0
 > 更新日期：2026-08-18
-> 文件狀態：規格網站已進入第三階段；Decision Pack 01、02、03 均已形成目前需求基準；Decision Pack 02、03 已同步至對應原始 Spec MD，Pack 03 Portal 原型待新開發 session 實作，Backend Git 只作後續 Mapping
+> 文件狀態：規格網站已進入第三階段；Decision Pack 01、02、03 均已形成目前需求基準；Decision Pack 02、03 已同步至對應原始 Spec MD；Pack 03 Portal 原型與正式差異清單已完成，Backend／GGAP Git 只作後續 Mapping
 
 ## 閱讀前提
 
@@ -57,7 +57,10 @@
 - [`../public/provider-specs/decision-pack-03-game-release-lifecycle.html`](../public/provider-specs/decision-pack-03-game-release-lifecycle.html)
   - 第三階段遊戲版本與發布生命週期共用產品契約，定義 Game、Version、Artifact、Release、三環境晉級、快速／高風險發布、Provider 全域可用性、GGAP 代理商開關邊界、回滾與既有 Game Round 相容。
   - 本包是目前需求基準，不等待 Backend Git 才成立；現有資料表、CI/CD、Launch Token、GGAP payload、permission 與 audit 只在後續建立實作差異表。
-  - 內容已同步至 `PROVIDER_PORTAL_SPEC.md`、`PROVIDER_GGAP_INTEGRATION_CONTRACT.md`、`GAME_LIST_SPEC.md`、導覽／頁面地圖、六個遊戲管理頁與共用資料／API／安全／QA 規格；Portal Vue 原型留給新開發 session 實作。
+  - 內容已同步至 `PROVIDER_PORTAL_SPEC.md`、`PROVIDER_GGAP_INTEGRATION_CONTRACT.md`、`GAME_LIST_SPEC.md`、導覽／頁面地圖、六個遊戲管理頁、共用資料／API／安全／QA 規格及 Portal Vue 原型。
+- [`../public/provider-specs/decision-pack-03-implementation-reconciliation.html`](../public/provider-specs/decision-pack-03-implementation-reconciliation.html)
+  - 逐項對照 DP03 需求基準、目前原型、mock-only 限制、Provider Backend／CI/CD 待辦、GGAP 待接軌內容與正式上線阻擋條件。
+  - 原型可操作不等於正式副作用完成；後續取得 Backend／GGAP Git 時，依清單更新 Mapping 結果，不回頭用現況覆蓋產品需求。
 - [`../public/provider-specs/game-round-records.html`](../public/provider-specs/game-round-records.html)、[`../public/provider-specs/finance-overview.html`](../public/provider-specs/finance-overview.html)、[`../public/provider-specs/finance-agent-games.html`](../public/provider-specs/finance-agent-games.html)
   - 第二階段 Batch A 完整 Draft：Game Round 查詢、全域財務摘要及代理商 × 遊戲彙總。
   - 三頁均提供原型對齊的置頂畫面示意、完整規格、跨頁導流、驗收與集中 TBD 對照。
@@ -66,7 +69,7 @@
   - 四頁均提供原型對齊的置頂六區畫面示意，並分開 Test、環境、時間、Event／Alert、隔離、GGAP 及 Deferred 通知邊界。
 - [`../public/provider-specs/game-list.html`](../public/provider-specs/game-list.html)、[`../public/provider-specs/game-environments.html`](../public/provider-specs/game-environments.html)、[`../public/provider-specs/game-settings.html`](../public/provider-specs/game-settings.html)、[`../public/provider-specs/game-math.html`](../public/provider-specs/game-math.html)、[`../public/provider-specs/game-versions.html`](../public/provider-specs/game-versions.html)、[`../public/provider-specs/game-assets.html`](../public/provider-specs/game-assets.html)
   - 第二階段 Batch C 的頁面骨架已依 Decision Pack 03 回寫：Game／Version／Artifact／Release、Test → DEMO → Production、快速／高風險發布、回滾及全域可用性使用同一需求基準。
-  - 環境與發布仍是程式 Placeholder；規格已確認目標畫面、流程、狀態與移除條件，不代表 Portal 發布原型或正式副作用已完成。
+  - 環境與發布已完成三環境矩陣、快速／高風險通道、驗證、回復與歷程內容原型；目前操作只更新 mock，不代表正式 API、CI/CD、permission、audit 或 GGAP 副作用已完成。
 - [`../public/provider-specs/website-banners.html`](../public/provider-specs/website-banners.html)、[`../public/provider-specs/website-content.html`](../public/provider-specs/website-content.html)、[`../public/provider-specs/website-releases.html`](../public/provider-specs/website-releases.html)、[`../public/provider-specs/lobby-overview.html`](../public/provider-specs/lobby-overview.html)、[`../public/provider-specs/lobby-games.html`](../public/provider-specs/lobby-games.html)、[`../public/provider-specs/lobby-management.html`](../public/provider-specs/lobby-management.html)、[`../public/provider-specs/lobby-demo.html`](../public/provider-specs/lobby-demo.html)、[`../public/provider-specs/lobby-preview.html`](../public/provider-specs/lobby-preview.html)
   - 第二階段 Batch D 完整 Draft：官網 Banner／靜態內容／發布追溯，以及大廳公開資料、管理、DEMO telemetry 與指定 revision 預覽。
   - DEMO 資料明確不建立會員、錢包或正式 Game Session，亦不混入 Production Game Round、財務與 Provider 風控。

@@ -23,6 +23,7 @@
 - DP-02 是產品需求基準；本頁仍集中追蹤 API path、資料表、實際門檻、permission key、GGAP payload 與後端實作證據等外部驗證點。
 - [`DP-03｜遊戲版本與發布生命週期`](decision-pack-03-game-release-lifecycle.html) 直接記錄 Game、Version、Artifact、Release、三環境晉級、快速／高風險發布、全域可用性、回滾與既有 Game Round 相容。
 - DP-03 是產品需求基準；現有資料表、CI/CD、Launch Token、GGAP 遊戲開關、permission 與 audit 只作後續實作 Mapping，不是規格成立的前置條件。
+- [`DP-03｜原型實作差異清單`](decision-pack-03-implementation-reconciliation.html) 分開標示已對齊原型、mock-only、Provider Backend、GGAP 與非本輪範圍，並集中保存正式上線阻擋條件。
 - 取得責任方或後端證據後，以版本紀錄更新規格與剩餘限制，不直接刪除原始問題或靜默覆蓋需求。集中 TBD 的 Partial／Definition／External 狀態代表技術契約仍待對照，不把已成立的產品需求降回審閱問卷。
 
 ## 六類 TBD 登錄

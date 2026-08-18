@@ -1,7 +1,7 @@
 export const book = {
     title: 'Provider Portal 產品與系統規格書',
     shortTitle: 'Provider Portal Specs',
-    version: '0.18.0-phase-three-pack-03-source-aligned',
+    version: '0.19.0-phase-three-pack-03-reconciled',
     updatedAt: '2026-08-18',
     owner: 'Provider Portal Product / Engineering',
     status: 'Phase 3 · Product Contract Baselines',
@@ -106,13 +106,13 @@ export const modules = [
                 visualZones: zones(['環境摘要', '#4-環境摘要'], ['查詢條件', '#5-查詢與結果摘要'], ['結果摘要', '#5-查詢與結果摘要'], ['遊戲寬列表', '#6-遊戲列表規格'], ['RTP Tips 與狀態', '#7-rtp-tips-與狀態'], ['遊戲詳情', '#8-遊戲詳情與導流']),
                 visualNotes: ['三環境分離', '列表不直接發布', 'GGAP 同步 ≠ 代理商開放', '全域可用性 ≠ Release'],
             })),
-            page('game-environments', '環境與發布', '/games/environments', 'src/views/Provider/Placeholder.vue', 'placeholder', ['docs/PROVIDER_PORTAL_SPEC.md', 'docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md'], gameLifecyclePage({
+            page('game-environments', '環境與發布', '/games/environments', 'src/views/Games/Environments.vue', 'complete', ['docs/PROVIDER_PORTAL_SPEC.md', 'docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md'], gameLifecyclePage({
                 content: 'content/modules/game-management/game-environments.md',
                 summary: 'Test → DEMO → Production 晉級、快速／高風險發布、回滾、全域可用性與不可變歷程。',
                 visualTitle: '環境與發布目標畫面示意',
-                visualSummary: '本頁仍為 Placeholder；示意定義目標環境矩陣、發布佇列、預檢與歷程。',
+                visualSummary: '參照現行 /games/environments 原型；呈現環境矩陣、發布佇列、預檢、雙通道與歷程。',
                 visualZones: zones(['環境摘要', '#4-環境摘要'], ['查詢與遊戲脈絡', '#5-查詢與環境矩陣'], ['環境矩陣', '#5-查詢與環境矩陣'], ['待發布佇列', '#6-待發布佇列'], ['發布詳情與操作', '#7-發布詳情與操作'], ['歷程與替代狀態', '#9-頁面狀態與錯誤處理']),
-                visualNotes: ['需求基準已確認', '程式仍為 Placeholder', 'Test 可快速發布', 'GGAP 代理商開關不在本頁'],
+                visualNotes: ['內容原型已完成', '正式副作用待 Backend', 'Test 可快速發布', 'GGAP 代理商開關不在本頁'],
             })),
             page('game-settings', '遊戲設定', '/games/settings', 'src/views/Games/Settings.vue', 'complete', ['docs/PROVIDER_PORTAL_PAGE_MAP.md'], gameLifecyclePage({
                 content: 'content/modules/game-management/game-settings.md',
@@ -412,6 +412,7 @@ export const appendices = [
     { ...section('decision-pack-01-round-finance', 'L', 'Decision Pack 01｜Game Round、投注與財務共用產品契約', 'Round 1:N Bet、識別快照、時間／日結、三層投注設定、USDT 與財務調帳的目前需求基準。', 'content/appendices/decision-pack-01-round-finance.md'), status: 'confirmed' },
     { ...section('decision-pack-02-monitoring-risk', 'M', 'Decision Pack 02｜監控與風控共用產品契約', 'Signal、Detection Result、Risk Event、Alert、緩解、隔離、GGAP 通知與稽核的目前需求基準。', 'content/appendices/decision-pack-02-monitoring-risk.md'), status: 'confirmed' },
     { ...section('decision-pack-03-game-release-lifecycle', 'N', 'Decision Pack 03｜遊戲版本與發布生命週期', 'Game、Version、Artifact、環境晉級、快速／高風險發布、全域可用性、回滾與既有 Round 相容的目前需求基準。', 'content/appendices/decision-pack-03-game-release-lifecycle.md'), status: 'confirmed' },
+    { ...section('decision-pack-03-implementation-reconciliation', 'O', 'Decision Pack 03｜原型實作差異清單', '逐項對照 DP03 需求基準、目前 Portal 原型、mock 限制、Provider Backend 與 GGAP 待接軌內容。', 'content/appendices/decision-pack-03-implementation-reconciliation.md'), status: 'confirmed' },
 ]
 
 function page(id, title, route, component, prototype, sources, overrides = {}) {

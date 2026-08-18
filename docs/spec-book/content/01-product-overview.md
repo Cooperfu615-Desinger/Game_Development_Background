@@ -17,7 +17,7 @@ Provider Portal 只服務同一個 Provider 內部人員。正式角色預計拆
 ## 目前產品階段
 
 - 目前重點是畫面、資訊架構與規格骨架。
-- 32 個內容頁中，24 個已有內容原型，8 個仍使用 Placeholder。
+- 32 個內容頁中，25 個已有內容原型，7 個仍使用 Placeholder。
 - Decision Pack 01、02、03 已形成產品需求基準；正式 API、permission、既有 schema 與 GGAP payload 仍待實作 Mapping。
 - Prototype / Mock data 只用於確認資訊架構與欄位方向。
 

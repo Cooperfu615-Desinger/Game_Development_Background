@@ -38,7 +38,7 @@ export const pageReadiness = {
     'game-environments': readiness('C', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
         '正式發布組合、生命週期、狀態機與補償策略',
         'Production 核准、allowed actions、併發、冪等與 audit 契約',
-        'GGAP 同步等待外部規格；程式仍需由 Placeholder 實作成目標頁',
+        '內容原型已完成；GGAP 同步、正式 API、CI/CD、permission 與 audit 仍待實作 Mapping',
     ]),
     'game-settings': readiness('C', ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'], ['partial', 'partial', 'partial', 'complete', 'complete', 'complete'], [
         '設定 schema、版本、時區、點數精度與相依驗證的正式契約',

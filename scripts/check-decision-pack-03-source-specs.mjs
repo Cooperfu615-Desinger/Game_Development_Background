@@ -33,8 +33,8 @@ const packageJson = await readFile(path.join(repositoryRoot, 'package.json'), 'u
 const failures = []
 let assertionCount = 0
 
-assert(book.version === '0.18.0-phase-three-pack-03-source-aligned', '規格網站版本必須標示 Pack 03 原始 Spec MD 已同步')
-assert(projectIndex.includes('文件版本：2.25.0'), '專案交接索引必須同步 Pack 03 Spec MD 文件版本')
+assert(book.version === '0.19.0-phase-three-pack-03-reconciled', '規格網站版本必須標示 Pack 03 原型實作差異已整理')
+assert(projectIndex.includes('文件版本：2.26.0'), '專案交接索引必須同步 Pack 03 實作差異文件版本')
 assert(projectIndex.includes('Decision Pack 02、03 已同步至對應原始 Spec MD'), '專案交接索引必須記錄 Pack 03 Spec MD 同步狀態')
 assert(packageJson.includes('spec:decision-pack-03-source-check'), 'package scripts 必須提供 Pack 03 source check')
 

@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.18.0-phase-three-pack-03-source-aligned</span>
+            <span>0.19.0-phase-three-pack-03-reconciled</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -380,6 +380,10 @@
                         <i class="status-dot status-confirmed" aria-hidden="true"></i>
                         <span>Decision Pack 03｜遊戲版本與發布生命週期</span>
 
+                    </a><a href="decision-pack-03-implementation-reconciliation.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>Decision Pack 03｜原型實作差異清單</span>
+
                     </a>
             </div>
         </details>
@@ -467,7 +471,7 @@
 </tr>
 <tr>
 <td>現行程式</td>
-<td>遊戲管理已有多頁內容原型；環境與發布仍為 Placeholder，正式發布副作用尚未實作</td>
+<td>六個遊戲管理頁與 Game Round 快照已完成 DP03 內容原型；正式發布副作用尚未實作</td>
 </tr>
 <tr>
 <td>文件用途</td>
@@ -987,18 +991,18 @@ AND GGAP 判定代理商、商戶與會員可使用
 </thead>
 <tbody><tr>
 <td>遊戲、版本、設定、數值與素材頁</td>
-<td>已有內容原型</td>
-<td>以 Game／Version／Artifact／Release 關聯取代分散 mock 狀態</td>
+<td>已共用集中生命週期 mock</td>
+<td>接入正式 schema、持久化、permission 與 audit</td>
 </tr>
 <tr>
 <td>環境與發布</td>
-<td>仍為 Placeholder</td>
-<td>實作三環境矩陣、快速／高風險通道、排程、驗證、回滾與歷程</td>
+<td>已有三環境矩陣、雙通道、驗證、回復與歷程原型</td>
+<td>接入 CI/CD、流量切換、健康檢查、補償與正式 API</td>
 </tr>
 <tr>
 <td>版本與發布狀態</td>
-<td>以頁面展示值為主</td>
-<td>拆分 Version 成熟度、Release 結果與 Active Release</td>
+<td>已拆分 Version 成熟度、Release 結果與 Active Release</td>
+<td>由 Backend allowed actions 與 append-only history 強制執行</td>
 </tr>
 <tr>
 <td>Production 操作</td>
@@ -1016,7 +1020,7 @@ AND GGAP 判定代理商、商戶與會員可使用
 <td>Launch Context 與 Round 永久版本快照落實到正式契約</td>
 </tr>
 </tbody></table></div>
-<p>Decision Pack 03 已同步至原始頁面 Spec MD 與共用契約；目前仍不修改遊戲管理 Vue 原型。下一步由新開發 session 依「規格網站 → Spec MD → Portal 原型」順序實作。</p>
+<p>Decision Pack 03 已同步至原始頁面 Spec MD、共用契約與 Portal 原型；正式對照結果與上線阻擋條件見附錄 O《Decision Pack 03｜原型實作差異清單》。目前原型互動只更新 MSW／記憶體 mock，不代表 Backend、CI/CD 或 GGAP 副作用已完成。</p>
 <h2 id="實作接軌檢查清單">實作接軌檢查清單</h2><p>以下項目只用於拿到 Provider／GGAP Backend Git 後做現況 Mapping，不是本包的阻擋或待決策：</p>
 <ol>
 <li>現有 Game、Version、Artifact、Release 與 Active Version 的資料表、ID、enum 與 migration 對照。</li>
@@ -1046,11 +1050,11 @@ AND GGAP 判定代理商、商戶與會員可使用
 
                 <nav class="previous-next" aria-label="上一章與下一章">
         <a class="previous-link" href="decision-pack-02-monitoring-risk.html"><span>← 上一章</span><strong>Decision Pack 02｜監控與風控共用產品契約</strong></a>
-        <span></span>
+        <a class="next-link" href="decision-pack-03-implementation-reconciliation.html"><span>下一章 →</span><strong>Decision Pack 03｜原型實作差異清單</strong></a>
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.18.0-phase-three-pack-03-source-aligned · 2026-08-18</span>
+                    <span>0.19.0-phase-three-pack-03-reconciled · 2026-08-18</span>
                 </footer>
             </div>
         </main>

@@ -9,7 +9,7 @@
 | 文件名稱 | Provider Portal 產品與系統規格書 |
 | 適用產品 | GGAP Provider Portal |
 | 主要讀者 | 產品、前端、後端、QA、GGAP 對接團隊 |
-| 目前版本 | `0.18.0-phase-three-pack-03-source-aligned` |
+| 目前版本 | `0.19.0-phase-three-pack-03-reconciled` |
 | 目前狀態 | Phase 3 · Product Contract Baselines |
 | 主要語言 | 台灣繁體中文；技術值與協定名稱保留英文 |
 
@@ -76,7 +76,7 @@
 
 第二階段 Batch B 已完成「儀表板、監控總覽、風控報表、風控告警／處理」四頁完整 Draft。四頁形成「跨模組摘要 → 服務與指標觀察 → Risk Event 分析 → Alert 人工作業」鏈，並明確保留 Test 排除、Production／DEMO 隔離、既有 Round 不受隔離阻斷及 GGAP／通知 Deferred 邊界。
 
-第二階段 Batch C 已完成遊戲管理六頁完整 Draft，形成「遊戲主資料 → 一般設定 → 數值版本 → 程式版本 → 素材版本 → 環境發布」鏈。環境與發布的程式仍為 Placeholder，規格只建立目標 UI／流程與驗收骨架；正式生命週期、API、權限、核准及 GGAP 同步仍待集中 TBD。
+第二階段 Batch C 已完成遊戲管理六頁完整 Draft，形成「遊戲主資料 → 一般設定 → 數值版本 → 程式版本 → 素材版本 → 環境發布」鏈。後續 DP03 原型實作已將「環境與發布」替換為內容原型，並讓六頁共用同一組生命週期 mock；正式 API、CI/CD、權限、核准及 GGAP 同步仍待集中 TBD。
 
 第二階段 Batch D 已完成官方網站與遊戲大廳八頁完整 Draft，形成「官網內容草稿 → 安全預覽 → 獨立發布／追溯」及「遊戲公開草稿 → readiness → 指定 revision 預覽 → DEMO telemetry」兩條鏈。DEMO identity、展示額度與試玩工作階段不建立正式會員、錢包或 Game Session 業務模型，也不進入正式 Game Round、財務或 Provider 風控；正式內容／大廳生命週期、API、權限及安全契約仍待集中 TBD。
 
@@ -87,3 +87,5 @@
 第三階段附錄 M《Decision Pack 02｜監控與風控共用產品契約》採用「目前需求基準」定位，不再以替代方案或逐題核准問卷表達。它直接定義 Signal → Detection Result → Risk Event → Alert → Mitigation Job → Recovery 的完整產品閉環，以及規則版本、事件／告警生命週期、隔離、GGAP 通知、可靠性與稽核要求。現行三個頁面仍是前端 mock；API path、實際門檻、permission key、資料表與 GGAP payload 屬外部驗證點，取得證據後以版本差異更新，不降低目前功能需求的完整度。
 
 第三階段附錄 N《Decision Pack 03｜遊戲版本與發布生命週期》採用「目前需求基準」定位，直接定義 Game、Version、Artifact、Release、Test／DEMO／Production 晉級、標準快速發布＋高風險發布、Provider 全域可用性、GGAP 代理商開關邊界、回滾與既有 Game Round 相容。日常發布以自動檢查與單一發布管理者加速，數值、金額、契約、資料結構及安全變更才要求第二人核准；內容已回寫 Portal、遊戲列表、GGAP 契約、六個遊戲管理頁與共用資料／API／安全／QA 規格。Backend Git 只用於後續實作 Mapping，不阻擋本產品需求成立。
+
+第三階段附錄 O《Decision Pack 03｜原型實作差異清單》已完成需求、原型與正式交付的逐項對照。Portal 的生命週期畫面與 mock 互動列為 `ALIGNED_PROTOTYPE`／`MOCK_ONLY`；資料持久化、CI/CD、權限與稽核列為 `BACKEND_PENDING`；GGAP 事件、ACK 與 Launch Gate 列為 `GGAP_PENDING`。這些分類不得互相替代，也不得因原型可操作而宣告正式功能完成。

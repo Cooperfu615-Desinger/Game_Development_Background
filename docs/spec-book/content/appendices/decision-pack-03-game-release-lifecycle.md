@@ -33,7 +33,7 @@
 | 直接影響頁面 | 遊戲列表、遊戲版本、環境與發布、遊戲設定、數值設定、遊戲素材 |
 | 間接影響頁面 | 遊戲紀錄、監控總覽、風控報表、風控告警／處理、GGAP 對接 |
 | 納管環境 | Test、DEMO、Production 各自部署與永久資料隔離 |
-| 現行程式 | 遊戲管理已有多頁內容原型；環境與發布仍為 Placeholder，正式發布副作用尚未實作 |
+| 現行程式 | 六個遊戲管理頁與 Game Round 快照已完成 DP03 內容原型；正式發布副作用尚未實作 |
 | 文件用途 | 表達目前希望的完整產品功能；現有 Backend 與部署工具只用於後續接軌與差異分析 |
 
 本包不是等待 Backend Git 的草稿。產品行為依本包成立；資料表、API path、CI/CD、permission key、GGAP payload 與實際 enum 取得後再建立 Mapping，不以現況缺口降低目前需求。
@@ -476,14 +476,14 @@ Game Round 建立時至少固定：`round_id`、Game、Version、Build、Release
 
 | 能力 | 現行 Portal | 本規格要求的後續結果 |
 |---|---|---|
-| 遊戲、版本、設定、數值與素材頁 | 已有內容原型 | 以 Game／Version／Artifact／Release 關聯取代分散 mock 狀態 |
-| 環境與發布 | 仍為 Placeholder | 實作三環境矩陣、快速／高風險通道、排程、驗證、回滾與歷程 |
-| 版本與發布狀態 | 以頁面展示值為主 | 拆分 Version 成熟度、Release 結果與 Active Release |
+| 遊戲、版本、設定、數值與素材頁 | 已共用集中生命週期 mock | 接入正式 schema、持久化、permission 與 audit |
+| 環境與發布 | 已有三環境矩陣、雙通道、驗證、回復與歷程原型 | 接入 CI/CD、流量切換、健康檢查、補償與正式 API |
+| 版本與發布狀態 | 已拆分 Version 成熟度、Release 結果與 Active Release | 由 Backend allowed actions 與 append-only history 強制執行 |
 | Production 操作 | 尚未產生正式副作用 | 後端自動檢查、風險分類、實際部署、健康驗證與 audit |
 | GGAP 可用性同步 | 契約仍待現況對照 | Provider 全域狀態、可靠投遞、ACK 與代理商開關責任分離 |
 | 既有 Round | 頁面規格已有保留原則 | Launch Context 與 Round 永久版本快照落實到正式契約 |
 
-Decision Pack 03 已同步至原始頁面 Spec MD 與共用契約；目前仍不修改遊戲管理 Vue 原型。下一步由新開發 session 依「規格網站 → Spec MD → Portal 原型」順序實作。
+Decision Pack 03 已同步至原始頁面 Spec MD、共用契約與 Portal 原型；正式對照結果與上線阻擋條件見附錄 O《Decision Pack 03｜原型實作差異清單》。目前原型互動只更新 MSW／記憶體 mock，不代表 Backend、CI/CD 或 GGAP 副作用已完成。
 
 ## 實作接軌檢查清單
 

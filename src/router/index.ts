@@ -96,14 +96,8 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'games/environments',
                 name: 'GameEnvironments',
-                component: () => import('../views/Provider/Placeholder.vue'),
-                meta: {
-                    title: 'menu.providerGameEnvironments',
-                    providerPlaceholder: {
-                        description: '管理正式、DEMO 與測試環境的版本狀態，以及已部署版本的發布入口。',
-                        responsibility: '呈現環境與已部署版本狀態，保留正式與 DEMO 啟用／停用流程入口；不負責建置與部署。',
-                    },
-                }
+                component: () => import('../views/Games/Environments.vue'),
+                meta: { title: 'menu.providerGameEnvironments' }
             },
             {
                 path: 'games/settings',

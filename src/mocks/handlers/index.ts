@@ -16,6 +16,7 @@ import { systemAdminHandlers } from './systemAdmin'
 import { jackpotAdminHandlers } from './jackpotAdmin'
 import { subAccountAdminHandlers } from './subAccountAdmin'
 import { providerGameRoundHandlers } from './providerGameRounds'
+import { providerGameLifecycleHandlers } from './providerGameLifecycle'
 
 export const handlers = [
     ...authHandlers,
@@ -36,4 +37,5 @@ export const handlers = [
     ...jackpotAdminHandlers,
     ...subAccountAdminHandlers,
     ...providerGameRoundHandlers,
+    ...providerGameLifecycleHandlers,
 ]

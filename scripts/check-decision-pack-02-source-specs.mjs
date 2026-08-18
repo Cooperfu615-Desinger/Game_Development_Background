@@ -120,8 +120,8 @@ for (const text of ['Monitoring Signal', 'Detection Result', 'Risk Event', 'Aler
     assert(pack.includes(text), `Decision Pack 02 上游缺少 ${text}`)
 }
 
-assert(projectIndex.includes('文件版本：2.24.0'), '專案交接索引必須同步 Decision Pack 02 Spec MD 與 Decision Pack 03 版本')
-assert(projectIndex.includes('Decision Pack 02 已同步至監控與風控原始 Spec MD'), '專案交接索引必須記錄 Spec MD 同步狀態')
+assert(projectIndex.includes('文件版本：2.25.0'), '專案交接索引必須同步 Decision Pack 02／03 Spec MD 版本')
+assert(projectIndex.includes('Decision Pack 02、03 已同步至對應原始 Spec MD'), '專案交接索引必須記錄 Decision Pack 02／03 Spec MD 同步狀態')
 
 if (failures.length) {
     console.error(`Decision Pack 02 source spec validation failed (${failures.length}/${assertionCount})`)

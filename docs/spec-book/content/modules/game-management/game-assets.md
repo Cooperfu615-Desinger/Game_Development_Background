@@ -4,20 +4,20 @@
 
 | 項目 | 內容 |
 | --- | --- |
-| 規格成熟度 | Draft — Batch C 完整頁面規格 |
+| 規格成熟度 | 目前需求基準 — 已同步 Decision Pack 03 |
 | 製作範圍 | Active |
 | 對應路由 | `/games/assets` |
 | 前端元件 | `src/views/Games/Assets.vue` |
-| 主要來源 | `PROVIDER_PORTAL_PAGE_MAP.md`、現行原型 |
+| 主要來源 | `PROVIDER_PORTAL_PAGE_MAP.md`、`Decision Pack 03`、現行原型 |
 | 頁面角色 | 遊戲展示／營運素材、版本、語系與發布參照 |
 
-> 現行上傳 Dialog 只建立前端 mock 草稿，沒有檔案傳輸、掃描、儲存或正式發布。素材替換不得原地覆寫已發布檔案；發布組合必須引用不可變素材版本。
+> 現行上傳 Dialog 只建立前端 mock 草稿，沒有檔案傳輸、掃描、儲存或正式發布。素材替換不得原地覆寫已發布檔案；Game Version 與 Artifact manifest 必須引用不可變素材版本。
 
 ## 1. 目的與責任邊界
 
 - 管理 Provider 自身遊戲的 Icon、Banner、Loading、Table Skin 等素材及其語系／裝置用途。
 - 預覽 metadata、版本、檔案驗證、掃描、審核與遊戲版本關聯。
-- 建立上傳／替換草稿，通過處理後形成不可變素材版本，供發布組合引用。
+- 建立上傳／替換草稿，通過處理後形成不可變素材版本，供 Game Version／Artifact manifest 引用。
 - 不管理代理商／商戶品牌素材或會員資料；官網／大廳只引用已核准資產。
 
 ## 2. 素材模型
@@ -25,7 +25,7 @@
 - `asset_id` 表示素材邏輯項，`asset_version_id` 表示不可變檔案版本；storage key／URL 不作主鍵。
 - 至少保存 game_id、type、locale、device／usage、dimensions、file size、MIME、checksum、alt text、status、scan／validation、related game versions、owner、times。
 - 語系以繁中預設；fallback、支援清單與同類素材完整性依 `TBD-DAT-006`。
-- 已發布或被 release job 引用的素材版本不可覆寫／刪除；替換建立新版本。
+- 已發布或被 Version、Artifact、Release、Game Round 引用的素材版本不可覆寫／刪除；替換建立新版本。
 
 ## 3. 六區塊資訊架構
 
@@ -70,15 +70,15 @@
 
 ## 7. 素材詳情
 
-大型 Dialog 顯示安全預覽、完整 metadata、alt text、checksum、scan／validation、來源版本、替換 lineage、語系 fallback、使用中的遊戲版本／release jobs、owner、審核及 audit。下載原始檔需獨立權限與短效 URL。
+大型 Dialog 顯示安全預覽、完整 metadata、alt text、checksum、scan／validation、來源版本、替換 lineage、語系 fallback、使用中的 Game Versions／Artifacts／Releases、owner、核准及 audit。下載原始檔需獨立權限與短效 URL。
 
 ## 8. 上傳與替換流程
 
-流程：選遊戲／類型／locale／usage → 選檔 → client hint → server upload → MIME／尺寸／checksum／惡意檔案掃描 → metadata／alt text → 草稿 → 審核 → approved → 發布組合引用。
+流程：選遊戲／類型／locale／usage → 選檔 → client hint → server upload → MIME／尺寸／checksum／惡意檔案掃描 → metadata／alt text → 草稿 → 驗證／必要核准 → approved → Game Version／Artifact 引用。
 
 - 失敗上傳可有限重試；同 checksum 重複檔需提示既有版本。
 - 替換建立新 `asset_version_id`，不得覆寫舊檔；已引用版本保持可重現。
-- Production 使用的素材變更需理由、差異預覽與核准；正式檔案保存、刪除與 CDN 失效待契約。
+- 影響遊戲結果、核心流程、合規或 Launch 相容性的素材變更屬高風險，要求第二人核准；純展示且具安全回滾的素材可走快速通道。正式檔案保存、刪除與 CDN 失效待實作 Mapping。
 
 ## 9. 頁面狀態與錯誤處理
 
@@ -99,7 +99,7 @@
 
 頁面使用主內容完整寬度。Mobile 素材卡片保留縮圖、ID、類型、語系、狀態、掃描與詳情；上傳需鍵盤可用、進度與錯誤可公告。所有圖像必須有可管理 alt text 或明確裝飾性標記。
 
-驗收條件：素材／版本 ID 分開；已引用檔案不可覆寫；語系與 usage 明確；預覽不暴露 storage；檔案驗證／掃描／審核骨架完整；上傳 mock 不冒充正式成功；Loading／processing／failure／Forbidden 可驗收。
+驗收條件：素材／版本 ID 分開；已引用檔案不可覆寫；Game Version／Artifact 精確引用；語系與 usage 明確；預覽不暴露 storage；檔案驗證／掃描與風險分類完整；上傳 mock 不冒充正式成功；Loading／processing／failure／Forbidden 可驗收。
 
 ## 12. 測試重點
 
@@ -110,12 +110,12 @@
 
 ## 13. 待確認事項
 
-- `TBD-DOM-003`：素材版本與發布組合。
+- `TBD-DOM-003`：現有素材 schema 與 DP03 Version／Artifact／Release 的 Mapping。
 - `TBD-DAT-006`：格式、尺寸、語系、usage、fallback 與 alt text。
 - `TBD-API-001`、`TBD-API-005`：共通／素材 API。
 - `TBD-SEC-001`、`TBD-SEC-003`、`TBD-SEC-004`：權限、核准、下載與保存。
 - `TBD-NFR-004`、`TBD-EXT-003`：前端驗收與角色模型。
 
-## 14. Draft 移除條件
+## 14. 實作接軌條件
 
-素材 schema、檔案限制、掃描／儲存、版本／引用、上傳／審核、API 與權限核准並通過驗收後，才可改為 Confirmed。
+目前產品行為依本頁與 Decision Pack 03 成立；正式素材 schema、檔案限制、儲存、API 與 permission 取得後建立 Mapping，並以驗收結果更新實作狀態。

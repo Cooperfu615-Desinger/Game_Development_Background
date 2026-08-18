@@ -1,6 +1,6 @@
 # Provider Portal 頁面地圖
 
-> 文件版本：0.5.0
+> 文件版本：0.6.0
 > 更新日期：2026-08-13
 > 狀態：Provider Portal 導覽、路由與頁面原型已整理；儀表板、監控與風控前端 mock 原型已完成，正式資料契約、警戒門檻與更新頻率待確認
 
@@ -81,7 +81,7 @@ GGAP 對接
 | 遊戲設定 | `/games/settings` | 管理遊戲基本設定 | 遊戲基本資料、展示設定與 Provider 運營設定入口 | 既有前端原型 | 否 | Game settings schema、update contract、audit event |
 | 數值設定 | `/games/math` | 管理遊戲數學與數值規則入口 | RTP、點數規則、限紅、換算規則與規則版本 | 既有前端原型 | 否 | Math config、RTP、point rule、conversion rule |
 | 遊戲素材 | `/games/assets` | 管理遊戲展示與營運素材 | 圖片、影片、圖示、素材狀態與版本關聯 | 既有前端原型 | 否 | Asset metadata、storage reference、publish status |
-| 環境與發布 | `/games/environments` | 管理正式、DEMO、測試環境狀態與已部署版本啟用入口 | Production、DEMO、Test 狀態、版本、發布狀態與操作紀錄 | Phase 3 mock blueprint | 是 | Environment status、deployed versions、release action、audit event |
+| 環境與發布 | `/games/environments` | 管理 Test → DEMO → Production 晉級、Active Release、回滾與 Provider 全域可用性 | 三環境矩陣、快速／高風險發布、Artifact 驗證、排程、回滾、全域狀態與 audit | Phase 3 mock blueprint | 是 | Game／Version／Artifact／Release、active release、release action、global availability、audit event |
 
 ### 2.3 數據與報表
 
@@ -165,7 +165,7 @@ GGAP 對接
 - 獨立的 Game Round 財務明細頁；單筆資料沿用 `/reports`「遊戲紀錄」。
 - 獨立跨機台 Jackpot 管理。
 - Provider 專屬活動、官網活動與遊戲內活動管理。
-- 測試環境的上下架、版本更新或正式發布操作；測試環境只提供監控。
+- 測試環境不提供全域上下架或正式業務操作；具權限編輯者仍可建立 Test Release、替換 build 與重跑驗證。
 
 ## 5. 文件與 API 待辦
 

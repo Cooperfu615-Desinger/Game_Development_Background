@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.17.0-phase-three-pack-03-baseline</span>
+            <span>0.18.0-phase-three-pack-03-source-aligned</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -36,7 +36,7 @@
         <aside class="sidebar" id="spec-navigation" data-sidebar>
             <div class="sidebar-intro">
                 <span class="sidebar-kicker">SPECIFICATION MANUAL</span>
-                <p>2026-08-17 更新</p>
+                <p>2026-08-18 更新</p>
             </div>
             <nav aria-label="規格書章節">
 
@@ -1016,7 +1016,7 @@ AND GGAP 判定代理商、商戶與會員可使用
 <td>Launch Context 與 Round 永久版本快照落實到正式契約</td>
 </tr>
 </tbody></table></div>
-<p>目前這個 session 只建立 Decision Pack 03 規格網站，不修改遊戲管理 Vue 原型或同步原始頁面 Spec MD。後續依「規格網站 → Spec MD → 新開發 session」順序處理。</p>
+<p>Decision Pack 03 已同步至原始頁面 Spec MD 與共用契約；目前仍不修改遊戲管理 Vue 原型。下一步由新開發 session 依「規格網站 → Spec MD → Portal 原型」順序實作。</p>
 <h2 id="實作接軌檢查清單">實作接軌檢查清單</h2><p>以下項目只用於拿到 Provider／GGAP Backend Git 後做現況 Mapping，不是本包的阻擋或待決策：</p>
 <ol>
 <li>現有 Game、Version、Artifact、Release 與 Active Version 的資料表、ID、enum 與 migration 對照。</li>
@@ -1027,14 +1027,14 @@ AND GGAP 判定代理商、商戶與會員可使用
 <li>現有角色、permission、Audit Log、通知事件與資料保存方式。</li>
 </ol>
 <p>取得證據後輸出「已存在、部分存在、尚未存在、與需求衝突、僅命名不同、無法由 Git 判斷」差異表。差異表用來規劃實作；不直接以現有程式靜默覆蓋本需求基準。</p>
-<h2 id="規格同步範圍">規格同步範圍</h2><p>本包完成審閱後，下一步同步更新：</p>
+<h2 id="規格同步範圍">規格同步範圍</h2><p>本包已同步更新：</p>
 <ul>
 <li><code>docs/GAME_LIST_SPEC.md</code></li>
 <li><code>docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md</code></li>
 <li>規格網站的遊戲列表、遊戲版本、環境與發布、遊戲設定、數值設定、遊戲素材頁</li>
 <li>共通領域規則、資料字典、enum、API、安全、非功能性需求與 QA 章節</li>
 </ul>
-<p>同步時以本包為上游；各頁文件只描述自己的呈現與操作，不重複建立另一套 Version、Release、環境或上下架生命週期。</p>
+<p>同步以本包為上游；各頁文件只描述自己的呈現與操作，不重複建立另一套 Version、Release、環境或上下架生命週期。實際 Backend／GGAP 證據取得後只新增 Mapping 與差異紀錄，不靜默改寫本基準。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
@@ -1050,7 +1050,7 @@ AND GGAP 判定代理商、商戶與會員可使用
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.17.0-phase-three-pack-03-baseline · 2026-08-17</span>
+                    <span>0.18.0-phase-three-pack-03-source-aligned · 2026-08-18</span>
                 </footer>
             </div>
         </main>

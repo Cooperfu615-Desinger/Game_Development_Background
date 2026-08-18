@@ -4,11 +4,11 @@
 
 | 項目 | 內容 |
 | --- | --- |
-| 規格成熟度 | Draft — Batch C 完整頁面規格 |
+| 規格成熟度 | 目前需求基準 — 已同步 Decision Pack 03 |
 | 製作範圍 | Active |
 | 對應路由 | `/games/math` |
 | 前端元件 | `src/views/Games/Math.vue` |
-| 主要來源 | `PROVIDER_RISK_CONTROL_SPEC.md`、現行原型 |
+| 主要來源 | `PROVIDER_RISK_CONTROL_SPEC.md`、`Decision Pack 03`、現行原型 |
 | 頁面角色 | 遊戲數值版本、RTP 監控與審核入口 |
 
 > 數值設定是 Provider 遊戲規則真實來源之一；RTP 監控是觀測結果。設定版本與監控指標不得混成同一狀態，原型的「偏離 ≥ 5%」僅為 mock，不是正式 Risk Event 門檻。
@@ -17,12 +17,12 @@
 
 - 管理理論 RTP、波動度、賠率表、點數／限紅相容條件與數值版本。
 - 顯示 Production／DEMO 的實際 RTP、樣本、窗口與偏差，協助決定是否調查。
-- 透過複製、模擬、驗證、送審與發布組合生效，不直接改寫 active 數值。
+- 透過複製、模擬、驗證、候選與環境 Release 生效，不直接改寫已發布數值。
 - 不修改已結算 Game Round；不把單筆超額派彩直接判定為 Risk Event。
 
 ## 2. 數值與監控模型
 
-- 數值版本至少含 `math_version_id`、game_id、理論 RTP、波動度、賠率表／checksum、點數規則、相容限紅、版本狀態與審核。
+- 數值版本至少含 `math_version_id`、game_id、理論 RTP、波動度、賠率表／checksum、點數規則、相容限額、版本狀態與核准證據，並由 Game Version 精確引用。
 - 監控 snapshot 另含 environment、actual RTP、deviation、sample rounds、window、updated_at、rule／threshold version。
 - 理論值與實際值需明確標示單位及基準；偏差公式與 percentage／percentage point 語意待核准。
 - Production／DEMO 分開監控，Test 不進 Provider 風控。
@@ -75,13 +75,13 @@
 
 ## 8. 數值詳情
 
-大型 Dialog 顯示：ID／遊戲／版本／狀態；理論 RTP、波動度、賠率表 checksum、點數與限紅相容性；監控 snapshot；來源版本、複製 lineage、審核、發布組合及 audit。已生效內容只讀。
+大型 Dialog 顯示：ID／遊戲／版本／狀態；理論 RTP、波動度、賠率表 checksum、點數與限額相容性；監控 snapshot；來源版本、複製 lineage、核准、Game Version／Release 引用及 audit。已發布內容只讀。
 
 ## 9. 審核與狀態
 
-流程骨架：從既有版本複製 → 編輯草稿 → 模擬／驗證 → 送審 → 核准 → 由環境發布組合生效 → 封存。Production 必填理由與差異，操作使用 version／idempotency；正式雙人核准待決策。
+流程骨架：從既有版本複製 → 編輯草稿 → 模擬／驗證 → 納入 Candidate Version → 高風險核准 → 由環境 Release 生效 → 保留歷史。RTP、賠付、金額或結果規則變更固定屬高風險，Production 必須由第二位管理者核准；核准後若內容或 Artifact 改變，既有核准立即失效。
 
-審核表單需顯示目前／目標值、差異、適用環境、模擬結果、相容限紅、風險說明及 reason。審核通過不等於已發布。
+核准表單需顯示目前／目標值、差異、適用環境、模擬結果、相容限額、風險說明及 reason。核准通過不等於已發布；只有 Production Release 成功後，對應 Version 才成為 `published`，目前生效仍由 Active Release 判定。
 
 ## 10. 頁面狀態與錯誤處理
 
@@ -102,7 +102,7 @@
 
 頁面使用主內容完整寬度。Mobile 卡片分開「設定」與「監控」，圖表提供等價表格／文字摘要，Dialog／審核管理焦點與錯誤公告。
 
-驗收條件：理論設定與監控 snapshot 分離；Production／DEMO 不混算、Test 排除；active 不可直改；審核通過不等於發布；偏離門檻不寫死；既有 Round 不被修改；列表、詳情、狀態與跨頁發布關聯可追溯。
+驗收條件：理論設定與監控 snapshot 分離；Production／DEMO 不混算、Test 排除；已發布數值不可直改；數值變更自動走高風險第二人核准；核准不等於發布；偏離門檻不寫死；既有 Round 固定原數值快照；列表、詳情、狀態與 Release 關聯可追溯。
 
 ## 13. 測試重點
 
@@ -113,12 +113,12 @@
 
 ## 14. 待確認事項
 
-- `TBD-DOM-003`：數值版本與發布組合。
+- `TBD-DOM-003`：現有數值 schema 與 DP03 Version／Release 的 Mapping。
 - `TBD-DAT-005`：RTP、樣本、窗口與風控門檻。
 - `TBD-API-001`、`TBD-API-005`：共通／數值 API。
 - `TBD-SEC-001`、`TBD-SEC-003`、`TBD-SEC-004`：權限、核准與匯出。
 - `TBD-NFR-004`、`TBD-EXT-003`：前端驗收與角色模型。
 
-## 15. Draft 移除條件
+## 15. 實作接軌條件
 
-數值 schema、精度、模擬／審核／發布關聯、監控門檻、API 與權限核准且驗收通過後，才可改為 Confirmed。
+目前產品行為依本頁與 Decision Pack 03 成立；正式 schema、精度、API、permission 與監控門檻取得後建立 Mapping，並以驗收結果更新實作狀態。

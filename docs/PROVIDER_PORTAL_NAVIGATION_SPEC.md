@@ -1,6 +1,6 @@
 # Provider Portal 導覽列與頁面範圍規格
 
-> 版本：0.4.0
+> 版本：0.5.0
 > 更新日期：2026-08-13
 > 狀態：第一至六階段導覽、路由、儀表板與監控／風控獨立 mock 原型、文件地圖與整體驗證已完成；正式 API、權限、監控門檻與更新頻率待確認
 
@@ -48,7 +48,7 @@
 
 遊戲列表的詳細欄位、環境狀態、Release 顯示、RTP Tips、篩選與互動方向，見 [`GAME_LIST_SPEC.md`](./GAME_LIST_SPEC.md)。
 
-「環境與發布」負責正式環境與官網 DEMO 的上架、下架、維護及已部署版本啟用；測試環境只提供部署版本與健康監控，不提供操作按鈕。
+「環境與發布」依 [`Decision Pack 03`](./spec-book/content/appendices/decision-pack-03-game-release-lifecycle.md) 管理 Test、DEMO、Production 的 Release：Test 允許具權限編輯者快速發布 build 與重跑驗證，DEMO 驗證正式候選，Production 只接受 DEMO 通過的同一 Artifact；同頁另管理 Provider 全域上架、維護、暫停、回滾與不可變歷程。
 
 DEMO 可以實際遊玩，但必須使用隔離的 DEMO / 沙盒資料，不得連到 GGAP 正式會員錢包、代理商帳務或正式結算。
 

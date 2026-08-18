@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.17.0-phase-three-pack-03-baseline</span>
+            <span>0.18.0-phase-three-pack-03-source-aligned</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -36,7 +36,7 @@
         <aside class="sidebar" id="spec-navigation" data-sidebar>
             <div class="sidebar-intro">
                 <span class="sidebar-kicker">SPECIFICATION MANUAL</span>
-                <p>2026-08-17 更新</p>
+                <p>2026-08-18 更新</p>
             </div>
             <nav aria-label="規格書章節">
 
@@ -429,18 +429,18 @@
         </nav>
         <div class="visual-scope-notes" aria-label="畫面閱讀邊界">
             <span>閱讀邊界</span>
-            <small>三環境分離</small><small>Test 只讀</small><small>GGAP 同步 ≠ 代理商開放</small><small>本頁不直接發布</small>
+            <small>三環境分離</small><small>列表不直接發布</small><small>GGAP 同步 ≠ 代理商開放</small><small>全域可用性 ≠ Release</small>
         </div>
         <div id="game-list-visual-panel" class="visual-overview-panel" data-anatomy-panel>
             <figure class="page-anatomy lifecycle-anatomy lifecycle-anatomy--list" aria-label="遊戲列表六區塊畫面示意">
   <div class="lifecycle-anatomy__canvas">
     <a class="anatomy-zone lifecycle-anatomy__cards" href="#4-環境摘要" aria-label="前往第一區，環境摘要"><span class="anatomy-zone__number">01</span><span><small>正式上架</small><strong>14</strong><i>Production</i></span><span><small>DEMO 上架</small><strong>12</strong><i>隔離資料</i></span><span><small>需要留意</small><strong>3</strong><i>維護／同步／版本</i></span></a>
-    <a class="anatomy-zone lifecycle-anatomy__filters" href="#5-查詢與結果摘要" aria-label="前往第二區，查詢條件"><span class="anatomy-zone__number">02</span><strong>查詢條件</strong><i>代號／名稱</i><i>類型</i><i>正式狀態</i><i>DEMO 狀態</i><i>Test 狀態</i><i>營運控制</i><i>GGAP 同步</i><i>RTP 監控</i><b>查詢</b></a>
+    <a class="anatomy-zone lifecycle-anatomy__filters" href="#5-查詢與結果摘要" aria-label="前往第二區，查詢條件"><span class="anatomy-zone__number">02</span><strong>查詢條件</strong><i>代號／名稱</i><i>類型</i><i>正式狀態</i><i>DEMO 狀態</i><i>Test 狀態</i><i>全域可用性</i><i>GGAP 同步</i><i>RTP 監控</i><b>查詢</b></a>
     <a class="anatomy-zone lifecycle-anatomy__toolbar" href="#5-查詢與結果摘要" aria-label="前往第三區，結果摘要"><span class="anatomy-zone__number">03</span><strong>18 款遊戲</strong><small>預設依 game_id 排序 · 每頁 10 筆</small><i>版本啟用與發布請至環境與發布</i></a>
     <a class="anatomy-zone lifecycle-anatomy__table" href="#6-遊戲列表規格" aria-label="前往第四區，遊戲列表"><span class="anatomy-zone__number">04</span><strong>遊戲寬列表</strong><small>遊戲資訊　Production（版號／狀態／RTP）　DEMO（版號／狀態／RTP）　Test（版號／狀態）　營運　GGAP　詳情</small><i>GAME-001　星際寶藏　老虎機　v1.4.2 ＋　上架　96.08%　v1.4.2　上架　95.96%　v1.5.0　已部署　正常　已同步</i></a>
     <div class="lifecycle-anatomy__split">
       <a class="anatomy-zone lifecycle-anatomy__tip" href="#7-rtp-tips-與狀態" aria-label="前往第五區，RTP Tips"><span class="anatomy-zone__number">05</span><small>RTP TIPS</small><strong>實際 RTP 96.08%</strong><i>理論 96.00% · 偏差 +0.08% · 12,480 Round · 近 24h · 正常</i></a>
-      <a class="anatomy-zone lifecycle-anatomy__detail" href="#8-遊戲詳情與導流" aria-label="前往第六區，遊戲詳情"><span class="anatomy-zone__number">06</span><small>GAME SUMMARY</small><strong>星際寶藏 / GAME-001</strong><i>Production · DEMO · Test · 營運控制 · GGAP 同步</i></a>
+      <a class="anatomy-zone lifecycle-anatomy__detail" href="#8-遊戲詳情與導流" aria-label="前往第六區，遊戲詳情"><span class="anatomy-zone__number">06</span><small>GAME SUMMARY</small><strong>星際寶藏 / GAME-001</strong><i>Production · DEMO · Test · 全域可用性 · GGAP 同步</i></a>
     </div>
   </div>
   <div class="page-anatomy__legend"><span><i></i>Provider 遊戲主資料</span><span><i></i>三環境摘要</span><small>參照現行 `/games` 原型；GGAP 同步不代表代理商開放。</small></div>
@@ -461,7 +461,7 @@
 </thead>
 <tbody><tr>
 <td>規格成熟度</td>
-<td>Draft — Batch C 完整頁面規格</td>
+<td>目前需求基準 — 已同步 Decision Pack 03</td>
 </tr>
 <tr>
 <td>製作範圍</td>
@@ -477,7 +477,7 @@
 </tr>
 <tr>
 <td>主要來源</td>
-<td><code>GAME_LIST_SPEC.md</code>、<code>PROVIDER_PORTAL_SPEC.md</code></td>
+<td><code>GAME_LIST_SPEC.md</code>、<code>PROVIDER_PORTAL_SPEC.md</code>、<code>Decision Pack 03</code></td>
 </tr>
 <tr>
 <td>頁面角色</td>
@@ -485,29 +485,29 @@
 </tr>
 </tbody></table></div>
 <blockquote>
-<p>本頁是唯讀總覽與跨頁入口，不直接發布版本、調整 RTP／限紅、上傳素材或控制代理商個別開關。原型資料與狀態為 mock；正式遊戲、環境與 GGAP 同步契約仍受集中 TBD 管理。</p>
+<p>本頁是唯讀總覽與跨頁入口，不直接發布版本、調整 RTP／限額、上傳素材或控制代理商個別開關。Game、Version、Artifact、Release 與全域可用性依 Decision Pack 03；實際 API 名稱與 GGAP payload 取得後只做 Mapping。</p>
 </blockquote>
 <h2 id="1-目的與責任邊界">1. 目的與責任邊界</h2><ul>
 <li>顯示 Provider 所有遊戲，包括尚未部署、啟用或上架者。</li>
 <li>同時比較 Production、DEMO、Test 的版本與狀態，並查看 Production／DEMO RTP 摘要。</li>
-<li>顯示 Production 營運控制及 GGAP 目錄／Release 同步結果，提供詳情與相關管理頁導流。</li>
+<li>顯示 Provider 全域可用性及 GGAP 目錄／Release／狀態事件同步結果，提供詳情與相關管理頁導流。</li>
 <li>不建立錢包、代理商、商戶或會員主資料；GGAP 同步不等於代理商個別開放。</li>
-<li>Test 只讀且不得進入正式 Game Round、財務或 Provider 風控。</li>
+<li>本列表不提供 Test 操作；具權限編輯者可在環境與發布頁建立 Test Release。Test 不得進入正式 Game Round、財務、監控或 Provider 風控。</li>
 </ul>
 <h2 id="2-核心資料與環境規則">2. 核心資料與環境規則</h2><ul>
 <li><code>game_id</code> 是穩定主鍵；名稱、類型、環境版本與狀態不得作 join key。</li>
-<li>Production／DEMO 的狀態 Draft：上架、維護中、未啟用；Test：未部署、部署中、已部署、部署失敗。</li>
-<li>無生效版本時顯示 <code>—</code> 與未啟用；<code>＋</code> 只代表有較新已部署 Release，不取代目前生效版號。</li>
-<li>Production 營運控制 Draft：正常、維護中、暫停新局；與發布狀態分開。</li>
+<li>Production／DEMO 顯示 Active Release 與主要 Release 結果；Test 顯示目前 Active／驗證中的 Version 與 build 狀態。</li>
+<li>無 Active Release 時顯示 <code>—</code> 與未發布；<code>＋</code> 只代表有較新候選／Release，不取代目前生效版號。</li>
+<li>Provider 全域可用性固定分為 <code>unpublished</code>、<code>available</code>、<code>maintenance</code>、<code>suspended</code>、<code>retired</code>，與 Release 狀態分開；Production 發布成功不自動把 Game 切成 <code>available</code>。</li>
 <li>下架、維護或暫停新局只阻擋新 Launch，不改寫既有 Game Round。</li>
 </ul>
 <h2 id="3-六區塊資訊架構">3. 六區塊資訊架構</h2><ol>
 <li>環境摘要：Production 上架、DEMO 上架、需要留意。</li>
-<li>查詢條件：主資料、三環境、營運、同步與 RTP 狀態。</li>
+<li>查詢條件：主資料、三環境、全域可用性、同步與 RTP 狀態。</li>
 <li>結果摘要：命中數、applied filters、排序與唯讀說明。</li>
 <li>遊戲寬列表：14 個欄位與兩層群組表頭。</li>
 <li>RTP Tips 與狀態：理論／實際／偏差／樣本／窗口／更新。</li>
-<li>遊戲詳情：三環境、營運、同步及跨頁導流。</li>
+<li>遊戲詳情：三環境、全域可用性、同步及跨頁導流。</li>
 </ol>
 <h2 id="4-環境摘要">4. 環境摘要</h2><ul>
 <li>Production 上架與 DEMO 上架分別計算；不得合併為「總上架」。</li>
@@ -534,8 +534,8 @@
 <td>各自獨立欄位，不使用單一 environmentMode。</td>
 </tr>
 <tr>
-<td>營運控制</td>
-<td>只代表 Production。</td>
+<td>全域可用性</td>
+<td>Game 層級狀態，不由 Production Release 推導。</td>
 </tr>
 <tr>
 <td>GGAP 同步</td>
@@ -550,19 +550,19 @@
 <li>編輯條件不立即改變結果；按查詢才套用。重置恢復全部並查詢。</li>
 <li>預設 <code>game_id asc</code>，每頁 10 筆；正式分頁、排序由伺服器處理。</li>
 </ul>
-<h2 id="6-遊戲列表規格">6. 遊戲列表規格</h2><p>桌機版兩層表頭共 14 欄：遊戲代號、遊戲名稱、類型；Production 版號／狀態／RTP；DEMO 版號／狀態／RTP；Test 版號／狀態；營運控制；GGAP 同步；詳情。</p>
+<h2 id="6-遊戲列表規格">6. 遊戲列表規格</h2><p>桌機版兩層表頭共 14 欄：遊戲代號、遊戲名稱、類型；Production 版號／狀態／RTP；DEMO 版號／狀態／RTP；Test 版號／狀態；全域可用性；GGAP 同步；詳情。</p>
 <ul>
-<li>Production／DEMO 版號是目前生效 Release；Test 是 RD 目前部署版本。</li>
-<li>Production／DEMO 可使用不同 Release，不要求同步。</li>
+<li>Production／DEMO 版號是 Active Release 指向的 Version；Release ID 在詳情另列。Test 不把 <code>build_id</code> 當版號。</li>
+<li>正式候選必須使用同一 Artifact 由 DEMO 晉級 Production；因發布時點不同，各環境可暫時有不同 Active Release。</li>
 <li>RTP 欄只顯示實際值；無資料顯示 <code>—</code>，不可顯示 0%。</li>
 <li>狀態使用文字、圖示與低飽和色，不得只靠顏色。</li>
 <li>Desktop 使用水平捲動與必要凍結欄；Mobile 轉為每遊戲卡片，仍保留三環境與詳情入口。</li>
 </ul>
 <h2 id="7-rtp-tips-與狀態">7. RTP Tips 與狀態</h2><p>Tips 至少顯示理論 RTP、實際 RTP、偏差、統計 Round 數、時間窗口、最後更新、監控狀態與規則版本。偏差不代表已形成 Risk Event；門檻、樣本與風控關聯依 <code>TBD-DAT-005</code>。Test 不顯示 RTP。</p>
 <h2 id="8-遊戲詳情與導流">8. 遊戲詳情與導流</h2><ul>
-<li>詳情 Dialog 顯示三環境版本／狀態、Production／DEMO RTP、營運控制、GGAP 同步與更新時間。</li>
+<li>詳情 Dialog 顯示三環境 Active Version／Release、Production／DEMO RTP、全域可用性、GGAP 同步與更新時間。</li>
 <li>Production／DEMO 版號、狀態及 <code>＋</code> 導向 <code>/games/environments?game_id=...&amp;environment=...</code>。</li>
-<li>營運控制導向 <code>/games/settings?game_id=...</code>；數值、版本、素材使用各自 route 與精確 <code>game_id</code>。</li>
+<li>全域可用性導向 <code>/games/environments?game_id=...</code>；設定、數值、版本、素材使用各自 route 與精確 <code>game_id</code>。</li>
 <li>GGAP 對接模組目前 Deferred；只顯示同步摘要與依賴，不承諾可用細節頁。</li>
 </ul>
 <h2 id="9-頁面狀態與錯誤處理">9. 頁面狀態與錯誤處理</h2><p>首次載入顯示摘要／篩選／表格 skeleton；查無資料保留條件與清除入口；查詢失敗顯示重新載入；局部 RTP／同步失敗以 <code>—</code> 與來源狀態呈現；Forbidden 不先渲染資料；pending release、stale、無資料需分開。</p>
@@ -579,7 +579,7 @@
 </tr>
 <tr>
 <td>遊戲詳情</td>
-<td>主資料、三環境 snapshot、RTP、營運、同步、allowed links。</td>
+<td>主資料、三環境 Active Release snapshot、RTP、全域可用性、同步、allowed links。</td>
 </tr>
 <tr>
 <td>篩選選項</td>
@@ -588,7 +588,7 @@
 </tbody></table></div>
 <p>正式 path、schema、狀態轉換及 permission key 依 <code>TBD-API-001</code>、<code>TBD-API-005</code>、<code>TBD-DOM-003</code>、<code>TBD-SEC-001</code>。</p>
 <h2 id="11-前後端交付與驗收">11. 前後端交付與驗收</h2><p>前端需分開 draft／applied filters、保留穩定 ID 與各環境語意、不從列資料反算摘要；後端強制 Provider scope，提供三環境及直接 GGAP snapshot，不回傳代理商主資料。</p>
-<p>驗收條件：14 欄與兩層表頭完整；三環境不混用；Test 唯讀；RTP Tips 含樣本與窗口；<code>＋</code> 不取代生效版；GGAP 同步不等於代理商開放；Loading／empty／error／stale／Forbidden 可驗收；Desktop／Mobile 可操作。</p>
+<p>驗收條件：14 欄與兩層表頭完整；三環境不混用；本列表不直接發布；RTP Tips 含樣本與窗口；<code>＋</code> 不取代生效版；全域可用性與 Release 分離；GGAP 同步不等於代理商開放；Loading／empty／error／stale／Forbidden 可驗收；Desktop／Mobile 可操作。</p>
 <h2 id="12-測試重點">12. 測試重點</h2><ul>
 <li>多條件組合、排序分頁、快速重查與 response race。</li>
 <li>無版本、pending release、部署／同步失敗、無 RTP 與樣本不足。</li>
@@ -596,19 +596,19 @@
 <li>長遊戲名稱／ID、寬表格、390px 卡片與鍵盤操作。</li>
 </ul>
 <h2 id="13-待確認事項">13. 待確認事項</h2><ul>
-<li><code>TBD-DOM-003</code>：發布組合與生命週期。</li>
+<li><code>TBD-DOM-003</code>：現有資料模型與 DP03 Game／Version／Artifact／Release 的 Mapping。</li>
 <li><code>TBD-DAT-005</code>：RTP 門檻、窗口與樣本。</li>
 <li><code>TBD-API-001</code>、<code>TBD-API-005</code>：共通及遊戲生命週期 API。</li>
 <li><code>TBD-SEC-001</code>：資料 scope 與 permission key。</li>
 <li><code>TBD-NFR-001</code>、<code>TBD-NFR-004</code>：列表效能、響應式與可存取性。</li>
 <li><code>TBD-EXT-003</code>：系統設定／角色模型。</li>
 </ul>
-<h2 id="14-draft-移除條件">14. Draft 移除條件</h2><p>正式遊戲 schema、三環境狀態、RTP 資料、API、權限與 deep link 核准並通過驗收後，才可改為 Confirmed。</p>
+<h2 id="14-實作接軌條件">14. 實作接軌條件</h2><p>目前產品行為依本頁與 Decision Pack 03 成立；正式遊戲 schema、API、權限與 deep link 取得後建立 Mapping，並以驗收結果更新實作狀態。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-核心資料與環境規則">2. 核心資料與環境規則</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-環境摘要">4. 環境摘要</a><a class="outline-level-2" href="#5-查詢與結果摘要">5. 查詢與結果摘要</a><a class="outline-level-2" href="#6-遊戲列表規格">6. 遊戲列表規格</a><a class="outline-level-2" href="#7-rtp-tips-與狀態">7. RTP Tips 與狀態</a><a class="outline-level-2" href="#8-遊戲詳情與導流">8. 遊戲詳情與導流</a><a class="outline-level-2" href="#9-頁面狀態與錯誤處理">9. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#10-api-契約草案">10. API 契約草案</a><a class="outline-level-2" href="#11-前後端交付與驗收">11. 前後端交付與驗收</a><a class="outline-level-2" href="#12-測試重點">12. 測試重點</a><a class="outline-level-2" href="#13-待確認事項">13. 待確認事項</a><a class="outline-level-2" href="#14-draft-移除條件">14. Draft 移除條件</a></nav>
+        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-核心資料與環境規則">2. 核心資料與環境規則</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-環境摘要">4. 環境摘要</a><a class="outline-level-2" href="#5-查詢與結果摘要">5. 查詢與結果摘要</a><a class="outline-level-2" href="#6-遊戲列表規格">6. 遊戲列表規格</a><a class="outline-level-2" href="#7-rtp-tips-與狀態">7. RTP Tips 與狀態</a><a class="outline-level-2" href="#8-遊戲詳情與導流">8. 遊戲詳情與導流</a><a class="outline-level-2" href="#9-頁面狀態與錯誤處理">9. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#10-api-契約草案">10. API 契約草案</a><a class="outline-level-2" href="#11-前後端交付與驗收">11. 前後端交付與驗收</a><a class="outline-level-2" href="#12-測試重點">12. 測試重點</a><a class="outline-level-2" href="#13-待確認事項">13. 待確認事項</a><a class="outline-level-2" href="#14-實作接軌條件">14. 實作接軌條件</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -619,7 +619,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.17.0-phase-three-pack-03-baseline · 2026-08-17</span>
+                    <span>0.18.0-phase-three-pack-03-source-aligned · 2026-08-18</span>
                 </footer>
             </div>
         </main>

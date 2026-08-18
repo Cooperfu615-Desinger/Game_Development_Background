@@ -483,7 +483,7 @@ Game Round 建立時至少固定：`round_id`、Game、Version、Build、Release
 | GGAP 可用性同步 | 契約仍待現況對照 | Provider 全域狀態、可靠投遞、ACK 與代理商開關責任分離 |
 | 既有 Round | 頁面規格已有保留原則 | Launch Context 與 Round 永久版本快照落實到正式契約 |
 
-目前這個 session 只建立 Decision Pack 03 規格網站，不修改遊戲管理 Vue 原型或同步原始頁面 Spec MD。後續依「規格網站 → Spec MD → 新開發 session」順序處理。
+Decision Pack 03 已同步至原始頁面 Spec MD 與共用契約；目前仍不修改遊戲管理 Vue 原型。下一步由新開發 session 依「規格網站 → Spec MD → Portal 原型」順序實作。
 
 ## 實作接軌檢查清單
 
@@ -500,11 +500,11 @@ Game Round 建立時至少固定：`round_id`、Game、Version、Build、Release
 
 ## 規格同步範圍
 
-本包完成審閱後，下一步同步更新：
+本包已同步更新：
 
 - `docs/GAME_LIST_SPEC.md`
 - `docs/PROVIDER_GGAP_INTEGRATION_CONTRACT.md`
 - 規格網站的遊戲列表、遊戲版本、環境與發布、遊戲設定、數值設定、遊戲素材頁
 - 共通領域規則、資料字典、enum、API、安全、非功能性需求與 QA 章節
 
-同步時以本包為上游；各頁文件只描述自己的呈現與操作，不重複建立另一套 Version、Release、環境或上下架生命週期。
+同步以本包為上游；各頁文件只描述自己的呈現與操作，不重複建立另一套 Version、Release、環境或上下架生命週期。實際 Backend／GGAP 證據取得後只新增 Mapping 與差異紀錄，不靜默改寫本基準。

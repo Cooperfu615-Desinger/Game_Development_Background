@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.17.0-phase-three-pack-03-baseline</span>
+            <span>0.18.0-phase-three-pack-03-source-aligned</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -36,7 +36,7 @@
         <aside class="sidebar" id="spec-navigation" data-sidebar>
             <div class="sidebar-intro">
                 <span class="sidebar-kicker">SPECIFICATION MANUAL</span>
-                <p>2026-08-17 更新</p>
+                <p>2026-08-18 更新</p>
             </div>
             <nav aria-label="規格書章節">
 
@@ -436,12 +436,21 @@
 <li>點數與 USDT 的歷史換算結果可追溯。</li>
 <li>GGAP 重試、Callback 與通知不造成重複交易或狀態誤判。</li>
 </ul>
-<h2 id="規格完成定義">規格完成定義</h2><p>頁面只有在前端能回答「如何呈現」、後端能回答「如何提供」，且 QA 能回答「如何驗證」時，才可由 Draft 升為 Confirmed。</p>
+<h2 id="發布生命週期驗收">發布生命週期驗收</h2><ul>
+<li>Draft 不可直接發布 Production；Production Artifact 與 DEMO 驗證 Artifact 不同時必須拒絕。</li>
+<li>一般低風險版本在自動檢查通過後可由一位發布管理者立即或排程發布。</li>
+<li>RTP、限額、Callback 契約、migration 或安全變更自動進入高風險通道，提交者不能完成第二人核准。</li>
+<li>Active 切換前失敗時舊版本繼續服務；切換後健康驗證失敗時建立新的回滾 Release。</li>
+<li>Provider 維護／暫停而 GGAP 代理商仍開啟時，新 Launch 仍被 Provider 拒絕，既有 Round 依原版本完成。</li>
+<li>舊 Round 晚到 Settlement／Callback 時依原 Version、Build、Release 與數值快照處理，不使用目前 Active Version 重算。</li>
+<li>Test、DEMO、Production 同時存在同一 Game 時，正式紀錄、財務、監控與風控不得混入 Test／DEMO。</li>
+</ul>
+<h2 id="規格完成定義">規格完成定義</h2><p>產品需求基準回答「希望具備什麼行為」；實作只有在前端能回答「如何呈現」、後端能回答「如何提供」，且 QA 能回答「如何驗證」時，才可標示為已接軌。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#前端驗收">前端驗收</a><a class="outline-level-2" href="#後端驗收">後端驗收</a><a class="outline-level-2" href="#整合驗收">整合驗收</a><a class="outline-level-2" href="#規格完成定義">規格完成定義</a></nav>
+        <nav><a class="outline-level-2" href="#前端驗收">前端驗收</a><a class="outline-level-2" href="#後端驗收">後端驗收</a><a class="outline-level-2" href="#整合驗收">整合驗收</a><a class="outline-level-2" href="#發布生命週期驗收">發布生命週期驗收</a><a class="outline-level-2" href="#規格完成定義">規格完成定義</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -452,7 +461,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.17.0-phase-three-pack-03-baseline · 2026-08-17</span>
+                    <span>0.18.0-phase-three-pack-03-source-aligned · 2026-08-18</span>
                 </footer>
             </div>
         </main>

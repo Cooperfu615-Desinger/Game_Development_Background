@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Provider 維護、限紅與基礎設定模板的版本、驗證、審核及遊戲套用。">
+    <meta name="description" content="Provider 維護、投注結構、幣別倍率、限額與基礎設定的版本、驗證及遊戲套用。">
     <meta name="color-scheme" content="light">
     <title>遊戲設定｜Provider Portal 產品與系統規格書</title>
     <link rel="stylesheet" href="assets/site.css">
@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.17.0-phase-three-pack-03-baseline</span>
+            <span>0.18.0-phase-three-pack-03-source-aligned</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -36,7 +36,7 @@
         <aside class="sidebar" id="spec-navigation" data-sidebar>
             <div class="sidebar-intro">
                 <span class="sidebar-kicker">SPECIFICATION MANUAL</span>
-                <p>2026-08-17 更新</p>
+                <p>2026-08-18 更新</p>
             </div>
             <nav aria-label="規格書章節">
 
@@ -398,7 +398,7 @@
                     <div>
                         <p class="eyebrow">05.2.3 · 遊戲管理</p>
                         <h1>遊戲設定</h1>
-                        <p class="page-summary">Provider 維護、限紅與基礎設定模板的版本、驗證、審核及遊戲套用。</p>
+                        <p class="page-summary">Provider 維護、投注結構、幣別倍率、限額與基礎設定的版本、驗證及遊戲套用。</p>
                     </div>
                     <div class="page-status-stack">
                         <span class="status-badge status-draft">草案</span>
@@ -417,7 +417,7 @@
             <div>
                 <p class="visual-overview-kicker">PAGE ANATOMY · OVERVIEW FIRST</p>
                 <h2 id="page-visual-title">遊戲設定畫面示意</h2>
-                <p>參照現行 /games/settings 原型；表單編輯只形成草稿，Production 異動需核准。</p>
+                <p>參照現行 /games/settings 原型；表單編輯形成新版本，實際生效由 Release 決定。</p>
             </div>
             <button class="visual-toggle" type="button" data-anatomy-toggle aria-expanded="true" aria-controls="game-settings-visual-panel">
                 <span data-anatomy-toggle-label>收合畫面示意</span>
@@ -425,11 +425,11 @@
             </button>
         </div>
         <nav class="visual-quick-map" aria-label="頁面區塊快速導覽">
-            <a href="#4-設定摘要與脈絡"><strong>01</strong><span>設定摘要</span><i aria-hidden="true">↘</i></a><a href="#4-設定摘要與脈絡"><strong>02</strong><span>設定脈絡</span><i aria-hidden="true">↘</i></a><a href="#5-維護週期模板"><strong>03</strong><span>維護週期模板</span><i aria-hidden="true">↘</i></a><a href="#6-限紅模板"><strong>04</strong><span>限紅模板</span><i aria-hidden="true">↘</i></a><a href="#7-基礎選項"><strong>05</strong><span>基礎選項</span><i aria-hidden="true">↘</i></a><a href="#8-草稿-審核與稽核"><strong>06</strong><span>草稿、審核與稽核</span><i aria-hidden="true">↘</i></a>
+            <a href="#4-設定摘要與脈絡"><strong>01</strong><span>設定摘要</span><i aria-hidden="true">↘</i></a><a href="#4-設定摘要與脈絡"><strong>02</strong><span>設定脈絡</span><i aria-hidden="true">↘</i></a><a href="#5-維護週期模板"><strong>03</strong><span>維護週期模板</span><i aria-hidden="true">↘</i></a><a href="#6-投注與限額方案"><strong>04</strong><span>投注與限額方案</span><i aria-hidden="true">↘</i></a><a href="#7-基礎選項"><strong>05</strong><span>基礎選項</span><i aria-hidden="true">↘</i></a><a href="#8-草稿-審核與稽核"><strong>06</strong><span>草稿、審核與稽核</span><i aria-hidden="true">↘</i></a>
         </nav>
         <div class="visual-scope-notes" aria-label="畫面閱讀邊界">
             <span>閱讀邊界</span>
-            <small>Provider 點數主值</small><small>Active 不可直改</small><small>Production 需核准</small><small>不含 RTP／版本／素材</small>
+            <small>Provider 點數主值</small><small>固定幣別倍率</small><small>高風險第二人核准</small><small>不含 RTP／程式／素材</small>
         </div>
         <div id="game-settings-visual-panel" class="visual-overview-panel" data-anatomy-panel>
             <figure class="page-anatomy lifecycle-anatomy lifecycle-anatomy--settings" aria-label="遊戲設定六區塊畫面示意">
@@ -437,7 +437,7 @@
     <a class="anatomy-zone lifecycle-anatomy__cards" href="#4-設定摘要與脈絡" aria-label="前往第一區，設定摘要"><span class="anatomy-zone__number">01</span><span><small>維護模板</small><strong>4</strong><i>2 active</i></span><span><small>限紅模板</small><strong>6</strong><i>Provider 點數</i></span><span><small>Production 異動</small><strong>需審核</strong><i>Draft policy</i></span></a>
     <a class="anatomy-zone lifecycle-anatomy__toolbar" href="#4-設定摘要與脈絡" aria-label="前往第二區，設定脈絡"><span class="anatomy-zone__number">02</span><strong>設定脈絡</strong><small>共用模板／指定遊戲 · Draft version</small><i>遊戲：全部　環境：Production + DEMO　狀態：Active</i></a>
     <a class="anatomy-zone lifecycle-anatomy__table" href="#5-維護週期模板" aria-label="前往第三區，維護週期模板"><span class="anatomy-zone__number">03</span><strong>維護週期模板</strong><small>模板 ID　名稱　週期　日期　起始　結束　時區　範圍　版本　狀態</small><i>maint-001　每週例行維護　每週　週三　03:00　04:00　Asia/Taipei　指定遊戲　v4　Active</i></a>
-    <a class="anatomy-zone lifecycle-anatomy__table" href="#6-限紅模板" aria-label="前往第四區，限紅模板"><span class="anatomy-zone__number">04</span><strong>限紅模板</strong><small>模板 ID　名稱　最小投注　最大投注　派彩上限　點數規則版本　範圍　版本　狀態</small><i>limit-003　標準限紅　1 pt　5,000 pt　500,000 pt　point-rule-v6　全部老虎機　v3　Approved</i></a>
+    <a class="anatomy-zone lifecycle-anatomy__table" href="#6-投注與限額方案" aria-label="前往第四區，投注與限額方案"><span class="anatomy-zone__number">04</span><strong>投注與限額方案</strong><small>方案 ID　Bet Level　幣別倍率　最小投注　最大投注　派彩上限　版本　狀態</small><i>limit-003　Level 01–12　固定倍率 v3　1 pt　5,000 pt　500,000 pt　v3　Approved</i></a>
     <div class="lifecycle-anatomy__split">
       <a class="anatomy-zone lifecycle-anatomy__detail" href="#7-基礎選項" aria-label="前往第五區，基礎選項"><span class="anatomy-zone__number">05</span><small>BASE OPTIONS</small><strong>遊戲類型 · 平台 · 語系</strong><i>穩定 enum · 繁中預設 · 不由自由文字建立</i></a>
       <a class="anatomy-zone lifecycle-anatomy__states" href="#8-草稿-審核與稽核" aria-label="前往第六區，草稿審核與稽核"><span class="anatomy-zone__number">06</span><strong>草稿、審核與稽核</strong><i>儲存草稿</i><i>驗證</i><i>送審</i><i>版本衝突</i><i>歷程</i></a>
@@ -461,7 +461,7 @@
 </thead>
 <tbody><tr>
 <td>規格成熟度</td>
-<td>Draft — Batch C 完整頁面規格</td>
+<td>目前需求基準 — 已同步 Decision Pack 03</td>
 </tr>
 <tr>
 <td>製作範圍</td>
@@ -477,7 +477,7 @@
 </tr>
 <tr>
 <td>主要來源</td>
-<td><code>PROVIDER_PORTAL_PAGE_MAP.md</code>、現行原型</td>
+<td><code>PROVIDER_PORTAL_PAGE_MAP.md</code>、<code>Decision Pack 01</code>、<code>Decision Pack 03</code>、現行原型</td>
 </tr>
 <tr>
 <td>頁面角色</td>
@@ -485,25 +485,25 @@
 </tr>
 </tbody></table></div>
 <blockquote>
-<p>本頁不管理 RTP、賠率表、程式版本、素材或代理商／商戶／會員層級設定。現行表單可直接改動 mock，但正式系統需草稿、驗證、審核、版本與 audit；畫面值不代表已生效。</p>
+<p>本頁不管理 RTP、賠率表、程式版本、素材或代理商／商戶／會員層級設定。設定版本是 Game Version 快照的一部分；畫面編輯只建立新版本，必須經環境 Release 才會生效。</p>
 </blockquote>
 <h2 id="1-目的與責任邊界">1. 目的與責任邊界</h2><ul>
-<li>管理 Provider 共用維護週期模板、投注／派彩限制模板與遊戲基礎選項。</li>
+<li>管理 Provider 共用維護週期模板、遊戲投注結構、投注幣別倍率、下注限額方案與遊戲基礎選項。</li>
 <li>允許單款遊戲引用已核准模板；不把模板本身當成已發布遊戲設定。</li>
-<li>影響 Production 的異動必須進入審核與發布組合，不直接覆寫生效值。</li>
+<li>影響 Production 的異動必須形成新設定版本並進入 Release；一般設定走快速通道，限額、幣別倍率、金額或契約異動自動列為高風險並要求第二人核准。</li>
 <li>金額限制以 Provider 點數為真實值；USDT 僅作換算對照。原型中的 USD／TWD 選項不是正式契約。</li>
 </ul>
 <h2 id="2-設定模型">2. 設定模型</h2><ul>
 <li><code>setting_template_id</code>、<code>setting_version</code>、status、scope、effective environments 與 audit version 必須穩定。</li>
-<li>模板 Draft 狀態至少分 draft、pending_review、approved、active、archived；正式 enum 依 <code>TBD-DOM-003</code>。</li>
-<li>已被生效發布組合引用的版本不可原地修改；需複製新版本。</li>
+<li>設定版本需保留 draft、validated、approved、retired 等成熟度與精確引用；實際 enum 取得後映射，不再另行改寫 DP03 Release 狀態。</li>
+<li>已被 Version／Artifact／Release 引用的設定版本不可原地修改；需複製新版本。</li>
 <li>同一遊戲實際套用結果需保存模板版本 snapshot，避免模板後續異動改寫歷史。</li>
 </ul>
 <h2 id="3-六區塊資訊架構">3. 六區塊資訊架構</h2><ol>
 <li>設定摘要：維護模板、限紅模板、Production 審核狀態。</li>
 <li>遊戲／版本脈絡：共用模板或精確遊戲套用範圍。</li>
 <li>維護週期模板：週期、時間、時區、範圍、啟用與版本。</li>
-<li>限紅模板：點數最小／最大投注、派彩上限與適用範圍。</li>
+<li>投注與限額方案：投注結構、幣別倍率、最小／最大投注、派彩上限與適用範圍。</li>
 <li>基礎選項：遊戲類型、平台、語系及預設設定。</li>
 <li>草稿、審核、狀態與稽核。</li>
 </ol>
@@ -514,16 +514,17 @@
 <li>維護生效只阻擋新 Launch，不中斷既有 Round。</li>
 <li>UI toggle 只改草稿；正式啟用需通過後端驗證與核准。</li>
 </ul>
-<h2 id="6-限紅模板">6. 限紅模板</h2><p>欄位至少含模板 ID、名稱、Provider 點數規則版本、最小投注、最大投注、單 Round／期間派彩上限（若適用）、scope、遊戲類型／遊戲、版本、狀態及時間。</p>
+<h2 id="6-投注與限額方案">6. 投注與限額方案</h2><p>欄位至少含方案 ID、名稱、投注結構／Bet Level、Provider 點數規則版本、固定幣別倍率、最小投注、最大投注、單 Round／期間派彩上限（若適用）、scope、遊戲類型／遊戲、版本、狀態及時間。</p>
 <ul>
 <li>必須滿足 <code>0 ≤ min_bet ≤ max_bet</code>，派彩上限與遊戲數值模型相容。</li>
-<li>主值是 Provider 點數，若顯示 USDT 必須使用已指定換算規則版本；禁止把外部法幣當 Provider 限紅主值。</li>
-<li>修改 active 模板需複製新版本；發布組合引用精確版本。</li>
+<li>主值是 Provider 點數；各投注幣別使用版本化固定倍率映射，不直接套用即時市場匯率。若顯示 USDT 必須使用已指定規則版本，禁止把外部法幣當 Provider 限額主值。</li>
+<li>修改 active 模板需複製新版本；Game Version 引用精確設定版本。</li>
+<li>限額、固定幣別倍率與投注／Callback 契約變更均屬高風險 Release；一般顯示或非結果設定才可走快速通道。</li>
 </ul>
 <h2 id="7-基礎選項">7. 基礎選項</h2><p>遊戲類型、支援平台、語系、預設維護模板與 Production 審核政策均需穩定 enum／ID。語系以台灣繁中為預設，fallback 與正式清單依 <code>TBD-DAT-006</code>。此區不得讓一般使用者自由建立會破壞跨頁 mapping 的 enum。</p>
 <h2 id="8-草稿-審核與稽核">8. 草稿、審核與稽核</h2><ul>
 <li>編輯產生 dirty state；離頁需提示。儲存草稿、驗證、送審、生效分開。</li>
-<li>Production 變更需理由、差異預覽、最新 version 與 allowed action；正式核准策略依 <code>TBD-SEC-003</code>。</li>
+<li>Production 變更需差異預覽、最新 version 與 allowed action；系統自動風險分類，一般變更由發布管理者一人確認，高風險才要求第二位管理者。</li>
 <li>併發衝突不得覆蓋他人新版本；保留使用者輸入並提供差異合併／重載。</li>
 <li>Audit 記錄 actor、template／game scope、before／after、reason、version、request／trace、結果及時間。</li>
 </ul>
@@ -544,8 +545,8 @@
 <td>version、validation errors／warnings、normalized values。</td>
 </tr>
 <tr>
-<td>送審／狀態轉換</td>
-<td>approval ID、allowed actions、new version、audit event。</td>
+<td>候選／狀態轉換</td>
+<td>risk classification、approval（若高風險）、allowed actions、new version、audit event。</td>
 </tr>
 <tr>
 <td>遊戲套用</td>
@@ -554,7 +555,7 @@
 </tbody></table></div>
 <p>正式 schema、生命週期與 permission 依 <code>TBD-DOM-003</code>、<code>TBD-API-005</code>、<code>TBD-SEC-001</code>、<code>TBD-SEC-003</code>。</p>
 <h2 id="11-響應式-無障礙與驗收">11. 響應式、無障礙與驗收</h2><p>頁面使用主內容完整寬度。Desktop 表格可水平捲動；Mobile 模板轉卡片／分段表單。欄位 label、錯誤、dirty、狀態與確認可被鍵盤及輔助科技辨識。</p>
-<p>驗收條件：設定與數值／版本／素材分離；點數為限紅主值；active 不可原地改；維護不阻斷既有 Round；Production 具草稿／驗證／核准／audit 骨架；遊戲套用保存版本 snapshot；Loading／error／conflict／Forbidden 可驗收。</p>
+<p>驗收條件：設定與數值／程式／素材分離並被 Version 精確引用；點數為限額主值；固定幣別倍率不使用即時匯率；active 不可原地改；維護不阻斷既有 Round；一般／高風險通道正確；遊戲套用保存版本 snapshot；Loading／error／conflict／Forbidden 可驗收。</p>
 <h2 id="12-測試重點">12. 測試重點</h2><ul>
 <li>跨日／重疊維護、時區與日光節約（若支援）。</li>
 <li>點數最小／最大／派彩邊界、decimal、規則版本不相容。</li>
@@ -562,18 +563,18 @@
 <li>390px 表單、表格鍵盤、長模板名稱及欄位錯誤公告。</li>
 </ul>
 <h2 id="13-待確認事項">13. 待確認事項</h2><ul>
-<li><code>TBD-DOM-003</code>：設定版本與發布組合。</li>
+<li><code>TBD-DOM-003</code>：現有設定 schema 與 DP03 Version／Release 的 Mapping。</li>
 <li><code>TBD-DAT-006</code>：語系與 fallback。</li>
 <li><code>TBD-API-001</code>、<code>TBD-API-005</code>：共通／設定 API。</li>
 <li><code>TBD-SEC-001</code>、<code>TBD-SEC-003</code>：權限、核准、併發與 audit。</li>
 <li><code>TBD-NFR-004</code>、<code>TBD-EXT-003</code>：前端驗收及系統角色模型。</li>
 </ul>
-<h2 id="14-draft-移除條件">14. Draft 移除條件</h2><p>設定 schema、版本、驗證、遊戲套用、API、Production 核准與權限核准並通過驗收後，才可改為 Confirmed。</p>
+<h2 id="14-實作接軌條件">14. 實作接軌條件</h2><p>目前產品行為依本頁、Decision Pack 01 與 Decision Pack 03 成立；正式 schema、API 與 permission 取得後建立 Mapping，並以驗收結果更新實作狀態。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-設定模型">2. 設定模型</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-設定摘要與脈絡">4. 設定摘要與脈絡</a><a class="outline-level-2" href="#5-維護週期模板">5. 維護週期模板</a><a class="outline-level-2" href="#6-限紅模板">6. 限紅模板</a><a class="outline-level-2" href="#7-基礎選項">7. 基礎選項</a><a class="outline-level-2" href="#8-草稿-審核與稽核">8. 草稿、審核與稽核</a><a class="outline-level-2" href="#9-頁面狀態與錯誤處理">9. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#10-api-契約草案">10. API 契約草案</a><a class="outline-level-2" href="#11-響應式-無障礙與驗收">11. 響應式、無障礙與驗收</a><a class="outline-level-2" href="#12-測試重點">12. 測試重點</a><a class="outline-level-2" href="#13-待確認事項">13. 待確認事項</a><a class="outline-level-2" href="#14-draft-移除條件">14. Draft 移除條件</a></nav>
+        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-設定模型">2. 設定模型</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-設定摘要與脈絡">4. 設定摘要與脈絡</a><a class="outline-level-2" href="#5-維護週期模板">5. 維護週期模板</a><a class="outline-level-2" href="#6-投注與限額方案">6. 投注與限額方案</a><a class="outline-level-2" href="#7-基礎選項">7. 基礎選項</a><a class="outline-level-2" href="#8-草稿-審核與稽核">8. 草稿、審核與稽核</a><a class="outline-level-2" href="#9-頁面狀態與錯誤處理">9. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#10-api-契約草案">10. API 契約草案</a><a class="outline-level-2" href="#11-響應式-無障礙與驗收">11. 響應式、無障礙與驗收</a><a class="outline-level-2" href="#12-測試重點">12. 測試重點</a><a class="outline-level-2" href="#13-待確認事項">13. 待確認事項</a><a class="outline-level-2" href="#14-實作接軌條件">14. 實作接軌條件</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -584,7 +585,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.17.0-phase-three-pack-03-baseline · 2026-08-17</span>
+                    <span>0.18.0-phase-three-pack-03-source-aligned · 2026-08-18</span>
                 </footer>
             </div>
         </main>

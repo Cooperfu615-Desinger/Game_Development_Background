@@ -14,7 +14,7 @@ let assertionCount = 0
 const batchCPageIds = ['game-list', 'game-environments', 'game-settings', 'game-math', 'game-versions', 'game-assets']
 const manifestPages = modules.flatMap((module) => module.pages)
 
-assert(['0.11.0-batch-c-draft', '0.12.0-batch-d-draft', '0.13.0-phase-two-seal', '0.14.0-phase-three-pack-01-draft', '0.14.1-phase-three-pack-01-evidence-pending', '0.15.0-phase-three-pack-02-baseline', '0.16.0-phase-three-contract-baselines', '0.17.0-phase-three-pack-03-baseline'].includes(book.version), '規格網站版本不得早於 Batch C Draft')
+assert(['0.11.0-batch-c-draft', '0.12.0-batch-d-draft', '0.13.0-phase-two-seal', '0.14.0-phase-three-pack-01-draft', '0.14.1-phase-three-pack-01-evidence-pending', '0.15.0-phase-three-pack-02-baseline', '0.16.0-phase-three-contract-baselines', '0.17.0-phase-three-pack-03-baseline', '0.18.0-phase-three-pack-03-source-aligned'].includes(book.version), '規格網站版本不得早於 Batch C Draft')
 assert(book.status.includes('Batch C Draft Complete') || book.status.includes('Batch D Draft Complete') || book.status.includes('Draft Sealed') || book.status.includes('Decision Pack 01 Draft') || book.status.includes('Pack 01 Backend Evidence Pending') || book.status.includes('Monitoring & Risk Baseline') || book.status.includes('Product Contract Baselines'), '規格網站狀態不得早於 Batch C Draft Complete')
 
 for (const pageId of batchCPageIds) {
@@ -39,17 +39,17 @@ for (const pageId of batchCPageIds) {
     for (const requiredText of ['待確認事項', 'API 契約草案', 'TBD-API-005']) {
         assert(html.includes(requiredText), `${pageId} 缺少完整 Draft 必要內容：${requiredText}`)
     }
-    assert(html.includes('Draft 移除條件') || html.includes('Placeholder 移除條件'), `${pageId} 缺少 Draft／Placeholder 移除條件`)
+    assert(html.includes('Draft 移除條件') || html.includes('Placeholder 移除條件') || html.includes('實作接軌條件'), `${pageId} 缺少 Draft／Placeholder／實作接軌條件`)
     assert((html.match(/class="anatomy-zone /g) || []).length === 6, `${pageId} 畫面示意應有六個可點擊區塊`)
     assert(html.includes('id="page-visual-overview"'), `${pageId} 缺少置頂畫面示意`)
     assert(!html.includes('PAGE_VISUAL_START') && !html.includes('PAGE_VISUAL_END'), `${pageId} 仍含未替換畫面標記`)
 }
 
 const listHtml = await readFile(path.join(outputRoot, 'game-list.html'), 'utf8')
-for (const text of ['14 欄', 'Test 只讀', 'GGAP 同步不等於代理商個別開放', 'RTP Tips']) assert(listHtml.includes(text), `遊戲列表缺少：${text}`)
+for (const text of ['14 欄', '本列表不直接發布', '全域可用性與 Release 分離', 'RTP Tips']) assert(listHtml.includes(text), `遊戲列表缺少：${text}`)
 
 const environmentsHtml = await readFile(path.join(outputRoot, 'game-environments.html'), 'utf8')
-for (const text of ['程式仍為 Placeholder', '發布組合', '只影響新 Launch', '代理商個別開放仍屬 GGAP']) assert(environmentsHtml.includes(text), `環境與發布缺少：${text}`)
+for (const text of ['程式仍為 Placeholder', '同一 Artifact', '快速／高風險通道', '代理商個別開放由 GGAP 控制']) assert(environmentsHtml.includes(text), `環境與發布缺少：${text}`)
 
 const settingsHtml = await readFile(path.join(outputRoot, 'game-settings.html'), 'utf8')
 for (const text of ['Provider 點數', 'USD／TWD 選項不是正式契約', 'active 模板需複製新版本']) assert(settingsHtml.includes(text), `遊戲設定缺少：${text}`)
@@ -58,7 +58,7 @@ const mathHtml = await readFile(path.join(outputRoot, 'game-math.html'), 'utf8')
 for (const text of ['設定版本與監控指標不得混成', '偏離 ≥ 5%', 'Test 不進 Provider 風控']) assert(mathHtml.includes(text), `數值設定缺少：${text}`)
 
 const versionsHtml = await readFile(path.join(outputRoot, 'game-versions.html'), 'utf8')
-for (const text of ['商戶主資料', '回復不是把版本狀態改回去', 'artifact checksum']) assert(versionsHtml.includes(text), `遊戲版本缺少：${text}`)
+for (const text of ['商戶主資料', '回滾不是把 Version 狀態改回去', 'Artifact manifest']) assert(versionsHtml.includes(text), `遊戲版本缺少：${text}`)
 
 const assetsHtml = await readFile(path.join(outputRoot, 'game-assets.html'), 'utf8')
 for (const text of ['不可變素材版本', '惡意檔案掃描', '不得覆寫舊檔']) assert(assetsHtml.includes(text), `遊戲素材缺少：${text}`)

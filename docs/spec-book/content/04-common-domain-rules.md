@@ -10,6 +10,22 @@
 - 老虎機與目前單人 Crash 以單筆結算完成的 Game Round 為主。
 - 未來多人玩法再增加共享局號與參與者關係。
 
+## Game、Version、Artifact 與 Release
+
+- `game_id` 表示長期穩定遊戲主體，不因版本更新而更換。
+- Version 是程式、數值、設定、素材與相容性的功能快照；正式狀態為 `draft`、`candidate`、`approved`、`published`、`retired`、`cancelled`。
+- Artifact 是以 `build_id`、manifest 與 checksum 識別的不可變執行產物；重建即產生新 `build_id`。
+- Release Record 是一次環境發布事實。重試、重新發布與回滾都建立新 `release_id`，不得覆寫歷史。
+- 同一 Game × Environment 同時只有一筆 Active Release；`published` Version 不必然是目前 Active。
+- Test 可反覆 build；DEMO 通過後 Production 必須發布同一 Artifact，不得重新 build。
+
+## Launch 與既有 Round
+
+- Provider 可使用短效 Launch Context 綁定 Game、Version、Build、Release、environment 與 GGAP Context，但不建立長期 Game Session 主資料。
+- 發布、回滾、維護、暫停或隔離只改變新 Launch 與新 Round；既有 Round 永久依建立時的 Version、Build、Release、數值、倍率與限額快照完成。
+- `maintenance`、`suspended` 或隔離後仍接受既有 Round 必要的 Settlement、Cancel、Refund、Callback、查詢與冪等重試。
+- 晚到請求先依 `round_id` 找回原快照；找不到時進入異常處理，不建立假 Round。
+
 ## 環境隔離
 
 | 環境 | 使用方式 | 可進入正式財務 | 可進入 Provider 風控 |
@@ -19,6 +35,13 @@
 | Test | 前後端與 QA 驗證 | 否 | 否 |
 
 正式財務與遊戲紀錄不得混入 DEMO 或 Test。Test 不出現在 Provider 風控監控、告警與摘要中。
+
+## 全域可用性與 GGAP Gate
+
+- Provider 全域可用性為 `unpublished`、`available`、`maintenance`、`suspended`、`retired`，與 Version／Release 狀態分開。
+- Production Release 成功不自動代表全域上架。
+- 上架等待 GGAP ACK 後才對外開放；維護、暫停、隔離與退役先由 Provider 本地拒絕新 Launch，再可靠通知 GGAP。
+- GGAP 只對 Provider 已可用的遊戲控制代理商個別開放；Provider 不維護代理商開關。
 
 ## 金額與換算
 

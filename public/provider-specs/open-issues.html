@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.17.0-phase-three-pack-03-baseline</span>
+            <span>0.18.0-phase-three-pack-03-source-aligned</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -36,7 +36,7 @@
         <aside class="sidebar" id="spec-navigation" data-sidebar>
             <div class="sidebar-intro">
                 <span class="sidebar-kicker">SPECIFICATION MANUAL</span>
-                <p>2026-08-17 更新</p>
+                <p>2026-08-18 更新</p>
             </div>
             <nav aria-label="規格書章節">
 
@@ -491,12 +491,12 @@
 <article class="tbd-card" id="tbd-dom-003">
 <header class="tbd-card__header">
 <div><span>Domain</span><code>TBD-DOM-003</code><h4>遊戲發布組合與生命週期</h4></div>
-<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-definition">待定義</span></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-partial">部分已有</span></div>
 </header>
-<p class="tbd-card__question">定義設定、數值、版本、素材如何組成可發布版本，以及草稿、審核、Production／DEMO 生效、維護、停用與回復狀態。</p>
+<p class="tbd-card__question">產品語意已由 DP03 定義；待將現有 Game、Version、Artifact、Release、Active Release 資料表與 enum 映射至需求基準。</p>
 <div class="tbd-card__meta">
 <div><strong>責任方</strong><p class="tbd-chip-list"><span>Product</span><span>Game Engineering</span><span>Backend</span></p></div>
-<div><strong>需要時間</strong><p>Batch C 開始前</p></div>
+<div><strong>需要時間</strong><p>正式 Backend 實作前</p></div>
 <div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>QA</span><span>正式上線</span></p></div></div>
 <div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="game-list.html">遊戲列表</a><a href="game-environments.html">環境與發布</a><a href="game-settings.html">遊戲設定</a><a href="game-math.html">數值設定</a><a href="game-versions.html">遊戲版本</a><a href="game-assets.html">遊戲素材</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-game-lifecycle">遊戲生命週期鏈</a></nav></div></div>
 </article>
@@ -673,10 +673,10 @@
 <div><span>API</span><code>TBD-API-005</code><h4>遊戲生命週期與發布 API</h4></div>
 <div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-definition">待定義</span></div>
 </header>
-<p class="tbd-card__question">定義遊戲、設定、數值、版本、素材、環境、驗證、審核、發布、停用、維護與回復 API。</p>
+<p class="tbd-card__question">依 DP03 映射 Game、Version、Artifact、三環境 Release、Active Release、風險分類、回滾、全域狀態與 GGAP 投遞的實際 API。</p>
 <div class="tbd-card__meta">
 <div><strong>責任方</strong><p class="tbd-chip-list"><span>Game Engineering</span><span>Backend</span><span>Frontend</span><span>Security</span></p></div>
-<div><strong>需要時間</strong><p>Batch C 開始前</p></div>
+<div><strong>需要時間</strong><p>Portal 原型接正式 API 前</p></div>
 <div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>Integration</span><span>QA</span><span>正式上線</span></p></div></div>
 <div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="game-list.html">遊戲列表</a><a href="game-environments.html">環境與發布</a><a href="game-settings.html">遊戲設定</a><a href="game-math.html">數值設定</a><a href="game-versions.html">遊戲版本</a><a href="game-assets.html">遊戲素材</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-game-lifecycle">遊戲生命週期鏈</a></nav></div></div>
 </article>
@@ -722,9 +722,9 @@
 <article class="tbd-card" id="tbd-sec-003">
 <header class="tbd-card__header">
 <div><span>Security</span><code>TBD-SEC-003</code><h4>高風險操作、核准、併發與稽核</h4></div>
-<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-definition">待定義</span></div>
+<div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-partial">部分已有</span></div>
 </header>
-<p class="tbd-card__question">確認 Production 發布、設定／數值異動、隔離／解除、風控結案、內容發布的雙人核准、重新驗證、併發鎖、失敗補償與 audit。</p>
+<p class="tbd-card__question">遊戲 Release 已採一般一人＋高風險第二人核准；待映射 permission、approval、併發、稽核，並另補風控與內容發布的實際規則。</p>
 <div class="tbd-card__meta">
 <div><strong>責任方</strong><p class="tbd-chip-list"><span>Product</span><span>Security</span><span>Backend</span><span>SRE</span></p></div>
 <div><strong>需要時間</strong><p>高風險操作實作前</p></div>
@@ -1028,7 +1028,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.17.0-phase-three-pack-03-baseline · 2026-08-17</span>
+                    <span>0.18.0-phase-three-pack-03-source-aligned · 2026-08-18</span>
                 </footer>
             </div>
         </main>

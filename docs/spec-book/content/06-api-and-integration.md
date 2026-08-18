@@ -37,3 +37,12 @@
 ## GGAP 對接
 
 GGAP 對接需另行核准簽章、防重放、啟動、結算、Callback、ACK、有限重試與補送契約。`provider_event_id` 用於通知重送去重，不能取代 `risk_event_id`。
+
+## 遊戲版本與發布 API
+
+- Game、Version、Artifact、Release 與 Active Release 必須使用不同 ID 與 schema；不得以一個 `status` 或一筆可變紀錄同時表示內容成熟度、部署結果及目前生效版本。
+- Artifact API 至少回傳 `build_id`、manifest、checksum、來源 commit、建置時間與驗證結果；Artifact 建立後不可覆寫。
+- Release 寫入至少帶 `release_id`、目標環境、Version／Build、風險通道、排程、回滾目標、idempotency key 與 optimistic concurrency version。
+- 一般 Release 自動檢查通過後允許發布管理者一人執行；高風險 Release 必須回傳 approval requirement 與第二位核准者證據。
+- 發布、重試、取消與回滾均回傳可持續查詢的 job／Release ID；重新整理頁面後可由 ID 恢復狀態，不依賴前端計時器維持真實結果。
+- 上架事件等待 GGAP ACK 後才成為外部可用；停用事件先由 Provider 本地阻擋並以 outbox／等價可靠投遞重試。實際 event name、payload 與 ACK 格式待 Backend Git Mapping。

@@ -14,6 +14,19 @@
 | `risk_event_id` | Provider Risk Event 識別 | 格式 `rsk_<ULID>` |
 | `alert_id` | Provider 風控處理工作項目識別 | 一個 Risk Event 第一版對應一個主要 Alert |
 
+## 遊戲版本與發布識別
+
+| 欄位 | 說明 | 備註 |
+|---|---|---|
+| `game_id` | Provider 遊戲長期穩定識別 | 不因版本更新而更換 |
+| `version_id` | Game Version 功能快照識別 | 與顯示版號、Build 分開 |
+| `build_id` | 不可變 Build Artifact 識別 | 重新建置必須產生新值 |
+| `artifact_checksum` | Artifact manifest／內容完整性校驗 | 不得由檔名或 URL 取代 |
+| `release_id` | 單次環境發布、重試或回滾紀錄 | Release Record 不可覆寫 |
+| `active_release_id` | Game × Environment 目前生效 Release | 同一時間最多一筆 |
+| `launch_id` | 短效 Launch Context 識別 | 不是 Game Session 或 Round ID |
+| `release_event_id` | 發布／全域狀態外部投遞事件識別 | 用於 outbox、冪等與 GGAP ACK |
+
 ## Game Round 金額
 
 | 欄位 | 說明 |

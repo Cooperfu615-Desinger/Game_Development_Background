@@ -4,7 +4,7 @@ Provider Portal 是 GGAP 的其中一個 Provider Portal，服務對象為遊戲
 
 ## 核心任務
 
-1. 管理遊戲商自己的遊戲產品、版本、規則、數值與素材。
+1. 管理遊戲商自己的 Game、Version、不可變 Artifact、環境 Release、規則、數值與素材。
 2. 接收 GGAP 傳入的遊戲請求與業務脈絡。
 3. 保存可追蹤、不可任意改寫的 Game Round。
 4. 產生遊戲商自己的數據、財務、監控與風控報表。
@@ -18,7 +18,7 @@ Provider Portal 只服務同一個 Provider 內部人員。正式角色預計拆
 
 - 目前重點是畫面、資訊架構與規格骨架。
 - 32 個內容頁中，24 個已有內容原型，8 個仍使用 Placeholder。
-- 正式 API、權限、資料流、狀態碼、精度與警戒門檻尚未整體核准。
+- Decision Pack 01、02、03 已形成產品需求基準；正式 API、permission、既有 schema 與 GGAP payload 仍待實作 Mapping。
 - Prototype / Mock data 只用於確認資訊架構與欄位方向。
 
 ## 不在目前範圍

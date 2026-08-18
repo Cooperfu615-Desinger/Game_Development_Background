@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.17.0-phase-three-pack-03-baseline</span>
+            <span>0.18.0-phase-three-pack-03-source-aligned</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -36,7 +36,7 @@
         <aside class="sidebar" id="spec-navigation" data-sidebar>
             <div class="sidebar-intro">
                 <span class="sidebar-kicker">SPECIFICATION MANUAL</span>
-                <p>2026-08-17 更新</p>
+                <p>2026-08-18 更新</p>
             </div>
             <nav aria-label="規格書章節">
 
@@ -461,7 +461,7 @@
 </thead>
 <tbody><tr>
 <td>規格成熟度</td>
-<td>Draft — Batch C 完整頁面規格</td>
+<td>目前需求基準 — 已同步 Decision Pack 03</td>
 </tr>
 <tr>
 <td>製作範圍</td>
@@ -477,7 +477,7 @@
 </tr>
 <tr>
 <td>主要來源</td>
-<td><code>PROVIDER_PORTAL_PAGE_MAP.md</code>、現行原型</td>
+<td><code>PROVIDER_PORTAL_PAGE_MAP.md</code>、<code>Decision Pack 03</code>、現行原型</td>
 </tr>
 <tr>
 <td>頁面角色</td>
@@ -485,19 +485,19 @@
 </tr>
 </tbody></table></div>
 <blockquote>
-<p>現行上傳 Dialog 只建立前端 mock 草稿，沒有檔案傳輸、掃描、儲存或正式發布。素材替換不得原地覆寫已發布檔案；發布組合必須引用不可變素材版本。</p>
+<p>現行上傳 Dialog 只建立前端 mock 草稿，沒有檔案傳輸、掃描、儲存或正式發布。素材替換不得原地覆寫已發布檔案；Game Version 與 Artifact manifest 必須引用不可變素材版本。</p>
 </blockquote>
 <h2 id="1-目的與責任邊界">1. 目的與責任邊界</h2><ul>
 <li>管理 Provider 自身遊戲的 Icon、Banner、Loading、Table Skin 等素材及其語系／裝置用途。</li>
 <li>預覽 metadata、版本、檔案驗證、掃描、審核與遊戲版本關聯。</li>
-<li>建立上傳／替換草稿，通過處理後形成不可變素材版本，供發布組合引用。</li>
+<li>建立上傳／替換草稿，通過處理後形成不可變素材版本，供 Game Version／Artifact manifest 引用。</li>
 <li>不管理代理商／商戶品牌素材或會員資料；官網／大廳只引用已核准資產。</li>
 </ul>
 <h2 id="2-素材模型">2. 素材模型</h2><ul>
 <li><code>asset_id</code> 表示素材邏輯項，<code>asset_version_id</code> 表示不可變檔案版本；storage key／URL 不作主鍵。</li>
 <li>至少保存 game_id、type、locale、device／usage、dimensions、file size、MIME、checksum、alt text、status、scan／validation、related game versions、owner、times。</li>
 <li>語系以繁中預設；fallback、支援清單與同類素材完整性依 <code>TBD-DAT-006</code>。</li>
-<li>已發布或被 release job 引用的素材版本不可覆寫／刪除；替換建立新版本。</li>
+<li>已發布或被 Version、Artifact、Release、Game Round 引用的素材版本不可覆寫／刪除；替換建立新版本。</li>
 </ul>
 <h2 id="3-六區塊資訊架構">3. 六區塊資訊架構</h2><ol>
 <li>素材摘要：總數、語系、關聯版本、待處理上傳。</li>
@@ -515,12 +515,12 @@
 <li>MIME、extension、magic bytes、dimensions、size、checksum 均需後端驗證。</li>
 <li>預設待處理／失敗優先，再以 updated_at desc、asset version ID 穩定排序。</li>
 </ul>
-<h2 id="7-素材詳情">7. 素材詳情</h2><p>大型 Dialog 顯示安全預覽、完整 metadata、alt text、checksum、scan／validation、來源版本、替換 lineage、語系 fallback、使用中的遊戲版本／release jobs、owner、審核及 audit。下載原始檔需獨立權限與短效 URL。</p>
-<h2 id="8-上傳與替換流程">8. 上傳與替換流程</h2><p>流程：選遊戲／類型／locale／usage → 選檔 → client hint → server upload → MIME／尺寸／checksum／惡意檔案掃描 → metadata／alt text → 草稿 → 審核 → approved → 發布組合引用。</p>
+<h2 id="7-素材詳情">7. 素材詳情</h2><p>大型 Dialog 顯示安全預覽、完整 metadata、alt text、checksum、scan／validation、來源版本、替換 lineage、語系 fallback、使用中的 Game Versions／Artifacts／Releases、owner、核准及 audit。下載原始檔需獨立權限與短效 URL。</p>
+<h2 id="8-上傳與替換流程">8. 上傳與替換流程</h2><p>流程：選遊戲／類型／locale／usage → 選檔 → client hint → server upload → MIME／尺寸／checksum／惡意檔案掃描 → metadata／alt text → 草稿 → 驗證／必要核准 → approved → Game Version／Artifact 引用。</p>
 <ul>
 <li>失敗上傳可有限重試；同 checksum 重複檔需提示既有版本。</li>
 <li>替換建立新 <code>asset_version_id</code>，不得覆寫舊檔；已引用版本保持可重現。</li>
-<li>Production 使用的素材變更需理由、差異預覽與核准；正式檔案保存、刪除與 CDN 失效待契約。</li>
+<li>影響遊戲結果、核心流程、合規或 Launch 相容性的素材變更屬高風險，要求第二人核准；純展示且具安全回滾的素材可走快速通道。正式檔案保存、刪除與 CDN 失效待實作 Mapping。</li>
 </ul>
 <h2 id="9-頁面狀態與錯誤處理">9. 頁面狀態與錯誤處理</h2><p>支援 loading、empty、uploading、processing、scan failed、validation failed、review pending／rejected、storage／preview error、duplicate、conflict、export、Forbidden。上傳成功但處理失敗不可顯示 approved；離頁後可依 job ID 恢復。</p>
 <h2 id="10-api-契約草案">10. API 契約草案</h2><div class="table-scroll" tabindex="0"><table>
@@ -549,7 +549,7 @@
 </tbody></table></div>
 <p>正式格式、大小、儲存、API、權限與保存依 <code>TBD-DAT-006</code>、<code>TBD-API-005</code>、<code>TBD-SEC-003</code>、<code>TBD-SEC-004</code>。</p>
 <h2 id="11-響應式-無障礙與驗收">11. 響應式、無障礙與驗收</h2><p>頁面使用主內容完整寬度。Mobile 素材卡片保留縮圖、ID、類型、語系、狀態、掃描與詳情；上傳需鍵盤可用、進度與錯誤可公告。所有圖像必須有可管理 alt text 或明確裝飾性標記。</p>
-<p>驗收條件：素材／版本 ID 分開；已引用檔案不可覆寫；語系與 usage 明確；預覽不暴露 storage；檔案驗證／掃描／審核骨架完整；上傳 mock 不冒充正式成功；Loading／processing／failure／Forbidden 可驗收。</p>
+<p>驗收條件：素材／版本 ID 分開；已引用檔案不可覆寫；Game Version／Artifact 精確引用；語系與 usage 明確；預覽不暴露 storage；檔案驗證／掃描與風險分類完整；上傳 mock 不冒充正式成功；Loading／processing／failure／Forbidden 可驗收。</p>
 <h2 id="12-測試重點">12. 測試重點</h2><ul>
 <li>錯 MIME／magic bytes、超尺寸／大小、惡意檔案、checksum 重複與網路中斷。</li>
 <li>替換被引用素材、審核衝突、權限撤銷、短效 URL 到期。</li>
@@ -557,18 +557,18 @@
 <li>390px 預覽、上傳進度、Dialog 焦點與鍵盤。</li>
 </ul>
 <h2 id="13-待確認事項">13. 待確認事項</h2><ul>
-<li><code>TBD-DOM-003</code>：素材版本與發布組合。</li>
+<li><code>TBD-DOM-003</code>：現有素材 schema 與 DP03 Version／Artifact／Release 的 Mapping。</li>
 <li><code>TBD-DAT-006</code>：格式、尺寸、語系、usage、fallback 與 alt text。</li>
 <li><code>TBD-API-001</code>、<code>TBD-API-005</code>：共通／素材 API。</li>
 <li><code>TBD-SEC-001</code>、<code>TBD-SEC-003</code>、<code>TBD-SEC-004</code>：權限、核准、下載與保存。</li>
 <li><code>TBD-NFR-004</code>、<code>TBD-EXT-003</code>：前端驗收與角色模型。</li>
 </ul>
-<h2 id="14-draft-移除條件">14. Draft 移除條件</h2><p>素材 schema、檔案限制、掃描／儲存、版本／引用、上傳／審核、API 與權限核准並通過驗收後，才可改為 Confirmed。</p>
+<h2 id="14-實作接軌條件">14. 實作接軌條件</h2><p>目前產品行為依本頁與 Decision Pack 03 成立；正式素材 schema、檔案限制、儲存、API 與 permission 取得後建立 Mapping，並以驗收結果更新實作狀態。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-素材模型">2. 素材模型</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-素材摘要">4. 素材摘要</a><a class="outline-level-2" href="#5-查詢與結果操作">5. 查詢與結果操作</a><a class="outline-level-2" href="#6-素材列表">6. 素材列表</a><a class="outline-level-2" href="#7-素材詳情">7. 素材詳情</a><a class="outline-level-2" href="#8-上傳與替換流程">8. 上傳與替換流程</a><a class="outline-level-2" href="#9-頁面狀態與錯誤處理">9. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#10-api-契約草案">10. API 契約草案</a><a class="outline-level-2" href="#11-響應式-無障礙與驗收">11. 響應式、無障礙與驗收</a><a class="outline-level-2" href="#12-測試重點">12. 測試重點</a><a class="outline-level-2" href="#13-待確認事項">13. 待確認事項</a><a class="outline-level-2" href="#14-draft-移除條件">14. Draft 移除條件</a></nav>
+        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-素材模型">2. 素材模型</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-素材摘要">4. 素材摘要</a><a class="outline-level-2" href="#5-查詢與結果操作">5. 查詢與結果操作</a><a class="outline-level-2" href="#6-素材列表">6. 素材列表</a><a class="outline-level-2" href="#7-素材詳情">7. 素材詳情</a><a class="outline-level-2" href="#8-上傳與替換流程">8. 上傳與替換流程</a><a class="outline-level-2" href="#9-頁面狀態與錯誤處理">9. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#10-api-契約草案">10. API 契約草案</a><a class="outline-level-2" href="#11-響應式-無障礙與驗收">11. 響應式、無障礙與驗收</a><a class="outline-level-2" href="#12-測試重點">12. 測試重點</a><a class="outline-level-2" href="#13-待確認事項">13. 待確認事項</a><a class="outline-level-2" href="#14-實作接軌條件">14. 實作接軌條件</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -579,7 +579,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.17.0-phase-three-pack-03-baseline · 2026-08-17</span>
+                    <span>0.18.0-phase-three-pack-03-source-aligned · 2026-08-18</span>
                 </footer>
             </div>
         </main>

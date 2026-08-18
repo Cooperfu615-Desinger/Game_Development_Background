@@ -1,8 +1,8 @@
 # Provider Portal 產品與功能規格
 
-> 版本：0.7.0
-> 更新日期：2026-08-13
-> 狀態：導覽、頁面原型、儀表板與監控／風控規格已整理；正式 API、權限、警戒門檻、更新頻率與資料契約待確認
+> 版本：0.8.0
+> 更新日期：2026-08-18
+> 狀態：目前需求基準；已同步 Decision Pack 01、02、03，正式 API、權限與既有系統 Mapping 待確認
 
 ## 1. 產品定位
 
@@ -94,23 +94,28 @@ Provider Portal 不建立 Provider 錢包，也不把代理商、商戶或會員
 
 ### 4.4 環境與版本啟用
 
-遊戲的正式、DEMO 與測試環境必須分開管理，不使用單一 `environmentMode` 互相切換。
+遊戲版本與發布生命週期統一依 [`Decision Pack 03｜遊戲版本與發布生命週期`](./spec-book/content/appendices/decision-pack-03-game-release-lifecycle.md)。Game、Version、Artifact 與 Release Record 是四個不同物件；目前生效版本只由各環境的 Active Release 判定。
+
+正式、DEMO 與測試環境必須分開管理，不使用單一 `environmentMode` 互相切換，資料、憑證、Game Round、統計與稽核永久隔離。
 
 | 環境 | 使用方式 | Provider Portal 操作 |
 |---|---|---|
-| 正式環境 | GGAP 正式遊戲服務，可產生正式 Game Round | 可啟用、停用、維護已部署版本 |
-| 官網 DEMO | 可實際遊玩，但使用隔離的 DEMO / 沙盒資料 | 可啟用、停用、維護已部署版本 |
-| 測試環境 | 供前後端與測試團隊驗證 | 只讀監控，不提供上下架或版本更新 |
+| 正式環境 | GGAP 正式遊戲服務，可產生正式 Game Round | 只接受已在 DEMO 通過的同一 Artifact；可發布、回滾、維護、暫停及管理全域可用性 |
+| 官網 DEMO | 可實際遊玩，但使用隔離的 DEMO / 沙盒資料 | 驗證正式候選 Artifact；可發布、回滾、維護與停止新 Launch |
+| 測試環境 | 供前後端與測試團隊快速驗證 | 具權限編輯者可建立 Test Release、替換 build 與重跑驗證；不納入正式監控風控 |
 
-版本責任分工如下：
+版本與發布責任如下：
 
-- 前後端 / DevOps 負責建置、部署與測試環境更新。
-- Provider Portal 負責在正式或 DEMO 環境啟用已部署的版本。
-- 正式環境啟用需要權限、確認與操作紀錄。
-- 正式與 DEMO 可以啟用不同版本，不要求兩者同步。
-- 下架只阻擋新的遊戲啟動，不影響已完成或正在依規則結算的 Game Round。
+- Provider 擁有遊戲主資料、Version、Artifact 關聯、環境 Release、全域上下架及不可變歷程；工程與 DevOps 提供建置、部署與健康檢查能力。
+- Test 可反覆驗證不同 build；Version 成為正式候選後綁定確切 Artifact，DEMO 通過後 Production 必須使用同一份 Artifact。
+- 一般 Release 採自動檢查加一位發布管理者；RTP、金額、限額、契約、migration、安全或無安全回滾等高風險變更才要求第二人核准。
+- Production 發布成功不等於全域上架；Game 的 `unpublished`、`available`、`maintenance`、`suspended`、`retired` 與 Release 狀態分開。
+- 發布、回滾、下架、維護或隔離只改變新 Launch 與新 Round；既有 Game Round 依建立時固定的 Version、Build、Release、數值、倍率與限額完成。
+- 每次重試與回滾建立新的 Release Record，不覆寫失敗或歷史紀錄；無安全回滾版本時停止新 Launch 並等待 Forward Fix。
 
 DEMO 遊戲雖然可以實際遊玩，但其 Game Round、點數與資料必須與正式環境隔離，不應進入正式遊戲商財務或 GGAP 正式結算。
+
+Provider 可使用短效 Launch Context 綁定遊戲、版本、Artifact、Release、環境與 GGAP 脈絡，但不建立長期 Game Session 主資料。Game Round 仍是唯一主要業務紀錄單位。
 
 ## 5. 不在目前範圍
 
@@ -151,7 +156,7 @@ DEMO 遊戲雖然可以實際遊玩，但其 Game Round、點數與資料必須�
 ## 8. 待確認事項
 
 - Provider 內部角色與細部 permission key。
-- 遊戲狀態與 Game Round 狀態的正式枚舉值。
+- 後端既有遊戲／版本／發布 enum 與目前需求基準的 Mapping。
 - Provider 點數精度、USDT 換算精度與四捨五入規則。
 - GGAP 對接的正式 API、簽章、回呼與重試規則。
 - 官網管理的內容類型與發布流程。

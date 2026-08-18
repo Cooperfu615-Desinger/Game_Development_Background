@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.17.0-phase-three-pack-03-baseline</span>
+            <span>0.18.0-phase-three-pack-03-source-aligned</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -36,7 +36,7 @@
         <aside class="sidebar" id="spec-navigation" data-sidebar>
             <div class="sidebar-intro">
                 <span class="sidebar-kicker">SPECIFICATION MANUAL</span>
-                <p>2026-08-17 更新</p>
+                <p>2026-08-18 更新</p>
             </div>
             <nav aria-label="規格書章節">
 
@@ -461,7 +461,7 @@
 </thead>
 <tbody><tr>
 <td>規格成熟度</td>
-<td>Draft — Batch C 完整頁面規格</td>
+<td>目前需求基準 — 已同步 Decision Pack 03</td>
 </tr>
 <tr>
 <td>製作範圍</td>
@@ -477,7 +477,7 @@
 </tr>
 <tr>
 <td>主要來源</td>
-<td><code>PROVIDER_RISK_CONTROL_SPEC.md</code>、現行原型</td>
+<td><code>PROVIDER_RISK_CONTROL_SPEC.md</code>、<code>Decision Pack 03</code>、現行原型</td>
 </tr>
 <tr>
 <td>頁面角色</td>
@@ -490,11 +490,11 @@
 <h2 id="1-目的與責任邊界">1. 目的與責任邊界</h2><ul>
 <li>管理理論 RTP、波動度、賠率表、點數／限紅相容條件與數值版本。</li>
 <li>顯示 Production／DEMO 的實際 RTP、樣本、窗口與偏差，協助決定是否調查。</li>
-<li>透過複製、模擬、驗證、送審與發布組合生效，不直接改寫 active 數值。</li>
+<li>透過複製、模擬、驗證、候選與環境 Release 生效，不直接改寫已發布數值。</li>
 <li>不修改已結算 Game Round；不把單筆超額派彩直接判定為 Risk Event。</li>
 </ul>
 <h2 id="2-數值與監控模型">2. 數值與監控模型</h2><ul>
-<li>數值版本至少含 <code>math_version_id</code>、game_id、理論 RTP、波動度、賠率表／checksum、點數規則、相容限紅、版本狀態與審核。</li>
+<li>數值版本至少含 <code>math_version_id</code>、game_id、理論 RTP、波動度、賠率表／checksum、點數規則、相容限額、版本狀態與核准證據，並由 Game Version 精確引用。</li>
 <li>監控 snapshot 另含 environment、actual RTP、deviation、sample rounds、window、updated_at、rule／threshold version。</li>
 <li>理論值與實際值需明確標示單位及基準；偏差公式與 percentage／percentage point 語意待核准。</li>
 <li>Production／DEMO 分開監控，Test 不進 Provider 風控。</li>
@@ -519,9 +519,9 @@
 <li>預設 active／pending 優先，再以 updated_at desc、math ID 穩定排序。</li>
 <li>列表與匯出由伺服器篩選分頁；實際 RTP 不從畫面 Round 即時計算。</li>
 </ul>
-<h2 id="8-數值詳情">8. 數值詳情</h2><p>大型 Dialog 顯示：ID／遊戲／版本／狀態；理論 RTP、波動度、賠率表 checksum、點數與限紅相容性；監控 snapshot；來源版本、複製 lineage、審核、發布組合及 audit。已生效內容只讀。</p>
-<h2 id="9-審核與狀態">9. 審核與狀態</h2><p>流程骨架：從既有版本複製 → 編輯草稿 → 模擬／驗證 → 送審 → 核准 → 由環境發布組合生效 → 封存。Production 必填理由與差異，操作使用 version／idempotency；正式雙人核准待決策。</p>
-<p>審核表單需顯示目前／目標值、差異、適用環境、模擬結果、相容限紅、風險說明及 reason。審核通過不等於已發布。</p>
+<h2 id="8-數值詳情">8. 數值詳情</h2><p>大型 Dialog 顯示：ID／遊戲／版本／狀態；理論 RTP、波動度、賠率表 checksum、點數與限額相容性；監控 snapshot；來源版本、複製 lineage、核准、Game Version／Release 引用及 audit。已發布內容只讀。</p>
+<h2 id="9-審核與狀態">9. 審核與狀態</h2><p>流程骨架：從既有版本複製 → 編輯草稿 → 模擬／驗證 → 納入 Candidate Version → 高風險核准 → 由環境 Release 生效 → 保留歷史。RTP、賠付、金額或結果規則變更固定屬高風險，Production 必須由第二位管理者核准；核准後若內容或 Artifact 改變，既有核准立即失效。</p>
+<p>核准表單需顯示目前／目標值、差異、適用環境、模擬結果、相容限額、風險說明及 reason。核准通過不等於已發布；只有 Production Release 成功後，對應 Version 才成為 <code>published</code>，目前生效仍由 Active Release 判定。</p>
 <h2 id="10-頁面狀態與錯誤處理">10. 頁面狀態與錯誤處理</h2><p>支援 loading、empty、no monitoring data、sample insufficient、validation failed、simulation running／failed、review pending／rejected、conflict、export、Forbidden。監控來源失敗不得阻擋查看已核准理論版本，但需標示局部失敗。</p>
 <h2 id="11-api-契約草案">11. API 契約草案</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
@@ -549,7 +549,7 @@
 </tbody></table></div>
 <p>正式 API、decimal、門檻與 permission 依 <code>TBD-API-005</code>、<code>TBD-DAT-005</code>、<code>TBD-SEC-003</code>、<code>TBD-SEC-004</code>。</p>
 <h2 id="12-響應式-無障礙與驗收">12. 響應式、無障礙與驗收</h2><p>頁面使用主內容完整寬度。Mobile 卡片分開「設定」與「監控」，圖表提供等價表格／文字摘要，Dialog／審核管理焦點與錯誤公告。</p>
-<p>驗收條件：理論設定與監控 snapshot 分離；Production／DEMO 不混算、Test 排除；active 不可直改；審核通過不等於發布；偏離門檻不寫死；既有 Round 不被修改；列表、詳情、狀態與跨頁發布關聯可追溯。</p>
+<p>驗收條件：理論設定與監控 snapshot 分離；Production／DEMO 不混算、Test 排除；已發布數值不可直改；數值變更自動走高風險第二人核准；核准不等於發布；偏離門檻不寫死；既有 Round 固定原數值快照；列表、詳情、狀態與 Release 關聯可追溯。</p>
 <h2 id="13-測試重點">13. 測試重點</h2><ul>
 <li>decimal／百分點、理論與實際、極端值、樣本不足與資料缺口。</li>
 <li>複製 lineage、草稿驗證、模擬 timeout、審核衝突與重複送出。</li>
@@ -557,18 +557,18 @@
 <li>390px 圖表替代內容、寬表、Dialog 鍵盤與長 checksum。</li>
 </ul>
 <h2 id="14-待確認事項">14. 待確認事項</h2><ul>
-<li><code>TBD-DOM-003</code>：數值版本與發布組合。</li>
+<li><code>TBD-DOM-003</code>：現有數值 schema 與 DP03 Version／Release 的 Mapping。</li>
 <li><code>TBD-DAT-005</code>：RTP、樣本、窗口與風控門檻。</li>
 <li><code>TBD-API-001</code>、<code>TBD-API-005</code>：共通／數值 API。</li>
 <li><code>TBD-SEC-001</code>、<code>TBD-SEC-003</code>、<code>TBD-SEC-004</code>：權限、核准與匯出。</li>
 <li><code>TBD-NFR-004</code>、<code>TBD-EXT-003</code>：前端驗收與角色模型。</li>
 </ul>
-<h2 id="15-draft-移除條件">15. Draft 移除條件</h2><p>數值 schema、精度、模擬／審核／發布關聯、監控門檻、API 與權限核准且驗收通過後，才可改為 Confirmed。</p>
+<h2 id="15-實作接軌條件">15. 實作接軌條件</h2><p>目前產品行為依本頁與 Decision Pack 03 成立；正式 schema、精度、API、permission 與監控門檻取得後建立 Mapping，並以驗收結果更新實作狀態。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-數值與監控模型">2. 數值與監控模型</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-數值摘要">4. 數值摘要</a><a class="outline-level-2" href="#5-rtp-監控趨勢">5. RTP 監控趨勢</a><a class="outline-level-2" href="#6-查詢條件">6. 查詢條件</a><a class="outline-level-2" href="#7-數值版本列表">7. 數值版本列表</a><a class="outline-level-2" href="#8-數值詳情">8. 數值詳情</a><a class="outline-level-2" href="#9-審核與狀態">9. 審核與狀態</a><a class="outline-level-2" href="#10-頁面狀態與錯誤處理">10. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#11-api-契約草案">11. API 契約草案</a><a class="outline-level-2" href="#12-響應式-無障礙與驗收">12. 響應式、無障礙與驗收</a><a class="outline-level-2" href="#13-測試重點">13. 測試重點</a><a class="outline-level-2" href="#14-待確認事項">14. 待確認事項</a><a class="outline-level-2" href="#15-draft-移除條件">15. Draft 移除條件</a></nav>
+        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-數值與監控模型">2. 數值與監控模型</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-數值摘要">4. 數值摘要</a><a class="outline-level-2" href="#5-rtp-監控趨勢">5. RTP 監控趨勢</a><a class="outline-level-2" href="#6-查詢條件">6. 查詢條件</a><a class="outline-level-2" href="#7-數值版本列表">7. 數值版本列表</a><a class="outline-level-2" href="#8-數值詳情">8. 數值詳情</a><a class="outline-level-2" href="#9-審核與狀態">9. 審核與狀態</a><a class="outline-level-2" href="#10-頁面狀態與錯誤處理">10. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#11-api-契約草案">11. API 契約草案</a><a class="outline-level-2" href="#12-響應式-無障礙與驗收">12. 響應式、無障礙與驗收</a><a class="outline-level-2" href="#13-測試重點">13. 測試重點</a><a class="outline-level-2" href="#14-待確認事項">14. 待確認事項</a><a class="outline-level-2" href="#15-實作接軌條件">15. 實作接軌條件</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -579,7 +579,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.17.0-phase-three-pack-03-baseline · 2026-08-17</span>
+                    <span>0.18.0-phase-three-pack-03-source-aligned · 2026-08-18</span>
                 </footer>
             </div>
         </main>

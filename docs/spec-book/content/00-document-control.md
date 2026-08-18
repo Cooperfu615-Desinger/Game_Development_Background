@@ -9,7 +9,7 @@
 | 文件名稱 | Provider Portal 產品與系統規格書 |
 | 適用產品 | GGAP Provider Portal |
 | 主要讀者 | 產品、前端、後端、QA、GGAP 對接團隊 |
-| 目前版本 | `0.17.0-phase-three-pack-03-baseline` |
+| 目前版本 | `0.18.0-phase-three-pack-03-source-aligned` |
 | 目前狀態 | Phase 3 · Product Contract Baselines |
 | 主要語言 | 台灣繁體中文；技術值與協定名稱保留英文 |
 
@@ -86,4 +86,4 @@
 
 第三階段附錄 M《Decision Pack 02｜監控與風控共用產品契約》採用「目前需求基準」定位，不再以替代方案或逐題核准問卷表達。它直接定義 Signal → Detection Result → Risk Event → Alert → Mitigation Job → Recovery 的完整產品閉環，以及規則版本、事件／告警生命週期、隔離、GGAP 通知、可靠性與稽核要求。現行三個頁面仍是前端 mock；API path、實際門檻、permission key、資料表與 GGAP payload 屬外部驗證點，取得證據後以版本差異更新，不降低目前功能需求的完整度。
 
-第三階段附錄 N《Decision Pack 03｜遊戲版本與發布生命週期》採用「目前需求基準」定位，直接定義 Game、Version、Artifact、Release、Test／DEMO／Production 晉級、標準快速發布＋高風險發布、Provider 全域可用性、GGAP 代理商開關邊界、回滾與既有 Game Round 相容。日常發布以自動檢查與單一發布管理者加速，數值、金額、契約、資料結構及安全變更才要求第二人核准；Backend Git 只用於後續實作 Mapping，不阻擋本產品需求成立。
+第三階段附錄 N《Decision Pack 03｜遊戲版本與發布生命週期》採用「目前需求基準」定位，直接定義 Game、Version、Artifact、Release、Test／DEMO／Production 晉級、標準快速發布＋高風險發布、Provider 全域可用性、GGAP 代理商開關邊界、回滾與既有 Game Round 相容。日常發布以自動檢查與單一發布管理者加速，數值、金額、契約、資料結構及安全變更才要求第二人核准；內容已回寫 Portal、遊戲列表、GGAP 契約、六個遊戲管理頁與共用資料／API／安全／QA 規格。Backend Git 只用於後續實作 Mapping，不阻擋本產品需求成立。

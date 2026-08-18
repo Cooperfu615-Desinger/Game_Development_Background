@@ -20,18 +20,18 @@ const deferredPages = modules.flatMap((module) => module.pages).filter((page) =>
 const environmentPage = modules.flatMap((module) => module.pages).find((page) => page.id === 'game-environments')
 const expectedTbd = {
     'TBD-DOM-001': 'partial',
-    'TBD-DOM-003': 'definition',
+    'TBD-DOM-003': 'partial',
     'TBD-DAT-004': 'definition',
     'TBD-API-005': 'definition',
     'TBD-SEC-001': 'external',
-    'TBD-SEC-003': 'definition',
+    'TBD-SEC-003': 'partial',
     'TBD-NFR-003': 'partial',
     'TBD-EXT-001': 'external',
 }
 const failures = []
 let assertionCount = 0
 
-assert(book.version === '0.17.0-phase-three-pack-03-baseline', '規格網站版本必須標示 Decision Pack 03 產品需求基準')
+assert(book.version === '0.18.0-phase-three-pack-03-source-aligned', '規格網站版本必須標示 Decision Pack 03 原始 Spec MD 已同步')
 assert(book.status === 'Phase 3 · Product Contract Baselines', '規格網站狀態必須維持 Product Contract Baselines')
 assert(Boolean(decisionPack), 'manifest 必須包含 Decision Pack 03')
 assert(decisionPack?.number === 'N', 'Decision Pack 03 必須使用附錄 N')
@@ -135,10 +135,11 @@ assert(openIssues.includes(`${decisionPackId}.html`), '集中追蹤頁必須提�
 assert(openIssues.includes('實作 Mapping'), '集中追蹤頁必須說明 Backend Git 不阻擋產品需求成立')
 assert(documentControl.includes(book.version), '文件治理頁必須同步 Decision Pack 03 版本')
 assert(documentControl.includes('標準快速發布＋高風險發布'), '文件治理頁必須記錄簡化後的雙通道')
-assert(changelog.includes('0.17.0-phase-three-pack-03-baseline'), '版本紀錄必須記載 Decision Pack 03')
-assert(projectIndex.includes('文件版本：2.24.0'), '專案交接索引必須同步 Decision Pack 03 文件版本')
+assert(changelog.includes('0.18.0-phase-three-pack-03-source-aligned'), '版本紀錄必須記載 Decision Pack 03 Spec MD 同步')
+assert(projectIndex.includes('文件版本：2.25.0'), '專案交接索引必須同步 Decision Pack 03 Spec MD 文件版本')
 assert(projectIndex.includes(`${decisionPackId}.html`), '專案交接索引必須提供 Decision Pack 03 入口')
-assert(projectIndex.includes('規格網站 → Spec MD → 新開發 session'), '專案交接索引必須保留後續同步順序')
+assert(projectIndex.includes('Decision Pack 02、03 已同步至對應原始 Spec MD'), '專案交接索引必須記錄 Pack 03 Spec MD 已同步')
+assert(projectIndex.includes('Portal Vue 原型留給新開發 session 實作'), '專案交接索引必須保留 Portal 原型後續順序')
 
 if (failures.length) {
     console.error(`Decision Pack 03 validation failed (${failures.length}/${assertionCount})`)

@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.17.0-phase-three-pack-03-baseline</span>
+            <span>0.18.0-phase-three-pack-03-source-aligned</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -36,7 +36,7 @@
         <aside class="sidebar" id="spec-navigation" data-sidebar>
             <div class="sidebar-intro">
                 <span class="sidebar-kicker">SPECIFICATION MANUAL</span>
-                <p>2026-08-17 更新</p>
+                <p>2026-08-18 更新</p>
             </div>
             <nav aria-label="規格書章節">
 
@@ -419,8 +419,10 @@
                         <p>Provider Portal 是單一 Provider 內部系統。資料隔離、正式操作授權與敏感資訊保護必須由後端強制執行。</p>
 <h2 id="身份與資料範圍">身份與資料範圍</h2><p>正式 token 至少需表達使用者、<code>provider_id</code>、Provider 內部角色、permission、簽發與過期資訊。舊原型的 supplier／agent／merchant Portal 切換模型不作為正式身份設計。</p>
 <h2 id="權限原則">權限原則</h2><ul>
-<li>讀取、匯出、發布、正式環境啟用、風控處理、憑證輪替與系統設定需分開授權。</li>
-<li>正式環境高風險操作需確認原因，必要時增加二次確認或雙人核准。</li>
+<li>讀取、匯出、版本編輯、Test／DEMO 發布、Production 發布、風控處理、憑證輪替與系統設定需分開授權。</li>
+<li>一般 Production Release 由一位發布管理者在自動檢查後執行；只有 RTP、金額、限額、契約、migration、安全、略過檢查或無安全回滾等高風險變更要求第二人核准。</li>
+<li>高風險提交者不得代替第二位核准者；Version、Artifact 或高風險內容改變時，既有核准失效。</li>
+<li>緊急停用可由緊急處理者單人立即執行，不等待 GGAP ACK；解除需健康驗證與具權限確認。</li>
 <li>導向頁必須重新檢查資料存在性與權限，不信任來源頁 query。</li>
 </ul>
 <h2 id="敏感資料">敏感資料</h2><ul>
@@ -428,7 +430,7 @@
 <li>API key 只顯示遮罩與輪替狀態；正式 secret 原則上只在建立時顯示一次。</li>
 <li>會員 ID 是否遮罩及可見角色仍待確認。</li>
 </ul>
-<h2 id="稽核">稽核</h2><p>重要操作需保存操作者、角色、<code>provider_id</code>、資源、操作前後、原因、結果、時間、Request ID、IP 與 User Agent。已保存的業務紀錄與 audit 不得由一般頁面直接刪除。</p>
+<h2 id="稽核">稽核</h2><p>重要操作需保存操作者／System、角色與 permission snapshot、<code>provider_id</code>、資源、環境、操作前後、原因、結果、時間、Request／correlation／trace ID、IP 與 User Agent。Version、Artifact checksum、核准、Release、上下架、回滾、隔離、緊急停用與 audit 不得由一般頁面直接刪除；更正採追加紀錄。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
@@ -444,7 +446,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.17.0-phase-three-pack-03-baseline · 2026-08-17</span>
+                    <span>0.18.0-phase-three-pack-03-source-aligned · 2026-08-18</span>
                 </footer>
             </div>
         </main>

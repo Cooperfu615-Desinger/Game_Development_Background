@@ -28,7 +28,7 @@ const expectedTbd = {
 const failures = []
 let assertionCount = 0
 
-assert(book.version === '0.17.0-phase-three-pack-03-baseline', '規格網站版本必須包含 Decision Pack 03 產品需求基準')
+assert(book.version === '0.18.0-phase-three-pack-03-source-aligned', '規格網站版本必須包含 Decision Pack 03 原始 Spec MD 同步')
 assert(book.status === 'Phase 3 · Product Contract Baselines', '規格網站狀態必須標示 Product Contract Baselines')
 assert(Boolean(decisionPack), 'manifest 必須包含 Decision Pack 01')
 assert(decisionPack?.number === 'L', 'Decision Pack 01 必須使用附錄 L')

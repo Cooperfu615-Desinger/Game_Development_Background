@@ -1,10 +1,10 @@
 # Provider 與 GGAP 對接契約
 
-> 版本：0.3.0
-> 更新日期：2026-08-10
-> 狀態：工作契約草案，需由 GGAP 與後端團隊核准
+> 版本：0.4.0
+> 更新日期：2026-08-18
+> 狀態：目前產品責任基準；實際 endpoint、payload、簽章與 enum 待 GGAP／Backend Git Mapping
 
-本文件是 Provider Portal 對接 GGAP 的補充契約。GGAP 平台完整規格仍以 [`GGAP_final_system_spec_tech.html`](./GGAP_final_system_spec_tech.html) 為準；本文件不改寫 GGAP 平台規格。
+本文件是 Provider Portal 對接 GGAP 的補充契約。遊戲版本與發布責任依 [`Decision Pack 03｜遊戲版本與發布生命週期`](./spec-book/content/appendices/decision-pack-03-game-release-lifecycle.md)；GGAP 平台完整規格仍以 [`GGAP_final_system_spec_tech.html`](./GGAP_final_system_spec_tech.html) 為準。本文件定義希望達成的產品邊界，不以現有 API 命名取代後續 Mapping。
 
 ## 1. 對接角色
 
@@ -44,10 +44,10 @@ sequenceDiagram
 Provider 提供遊戲主資料給 GGAP，至少包含：
 
 - `game_id`、`game_name`、`game_type`
-- 遊戲狀態、版本與資產版本
+- Provider 全域可用性、Active Version、`release_id` 與資產版本
 - 遊戲支援幣別與 USDT 對接資訊
 - 點數規則、限紅與必要的展示資訊
-- Provider 更新時間與版本號
+- `build_id`／Artifact checksum、Provider 更新時間與事件版本
 
 GGAP 可以保存同步資料並在平台側建立自己的代理商開關，但不能把代理商開關回寫成 Provider 全域上下架。
 
@@ -61,10 +61,10 @@ GGAP 呼叫 Provider 時，應提供：
 - `merchant_id`，若 GGAP 脈絡有商戶
 - `member_id`
 - `currency`，現階段以 `USDT` 為主
-- `request_id` / `launch_id`
+- `request_id` / `launch_id`，由 Provider 建立短效 Launch Context
 - 簽章、時間戳與必要的防重放欄位
 
-目前 slots 與單人 Crash 不需要 Provider 建立 Game Session。若未來多人玩法需要共享局號，另增加多人 round context。
+Launch Context 綁定 `game_id`、Version、Build、Release、environment、幣別、語系與 GGAP Context，只用於安全與路由，不建立長期 Game Session。若未來多人玩法需要共享局號，另增加多人 round context。
 
 ### 3.3 遊戲結算
 
@@ -89,11 +89,11 @@ Provider 回傳或保存：
 
 遊戲商與 GGAP 至少有三種不同狀態，不應合併：
 
-1. **Provider 遊戲狀態**：草稿、已上架、已下架、維護、退役。
+1. **Provider 全域可用性**：`unpublished`、`available`、`maintenance`、`suspended`、`retired`。
 2. **GGAP 代理商可見狀態**：對特定代理商開啟或關閉。
 3. **Game Round 狀態**：處理中、已結算、取消、回滾或失敗。
 
-Provider Portal 只控制第一種；可以檢視第二種的同步結果，但不應把它當作 Provider 全域狀態。
+Version 成熟度、Release 執行結果與 Active Release 另為獨立狀態，不能併入以上三者。Provider Portal 控制第一種；可以檢視第二種的同步結果，但不得把它當作 Provider 全域可用性。
 
 ## 5. 環境與版本啟用
 
@@ -101,19 +101,22 @@ Provider Portal 只控制第一種；可以檢視第二種的同步結果，但�
 
 | 環境 | 是否接 GGAP 正式平台 | 是否可實際遊玩 | 版本責任 |
 |---|---:|---:|---|
-| 正式環境 | 是 | 是 | 技術部署，Provider 啟用 |
-| 官網 DEMO | 否，使用 DEMO / 沙盒服務 | 是 | 技術部署，Provider 啟用 |
-| 測試環境 | 否 | 依測試環境而定 | 前後端 / DevOps 部署，Portal 只讀監控 |
+| 正式環境 | 是 | 是 | 只接受 DEMO 已通過的同一 Artifact；Provider 發布與管理全域可用性 |
+| 官網 DEMO | 否，使用 DEMO / 沙盒服務 | 是 | Provider 發布候選 Artifact 並完成整合驗證 |
+| 測試環境 | 否 | 依測試環境而定 | 具權限編輯者可快速發布 build 與重跑驗證 |
 
 DEMO 不得使用 GGAP 正式會員錢包、正式代理商帳務或正式結算。DEMO 的遊戲請求、遊戲結果與 Game Round 必須帶有明確環境識別，避免混入正式資料。
 
-Provider Portal 的版本啟用不是程式部署：
+Provider Release 透過既有建置與部署工具執行，但產品流程由 Provider 管理：
 
-1. 技術團隊先完成版本建置與環境部署。
-2. Provider 在遊戲管理的「環境與發布」頁查看可啟用版本。
-3. Provider 針對正式或 DEMO 環境啟用指定版本。
-4. 系統留下操作者、版本、環境、時間與啟用結果。
-5. 若 GGAP 同步失敗，Provider 看到同步錯誤，但不直接修改 GGAP 代理商開關。
+1. Version 綁定不可變 Artifact；Test 可反覆 build 與驗證。
+2. 同一候選 Artifact 依序完成 DEMO 驗證，再晉級 Production；Production 必須使用同一份 Artifact，不得重新 build。
+3. 系統自動檢查風險；一般 Release 一位發布管理者即可，高風險才要求第二人核准。
+4. 每次發布、失敗重試與回滾建立新的 Release Record，保存操作者、版本、Build、環境、時間、前後 Active Release 與結果。
+5. Provider 全域上架等待 GGAP ACK 後才對外開放；維護、暫停、隔離或退役先由 Provider 立即拒絕新 Launch，再可靠通知 GGAP。
+6. GGAP 同步失敗不得讓 Provider 緊急保護失效，也不得由 Provider 直接修改 GGAP 代理商開關。
+
+最終允許 Launch 必須同時滿足：Provider 為 `available`、存在 Production Active Release、沒有維護／暫停／隔離、GGAP 已對該代理商開放，且 GGAP 判定代理商、商戶與會員可使用。
 
 ## 6. 金額與精度
 
@@ -131,7 +134,7 @@ Provider 與 GGAP 需共同確認以下規則：
 |---|---|
 | 重複 `request_id` | 回傳第一次處理結果，不重複入帳 |
 | 不存在的遊戲 | 穩定錯誤碼，不能以成功空結果代替 |
-| 遊戲已下架 | 拒絕新啟動，但既有已結算局不受影響 |
+| 遊戲未上架、維護、暫停或退役 | 拒絕新 Launch；既有 Round 仍依原版本完成必要結算與 Callback |
 | GGAP 逾時 | 支援查詢或補償機制，不直接重複寫入 |
 | Provider 結算失敗 | 保存失敗事件並產生通知 |
 | 回呼重送 | 以 `provider_event_id` 去重 |
@@ -145,7 +148,7 @@ Provider 因遊戲服務或資料異常執行的隔離，是 Provider 全域遊�
 
 ### 8.1 對接行為
 
-- 隔離只拒絕指定範圍的新 Launch；既有 Game Round 的 Settle、Callback 與必要重試仍須完成。
+- 隔離、維護、暫停與回滾只改變新 Launch／新 Round；既有 Game Round 的 Settle、Cancel、Refund、Callback 與必要重試仍依原 Version／Release 完成。
 - Provider 應使用核准且版本化的風控規則決定是否隔離，不得只依嚴重度直接停機。
 - Provider 解除隔離前必須完成健康檢查與授權覆核，解除後同樣通知 GGAP，不得靜默恢復。
 - GGAP 收到通知後的代理商與玩家端行為，需由正式對接契約確認；不得由 Provider Portal 假設或直接修改 GGAP 代理商設定。
@@ -198,3 +201,4 @@ Provider 因遊戲服務或資料異常執行的隔離，是 Provider 全域遊�
 - 風控隔離、解除與緩解失敗通知的 endpoint、事件名稱與 ACK 格式。
 - GGAP 收到隔離通知後，對新 Launch、既有 Round 與代理商狀態的正式行為。
 - 通知重試次數、退避規則、保存期限與人工補送機制。
+- Game、Version、Artifact、Release、Launch Context 與 Active Release 的現有資料表、enum 及 API Mapping。

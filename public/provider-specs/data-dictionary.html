@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.17.0-phase-three-pack-03-baseline</span>
+            <span>0.18.0-phase-three-pack-03-source-aligned</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -36,7 +36,7 @@
         <aside class="sidebar" id="spec-navigation" data-sidebar>
             <div class="sidebar-intro">
                 <span class="sidebar-kicker">SPECIFICATION MANUAL</span>
-                <p>2026-08-17 更新</p>
+                <p>2026-08-18 更新</p>
             </div>
             <nav aria-label="規格書章節">
 
@@ -461,6 +461,55 @@
 <td>一個 Risk Event 第一版對應一個主要 Alert</td>
 </tr>
 </tbody></table></div>
+<h2 id="遊戲版本與發布識別">遊戲版本與發布識別</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>說明</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>game_id</code></td>
+<td>Provider 遊戲長期穩定識別</td>
+<td>不因版本更新而更換</td>
+</tr>
+<tr>
+<td><code>version_id</code></td>
+<td>Game Version 功能快照識別</td>
+<td>與顯示版號、Build 分開</td>
+</tr>
+<tr>
+<td><code>build_id</code></td>
+<td>不可變 Build Artifact 識別</td>
+<td>重新建置必須產生新值</td>
+</tr>
+<tr>
+<td><code>artifact_checksum</code></td>
+<td>Artifact manifest／內容完整性校驗</td>
+<td>不得由檔名或 URL 取代</td>
+</tr>
+<tr>
+<td><code>release_id</code></td>
+<td>單次環境發布、重試或回滾紀錄</td>
+<td>Release Record 不可覆寫</td>
+</tr>
+<tr>
+<td><code>active_release_id</code></td>
+<td>Game × Environment 目前生效 Release</td>
+<td>同一時間最多一筆</td>
+</tr>
+<tr>
+<td><code>launch_id</code></td>
+<td>短效 Launch Context 識別</td>
+<td>不是 Game Session 或 Round ID</td>
+</tr>
+<tr>
+<td><code>release_event_id</code></td>
+<td>發布／全域狀態外部投遞事件識別</td>
+<td>用於 outbox、冪等與 GGAP ACK</td>
+</tr>
+</tbody></table></div>
 <h2 id="game-round-金額">Game Round 金額</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
@@ -529,7 +578,7 @@
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#核心識別">核心識別</a><a class="outline-level-2" href="#game-round-金額">Game Round 金額</a><a class="outline-level-2" href="#時間">時間</a></nav>
+        <nav><a class="outline-level-2" href="#核心識別">核心識別</a><a class="outline-level-2" href="#遊戲版本與發布識別">遊戲版本與發布識別</a><a class="outline-level-2" href="#game-round-金額">Game Round 金額</a><a class="outline-level-2" href="#時間">時間</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -540,7 +589,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.17.0-phase-three-pack-03-baseline · 2026-08-17</span>
+                    <span>0.18.0-phase-three-pack-03-source-aligned · 2026-08-18</span>
                 </footer>
             </div>
         </main>

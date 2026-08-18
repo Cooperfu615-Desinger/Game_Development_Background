@@ -27,12 +27,12 @@ export const pageReconciliation = {
         '版本發布操作明確標示等待「環境與發布」頁完成，目前以唯讀摘要呈現。',
         '列表、狀態、RTP 與詳情均使用前端 mock。',
     ], [
-        'Batch C Draft 已定義三環境摘要、八類篩選、14 欄寬表、RTP Tips、詳情、狀態與精確導流。',
-        'Test 只讀、pending release、營運控制與 GGAP 同步的互斥語意及驗收已有骨架。',
-        '正式 enum、RTP／同步 API、permission 與外部 GGAP 契約仍依集中 TBD 管理。',
+        'Pack 03 同步後已定義三環境摘要、14 欄寬表、RTP Tips、Active Release、全域可用性與精確導流。',
+        '本列表不直接發布；Test 操作導向環境頁，全域可用性、Release 與 GGAP 同步語意分離。',
+        '正式 RTP／同步 API、permission 與外部 GGAP payload 待實作 Mapping。',
     ]),
     'game-environments': record('gap', [
-        'Provider 負責 Production／DEMO 的版本與素材發布，以及遊戲的全域上架／下架。',
+        'Provider 負責 Test／DEMO／Production 的版本與 Artifact 發布，以及遊戲的全域上架／下架。',
         'GGAP 對已上架遊戲控制各代理商是否開放；該能力不屬於 Provider 本頁。',
         'Test 可作開發驗證，但不得混入正式財務、Game Round 或 Provider 風控資料。',
     ], [
@@ -40,9 +40,9 @@ export const pageReconciliation = {
         'Production、DEMO、Test 數量、版本與待發布佇列皆為 mock。',
         '沒有正式發布操作、驗證結果、失敗狀態或發布詳情。',
     ], [
-        'Batch C Draft 已定義環境矩陣、發布組合、待發布佇列、preflight、操作前置條件、歷程及替代狀態。',
-        'Production／DEMO 可分版、Test 只讀、既有 Round 不受阻斷及 Provider／GGAP 邊界已有完整驗收骨架。',
-        '程式仍為 Placeholder；正式狀態機、API、核准／併發、補償與 GGAP 同步仍依集中 TBD 管理。',
+        'Pack 03 同步後已定義環境矩陣、Version／Artifact、待發布佇列、preflight、快速／高風險通道、回滾及歷程。',
+        'Test 可快速發布，同一 Artifact 晉級 DEMO／Production，既有 Round 固定原版本，Provider／GGAP Gate 分離。',
+        '程式仍為 Placeholder；正式 API、permission、CI/CD、補償與 GGAP payload 待實作 Mapping。',
     ]),
     'game-settings': record('attention', [
         'Provider 負責自身遊戲設定，不延伸為代理商、商戶或會員層級的設定中心。',
@@ -52,8 +52,8 @@ export const pageReconciliation = {
         '表單可在前端操作，包含正式環境是否需要審核等 mock 選項。',
         '沒有正式儲存、驗證、版本綁定、權限或稽核資料流。',
     ], [
-        'Batch C Draft 已定義維護／限紅模板、Provider 點數、基礎 enum、版本 snapshot、草稿／驗證／送審與 audit。',
-        '原型 USD／TWD 選項不升格為契約；Production 變更不再被視為直接表單儲存。',
+        'Pack 03 同步後已定義維護、投注結構、固定幣別倍率、限額方案、版本 snapshot、驗證、風險通道與 audit。',
+        '原型 USD／TWD 選項不升格為契約；一般設定走快速通道，限額／倍率變更要求第二人核准。',
         '正式 schema、時區／精度、API、permission、核准與併發仍依集中 TBD 管理。',
     ]),
     'game-math': record('attention', [
@@ -64,7 +64,7 @@ export const pageReconciliation = {
         '「偏離 ≥ 5%」、審核狀態、樣本量與數值皆為展示 mock；匯出目前停用。',
         '頁面同時呈現設定版本與監控結果，但尚無正式資料來源區分。',
     ], [
-        'Batch C Draft 已分開理論數值版本與監控 snapshot，定義趨勢、列表、詳情、模擬、驗證、審核及發布參照。',
+        'Pack 03 同步後分開理論數值版本與監控 snapshot，並將 RTP／賠付變更固定列為高風險 Release。',
         '原型偏離 ≥ 5% 明確保留為 mock；Production／DEMO 分離且 Test 排除風控。',
         '正式 decimal、賠率 schema、門檻／樣本、API、permission、審核與 audit 仍依集中 TBD 管理。',
     ]),
@@ -76,9 +76,9 @@ export const pageReconciliation = {
         '狀態包含已發布、測試中、維護中、待審核、已回滾，皆為 mock。',
         '摘要中的「影響商戶」是展示欄位，不代表 Provider 建立或管理商戶主資料。',
     ], [
-        'Batch C Draft 已定義 version ID／artifact、相容性、精確組合參照、lineage、引用、審核及回復 job。',
+        'Pack 03 同步後已定義 Version ID、不可變 Artifact、六個 Version 狀態、精確內容參照、lineage 與回滾候選。',
         '目標列表移除「影響商戶」管理語意，改用 Provider 環境／遊戲 scope；外部資料只能是 GGAP snapshot。',
-        '正式狀態、artifact 保存、API、permission、核准、匯出與 audit 仍依集中 TBD 管理。',
+        '正式 schema、Artifact Registry、API、permission、匯出與 audit 待實作 Mapping。',
     ]),
     'game-assets': record('aligned', [
         'Provider 負責自身遊戲素材，素材需能關聯遊戲、版本、語系及使用情境。',
@@ -88,9 +88,9 @@ export const pageReconciliation = {
         '素材狀態、語系、關聯版本與上傳流程均為前端 mock。',
         '目前沒有檔案實際上傳、掃描、儲存、發布或失敗資料流。',
     ], [
-        'Batch C Draft 已定義 asset／version ID、安全預覽、metadata、語系／usage、上傳、驗證、掃描、審核與 lineage。',
+        'Pack 03 同步後已定義 asset／version ID、安全預覽、metadata、語系／usage、上傳、驗證、掃描、風險通道與 lineage。',
         '替換建立不可變新版本，已引用素材不覆寫；上傳 mock 不被視為正式檔案成功。',
-        '正式格式／大小、fallback、儲存、API、下載／匯出、permission、保存與 audit 仍依集中 TBD 管理。',
+        '正式格式／大小、fallback、儲存、API、下載／匯出、permission、保存與 audit 待實作 Mapping。',
     ]),
     'game-round-records': record('aligned', [
         'Game Round 是 Provider 的主要業務紀錄單位，不另建 Game Session。',

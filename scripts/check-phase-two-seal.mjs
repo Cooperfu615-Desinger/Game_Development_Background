@@ -20,7 +20,7 @@ const zhLocale = await readFile(path.join(repositoryRoot, 'src/locales/zh-TW.jso
 const failures = []
 let assertionCount = 0
 
-assert(['0.13.0-phase-two-seal', '0.14.0-phase-three-pack-01-draft', '0.14.1-phase-three-pack-01-evidence-pending', '0.15.0-phase-three-pack-02-baseline', '0.16.0-phase-three-contract-baselines', '0.17.0-phase-three-pack-03-baseline'].includes(book.version), '規格網站版本不得早於 Phase 2 Seal')
+assert(['0.13.0-phase-two-seal', '0.14.0-phase-three-pack-01-draft', '0.14.1-phase-three-pack-01-evidence-pending', '0.15.0-phase-three-pack-02-baseline', '0.16.0-phase-three-contract-baselines', '0.17.0-phase-three-pack-03-baseline', '0.18.0-phase-three-pack-03-source-aligned'].includes(book.version), '規格網站版本不得早於 Phase 2 Seal')
 assert(['Phase 2 · Draft Sealed', 'Phase 3 · Decision Pack 01 Draft', 'Phase 3 · Pack 01 Backend Evidence Pending', 'Phase 3 · Monitoring & Risk Baseline', 'Phase 3 · Product Contract Baselines'].includes(book.status), '規格網站狀態不得早於 Phase 2 Draft Sealed')
 assert(assessedPages.length === 21, 'Phase 2 必須封版 21 個 Baseline／Active 頁面')
 assert(deferredPages.length === 11, 'Deferred 頁面必須維持 11 頁')

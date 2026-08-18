@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.17.0-phase-three-pack-03-baseline</span>
+            <span>0.18.0-phase-three-pack-03-source-aligned</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -36,7 +36,7 @@
         <aside class="sidebar" id="spec-navigation" data-sidebar>
             <div class="sidebar-intro">
                 <span class="sidebar-kicker">SPECIFICATION MANUAL</span>
-                <p>2026-08-17 更新</p>
+                <p>2026-08-18 更新</p>
             </div>
             <nav aria-label="規格書章節">
 
@@ -416,7 +416,7 @@
 
                 <div class="content-layout">
                     <article class="spec-content">
-                        <p>本頁集中管理跨頁狀態。標記為 Draft 的枚舉仍需由後端確認正式 API 值。</p>
+                        <p>本頁集中管理跨頁狀態。Decision Pack 已確認的 Version、Release 與全域可用性是目前需求基準；標記為 Draft 的其他枚舉仍需由後端確認正式 API 值。</p>
 <h2 id="game-round-狀態-draft">Game Round 狀態（Draft）</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
@@ -475,6 +475,119 @@
 <td align="right">否</td>
 </tr>
 </tbody></table></div>
+<h2 id="game-version-狀態">Game Version 狀態</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>API 值</th>
+<th>顯示名稱</th>
+<th>主要語意</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>draft</code></td>
+<td>草稿</td>
+<td>可編輯並建立 Test build</td>
+</tr>
+<tr>
+<td><code>candidate</code></td>
+<td>發布候選</td>
+<td>已綁定確切 Artifact，可進行 DEMO 驗證</td>
+</tr>
+<tr>
+<td><code>approved</code></td>
+<td>已核准</td>
+<td>必要驗證與核准完成，可建立 Production Release</td>
+</tr>
+<tr>
+<td><code>published</code></td>
+<td>已發布</td>
+<td>曾成功發布 Production；不代表目前 Active</td>
+</tr>
+<tr>
+<td><code>retired</code></td>
+<td>已退役</td>
+<td>不再接受新 Launch、一般發布或回滾引用</td>
+</tr>
+<tr>
+<td><code>cancelled</code></td>
+<td>已取消</td>
+<td>未成功發布的版本停止開發，歷史保留</td>
+</tr>
+</tbody></table></div>
+<h2 id="release-主要顯示狀態">Release 主要顯示狀態</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>顯示名稱</th>
+<th>主要語意</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>準備中</td>
+<td>草稿、提交、自動檢查或需要修正</td>
+</tr>
+<tr>
+<td>等待核准</td>
+<td>高風險 Release 等待第二位管理者</td>
+</tr>
+<tr>
+<td>已排程</td>
+<td>檢查與必要核准完成，等待執行</td>
+</tr>
+<tr>
+<td>發布中</td>
+<td>預檢、部署、驗證或 Active 切換進行中</td>
+</tr>
+<tr>
+<td>已成功</td>
+<td>本 Release 已成為 Active</td>
+</tr>
+<tr>
+<td>已失敗</td>
+<td>本次嘗試停止，保留階段與原因</td>
+</tr>
+<tr>
+<td>已取消</td>
+<td>不可逆副作用前由具權限者取消</td>
+</tr>
+<tr>
+<td>已回滾</td>
+<td>本 Release 已由新的回滾 Release 取代</td>
+</tr>
+</tbody></table></div>
+<h2 id="provider-全域可用性">Provider 全域可用性</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>API 值</th>
+<th>顯示名稱</th>
+<th align="right">新 Launch</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>unpublished</code></td>
+<td>未上架</td>
+<td align="right">拒絕</td>
+</tr>
+<tr>
+<td><code>available</code></td>
+<td>已上架</td>
+<td align="right">仍需通過 Active Release 與 GGAP Gate</td>
+</tr>
+<tr>
+<td><code>maintenance</code></td>
+<td>維護中</td>
+<td align="right">拒絕</td>
+</tr>
+<tr>
+<td><code>suspended</code></td>
+<td>已暫停</td>
+<td align="right">立即拒絕</td>
+</tr>
+<tr>
+<td><code>retired</code></td>
+<td>已退役</td>
+<td align="right">永久拒絕，歷史保留</td>
+</tr>
+</tbody></table></div>
 <h2 id="風控事件狀態">風控事件狀態</h2><p><code>pending</code>、<code>investigating</code>、<code>mitigated</code>、<code>closed</code>、<code>false_positive</code> 的正式顯示與 Risk Event／Alert 用詞需依各自規格區分。</p>
 <h2 id="自動緩解狀態">自動緩解狀態</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
@@ -508,7 +621,7 @@
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#game-round-狀態-draft">Game Round 狀態（Draft）</a><a class="outline-level-2" href="#環境">環境</a><a class="outline-level-2" href="#風控事件狀態">風控事件狀態</a><a class="outline-level-2" href="#自動緩解狀態">自動緩解狀態</a></nav>
+        <nav><a class="outline-level-2" href="#game-round-狀態-draft">Game Round 狀態（Draft）</a><a class="outline-level-2" href="#環境">環境</a><a class="outline-level-2" href="#game-version-狀態">Game Version 狀態</a><a class="outline-level-2" href="#release-主要顯示狀態">Release 主要顯示狀態</a><a class="outline-level-2" href="#provider-全域可用性">Provider 全域可用性</a><a class="outline-level-2" href="#風控事件狀態">風控事件狀態</a><a class="outline-level-2" href="#自動緩解狀態">自動緩解狀態</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -519,7 +632,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.17.0-phase-three-pack-03-baseline · 2026-08-17</span>
+                    <span>0.18.0-phase-three-pack-03-source-aligned · 2026-08-18</span>
                 </footer>
             </div>
         </main>

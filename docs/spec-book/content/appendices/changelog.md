@@ -1,5 +1,14 @@
 # 版本紀錄
 
+## 0.18.0-phase-three-pack-03-source-aligned · 2026-08-18
+
+- 將 Decision Pack 03 回寫至 `PROVIDER_PORTAL_SPEC.md`、`PROVIDER_GGAP_INTEGRATION_CONTRACT.md`、`GAME_LIST_SPEC.md`、導覽與頁面地圖。
+- 同步遊戲列表、環境與發布、遊戲設定、數值設定、遊戲版本、遊戲素材六頁，統一 Game／Version／Artifact／Release 與 Active Release 語意。
+- 以 Test 快速 build、同一 Artifact 晉級 DEMO／Production、標準快速發布與高風險第二人核准取代舊有 Test 只讀與全面核准假設。
+- 補齊 Provider 全域可用性、GGAP ACK／可靠投遞、回滾、Launch Context 及既有 Game Round 原版本快照。
+- 更新共通領域規則、資料字典、狀態 enum、API、安全、非功能性與 QA，並保留實際 schema、permission、CI/CD 與 GGAP payload 為後續 Mapping。
+- 本版本不修改 Portal Vue 原型；下一步交由新開發 session 依同步後 Spec MD 實作。
+
 ## 0.17.0-phase-three-pack-03-baseline · 2026-08-17
 
 - 建立 Decision Pack 03《遊戲版本與發布生命週期》，作為 Game、Version、Artifact、Release 與 Active Release 的目前需求基準。

@@ -6,7 +6,7 @@ Provider Portal 與 GGAP 是同一條遊戲服務鏈路上的不同責任系統�
 
 | 項目 | Provider | GGAP |
 |---|---|---|
-| 遊戲主資料、版本、規則、RTP、限紅、素材 | 擁有與管理 | 同步／讀取 |
+| Game、Version、Artifact、Release、規則、RTP、限額、素材 | 擁有與管理 | 同步／讀取，不得改寫 Provider 版本 |
 | 遊戲全域上架、下架與維護 | 控制 | 接收狀態 |
 | 已上架遊戲的代理商個別開關 | 不控制 | 控制 |
 | 代理商、商戶、會員主資料 | 不建立、不管理 | 建立與管理 |
@@ -22,17 +22,20 @@ GGAP 可將 `agent_id`、`merchant_id`、`member_id` 與幣別脈絡傳入 Provi
 
 ## 狀態必須分離
 
-至少存在三種不可合併的狀態：
+至少存在六種不可合併的狀態：
 
-1. Provider 遊戲全域狀態。
+1. Provider 遊戲全域可用性。
 2. GGAP 對特定代理商的遊戲可見狀態。
 3. Game Round 處理與結算狀態。
+4. Game Version 內容成熟度。
+5. Release 執行結果。
+6. Game × Environment 的 Active Release。
 
-Provider Portal 只控制第一種。第二種可在正式契約核准後顯示同步結果，但不能作為 Provider 主資料控制。
+Provider Portal 控制第一、四、五、六種。第二種可顯示 GGAP snapshot，但不能作為 Provider 主資料控制；第三種依 Game Round 契約處理。
 
 ## Game Session 邊界
 
-GGAP 平台可以建立啟動、錢包或匯率脈絡的 Session；Provider Portal 不因此建立獨立 Game Session 業務模組。Provider 的主要業務紀錄仍是 Game Round。DEMO 大廳目前顯示的 Session 是隔離的展示統計，不得混入正式 Game Round、財務或風控模型。
+GGAP 平台可以建立啟動、錢包或匯率脈絡的 Session；Provider 可建立短效 Launch Context 綁定 Version／Build／Release，但不因此建立獨立 Game Session 業務模組。Provider 的主要業務紀錄仍是 Game Round。DEMO 大廳目前顯示的 Session 是隔離的展示統計，不得混入正式 Game Round、財務或風控模型。
 
 ## 風控隔離
 

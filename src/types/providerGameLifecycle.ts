@@ -19,6 +19,8 @@ export type ValidationStatus = 'passed' | 'failed' | 'pending' | 'skipped'
 export type EnvironmentHealth = 'healthy' | 'degraded' | 'unavailable' | 'no_data'
 export type GgapSyncStatus = 'synced' | 'pending' | 'failed' | 'not_applicable'
 export type ChangeType = 'feature' | 'fix' | 'math' | 'asset' | 'security' | 'configuration'
+export type SnapshotStatus = 'draft' | 'review' | 'approved' | 'published' | 'retired'
+export type AssetStatus = 'draft' | 'review' | 'approved' | 'published' | 'retired'
 
 export interface BuildArtifact {
     buildId: string
@@ -127,11 +129,102 @@ export interface EnvironmentDeployment {
     updatedAt: string
 }
 
+export interface BettingStructureSnapshot {
+    id: string
+    label: string
+    formula: string
+    betLevels: number[]
+    coinValues: number[]
+}
+
+export interface CurrencyMultiplierSnapshot {
+    id: string
+    baseCurrency: 'USDT'
+    rates: Array<{ currency: string; multiplier: number }>
+}
+
+export interface BetLimitPlan {
+    id: string
+    name: string
+    baseCurrency: 'USDT'
+    minBet: number
+    maxBet: number
+    maxPayout: number
+    currencies: string[]
+    status: SnapshotStatus
+    updatedAt: string
+}
+
+export interface GameSettingsSnapshot {
+    id: string
+    gameId: string
+    gameName: string
+    revision: string
+    status: SnapshotStatus
+    bettingStructure: BettingStructureSnapshot
+    currencyMultipliers: CurrencyMultiplierSnapshot
+    limitPlanIds: string[]
+    maintenancePolicy: string
+    platforms: string[]
+    languages: string[]
+    relatedVersionIds: string[]
+    immutable: boolean
+    owner: string
+    updatedAt: string
+}
+
+export interface GameMathSnapshot {
+    id: string
+    gameId: string
+    gameName: string
+    revision: string
+    status: SnapshotStatus
+    theoreticalRtp: number
+    actualRtp: number
+    deviation: number
+    volatility: string
+    paytableId: string
+    sampleRounds: number
+    reviewNo: string | null
+    reviewer: string | null
+    relatedVersionIds: string[]
+    immutable: boolean
+    riskLane: 'guarded'
+    note: string
+    updatedAt: string
+}
+
+export interface GameAssetRecord {
+    id: string
+    bundleId: string
+    gameId: string
+    gameName: string
+    type: 'Icon' | 'Banner' | 'Loading' | 'Table Skin'
+    locale: string
+    revision: string
+    status: AssetStatus
+    checksum: string
+    storageRef: string
+    dimensions: string
+    fileSize: string
+    relatedVersionIds: string[]
+    immutable: boolean
+    supersedesId: string | null
+    owner: string
+    note: string
+    palette: string
+    updatedAt: string
+}
+
 export interface LifecycleSnapshot {
     games: LifecycleGame[]
     versions: GameVersion[]
     releases: ReleaseRecord[]
     environments: EnvironmentDeployment[]
+    settingsSnapshots: GameSettingsSnapshot[]
+    mathSnapshots: GameMathSnapshot[]
+    assets: GameAssetRecord[]
+    limitPlans: BetLimitPlan[]
 }
 
 export interface CreateVersionDraftPayload {
@@ -148,4 +241,13 @@ export interface UpdateVersionStatusPayload {
 export interface UpdateAvailabilityPayload {
     availability: GameAvailability
     reason: string
+}
+
+export interface CreateAssetDraftPayload {
+    gameId: string
+    type: GameAssetRecord['type']
+    locale: string
+    relatedVersionId: string
+    note: string
+    supersedesId?: string | null
 }

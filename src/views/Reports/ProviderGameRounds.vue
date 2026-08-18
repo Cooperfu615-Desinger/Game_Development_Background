@@ -93,7 +93,19 @@ const exportColumns: XlsxColumn[] = [
     { key: 'game_name', label: '遊戲名稱' },
     { key: 'game_type', label: '遊戲類型' },
     { key: 'game_version', label: '遊戲版本' },
+    { key: 'build_id', label: 'Build ID' },
     { key: 'release_id', label: 'Release ID' },
+    { key: 'settings_snapshot_id', label: 'Settings Snapshot ID' },
+    { key: 'math_snapshot_id', label: 'Math Snapshot ID' },
+    { key: 'asset_bundle_id', label: 'Asset Bundle ID' },
+    { key: 'theoretical_rtp', label: '理論 RTP' },
+    { key: 'betting_structure_id', label: '投注結構 ID' },
+    { key: 'betting_structure_snapshot', label: '投注結構快照' },
+    { key: 'currency_multiplier_id', label: '幣別倍率 ID' },
+    { key: 'currency_multiplier_snapshot', label: '幣別倍率快照' },
+    { key: 'limit_plan_id', label: '下注限額方案 ID' },
+    { key: 'limit_plan_snapshot', label: '下注限額方案快照' },
+    { key: 'snapshot_created_at', label: '生命週期快照建立時間' },
     { key: 'agent_id', label: '代理商 ID' },
     { key: 'agent_name', label: '代理商名稱' },
     { key: 'member_id', label: '會員 ID' },
@@ -326,7 +338,19 @@ function toExportRecord(round: ProviderGameRound) {
         game_name: round.game_name,
         game_type: gameTypeLabel(round.game_type),
         game_version: round.game_version,
+        build_id: round.build_id,
         release_id: round.release_id,
+        settings_snapshot_id: round.settings_snapshot_id,
+        math_snapshot_id: round.math_snapshot_id,
+        asset_bundle_id: round.asset_bundle_id,
+        theoretical_rtp: round.theoretical_rtp,
+        betting_structure_id: round.betting_structure_id,
+        betting_structure_snapshot: round.betting_structure_snapshot,
+        currency_multiplier_id: round.currency_multiplier_id,
+        currency_multiplier_snapshot: round.currency_multiplier_snapshot,
+        limit_plan_id: round.limit_plan_id,
+        limit_plan_snapshot: round.limit_plan_snapshot,
+        snapshot_created_at: formatDateTime(round.snapshot_created_at),
         agent_id: round.agent_id,
         agent_name: round.agent_name,
         member_id: round.member_id,
@@ -589,6 +613,25 @@ function statusClass(value: ProviderGameRoundStatus) {
                         </div>
                     </section>
 
+                    <section class="round-detail-section round-detail-section--snapshot">
+                        <div class="round-detail-section-title"><span>建立時生命週期快照</span><small>IMMUTABLE ROUND SNAPSHOT</small></div>
+                        <p class="round-snapshot-note">以下欄位固定保存 Game Round 建立當下的版本與配置，不會依目前生效版本重新計算。</p>
+                        <div class="round-detail-grid round-detail-grid--snapshot">
+                            <div><span>Game Version</span><strong>{{ selectedRound.game_version }}</strong></div>
+                            <div><span>Build ID</span><strong class="round-id">{{ selectedRound.build_id }}</strong></div>
+                            <div><span>Release ID</span><strong class="round-id">{{ selectedRound.release_id }}</strong></div>
+                            <div><span>資料環境</span><strong>{{ selectedRound.environment }}</strong></div>
+                            <div><span>Settings Snapshot</span><strong class="round-id">{{ selectedRound.settings_snapshot_id }}</strong></div>
+                            <div><span>Math Snapshot</span><strong class="round-id">{{ selectedRound.math_snapshot_id }}</strong></div>
+                            <div><span>Asset Bundle</span><strong class="round-id">{{ selectedRound.asset_bundle_id }}</strong></div>
+                            <div><span>理論 RTP</span><strong>{{ selectedRound.theoretical_rtp }}</strong></div>
+                            <div><span>投注結構</span><strong>{{ selectedRound.betting_structure_id }}</strong><em>{{ selectedRound.betting_structure_snapshot }}</em></div>
+                            <div><span>投注幣別倍率</span><strong>{{ selectedRound.currency_multiplier_id }}</strong><em>{{ selectedRound.currency_multiplier_snapshot }}</em></div>
+                            <div><span>下注限額方案</span><strong>{{ selectedRound.limit_plan_id }}</strong><em>{{ selectedRound.limit_plan_snapshot }}</em></div>
+                            <div><span>快照建立時間</span><strong>{{ formatDateTime(selectedRound.snapshot_created_at) }}</strong></div>
+                        </div>
+                    </section>
+
                     <section class="round-detail-section">
                         <div class="round-detail-section-title"><span>遊戲與 GGAP 脈絡</span><small>CONTEXT SNAPSHOT</small></div>
                         <div class="round-detail-grid">
@@ -756,6 +799,10 @@ function statusClass(value: ProviderGameRoundStatus) {
 .round-detail-grid span { margin-bottom: 0.25rem; color: #8a9a9d; font-size: 0.7rem; }
 .round-detail-grid strong { overflow: hidden; color: #38565c; font-size: 0.8rem; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
 .round-detail-grid strong.round-id { color: #2e6670; font-size: 0.71rem; }
+.round-detail-section--snapshot { margin: 0 -0.75rem; padding: 1rem 0.75rem; border: 1px solid #dce9e4; border-radius: 0.85rem; background: #f7fbfa; }
+.round-snapshot-note { margin: -0.35rem 0 0.9rem; color: #6d8588; font-size: 0.72rem; line-height: 1.55; }
+.round-detail-grid--snapshot strong { white-space: normal; overflow-wrap: anywhere; }
+.round-detail-grid--snapshot em { display: block; margin-top: 0.22rem; color: #73898c; font-size: 0.68rem; font-style: normal; line-height: 1.45; overflow-wrap: anywhere; }
 
 .round-amount-table { overflow: hidden; border: 1px solid #e3ece9; border-radius: 0.7rem; }
 .round-amount-table-row { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 1rem; align-items: center; padding: 0.68rem 0.85rem; border-top: 1px solid #edf2f1; color: #536a6f; font-size: 0.8rem; }

@@ -10,7 +10,19 @@ export interface ProviderGameRound {
     game_name: string
     game_type: ProviderGameType
     game_version: string
+    build_id: string
     release_id: string
+    settings_snapshot_id: string
+    math_snapshot_id: string
+    asset_bundle_id: string
+    theoretical_rtp: string
+    betting_structure_id: string
+    betting_structure_snapshot: string
+    currency_multiplier_id: string
+    currency_multiplier_snapshot: string
+    limit_plan_id: string
+    limit_plan_snapshot: string
+    snapshot_created_at: string
     agent_id: string
     agent_name: string
     member_id: string

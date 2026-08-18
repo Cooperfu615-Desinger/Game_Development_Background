@@ -28,7 +28,7 @@ import type {
 const router = useRouter()
 const toast = useToast()
 
-const snapshot = ref<LifecycleSnapshot>({ games: [], versions: [], releases: [], environments: [] })
+const snapshot = ref<LifecycleSnapshot>({ games: [], versions: [], releases: [], environments: [], settingsSnapshots: [], mathSnapshots: [], assets: [], limitPlans: [] })
 const loading = ref(true)
 const actionLoading = ref(false)
 const errorMessage = ref('')

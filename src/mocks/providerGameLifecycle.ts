@@ -1,8 +1,13 @@
 import type {
     ChangeType,
+    CreateAssetDraftPayload,
     CreateVersionDraftPayload,
+    BetLimitPlan,
     EnvironmentDeployment,
+    GameAssetRecord,
     GameAvailability,
+    GameMathSnapshot,
+    GameSettingsSnapshot,
     GameVersion,
     LifecycleGame,
     LifecycleSnapshot,
@@ -187,8 +192,56 @@ export const lifecycleEnvironments: EnvironmentDeployment[] = [
     deployment('CR-001', 'production', null, null),
 ]
 
+export const lifecycleLimitPlans: BetLimitPlan[] = [
+    { id: 'LIMIT-STD-001', name: '標準限額', baseCurrency: 'USDT', minBet: 0.1, maxBet: 100, maxPayout: 10000, currencies: ['USDT', 'USD', 'TWD', 'VND'], status: 'published', updatedAt: '2026-08-02T07:10:00.000Z' },
+    { id: 'LIMIT-LOW-002', name: '低風險限額', baseCurrency: 'USDT', minBet: 0.1, maxBet: 25, maxPayout: 2500, currencies: ['USDT', 'USD', 'TWD'], status: 'published', updatedAt: '2026-08-02T07:15:00.000Z' },
+    { id: 'LIMIT-HIGH-003', name: '高額限額', baseCurrency: 'USDT', minBet: 1, maxBet: 500, maxPayout: 50000, currencies: ['USDT', 'USD', 'TWD', 'VND'], status: 'approved', updatedAt: '2026-08-17T09:30:00.000Z' },
+    { id: 'LIMIT-QA-004', name: '測試限額', baseCurrency: 'USDT', minBet: 0.01, maxBet: 10, maxPayout: 1000, currencies: ['USDT'], status: 'draft', updatedAt: '2026-08-18T00:30:00.000Z' },
+]
+
+const slotBettingStructure = { id: 'BET-STRUCT-SLOT-003', label: 'Bet Level × Coin Value', formula: 'Total Bet = Bet × Coin Value × Bet Multiplier', betLevels: [1, 2, 5, 10, 20, 50], coinValues: [0.01, 0.02, 0.05, 0.1] }
+const tableBettingStructure = { id: 'BET-STRUCT-TABLE-002', label: 'Table Stake', formula: 'Total Bet = selected area stakes total', betLevels: [1, 5, 10, 25, 50, 100], coinValues: [1] }
+const crashBettingStructure = { id: 'BET-STRUCT-CRASH-001', label: 'Single Stake', formula: 'Total Bet = stake amount', betLevels: [1, 2, 5, 10, 25, 50], coinValues: [1] }
+const commonCurrencyMultipliers = { id: 'CUR-MAP-2026-08', baseCurrency: 'USDT' as const, rates: [{ currency: 'USDT', multiplier: 1 }, { currency: 'USD', multiplier: 1 }, { currency: 'TWD', multiplier: 30 }, { currency: 'VND', multiplier: 2000 }] }
+
+export const lifecycleSettingsSnapshots: GameSettingsSnapshot[] = [
+    { id: 'SET-SV-014', gameId: 'SV-001', gameName: '星際寶藏', revision: 'r14', status: 'approved', bettingStructure: structuredClone(slotBettingStructure), currencyMultipliers: structuredClone(commonCurrencyMultipliers), limitPlanIds: ['LIMIT-STD-001', 'LIMIT-HIGH-003'], maintenancePolicy: '每日 03:00–04:00（需要時啟用）', platforms: ['H5', 'Web'], languages: ['繁中', '英文', '越南文'], relatedVersionIds: ['VER-SV-2.5.0'], immutable: true, owner: 'Slot Platform', updatedAt: '2026-08-17T08:20:00.000Z' },
+    { id: 'SET-SV-013', gameId: 'SV-001', gameName: '星際寶藏', revision: 'r13', status: 'published', bettingStructure: structuredClone(slotBettingStructure), currencyMultipliers: structuredClone(commonCurrencyMultipliers), limitPlanIds: ['LIMIT-STD-001'], maintenancePolicy: '每日 03:00–04:00（需要時啟用）', platforms: ['H5', 'Web'], languages: ['繁中', '英文'], relatedVersionIds: ['VER-SV-2.4.1'], immutable: true, owner: 'Slot Platform', updatedAt: '2026-08-02T05:30:00.000Z' },
+    { id: 'SET-NH-009', gameId: 'NH-001', gameName: 'Neon Heist', revision: 'r9', status: 'review', bettingStructure: structuredClone(slotBettingStructure), currencyMultipliers: structuredClone(commonCurrencyMultipliers), limitPlanIds: ['LIMIT-STD-001', 'LIMIT-LOW-002'], maintenancePolicy: '每週三 02:00–03:00', platforms: ['H5', 'Web'], languages: ['繁中', '英文', '越南文'], relatedVersionIds: ['VER-NH-1.8.4'], immutable: false, owner: 'Game Lab', updatedAt: '2026-08-18T00:25:00.000Z' },
+    { id: 'SET-NH-008', gameId: 'NH-001', gameName: 'Neon Heist', revision: 'r8', status: 'published', bettingStructure: structuredClone(slotBettingStructure), currencyMultipliers: structuredClone(commonCurrencyMultipliers), limitPlanIds: ['LIMIT-STD-001'], maintenancePolicy: '每週三 02:00–03:00', platforms: ['H5', 'Web'], languages: ['繁中', '英文'], relatedVersionIds: ['VER-NH-1.8.3'], immutable: true, owner: 'Game Lab', updatedAt: '2026-08-05T08:30:00.000Z' },
+    { id: 'SET-BC-021', gameId: 'BC-001', gameName: 'Baccarat Pro', revision: 'r21', status: 'approved', bettingStructure: structuredClone(tableBettingStructure), currencyMultipliers: structuredClone(commonCurrencyMultipliers), limitPlanIds: ['LIMIT-STD-001', 'LIMIT-HIGH-003'], maintenancePolicy: '每日 04:00–05:00', platforms: ['H5', 'Web'], languages: ['繁中', '英文', '泰文'], relatedVersionIds: ['VER-BC-3.1.0'], immutable: true, owner: 'Table Game Team', updatedAt: '2026-08-17T03:15:00.000Z' },
+    { id: 'SET-BC-020', gameId: 'BC-001', gameName: 'Baccarat Pro', revision: 'r20', status: 'published', bettingStructure: structuredClone(tableBettingStructure), currencyMultipliers: structuredClone(commonCurrencyMultipliers), limitPlanIds: ['LIMIT-STD-001'], maintenancePolicy: '每日 04:00–05:00', platforms: ['H5', 'Web'], languages: ['繁中', '英文'], relatedVersionIds: ['VER-BC-3.0.9'], immutable: true, owner: 'Table Game Team', updatedAt: '2026-07-30T07:00:00.000Z' },
+    { id: 'SET-CR-DRAFT', gameId: 'CR-001', gameName: 'Crash Rocket', revision: 'draft-1', status: 'draft', bettingStructure: structuredClone(crashBettingStructure), currencyMultipliers: structuredClone(commonCurrencyMultipliers), limitPlanIds: ['LIMIT-QA-004'], maintenancePolicy: '尚未設定', platforms: ['H5'], languages: ['繁中', '英文'], relatedVersionIds: ['VER-CR-0.8.3'], immutable: false, owner: 'Game Lab', updatedAt: '2026-08-16T08:20:00.000Z' },
+]
+
+export const lifecycleMathSnapshots: GameMathSnapshot[] = [
+    { id: 'MATH-SV-250', gameId: 'SV-001', gameName: '星際寶藏', revision: 'math-2.5.0', status: 'approved', theoreticalRtp: 96.5, actualRtp: 96.42, deviation: -0.08, volatility: '中高', paytableId: 'PAY-SV-250', sampleRounds: 1250000, reviewNo: 'REV-MATH-260817-01', reviewer: 'Chen Wei', relatedVersionIds: ['VER-SV-2.5.0'], immutable: true, riskLane: 'guarded', note: 'Bonus RTP 異動已完成第二人覆核。', updatedAt: '2026-08-18T02:00:00.000Z' },
+    { id: 'MATH-SV-241', gameId: 'SV-001', gameName: '星際寶藏', revision: 'math-2.4.1', status: 'published', theoreticalRtp: 96.2, actualRtp: 96.08, deviation: -0.12, volatility: '中', paytableId: 'PAY-SV-241', sampleRounds: 483210, reviewNo: 'REV-MATH-260801-03', reviewer: 'Chen Wei', relatedVersionIds: ['VER-SV-2.4.1'], immutable: true, riskLane: 'guarded', note: 'Production 目前數值快照。', updatedAt: '2026-08-18T01:10:00.000Z' },
+    { id: 'MATH-NH-183', gameId: 'NH-001', gameName: 'Neon Heist', revision: 'math-1.8.3', status: 'published', theoreticalRtp: 97, actualRtp: 97.06, deviation: 0.06, volatility: '中', paytableId: 'PAY-NH-183', sampleRounds: 326850, reviewNo: 'REV-MATH-260804-02', reviewer: 'Lin Yu', relatedVersionIds: ['VER-NH-1.8.3', 'VER-NH-1.8.4'], immutable: true, riskLane: 'guarded', note: 'v1.8.4 未變更數值，沿用既有快照。', updatedAt: '2026-08-18T00:40:00.000Z' },
+    { id: 'MATH-BC-309', gameId: 'BC-001', gameName: 'Baccarat Pro', revision: 'math-3.0.9', status: 'published', theoreticalRtp: 98.9, actualRtp: 98.82, deviation: -0.08, volatility: '低', paytableId: 'PAY-BC-309', sampleRounds: 218400, reviewNo: 'REV-MATH-260729-04', reviewer: 'Wang Jia', relatedVersionIds: ['VER-BC-3.0.9', 'VER-BC-3.1.0'], immutable: true, riskLane: 'guarded', note: '桌台數值未變更。', updatedAt: '2026-08-18T01:20:00.000Z' },
+    { id: 'MATH-CR-DRAFT', gameId: 'CR-001', gameName: 'Crash Rocket', revision: 'draft-1', status: 'draft', theoreticalRtp: 97, actualRtp: 0, deviation: 0, volatility: '高', paytableId: 'PAY-CR-DRAFT', sampleRounds: 0, reviewNo: null, reviewer: null, relatedVersionIds: ['VER-CR-0.8.3'], immutable: false, riskLane: 'guarded', note: '尚未執行正式模擬與審核。', updatedAt: '2026-08-16T08:30:00.000Z' },
+]
+
+export const lifecycleAssets: GameAssetRecord[] = [
+    { id: 'AST-SV-ICON-ZH-014', bundleId: 'AST-SV-2026.08', gameId: 'SV-001', gameName: '星際寶藏', type: 'Icon', locale: '繁中', revision: 'asset-r14', status: 'approved', checksum: 'sha256:asset-sv-014', storageRef: 'provider-assets/sv/2026-08/icon-zh.webp', dimensions: '512 × 512', fileSize: '186 KB', relatedVersionIds: ['VER-SV-2.5.0'], immutable: true, supersedesId: 'AST-SV-ICON-ZH-013', owner: 'Design Ops', note: 'v2.5.0 活動 Icon。', palette: 'asset-preview--gold', updatedAt: '2026-08-17T07:30:00.000Z' },
+    { id: 'AST-SV-ICON-ZH-013', bundleId: 'AST-SV-2026.07', gameId: 'SV-001', gameName: '星際寶藏', type: 'Icon', locale: '繁中', revision: 'asset-r13', status: 'published', checksum: 'sha256:asset-sv-013', storageRef: 'provider-assets/sv/2026-07/icon-zh.webp', dimensions: '512 × 512', fileSize: '181 KB', relatedVersionIds: ['VER-SV-2.4.1'], immutable: true, supersedesId: null, owner: 'Design Ops', note: 'Production 目前素材。', palette: 'asset-preview--gold', updatedAt: '2026-08-02T05:00:00.000Z' },
+    { id: 'AST-NH-BANNER-EN-009', bundleId: 'AST-NH-2026.08', gameId: 'NH-001', gameName: 'Neon Heist', type: 'Banner', locale: '英文', revision: 'asset-r9', status: 'review', checksum: 'sha256:asset-nh-009', storageRef: 'provider-assets/nh/2026-08/banner-en.webp', dimensions: '1920 × 640', fileSize: '742 KB', relatedVersionIds: ['VER-NH-1.8.4'], immutable: true, supersedesId: 'AST-NH-BANNER-EN-008', owner: 'Design Ops', note: '新增免費遊戲提示文案。', palette: 'asset-preview--blue', updatedAt: '2026-08-18T00:10:00.000Z' },
+    { id: 'AST-NH-BANNER-EN-008', bundleId: 'AST-NH-2026.07', gameId: 'NH-001', gameName: 'Neon Heist', type: 'Banner', locale: '英文', revision: 'asset-r8', status: 'published', checksum: 'sha256:asset-nh-008', storageRef: 'provider-assets/nh/2026-07/banner-en.webp', dimensions: '1920 × 640', fileSize: '718 KB', relatedVersionIds: ['VER-NH-1.8.3'], immutable: true, supersedesId: null, owner: 'Design Ops', note: 'Production 目前素材。', palette: 'asset-preview--blue', updatedAt: '2026-08-05T08:10:00.000Z' },
+    { id: 'AST-BC-TABLE-TH-021', bundleId: 'AST-BC-2026.08', gameId: 'BC-001', gameName: 'Baccarat Pro', type: 'Table Skin', locale: '泰文', revision: 'asset-r21', status: 'approved', checksum: 'sha256:asset-bc-021', storageRef: 'provider-assets/bc/2026-08/table-th.webp', dimensions: '2048 × 1024', fileSize: '1.2 MB', relatedVersionIds: ['VER-BC-3.1.0'], immutable: true, supersedesId: null, owner: 'Table Design', note: '新增泰文桌台素材。', palette: 'asset-preview--violet', updatedAt: '2026-08-17T03:00:00.000Z' },
+    { id: 'AST-CR-LOADING-ZH-D01', bundleId: 'AST-CR-DRAFT', gameId: 'CR-001', gameName: 'Crash Rocket', type: 'Loading', locale: '繁中', revision: 'draft-1', status: 'draft', checksum: 'sha256:asset-cr-draft', storageRef: 'provider-assets/cr/draft/loading-zh.webp', dimensions: '1080 × 1080', fileSize: '408 KB', relatedVersionIds: ['VER-CR-0.8.3'], immutable: false, supersedesId: null, owner: 'Game Lab', note: '首版載入素材草稿。', palette: 'asset-preview--red', updatedAt: '2026-08-16T08:15:00.000Z' },
+]
+
 export function getLifecycleSnapshot(): LifecycleSnapshot {
-    return structuredClone({ games: lifecycleGames, versions: lifecycleVersions, releases: lifecycleReleases, environments: lifecycleEnvironments })
+    return structuredClone({
+        games: lifecycleGames,
+        versions: lifecycleVersions,
+        releases: lifecycleReleases,
+        environments: lifecycleEnvironments,
+        settingsSnapshots: lifecycleSettingsSnapshots,
+        mathSnapshots: lifecycleMathSnapshots,
+        assets: lifecycleAssets,
+        limitPlans: lifecycleLimitPlans,
+    })
 }
 
 export function createVersionDraft(payload: CreateVersionDraftPayload): GameVersion {
@@ -302,6 +355,90 @@ export function updateGameAvailability(id: string, availability: GameAvailabilit
         item.updatedAt = game.availabilityUpdatedAt
     })
     return structuredClone(game)
+}
+
+export function cloneSettingsSnapshot(id: string): GameSettingsSnapshot {
+    const source = lifecycleSettingsSnapshots.find((item) => item.id === id)
+    if (!source) throw new Error('settings_snapshot_not_found')
+    const stamp = Date.now().toString().slice(-6)
+    const draft: GameSettingsSnapshot = {
+        ...structuredClone(source),
+        id: `SET-${source.gameId}-D${stamp}`,
+        revision: `draft-${stamp}`,
+        status: 'draft',
+        relatedVersionIds: [],
+        immutable: false,
+        owner: '目前操作者',
+        updatedAt: now(),
+    }
+    lifecycleSettingsSnapshots.unshift(draft)
+    return structuredClone(draft)
+}
+
+export function cloneMathSnapshot(id: string): GameMathSnapshot {
+    const source = lifecycleMathSnapshots.find((item) => item.id === id)
+    if (!source) throw new Error('math_snapshot_not_found')
+    const stamp = Date.now().toString().slice(-6)
+    const draft: GameMathSnapshot = {
+        ...structuredClone(source),
+        id: `MATH-${source.gameId}-D${stamp}`,
+        revision: `draft-${stamp}`,
+        status: 'draft',
+        actualRtp: 0,
+        deviation: 0,
+        sampleRounds: 0,
+        reviewNo: null,
+        reviewer: null,
+        relatedVersionIds: [],
+        immutable: false,
+        note: `由 ${source.id} 複製的新數值草稿。`,
+        updatedAt: now(),
+    } as GameMathSnapshot
+    lifecycleMathSnapshots.unshift(draft)
+    return structuredClone(draft)
+}
+
+export function submitMathSnapshot(id: string): GameMathSnapshot {
+    const row = lifecycleMathSnapshots.find((item) => item.id === id)
+    if (!row) throw new Error('math_snapshot_not_found')
+    if (row.status !== 'draft') throw new Error('math_snapshot_not_draft')
+    row.status = 'review'
+    row.reviewNo = `REV-MATH-${Date.now().toString().slice(-8)}`
+    row.sampleRounds = 1000000
+    row.actualRtp = Number((row.theoreticalRtp - 0.03).toFixed(2))
+    row.deviation = Number((row.actualRtp - row.theoreticalRtp).toFixed(2))
+    row.updatedAt = now()
+    row.note = '已建立加強覆核申請；數值異動一律走 guarded lane。'
+    return structuredClone(row)
+}
+
+export function createAssetDraft(payload: CreateAssetDraftPayload): GameAssetRecord {
+    const game = lifecycleGames.find((item) => item.id === payload.gameId)
+    if (!game) throw new Error('game_not_found')
+    const stamp = Date.now().toString().slice(-6)
+    const row: GameAssetRecord = {
+        id: `AST-${game.id}-${payload.type.toUpperCase().replace(' ', '-')}-${stamp}`,
+        bundleId: `AST-${game.id}-DRAFT-${stamp}`,
+        gameId: game.id,
+        gameName: game.name,
+        type: payload.type,
+        locale: payload.locale,
+        revision: `draft-${stamp}`,
+        status: 'draft',
+        checksum: `sha256:mock-asset-${stamp}`,
+        storageRef: `provider-assets/${game.id.toLowerCase()}/draft/${stamp}`,
+        dimensions: '待媒體檢查',
+        fileSize: '待上傳',
+        relatedVersionIds: payload.relatedVersionId ? [payload.relatedVersionId] : [],
+        immutable: true,
+        supersedesId: payload.supersedesId ?? null,
+        owner: '目前操作者',
+        note: payload.note,
+        palette: 'asset-preview--blue',
+        updatedAt: now(),
+    }
+    lifecycleAssets.unshift(row)
+    return structuredClone(row)
 }
 
 export const lifecycleChangeTypes: ChangeType[] = ['feature', 'fix', 'math', 'asset', 'security', 'configuration']

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { api } from '@/services/apiClient'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
@@ -11,11 +12,12 @@ import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import FilterCard from '@/components/ui/FilterCard.vue'
 import SectionCard from '@/components/ui/SectionCard.vue'
+import type { EnvironmentDeployment, GameAvailability, GameMathSnapshot, LifecycleSnapshot, ReleaseRecord } from '@/types/providerGameLifecycle'
 
 type RtpState = '正常' | '觀察' | '樣本不足' | '無資料'
-type ProductionDemoStatus = '上架' | '維護中' | '未啟用'
+type ProductionDemoStatus = '已生效' | '發布中' | '發布失敗' | '未發布'
 type TestStatus = '未部署' | '部署中' | '已部署' | '部署失敗'
-type OperationStatus = '正常' | '維護中' | '暫停新局'
+type AvailabilityStatus = '未上架' | '已上架' | '維護中' | '已暫停' | '已退役'
 type GgapSyncStatus = '已同步' | '同步中' | '同步失敗' | '尚未同步'
 
 interface RtpSummary {
@@ -30,10 +32,12 @@ interface RtpSummary {
 
 interface EnvironmentSummary {
     version: string | null
+    releaseId: string | null
     status: ProductionDemoStatus | TestStatus
     rtp?: RtpSummary
     hasPendingRelease?: boolean
     pendingVersion?: string
+    pendingReleaseId?: string
 }
 
 interface ProviderGameRow {
@@ -44,12 +48,10 @@ interface ProviderGameRow {
     production: EnvironmentSummary
     demo: EnvironmentSummary
     test: EnvironmentSummary
-    operation: OperationStatus
+    availability: AvailabilityStatus
     ggapSync: GgapSyncStatus
     updatedAt: string
 }
-
-type LegacyGameRow = Record<string, unknown>
 
 interface FilterState {
     keyword: string
@@ -57,7 +59,7 @@ interface FilterState {
     production: string
     demo: string
     test: string
-    operation: string
+    availability: string
     ggapSync: string
     rtp: string
 }
@@ -66,10 +68,10 @@ const allOption = '全部'
 const allStatusOption = '全部狀態'
 
 const typeOptions = [allOption, '老虎機', '棋牌', '真人', '漁機', '迷你遊戲']
-const productionStatusOptions = [allStatusOption, '上架', '維護中', '未啟用']
-const demoStatusOptions = [allStatusOption, '上架', '維護中', '未啟用']
+const productionStatusOptions = [allStatusOption, '已生效', '發布中', '發布失敗', '未發布']
+const demoStatusOptions = [allStatusOption, '已生效', '發布中', '發布失敗', '未發布']
 const testStatusOptions = [allStatusOption, '未部署', '部署中', '已部署', '部署失敗']
-const operationOptions = [allStatusOption, '正常', '維護中', '暫停新局']
+const availabilityOptions = [allStatusOption, '未上架', '已上架', '維護中', '已暫停', '已退役']
 const ggapSyncOptions = [allStatusOption, '已同步', '同步中', '同步失敗', '尚未同步']
 const rtpOptions = [allStatusOption, '正常', '觀察', '樣本不足', '無資料']
 
@@ -79,7 +81,7 @@ const defaultFilters = (): FilterState => ({
     production: allStatusOption,
     demo: allStatusOption,
     test: allStatusOption,
-    operation: allStatusOption,
+    availability: allStatusOption,
     ggapSync: allStatusOption,
     rtp: allStatusOption,
 })
@@ -91,14 +93,16 @@ const loading = ref(true)
 const loadError = ref('')
 const selectedGame = ref<ProviderGameRow | null>(null)
 const detailsVisible = ref(false)
+const router = useRouter()
 
-const productionCount = computed(() => rows.value.filter((row) => row.production.status === '上架').length)
-const demoCount = computed(() => rows.value.filter((row) => row.demo.status === '上架').length)
+const productionCount = computed(() => rows.value.filter((row) => row.production.status === '已生效').length)
+const demoCount = computed(() => rows.value.filter((row) => row.demo.status === '已生效').length)
 const attentionCount = computed(() => rows.value.filter((row) => {
-    return row.production.status === '維護中'
-        || row.demo.status === '維護中'
+    return row.production.status === '發布失敗'
+        || row.demo.status === '發布失敗'
         || row.test.status === '部署失敗'
         || row.ggapSync === '同步失敗'
+        || ['維護中', '已暫停'].includes(row.availability)
         || row.production.hasPendingRelease
         || row.demo.hasPendingRelease
 }).length)
@@ -113,13 +117,13 @@ const filteredRows = computed(() => {
             const productionMatch = appliedFilters.production === allStatusOption || row.production.status === appliedFilters.production
             const demoMatch = appliedFilters.demo === allStatusOption || row.demo.status === appliedFilters.demo
             const testMatch = appliedFilters.test === allStatusOption || row.test.status === appliedFilters.test
-            const operationMatch = appliedFilters.operation === allStatusOption || row.operation === appliedFilters.operation
+            const availabilityMatch = appliedFilters.availability === allStatusOption || row.availability === appliedFilters.availability
             const ggapMatch = appliedFilters.ggapSync === allStatusOption || row.ggapSync === appliedFilters.ggapSync
             const rtpMatch = appliedFilters.rtp === allStatusOption
                 || row.production.rtp?.state === appliedFilters.rtp
                 || row.demo.rtp?.state === appliedFilters.rtp
 
-            return keywordMatch && typeMatch && productionMatch && demoMatch && testMatch && operationMatch && ggapMatch && rtpMatch
+            return keywordMatch && typeMatch && productionMatch && demoMatch && testMatch && availabilityMatch && ggapMatch && rtpMatch
         })
         .sort((a, b) => a.code.localeCompare(b.code, undefined, { numeric: true, sensitivity: 'base' }))
 })
@@ -131,8 +135,8 @@ async function loadGames() {
     loadError.value = ''
 
     try {
-        const data = await api.get<LegacyGameRow[]>('/api/games/v2/list')
-        rows.value = data.map((row, index) => normalizeGameRow(row, index))
+        const data = await api.get<LifecycleSnapshot>('/api/provider/game-lifecycle')
+        rows.value = data.games.map((game, index) => normalizeGameRow(data, game.id, index))
     } catch (error) {
         console.error('Failed to load provider games:', error)
         loadError.value = '遊戲列表載入失敗，請重新整理或稍後再試。'
@@ -141,102 +145,70 @@ async function loadGames() {
     }
 }
 
-function normalizeGameRow(row: LegacyGameRow, index: number): ProviderGameRow {
-    const code = String(row.code ?? `GAME-${String(index + 1).padStart(3, '0')}`)
-    const name = String(row.name ?? '未命名遊戲')
-    const type = String(row.type ?? '未分類')
-    const seed = index + 1
-    const baseVersion = releaseVersion(seed, 0)
-    const demoVersion = seed % 4 === 0 ? releaseVersion(seed, 1) : baseVersion
-    const testVersion = releaseVersion(seed, 2)
-    const rawStatus = String(row.status ?? '')
-
-    const productionStatus: ProductionDemoStatus = seed % 11 === 0
-        ? '未啟用'
-        : rawStatus === '維護中' || seed % 13 === 0
-            ? '維護中'
-            : '上架'
-    const demoStatus: ProductionDemoStatus = seed % 9 === 0
-        ? '未啟用'
-        : seed % 12 === 0
-            ? '維護中'
-            : '上架'
-    const testStatus: TestStatus = seed % 15 === 0
-        ? '部署失敗'
-        : seed % 10 === 0
-            ? '部署中'
-            : seed % 7 === 0
-                ? '未部署'
-                : '已部署'
-
-    const operation: OperationStatus = productionStatus === '維護中'
-        ? '維護中'
-        : seed % 14 === 0
-            ? '暫停新局'
-            : '正常'
-
+function normalizeGameRow(snapshot: LifecycleSnapshot, gameId: string, index: number): ProviderGameRow {
+    const game = snapshot.games.find((item) => item.id === gameId)!
+    const production = snapshot.environments.find((item) => item.gameId === gameId && item.environment === 'production')!
+    const demo = snapshot.environments.find((item) => item.gameId === gameId && item.environment === 'demo')!
+    const test = snapshot.environments.find((item) => item.gameId === gameId && item.environment === 'test')!
+    const math = mathForEnvironment(snapshot, production) ?? snapshot.mathSnapshots.find((item) => item.gameId === gameId)
+    const demoMath = mathForEnvironment(snapshot, demo) ?? math
     return {
-        id: code,
-        code,
-        name,
-        type,
-        production: {
-            version: productionStatus === '未啟用' ? null : baseVersion,
-            status: productionStatus,
-            rtp: buildRtpSummary(row.rtp, seed, 0),
-            hasPendingRelease: productionStatus === '上架' && seed % 5 === 0,
-            pendingVersion: productionStatus === '上架' && seed % 5 === 0 ? releaseVersion(seed, 3) : undefined,
-        },
-        demo: {
-            version: demoStatus === '未啟用' ? null : demoVersion,
-            status: demoStatus,
-            rtp: buildRtpSummary(row.rtp, seed, 1),
-            hasPendingRelease: demoStatus === '上架' && seed % 6 === 0,
-            pendingVersion: demoStatus === '上架' && seed % 6 === 0 ? releaseVersion(seed, 4) : undefined,
-        },
-        test: {
-            version: testStatus === '未部署' ? null : testVersion,
-            status: testStatus,
-        },
-        operation,
-        ggapSync: seed % 17 === 0
-            ? '同步失敗'
-            : seed % 8 === 0
-                ? '同步中'
-                : seed % 10 === 0
-                    ? '尚未同步'
-                    : '已同步',
-        updatedAt: String(row.updatedAt ?? '2026-08-05 10:00'),
+        id: game.id,
+        code: game.id,
+        name: game.name,
+        type: game.type,
+        production: environmentSummary(snapshot.releases, production, math, index),
+        demo: environmentSummary(snapshot.releases, demo, demoMath, index + 1),
+        test: environmentSummary(snapshot.releases, test, undefined, index + 2),
+        availability: availabilityLabel(game.availability),
+        ggapSync: ggapLabel(production.ggapSync),
+        updatedAt: game.availabilityUpdatedAt,
     }
 }
 
-function releaseVersion(seed: number, offset: number) {
-    const minor = 1 + ((seed + offset) % 4)
-    const patch = (seed * 3 + offset) % 10
-    return `v1.${minor}.${patch}`
+function mathForEnvironment(snapshot: LifecycleSnapshot, environment: EnvironmentDeployment) {
+    const version = snapshot.versions.find((item) => item.id === environment.activeVersionId)
+    return snapshot.mathSnapshots.find((item) => item.id === version?.mathRef)
 }
 
-function buildRtpSummary(rawRtp: unknown, seed: number, offset: number): RtpSummary {
-    const parsed = Number.parseFloat(String(rawRtp ?? '').match(/\d+(?:\.\d+)?/)?.[0] ?? '')
-    const theoretical = Number.isFinite(parsed) ? parsed : 96
-    const actual = Number((theoretical + (((seed + offset * 2) % 9) - 4) * 0.08).toFixed(2))
-    const deviation = Number((actual - theoretical).toFixed(2))
-    const samples = 2200 + ((seed * 137 + offset * 211) % 15000)
-    const state: RtpState = samples < 5000
-        ? '樣本不足'
-        : Math.abs(deviation) >= 0.5
-            ? '觀察'
-            : '正常'
-
+function environmentSummary(releases: ReleaseRecord[], environment: EnvironmentDeployment, math: GameMathSnapshot | undefined, seed: number): EnvironmentSummary {
+    const pending = releases.find((item) => item.id === environment.pendingReleaseId)
+    const status = environment.environment === 'test' ? testStatus(environment, pending) : formalStatus(environment, pending)
     return {
-        actual,
-        theoretical,
-        deviation,
-        samples,
-        window: '最近 24 小時',
-        updatedAt: '2026-08-05 14:30',
-        state,
+        version: environment.activeSemver ?? pending?.semver ?? null,
+        releaseId: environment.activeReleaseId,
+        status,
+        rtp: environment.environment === 'test' ? undefined : buildRtpSummary(math, seed),
+        hasPendingRelease: Boolean(pending),
+        pendingVersion: pending?.semver,
+        pendingReleaseId: pending?.id,
     }
+}
+
+function formalStatus(environment: EnvironmentDeployment, pending?: ReleaseRecord): ProductionDemoStatus {
+    if (pending?.status === 'deploying') return '發布中'
+    if (pending?.status === 'failed') return '發布失敗'
+    return environment.activeReleaseId ? '已生效' : '未發布'
+}
+
+function testStatus(environment: EnvironmentDeployment, pending?: ReleaseRecord): TestStatus {
+    if (pending?.status === 'failed') return '部署失敗'
+    if (pending && ['preparing', 'awaiting_approval', 'scheduled', 'deploying'].includes(pending.status)) return '部署中'
+    return environment.activeReleaseId ? '已部署' : '未部署'
+}
+
+function availabilityLabel(value: GameAvailability): AvailabilityStatus {
+    return { unpublished: '未上架', available: '已上架', maintenance: '維護中', suspended: '已暫停', retired: '已退役' }[value] as AvailabilityStatus
+}
+
+function ggapLabel(value: EnvironmentDeployment['ggapSync']): GgapSyncStatus {
+    return { synced: '已同步', pending: '同步中', failed: '同步失敗', not_applicable: '尚未同步' }[value] as GgapSyncStatus
+}
+
+function buildRtpSummary(math: GameMathSnapshot | undefined, seed: number): RtpSummary {
+    if (!math || !math.sampleRounds) return { actual: null, theoretical: null, deviation: null, samples: 0, window: '最近 24 小時', updatedAt: '—', state: '無資料' }
+    const state: RtpState = math.sampleRounds < 5000 ? '樣本不足' : Math.abs(math.deviation) >= 0.5 ? '觀察' : '正常'
+    return { actual: Number((math.actualRtp + seed * 0.01).toFixed(2)), theoretical: math.theoreticalRtp, deviation: math.deviation, samples: math.sampleRounds, window: '最近 24 小時', updatedAt: new Date(math.updatedAt).toLocaleString('zh-TW', { hour12: false }), state }
 }
 
 function applyFilters() {
@@ -253,11 +225,15 @@ function openDetails(row: ProviderGameRow) {
     detailsVisible.value = true
 }
 
+function openEnvironment(row: ProviderGameRow, environment: 'production' | 'demo' | 'test', releaseId?: string | null) {
+    void router.push({ path: '/games/environments', query: { game_id: row.id, environment, release_id: releaseId || undefined } })
+}
+
 function statusClass(value: string) {
-    if (['上架', '正常', '已同步'].includes(value)) return 'game-status--success'
-    if (['維護中', '暫停新局'].includes(value)) return 'game-status--warning'
-    if (['部署中', '同步中'].includes(value)) return 'game-status--progress'
-    if (['部署失敗', '同步失敗'].includes(value)) return 'game-status--danger'
+    if (['已生效', '已部署', '已上架', '正常', '已同步'].includes(value)) return 'game-status--success'
+    if (['維護中', '已暫停', '待覆核'].includes(value)) return 'game-status--warning'
+    if (['發布中', '部署中', '同步中'].includes(value)) return 'game-status--progress'
+    if (['發布失敗', '部署失敗', '同步失敗'].includes(value)) return 'game-status--danger'
     return 'game-status--neutral'
 }
 
@@ -288,12 +264,12 @@ function rtpTip(summary: RtpSummary | undefined) {
     <div class="page-stack provider-games-page">
         <section class="games-stat-strip" aria-label="遊戲環境摘要">
             <div class="games-stat-item">
-                <span>正式上架</span>
+                <span>Production Active</span>
                 <strong>{{ productionCount }}</strong>
                 <small>Provider 正式環境</small>
             </div>
             <div class="games-stat-item">
-                <span>DEMO 上架</span>
+                <span>DEMO Active</span>
                 <strong>{{ demoCount }}</strong>
                 <small>隔離的官網 DEMO</small>
             </div>
@@ -327,8 +303,8 @@ function rtpTip(summary: RtpSummary | undefined) {
                     <Select id="test-status" v-model="filters.test" :options="testStatusOptions" fluid />
                 </div>
                 <div class="field">
-                    <label for="operation-status">營運控制</label>
-                    <Select id="operation-status" v-model="filters.operation" :options="operationOptions" fluid />
+                    <label for="availability-status">全域可用性</label>
+                    <Select id="availability-status" v-model="filters.availability" :options="availabilityOptions" fluid />
                 </div>
                 <div class="field">
                     <label for="ggap-status">GGAP 同步</label>
@@ -350,7 +326,7 @@ function rtpTip(summary: RtpSummary | undefined) {
                 <span class="games-result-count">{{ filteredRows.length }} 款遊戲</span>
                 <span class="games-result-note">預設依遊戲 ID 排序，每頁 10 筆</span>
             </div>
-            <span class="games-readonly-note"><i class="pi pi-info-circle" /> 版本啟用與發布將於環境頁完成後提供</span>
+            <span class="games-readonly-note"><i class="pi pi-info-circle" /> 發布、回復與全域狀態操作統一由「環境與發布」處理</span>
         </div>
 
         <SectionCard class="games-table-card">
@@ -394,7 +370,7 @@ function rtpTip(summary: RtpSummary | undefined) {
                         <Column header="正式環境" :colspan="3" />
                         <Column header="DEMO 環境" :colspan="3" />
                         <Column header="測試環境" :colspan="2" />
-                        <Column header="營運控制" />
+                        <Column header="全域可用性" />
                         <Column header="GGAP 同步" />
                         <Column header="操作" />
                     </Row>
@@ -442,8 +418,8 @@ function rtpTip(summary: RtpSummary | undefined) {
                 <Column field="production.version" style="width: 150px; min-width: 150px">
                     <template #body="{ data }">
                         <div class="games-version-cell">
-                            <span :class="{ 'games-version-empty': !data.production.version }">{{ data.production.version ?? '—' }}</span>
-                            <span v-if="data.production.hasPendingRelease" v-tooltip.top="`有新 Release 可啟用：${data.production.pendingVersion}`" class="release-hint">＋</span>
+                            <button type="button" class="games-version-link" :class="{ 'games-version-empty': !data.production.version }" @click="openEnvironment(data, 'production', data.production.releaseId)">{{ data.production.version ?? '—' }}</button>
+                            <button v-if="data.production.hasPendingRelease" v-tooltip.top="`有新 Release 可查看：${data.production.pendingVersion}`" type="button" class="release-hint" aria-label="查看 Production 待處理 Release" @click="openEnvironment(data, 'production', data.production.pendingReleaseId)">＋</button>
                         </div>
                     </template>
                 </Column>
@@ -461,8 +437,8 @@ function rtpTip(summary: RtpSummary | undefined) {
                 <Column field="demo.version" style="width: 150px; min-width: 150px">
                     <template #body="{ data }">
                         <div class="games-version-cell">
-                            <span :class="{ 'games-version-empty': !data.demo.version }">{{ data.demo.version ?? '—' }}</span>
-                            <span v-if="data.demo.hasPendingRelease" v-tooltip.top="`有新 Release 可啟用：${data.demo.pendingVersion}`" class="release-hint">＋</span>
+                            <button type="button" class="games-version-link" :class="{ 'games-version-empty': !data.demo.version }" @click="openEnvironment(data, 'demo', data.demo.releaseId)">{{ data.demo.version ?? '—' }}</button>
+                            <button v-if="data.demo.hasPendingRelease" v-tooltip.top="`有新 Release 可查看：${data.demo.pendingVersion}`" type="button" class="release-hint" aria-label="查看 DEMO 待處理 Release" @click="openEnvironment(data, 'demo', data.demo.pendingReleaseId)">＋</button>
                         </div>
                     </template>
                 </Column>
@@ -479,7 +455,7 @@ function rtpTip(summary: RtpSummary | undefined) {
 
                 <Column field="test.version" style="width: 150px; min-width: 150px">
                     <template #body="{ data }">
-                        <span :class="{ 'games-version-empty': !data.test.version }">{{ data.test.version ?? '—' }}</span>
+                        <button type="button" class="games-version-link" :class="{ 'games-version-empty': !data.test.version }" @click="openEnvironment(data, 'test', data.test.releaseId ?? data.test.pendingReleaseId)">{{ data.test.version ?? '—' }}</button>
                     </template>
                 </Column>
                 <Column field="test.status" style="width: 112px; min-width: 112px">
@@ -488,9 +464,9 @@ function rtpTip(summary: RtpSummary | undefined) {
                     </template>
                 </Column>
 
-                <Column field="operation" style="width: 120px; min-width: 120px">
+                <Column field="availability" style="width: 120px; min-width: 120px">
                     <template #body="{ data }">
-                        <span :class="['game-status', statusClass(data.operation)]">{{ data.operation }}</span>
+                        <button type="button" class="games-status-link" @click="openEnvironment(data, 'production')"><span :class="['game-status', statusClass(data.availability)]">{{ data.availability }}</span></button>
                     </template>
                 </Column>
                 <Column field="ggapSync" style="width: 120px; min-width: 120px">
@@ -547,7 +523,7 @@ function rtpTip(summary: RtpSummary | undefined) {
                 </div>
 
                 <div class="game-details-grid">
-                    <div><span>營運控制</span><strong>{{ selectedGame.operation }}</strong></div>
+                    <div><span>全域可用性</span><strong>{{ selectedGame.availability }}</strong></div>
                     <div><span>GGAP 目錄 / Release 同步</span><strong>{{ selectedGame.ggapSync }}</strong></div>
                     <div><span>正式 RTP 監控</span><strong>{{ selectedGame.production.rtp?.state ?? '無資料' }}</strong></div>
                     <div><span>DEMO RTP 監控</span><strong>{{ selectedGame.demo.rtp?.state ?? '無資料' }}</strong></div>
@@ -555,12 +531,13 @@ function rtpTip(summary: RtpSummary | undefined) {
 
                 <div class="game-details-note">
                     <i class="pi pi-info-circle" />
-                    <p>版本啟用與發布操作將在環境與發布頁完成後提供；素材上傳由資產管理頁獨立處理。</p>
+                    <p>Version、Artifact、Release 與全域可用性為獨立狀態；發布、回復與維護請前往「環境與發布」，素材異動由「遊戲素材」建立新紀錄。</p>
                 </div>
             </div>
 
             <template #footer>
                 <Button label="關閉" severity="secondary" outlined @click="detailsVisible = false" />
+                <Button label="環境與發布" icon="pi pi-cloud" @click="selectedGame && openEnvironment(selectedGame, 'production')" />
             </template>
         </Dialog>
     </div>
@@ -735,11 +712,25 @@ function rtpTip(summary: RtpSummary | undefined) {
 }
 
 .games-code,
-.games-version-cell > span:first-child {
+.games-version-link {
     color: #3b6268;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     font-size: 0.76rem;
     font-weight: 700;
+}
+
+.games-version-link,
+.games-status-link {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.games-version-link:hover {
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
 }
 
 .games-version-cell {

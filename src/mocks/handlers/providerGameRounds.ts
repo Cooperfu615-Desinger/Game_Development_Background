@@ -34,6 +34,14 @@ function buildRound(seed: RoundSeed): ProviderGameRound {
     const payout = new Big(seed.payoutPoints)
     const netResult = payout.minus(bet)
     const rate = new Big(seed.pointsPerUsdt)
+    const snapshotKey = `${seed.gameId}-${seed.gameVersion}`.replace(/[^a-zA-Z0-9]+/g, '-').toLowerCase()
+    const bettingStructure = seed.gameType === 'slots'
+        ? 'Total Bet = Bet Level × Coin Value × Bet Multiplier'
+        : seed.gameType === 'table'
+            ? 'Total Bet = selected area stakes total'
+            : 'Total Bet = stake amount'
+    const theoreticalRtp = seed.gameType === 'table' ? '98.90' : seed.gameType === 'crash' ? '97.00' : '96.20'
+    const limitPlan = Number(seed.betPoints) >= 500 ? 'LIMIT-HIGH-HIST' : 'LIMIT-STD-HIST'
 
     return {
         round_id: seed.roundId,
@@ -43,7 +51,19 @@ function buildRound(seed: RoundSeed): ProviderGameRound {
         game_name: seed.gameName,
         game_type: seed.gameType,
         game_version: seed.gameVersion,
+        build_id: `build-${snapshotKey}`,
         release_id: seed.releaseId,
+        settings_snapshot_id: `settings-${snapshotKey}`,
+        math_snapshot_id: `math-${snapshotKey}`,
+        asset_bundle_id: `assets-${snapshotKey}`,
+        theoretical_rtp: theoreticalRtp,
+        betting_structure_id: seed.gameType === 'slots' ? 'BET-STRUCT-SLOT-HIST' : seed.gameType === 'table' ? 'BET-STRUCT-TABLE-HIST' : 'BET-STRUCT-CRASH-HIST',
+        betting_structure_snapshot: bettingStructure,
+        currency_multiplier_id: 'CUR-MAP-HIST-001',
+        currency_multiplier_snapshot: 'USDT × 1；USD × 1；TWD × 30；VND × 2000',
+        limit_plan_id: limitPlan,
+        limit_plan_snapshot: limitPlan === 'LIMIT-HIGH-HIST' ? '1–500 USDT；派彩上限 50,000 USDT' : '0.1–100 USDT；派彩上限 10,000 USDT',
+        snapshot_created_at: seed.createdAt,
         agent_id: seed.agentId,
         agent_name: seed.agentName,
         member_id: seed.memberId,

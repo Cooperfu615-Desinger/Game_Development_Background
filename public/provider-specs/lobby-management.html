@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="單一遊戲的大廳公開草稿、上游參照、多語內容、媒體、檢查與發布。">
+    <meta name="description" content="Lobby Game Content 與 Catalog 的獨立 Revision、上游參照、精確預覽、核准與發布。">
     <meta name="color-scheme" content="light">
     <title>遊戲管理｜Provider Portal 產品與系統規格書</title>
     <link rel="stylesheet" href="assets/site.css">
@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.20.0-phase-three-pack-04-baseline</span>
+            <span>0.21.0-phase-three-pack-04-source-aligned</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -406,7 +406,7 @@
                     <div>
                         <p class="eyebrow">05.8.6 · 官方網站</p>
                         <h1>遊戲管理</h1>
-                        <p class="page-summary">單一遊戲的大廳公開草稿、上游參照、多語內容、媒體、檢查與發布。</p>
+                        <p class="page-summary">Lobby Game Content 與 Catalog 的獨立 Revision、上游參照、精確預覽、核准與發布。</p>
                     </div>
                     <div class="page-status-stack">
                         <span class="status-badge status-draft">草案</span>
@@ -437,7 +437,7 @@
         </nav>
         <div class="visual-scope-notes" aria-label="畫面閱讀邊界">
             <span>閱讀邊界</span>
-            <small>上游資料唯讀</small><small>三種玩家狀態</small><small>5/5 目前為 mock</small><small>發布成功才公開</small>
+            <small>Game Content／Catalog 分流</small><small>上游資料唯讀</small><small>三層可玩性</small><small>成功 Job 才公開</small>
         </div>
         <div id="lobby-management-visual-panel" class="visual-overview-panel" data-anatomy-panel>
             <figure class="page-anatomy lifecycle-anatomy publishing-anatomy publishing-anatomy--lobby" aria-label="大廳遊戲管理六區塊畫面示意">
@@ -469,7 +469,7 @@
 </thead>
 <tbody><tr>
 <td>規格成熟度</td>
-<td>Draft — Batch D 完整頁面規格</td>
+<td>Draft — DP04 產品語意已同步；正式實作 Mapping 待補</td>
 </tr>
 <tr>
 <td>製作範圍</td>
@@ -489,63 +489,58 @@
 </tr>
 <tr>
 <td>頁面角色</td>
-<td>單一遊戲的大廳公開草稿、檢查與發布準備工作台</td>
+<td>Lobby Game Content 與 Lobby Catalog 的 Revision、檢查、預覽與發布工作台</td>
 </tr>
 </tbody></table></div>
 <blockquote>
-<p>大廳管理引用 Provider 遊戲主資料、核准數值與素材，不建立另一套遊戲真實來源。原型表單與 <code>5 / 5</code> 檢查都是 mock；儲存、發布、權限與衝突尚未接入。</p>
+<p>大廳管理引用 DP03 Game、Version、核准數值與 exact Asset，不建立另一套遊戲真實來源。DP04 產品語意已成立；原型表單與 <code>5 / 5</code> 檢查仍是 mock，正式持久化與公開副作用尚未接入。</p>
 </blockquote>
 <h2 id="1-目的與責任邊界">1. 目的與責任邊界</h2><ul>
-<li>編輯大廳專用公開內容、素材引用與玩家狀態，並檢查是否可發布。</li>
+<li>分別編輯單款 Lobby Game Content 與整份 Lobby Catalog Revision，並檢查、預覽及發布。</li>
 <li>顯示但不直接修改遊戲主資料、程式版號與核准遊戲數值。</li>
-<li>玩家狀態只控制 DEMO 啟動，不取代 Production／DEMO 環境全域上架。</li>
+<li>DP04 只設定 coming soon／playable 等內容語意；DP03 runtime overlay 與 GGAP Gate 仍可阻擋 Launch。</li>
 <li>YouTube 第一階段只保存核准 URL，不上傳影片。</li>
 <li>不管理 GGAP 代理商開關、正式會員、錢包或 Game Round。</li>
 </ul>
-<h2 id="2-草稿與公開版本模型">2. 草稿與公開版本模型</h2><ul>
-<li>工作單位是 <code>game_id + lobby_draft_revision</code>；published revision 與 draft 分離。</li>
+<h2 id="2-game-content-與-catalog-版本模型">2. Game Content 與 Catalog 版本模型</h2><ul>
+<li>Lobby Game Content 以 <code>content_entry_id + game_id + revision_id</code> 為工作脈絡；Lobby Catalog 使用獨立 <code>catalog_revision_id</code>。</li>
+<li>Catalog Revision 保存完整收錄、排序、分組、置頂及每筆 exact Game Content Revision；兩條發布流互不自動改變。</li>
 <li>基本識別、類型、程式版號為上游唯讀 snapshot；公開名稱／說明、素材用途及玩家狀態為本頁草稿。</li>
 <li>RTP、波動度、最高倍率及限紅引用已核准數值／設定版本，禁止複製為不可追溯自由文字。</li>
-<li>發布成功才替換公開 snapshot；回復建立新草稿與發布工作。</li>
+<li>發布成功才原子切換各 scope 的 Published Snapshot；Restore 由歷史 Snapshot 建立新 Revision、重新驗證／核准並建立新 Job。</li>
 </ul>
 <h2 id="3-六區塊資訊架構">3. 六區塊資訊架構</h2><ol>
 <li>遊戲脈絡：遊戲選擇、穩定 ID、目前公開狀態與 draft revision。</li>
 <li>基本資料與參照：主資料、程式、數值及上架來源。</li>
 <li>四語系公開內容：名稱、簡述、玩法與完整度。</li>
-<li>圖片／影片與玩家狀態：素材版本、YouTube、三狀態。</li>
+<li>圖片／影片與內容語意：素材版本、YouTube、coming soon／playable 與 Catalog 收錄。</li>
 <li>公開前檢查與完整預覽：blocking、warning、規則版本及 deep link。</li>
 <li>儲存／發布與替代狀態：unsaved、conflict、failed、Forbidden、audit。</li>
 </ol>
 <h2 id="4-遊戲脈絡與資料責任">4. 遊戲脈絡與資料責任</h2><ul>
 <li>由 query 進入時以精確 <code>game_id</code> 載入；不存在、無權或未納入大廳分開處理。</li>
-<li>頁首顯示 draft／published revision、玩家狀態、最後更新者及未儲存狀態。</li>
+<li>頁首分別顯示 Game Content／Catalog draft、Published Snapshot、DP03 overlay、Delivery、最後更新者及未儲存狀態。</li>
 <li>唯讀來源：Game ID、遊戲代碼、類型、程式版本、核准數值／設定版本。</li>
-<li>可編輯範圍：多語公開內容、核准素材引用、YouTube URL、玩家狀態及內部發布備註。</li>
+<li>可編輯範圍：多語公開內容、核准素材引用、YouTube URL、內容顯示語意、Catalog 收錄／排序與內部發布備註。</li>
 </ul>
 <h2 id="5-公開內容與媒體">5. 公開內容與媒體</h2><ul>
-<li>四語系各自維護名稱、簡述及玩法；顯示字數、完整度、fallback 與驗證。</li>
+<li>四語固定 <code>zh-TW</code>、<code>zh-CN</code>、<code>en</code>、<code>ja</code> 並原子發布；欄位依 <code>STRICT</code>／<code>FALLBACK</code>／<code>OPTIONAL_HIDE</code> 處理，預覽與 Snapshot 保存解析結果。</li>
 <li>公開 RTP／波動度／最高倍率來自核准 math snapshot；投注顯示則引用設定版本及明確單位，不沿用原型 USD 作正式契約。</li>
 <li>卡片／詳情圖片引用 <code>asset_version_id</code>，顯示用途、裝置、語系、掃描及審核狀態。</li>
 <li>YouTube URL 僅接受核准 domain／格式；預覽嵌入受 CSP、privacy mode 與可用性檢查。</li>
-<li>三種玩家狀態附行為說明；已推出才允許 DEMO Launch。</li>
+<li>coming soon／playable 是 DP04 內容語意；<code>maintenance</code>／<code>suspended</code>／<code>retired</code> 由 DP03 runtime overlay 套用，不寫回 Content Revision。DEMO Launch 仍只進 Sandbox。</li>
 </ul>
-<h2 id="6-公開前檢查與預覽">6. 公開前檢查與預覽</h2><p>檢查包含：主資料可用、四語完整、公開數值核准、素材可用、安全掃描、YouTube、玩家狀態、DEMO Launch readiness、revision conflict。每項回傳 rule ID、版本、severity、結果與修正導流；blocking 未清除不得發布。</p>
-<p>預覽導向 <code>/lobby/preview?gameId=...&amp;mode=draft&amp;revision=...</code>，不得使用「最新草稿」替代精確 revision。</p>
-<h2 id="7-儲存-發布與頁面狀態">7. 儲存、發布與頁面狀態</h2><p>儲存草稿需 revision concurrency；發布重新執行檢查、確認目標 revision 後建立 job。頁面支援 loading、unsaved changes、validation error、source changed、asset unavailable、conflict、queued／running／failed／succeeded、stale 與 Forbidden。失敗保持既有公開 revision。</p>
-<h2 id="8-api-權限-稽核與驗收">8. API、權限、稽核與驗收</h2><p>API 提供遊戲脈絡、draft／published snapshot、上游參照、驗證、儲存、預覽及發布 job。讀取、編輯、驗證、預覽草稿與發布可分 permission；操作記錄 actor、reason、before／after revision、結果及 trace。</p>
-<p>使用 <code>1500px</code> 寬版；Desktop 以 tabs／分區呈現，Mobile 保留遊戲脈絡與底部操作且不得水平溢出。驗收需證明上游欄位不可改、三狀態行為正確、四語／素材可追溯、blocking 真正阻擋、衝突不覆蓋且公開版本只在成功後改變。</p>
-<h2 id="9-待確認與-draft-移除條件">9. 待確認與 Draft 移除條件</h2><ul>
-<li><code>TBD-DOM-005</code>：草稿、公開、回復與大廳生命週期。</li>
-<li><code>TBD-DAT-006</code>：多語、素材、fallback 與公開欄位。</li>
-<li><code>TBD-API-006</code>、<code>TBD-SEC-005</code>：管理、預覽、發布 API 與媒體安全。</li>
-<li><code>TBD-SEC-001</code>、<code>TBD-SEC-003</code>：權限、核准與 audit。</li>
-</ul>
-<p>正式欄位責任、版本模型、檢查、API、權限及發布流程核准後，才可改為 Confirmed。</p>
+<h2 id="6-公開前檢查與預覽">6. 公開前檢查與預覽</h2><p>檢查包含：DP03 依賴、四語政策、公開數值、exact 素材、安全掃描、YouTube／CSP、內容語意、Catalog 完整性／排序、DEMO readiness、base／expected revision、權限與核准。每項回傳 rule ID、版本、severity、結果與修正導流；Blocking 不得略過。</p>
+<p>預覽由 exact Preview Manifest 固定 Catalog Revision、Game Content Revision、區塊 draft／public 來源、locale、device、Asset、DP03 snapshot、renderer 與 hash；不得使用 latest 替代。</p>
+<h2 id="7-儲存-發布與頁面狀態">7. 儲存、發布與頁面狀態</h2><p>儲存以 base revision／ETag 建立新 Revision；Publish／Disable／Restore 綁定 exact Revision、expected published revision、validation、approval 與 idempotency。playable、大量 Catalog、外部網域與重要素材走第二人核准。頁面支援 loading、unsaved、validation、dependency changed、asset revoked、Revision／Publication Conflict、Approval、Job 與 Delivery 狀態；失敗保持既有 Snapshot。</p>
+<h2 id="8-api-權限-稽核與驗收">8. API、權限、稽核與驗收</h2><p>後端提供 Game Content／Catalog Entry、Revision、Published Snapshot、DP03 參照、Validation、Preview Manifest／Token、Submit／Approve／Reject、Publish／Disable／Restore Job、timeline 與 allowed actions。讀取、編輯、預覽、提交、核准、發布、停用／還原及 Audit 可分 capability；後端逐次授權並保存 append-only 證據。</p>
+<p>使用 <code>1500px</code> 寬版；Desktop 以 tabs／分區呈現，Mobile 保留 scope 與底部操作且不得水平溢出。驗收需證明 Game Content／Catalog 獨立、上游欄位唯讀、三層狀態正確、exact 四語／素材可追溯、Blocking 真正阻擋、衝突不覆蓋且公開 Snapshot 只在成功後改變。</p>
+<h2 id="9-已確認基準與實作-mapping">9. 已確認基準與實作 Mapping</h2><p>DP04 已確認兩條獨立發布流、Revision／Job／Snapshot、四語／素材、精確預覽、三層狀態、風險通道、衝突、失敗與還原。仍待 Mapping 的項目為正式欄位 schema、API path、permission key、媒體／Renderer／CDN、安全實作、Audit 保存及驗收證據；完成後才可改為 Confirmed。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-草稿與公開版本模型">2. 草稿與公開版本模型</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-遊戲脈絡與資料責任">4. 遊戲脈絡與資料責任</a><a class="outline-level-2" href="#5-公開內容與媒體">5. 公開內容與媒體</a><a class="outline-level-2" href="#6-公開前檢查與預覽">6. 公開前檢查與預覽</a><a class="outline-level-2" href="#7-儲存-發布與頁面狀態">7. 儲存、發布與頁面狀態</a><a class="outline-level-2" href="#8-api-權限-稽核與驗收">8. API、權限、稽核與驗收</a><a class="outline-level-2" href="#9-待確認與-draft-移除條件">9. 待確認與 Draft 移除條件</a></nav>
+        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-game-content-與-catalog-版本模型">2. Game Content 與 Catalog 版本模型</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-遊戲脈絡與資料責任">4. 遊戲脈絡與資料責任</a><a class="outline-level-2" href="#5-公開內容與媒體">5. 公開內容與媒體</a><a class="outline-level-2" href="#6-公開前檢查與預覽">6. 公開前檢查與預覽</a><a class="outline-level-2" href="#7-儲存-發布與頁面狀態">7. 儲存、發布與頁面狀態</a><a class="outline-level-2" href="#8-api-權限-稽核與驗收">8. API、權限、稽核與驗收</a><a class="outline-level-2" href="#9-已確認基準與實作-mapping">9. 已確認基準與實作 Mapping</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -556,7 +551,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.20.0-phase-three-pack-04-baseline · 2026-08-20</span>
+                    <span>0.21.0-phase-three-pack-04-source-aligned · 2026-08-20</span>
                 </footer>
             </div>
         </main>

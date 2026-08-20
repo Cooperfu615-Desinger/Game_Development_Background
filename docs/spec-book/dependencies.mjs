@@ -76,7 +76,7 @@ export const dependencyChains = [
         number: '04',
         title: '官網與遊戲大廳鏈',
         batch: 'C → D',
-        summary: '共用 Provider 遊戲主資料與素材，建立官網內容、大廳公開資料、DEMO 投影及預覽。',
+        summary: 'DP03 穩定主資料與素材分別供官網／大廳四條獨立發布流使用，再形成 Published Snapshot、DEMO readiness 與 exact 預覽。',
         nodes: [
             node('game-master-node', '遊戲主資料', ['game-list'], '遊戲 ID、名稱、版本、數值與素材參照'),
             node('website-node', '官方網站', ['website-banners', 'website-content', 'website-releases'], 'Banner、靜態內容與網站發布紀錄'),
@@ -85,10 +85,10 @@ export const dependencyChains = [
             node('lobby-preview-node', '大廳預覽', ['lobby-preview'], '玩家端樣式的預覽投影'),
         ],
         edges: [
-            edge('game-master-node', 'website-node', 'data', '遊戲識別、名稱、版本、數值與可用素材參照。', '建立 Provider 官網的 Banner 與靜態內容。', '官網不得複製出另一套遊戲主資料真實來源。', 'boundary'),
-            edge('website-node', 'lobby-node', 'publication', '已發布的品牌、素材、語系與內容版本脈絡。', '建立大廳公開內容與檢查清單。', '官網發布與遊戲全域上架是不同生命週期，正式關聯待確認。', 'draft'),
-            edge('lobby-node', 'lobby-demo-node', 'projection', '已選遊戲、公開資料、DEMO 可用狀態與展示設定。', '產生隔離的 DEMO 活躍與遊戲表現資料。', 'DEMO 不得混入 Production Game Round、財務或風控。', 'boundary'),
-            edge('lobby-demo-node', 'lobby-preview-node', 'projection', 'DEMO 遊戲清單、展示狀態與模擬餘額脈絡。', '在 Desktop／Mobile／語系模式預覽玩家端成果。', 'DEMO 餘額、玩家與 Session 只可作展示，不代表 Provider 錢包或會員主資料。', 'boundary'),
+            edge('game-master-node', 'website-node', 'data', 'DP03 穩定遊戲識別與 exact Asset Version。', '建立獨立 Banner／Static Content Revision 與 Snapshot。', '官網不得複製遊戲主資料，也不得引用 latest 素材。', 'boundary'),
+            edge('website-node', 'lobby-node', 'publication', '共用 DP04 Revision／Validation／Manifest／Job／Snapshot 語意，不輸送官網內容資料。', '讓 Lobby Game Content／Catalog 使用同一發布引擎但保持獨立 scope。', '官網與大廳任何發布成功或失敗都不得自動改變另一條流。', 'boundary'),
+            edge('lobby-node', 'lobby-demo-node', 'projection', 'Published Catalog／Content、DP03 readiness 與 Sandbox 可啟動脈絡。', '產生隔離 telemetry 與品質證據，不形成發布事實。', 'DEMO 不得自動發布，也不得混入 Production Round、財務或風控。', 'boundary'),
+            edge('lobby-demo-node', 'lobby-preview-node', 'projection', 'DEMO 只提供 readiness／quality 與 Sandbox Launch 狀態。', '預覽仍以 exact Catalog／Game Content Manifest 呈現 Desktop／Mobile／語系成果。', 'Preview 不得以 DEMO telemetry 或 latest 取代 exact Revision；credit 不代表錢包。', 'boundary'),
         ],
     },
 ]

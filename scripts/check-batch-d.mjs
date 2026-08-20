@@ -14,7 +14,7 @@ let assertionCount = 0
 const batchDPageIds = ['website-banners', 'website-content', 'website-releases', 'lobby-overview', 'lobby-games', 'lobby-management', 'lobby-demo', 'lobby-preview']
 const manifestPages = modules.flatMap((module) => module.pages)
 
-assert(['0.12.0-batch-d-draft', '0.13.0-phase-two-seal', '0.14.0-phase-three-pack-01-draft', '0.14.1-phase-three-pack-01-evidence-pending', '0.15.0-phase-three-pack-02-baseline', '0.16.0-phase-three-contract-baselines', '0.17.0-phase-three-pack-03-baseline', '0.18.0-phase-three-pack-03-source-aligned', '0.19.0-phase-three-pack-03-reconciled', '0.20.0-phase-three-pack-04-baseline'].includes(book.version), '規格網站版本不得早於 Batch D Draft')
+assert(['0.12.0-batch-d-draft', '0.13.0-phase-two-seal', '0.14.0-phase-three-pack-01-draft', '0.14.1-phase-three-pack-01-evidence-pending', '0.15.0-phase-three-pack-02-baseline', '0.16.0-phase-three-contract-baselines', '0.17.0-phase-three-pack-03-baseline', '0.18.0-phase-three-pack-03-source-aligned', '0.19.0-phase-three-pack-03-reconciled', '0.20.0-phase-three-pack-04-baseline', '0.21.0-phase-three-pack-04-source-aligned'].includes(book.version), '規格網站版本不得早於 Batch D Draft')
 assert(book.status.includes('Batch D Draft Complete') || book.status.includes('Draft Sealed') || book.status.includes('Decision Pack 01 Draft') || book.status.includes('Pack 01 Backend Evidence Pending') || book.status.includes('Monitoring & Risk Baseline') || book.status.includes('Product Contract Baselines'), '規格網站狀態不得早於 Batch D Draft Complete')
 
 for (const pageId of batchDPageIds) {
@@ -36,7 +36,7 @@ for (const pageId of batchDPageIds) {
     }
 
     const html = await readFile(path.join(outputRoot, `${pageId}.html`), 'utf8')
-    for (const requiredText of ['待確認', 'API', 'Draft 移除條件']) {
+    for (const requiredText of ['已確認基準', 'API', '實作 Mapping']) {
         assert(html.includes(requiredText), `${pageId} 缺少完整 Draft 必要內容：${requiredText}`)
     }
     assert((html.match(/class="anatomy-zone /g) || []).length === 6, `${pageId} 畫面示意應有六個可點擊區塊`)
@@ -54,7 +54,7 @@ const contentHtml = await readFile(path.join(outputRoot, 'website-content.html')
 for (const text of ['受限富文字', '結構化欄位', 'HTML sanitation']) assert(contentHtml.includes(text), `內容管理缺少：${text}`)
 
 const releasesHtml = await readFile(path.join(outputRoot, 'website-releases.html'), 'utf8')
-for (const text of ['不可變發布事件', '工作／公開狀態', '不提供全文差異']) assert(releasesHtml.includes(text), `發布紀錄缺少：${text}`)
+for (const text of ['不可變發布事件', '工作／公開狀態', 'Restore 建立新 Revision／Job']) assert(releasesHtml.includes(text), `發布紀錄缺少：${text}`)
 
 const overviewHtml = await readFile(path.join(outputRoot, 'lobby-overview.html'), 'utf8')
 for (const text of ['不建立會員或錢包主資料', '不是正式業務 Game Session', 'GGAP']) assert(overviewHtml.includes(text), `大廳總覽缺少：${text}`)
@@ -69,7 +69,7 @@ const demoHtml = await readFile(path.join(outputRoot, 'lobby-demo.html'), 'utf8'
 for (const text of ['DEMO namespace', '不納入正式 Game Round', '不是 Provider 會員、錢包']) assert(demoHtml.includes(text), `DEMO環境數據缺少：${text}`)
 
 const previewHtml = await readFile(path.join(outputRoot, 'lobby-preview.html'), 'utf8')
-for (const text of ['指定草稿 revision', '展示 credit', '草稿失效後不得靜默切到公開版']) assert(previewHtml.includes(text), `大廳預覽缺少：${text}`)
+for (const text of ['exact Preview Manifest', '展示 credit', '不可靜默改看 Published 或 latest']) assert(previewHtml.includes(text), `大廳預覽缺少：${text}`)
 
 const css = await readFile(path.join(outputRoot, 'assets/site.css'), 'utf8')
 for (const selector of ['.publishing-anatomy', '.publishing-anatomy--website', '.publishing-anatomy--lobby', '.publishing-anatomy__dark']) {

@@ -49,7 +49,7 @@ const expectedTbd = {
 const failures = []
 let assertionCount = 0
 
-assert(book.version === '0.20.0-phase-three-pack-04-baseline', '規格網站版本必須標示 Decision Pack 04 產品需求基準')
+assert(book.version === '0.21.0-phase-three-pack-04-source-aligned', '規格網站版本必須標示 Decision Pack 04 Source Alignment')
 assert(book.updatedAt === '2026-08-20', '規格網站更新日期必須同步 Decision Pack 04')
 assert(book.status === 'Phase 3 · Product Contract Baselines', '規格網站狀態必須維持 Product Contract Baselines')
 assert(Boolean(decisionPack), 'manifest 必須包含 Decision Pack 04')
@@ -168,9 +168,9 @@ assert(openIssues.includes('CDN'), '集中追蹤頁必須說明外部實作 Mapp
 assert(documentControl.includes(book.version), '文件治理頁必須同步 Decision Pack 04 版本')
 assert(documentControl.includes('37 個跨頁驗收情境'), '文件治理頁必須記錄 Decision Pack 04 驗收基準')
 assert(changelog.includes('0.20.0-phase-three-pack-04-baseline'), '版本紀錄必須記載 Decision Pack 04 基準')
-assert(projectIndex.includes('文件版本：2.27.0'), '專案交接索引必須同步 Decision Pack 04 文件版本')
+assert(projectIndex.includes('文件版本：2.28.0'), '專案交接索引必須同步 Decision Pack 04 文件版本')
 assert(projectIndex.includes(`${decisionPackId}.html`), '專案交接索引必須提供 Decision Pack 04 入口')
-assert(projectIndex.includes('Portal Vue 原型尚未依 DP04 回寫或修改'), '專案交接索引必須保留 DP04 尚未同步原型的邊界')
+assert(projectIndex.includes('本版本未修改 Portal Vue／mock'), '專案交接索引必須保留 DP04 尚未同步原型的邊界')
 
 if (failures.length) {
     console.error(`Decision Pack 04 validation failed (${failures.length}/${assertionCount})`)

@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.20.0-phase-three-pack-04-baseline</span>
+            <span>0.21.0-phase-three-pack-04-source-aligned</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -596,6 +596,142 @@
 <td align="right">永久拒絕，歷史保留</td>
 </tr>
 </tbody></table></div>
+<h2 id="content-revision-狀態">Content Revision 狀態</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>API 值</th>
+<th>顯示名稱</th>
+<th>語意</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>draft</code></td>
+<td>草稿</td>
+<td>已儲存的不可變 Revision，可由更新 Revision 取代</td>
+</tr>
+<tr>
+<td><code>ready</code></td>
+<td>可發布</td>
+<td>指定規則版本驗證通過</td>
+</tr>
+<tr>
+<td><code>superseded</code></td>
+<td>已被新版本取代</td>
+<td>仍可查詢、比較與追溯</td>
+</tr>
+<tr>
+<td><code>archived</code></td>
+<td>已封存</td>
+<td>不作一般發布候選，歷史仍保留</td>
+</tr>
+</tbody></table></div>
+<h2 id="content-publish-job-狀態">Content Publish Job 狀態</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>API 值</th>
+<th>顯示名稱</th>
+<th>語意</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>queued</code></td>
+<td>已建立</td>
+<td>等待立即執行或排程確認</td>
+</tr>
+<tr>
+<td><code>scheduled</code></td>
+<td>已排程</td>
+<td>綁定 exact Revision 與執行時間</td>
+</tr>
+<tr>
+<td><code>running</code></td>
+<td>執行中</td>
+<td>Snapshot、傳播、切換或驗證進行中</td>
+</tr>
+<tr>
+<td><code>succeeded</code></td>
+<td>已成功</td>
+<td>目標公開狀態已原子切換</td>
+</tr>
+<tr>
+<td><code>failed</code></td>
+<td>已失敗</td>
+<td>保存階段、原因與補償結果</td>
+</tr>
+<tr>
+<td><code>cancelled</code></td>
+<td>已取消</td>
+<td>不可逆副作用前取消</td>
+</tr>
+</tbody></table></div>
+<h2 id="content-public-與-delivery-狀態">Content Public 與 Delivery 狀態</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>維度</th>
+<th>API 值</th>
+<th>顯示名稱</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Public</td>
+<td><code>unpublished</code></td>
+<td>尚未公開</td>
+</tr>
+<tr>
+<td>Public</td>
+<td><code>published</code></td>
+<td>目前有有效 Snapshot</td>
+</tr>
+<tr>
+<td>Public</td>
+<td><code>disabled</code></td>
+<td>歷史保留，目前不公開</td>
+</tr>
+<tr>
+<td>Delivery</td>
+<td><code>propagating</code></td>
+<td>公開節點傳播／驗證中</td>
+</tr>
+<tr>
+<td>Delivery</td>
+<td><code>healthy</code></td>
+<td>目標 Snapshot 交付正常</td>
+</tr>
+<tr>
+<td>Delivery</td>
+<td><code>degraded</code></td>
+<td>部分節點／語系／裝置降級</td>
+</tr>
+<tr>
+<td>Delivery</td>
+<td><code>failed</code></td>
+<td>交付驗證失敗，需補償或處理</td>
+</tr>
+</tbody></table></div>
+<h2 id="內容欄位語系政策">內容欄位語系政策</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>API 值</th>
+<th>顯示名稱</th>
+<th>行為</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>STRICT</code></td>
+<td>嚴格完整</td>
+<td>必要語系缺少即 Blocking</td>
+</tr>
+<tr>
+<td><code>FALLBACK</code></td>
+<td>固定回退</td>
+<td>依固定鏈解析並保存來源</td>
+</tr>
+<tr>
+<td><code>OPTIONAL_HIDE</code></td>
+<td>選配隱藏</td>
+<td>缺少時只隱藏該欄位</td>
+</tr>
+</tbody></table></div>
 <h2 id="風控事件狀態">風控事件狀態</h2><p><code>pending</code>、<code>investigating</code>、<code>mitigated</code>、<code>closed</code>、<code>false_positive</code> 的正式顯示與 Risk Event／Alert 用詞需依各自規格區分。</p>
 <h2 id="自動緩解狀態">自動緩解狀態</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
@@ -629,7 +765,7 @@
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#game-round-狀態-draft">Game Round 狀態（Draft）</a><a class="outline-level-2" href="#環境">環境</a><a class="outline-level-2" href="#game-version-狀態">Game Version 狀態</a><a class="outline-level-2" href="#release-主要顯示狀態">Release 主要顯示狀態</a><a class="outline-level-2" href="#provider-全域可用性">Provider 全域可用性</a><a class="outline-level-2" href="#風控事件狀態">風控事件狀態</a><a class="outline-level-2" href="#自動緩解狀態">自動緩解狀態</a></nav>
+        <nav><a class="outline-level-2" href="#game-round-狀態-draft">Game Round 狀態（Draft）</a><a class="outline-level-2" href="#環境">環境</a><a class="outline-level-2" href="#game-version-狀態">Game Version 狀態</a><a class="outline-level-2" href="#release-主要顯示狀態">Release 主要顯示狀態</a><a class="outline-level-2" href="#provider-全域可用性">Provider 全域可用性</a><a class="outline-level-2" href="#content-revision-狀態">Content Revision 狀態</a><a class="outline-level-2" href="#content-publish-job-狀態">Content Publish Job 狀態</a><a class="outline-level-2" href="#content-public-與-delivery-狀態">Content Public 與 Delivery 狀態</a><a class="outline-level-2" href="#內容欄位語系政策">內容欄位語系政策</a><a class="outline-level-2" href="#風控事件狀態">風控事件狀態</a><a class="outline-level-2" href="#自動緩解狀態">自動緩解狀態</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -640,7 +776,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.20.0-phase-three-pack-04-baseline · 2026-08-20</span>
+                    <span>0.21.0-phase-three-pack-04-source-aligned · 2026-08-20</span>
                 </footer>
             </div>
         </main>

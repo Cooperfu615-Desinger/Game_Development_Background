@@ -107,12 +107,12 @@ DEMO 使用統計與 QA / 送測紀錄後續獨立製作，不與遊戲紀錄或
 
 ### 3.8 官方網站
 
-- 官網遊戲展示
-- 公告與內容區塊
-- 圖片 / 資產
-- 發布狀態
+- 遊戲官網：Banner、法務／聯絡內容與官網發布紀錄。
+- 遊戲大廳：公開總覽、Published Catalog 清單、Game Content／Catalog 管理、DEMO telemetry 與 exact 預覽。
+- 四條發布流共用 DP04 引擎但各自獨立 Revision、Job、Snapshot 與失敗／還原歷程。
+- 大廳可玩性由 DP03 技術狀態、DP04 公開內容及 GGAP Launch Gate 共同決定。
 
-活動功能先不列入第一階段；若未來加入，需確認是官網內容活動還是遊戲內活動。
+詳細內容發布契約見 [`Decision Pack 04`](./spec-book/content/appendices/decision-pack-04-content-publishing-contract.md)。活動功能先不列入第一階段；若未來加入，需另立 publication scope 與責任邊界。
 
 ### 3.9 系統設定
 

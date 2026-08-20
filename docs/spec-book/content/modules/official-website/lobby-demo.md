@@ -4,7 +4,7 @@
 
 | 項目 | 內容 |
 | --- | --- |
-| 規格成熟度 | Draft — Batch D 完整頁面規格 |
+| 規格成熟度 | Draft — DP04 隔離與發布邊界已同步；正式 telemetry Mapping 待補 |
 | 製作範圍 | Active |
 | 對應路由 | `/lobby/demo` |
 | 前端元件 | `src/views/GameLobby/DemoData.vue` |
@@ -26,7 +26,8 @@
 - `demo_identity_id`、`demo_play_id`／`demo_session_id` 只存在 DEMO namespace，不得與 member ID、Provider／GGAP Round ID 共用。
 - Production 正式紀錄仍以 Game Round 為主要業務單位；DEMO session 只是瀏覽／試玩 telemetry 分組。
 - DEMO 資料庫、事件 topic、查詢 API、匯出與 retention 必須與 Production 分離。
-- 原型「投注總額 USD」改稱 DEMO 試玩額度流量；正式顯示單位、精度與是否保留金額概念待 `TBD-DOM-006`。
+- 原型「投注總額 USD」改稱 Sandbox credit／Demo Points 流量；不是貨幣、正式 Provider 點數或錢包餘額。
+- DEMO 指標只提供 readiness／quality evidence；良好不自動發布，不佳也不修改 Revision，只能形成 Validation／Warning 或工作脈絡。
 
 ## 3. 六區塊資訊架構
 
@@ -63,7 +64,7 @@
 
 - 趨勢回傳 bucket start/end、value、completeness、generated_at；缺 bucket 顯示斷點，不補 0。
 - 規則區顯示 DEMO namespace、identity TTL、初始／重設 credit、資料 retention、反濫用限制及規則版本。
-- 原型「後端隨機生成、USD 10,000」是方向，不是核准契約；正式值由 API／設定回傳。
+- Identity 生成、初始／重設 credit 與反濫用規則由正式 API／設定回傳；任何畫面值都需標示 Sandbox，且不可使用 Production source fallback。
 - 顯示 ingestion delay、last complete bucket、late events 與 source failure。
 
 ## 6. 各遊戲表現與匯出
@@ -82,10 +83,6 @@ API 提供 filter options、summary、trend、game performance、data quality �
 
 使用 `1500px` 寬版；Mobile 摘要、趨勢、規則、列表卡片依序排列。驗收需證明 DEMO 與正式資料完全隔離、工作階段不成為正式業務單位、原型 USD 不冒充錢包、匯出清楚標示且所有延遲／缺口可辨識。
 
-## 9. 待確認與 Draft 移除條件
+## 9. 已確認基準與實作 Mapping
 
-- `TBD-DOM-006`：DEMO identity、工作階段、credit、重設與 retention。
-- `TBD-DAT-005`：指標、窗口、去重及資料品質。
-- `TBD-API-006`、`TBD-SEC-001`：查詢／匯出 API、scope 與遮罩。
-
-正式 DEMO 模型、指標、隔離、API、權限、保存及匯出規則核准後，才可改為 Confirmed。
+DP04 已確認 DEMO 只提供 readiness／telemetry、不參與內容發布，不建立會員／錢包／正式 Game Session，且完全排除 Production Round、財務與風控。仍待 Mapping 的項目為 identity／技術工作階段／credit 規則、指標公式、去重、retention、查詢／匯出 API、scope、遮罩與驗收證據；完成後才可改為 Confirmed。

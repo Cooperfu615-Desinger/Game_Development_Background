@@ -65,6 +65,16 @@
 - `Provider Game Round ID` 主要顯示為「遊戲商遊戲回合 ID」。
 - `GGAP Round ID` 主要顯示為「GGAP 遊戲回合 ID」。
 
+## 公開內容與大廳契約
+
+- DP04 的六個核心物件為 Content Entry、Content Revision、Published Snapshot、Publish Job、Preview Manifest 與 Publication Event；各自使用穩定 ID，不以名稱、版號或單一 `status` 混用。
+- 官網 Banner、官網 Static Content、Lobby Game Content 與 Lobby Catalog 共用發布引擎，但各自擁有獨立 publication scope、Revision、Job、Snapshot、失敗與 Restore 歷程。
+- 每次成功儲存建立不可變 Revision；編輯、儲存、驗證與預覽都不改變公開內容。只有成功 Job 可以原子切換 Published Snapshot，切換前失敗保留舊 Snapshot。
+- 第一版固定 `zh-TW`、`zh-CN`、`en`、`ja` 四語原子發布。欄位只能使用 `STRICT`、`FALLBACK` 或 `OPTIONAL_HIDE`，Snapshot 保存 requested／resolved locale 與 exact Asset Version。
+- Lobby 是否可玩同時受 DP03 Provider global availability、DP04 Published Catalog／Game Content 與 GGAP 代理商 Launch Gate 控制；任一層阻擋即不可 Launch。
+- `maintenance`、`suspended`、`retired` 是 DP03 runtime safety overlay，不寫回 DP04 Content Revision；coming soon／playable 是 DP04 內容語意。
+- DEMO telemetry 只提供 readiness／quality evidence，不會自動發布或改寫 Revision，且不進入 Production Game Round、財務、會員、錢包或 Provider 風控。
+
 ## 共用資料狀態
 
-頁面至少應考慮初次載入、查詢中、空資料、無資料、部分來源失敗、全部來源失敗、權限不足與資料版本衝突。不得沿用舊值冒充最新資料，也不得把無資料視為正常。
+頁面至少應考慮初次載入、查詢中、空資料、無資料、部分來源失敗、全部來源失敗、權限不足與資料版本衝突。內容頁另需涵蓋 Revision／Publication Conflict、Approval、Job、Delivery、Manifest／Asset／Dependency 狀態。不得沿用舊值冒充最新資料，也不得把無資料視為正常。

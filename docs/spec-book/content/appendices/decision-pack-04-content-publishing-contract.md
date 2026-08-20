@@ -685,11 +685,11 @@ GGAP Git 不影響官網與大廳的編輯、Revision、Preview、Publish、Disa
 
 ## 規格同步與後續實作範圍
 
-本包目前先作為規格網站的上游產品契約。後續依序：
+本包已回寫 `docs/GAME_WEBSITE_SPEC.md`、`docs/GAME_LOBBY_SPEC.md`、八個對應頁面，以及共通領域、資料字典、enum、API、安全、非功能性與 QA 章節。後續依序：
 
-1. 回寫 `docs/GAME_WEBSITE_SPEC.md`、`docs/GAME_LOBBY_SPEC.md` 及八個對應規格網站頁面。
-2. 同步共通領域規則、資料字典、enum、API、安全、非功能性與 QA 章節。
-3. 另開開發 session 對照 Portal 原型，建立正式差異清單後再修改 Vue 與 mock。
+1. 另開開發 session 對照 Portal 原型，先建立 DP04 正式差異清單。
+2. 依差異清單修改 Vue 與 mock，使原型使用相同的 Revision／Job／Snapshot 與三層狀態語意。
+3. 執行 Desktop／390px Mobile、互動、route、替代狀態、type-check 與 build 驗收。
 4. 取得 Backend／GGAP Git 後補實作 Mapping，不靜默改寫本需求基準。
 
-規格網站、原始 Spec MD 與 Portal 原型必須依上述順序對齊，避免畫面先行產生另一套內容發布生命週期。
+目前規格網站與原始 Spec MD 已對齊；Portal 原型仍維持既有 mock，必須依上述順序接續，避免畫面形成另一套內容發布生命週期。

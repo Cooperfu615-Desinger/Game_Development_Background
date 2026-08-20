@@ -4,26 +4,26 @@
 
 | 項目 | 內容 |
 | --- | --- |
-| 規格成熟度 | Draft — Batch D 完整頁面規格 |
+| 規格成熟度 | Draft — DP04 產品語意已同步；正式實作 Mapping 待補 |
 | 製作範圍 | Active |
 | 對應路由 | `/website/releases` |
 | 前端元件 | `src/views/GameWebsite/Releases.vue` |
 | 主要來源 | `GAME_WEBSITE_SPEC.md` |
 | 頁面角色 | Provider 官網內容發布事件與不可變版本快照的追溯頁 |
 
-> 本頁只追溯官網 Banner 與靜態內容，不是遊戲程式版本、遊戲大廳公開版本或 GGAP 上架紀錄。現行原型只有已發布／草稿列表；目標 Draft 補上工作狀態與失敗追溯，但不擴張為整站版本打包或一鍵回滾。
+> 本頁只追溯官網 Banner 與靜態內容，不是遊戲程式版本、大廳公開版本或 GGAP 上架紀錄。DP04 已定義 Publish Job、Published Snapshot、Publication Event、失敗與 Restore；現行原型尚未完整呈現這些語意。
 
 ## 1. 目的與責任邊界
 
 - 查看 Banner、條款、隱私權、負責任遊戲與聯絡資訊的發布事件。
 - 追溯發布目標、來源 revision、內容範圍、操作者、時間、結果與錯誤。
 - 區分「內容草稿／公開狀態」與「發布工作狀態」。
-- 不刪除或改寫已完成事件；不提供整體官網版本打包、差異全文或一鍵回滾。
-- 若未來回復內容，需建立新的草稿／發布工作，不把舊事件改成目前版本。
+- 不刪除或改寫已完成事件；不提供整體官網版本打包、差異全文或原地一鍵回滾。
+- Restore 是正式能力：以歷史 Snapshot 建立新 Revision，重新驗證／核准並建立新 Job，不把舊事件改成目前版本。
 
 ## 2. 發布事件模型
 
-穩定主鍵使用 `release_id`／`job_id`；展示版號可由系統產生，不作 join key。事件至少保存內容類型與 ID、來源 draft revision、前一 published revision、結果 revision、目標語系、狀態、actor、建立／開始／完成時間、idempotency key、trace ID、錯誤摘要及不可變 audit snapshot。
+穩定主鍵使用 `publish_job_id`、`publication_event_id`、`revision_id` 與 `snapshot_id`；展示版號不可作 join key。Job 至少保存 scope、job type、source Revision、expected／source／target Snapshot、四語範圍、Job／Public／Delivery 狀態、validation、approval、actor、有效時間、idempotency、retry／restore relation、trace、錯誤與補償結果。
 
 ## 3. 六區塊資訊架構
 
@@ -46,7 +46,7 @@
       <a class="anatomy-zone lifecycle-anatomy__states" href="#7-替代狀態與導流" aria-label="前往第六區，替代狀態與導流"><span class="anatomy-zone__number">06</span><strong>狀態與導流</strong><i>Queued</i><i>Running</i><i>Failed</i><i>Conflict</i><i>來源內容</i></a>
     </div>
   </div>
-  <div class="page-anatomy__legend"><span><i></i>不可變發布事件</span><span><i></i>官網內容範圍</span><small>參照現行 `/website/releases` 原型；不包含一鍵回滾或全文差異。</small></div>
+  <div class="page-anatomy__legend"><span><i></i>不可變發布事件</span><span><i></i>官網內容範圍</span><small>參照現行 `/website/releases` 原型；Restore 建立新 Revision／Job，不原地回滾。</small></div>
 </figure>
 <!-- PAGE_VISUAL_END -->
 
@@ -64,7 +64,7 @@
 
 ## 6. 發布詳情與追溯
 
-詳情顯示來源內容 deep link、before／source／result snapshot references、語系範圍、驗證結果、工作 timeline、actor、理由、idempotency、trace ID 與錯誤。第一階段只提供結構化摘要，不提供全文差異或直接回復操作。
+詳情顯示來源內容 deep link、before／source／target／current Snapshot、語系範圍、Validation、Approval、Job timeline、activation、Delivery、補償、actor、理由、idempotency、retry／restore relation、trace ID 與錯誤。頁面可依 allowed actions 導向 Retry／Restore，但新工作仍由來源流程建立。
 
 ## 7. 替代狀態與導流
 
@@ -78,11 +78,6 @@ API 提供摘要、查詢列表與 release／job 詳情；所有資料強制 Pro
 
 本頁使用 `1500px` 寬版；Mobile 將事件轉為卡片，保留 ID、狀態、內容、時間、actor 與詳情。驗收需證明事件不可變、狀態維度分離、失敗不改變公開內容、跨頁可精確追溯且讀屏可辨識狀態。
 
-## 9. 待確認與 Draft 移除條件
+## 9. 已確認基準與實作 Mapping
 
-- `TBD-DOM-005`：官網內容版本與發布生命週期。
-- `TBD-API-006`：發布 job、事件查詢與詳情 API。
-- `TBD-SEC-001`、`TBD-SEC-003`、`TBD-SEC-005`：檢視／發布權限、核准與安全追溯。
-- `TBD-NFR-003`：冪等、衝突、失敗及恢復。
-
-正式事件 schema、狀態、API、權限、保存與 audit 規則核准並通過驗收後，才可改為 Confirmed。
+DP04 已確認四種狀態維度、不可變 Job／Snapshot／Event、失敗保留舊版、補償、Retry／Restore、冪等、衝突與追溯語意。仍待 Mapping 的項目為正式事件 schema、API path、permission key、錯誤遮罩、保存／匯出、Trace／Audit 後端及驗收證據；完成後才可改為 Confirmed。

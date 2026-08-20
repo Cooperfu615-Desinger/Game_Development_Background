@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.20.0-phase-three-pack-04-baseline</span>
+            <span>0.21.0-phase-three-pack-04-source-aligned</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -459,11 +459,23 @@
 <li>發布、重試、取消與回滾均回傳可持續查詢的 job／Release ID；重新整理頁面後可由 ID 恢復狀態，不依賴前端計時器維持真實結果。</li>
 <li>上架事件等待 GGAP ACK 後才成為外部可用；停用事件先由 Provider 本地阻擋並以 outbox／等價可靠投遞重試。實際 event name、payload 與 ACK 格式待 Backend Git Mapping。</li>
 </ul>
+<h2 id="官網與大廳內容發布-api">官網與大廳內容發布 API</h2><p>產品語意已由 DP04 確認；正式 URL、method、schema、transport 與儲存技術待 Backend Mapping。後端至少提供：</p>
+<ul>
+<li>Query Content Entry／Revision／Published Snapshot／Allowed Actions。</li>
+<li>Create Revision：依 <code>base_revision_id</code> 或 ETag 建立不可變 Revision，衝突不得覆蓋他人內容。</li>
+<li>以指定規則版本執行 Validation，回傳 <code>BLOCKING</code>／<code>WARNING</code>／<code>INFO</code>、欄位、語系、裝置與 remediation。</li>
+<li>Create／Query Preview Manifest：建立或查詢 exact Manifest／短效 Token，固定 Revision、區塊來源、語系解析、素材 checksum、DP03 依賴及 renderer version。</li>
+<li>Submit／Approve／Reject 高風險 Revision，Approval 綁定 exact Revision、Manifest、Validation、Scope 與 expected published revision。</li>
+<li>建立 Publish／Disable／Restore Job，支援立即、排程、冪等、同 scope lock、失敗保留舊版與 Restore 新 Revision／Job。</li>
+<li>取消安全可取消的 queued／scheduled Job；查詢 Job timeline、失敗階段、activation、補償、retry／restore relation 與 trace。</li>
+</ul>
+<p>狀態變更請求原則上包含 <code>provider_id</code>、resource／entry／revision／scope ID、<code>base_revision_id</code>、<code>expected_published_revision_id</code>、<code>request_id</code>、<code>idempotency_key</code>、actor、reason、有效時間與 validation／approval reference。回應提供最新狀態、ETag／Revision、<code>allowed_actions</code>、<code>server_time</code>、<code>trace_id</code>、穩定 error code 與 retryability。</p>
+<p>內容錯誤至少區分 <code>FORBIDDEN</code>、<code>REVISION_CONFLICT</code>、<code>PUBLICATION_CONFLICT</code>、<code>APPROVAL_REQUIRED</code>、<code>APPROVAL_EXPIRED</code>、<code>JOB_IN_PROGRESS</code>、<code>VALIDATION_FAILED</code>、<code>DEPENDENCY_CHANGED</code>。同一 idempotency key 重送不得建立第二次公開副作用。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#共通原則">共通原則</a><a class="outline-level-2" href="#建議回應骨架">建議回應骨架</a><a class="outline-level-2" href="#錯誤要求">錯誤要求</a><a class="outline-level-2" href="#ggap-對接">GGAP 對接</a><a class="outline-level-2" href="#遊戲版本與發布-api">遊戲版本與發布 API</a></nav>
+        <nav><a class="outline-level-2" href="#共通原則">共通原則</a><a class="outline-level-2" href="#建議回應骨架">建議回應骨架</a><a class="outline-level-2" href="#錯誤要求">錯誤要求</a><a class="outline-level-2" href="#ggap-對接">GGAP 對接</a><a class="outline-level-2" href="#遊戲版本與發布-api">遊戲版本與發布 API</a><a class="outline-level-2" href="#官網與大廳內容發布-api">官網與大廳內容發布 API</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -474,7 +486,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.20.0-phase-three-pack-04-baseline · 2026-08-20</span>
+                    <span>0.21.0-phase-three-pack-04-source-aligned · 2026-08-20</span>
                 </footer>
             </div>
         </main>

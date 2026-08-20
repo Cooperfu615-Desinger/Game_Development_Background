@@ -4,7 +4,7 @@
 
 | 項目 | 內容 |
 | --- | --- |
-| 規格成熟度 | Draft — Batch D 完整頁面規格 |
+| 規格成熟度 | Draft — DP04 產品語意已同步；正式 Renderer Mapping 待補 |
 | 製作範圍 | Active |
 | 對應路由 | `/lobby/preview` |
 | 前端元件 | `src/views/GameLobby/Preview.vue` |
@@ -15,18 +15,18 @@
 
 ## 1. 目的與責任邊界
 
-- 在發布前後檢查完整大廳的四語系、Desktop／Mobile、分類、遊戲卡與三種 CTA。
-- 明確切換目前公開版本與指定草稿 revision，不混合兩者。
+- 在發布前後檢查完整大廳的四語、Desktop／Mobile、Catalog、遊戲卡與三層控制後的 CTA 結果。
+- 依 exact Preview Manifest 組合指定 Revision 與 Public Snapshot；允許混合來源，但每個區塊必須明確標示 draft／public。
 - 允許選取單一遊戲查看公開摘要及返回管理頁修正。
 - 預覽中的「立即試玩」預設為安全模擬；是否可啟動隔離 DEMO 由權限與契約決定。
 - 不建立公開分享、正式會員登入、錢包、Production Launch 或 GGAP 代理商控制。
 
 ## 2. 預覽來源與安全模型
 
-- 公開模式讀取 immutable published revision；草稿模式必須帶 `revision`，不得默認「最新」造成審閱漂移。
+- Preview Manifest 固定 Catalog Revision、每款 Game Content Revision、每區塊來源、語系解析、裝置、exact Asset、DP03 dependency snapshot、renderer version、validation result 與 hash；不得追蹤 latest。
 - 草稿內容只對有權人員可見，回應與資產需避免公開 cache／搜尋索引。
 - 外部媒體、YouTube、CTA 與遊戲啟動使用 preview sandbox、CSP、allowlist 及明確離開提示。
-- preview token／session 必須短效、Provider scoped、可撤銷；分享能力本批不納入。
+- Preview token 必須短效、Provider／Revision／Manifest scoped、可撤銷、不得放入長期 URL；第一版不提供匿名分享。
 
 ## 3. 六區塊資訊架構
 
@@ -53,24 +53,24 @@
 
 ## 4. 預覽控制與來源
 
-- 模式固定為公開版本／編輯草稿；草稿需顯示 revision、owner、更新時間及未發布標示。
+- 控制列顯示 manifest ID、Catalog／Game Content Revision、每個區塊來源、owner、生成時間及未發布標示。
 - 裝置切換是 layout preview，不只縮放整張畫面；Desktop／Mobile viewport 由核准 preset 定義。
-- 語系固定繁中、簡中、English、日本語，顯示缺翻譯、fallback 與 blocking。
-- 任何 mode／revision／game deep link 都需正規化；無效 query 回到安全預設並說明。
+- 語系固定 `zh-TW`、`zh-CN`、`en`、`ja`，依 `STRICT`／`FALLBACK`／`OPTIONAL_HIDE` 顯示解析來源、隱藏結果與 Blocking。
+- 任何 manifest／mode／revision／game deep link 都需正規化；目標不存在或無權時顯示明確狀態，不可靜默改看 Published 或 latest。
 
 ## 5. 玩家端頁首與遊戲網格
 
 - 頁首顯示 Provider 品牌、DEMO 模式、資料 revision 與非真實資金說明。
-- 原型 `USD 10,000.00` 改為正式契約前的展示 credit；若保留 USD，必須明示模擬且不可被 API／匯出解讀為餘額。
+- 原型 `USD 10,000.00` 一律視為 mock；正式顯示採 Sandbox credit／Demo Points，明示非真實資金且不可被 API／匯出解讀為餘額。
 - 分類來自公開 taxonomy；卡片顯示名稱、類型、RTP、素材及 CTA。
-- 即將開放／維護中的 CTA disabled 且附原因；已推出才允許安全 DEMO action。
-- 卡片排序與內容必須完全來自所選 revision，禁止部分讀取最新資料。
+- coming soon、DP03 maintenance／suspended／retired 與 GGAP gate blocked 的 CTA disabled 且附原因；只有三層條件成立才允許安全 DEMO action。
+- 卡片排序與內容完全來自 exact Catalog／Game Content Revision，runtime safety overlay 需標示來源，禁止部分讀取最新資料。
 
 ## 6. 詳情、變體與修正導流
 
 單筆詳情顯示公開名稱／說明、玩法、RTP、波動度、最高倍率、素材、影片及玩家狀態。每個來源可追溯到 lobby、math、asset revision；關閉後焦點回到原卡片。
 
-變體檢查顯示四語系 × 兩裝置 × 三狀態的結果與問題數，並可導向 `/lobby/management?gameId=...&revision=...`。預覽不直接修改內容。
+變體檢查顯示四語 × 兩裝置 × DP03／DP04／GGAP 狀態矩陣的結果與問題數，並以 exact IDs 導回來源管理頁。預覽不直接編輯、核准、發布或切換 Snapshot。
 
 ## 7. 頁面狀態與安全處理
 
@@ -78,16 +78,12 @@
 
 ## 8. API、權限、無障礙與驗收
 
-API 提供 preview manifest、revision snapshot、分類、遊戲詳情及可選的 sandbox launch token。公開與草稿 preview 使用不同 cache／authorization；草稿、素材及 token 不得洩漏。
+後端提供 Create／Query Preview Manifest、短效 token、exact Revision／Snapshot、分類、遊戲詳情及可選 Sandbox launch token。公開與草稿來源使用適當 cache／authorization；草稿、素材及 token 不得洩漏。正式 path、schema、Renderer 與 permission key 待 Mapping。
 
 使用 `1500px` 寬版；Portal Mobile 上的預覽控制仍可操作，內嵌 Desktop 畫布可在容器內縮放／捲動但頁面本身不得溢出。遊戲卡、disabled CTA、modal 焦點與色彩對比需可存取。
 
-驗收需證明指定 revision 一致、四語／雙裝置／三狀態可切換、草稿受權限保護、展示 credit 不成為錢包、不可玩狀態無 Launch、錯誤不切換資料來源。
+驗收需證明 exact Manifest 不漂移、混合來源清楚、四語／雙裝置／三層狀態可檢查、草稿受權限保護、展示 credit 不成為錢包、不可玩狀態無 Launch、錯誤不切換資料來源。
 
-## 9. 待確認與 Draft 移除條件
+## 9. 已確認基準與實作 Mapping
 
-- `TBD-DOM-005`、`TBD-DOM-006`：大廳 revision、DEMO launch 與展示 credit。
-- `TBD-DAT-006`：語系、素材、fallback 與裝置策略。
-- `TBD-API-006`、`TBD-SEC-005`：preview manifest、token、CSP 與草稿安全。
-
-正式 preview revision、語系／裝置、DEMO sandbox、API、權限及安全規則核准後，才可改為 Confirmed。
+DP04 已確認 exact Preview Manifest、區塊來源標示、四語解析、素材版本、裝置、三層狀態、短效 token、CSP 與 Sandbox 邊界。仍待 Mapping 的項目為正式 Preview API、Manifest schema、Renderer version、token transport、permission key、CDN／Cache 及瀏覽器驗收證據；完成後才可改為 Confirmed。

@@ -81,7 +81,7 @@ GGAP 對接
 | 遊戲設定 | `/games/settings` | 管理遊戲基本設定 | 遊戲基本資料、展示設定與 Provider 運營設定入口 | 既有前端原型 | 否 | Game settings schema、update contract、audit event |
 | 數值設定 | `/games/math` | 管理遊戲數學與數值規則入口 | RTP、點數規則、限紅、換算規則與規則版本 | 既有前端原型 | 否 | Math config、RTP、point rule、conversion rule |
 | 遊戲素材 | `/games/assets` | 管理遊戲展示與營運素材 | 圖片、影片、圖示、素材狀態與版本關聯 | 既有前端原型 | 否 | Asset metadata、storage reference、publish status |
-| 環境與發布 | `/games/environments` | 管理 Test → DEMO → Production 晉級、Active Release、回滾與 Provider 全域可用性 | 三環境矩陣、快速／高風險發布、Artifact 驗證、排程、回滾、全域狀態與 audit | Phase 3 mock blueprint | 是 | Game／Version／Artifact／Release、active release、release action、global availability、audit event |
+| 環境與發布 | `/games/environments` | 管理 Test → DEMO → Production 晉級、Active Release、回滾與 Provider 全域可用性 | 三環境矩陣、快速／高風險發布、Artifact 驗證、排程、回滾、全域狀態與 audit | DP03 內容原型 | 否 | Game／Version／Artifact／Release、active release、release action、global availability、audit event |
 
 ### 2.3 數據與報表
 
@@ -128,14 +128,14 @@ GGAP 對接
 | 頁面 | Route | 功能責任 | 預計顯示內容 | 原型狀態 | Placeholder | 後續 API／資料契約 |
 |---|---|---|---|---|---|---|
 | 遊戲官網入口 | `/website` | 官方網站下的遊戲官網入口 | 導向 Banner 管理 | Redirect to `/website/banners` | 否 | Route redirect only |
-| Banner 管理 | `/website/banners` | 管理官網 Banner 與展示素材 | Banner 列表、預覽、狀態與發布入口 | 既有前端原型 | 否 | Website banner、asset、publish contract |
-| 內容管理 | `/website/content` | 管理法務與聯絡資訊內容 | 條款、隱私權、負責任遊戲、聯絡資訊與語系內容 | 既有前端原型 | 否 | Website content、locale、draft／publish contract |
-| 發布紀錄 | `/website/releases` | 查看官網內容與版本發布狀態 | 發布紀錄、版本、環境與發布狀態 | 既有前端原型 | 否 | Website release、version、audit event |
-| 大廳總覽 | `/lobby` | 查看遊戲大廳公開內容與狀態摘要 | 大廳內容摘要、玩家狀態與預覽入口 | 既有前端原型 | 否 | Lobby summary、public game data、status API |
-| 遊戲清單 | `/lobby/games` | 管理大廳公開遊戲清單 | 公開遊戲資料、上架狀態與展示順序 | 既有前端原型 | 否 | Lobby game catalog、display order、status |
-| 遊戲管理 | `/lobby/management` | 管理大廳遊戲展示狀態 | 玩家狀態、展示設定與公開狀態入口 | 既有前端原型 | 否 | Lobby game management、player state、publish status |
-| DEMO環境數據 | `/lobby/demo` | 查看隔離 DEMO 環境的展示統計 | DEMO 玩家、Session、投注、遊玩時間與環境說明 | 既有前端原型 | 否 | Isolated DEMO analytics、session summary、demo data |
-| 大廳預覽 | `/lobby/preview` | 預覽遊戲大廳對外展示效果 | 桌面／行動預覽、遊戲卡與公開狀態 | 既有前端原型 | 否 | Preview data、responsive presentation、asset reference |
+| Banner 管理 | `/website/banners` | 管理官網 Banner Entry／Revision | 四語文案、exact 素材、Validation、Preview、Publish／Disable／Restore | 既有前端原型待 DP04 對齊 | 否 | Content Entry／Revision／Job／Snapshot Mapping |
+| 內容管理 | `/website/content` | 管理法務與聯絡資訊 | 四語、受限富文字、高風險核准與獨立發布 | 既有前端原型待 DP04 對齊 | 否 | Content schema、Validation、Approval、Publish Mapping |
+| 發布紀錄 | `/website/releases` | 追溯官網發布事實 | Job、Snapshot、Event、Delivery、失敗／補償／Restore | 既有前端原型待 DP04 對齊 | 否 | Publication timeline、Audit、Trace Mapping |
+| 大廳總覽 | `/lobby` | 唯讀查看公開大廳結果 | Published Catalog、衍生玩家狀態、Delivery、readiness | 既有前端原型待 DP04 對齊 | 否 | Catalog／Content／DP03 overlay summary Mapping |
+| 遊戲清單 | `/lobby/games` | 查看 Published Catalog 清單 | exact Game Content、公開數值、三層狀態與 Delivery | 既有前端原型待 DP04 對齊 | 否 | Published Catalog list／snapshot Mapping |
+| 遊戲管理 | `/lobby/management` | 管理 Game Content 與 Catalog | 兩條獨立 Revision、精確預覽、核准、發布與還原 | 既有前端原型待 DP04 對齊 | 否 | Lobby Content／Catalog publishing Mapping |
+| DEMO環境數據 | `/lobby/demo` | 查看隔離 Sandbox telemetry | Identity、技術工作階段、Demo Points、readiness 與品質 | 既有前端原型待 DP04 對齊 | 否 | Isolated telemetry／retention／export Mapping |
+| 大廳預覽 | `/lobby/preview` | 預覽 exact 大廳組合 | Preview Manifest、四語、裝置、來源標示與三層 CTA | 既有前端原型待 DP04 對齊 | 否 | Preview Manifest／Token／Renderer Mapping |
 
 官方網站與遊戲大廳目前不新增活動功能。活動、公告或遊戲內活動若未來需要，必須另立規格確認責任邊界。
 
@@ -152,8 +152,8 @@ GGAP 對接
 
 | 狀態 | 數量 | 說明 |
 |---|---:|---|
-| 已完成內容頁原型 | 24 | 儀表板、遊戲管理保留頁、遊戲紀錄、財務、官網、大廳、監控總覽、風控報表、風控告警／處理與系統設定頁 |
-| Phase 3 mock blueprint Placeholder | 8 | 環境發布、GGAP 對接與通知頁 |
+| 已完成內容頁原型 | 25 | 儀表板、六個遊戲管理頁、遊戲紀錄、財務、官網、大廳、監控總覽、風控報表、風控告警／處理與系統設定頁 |
+| Phase 3 mock blueprint Placeholder | 7 | GGAP 對接與通知頁 |
 | 導覽入口 redirect | 1 | `/website` 導向 `/website/banners` |
 
 ## 4. 不屬於 Provider Portal 的功能範圍
@@ -173,4 +173,4 @@ GGAP 對接
 - 確認 Provider 內部角色、permission key、操作確認與 audit event。
 - 確認點數精度、USDT 換算、GGR 正負方向與報表資料版本。
 - 確認 GGAP 對接的簽章、冪等、Callback、重試與補送規則。
-- 確認官網與遊戲大廳的內容、素材、發布、語系與 DEMO API。
+- 對照 DP04 補齊官網與大廳正式 API、schema、permission key、CDN／Renderer 與 DEMO telemetry Mapping。

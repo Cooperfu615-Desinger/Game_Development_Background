@@ -1,5 +1,14 @@
 # 版本紀錄
 
+## 0.21.0-phase-three-pack-04-source-aligned · 2026-08-20
+
+- 將 DP04 回寫至 `GAME_WEBSITE_SPEC.md`、`GAME_LOBBY_SPEC.md`、`PROVIDER_PORTAL_SPEC.md`、導覽與頁面地圖。
+- 同步官網 Banner／Content／Release 與 Lobby Overview／Games／Management／DEMO／Preview 八頁，統一 Content Entry、Revision、Job、Snapshot、exact Manifest 與四條獨立發布流。
+- 以 Published Catalog、DP04 內容語意、DP03 runtime overlay 與 GGAP Launch Gate 取代舊「遊戲一定顯示／三種單一狀態」模型。
+- 固定四語原子發布、`STRICT`／`FALLBACK`／`OPTIONAL_HIDE`、exact Asset Version、快速／高風險通道、失敗保留舊版與 Restore 新 Revision／Job。
+- 同步共通領域、資料字典、狀態 enum、API、安全、NFR、QA、依賴圖、三層校準與交接索引。
+- 新增 DP04 Source Spec Gate；本版本不修改 Portal Vue／mock，後續先建立差異清單再進行原型對齊。
+
 ## 0.20.0-phase-three-pack-04-baseline · 2026-08-20
 
 - 建立附錄 P《Decision Pack 04｜官網與大廳內容發布契約》，作為八個官網／大廳頁面的上游產品需求基準。

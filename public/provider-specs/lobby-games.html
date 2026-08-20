@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="已納入大廳之遊戲、玩家公開摘要、三狀態及管理／預覽入口。">
+    <meta name="description" content="Published Catalog 內的 exact Game Content、衍生玩家結果、Delivery 與管理／預覽入口。">
     <meta name="color-scheme" content="light">
     <title>遊戲清單｜Provider Portal 產品與系統規格書</title>
     <link rel="stylesheet" href="assets/site.css">
@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.20.0-phase-three-pack-04-baseline</span>
+            <span>0.21.0-phase-three-pack-04-source-aligned</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -406,7 +406,7 @@
                     <div>
                         <p class="eyebrow">05.8.5 · 官方網站</p>
                         <h1>遊戲清單</h1>
-                        <p class="page-summary">已納入大廳之遊戲、玩家公開摘要、三狀態及管理／預覽入口。</p>
+                        <p class="page-summary">Published Catalog 內的 exact Game Content、衍生玩家結果、Delivery 與管理／預覽入口。</p>
                     </div>
                     <div class="page-status-stack">
                         <span class="status-badge status-draft">草案</span>
@@ -437,7 +437,7 @@
         </nav>
         <div class="visual-scope-notes" aria-label="畫面閱讀邊界">
             <span>閱讀邊界</span>
-            <small>三種玩家狀態</small><small>公開 snapshot</small><small>清單唯讀</small><small>精確 game_id 導流</small>
+            <small>Published Catalog</small><small>exact Content Revision</small><small>清單唯讀</small><small>三層狀態分離</small>
         </div>
         <div id="lobby-games-visual-panel" class="visual-overview-panel" data-anatomy-panel>
             <figure class="page-anatomy lifecycle-anatomy publishing-anatomy publishing-anatomy--lobby" aria-label="大廳遊戲清單六區塊畫面示意">
@@ -469,7 +469,7 @@
 </thead>
 <tbody><tr>
 <td>規格成熟度</td>
-<td>Draft — Batch D 完整頁面規格</td>
+<td>Draft — DP04 產品語意已同步；正式實作 Mapping 待補</td>
 </tr>
 <tr>
 <td>製作範圍</td>
@@ -496,7 +496,7 @@
 <p>本頁是大廳公開資料的唯讀清單與入口，不直接編輯或批次改狀態。大廳狀態不取代 Provider 全域上架，也不控制 GGAP 代理商個別開放。</p>
 </blockquote>
 <h2 id="1-目的與責任邊界">1. 目的與責任邊界</h2><ul>
-<li>查找已納入大廳的遊戲，包含已推出、即將開放與維護中。</li>
+<li>查找目前 Published Catalog 收錄的遊戲與玩家公開投影。</li>
 <li>顯示玩家公開版號、RTP、波動度、最高倍率及資料完整度。</li>
 <li>導向單筆遊戲管理與精確預覽。</li>
 <li>不直接修改正式遊戲主資料、數值版本、素材版本或環境狀態。</li>
@@ -504,20 +504,20 @@
 </ul>
 <h2 id="2-納入與公開規則">2. 納入與公開規則</h2><ul>
 <li>大廳項目以 <code>game_id</code> 引用 Provider 遊戲主資料；名稱／代碼為 snapshot，不作 join key。</li>
-<li>只有符合正式納入條件的遊戲出現在本清單；條件與移除流程依 <code>TBD-DOM-005</code>。</li>
-<li>玩家狀態只控制 DEMO CTA；即將開放與維護中仍保留公開卡片。</li>
+<li>只有目前 Published Catalog 收錄、且其 exact Game Content Revision 可解析的項目出現在本清單；未發布草稿與未收錄 Game 不出現。</li>
+<li>玩家狀態由 DP04 coming soon／playable、DP03 runtime overlay 與 GGAP Launch Gate 衍生；<code>maintenance</code> 可保留內容，<code>suspended</code>／<code>retired</code> 不得 Launch，是否隱藏依安全政策。</li>
 <li>公開數值來自已核准 snapshot，不允許在列表直接編輯。</li>
 </ul>
 <h2 id="3-六區塊資訊架構">3. 六區塊資訊架構</h2><ol>
-<li>清單摘要：大廳遊戲、三種狀態及需補資料。</li>
-<li>查詢條件：關鍵字、狀態、類型、readiness 與版號。</li>
+<li>清單摘要：Published Catalog 遊戲、衍生狀態、Delivery 與需處理項目。</li>
+<li>查詢條件：關鍵字、玩家顯示狀態、類型、Delivery 與公開版號。</li>
 <li>結果摘要：命中數、applied filters、排序與更新時間。</li>
 <li>遊戲列表：八個主要欄位、分頁與狀態語意。</li>
 <li>單筆公開摘要：內容、素材、數值來源及問題提示。</li>
 <li>詳情／預覽與替代狀態：deep link、empty、error、stale、Forbidden。</li>
 </ol>
 <h2 id="4-摘要-查詢與結果">4. 摘要、查詢與結果</h2><p>查詢包含 keyword、玩家狀態、遊戲類型、readiness、公開版號；編輯條件不立即改變結果，查詢後建立 applied filters。預設依公開排序與 <code>game_id</code> 穩定次序，正式分頁／排序由伺服器處理。</p>
-<p>摘要使用完整集合，顯示三種狀態及阻擋公開數量；資料來源失敗不顯示 0。由總覽 deep link 進入時套用 query 並可清除。</p>
+<p>摘要使用完整 Published Catalog 集合，顯示衍生狀態、Delivery 與需處理數量；資料來源失敗不顯示 0。由總覽 deep link 進入時套用 query 並可清除。</p>
 <h2 id="5-遊戲列表規格">5. 遊戲列表規格</h2><div class="table-scroll" tabindex="0"><table>
 <thead>
 <tr>
@@ -539,7 +539,11 @@
 </tr>
 <tr>
 <td>狀態</td>
-<td>即將開放、已推出、維護中；附文字／圖示。</td>
+<td>顯示 DP04 內容語意、DP03 runtime overlay 與最終 CTA 結果，不以單一 enum 混用。</td>
+</tr>
+<tr>
+<td>Delivery</td>
+<td><code>propagating</code>、<code>healthy</code>、<code>degraded</code>、<code>failed</code> 與目前 Snapshot。</td>
 </tr>
 <tr>
 <td>RTP／波動度／最高倍率</td>
@@ -551,21 +555,16 @@
 </tr>
 </tbody></table></div>
 <p>Desktop 使用可捲動表格；Mobile 轉卡片並保留全部公開欄位與兩個入口。</p>
-<h2 id="6-公開摘要與跨頁導流">6. 公開摘要與跨頁導流</h2><p>單筆摘要顯示 lobby revision、四語完整度、素材／數值參照、玩家狀態、最後發布及阻擋／警告。詳情導向 <code>/lobby/management?gameId=...</code>；預覽導向 <code>/lobby/preview?gameId=...&amp;mode=published</code>。若來源 snapshot 被撤銷或缺失，入口仍可查看原因，不可靜默套用最新草稿。</p>
+<h2 id="6-公開摘要與跨頁導流">6. 公開摘要與跨頁導流</h2><p>單筆摘要顯示 Catalog Revision、exact Game Content Revision、四語解析、素材／數值參照、DP03 overlay、玩家結果、Published Snapshot、Delivery 及阻擋／警告。詳情與預覽攜帶精確 <code>game_id</code>、<code>catalog_revision_id</code>、<code>revision_id</code> 或 <code>snapshot_id</code>；來源缺失時顯示原因，不可靜默套用 latest。</p>
 <h2 id="7-頁面狀態與錯誤處理">7. 頁面狀態與錯誤處理</h2><p>支援 loading、empty、no match、query error、partial field unavailable、snapshot missing、stale、invalid deep link 與 Forbidden。局部公開數值失敗顯示 <code>—</code>，不得顯示 0% 或推算 mock。</p>
-<h2 id="8-api-權限與驗收">8. API、權限與驗收</h2><p>API 提供摘要、filter options、列表與公開 snapshot 摘要；後端強制 Provider scope 並回傳 stable sorting、generated_at、source status 與 allowed links。正式契約依 <code>TBD-API-006</code>。</p>
-<p>本頁使用 <code>1500px</code> 寬版。驗收條件：所有三狀態遊戲都可找到；八欄完整；公開數值可追溯；列表唯讀；大廳狀態不冒充全域／GGAP 開關；Desktop／Mobile、鍵盤與替代狀態可驗收。</p>
-<h2 id="9-待確認與-draft-移除條件">9. 待確認與 Draft 移除條件</h2><ul>
-<li><code>TBD-DOM-005</code>：納入、排序、公開版本與移除模型。</li>
-<li><code>TBD-DAT-006</code>：多語與素材 fallback。</li>
-<li><code>TBD-API-006</code>、<code>TBD-SEC-001</code>：清單／摘要 API 與資料 scope。</li>
-</ul>
-<p>正式納入條件、公開 snapshot、API、權限及排序／錯誤規則核准後，才可改為 Confirmed。</p>
+<h2 id="8-api-權限與驗收">8. API、權限與驗收</h2><p>後端提供 Published Catalog 摘要、filter options、列表與 exact Snapshot 摘要；強制 Provider scope 並回傳 stable sorting、generated_at、source status 與 allowed links。正式 API path、schema 與 permission key 待實作 Mapping。</p>
+<p>本頁使用 <code>1500px</code> 寬版。驗收條件：只顯示 Published Catalog；exact Game Content Revision 與公開數值可追溯；列表唯讀；三層狀態不混用；Desktop／Mobile、鍵盤與替代狀態可驗收。</p>
+<h2 id="9-已確認基準與實作-mapping">9. 已確認基準與實作 Mapping</h2><p>DP04 已確認 Catalog 收錄、exact content revision、排序、公開 Snapshot、四語 fallback、狀態矩陣與移除／停用語意。仍待 Mapping 的項目為正式列表／摘要 API、schema、permission key、排序效能、錯誤 transport 與驗收證據；完成後才可改為 Confirmed。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-納入與公開規則">2. 納入與公開規則</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-摘要-查詢與結果">4. 摘要、查詢與結果</a><a class="outline-level-2" href="#5-遊戲列表規格">5. 遊戲列表規格</a><a class="outline-level-2" href="#6-公開摘要與跨頁導流">6. 公開摘要與跨頁導流</a><a class="outline-level-2" href="#7-頁面狀態與錯誤處理">7. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#8-api-權限與驗收">8. API、權限與驗收</a><a class="outline-level-2" href="#9-待確認與-draft-移除條件">9. 待確認與 Draft 移除條件</a></nav>
+        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-納入與公開規則">2. 納入與公開規則</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-摘要-查詢與結果">4. 摘要、查詢與結果</a><a class="outline-level-2" href="#5-遊戲列表規格">5. 遊戲列表規格</a><a class="outline-level-2" href="#6-公開摘要與跨頁導流">6. 公開摘要與跨頁導流</a><a class="outline-level-2" href="#7-頁面狀態與錯誤處理">7. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#8-api-權限與驗收">8. API、權限與驗收</a><a class="outline-level-2" href="#9-已確認基準與實作-mapping">9. 已確認基準與實作 Mapping</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -576,7 +575,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.20.0-phase-three-pack-04-baseline · 2026-08-20</span>
+                    <span>0.21.0-phase-three-pack-04-source-aligned · 2026-08-20</span>
                 </footer>
             </div>
         </main>

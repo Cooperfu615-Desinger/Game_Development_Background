@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.20.0-phase-three-pack-04-baseline</span>
+            <span>0.21.0-phase-three-pack-04-source-aligned</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -1278,37 +1278,37 @@
 <td align="center">D</td>
 <td><a href="website-banners.html">Banner 管理</a></td>
 <td align="right">3</td>
-<td>1. Banner／revision schema、媒體限制、slot、排程時區與裝置／語系 fallback<br>2. 驗證、預覽、發布 job、失敗／衝突及 API 契約<br>3. 內容操作 permission、外部連結／素材安全與 audit</td>
+<td>1. Banner／Revision 正式 schema、媒體限制、slot 與排程服務 Mapping<br>2. Validation／Preview／Publish Job／Snapshot API 與 Renderer／CDN 實作<br>3. Capability 對應 permission key、外部連結／素材安全與 audit 後端</td>
 </tr>
 <tr>
 <td align="center">D</td>
 <td><a href="website-content.html">內容管理</a></td>
 <td align="right">3</td>
-<td>1. 多語內容／結構化聯絡 schema、必填、fallback 與富文字限制<br>2. 草稿 revision、預覽、發布 job、衝突與 API 契約<br>3. 法律內容 permission／核准、XSS／連結安全與 audit</td>
+<td>1. 多語內容／結構化聯絡正式 schema、sanitizer 與 Renderer Mapping<br>2. Revision／Preview／Approval／Publish Job／Snapshot API 實作<br>3. 法律內容角色／permission key、XSS／CSP／連結安全與 audit 後端</td>
 </tr>
 <tr>
 <td align="center">D</td>
 <td><a href="website-releases.html">發布紀錄</a></td>
 <td align="right">3</td>
-<td>1. 發布 event／job、snapshot、狀態與展示版號正式模型<br>2. 失敗、取消、衝突、新工作回復及保存規則<br>3. 事件查詢 API、檢視／發布 permission、錯誤遮罩與 audit</td>
+<td>1. Publication Event／Job／Snapshot 正式 schema、資料表與索引<br>2. 失敗、取消、衝突、Retry／Restore、補償與保存的後端實作<br>3. 事件查詢 API、permission key、錯誤遮罩、trace 與 audit</td>
 </tr>
 <tr>
 <td align="center">D</td>
 <td><a href="lobby-overview.html">大廳總覽</a></td>
 <td align="right">3</td>
-<td>1. 大廳三狀態、readiness 與 DEMO 指標正式計算規則<br>2. 多來源摘要 API、更新頻率、延遲與局部降級契約<br>3. DEMO／Production 隔離、跨頁資料 scope 與 permission</td>
+<td>1. Published Catalog／三層衍生狀態、readiness 與 DEMO 指標正式計算<br>2. Catalog／Content／DP03 overlay／Delivery 摘要 API 與更新頻率<br>3. DEMO／Production 隔離、跨頁資料 scope 與 permission</td>
 </tr>
 <tr>
 <td align="center">D</td>
 <td><a href="lobby-games.html">遊戲清單</a></td>
 <td align="right">3</td>
-<td>1. 遊戲納入／移除條件、公開 snapshot、排序與三狀態正式模型<br>2. 清單／摘要 API、上游數值／素材參照與局部失敗契約<br>3. 資料 scope、檢視 permission 與 deep link 授權</td>
+<td>1. Published Catalog／exact Content／Delivery 的正式 schema 與索引<br>2. 清單／摘要 API、DP03 數值／素材參照與局部失敗 transport<br>3. 資料 scope、檢視 permission 與 deep link 授權</td>
 </tr>
 <tr>
 <td align="center">D</td>
 <td><a href="lobby-management.html">遊戲管理</a></td>
 <td align="right">3</td>
-<td>1. 上游唯讀欄位、lobby draft／published revision 與公開欄位 schema<br>2. 公開前規則、草稿／發布 API、衝突、失敗及新工作回復<br>3. 編輯／預覽／發布 permission、媒體安全、核准與 audit</td>
+<td>1. Game Content／Catalog Revision 與上游唯讀參照的正式 schema<br>2. Validation／Preview／Approval／Publish／Disable／Restore API 實作<br>3. 各 capability 的 permission key、媒體／Renderer 安全與 audit</td>
 </tr>
 <tr>
 <td align="center">D</td>
@@ -1320,7 +1320,7 @@
 <td align="center">D</td>
 <td><a href="lobby-preview.html">大廳預覽</a></td>
 <td align="right">3</td>
-<td>1. published／draft revision、語系、裝置、分類與三狀態 manifest<br>2. preview／sandbox launch API、expired／stale／asset failure 契約<br>3. 草稿存取、短效 token、CSP、cache 與外部媒體安全</td>
+<td>1. exact Preview Manifest、語系、裝置、來源與三層狀態正式 schema<br>2. Preview／Sandbox Launch API、Renderer、expired／asset failure transport<br>3. 草稿存取、短效 token、CSP、cache 與外部媒體安全</td>
 </tr>
 </tbody></table></div>
 <h2 id="使用方式">使用方式</h2><ol>
@@ -1345,7 +1345,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.20.0-phase-three-pack-04-baseline · 2026-08-20</span>
+                    <span>0.21.0-phase-three-pack-04-source-aligned · 2026-08-20</span>
                 </footer>
             </div>
         </main>

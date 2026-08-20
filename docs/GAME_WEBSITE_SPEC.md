@@ -1,240 +1,181 @@
 # Provider Portal 遊戲官網工作規格
 
-> 版本：0.1.0
-> 更新日期：2026-08-06
-> 狀態：工作規格，三個前端頁面與 mock 操作已建立；內容模型、編輯器、權限與正式發布契約待後續確認
+> 版本：0.2.0
+> 更新日期：2026-08-20
+> 狀態：目前需求基準；已同步 Decision Pack 04，正式 API、permission key、Renderer 與 CDN 路徑待實作 Mapping
 
-本文件定義 Provider Portal「遊戲官網」管理功能的頁面範圍、內容欄位、預覽方向與簡化發布流程。遊戲官網是 Provider 自有的玩家資訊網站，與遊戲大廳分開；公告與活動暫不納入第一階段。
+本文件定義 Provider Portal「遊戲官網」的內容維護與發布需求。產品語意以 `DP-04` 為準：編輯內容不會直接改變公開網站，只有成功完成的 Publish Job 可以切換 Published Snapshot。實際 Backend、Storage、Queue、Scheduler、CDN 與公開前台技術選型不在本文件預設。
 
-## 1. 頁面定位
+## 1. 產品定位與責任邊界
 
-遊戲官網管理的主要目的為：
+遊戲官網是 Provider 自有的玩家資訊網站，本階段負責：
 
-- 管理少量、低頻更新的官網推廣 Banner
-- 維護條款、隱私權政策、負責任遊戲與聯絡資訊
-- 以單一 Banner 預覽確認推廣內容成果
-- 以簡單版本紀錄追蹤內容何時發布與由誰發布
+- 官網 Banner 的版位、四語文案、CTA、素材、排程與發布。
+- 條款、隱私權政策、負責任遊戲及聯絡資訊的維護與發布。
+- 指定 Revision 的驗證與精確預覽。
+- Publish、Schedule、Disable、Restore 的工作與結果追溯。
 
-遊戲官網不需要成為完整 CMS，不建立全站版型編輯器、頻繁內容營運、複雜審批或完整網站預覽流程。
+本模組不建立完整 CMS、全站版型編輯、SEO、公告、活動或網站分析；也不管理 GGAP、代理商、商戶、會員、錢包或遊戲版本。官網內容與遊戲大廳共用發布引擎，但各自擁有獨立 Revision、Job、Snapshot 與失敗歷程。
 
-## 2. 導覽與路由範圍
+## 2. 導覽與路由
 
-遊戲官網位於「官方網站 > 遊戲官網」底下，第一階段包含三個入口：
-
-| 頁面 | 前端路由 | 頁面目的 |
+| 頁面 | 前端路由 | 責任 |
 |---|---|---|
-| Banner 管理 | `/website/banners` | 管理推廣 Banner、文案與單獨預覽 |
-| 法務與聯絡資訊 | `/website/content` | 編輯條款、政策、負責任遊戲與聯絡資訊 |
-| 發布與版本紀錄 | `/website/releases` | 查看內容發布事件與基本版本資訊 |
+| Banner 管理 | `/website/banners` | 管理 Banner Entry、Revision、驗證、預覽與發布工作 |
+| 內容管理 | `/website/content` | 管理法務、責任遊戲與聯絡資訊 |
+| 發布紀錄 | `/website/releases` | 查詢官網 Job、Snapshot、Publication Event 與錯誤 |
 
-`/website` 保留作為舊入口，相容導向 Banner 管理。遊戲大廳則位於同一個「官方網站」群組下的另一個子導覽，不與遊戲官網共用內容頁。
+`/website` 可作相容入口並導向 Banner 管理。官網發布紀錄不混入 Lobby、DP03 遊戲版本或 GGAP 上架紀錄。
 
-## 3. 第一階段內容範圍
+## 3. 發布物件
 
-第一階段只包含以下內容：
-
-- Banner 管理
-- 條款
-- 隱私權政策
-- 負責任遊戲
-- 聯絡資訊
-- 簡化發布與版本紀錄
-
-公告與活動先不建立頁面、資料模型或導覽入口，待遊戲官網實際運作後再依需求新增。
-
-## 4. Banner 管理
-
-Banner 管理以單一推廣 Banner 為編輯單位，目前原型提供以下欄位：
-
-| 欄位 | 顯示內容 |
-|---|---|
-| 內部名稱 | Provider 內部辨識用名稱 |
-| 顯示位置 | 例如首頁主視覺、首頁第二區塊 |
-| 狀態 | 已發布、草稿、已停用 |
-| 顯示順序 | 同一位置下的排序值 |
-| 開始時間 | Banner 預定或實際開始時間 |
-| 結束時間 | Banner 預定結束時間，可為未設定 |
-| 最後更新 | 最近一次資料更新時間 |
-| Banner 圖片 | 原型先以展示素材表示，正式上傳規則待確認 |
-| 連結 | 點擊 Banner 或 CTA 後的導向位置 |
-| 眉標 | 例如 `NEW RELEASE`、`COMING SOON` |
-| 標題 | 玩家看到的推廣標題 |
-| 簡述 | Banner 下方的短文案 |
-| 按鈕文字 | CTA 顯示文字 |
-
-Banner 目前支援四種語系內容：繁中、簡中、English、日本語。實際圖片是否需要依語系或裝置提供不同素材，待正式前台版型確認。
-
-## 5. Banner 篩選與操作
-
-Banner 管理目前提供：
-
-- 全部
-- 已發布
-- 草稿
-- 已停用
-- 選取 Banner 後編輯內容
-- 儲存草稿操作骨架
-- 發布 Banner 操作骨架
-- 連結至發布與版本紀錄
-
-第一階段不建立完整批次操作、複雜排程規則或 Banner 競價／曝光分析。
-
-## 6. Banner 預覽
-
-Banner 預覽只針對單一 Banner，不開啟整體官網預覽。預覽提供：
-
-- 四種語系切換
-- Banner 眉標、標題、簡述與 CTA
-- Banner 圖像與色彩展示
-- 目前選取 Banner 的內容成果
-
-Banner 預覽只用於檢查推廣區塊，不代表官網首頁、導覽、Footer 或其他內容頁的完整最終成果。
-
-## 7. 法務與聯絡資訊
-
-所有低頻維護內容集中在同一個頁面，使用 Tab 或區塊切換：
-
-| 區塊 | 管理內容 | 原型形式 |
+| 物件 | 責任 | 主要識別 |
 |---|---|---|
-| 條款 | 使用條款與服務規範 | 簡易文字編輯區 |
-| 隱私權政策 | 資料使用、保存與隱私說明 | 簡易文字編輯區 |
-| 負責任遊戲 | 玩家保護、自我管理與求助提示 | 簡易文字編輯區 |
-| 聯絡資訊 | 客服 Email、服務時間、地址、回覆說明 | 結構化欄位 |
+| Content Entry | 穩定的 Banner 或官網內容主體 | `content_entry_id` |
+| Content Revision | 一次完整儲存形成的不可變內容快照 | `revision_id` |
+| Published Snapshot | 目前真正公開的確切內容 | `snapshot_id` |
+| Publish Job | Publish、Disable 或 Restore 的一次執行 | `publish_job_id` |
+| Preview Manifest | 固定 Revision、語系、素材、裝置與解析結果 | `preview_manifest_id` |
+| Publication Event | Append-only 的操作、執行、失敗與補償證據 | `publication_event_id` |
 
-條款、隱私權政策與負責任遊戲預留簡易富文字工具列。正式富文字格式、連結、條列、標題與 HTML 清理規則待後續確認。
+每次成功儲存建立新的 Revision，不原地覆寫既有 Revision。Revision、Publish Job、Public 與 Delivery 必須各自保存狀態，不得以單一 `status` 混用。
 
-## 8. 語系與內容維護
+## 4. 獨立發布流與 Publication Scope
 
-官網內容第一階段支援：
+官網包含兩條互不連動的發布流：
 
-- 繁中
-- 簡中
-- English
-- 日本語
+1. Website Banner：單一 Banner Entry 或版位為 publication scope。
+2. Website Static Content：單一條款、隱私權、負責任遊戲或聯絡資訊區塊為 scope。
 
-編輯者可在同一個內容區塊切換語系後維護對應文字。正式版本需要確認：
+同一 scope 同時只有一個有效 Published Snapshot，且最多一筆尚未完成的 state-changing Job；不同 scope 可平行執行。第一版不提供官網與大廳整站原子發布。
 
-- 缺少翻譯時是否允許發布
-- 是否使用繁中作為 fallback
-- 內容版本是否四語系同步發布
-- 不同語系是否允許個別發布
+## 5. Banner 管理
 
-目前原型只提供語系切換與 mock 草稿操作，不寫入正式資料。
-
-## 9. 發布流程
-
-第一階段採各內容區塊獨立發布：
-
-1. 編輯 Banner 或內容區塊
-2. 儲存草稿
-3. 由操作人員確認文字與資料
-4. 發布該 Banner 或內容區塊
-5. 在發布與版本紀錄中留下基本事件
-
-建議 Banner、條款、隱私權、負責任遊戲與聯絡資訊各自擁有草稿／已發布狀態，不以整個官網作為單一發布包。
-
-## 10. 發布與版本紀錄
-
-目前發布與版本紀錄頁以簡單列表與詳情區塊呈現：
-
-| 欄位 | 顯示內容 |
-|---|---|
-| 版本號 | 例如 `v1.4.0` |
-| 狀態 | 已發布、草稿 |
-| 內容範圍 | Banner、隱私權政策、聯絡資訊等 |
-| 內容摘要 | 本次發布的簡短說明 |
-| 發布時間 | 已發布時間；草稿可顯示尚未發布 |
-| 發布人員 | 建立或發布的操作人員 |
-| 備註 | 檔期、年度檢視或其他內部說明 |
-
-頁面提供全部、已發布、草稿篩選，並可查看選取版本的基本詳情。
-
-第一階段不包含：
-
-- 版本差異比對
-- 一鍵回滾
-- 版本刪除
-- 整體網站版本打包
-- 多人審批流程
-
-## 11. 資料模型方向
-
-### 11.1 Banner
-
-Banner 資料至少需要支援：
+Banner Revision 至少包含：
 
 | 欄位 | 說明 |
 |---|---|
-| `id` | Banner 識別 |
-| `name` | Provider 內部名稱 |
-| `slot` | 顯示位置 |
-| `status` | 已發布、草稿、已停用 |
-| `order` | 顯示順序 |
-| `startAt` / `endAt` | 顯示期間 |
-| `asset` | 圖片或素材參照 |
-| `link` | CTA 或 Banner 導向 |
-| `copies` | 四語系眉標、標題、簡述與按鈕文字 |
-| `updatedAt` | 最後更新時間 |
+| 內部名稱與 Entry ID | Provider 內部辨識與追溯 |
+| 版位與排序 | 顯示位置、同版位順序及衝突檢查 |
+| 生效區間 | 開始／結束時間、時區與有效窗口 |
+| CTA | 類型、顯示文字、內部路由或允許的 HTTPS 網域 |
+| 四語文案 | 眉標、標題、簡述、按鈕文字 |
+| 裝置素材 | Desktop／Mobile 的確切 `asset_version_id` |
+| Revision 證據 | base revision、驗證、預覽、核准與操作者 |
 
-### 11.2 官網內容
+Banner 頁提供查詢、選取、編輯 local buffer、儲存新 Revision、驗證、預覽、立即／排程發布、停用與還原入口。素材 binary 由 DP03 管理；DP04 只引用不可變版本，不得引用 `latest`。
 
-官網內容至少需要支援：
+## 6. 內容管理
 
-- `contentKey`：terms、privacy、responsible、contact
-- `locale`
-- `draftContent`
-- `publishedContent`
-- `status`
-- `updatedAt`
-- `publishedAt`
-- `updatedBy`
+| 內容類型 | 輸入形式 | 語系政策 | 風險通道 |
+|---|---|---|---|
+| 使用條款 | 受限富文字 | `STRICT` | 高風險第二人核准 |
+| 隱私權政策 | 受限富文字 | `STRICT` | 高風險第二人核准 |
+| 負責任遊戲 | 受限富文字 | `STRICT` | 高風險第二人核准 |
+| 聯絡資訊 | 結構化欄位 | 欄位依 `STRICT`／`FALLBACK` | 一般；新增外部網域時為高風險 |
 
-聯絡資訊另外需要結構化支援客服信箱、服務時間、地址與回覆說明。
+富文字必須通過後端 sanitize、允許標籤／連結／嵌入來源與 CSP 規則。內容區塊各自版本化、發布、停用與還原，不以整個官網作為單一可變草稿。
 
-以上資料模型為前端工作方向，不代表正式 API 欄位、富文字格式、精度或權限規則已定稿。
+## 7. 語系與素材
 
-## 12. 視覺呈現
+第一版固定 `zh-TW`、`zh-CN`、`en`、`ja` 四語並原子發布，不提供語系個別發布。
 
-遊戲官網管理介面使用低頻內容維護的編輯工作台方向：
-
-- 淺色背景搭配青綠、墨色與少量珊瑚色強調
-- Banner 預覽使用深色獨立展示區，與後台編輯區分開
-- 法務內容使用清楚的 Tab 與寬文字編輯區
-- 發布紀錄使用版本列表與右側詳情，不建立複雜時間線動畫
-- 狀態使用低飽和淡色標籤
-
-| 類型 | 顏色方向 |
+| 政策 | 行為 |
 |---|---|
-| 已發布 | 淡綠 |
-| 草稿 | 淡琥珀 |
-| 已停用 | 淡灰 |
-| 編輯狀態 | 淺青綠 |
-| Banner 預覽 | 深墨綠、藍色或珊瑚色視覺 |
+| `STRICT` | 所有必要語系有效才可發布 |
+| `FALLBACK` | 依固定鏈解析並在預覽與 Snapshot 保存來源 |
+| `OPTIONAL_HIDE` | 缺少時只隱藏該非必要欄位 |
 
-## 13. 非本頁範圍
+預設 fallback：`zh-TW` 無 fallback；`zh-CN → zh-TW`；`en → zh-TW`；`ja → en → zh-TW`。含文字圖片必須有 locale-specific 版本；沒有文字的共用素材可用 `und`。Published Snapshot 保存 requested／resolved locale、fallback chain、隱藏結果與確切素材 checksum。
 
-- 公告管理
-- 活動管理
-- 整體官網預覽
-- 官網主題、版型與首頁區塊拖曳編輯
-- 導覽列、Footer 與全域網站設定
-- SEO、Meta、OG Image 與網站分析
-- Banner 曝光、點擊與轉換分析
-- 版本差異比對與回滾
-- 正式 API、權限、審批與操作紀錄串接
-- 正式圖片上傳、檔案驗證與 CDN 管理
-- 完整富文字編輯器與 HTML 安全清理規則
+## 8. 驗證與精確預覽
 
-## 14. 待後續確認
+驗證分為 Edit-time、後端權威 Pre-publish 與 Job 執行前 Revalidation。結果分成 `BLOCKING`、`WARNING`、`INFO`；Blocking 不可略過，Warning 必須確認並保存原因。
 
-- Banner 圖片尺寸、格式、檔案大小與桌機／手機素材策略
-- Banner 排程的時區與開始／結束時間規則
-- Banner 連結是否只允許 Provider Portal 內部路由或可使用外部 URL
-- 四語系缺少翻譯時的發布阻擋與 fallback 規則
-- 法務內容的正式富文字格式與內容審核流程
-- 條款、隱私權與負責任遊戲的發布是否需要特殊權限
-- 版本號由誰產生，以及 Banner 與法務內容是否共用版本序列
-- 發布事件是否需要寫入正式操作紀錄
-- 正式 API、permission key、錯誤格式與資料保存期限
+官網共通檢查包含：
+
+- schema、必填、四語與欄位語系政策。
+- 素材存在、安全掃描、格式、尺寸、裝置、alt text 與 checksum。
+- CTA、HTTPS、domain allowlist、redirect、富文字與嵌入安全。
+- 版位、排序、排程時區與開始／結束時間。
+- base revision、expected published revision、權限、核准與同 scope Job。
+
+Preview Manifest 固定確切 Revision、每一區塊的 draft／public 來源、語系解析、素材版本、renderer version、validation result 與 manifest hash。允許組合預覽，但每個區塊必須標示來源；重新整理不得靜默切換 `latest`。Preview token 短效、具 scope、可撤銷、不得長期放在 URL，且不可被搜尋引擎或公開 CDN 索引。
+
+## 9. 發布、排程、停用與還原
+
+`job_type` 第一版包含 `publish`、`disable`、`restore`。
+
+- 立即發布：驗證 → 必要核准 → scope lock → 產生 Snapshot → 傳播 → 原子切換 → Delivery 驗證。
+- 排程發布：以 UTC 保存，介面顯示 `Asia/Taipei` 與時區；綁定 exact Revision，不追蹤 latest，執行前重驗動態依賴。
+- 一般停用：具權限、填寫原因、通過必要核准並建立 Job。
+- 緊急停用：只能減少公開範圍，可由專屬能力立即執行並進入事後覆核。
+- 還原：將歷史 Snapshot 複製為新 Revision，重新比較、驗證、核准，再建立新 Job；不是原地回滾。
+- 重試：建立新的 `publish_job_id` 並保存 `retry_of_job_id`。
+
+任何切換前失敗都保持舊 Snapshot；換言之，發布失敗保持舊 Snapshot，不得留下半新半舊內容。切換後 Delivery 異常必須記錄補償結果，並以 `propagating`、`degraded` 或 `failed` 明確呈現。
+
+## 10. 狀態
+
+| 維度 | API 值 |
+|---|---|
+| Revision | `draft`、`ready`、`superseded`、`archived` |
+| Publish Job | `queued`、`scheduled`、`running`、`succeeded`、`failed`、`cancelled` |
+| Public | `unpublished`、`published`、`disabled` |
+| Delivery | `propagating`、`healthy`、`degraded`、`failed` |
+
+列表及詳情必須顯示對應維度，不得把「草稿」「已發布」「傳播失敗」放入同一狀態欄位。
+
+## 11. 權限、核准與併發
+
+產品先定義 Content Read、Edit、Preview、Submit、Publish、Disable／Restore、High-risk Approve、Emergency Disable、Publication Audit Read 等 capability；角色名稱與 permission key 待系統設定 Mapping。
+
+- 一般 Banner、既有網域 CTA 與低風險內容可由一位具發布能力者完成。
+- 法務、新外部網域、重要警語、主要 CTA／素材等高風險內容要求不同一人的第二人核准。
+- 核准綁定 Revision、Manifest、Validation、Scope 與 expected published revision；任一證據改變即失效。
+- 儲存使用 base revision／ETag；公開切換使用 expected published revision。同 scope 衝突不得盲目覆蓋。
+- `allowed_actions` 只提供 UI 呈現；後端仍須逐次授權。
+
+## 12. 發布紀錄
+
+官網發布紀錄可依時間、內容類型、scope、Job 狀態、操作者與 ID 查詢，並顯示：
+
+- Publish Job、來源 Revision、目標／目前 Snapshot。
+- Job 類型、狀態、有效時間、建立者、核准者與原因。
+- Validation、Warning 確認、Event timeline 與 Delivery 狀態。
+- 失敗階段、error code、activation 是否發生、補償、retry／restore 關聯與 trace ID。
+
+Publication Event 與 Audit 為 append-only；內容停用、還原或封存不得刪除歷史。
+
+## 13. 替代狀態與錯誤
+
+三頁至少支援 Loading、Empty、Query Failed、Partial／Stale、Forbidden、Revision Missing、Validation Failed、Revision／Publication Conflict、Approval Required／Expired、Job Queued／Scheduled／Running／Failed，以及 Delivery Propagating／Degraded／Failed。
+
+`Forbidden`、`Revision Conflict`、`Publication Conflict`、`Approval Required`、`Job In Progress`、`Validation Failed` 與 `Dependency Changed` 必須提供不同說明、下一步及 `trace_id`，不可統一顯示「操作失敗」。
+
+## 14. 資料與事件語意
+
+正式後端至少需提供 Entry／Revision 查詢與建立、Validation、Preview Manifest／Token、Submit／Approve／Reject、Publish／Disable／Restore Job、取消排程、Job Timeline、Published Snapshot 與 Allowed Actions。狀態變更請求需包含 base／expected revision、request ID、idempotency key、actor、reason與必要證據。
+
+最低事件包含 `content_revision_created`、`content_validation_completed`、`content_submitted`、`content_approved`、`content_rejected`、`publish_job_created`、`publish_job_started`、`published_snapshot_activated`、`publish_job_failed`、`publish_compensated`、`content_disabled`、`content_restored` 與 Delivery degraded／recovered。通知中心可消費事件，但不影響發布是否成功。
+
+## 15. 非本模組範圍
+
+- 公告、活動、全站版型、導覽、Footer、SEO 與網站分析。
+- Banner 曝光、點擊、轉換與廣告競價。
+- DP03 Game／Version／Artifact／Release 編輯。
+- GGAP 代理商開關、Launch Gate、錢包、會員與平台結算。
+- 通知中心的管道、偏好、已讀與保存介面。
+- 角色名稱、正式 permission key、API URL、資料表、Queue、CDN 與 Renderer 技術選型。
+
+## 16. 實作 Mapping 待補
+
+下列項目不影響本文件產品需求成立，取得 Backend／Infrastructure 證據後補對照：
+
+- API path／method、request／response schema、transport error 與正式 enum。
+- Content／Revision／Job／Snapshot／Audit 的資料表、索引與保存政策。
+- Scheduler、Worker、Queue、Outbox、Lock、冪等與補償設計。
+- Object Storage、CDN、cache invalidation、公開前台 Renderer 與原子切換方式。
+- Capability 對應角色與 permission key，以及正式 audit／trace／metric 格式。
 
 ---

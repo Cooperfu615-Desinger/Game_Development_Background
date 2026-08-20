@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.20.0-phase-three-pack-04-baseline</span>
+            <span>0.21.0-phase-three-pack-04-source-aligned</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -646,7 +646,7 @@
 <div class="reconciliation-columns">
 <section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 可管理自身遊戲官網的 Banner 素材、文字與發布狀態。</li><li>官網內容管理不延伸為 GGAP、代理商或商戶內容管理。</li></ul></section>
 <section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有狀態篩選、Banner 清單、編輯表單、發布資訊與即時預覽。</li><li>發布按鈕只顯示模擬提示；資料與素材均為前端 mock。</li><li>目前沒有真實媒體上傳、排程、版本或發布 API。</li></ul></section>
-<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Batch D Draft 已定義 Banner／revision、slot、排程、多語文案、素材參照、單筆預覽與發布工作。</li><li>草稿與公開 snapshot 分離，發布失敗保持既有公開版本；外部連結、媒體及預覽安全已有驗收骨架。</li><li>正式 schema、fallback、媒體限制、API、permission、核准及 audit 仍依集中 TBD 管理。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>DP04 已定義 Banner Entry、不可變 Revision、exact 素材、四語原子發布、排程、Validation 與 Preview Manifest。</li><li>Publish／Disable／Restore 使用獨立 Job；低風險走快速通道，高風險需第二人核准，失敗保持舊 Snapshot。</li><li>產品語意已對齊；正式 schema、slot／媒體限制、API、permission、CDN／Renderer 與 audit 待實作 Mapping。</li></ul></section>
 </div>
 </article>
 <article class="reconciliation-card reconciliation-attention">
@@ -658,7 +658,7 @@
 <div class="reconciliation-columns">
 <section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 可管理自身遊戲官網的法務、聯絡及已納入範圍的靜態內容。</li><li>介面以台灣繁體中文為主，多語內容需明確標示語系與 fallback。</li></ul></section>
 <section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有內容分頁、簡易文字編輯骨架、發布按鈕與發布前檢查區。</li><li>畫面明示正式版本可能改用富文字編輯器，現況不是最終輸入模型。</li><li>發布只顯示 mock 提示，未建立多語、版本與 API 資料流。</li></ul></section>
-<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Batch D Draft 已定義四類內容、四語系 revision、受限富文字、結構化聯絡資訊及區塊獨立發布。</li><li>HTML／連結安全、完整度、預覽、版本衝突與失敗不覆蓋公開內容已有驗收骨架。</li><li>正式內容 schema、fallback、sanitization、API、特殊權限／核准及 audit 仍依集中 TBD 管理。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>DP04 已定義四類 Content Entry、不可變 Revision、四語原子發布、受限富文字與區塊獨立 Snapshot。</li><li>法務／責任遊戲採 STRICT 與不同一人的高風險核准；Preview Manifest、衝突、失敗與 Restore 語意已確立。</li><li>產品語意已對齊；正式 schema、sanitizer／CSP、API、permission、Renderer 與 audit 待實作 Mapping。</li></ul></section>
 </div>
 </article>
 <article class="reconciliation-card reconciliation-attention">
@@ -670,7 +670,7 @@
 <div class="reconciliation-columns">
 <section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 官網內容發布需留下版本、內容範圍、操作者與時間追溯。</li><li>發布紀錄只涵蓋 Provider 自有官網，不代表遊戲版本或 GGAP 上架紀錄。</li></ul></section>
 <section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有發布摘要、狀態篩選、事件列表與單筆版本詳情。</li><li>版本、操作者、發布時間及內容差異皆為前端 mock。</li><li>沒有真正發布、取消、回復或不可變快照資料流。</li></ul></section>
-<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Batch D Draft 已定義官網 release／job、來源與結果 snapshot、狀態、列表、詳情、timeline 及精確來源導流。</li><li>事件不可變、工作／公開狀態分離，回復建立新工作；不擴張為整站打包、全文差異或一鍵回滾。</li><li>正式事件 schema、API、permission、錯誤遮罩、保存及 audit 仍依集中 TBD 管理。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>DP04 已定義 Publish Job、Published Snapshot、Publication Event、四維狀態、timeline、失敗與補償追溯。</li><li>事件不可變；Retry 建立新 Job，Restore 另建立新 Revision／Job，不使用原地一鍵回滾。</li><li>產品語意已對齊；正式事件 schema、API、permission、錯誤遮罩、保存、trace 與 audit 待 Mapping。</li></ul></section>
 </div>
 </article>
 <article class="reconciliation-card reconciliation-aligned">
@@ -682,7 +682,7 @@
 <div class="reconciliation-columns">
 <section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>本模組是 Provider 自有遊戲大廳，不是 GGAP 平台大廳或錢包系統。</li><li>DEMO 資料必須與 Production Game Round、財務及風控資料隔離。</li></ul></section>
 <section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有遊戲推出狀態、Demo 今日摘要、資料管理、預覽與公開檢查入口。</li><li>摘要數字、狀態與檢查結果皆由前端 mock 提供。</li><li>頁面目前是導覽型總覽，沒有正式資料新鮮度或失敗狀態。</li></ul></section>
-<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Batch D Draft 已定義三狀態摘要、需注意遊戲、DEMO telemetry、readiness、更新時間及精確工作入口。</li><li>DEMO 試玩工作階段不是正式業務 Game Session，且與 Game Round、財務、風控、會員／錢包完全隔離。</li><li>正式狀態／指標、來源、更新頻率、API、scope 與 permission 仍依集中 TBD 管理。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>DP04 已定義 Published Catalog 母體、內容語意、DP03 runtime overlay、GGAP Gate 與 Delivery 的衍生摘要。</li><li>總覽保持唯讀；DEMO 技術工作階段與 Sandbox credit 只屬 telemetry，與正式業務完全隔離。</li><li>產品語意已對齊；正式摘要／telemetry 公式、API、更新頻率、scope 與 permission 待 Mapping。</li></ul></section>
 </div>
 </article>
 <article class="reconciliation-card reconciliation-aligned">
@@ -694,7 +694,7 @@
 <div class="reconciliation-columns">
 <section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>本頁呈現 Provider 自有大廳中的遊戲清單與公開資料。</li><li>大廳是否顯示遊戲不取代 Provider 全域上架，也不取代 GGAP 代理商個別開放控制。</li></ul></section>
 <section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有關鍵字搜尋、推出狀態篩選、遊戲表格、詳情管理與預覽入口。</li><li>版號、上架時間、RTP、波動度、最高倍率與狀態皆為前端 mock。</li><li>目前沒有批次選取、儲存、錯誤或正式 API。</li></ul></section>
-<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Batch D Draft 已定義摘要、五類查詢、八欄列表、公開 snapshot、readiness 及精確管理／預覽導流。</li><li>列表保持唯讀；大廳玩家狀態不取代 Provider 全域上架，也不取代 GGAP 代理商個別開放。</li><li>正式納入／移除、排序、上游參照、API、scope 與 permission 仍依集中 TBD 管理。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>DP04 已定義清單只讀 Published Catalog，固定 exact Game Content Revision、排序、公開 Snapshot 與 Delivery。</li><li>玩家結果由 DP04 內容、DP03 runtime overlay 與 GGAP Gate 分層衍生；草稿與未收錄 Game 不出現。</li><li>產品語意已對齊；正式列表 API、schema、scope、permission、排序效能與錯誤 transport 待 Mapping。</li></ul></section>
 </div>
 </article>
 <article class="reconciliation-card reconciliation-attention">
@@ -706,7 +706,7 @@
 <div class="reconciliation-columns">
 <section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>Provider 可管理自身大廳的公開文字、參數、素材與玩家可見狀態。</li><li>公開資料需引用 Provider 遊戲主資料，不得建立另一份相互衝突的遊戲真實來源。</li></ul></section>
 <section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有基本資料、遊戲參數、公開內容、圖片影片、狀態與公開檢查五個分頁。</li><li>四語內容、公開數值、玩家狀態及 5／5 檢查結果均為 mock。</li><li>表單可操作但沒有草稿、儲存、發布、衝突或權限資料流。</li></ul></section>
-<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Batch D Draft 已分開上游唯讀主資料／核准數值與大廳可編輯內容，定義 draft／published revision。</li><li>四語內容、素材／YouTube、三狀態、公開前 blocking、精確草稿預覽、衝突及發布 job 已有驗收骨架。</li><li>正式欄位 schema、fallback、檢查規則、API、permission、核准及 audit 仍依集中 TBD 管理。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>DP04 已分開 Lobby Game Content 與 Lobby Catalog 兩條 Revision／Job／Snapshot 發布流，上游 DP03 維持唯讀。</li><li>四語、exact 素材、三層狀態、Blocking、exact Preview、風險核准、衝突、失敗與 Restore 已確立。</li><li>產品語意已對齊；正式欄位 schema、API、permission、Renderer／CDN、安全與 audit 待 Mapping。</li></ul></section>
 </div>
 </article>
 <article class="reconciliation-card reconciliation-attention">
@@ -718,7 +718,7 @@
 <div class="reconciliation-columns">
 <section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>DEMO 是隔離的展示環境，不得混入正式 Game Round、財務或風控模型。</li><li>Provider 不因 DEMO 大廳顯示玩家、Session 或餘額而建立會員或錢包主資料。</li></ul></section>
 <section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有玩家活躍趨勢、Demo 規則、各遊戲表現及匯出按鈕。</li><li>頁面明示目前用固定規則產生資料；趨勢、玩家、Session 與表現皆為 mock。</li><li>匯出按鈕沒有正式檔案流程。</li></ul></section>
-<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Batch D Draft 已定義 DEMO namespace、identity、試玩工作階段、摘要、趨勢、資料品質、遊戲表現與隔離匯出。</li><li>原型 USD 10,000 不升格為錢包契約；DEMO session 只是 telemetry 分組，不建立正式 Game Session 業務單位。</li><li>正式 credit／指標、去重、retention、API、識別遮罩與 permission 仍依集中 TBD 管理。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>DP04 已確認 DEMO namespace、identity、技術工作階段、Sandbox credit、readiness／quality 與隔離匯出邊界。</li><li>DEMO 不參與內容發布，不建立會員／錢包／正式 Game Session，也不進 Production Round、財務或風控。</li><li>產品邊界已對齊；正式 credit／指標、去重、retention、API、識別遮罩與 permission 待 Mapping。</li></ul></section>
 </div>
 </article>
 <article class="reconciliation-card reconciliation-attention">
@@ -730,7 +730,7 @@
 <div class="reconciliation-columns">
 <section class="reconciliation-confirmed"><h5><i aria-hidden="true">A</i> 已確認產品規則</h5><ul><li>本頁只預覽 Provider 自有遊戲大廳，不建立正式玩家、會員或錢包能力。</li><li>預覽中的 DEMO 資料必須與 Production 紀錄、財務與風控隔離。</li></ul></section>
 <section class="reconciliation-prototype"><h5><i aria-hidden="true">B</i> 現行原型實況</h5><ul><li>已有類玩家端的大廳導覽、遊戲卡、推出狀態與試玩按鈕。</li><li>頁首顯示「DEMO 餘額 USD 10,000.00」，目前只是視覺 mock，不是 Provider 錢包。</li><li>預覽資料直接使用前端 mock，沒有草稿／公開版本切換或存取控制。</li></ul></section>
-<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>Batch D Draft 已定義 published／指定 draft revision、四語、雙裝置、分類、三狀態、詳情與修正導流。</li><li>展示 credit 明確不是錢包；不可玩狀態阻擋 Launch，草稿失效不得靜默切換公開版本。</li><li>正式 preview manifest、sandbox launch、token、CSP、cache、API 與 permission 仍依集中 TBD 管理。</li></ul></section>
+<section class="reconciliation-target"><h5><i aria-hidden="true">C</i> 目標草案／待確認</h5><ul><li>DP04 已定義 exact Preview Manifest、Catalog／Game Content Revision、區塊來源、四語解析、裝置與 DP03 依賴。</li><li>Manifest 不追蹤 latest；不可玩狀態阻擋 Launch，Sandbox credit 不是錢包，草稿失效不切換資料來源。</li><li>產品語意已對齊；正式 Preview API、Renderer、token、CSP、cache、permission 與 Sandbox Launch 待 Mapping。</li></ul></section>
 </div>
 </article>
 </section><h2 id="使用方式">使用方式</h2><ol>
@@ -755,7 +755,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.20.0-phase-three-pack-04-baseline · 2026-08-20</span>
+                    <span>0.21.0-phase-three-pack-04-source-aligned · 2026-08-20</span>
                 </footer>
             </div>
         </main>

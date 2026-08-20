@@ -46,3 +46,19 @@ GGAP 對接需另行核准簽章、防重放、啟動、結算、Callback、ACK�
 - 一般 Release 自動檢查通過後允許發布管理者一人執行；高風險 Release 必須回傳 approval requirement 與第二位核准者證據。
 - 發布、重試、取消與回滾均回傳可持續查詢的 job／Release ID；重新整理頁面後可由 ID 恢復狀態，不依賴前端計時器維持真實結果。
 - 上架事件等待 GGAP ACK 後才成為外部可用；停用事件先由 Provider 本地阻擋並以 outbox／等價可靠投遞重試。實際 event name、payload 與 ACK 格式待 Backend Git Mapping。
+
+## 官網與大廳內容發布 API
+
+產品語意已由 DP04 確認；正式 URL、method、schema、transport 與儲存技術待 Backend Mapping。後端至少提供：
+
+- Query Content Entry／Revision／Published Snapshot／Allowed Actions。
+- Create Revision：依 `base_revision_id` 或 ETag 建立不可變 Revision，衝突不得覆蓋他人內容。
+- 以指定規則版本執行 Validation，回傳 `BLOCKING`／`WARNING`／`INFO`、欄位、語系、裝置與 remediation。
+- Create／Query Preview Manifest：建立或查詢 exact Manifest／短效 Token，固定 Revision、區塊來源、語系解析、素材 checksum、DP03 依賴及 renderer version。
+- Submit／Approve／Reject 高風險 Revision，Approval 綁定 exact Revision、Manifest、Validation、Scope 與 expected published revision。
+- 建立 Publish／Disable／Restore Job，支援立即、排程、冪等、同 scope lock、失敗保留舊版與 Restore 新 Revision／Job。
+- 取消安全可取消的 queued／scheduled Job；查詢 Job timeline、失敗階段、activation、補償、retry／restore relation 與 trace。
+
+狀態變更請求原則上包含 `provider_id`、resource／entry／revision／scope ID、`base_revision_id`、`expected_published_revision_id`、`request_id`、`idempotency_key`、actor、reason、有效時間與 validation／approval reference。回應提供最新狀態、ETag／Revision、`allowed_actions`、`server_time`、`trace_id`、穩定 error code 與 retryability。
+
+內容錯誤至少區分 `FORBIDDEN`、`REVISION_CONFLICT`、`PUBLICATION_CONFLICT`、`APPROVAL_REQUIRED`、`APPROVAL_EXPIRED`、`JOB_IN_PROGRESS`、`VALIDATION_FAILED`、`DEPENDENCY_CHANGED`。同一 idempotency key 重送不得建立第二次公開副作用。

@@ -9,7 +9,7 @@
 | 文件名稱 | Provider Portal 產品與系統規格書 |
 | 適用產品 | GGAP Provider Portal |
 | 主要讀者 | 產品、前端、後端、QA、GGAP 對接團隊 |
-| 目前版本 | `0.20.0-phase-three-pack-04-baseline` |
+| 目前版本 | `0.21.0-phase-three-pack-04-source-aligned` |
 | 目前狀態 | Phase 3 · Product Contract Baselines |
 | 主要語言 | 台灣繁體中文；技術值與協定名稱保留英文 |
 
@@ -78,7 +78,7 @@
 
 第二階段 Batch C 已完成遊戲管理六頁完整 Draft，形成「遊戲主資料 → 一般設定 → 數值版本 → 程式版本 → 素材版本 → 環境發布」鏈。後續 DP03 原型實作已將「環境與發布」替換為內容原型，並讓六頁共用同一組生命週期 mock；正式 API、CI/CD、權限、核准及 GGAP 同步仍待集中 TBD。
 
-第二階段 Batch D 已完成官方網站與遊戲大廳八頁完整 Draft，形成「官網內容草稿 → 安全預覽 → 獨立發布／追溯」及「遊戲公開草稿 → readiness → 指定 revision 預覽 → DEMO telemetry」兩條鏈。DEMO identity、展示額度與試玩工作階段不建立正式會員、錢包或 Game Session 業務模型，也不進入正式 Game Round、財務或 Provider 風控；正式內容／大廳生命週期、API、權限及安全契約仍待集中 TBD。
+第二階段 Batch D 已完成官方網站與遊戲大廳八頁完整 Draft；後續 DP04 已將其同步為 Content Entry／Revision／Published Snapshot／Publish Job、四條獨立發布流、exact Preview Manifest 與三層可玩性契約。DEMO identity、Sandbox credit 與技術工作階段不建立會員、錢包或 Game Session 業務模型，也不進入正式 Game Round、財務或 Provider 風控；正式 API、permission、Renderer 與 telemetry 實作仍待 Mapping。
 
 第二階段 Batch A–D 共 21 頁已完成 Draft 封版驗證；產品與 UI、響應式、驗收及跨頁依賴骨架均通過 Gate，API、資料與權限仍維持 Partial，30 項集中 TBD 維持 Open。驗證結果、Deferred 邊界與第三階段入口見附錄 K《第二階段封版驗證報告》。
 
@@ -91,3 +91,5 @@
 第三階段附錄 O《Decision Pack 03｜原型實作差異清單》已完成需求、原型與正式交付的逐項對照。Portal 的生命週期畫面與 mock 互動列為 `ALIGNED_PROTOTYPE`／`MOCK_ONLY`；資料持久化、CI/CD、權限與稽核列為 `BACKEND_PENDING`；GGAP 事件、ACK 與 Launch Gate 列為 `GGAP_PENDING`。這些分類不得互相替代，也不得因原型可操作而宣告正式功能完成。
 
 第三階段附錄 P《Decision Pack 04｜官網與大廳內容發布契約》採用「目前需求基準」定位，直接定義 Content Entry、Revision、Published Snapshot、Publish Job、Preview Manifest、Publication Event，以及官網 Banner、官網內容、大廳單款遊戲內容與 Lobby Catalog 四條獨立發布流。四語系、不可變素材版本、精確預覽、一般快速／高風險第二人核准、排程、停用、還原、失敗保留舊版與 37 個跨頁驗收情境均已成立；實際 API、資料表、CDN、Scheduler、permission 與 GGAP Launch Mapping 待取得證據後補，不阻擋本產品契約成立。
+
+DP04 已回寫 `GAME_WEBSITE_SPEC.md`、`GAME_LOBBY_SPEC.md`、八個頁面規格、Portal／Page Map／Navigation 與共通領域、資料、enum、API、安全、NFR、QA。產品層 TBD 已收斂為實作 Mapping；Portal Vue／mock 尚未於本版本修改，下一步先建立原型差異清單再交由開發 session 對齊。

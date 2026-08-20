@@ -1,8 +1,8 @@
 # Provider Portal 產品與功能規格
 
-> 版本：0.8.0
-> 更新日期：2026-08-18
-> 狀態：目前需求基準；已同步 Decision Pack 01、02、03，正式 API、權限與既有系統 Mapping 待確認
+> 版本：0.9.0
+> 更新日期：2026-08-20
+> 狀態：目前需求基準；已同步 Decision Pack 01、02、03、04，正式 API、權限與既有系統 Mapping 待確認
 
 ## 1. 產品定位
 
@@ -47,14 +47,14 @@ Provider Portal 不建立 Provider 錢包，也不把代理商、商戶或會員
 | 模組 | Provider Portal 責任 | 目前原型狀態 |
 |---|---|---|
 | 總覽 | Provider 遊戲、投注、GGR、告警、發布、通知與 GGAP 連線健康 | 儀表板獨立前端 mock 原型已完成 |
-| 遊戲管理 | 主資料、規則、數學、版本、資產、全域上下架 | 既有頁面原型；環境與發布為 Placeholder blueprint |
+| 遊戲管理 | 主資料、規則、數學、版本、資產、全域上下架 | 六頁皆有內容原型；環境與發布已依 DP03 建立 mock 互動，正式 Backend／CI/CD 待接 |
 | 數據與報表 | 遊戲紀錄、Game Round 查詢與匯出 | `/reports` 遊戲紀錄原型已完成 |
 | 遊戲商財務 | 點數、USDT、投注、輸贏、GGR、財務總覽與代理商 × 遊戲彙總 | 財務總覽與代理商 × 遊戲彙總原型已完成 |
 | 遊戲監控與風控 | 遊戲健康、異常局、請求失敗與風控告警 | 監控總覽、風控報表與風控告警／處理的獨立前端 mock 原型已完成 |
 | GGAP 對接 | 連線、同步、請求、結算與錯誤狀態 | Phase 3 mock blueprint |
 | 通知中心 | 站內通知、已讀與通知偏好 | Phase 3 mock blueprint |
-| 遊戲官網 | Banner、條款、隱私權、負責任遊戲、聯絡資訊與發布紀錄 | 已完成前端原型骨架，後續接正式內容、圖片、發布與權限 |
-| 遊戲大廳 | 遊戲公開資料、三種玩家狀態、DEMO環境數據與完整大廳預覽 | 已完成五頁前端原型骨架，後續接正式遊戲、狀態、素材與 DEMO API |
+| 遊戲官網 | Banner、靜態內容、四語、Revision、精確預覽、發布／停用／還原與紀錄 | DP04 需求已定義；既有前端原型待依契約整理並接正式 Backend／Renderer |
+| 遊戲大廳 | Game Content、Catalog、三層可玩性、精確預覽與隔離 DEMO telemetry | DP04 需求已定義；既有五頁原型待依契約整理並接正式 Backend／GGAP Mapping |
 | 系統設定 | Provider 使用者、角色、權限、API key、操作紀錄 | 保留 |
 
 ### 3.1 目前前端原型成果
@@ -63,8 +63,8 @@ Provider Portal 不建立 Provider 錢包，也不把代理商、商戶或會員
 - `/lobby`、`/lobby/games`、`/lobby/management`、`/lobby/demo`、`/lobby/preview` 已建立遊戲大廳五頁原型。
 - `/website/banners`、`/website/content`、`/website/releases` 已建立遊戲官網三頁原型，`/website` 會導向 Banner 管理。
 - `/monitoring` 已由 `MonitoringOverview.vue` 承接獨立 mock 原型，包含五張摘要卡、期間查詢、遊戲監控列表、詳情、失敗狀態與跨頁導向；`/monitoring/risk-reports` 與 `/monitoring/alerts` 也由獨立內容頁承接。
-- `/dashboard` 已由 `Provider/Dashboard.vue` 承接獨立 mock 原型；`/games/environments`、`/ggap/*`、`/notifications/*` 仍使用共用 Provider Placeholder 頁面骨架。
-- 目前主要導覽共有 32 個可進入的內容頁，其中 24 個已有完整內容原型，8 個使用 Provider Placeholder；完整頁面地圖見 [`PROVIDER_PORTAL_PAGE_MAP.md`](./PROVIDER_PORTAL_PAGE_MAP.md)。
+- `/dashboard` 已由 `Provider/Dashboard.vue` 承接獨立 mock 原型；`/games/environments` 已完成 DP03 內容原型，`/ggap/*`、`/notifications/*` 仍使用共用 Provider Placeholder 頁面骨架。
+- 目前主要導覽共有 32 個可進入的內容頁，其中 25 個已有內容原型，7 個使用 Provider Placeholder；完整頁面地圖見 [`PROVIDER_PORTAL_PAGE_MAP.md`](./PROVIDER_PORTAL_PAGE_MAP.md)。
 - 上述頁面目前以原型展示資料呈現，不代表正式 API、權限、狀態碼、精度與後端資料契約已定稿。
 
 ## 4. 已確認的核心原則
@@ -117,6 +117,17 @@ DEMO 遊戲雖然可以實際遊玩，但其 Game Round、點數與資料必須�
 
 Provider 可使用短效 Launch Context 綁定遊戲、版本、Artifact、Release、環境與 GGAP 脈絡，但不建立長期 Game Session 主資料。Game Round 仍是唯一主要業務紀錄單位。
 
+### 4.5 官網與大廳內容發布
+
+官網與大廳內容發布統一依 [`Decision Pack 04｜官網與大廳內容發布契約`](./spec-book/content/appendices/decision-pack-04-content-publishing-contract.md)：
+
+- Content Entry、Content Revision、Published Snapshot、Publish Job、Preview Manifest 與 Publication Event 是不同物件。
+- 官網 Banner、官網 Static Content、Lobby Game Content 與 Lobby Catalog 共用引擎但各自獨立發布；任何一條流不得自動改變另一條。
+- 編輯、儲存、驗證與預覽不改變公開頁；成功 Job 才切換 Published Snapshot，失敗保留舊版，Restore 建立新 Revision 與新 Job。
+- 第一版固定 `zh-TW`、`zh-CN`、`en`、`ja` 四語原子發布；語系與素材依 exact version／fallback resolution 固定於 Snapshot。
+- Lobby 可玩性需同時通過 DP03 技術可用性、DP04 Published Catalog／Content 與 GGAP 代理商 Launch Gate。
+- DEMO identity、Sandbox credit 與 telemetry 只作 readiness／品質參考，不建立會員、錢包或正式 Session，亦不進 Production Game Round、財務或 Provider 風控。
+
 ## 5. 不在目前範圍
 
 - Provider 錢包與會員錢包
@@ -159,5 +170,5 @@ Provider 可使用短效 Launch Context 綁定遊戲、版本、Artifact、Relea
 - 後端既有遊戲／版本／發布 enum 與目前需求基準的 Mapping。
 - Provider 點數精度、USDT 換算精度與四捨五入規則。
 - GGAP 對接的正式 API、簽章、回呼與重試規則。
-- 官網管理的內容類型與發布流程。
+- 官網／大廳實際 API、資料表、permission key、Scheduler／Queue、CDN／Renderer 與 GGAP Launch Mapping；產品發布流程已由 DP04 定義。
 - 多人 Crash / 棋牌的共享局號與參與者模型。

@@ -4,14 +4,14 @@
 
 | 項目 | 內容 |
 | --- | --- |
-| 規格成熟度 | Draft — Batch D 完整頁面規格 |
+| 規格成熟度 | Draft — DP04 產品語意已同步；正式實作 Mapping 待補 |
 | 製作範圍 | Active |
 | 對應路由 | `/website/banners` |
 | 前端元件 | `src/views/GameWebsite/Banners.vue` |
 | 主要來源 | `GAME_WEBSITE_SPEC.md`、`PROVIDER_PORTAL_UI_LAYOUT_SPEC.md` |
 | 頁面角色 | Provider 自有遊戲官網的單一 Banner 編輯、預覽與發布入口 |
 
-> 本頁只管理 Provider 自有官網 Banner，不是完整 CMS，也不管理遊戲大廳、GGAP、代理商或商戶內容。原型的儲存與發布只顯示 mock 提示；正式媒體、版本、排程、權限與發布契約仍受集中 TBD 管理。
+> 本頁只管理 Provider 自有官網 Banner，不是完整 CMS，也不管理遊戲大廳、GGAP、代理商或商戶內容。DP04 已定義產品發布契約；現行原型的儲存與發布仍只有 mock 提示，正式 API、媒體服務、permission key 與公開副作用待實作 Mapping。
 
 ## 1. 目的與責任邊界
 
@@ -19,15 +19,15 @@
 - 提供單一 Banner 預覽，確認目前選取語系的眉標、標題、簡述與 CTA。
 - 允許儲存草稿並建立該 Banner 的發布工作；正式發布事件由發布紀錄頁追溯。
 - 不提供整體官網版型編輯、公告、活動、SEO、曝光分析或完整首頁預覽。
-- Banner 引用素材版本，不直接覆寫已發布素材；媒體安全依 `TBD-DAT-006`、`TBD-SEC-005`。
+- Banner 只引用 DP03 不可變素材版本，不直接覆寫已發布素材；新發布不得引用 `latest` 或 security-revoked 素材。
 
 ## 2. 內容與版本模型
 
-- 穩定識別使用 `banner_id`；內部名稱、位置與顯示順序不可作 join key。
-- 每個 Banner 保留 `draft_revision` 與 `published_revision`；編輯不直接覆蓋公開內容。
-- 四語系文案同屬一個 revision snapshot；缺語系能否發布由正式 fallback 規則決定。
-- 顯示排程使用明確時區；`end_at` 可為空，開始不得晚於結束。
-- 發布成功後才更新 published snapshot；工作失敗時公開版本保持不變。
+- 穩定主體使用 `content_entry_id`，每次成功儲存建立不可變 Revision（`revision_id`）；內部名稱、位置與排序不可作 join key。
+- 目前公開內容由獨立 `snapshot_id` 表示；編輯 local buffer 與建立 Revision 都不直接改變公開內容。
+- 四語系文案、CTA、排程與 exact 素材同屬一個 Revision；第一版四語原子發布。
+- 單一 Banner Entry 或版位是 publication scope；同 scope 最多一筆未完成的 state-changing Job。
+- 發布成功才原子切換 Published Snapshot；工作失敗保持舊 Snapshot，Restore 則由歷史 Snapshot 建立新 Revision 與新 Job。
 
 ## 3. 六區塊資訊架構
 
@@ -63,19 +63,20 @@
 
 ## 5. 基本、排程與連結
 
-| 欄位 | Draft 規則 |
+| 欄位 | 目前需求規則 |
 | --- | --- |
 | 內部名稱／位置 | 內部名稱必填；位置來自官網版型允許的 slot enum。 |
 | 顯示順序 | 同一 slot 內的正整數；衝突由後端回傳或重排。 |
 | 開始／結束 | 使用 Provider 設定時區並顯示 offset；結束可空。 |
 | 連結 | 保存目的地類型與值；外部 URL 需 allowlist、HTTPS 與重新導向檢查。 |
-| 狀態 | 草稿、已發布、已停用是公開生命週期，不等同發布工作狀態。 |
+| 狀態 | Revision、Publish Job、Public 與 Delivery 分開呈現，不使用單一 `status`。 |
 
 停用與發布均需確認；已發布 Banner 的修改只形成草稿，不立即改變玩家看到的內容。
 
 ## 6. 多語文案與素材
 
-- 固定支援繁中、簡中、English、日本語；繁中為主要編輯語系，但正式 fallback 待 `TBD-DAT-006`。
+- 固定支援 `zh-TW`、`zh-CN`、`en`、`ja` 並原子發布；fallback 固定為 `zh-CN → zh-TW`、`en → zh-TW`、`ja → en → zh-TW`。
+- 欄位依 `STRICT`、`FALLBACK`、`OPTIONAL_HIDE` 執行；預覽與 Snapshot 保存 requested／resolved locale 與隱藏結果。
 - 每語系包含眉標、標題、簡述與 CTA；長度限制、允許字元及必填由 schema 回傳。
 - 顯示每語系完整度與錯誤數；切換語系不得遺失未儲存草稿。
 - 素材以 `asset_id + asset_version_id` 引用，顯示 MIME、尺寸、裝置用途、掃描與審核狀態。
@@ -83,20 +84,20 @@
 
 ## 7. 單一 Banner 預覽
 
-- 預覽明確標示資料 revision、語系、裝置、生成時間及「非完整官網」；禁止混用公開 snapshot 與未儲存欄位。
+- 預覽由 exact Preview Manifest 固定 Revision、語系解析、裝置、素材 checksum、renderer version 與 validation result；每個組合區塊標示 draft／public 來源。
 - CTA 預覽顯示正規化後目的地；外部連結不得在未驗證狀態直接開啟。
 - 無素材、素材掃描中／失敗、缺翻譯或連結無效時呈現對應阻擋，不以 fallback mock 假裝完成。
-- 預覽 token、草稿洩漏與 CSP 規則依 `TBD-SEC-005`。
+- Preview token 必須短效、可撤銷、具 Provider／Revision／Manifest scope，不進長期 URL，並受獨立認證、Cache-Control、CSP 與 allowlist 保護。
 
 ## 8. 儲存、發布與頁面狀態
 
-儲存草稿需驗證欄位並回傳 revision；發布前重新檢查多語、素材、排程、連結與版本衝突。發布建立非同步 job，成功後才建立不可變事件；重複送出需具 idempotency。
+儲存需以 base revision／ETag 建立新 Revision；發布前重新檢查多語、素材、排程、連結、權限、核准與 expected published revision。Publish、Disable、Restore 都建立非同步 Job；高風險 CTA／素材／外部網域要求不同一人的第二人核准，重複送出以 idempotency key 防止副作用。
 
 頁面支援 loading、empty、validation error、unsaved changes、conflict、preview unavailable、publish queued／running／failed／succeeded、partial source failure、stale 與 Forbidden。原型 notice 不得作為正式成功證據。
 
-## 9. API、權限與稽核草案
+## 9. API、權限與稽核語意
 
-API 能力包含摘要／清單、單筆 draft／published snapshot、驗證、儲存、預覽、發布／停用 job 與發布結果。所有寫入強制 Provider scope、revision concurrency、permission、actor 與 audit；正式 path、schema 及 permission key 依 `TBD-API-006`、`TBD-SEC-001`、`TBD-SEC-005`。
+後端能力包含 Entry／Revision／Snapshot 查詢、Create Revision、Validation、Preview Manifest／Token、Submit／Approve／Reject、Publish／Disable／Restore Job、取消排程、Job timeline 與 allowed actions。所有寫入強制 Provider scope、optimistic concurrency、逐次授權、actor、reason、idempotency 與 append-only audit；正式 path、schema 及 permission key 待實作 Mapping。
 
 ## 10. 響應式、無障礙與驗收
 
@@ -104,11 +105,6 @@ API 能力包含摘要／清單、單筆 draft／published snapshot、驗證、�
 
 驗收條件：草稿與公開版本分離；四語系與素材完整度可見；排程含時區；單一 Banner 預覽不冒充完整官網；失敗不改變公開版本；發布可由 job／audit 追溯。
 
-## 11. 待確認與 Draft 移除條件
+## 11. 已確認基準與實作 Mapping
 
-- `TBD-DOM-005`：官網內容與大廳發布是否保持獨立生命週期。
-- `TBD-DAT-006`：媒體、語系、fallback、欄位限制。
-- `TBD-API-006`、`TBD-SEC-005`：CRUD、預覽、發布與公開內容安全。
-- `TBD-SEC-001`、`TBD-NFR-003`：權限、併發、冪等與 audit。
-
-正式 schema、排程、媒體、預覽、發布 API、權限與失敗／衝突行為核准並通過驗收後，才可改為 Confirmed。
+DP04 已確認官網與大廳獨立、四語與 fallback、exact 素材、Revision／Job／Snapshot、精確預覽、風險通道、併發、冪等、失敗保留舊版、還原與 audit 語意。仍待後端與基礎設施 Mapping 的項目為 API path／schema、slot 與媒體限制、permission key、Scheduler／Queue／CDN／Renderer、保存期限及正式測試證據；完成後才可把章節成熟度改為 Confirmed。

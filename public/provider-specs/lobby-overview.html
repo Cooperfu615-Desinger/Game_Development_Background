@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Provider 自有大廳的玩家狀態、DEMO 摘要、公開準備度與工作入口。">
+    <meta name="description" content="Published Catalog、衍生玩家狀態、Delivery、DEMO 摘要、readiness 與工作入口。">
     <meta name="color-scheme" content="light">
     <title>大廳總覽｜Provider Portal 產品與系統規格書</title>
     <link rel="stylesheet" href="assets/site.css">
@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.20.0-phase-three-pack-04-baseline</span>
+            <span>0.21.0-phase-three-pack-04-source-aligned</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -406,7 +406,7 @@
                     <div>
                         <p class="eyebrow">05.8.4 · 官方網站</p>
                         <h1>大廳總覽</h1>
-                        <p class="page-summary">Provider 自有大廳的玩家狀態、DEMO 摘要、公開準備度與工作入口。</p>
+                        <p class="page-summary">Published Catalog、衍生玩家狀態、Delivery、DEMO 摘要、readiness 與工作入口。</p>
                     </div>
                     <div class="page-status-stack">
                         <span class="status-badge status-draft">草案</span>
@@ -437,7 +437,7 @@
         </nav>
         <div class="visual-scope-notes" aria-label="畫面閱讀邊界">
             <span>閱讀邊界</span>
-            <small>Provider 自有大廳</small><small>DEMO 隔離</small><small>不建立會員／錢包</small><small>GGAP 開關不在本頁</small>
+            <small>Published Catalog</small><small>三層可玩性</small><small>DEMO 隔離</small><small>唯讀營運入口</small>
         </div>
         <div id="lobby-overview-visual-panel" class="visual-overview-panel" data-anatomy-panel>
             <figure class="page-anatomy lifecycle-anatomy publishing-anatomy publishing-anatomy--lobby" aria-label="大廳總覽六區塊畫面示意">
@@ -471,7 +471,7 @@
 </thead>
 <tbody><tr>
 <td>規格成熟度</td>
-<td>Draft — Batch D 完整頁面規格</td>
+<td>Draft — DP04 產品語意已同步；正式實作 Mapping 待補</td>
 </tr>
 <tr>
 <td>製作範圍</td>
@@ -498,14 +498,14 @@
 <p>本模組不是 GGAP 平台大廳。摘要中的玩家、DEMO 額度與工作階段都是隔離展示資料，不建立會員或錢包主資料，也不得進入正式 Game Round、財務或 Provider 風控。</p>
 </blockquote>
 <h2 id="1-目的與責任邊界">1. 目的與責任邊界</h2><ul>
-<li>彙整大廳中已推出、即將開放、維護中的遊戲數量與資料完整度。</li>
+<li>彙整 Published Catalog、玩家顯示結果、DP03 runtime overlay、Delivery 與資料完整度。</li>
 <li>呈現隔離 DEMO 的營運摘要，提供遊戲清單、管理、數據及預覽入口。</li>
-<li>大廳公開狀態只控制玩家是否可啟動 DEMO，不取代 Provider 全域上架狀態。</li>
+<li>本頁只讀取公開結果，不編輯、核准或發布；DP04 內容可見性不取代 DP03 技術可用性或 GGAP Launch Gate。</li>
 <li>GGAP 對代理商是否開放已上架遊戲的控制不在本頁。</li>
 <li>不顯示或建立正式會員、錢包、代理商、商戶、結算或對帳資料。</li>
 </ul>
 <h2 id="2-狀態與資料來源">2. 狀態與資料來源</h2><ul>
-<li>玩家狀態固定 Draft：即將開放、已推出、維護中；遊戲仍顯示，只有「已推出」可啟動 DEMO。</li>
+<li>玩家顯示狀態是衍生結果，不是單一可編輯 enum：Published Catalog 決定是否收錄，DP04 Content 決定 coming soon／playable 語意，DP03 <code>maintenance</code>／<code>suspended</code>／<code>retired</code> 作 runtime safety overlay。</li>
 <li>每張摘要卡由後端聚合完整 Provider scope，不從目前顯示列反算。</li>
 <li>遊戲狀態、公開內容 readiness 與 DEMO telemetry 是不同來源；任何來源失敗以局部降級呈現。</li>
 <li>「目前」與「今日」需顯示資料更新時間及統計時區。</li>
@@ -519,33 +519,28 @@
 <li>資料新鮮度與替代狀態：局部失敗、無資料及權限。</li>
 </ol>
 <h2 id="4-大廳狀態摘要">4. 大廳狀態摘要</h2><ul>
-<li>已推出／即將開放／維護中互斥計數，總和對應目前已納入大廳的遊戲集合。</li>
+<li>摘要至少呈現 playable、coming soon、maintenance／unavailable 與 Delivery 狀態；所有計數皆以目前 Published Catalog 為母體，定義需隨卡片顯示。</li>
 <li>DEMO 活躍顯示統計定義、時間點、更新時間；沒有資料與 0 必須分開。</li>
 <li>點擊狀態卡導向 <code>/lobby/games?status=...</code>；點擊 DEMO 活躍導向 <code>/lobby/demo</code>。</li>
 <li>摘要不顯示 Production 財務、正式會員或 GGAP 代理商數量。</li>
 </ul>
 <h2 id="5-遊戲狀態與-demo-摘要">5. 遊戲狀態與 DEMO 摘要</h2><p>遊戲狀態列顯示穩定 <code>game_id</code>、名稱、類型、公開版本、玩家狀態、readiness 與更新時間；需注意項目優先，再依 <code>game_id</code> 穩定排序。</p>
-<p>DEMO 今日摘要顯示隔離試玩帳號數、DEMO 試玩工作階段、試玩行為與展示額度／投注摘要。<code>demo_session_id</code> 只為展示 telemetry 的技術識別，不是正式業務 Game Session；Production 仍以 Game Round 為唯一主要紀錄單位。原型 USD 只是 mock 顯示，正式單位待契約且不得被解讀為錢包餘額。</p>
+<p>DEMO 今日摘要顯示隔離測試 identity、技術工作階段、試玩事件與 Sandbox credit 流量。<code>demo_session_id</code> 只為 telemetry 技術識別，不是正式業務 Game Session；Production 仍以 Game Round 為唯一主要紀錄單位。原型 USD 改視為 mock，正式 UI 使用 Demo Points／Sandbox credit，絕不解讀為錢包餘額。</p>
 <h2 id="6-工作入口與公開準備度">6. 工作入口與公開準備度</h2><ul>
 <li>資料管理導向 <code>/lobby/management</code>；有遊戲脈絡時必須攜帶精確 <code>game_id</code>。</li>
-<li>完整預覽導向 <code>/lobby/preview?mode=draft</code>，若無權查看草稿則隱藏或禁用並說明。</li>
+<li>完整預覽導向 exact <code>catalog_revision_id</code>／<code>preview_manifest_id</code>；若無權查看草稿則隱藏或禁用並說明，不能退回 latest。</li>
 <li>準備度顯示通過、警告、阻擋與規則版本，不只顯示百分比；原型 <code>82%</code> 不是正式門檻。</li>
 <li>大廳公開資料引用遊戲主資料／數值／素材核准 snapshot，不建立另一套真實來源。</li>
 </ul>
 <h2 id="7-頁面狀態與錯誤處理">7. 頁面狀態與錯誤處理</h2><p>支援 full loading、partial loading、empty lobby、DEMO no data、source delayed、partial source failure、query error、stale 與 Forbidden。局部 DEMO 失敗不阻擋遊戲管理入口；遊戲狀態來源失敗不得沿用過期數字卻不標示。</p>
-<h2 id="8-api-權限與驗收">8. API、權限與驗收</h2><p>API 提供狀態摘要、需注意遊戲、DEMO 摘要、readiness 與 source status。後端強制 Provider scope，DEMO 與 Production 儲存／查詢鏈隔離。正式 path、schema、刷新頻率與 permission 依 <code>TBD-API-006</code>、<code>TBD-DOM-006</code>。</p>
-<p>使用 <code>1500px</code> 寬版；Mobile 依「狀態 → 注意項目 → DEMO → 工作入口」排列。驗收需證明三狀態互斥、DEMO 不進正式報表／風控、百分比不冒充核准結果、每個 deep link 精確且所有局部失敗可辨識。</p>
-<h2 id="9-待確認與-draft-移除條件">9. 待確認與 Draft 移除條件</h2><ul>
-<li><code>TBD-DOM-005</code>、<code>TBD-DOM-006</code>：大廳發布與 DEMO 模型。</li>
-<li><code>TBD-DAT-005</code>、<code>TBD-API-006</code>：指標、更新頻率與 API。</li>
-<li><code>TBD-SEC-001</code>、<code>TBD-NFR-004</code>：scope、權限、響應式與可存取性。</li>
-</ul>
-<p>狀態、DEMO 指標、readiness、API、權限及資料新鮮度核准並通過驗收後，才可改為 Confirmed。</p>
+<h2 id="8-api-權限與驗收">8. API、權限與驗收</h2><p>後端提供 Published Catalog／Game Content 摘要、DP03 overlay、Delivery、需注意遊戲、DEMO 摘要、readiness、generated_at 與 source status。後端強制 Provider scope，DEMO 與 Production 儲存／查詢鏈隔離；正式 path、schema、刷新頻率與 permission key 待實作 Mapping。</p>
+<p>使用 <code>1500px</code> 寬版；Mobile 依「公開結果 → 注意項目 → DEMO → 工作入口」排列。驗收需證明狀態由三層控制正確衍生、未收錄遊戲不被計入、DEMO 不進正式報表／風控、百分比不冒充核准結果、deep link 精確且所有局部失敗可辨識。</p>
+<h2 id="9-已確認基準與實作-mapping">9. 已確認基準與實作 Mapping</h2><p>DP04 已確認 Published Catalog 母體、三層公開控制、衍生玩家狀態、Delivery、精確導流與 DEMO 隔離。仍待 Mapping 的項目為正式摘要／telemetry 公式、API schema、更新頻率、permission key、資料新鮮度與驗收證據；完成後才可改為 Confirmed。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-狀態與資料來源">2. 狀態與資料來源</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-大廳狀態摘要">4. 大廳狀態摘要</a><a class="outline-level-2" href="#5-遊戲狀態與-demo-摘要">5. 遊戲狀態與 DEMO 摘要</a><a class="outline-level-2" href="#6-工作入口與公開準備度">6. 工作入口與公開準備度</a><a class="outline-level-2" href="#7-頁面狀態與錯誤處理">7. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#8-api-權限與驗收">8. API、權限與驗收</a><a class="outline-level-2" href="#9-待確認與-draft-移除條件">9. 待確認與 Draft 移除條件</a></nav>
+        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-狀態與資料來源">2. 狀態與資料來源</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-大廳狀態摘要">4. 大廳狀態摘要</a><a class="outline-level-2" href="#5-遊戲狀態與-demo-摘要">5. 遊戲狀態與 DEMO 摘要</a><a class="outline-level-2" href="#6-工作入口與公開準備度">6. 工作入口與公開準備度</a><a class="outline-level-2" href="#7-頁面狀態與錯誤處理">7. 頁面狀態與錯誤處理</a><a class="outline-level-2" href="#8-api-權限與驗收">8. API、權限與驗收</a><a class="outline-level-2" href="#9-已確認基準與實作-mapping">9. 已確認基準與實作 Mapping</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -556,7 +551,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.20.0-phase-three-pack-04-baseline · 2026-08-20</span>
+                    <span>0.21.0-phase-three-pack-04-source-aligned · 2026-08-20</span>
                 </footer>
             </div>
         </main>

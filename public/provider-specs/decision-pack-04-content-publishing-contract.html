@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.20.0-phase-three-pack-04-baseline</span>
+            <span>0.21.0-phase-three-pack-04-source-aligned</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -1348,14 +1348,14 @@
 <li>八頁責任、替代狀態、deep link、37 個驗收情境與後端接軌方式均可追蹤。</li>
 </ul>
 <p>達成以上條件即視為 DP04 產品需求基準完整。實際 Backend／CDN／權限／GGAP Mapping 是後續工程接軌工作，不重開本包產品決策。</p>
-<h2 id="規格同步與後續實作範圍">規格同步與後續實作範圍</h2><p>本包目前先作為規格網站的上游產品契約。後續依序：</p>
+<h2 id="規格同步與後續實作範圍">規格同步與後續實作範圍</h2><p>本包已回寫 <code>docs/GAME_WEBSITE_SPEC.md</code>、<code>docs/GAME_LOBBY_SPEC.md</code>、八個對應頁面，以及共通領域、資料字典、enum、API、安全、非功能性與 QA 章節。後續依序：</p>
 <ol>
-<li>回寫 <code>docs/GAME_WEBSITE_SPEC.md</code>、<code>docs/GAME_LOBBY_SPEC.md</code> 及八個對應規格網站頁面。</li>
-<li>同步共通領域規則、資料字典、enum、API、安全、非功能性與 QA 章節。</li>
-<li>另開開發 session 對照 Portal 原型，建立正式差異清單後再修改 Vue 與 mock。</li>
+<li>另開開發 session 對照 Portal 原型，先建立 DP04 正式差異清單。</li>
+<li>依差異清單修改 Vue 與 mock，使原型使用相同的 Revision／Job／Snapshot 與三層狀態語意。</li>
+<li>執行 Desktop／390px Mobile、互動、route、替代狀態、type-check 與 build 驗收。</li>
 <li>取得 Backend／GGAP Git 後補實作 Mapping，不靜默改寫本需求基準。</li>
 </ol>
-<p>規格網站、原始 Spec MD 與 Portal 原型必須依上述順序對齊，避免畫面先行產生另一套內容發布生命週期。</p>
+<p>目前規格網站與原始 Spec MD 已對齊；Portal 原型仍維持既有 mock，必須依上述順序接續，避免畫面形成另一套內容發布生命週期。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
@@ -1371,7 +1371,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.20.0-phase-three-pack-04-baseline · 2026-08-20</span>
+                    <span>0.21.0-phase-three-pack-04-source-aligned · 2026-08-20</span>
                 </footer>
             </div>
         </main>

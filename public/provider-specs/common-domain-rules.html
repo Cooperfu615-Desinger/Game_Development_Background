@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.20.0-phase-three-pack-04-baseline</span>
+            <span>0.21.0-phase-three-pack-04-source-aligned</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -500,12 +500,21 @@
 <li><code>Provider Game Round ID</code> 主要顯示為「遊戲商遊戲回合 ID」。</li>
 <li><code>GGAP Round ID</code> 主要顯示為「GGAP 遊戲回合 ID」。</li>
 </ul>
-<h2 id="共用資料狀態">共用資料狀態</h2><p>頁面至少應考慮初次載入、查詢中、空資料、無資料、部分來源失敗、全部來源失敗、權限不足與資料版本衝突。不得沿用舊值冒充最新資料，也不得把無資料視為正常。</p>
+<h2 id="公開內容與大廳契約">公開內容與大廳契約</h2><ul>
+<li>DP04 的六個核心物件為 Content Entry、Content Revision、Published Snapshot、Publish Job、Preview Manifest 與 Publication Event；各自使用穩定 ID，不以名稱、版號或單一 <code>status</code> 混用。</li>
+<li>官網 Banner、官網 Static Content、Lobby Game Content 與 Lobby Catalog 共用發布引擎，但各自擁有獨立 publication scope、Revision、Job、Snapshot、失敗與 Restore 歷程。</li>
+<li>每次成功儲存建立不可變 Revision；編輯、儲存、驗證與預覽都不改變公開內容。只有成功 Job 可以原子切換 Published Snapshot，切換前失敗保留舊 Snapshot。</li>
+<li>第一版固定 <code>zh-TW</code>、<code>zh-CN</code>、<code>en</code>、<code>ja</code> 四語原子發布。欄位只能使用 <code>STRICT</code>、<code>FALLBACK</code> 或 <code>OPTIONAL_HIDE</code>，Snapshot 保存 requested／resolved locale 與 exact Asset Version。</li>
+<li>Lobby 是否可玩同時受 DP03 Provider global availability、DP04 Published Catalog／Game Content 與 GGAP 代理商 Launch Gate 控制；任一層阻擋即不可 Launch。</li>
+<li><code>maintenance</code>、<code>suspended</code>、<code>retired</code> 是 DP03 runtime safety overlay，不寫回 DP04 Content Revision；coming soon／playable 是 DP04 內容語意。</li>
+<li>DEMO telemetry 只提供 readiness／quality evidence，不會自動發布或改寫 Revision，且不進入 Production Game Round、財務、會員、錢包或 Provider 風控。</li>
+</ul>
+<h2 id="共用資料狀態">共用資料狀態</h2><p>頁面至少應考慮初次載入、查詢中、空資料、無資料、部分來源失敗、全部來源失敗、權限不足與資料版本衝突。內容頁另需涵蓋 Revision／Publication Conflict、Approval、Job、Delivery、Manifest／Asset／Dependency 狀態。不得沿用舊值冒充最新資料，也不得把無資料視為正常。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#game-round">Game Round</a><a class="outline-level-2" href="#game-version-artifact-與-release">Game、Version、Artifact 與 Release</a><a class="outline-level-2" href="#launch-與既有-round">Launch 與既有 Round</a><a class="outline-level-2" href="#環境隔離">環境隔離</a><a class="outline-level-2" href="#全域可用性與-ggap-gate">全域可用性與 GGAP Gate</a><a class="outline-level-2" href="#金額與換算">金額與換算</a><a class="outline-level-2" href="#時間">時間</a><a class="outline-level-2" href="#顯示語言">顯示語言</a><a class="outline-level-2" href="#共用資料狀態">共用資料狀態</a></nav>
+        <nav><a class="outline-level-2" href="#game-round">Game Round</a><a class="outline-level-2" href="#game-version-artifact-與-release">Game、Version、Artifact 與 Release</a><a class="outline-level-2" href="#launch-與既有-round">Launch 與既有 Round</a><a class="outline-level-2" href="#環境隔離">環境隔離</a><a class="outline-level-2" href="#全域可用性與-ggap-gate">全域可用性與 GGAP Gate</a><a class="outline-level-2" href="#金額與換算">金額與換算</a><a class="outline-level-2" href="#時間">時間</a><a class="outline-level-2" href="#顯示語言">顯示語言</a><a class="outline-level-2" href="#公開內容與大廳契約">公開內容與大廳契約</a><a class="outline-level-2" href="#共用資料狀態">共用資料狀態</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -516,7 +525,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.20.0-phase-three-pack-04-baseline · 2026-08-20</span>
+                    <span>0.21.0-phase-three-pack-04-source-aligned · 2026-08-20</span>
                 </footer>
             </div>
         </main>

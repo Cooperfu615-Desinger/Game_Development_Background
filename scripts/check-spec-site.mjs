@@ -153,7 +153,7 @@ assert((reconciliationHtml.match(/class="reconciliation-prototype"/g) || []).len
 assert((reconciliationHtml.match(/class="reconciliation-target"/g) || []).length === assessedPages.length, '三層校準缺少目標草案欄')
 
 const dependencyHtml = await readFile(path.join(outputRoot, 'page-dependency-map.html'), 'utf8')
-for (const requiredText of ['Game Round 與財務鏈', '監控與風控鏈', '遊戲生命週期鏈', '官網與遊戲大廳鏈', 'Deferred 外部依賴', 'DEMO 餘額、玩家與 Session']) {
+for (const requiredText of ['Game Round 與財務鏈', '監控與風控鏈', '遊戲生命週期鏈', '官網與遊戲大廳鏈', 'Deferred 外部依賴', 'credit 不代表錢包']) {
     assert(dependencyHtml.includes(requiredText), `第一階段跨頁依賴圖缺少必要內容：${requiredText}`)
 }
 assert((dependencyHtml.match(/class="dependency-chain"/g) || []).length === dependencyChains.length, '跨頁依賴圖業務鏈數量不正確')

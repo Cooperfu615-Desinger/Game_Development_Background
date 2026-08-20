@@ -34,6 +34,18 @@
 - 舊 Round 晚到 Settlement／Callback 時依原 Version、Build、Release 與數值快照處理，不使用目前 Active Version 重算。
 - Test、DEMO、Production 同時存在同一 Game 時，正式紀錄、財務、監控與風控不得混入 Test／DEMO。
 
+## 內容發布契約驗收
+
+- 編輯 local buffer 與建立 Revision 不改變公開頁；每次儲存建立新 Revision，舊版本保持可追溯。
+- Preview Manifest 固定 exact Catalog／Content Revision、區塊 draft／public 來源、四語解析、裝置、Asset checksum 與 DP03 依賴，重新整理不得漂移至 latest。
+- `STRICT` 缺語系阻擋發布；`FALLBACK` 依固定鏈解析並標示來源；`OPTIONAL_HIDE` 只隱藏指定欄位。
+- 立即與排程 Job 都綁定 exact Revision；執行前重驗動態依賴，同 scope 第二筆未完成 Job 被拒絕。
+- 低風險內容可由一位具發布能力者完成；高風險內容需不同一人的核准，證據改變後核准失效。
+- 切換前失敗保留舊 Snapshot；Delivery 失敗顯示補償結果；Retry 與 Restore 都建立新 Job，Restore 另建立新 Revision。
+- Published Catalog 固定 exact Game Content Revision；DP03 maintenance／suspended／retired 以 runtime overlay 影響 CTA，不改寫內容。
+- DEMO identity、credit 與 telemetry 不進 Production Game Round、財務、會員、錢包或 Provider 風控，也不會自動發布內容。
+- Desktop 與 390px Mobile 均需驗證鍵盤焦點、非純色彩狀態、長 ID／繁中錯誤／多語內容及容器內捲動。
+
 ## 規格完成定義
 
 產品需求基準回答「希望具備什麼行為」；實作只有在前端能回答「如何呈現」、後端能回答「如何提供」，且 QA 能回答「如何驗證」時，才可標示為已接軌。

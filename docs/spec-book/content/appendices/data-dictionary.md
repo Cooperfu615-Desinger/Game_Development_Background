@@ -27,6 +27,21 @@
 | `launch_id` | 短效 Launch Context 識別 | 不是 Game Session 或 Round ID |
 | `release_event_id` | 發布／全域狀態外部投遞事件識別 | 用於 outbox、冪等與 GGAP ACK |
 
+## 官網與大廳內容發布識別
+
+| 欄位 | 說明 | 備註 |
+|---|---|---|
+| `content_entry_id` | 可獨立維護與發布的穩定內容主體 | Banner、Static Content、Lobby Game Content 或 Catalog |
+| `revision_id` | 一次完整儲存形成的不可變內容版本 | 不原地覆寫；與 Game Version ID 分開 |
+| `base_revision_id` | 建立新 Revision 時的併發基準 | 或使用等價 ETag |
+| `snapshot_id` | 某 publication scope 目前或歷史的 Published Snapshot | 固定有效語系、素材與依賴解析 |
+| `publish_job_id` | 一次 Publish、Disable 或 Restore 工作 | Retry／Restore 產生新 ID |
+| `preview_manifest_id` | 一次 exact 預覽組合識別 | 不等同短效 Preview token |
+| `publication_event_id` | 發布生命週期 append-only 事件 | 保存執行、失敗與補償證據 |
+| `asset_version_id` | DP03 不可變素材版本 | DP04 不得引用 `latest` |
+| `expected_published_revision_id` | Job 建立／執行時預期的目前公開版本 | 不符時為 Publication Conflict |
+| `idempotency_key` | 防止重送建立重複公開副作用 | scope 與操作類型需納入驗證 |
+
 ## Game Round 金額
 
 | 欄位 | 說明 |

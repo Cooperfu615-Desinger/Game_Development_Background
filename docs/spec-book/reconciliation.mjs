@@ -177,9 +177,9 @@ export const pageReconciliation = {
         '發布按鈕只顯示模擬提示；資料與素材均為前端 mock。',
         '目前沒有真實媒體上傳、排程、版本或發布 API。',
     ], [
-        'Batch D Draft 已定義 Banner／revision、slot、排程、多語文案、素材參照、單筆預覽與發布工作。',
-        '草稿與公開 snapshot 分離，發布失敗保持既有公開版本；外部連結、媒體及預覽安全已有驗收骨架。',
-        '正式 schema、fallback、媒體限制、API、permission、核准及 audit 仍依集中 TBD 管理。',
+        'DP04 已定義 Banner Entry、不可變 Revision、exact 素材、四語原子發布、排程、Validation 與 Preview Manifest。',
+        'Publish／Disable／Restore 使用獨立 Job；低風險走快速通道，高風險需第二人核准，失敗保持舊 Snapshot。',
+        '產品語意已對齊；正式 schema、slot／媒體限制、API、permission、CDN／Renderer 與 audit 待實作 Mapping。',
     ]),
     'website-content': record('attention', [
         'Provider 可管理自身遊戲官網的法務、聯絡及已納入範圍的靜態內容。',
@@ -189,9 +189,9 @@ export const pageReconciliation = {
         '畫面明示正式版本可能改用富文字編輯器，現況不是最終輸入模型。',
         '發布只顯示 mock 提示，未建立多語、版本與 API 資料流。',
     ], [
-        'Batch D Draft 已定義四類內容、四語系 revision、受限富文字、結構化聯絡資訊及區塊獨立發布。',
-        'HTML／連結安全、完整度、預覽、版本衝突與失敗不覆蓋公開內容已有驗收骨架。',
-        '正式內容 schema、fallback、sanitization、API、特殊權限／核准及 audit 仍依集中 TBD 管理。',
+        'DP04 已定義四類 Content Entry、不可變 Revision、四語原子發布、受限富文字與區塊獨立 Snapshot。',
+        '法務／責任遊戲採 STRICT 與不同一人的高風險核准；Preview Manifest、衝突、失敗與 Restore 語意已確立。',
+        '產品語意已對齊；正式 schema、sanitizer／CSP、API、permission、Renderer 與 audit 待實作 Mapping。',
     ]),
     'website-releases': record('attention', [
         'Provider 官網內容發布需留下版本、內容範圍、操作者與時間追溯。',
@@ -201,9 +201,9 @@ export const pageReconciliation = {
         '版本、操作者、發布時間及內容差異皆為前端 mock。',
         '沒有真正發布、取消、回復或不可變快照資料流。',
     ], [
-        'Batch D Draft 已定義官網 release／job、來源與結果 snapshot、狀態、列表、詳情、timeline 及精確來源導流。',
-        '事件不可變、工作／公開狀態分離，回復建立新工作；不擴張為整站打包、全文差異或一鍵回滾。',
-        '正式事件 schema、API、permission、錯誤遮罩、保存及 audit 仍依集中 TBD 管理。',
+        'DP04 已定義 Publish Job、Published Snapshot、Publication Event、四維狀態、timeline、失敗與補償追溯。',
+        '事件不可變；Retry 建立新 Job，Restore 另建立新 Revision／Job，不使用原地一鍵回滾。',
+        '產品語意已對齊；正式事件 schema、API、permission、錯誤遮罩、保存、trace 與 audit 待 Mapping。',
     ]),
     'lobby-overview': record('aligned', [
         '本模組是 Provider 自有遊戲大廳，不是 GGAP 平台大廳或錢包系統。',
@@ -213,9 +213,9 @@ export const pageReconciliation = {
         '摘要數字、狀態與檢查結果皆由前端 mock 提供。',
         '頁面目前是導覽型總覽，沒有正式資料新鮮度或失敗狀態。',
     ], [
-        'Batch D Draft 已定義三狀態摘要、需注意遊戲、DEMO telemetry、readiness、更新時間及精確工作入口。',
-        'DEMO 試玩工作階段不是正式業務 Game Session，且與 Game Round、財務、風控、會員／錢包完全隔離。',
-        '正式狀態／指標、來源、更新頻率、API、scope 與 permission 仍依集中 TBD 管理。',
+        'DP04 已定義 Published Catalog 母體、內容語意、DP03 runtime overlay、GGAP Gate 與 Delivery 的衍生摘要。',
+        '總覽保持唯讀；DEMO 技術工作階段與 Sandbox credit 只屬 telemetry，與正式業務完全隔離。',
+        '產品語意已對齊；正式摘要／telemetry 公式、API、更新頻率、scope 與 permission 待 Mapping。',
     ]),
     'lobby-games': record('aligned', [
         '本頁呈現 Provider 自有大廳中的遊戲清單與公開資料。',
@@ -225,9 +225,9 @@ export const pageReconciliation = {
         '版號、上架時間、RTP、波動度、最高倍率與狀態皆為前端 mock。',
         '目前沒有批次選取、儲存、錯誤或正式 API。',
     ], [
-        'Batch D Draft 已定義摘要、五類查詢、八欄列表、公開 snapshot、readiness 及精確管理／預覽導流。',
-        '列表保持唯讀；大廳玩家狀態不取代 Provider 全域上架，也不取代 GGAP 代理商個別開放。',
-        '正式納入／移除、排序、上游參照、API、scope 與 permission 仍依集中 TBD 管理。',
+        'DP04 已定義清單只讀 Published Catalog，固定 exact Game Content Revision、排序、公開 Snapshot 與 Delivery。',
+        '玩家結果由 DP04 內容、DP03 runtime overlay 與 GGAP Gate 分層衍生；草稿與未收錄 Game 不出現。',
+        '產品語意已對齊；正式列表 API、schema、scope、permission、排序效能與錯誤 transport 待 Mapping。',
     ]),
     'lobby-management': record('attention', [
         'Provider 可管理自身大廳的公開文字、參數、素材與玩家可見狀態。',
@@ -237,9 +237,9 @@ export const pageReconciliation = {
         '四語內容、公開數值、玩家狀態及 5／5 檢查結果均為 mock。',
         '表單可操作但沒有草稿、儲存、發布、衝突或權限資料流。',
     ], [
-        'Batch D Draft 已分開上游唯讀主資料／核准數值與大廳可編輯內容，定義 draft／published revision。',
-        '四語內容、素材／YouTube、三狀態、公開前 blocking、精確草稿預覽、衝突及發布 job 已有驗收骨架。',
-        '正式欄位 schema、fallback、檢查規則、API、permission、核准及 audit 仍依集中 TBD 管理。',
+        'DP04 已分開 Lobby Game Content 與 Lobby Catalog 兩條 Revision／Job／Snapshot 發布流，上游 DP03 維持唯讀。',
+        '四語、exact 素材、三層狀態、Blocking、exact Preview、風險核准、衝突、失敗與 Restore 已確立。',
+        '產品語意已對齊；正式欄位 schema、API、permission、Renderer／CDN、安全與 audit 待 Mapping。',
     ]),
     'lobby-demo': record('attention', [
         'DEMO 是隔離的展示環境，不得混入正式 Game Round、財務或風控模型。',
@@ -249,9 +249,9 @@ export const pageReconciliation = {
         '頁面明示目前用固定規則產生資料；趨勢、玩家、Session 與表現皆為 mock。',
         '匯出按鈕沒有正式檔案流程。',
     ], [
-        'Batch D Draft 已定義 DEMO namespace、identity、試玩工作階段、摘要、趨勢、資料品質、遊戲表現與隔離匯出。',
-        '原型 USD 10,000 不升格為錢包契約；DEMO session 只是 telemetry 分組，不建立正式 Game Session 業務單位。',
-        '正式 credit／指標、去重、retention、API、識別遮罩與 permission 仍依集中 TBD 管理。',
+        'DP04 已確認 DEMO namespace、identity、技術工作階段、Sandbox credit、readiness／quality 與隔離匯出邊界。',
+        'DEMO 不參與內容發布，不建立會員／錢包／正式 Game Session，也不進 Production Round、財務或風控。',
+        '產品邊界已對齊；正式 credit／指標、去重、retention、API、識別遮罩與 permission 待 Mapping。',
     ]),
     'lobby-preview': record('attention', [
         '本頁只預覽 Provider 自有遊戲大廳，不建立正式玩家、會員或錢包能力。',
@@ -261,9 +261,9 @@ export const pageReconciliation = {
         '頁首顯示「DEMO 餘額 USD 10,000.00」，目前只是視覺 mock，不是 Provider 錢包。',
         '預覽資料直接使用前端 mock，沒有草稿／公開版本切換或存取控制。',
     ], [
-        'Batch D Draft 已定義 published／指定 draft revision、四語、雙裝置、分類、三狀態、詳情與修正導流。',
-        '展示 credit 明確不是錢包；不可玩狀態阻擋 Launch，草稿失效不得靜默切換公開版本。',
-        '正式 preview manifest、sandbox launch、token、CSP、cache、API 與 permission 仍依集中 TBD 管理。',
+        'DP04 已定義 exact Preview Manifest、Catalog／Game Content Revision、區塊來源、四語解析、裝置與 DP03 依賴。',
+        'Manifest 不追蹤 latest；不可玩狀態阻擋 Launch，Sandbox credit 不是錢包，草稿失效不切換資料來源。',
+        '產品語意已對齊；正式 Preview API、Renderer、token、CSP、cache、permission 與 Sandbox Launch 待 Mapping。',
     ]),
 }
 

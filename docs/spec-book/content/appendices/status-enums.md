@@ -54,6 +54,46 @@
 | `suspended` | 已暫停 | 立即拒絕 |
 | `retired` | 已退役 | 永久拒絕，歷史保留 |
 
+## Content Revision 狀態
+
+| API 值 | 顯示名稱 | 語意 |
+|---|---|---|
+| `draft` | 草稿 | 已儲存的不可變 Revision，可由更新 Revision 取代 |
+| `ready` | 可發布 | 指定規則版本驗證通過 |
+| `superseded` | 已被新版本取代 | 仍可查詢、比較與追溯 |
+| `archived` | 已封存 | 不作一般發布候選，歷史仍保留 |
+
+## Content Publish Job 狀態
+
+| API 值 | 顯示名稱 | 語意 |
+|---|---|---|
+| `queued` | 已建立 | 等待立即執行或排程確認 |
+| `scheduled` | 已排程 | 綁定 exact Revision 與執行時間 |
+| `running` | 執行中 | Snapshot、傳播、切換或驗證進行中 |
+| `succeeded` | 已成功 | 目標公開狀態已原子切換 |
+| `failed` | 已失敗 | 保存階段、原因與補償結果 |
+| `cancelled` | 已取消 | 不可逆副作用前取消 |
+
+## Content Public 與 Delivery 狀態
+
+| 維度 | API 值 | 顯示名稱 |
+|---|---|---|
+| Public | `unpublished` | 尚未公開 |
+| Public | `published` | 目前有有效 Snapshot |
+| Public | `disabled` | 歷史保留，目前不公開 |
+| Delivery | `propagating` | 公開節點傳播／驗證中 |
+| Delivery | `healthy` | 目標 Snapshot 交付正常 |
+| Delivery | `degraded` | 部分節點／語系／裝置降級 |
+| Delivery | `failed` | 交付驗證失敗，需補償或處理 |
+
+## 內容欄位語系政策
+
+| API 值 | 顯示名稱 | 行為 |
+|---|---|---|
+| `STRICT` | 嚴格完整 | 必要語系缺少即 Blocking |
+| `FALLBACK` | 固定回退 | 依固定鏈解析並保存來源 |
+| `OPTIONAL_HIDE` | 選配隱藏 | 缺少時只隱藏該欄位 |
+
 ## 風控事件狀態
 
 `pending`、`investigating`、`mitigated`、`closed`、`false_positive` 的正式顯示與 Risk Event／Alert 用詞需依各自規格區分。

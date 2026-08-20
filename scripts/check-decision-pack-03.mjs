@@ -31,7 +31,7 @@ const expectedTbd = {
 const failures = []
 let assertionCount = 0
 
-assert(book.version === '0.20.0-phase-three-pack-04-baseline', '規格網站版本必須保留 Decision Pack 03 並包含 Pack 04 基準')
+assert(book.version === '0.21.0-phase-three-pack-04-source-aligned', '規格網站版本必須保留 Decision Pack 03 並包含 Pack 04 Source Alignment')
 assert(book.status === 'Phase 3 · Product Contract Baselines', '規格網站狀態必須維持 Product Contract Baselines')
 assert(Boolean(decisionPack), 'manifest 必須包含 Decision Pack 03')
 assert(decisionPack?.number === 'N', 'Decision Pack 03 必須使用附錄 N')
@@ -136,9 +136,9 @@ assert(openIssues.includes('實作 Mapping'), '集中追蹤頁必須說明 Backe
 assert(documentControl.includes(book.version), '文件治理頁必須同步 Decision Pack 03 版本')
 assert(documentControl.includes('標準快速發布＋高風險發布'), '文件治理頁必須記錄簡化後的雙通道')
 assert(changelog.includes('0.18.0-phase-three-pack-03-source-aligned'), '版本紀錄必須記載 Decision Pack 03 Spec MD 同步')
-assert(projectIndex.includes('文件版本：2.27.0'), '專案交接索引必須同步目前 Decision Pack 文件版本')
+assert(projectIndex.includes('文件版本：2.28.0'), '專案交接索引必須同步目前 Decision Pack 文件版本')
 assert(projectIndex.includes(`${decisionPackId}.html`), '專案交接索引必須提供 Decision Pack 03 入口')
-assert(projectIndex.includes('Decision Pack 02、03 已同步至對應原始 Spec MD'), '專案交接索引必須記錄 Pack 03 Spec MD 已同步')
+assert(projectIndex.includes('Decision Pack 02–04 已同步至對應原始 Spec MD'), '專案交接索引必須記錄 Pack 03 Spec MD 已同步')
 assert(projectIndex.includes('decision-pack-03-implementation-reconciliation.html'), '專案交接索引必須提供 Decision Pack 03 實作差異清單入口')
 
 if (failures.length) {

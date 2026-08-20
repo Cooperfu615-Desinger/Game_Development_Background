@@ -4,7 +4,7 @@
 
 | 項目 | 內容 |
 | --- | --- |
-| 規格成熟度 | Draft — Batch D 完整頁面規格 |
+| 規格成熟度 | Draft — DP04 產品語意已同步；正式實作 Mapping 待補 |
 | 製作範圍 | Active |
 | 對應路由 | `/lobby` |
 | 前端元件 | `src/views/GameLobby/Overview.vue` |
@@ -15,15 +15,15 @@
 
 ## 1. 目的與責任邊界
 
-- 彙整大廳中已推出、即將開放、維護中的遊戲數量與資料完整度。
+- 彙整 Published Catalog、玩家顯示結果、DP03 runtime overlay、Delivery 與資料完整度。
 - 呈現隔離 DEMO 的營運摘要，提供遊戲清單、管理、數據及預覽入口。
-- 大廳公開狀態只控制玩家是否可啟動 DEMO，不取代 Provider 全域上架狀態。
+- 本頁只讀取公開結果，不編輯、核准或發布；DP04 內容可見性不取代 DP03 技術可用性或 GGAP Launch Gate。
 - GGAP 對代理商是否開放已上架遊戲的控制不在本頁。
 - 不顯示或建立正式會員、錢包、代理商、商戶、結算或對帳資料。
 
 ## 2. 狀態與資料來源
 
-- 玩家狀態固定 Draft：即將開放、已推出、維護中；遊戲仍顯示，只有「已推出」可啟動 DEMO。
+- 玩家顯示狀態是衍生結果，不是單一可編輯 enum：Published Catalog 決定是否收錄，DP04 Content 決定 coming soon／playable 語意，DP03 `maintenance`／`suspended`／`retired` 作 runtime safety overlay。
 - 每張摘要卡由後端聚合完整 Provider scope，不從目前顯示列反算。
 - 遊戲狀態、公開內容 readiness 與 DEMO telemetry 是不同來源；任何來源失敗以局部降級呈現。
 - 「目前」與「今日」需顯示資料更新時間及統計時區。
@@ -57,7 +57,7 @@
 
 ## 4. 大廳狀態摘要
 
-- 已推出／即將開放／維護中互斥計數，總和對應目前已納入大廳的遊戲集合。
+- 摘要至少呈現 playable、coming soon、maintenance／unavailable 與 Delivery 狀態；所有計數皆以目前 Published Catalog 為母體，定義需隨卡片顯示。
 - DEMO 活躍顯示統計定義、時間點、更新時間；沒有資料與 0 必須分開。
 - 點擊狀態卡導向 `/lobby/games?status=...`；點擊 DEMO 活躍導向 `/lobby/demo`。
 - 摘要不顯示 Production 財務、正式會員或 GGAP 代理商數量。
@@ -66,12 +66,12 @@
 
 遊戲狀態列顯示穩定 `game_id`、名稱、類型、公開版本、玩家狀態、readiness 與更新時間；需注意項目優先，再依 `game_id` 穩定排序。
 
-DEMO 今日摘要顯示隔離試玩帳號數、DEMO 試玩工作階段、試玩行為與展示額度／投注摘要。`demo_session_id` 只為展示 telemetry 的技術識別，不是正式業務 Game Session；Production 仍以 Game Round 為唯一主要紀錄單位。原型 USD 只是 mock 顯示，正式單位待契約且不得被解讀為錢包餘額。
+DEMO 今日摘要顯示隔離測試 identity、技術工作階段、試玩事件與 Sandbox credit 流量。`demo_session_id` 只為 telemetry 技術識別，不是正式業務 Game Session；Production 仍以 Game Round 為唯一主要紀錄單位。原型 USD 改視為 mock，正式 UI 使用 Demo Points／Sandbox credit，絕不解讀為錢包餘額。
 
 ## 6. 工作入口與公開準備度
 
 - 資料管理導向 `/lobby/management`；有遊戲脈絡時必須攜帶精確 `game_id`。
-- 完整預覽導向 `/lobby/preview?mode=draft`，若無權查看草稿則隱藏或禁用並說明。
+- 完整預覽導向 exact `catalog_revision_id`／`preview_manifest_id`；若無權查看草稿則隱藏或禁用並說明，不能退回 latest。
 - 準備度顯示通過、警告、阻擋與規則版本，不只顯示百分比；原型 `82%` 不是正式門檻。
 - 大廳公開資料引用遊戲主資料／數值／素材核准 snapshot，不建立另一套真實來源。
 
@@ -81,14 +81,10 @@ DEMO 今日摘要顯示隔離試玩帳號數、DEMO 試玩工作階段、試玩�
 
 ## 8. API、權限與驗收
 
-API 提供狀態摘要、需注意遊戲、DEMO 摘要、readiness 與 source status。後端強制 Provider scope，DEMO 與 Production 儲存／查詢鏈隔離。正式 path、schema、刷新頻率與 permission 依 `TBD-API-006`、`TBD-DOM-006`。
+後端提供 Published Catalog／Game Content 摘要、DP03 overlay、Delivery、需注意遊戲、DEMO 摘要、readiness、generated_at 與 source status。後端強制 Provider scope，DEMO 與 Production 儲存／查詢鏈隔離；正式 path、schema、刷新頻率與 permission key 待實作 Mapping。
 
-使用 `1500px` 寬版；Mobile 依「狀態 → 注意項目 → DEMO → 工作入口」排列。驗收需證明三狀態互斥、DEMO 不進正式報表／風控、百分比不冒充核准結果、每個 deep link 精確且所有局部失敗可辨識。
+使用 `1500px` 寬版；Mobile 依「公開結果 → 注意項目 → DEMO → 工作入口」排列。驗收需證明狀態由三層控制正確衍生、未收錄遊戲不被計入、DEMO 不進正式報表／風控、百分比不冒充核准結果、deep link 精確且所有局部失敗可辨識。
 
-## 9. 待確認與 Draft 移除條件
+## 9. 已確認基準與實作 Mapping
 
-- `TBD-DOM-005`、`TBD-DOM-006`：大廳發布與 DEMO 模型。
-- `TBD-DAT-005`、`TBD-API-006`：指標、更新頻率與 API。
-- `TBD-SEC-001`、`TBD-NFR-004`：scope、權限、響應式與可存取性。
-
-狀態、DEMO 指標、readiness、API、權限及資料新鮮度核准並通過驗收後，才可改為 Confirmed。
+DP04 已確認 Published Catalog 母體、三層公開控制、衍生玩家狀態、Delivery、精確導流與 DEMO 隔離。仍待 Mapping 的項目為正式摘要／telemetry 公式、API schema、更新頻率、permission key、資料新鮮度與驗收證據；完成後才可改為 Confirmed。

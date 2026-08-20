@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="公開版本／指定草稿的四語系、雙裝置、三狀態安全大廳預覽。">
+    <meta name="description" content="依 exact Preview Manifest 組合四語、雙裝置、區塊來源與三層狀態的安全大廳預覽。">
     <meta name="color-scheme" content="light">
     <title>大廳預覽｜Provider Portal 產品與系統規格書</title>
     <link rel="stylesheet" href="assets/site.css">
@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.20.0-phase-three-pack-04-baseline</span>
+            <span>0.21.0-phase-three-pack-04-source-aligned</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -406,7 +406,7 @@
                     <div>
                         <p class="eyebrow">05.8.8 · 官方網站</p>
                         <h1>大廳預覽</h1>
-                        <p class="page-summary">公開版本／指定草稿的四語系、雙裝置、三狀態安全大廳預覽。</p>
+                        <p class="page-summary">依 exact Preview Manifest 組合四語、雙裝置、區塊來源與三層狀態的安全大廳預覽。</p>
                     </div>
                     <div class="page-status-stack">
                         <span class="status-badge status-draft">草案</span>
@@ -425,7 +425,7 @@
             <div>
                 <p class="visual-overview-kicker">PAGE ANATOMY · OVERVIEW FIRST</p>
                 <h2 id="page-visual-title">大廳預覽畫面示意</h2>
-                <p>參照現行 /lobby/preview 原型；指定 revision 一致預覽，DEMO 額度不是錢包。</p>
+                <p>參照現行 /lobby/preview 原型；exact Manifest 不追蹤 latest，Sandbox credit 不是錢包。</p>
             </div>
             <button class="visual-toggle" type="button" data-anatomy-toggle aria-expanded="true" aria-controls="lobby-preview-visual-panel">
                 <span data-anatomy-toggle-label>收合畫面示意</span>
@@ -437,7 +437,7 @@
         </nav>
         <div class="visual-scope-notes" aria-label="畫面閱讀邊界">
             <span>閱讀邊界</span>
-            <small>指定 revision</small><small>四語／雙裝置／三狀態</small><small>DEMO sandbox</small><small>草稿權限保護</small>
+            <small>exact Manifest</small><small>draft／public 來源標示</small><small>三層狀態</small><small>短效預覽權限</small>
         </div>
         <div id="lobby-preview-visual-panel" class="visual-overview-panel" data-anatomy-panel>
             <figure class="page-anatomy lifecycle-anatomy publishing-anatomy publishing-anatomy--lobby" aria-label="大廳預覽六區塊畫面示意">
@@ -467,7 +467,7 @@
 </thead>
 <tbody><tr>
 <td>規格成熟度</td>
-<td>Draft — Batch D 完整頁面規格</td>
+<td>Draft — DP04 產品語意已同步；正式 Renderer Mapping 待補</td>
 </tr>
 <tr>
 <td>製作範圍</td>
@@ -494,17 +494,17 @@
 <p>本頁只預覽遊戲大廳，不包含遊戲官網 Banner、法務內容或 GGAP 平台。畫面中的 DEMO identity／額度只是隔離展示脈絡，不是 Provider 錢包或正式會員。</p>
 </blockquote>
 <h2 id="1-目的與責任邊界">1. 目的與責任邊界</h2><ul>
-<li>在發布前後檢查完整大廳的四語系、Desktop／Mobile、分類、遊戲卡與三種 CTA。</li>
-<li>明確切換目前公開版本與指定草稿 revision，不混合兩者。</li>
+<li>在發布前後檢查完整大廳的四語、Desktop／Mobile、Catalog、遊戲卡與三層控制後的 CTA 結果。</li>
+<li>依 exact Preview Manifest 組合指定 Revision 與 Public Snapshot；允許混合來源，但每個區塊必須明確標示 draft／public。</li>
 <li>允許選取單一遊戲查看公開摘要及返回管理頁修正。</li>
 <li>預覽中的「立即試玩」預設為安全模擬；是否可啟動隔離 DEMO 由權限與契約決定。</li>
 <li>不建立公開分享、正式會員登入、錢包、Production Launch 或 GGAP 代理商控制。</li>
 </ul>
 <h2 id="2-預覽來源與安全模型">2. 預覽來源與安全模型</h2><ul>
-<li>公開模式讀取 immutable published revision；草稿模式必須帶 <code>revision</code>，不得默認「最新」造成審閱漂移。</li>
+<li>Preview Manifest 固定 Catalog Revision、每款 Game Content Revision、每區塊來源、語系解析、裝置、exact Asset、DP03 dependency snapshot、renderer version、validation result 與 hash；不得追蹤 latest。</li>
 <li>草稿內容只對有權人員可見，回應與資產需避免公開 cache／搜尋索引。</li>
 <li>外部媒體、YouTube、CTA 與遊戲啟動使用 preview sandbox、CSP、allowlist 及明確離開提示。</li>
-<li>preview token／session 必須短效、Provider scoped、可撤銷；分享能力本批不納入。</li>
+<li>Preview token 必須短效、Provider／Revision／Manifest scoped、可撤銷、不得放入長期 URL；第一版不提供匿名分享。</li>
 </ul>
 <h2 id="3-六區塊資訊架構">3. 六區塊資訊架構</h2><ol>
 <li>預覽控制列：公開／草稿、revision、裝置、語系與更新時間。</li>
@@ -515,35 +515,30 @@
 <li>預覽失效與安全狀態：expired、asset error、forbidden、stale。</li>
 </ol>
 <h2 id="4-預覽控制與來源">4. 預覽控制與來源</h2><ul>
-<li>模式固定為公開版本／編輯草稿；草稿需顯示 revision、owner、更新時間及未發布標示。</li>
+<li>控制列顯示 manifest ID、Catalog／Game Content Revision、每個區塊來源、owner、生成時間及未發布標示。</li>
 <li>裝置切換是 layout preview，不只縮放整張畫面；Desktop／Mobile viewport 由核准 preset 定義。</li>
-<li>語系固定繁中、簡中、English、日本語，顯示缺翻譯、fallback 與 blocking。</li>
-<li>任何 mode／revision／game deep link 都需正規化；無效 query 回到安全預設並說明。</li>
+<li>語系固定 <code>zh-TW</code>、<code>zh-CN</code>、<code>en</code>、<code>ja</code>，依 <code>STRICT</code>／<code>FALLBACK</code>／<code>OPTIONAL_HIDE</code> 顯示解析來源、隱藏結果與 Blocking。</li>
+<li>任何 manifest／mode／revision／game deep link 都需正規化；目標不存在或無權時顯示明確狀態，不可靜默改看 Published 或 latest。</li>
 </ul>
 <h2 id="5-玩家端頁首與遊戲網格">5. 玩家端頁首與遊戲網格</h2><ul>
 <li>頁首顯示 Provider 品牌、DEMO 模式、資料 revision 與非真實資金說明。</li>
-<li>原型 <code>USD 10,000.00</code> 改為正式契約前的展示 credit；若保留 USD，必須明示模擬且不可被 API／匯出解讀為餘額。</li>
+<li>原型 <code>USD 10,000.00</code> 一律視為 mock；正式顯示採 Sandbox credit／Demo Points，明示非真實資金且不可被 API／匯出解讀為餘額。</li>
 <li>分類來自公開 taxonomy；卡片顯示名稱、類型、RTP、素材及 CTA。</li>
-<li>即將開放／維護中的 CTA disabled 且附原因；已推出才允許安全 DEMO action。</li>
-<li>卡片排序與內容必須完全來自所選 revision，禁止部分讀取最新資料。</li>
+<li>coming soon、DP03 maintenance／suspended／retired 與 GGAP gate blocked 的 CTA disabled 且附原因；只有三層條件成立才允許安全 DEMO action。</li>
+<li>卡片排序與內容完全來自 exact Catalog／Game Content Revision，runtime safety overlay 需標示來源，禁止部分讀取最新資料。</li>
 </ul>
 <h2 id="6-詳情-變體與修正導流">6. 詳情、變體與修正導流</h2><p>單筆詳情顯示公開名稱／說明、玩法、RTP、波動度、最高倍率、素材、影片及玩家狀態。每個來源可追溯到 lobby、math、asset revision；關閉後焦點回到原卡片。</p>
-<p>變體檢查顯示四語系 × 兩裝置 × 三狀態的結果與問題數，並可導向 <code>/lobby/management?gameId=...&amp;revision=...</code>。預覽不直接修改內容。</p>
+<p>變體檢查顯示四語 × 兩裝置 × DP03／DP04／GGAP 狀態矩陣的結果與問題數，並以 exact IDs 導回來源管理頁。預覽不直接編輯、核准、發布或切換 Snapshot。</p>
 <h2 id="7-頁面狀態與安全處理">7. 頁面狀態與安全處理</h2><p>支援 loading、empty lobby、revision missing／expired、asset unavailable、translation fallback、preview service error、DEMO launch blocked、stale 與 Forbidden。草稿失效後不得靜默切到公開版；需由使用者明確選擇。</p>
-<h2 id="8-api-權限-無障礙與驗收">8. API、權限、無障礙與驗收</h2><p>API 提供 preview manifest、revision snapshot、分類、遊戲詳情及可選的 sandbox launch token。公開與草稿 preview 使用不同 cache／authorization；草稿、素材及 token 不得洩漏。</p>
+<h2 id="8-api-權限-無障礙與驗收">8. API、權限、無障礙與驗收</h2><p>後端提供 Create／Query Preview Manifest、短效 token、exact Revision／Snapshot、分類、遊戲詳情及可選 Sandbox launch token。公開與草稿來源使用適當 cache／authorization；草稿、素材及 token 不得洩漏。正式 path、schema、Renderer 與 permission key 待 Mapping。</p>
 <p>使用 <code>1500px</code> 寬版；Portal Mobile 上的預覽控制仍可操作，內嵌 Desktop 畫布可在容器內縮放／捲動但頁面本身不得溢出。遊戲卡、disabled CTA、modal 焦點與色彩對比需可存取。</p>
-<p>驗收需證明指定 revision 一致、四語／雙裝置／三狀態可切換、草稿受權限保護、展示 credit 不成為錢包、不可玩狀態無 Launch、錯誤不切換資料來源。</p>
-<h2 id="9-待確認與-draft-移除條件">9. 待確認與 Draft 移除條件</h2><ul>
-<li><code>TBD-DOM-005</code>、<code>TBD-DOM-006</code>：大廳 revision、DEMO launch 與展示 credit。</li>
-<li><code>TBD-DAT-006</code>：語系、素材、fallback 與裝置策略。</li>
-<li><code>TBD-API-006</code>、<code>TBD-SEC-005</code>：preview manifest、token、CSP 與草稿安全。</li>
-</ul>
-<p>正式 preview revision、語系／裝置、DEMO sandbox、API、權限及安全規則核准後，才可改為 Confirmed。</p>
+<p>驗收需證明 exact Manifest 不漂移、混合來源清楚、四語／雙裝置／三層狀態可檢查、草稿受權限保護、展示 credit 不成為錢包、不可玩狀態無 Launch、錯誤不切換資料來源。</p>
+<h2 id="9-已確認基準與實作-mapping">9. 已確認基準與實作 Mapping</h2><p>DP04 已確認 exact Preview Manifest、區塊來源標示、四語解析、素材版本、裝置、三層狀態、短效 token、CSP 與 Sandbox 邊界。仍待 Mapping 的項目為正式 Preview API、Manifest schema、Renderer version、token transport、permission key、CDN／Cache 及瀏覽器驗收證據；完成後才可改為 Confirmed。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
         <p>本頁目錄</p>
-        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-預覽來源與安全模型">2. 預覽來源與安全模型</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-預覽控制與來源">4. 預覽控制與來源</a><a class="outline-level-2" href="#5-玩家端頁首與遊戲網格">5. 玩家端頁首與遊戲網格</a><a class="outline-level-2" href="#6-詳情-變體與修正導流">6. 詳情、變體與修正導流</a><a class="outline-level-2" href="#7-頁面狀態與安全處理">7. 頁面狀態與安全處理</a><a class="outline-level-2" href="#8-api-權限-無障礙與驗收">8. API、權限、無障礙與驗收</a><a class="outline-level-2" href="#9-待確認與-draft-移除條件">9. 待確認與 Draft 移除條件</a></nav>
+        <nav><a class="outline-level-2" href="#章節狀態">章節狀態</a><a class="outline-level-2" href="#1-目的與責任邊界">1. 目的與責任邊界</a><a class="outline-level-2" href="#2-預覽來源與安全模型">2. 預覽來源與安全模型</a><a class="outline-level-2" href="#3-六區塊資訊架構">3. 六區塊資訊架構</a><a class="outline-level-2" href="#4-預覽控制與來源">4. 預覽控制與來源</a><a class="outline-level-2" href="#5-玩家端頁首與遊戲網格">5. 玩家端頁首與遊戲網格</a><a class="outline-level-2" href="#6-詳情-變體與修正導流">6. 詳情、變體與修正導流</a><a class="outline-level-2" href="#7-頁面狀態與安全處理">7. 頁面狀態與安全處理</a><a class="outline-level-2" href="#8-api-權限-無障礙與驗收">8. API、權限、無障礙與驗收</a><a class="outline-level-2" href="#9-已確認基準與實作-mapping">9. 已確認基準與實作 Mapping</a></nav>
         <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
     </aside>
                 </div>
@@ -554,7 +549,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.20.0-phase-three-pack-04-baseline · 2026-08-20</span>
+                    <span>0.21.0-phase-three-pack-04-source-aligned · 2026-08-20</span>
                 </footer>
             </div>
         </main>

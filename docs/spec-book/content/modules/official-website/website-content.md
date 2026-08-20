@@ -4,7 +4,7 @@
 
 | 項目 | 內容 |
 | --- | --- |
-| 規格成熟度 | Draft — Batch D 完整頁面規格 |
+| 規格成熟度 | Draft — DP04 產品語意已同步；正式實作 Mapping 待補 |
 | 製作範圍 | Active |
 | 對應路由 | `/website/content` |
 | 前端元件 | `src/views/GameWebsite/Content.vue` |
@@ -19,11 +19,11 @@
 - 每類內容分開保存草稿與公開版本，支援繁中、簡中、English、日本語。
 - 條款／政策／負責任遊戲使用受限富文字 schema；聯絡資訊使用結構化欄位。
 - Provider 只管理自有官網，不處理 GGAP、代理商、商戶或會員主資料。
-- 發布前必須完成內容驗證與安全清理；正式法律審核角色仍待確認。
+- 發布前必須完成內容驗證與安全清理；條款、隱私權與負責任遊戲走高風險通道，要求不同一人的第二人核准。
 
 ## 2. 內容單位與版本
 
-`content_key` 固定為 `terms`、`privacy`、`responsible`、`contact`。每個 key 具有穩定 ID、draft revision、published revision、四語系 snapshot、更新者／時間及發布狀態。不同 key 獨立發布，不以整個官網打包；是否共用版本序列待 `TBD-DOM-005`。
+`content_key` 固定為 `terms`、`privacy`、`responsible`、`contact`。每個 key 對應穩定 Content Entry，每次儲存建立不可變 Revision，公開事實由 Published Snapshot 表示。不同 key 各有 publication scope、Revision、Job、Snapshot 與歷程，不以整個官網打包，也不共用可變版本序列。
 
 ## 3. 六區塊資訊架構
 
@@ -46,7 +46,7 @@
       <a class="anatomy-zone lifecycle-anatomy__states" href="#7-儲存-發布與頁面狀態" aria-label="前往第六區，儲存發布與替代狀態"><span class="anatomy-zone__number">06</span><strong>儲存與發布</strong><i>未儲存</i><i>驗證失敗</i><i>版本衝突</i><i>發布工作</i><i>Forbidden</i></a>
     </div>
   </div>
-  <div class="page-anatomy__legend"><span><i></i>內容區塊獨立發布</span><span><i></i>受限富文字</span><small>參照現行 `/website/content` 原型；正式清理與法律審核尚待核准。</small></div>
+  <div class="page-anatomy__legend"><span><i></i>內容區塊獨立發布</span><span><i></i>受限富文字</span><small>參照現行 `/website/content` 原型；高風險第二人核准已定義，正式角色與 permission key 待 Mapping。</small></div>
 </figure>
 <!-- PAGE_VISUAL_END -->
 
@@ -58,7 +58,7 @@
 
 ## 5. 語系、版本與編輯器
 
-- 語系切換顯示各自完整度；不得用繁中內容靜默覆蓋缺少的語系。
+- 語系切換顯示各自完整度；第一版四語原子發布。法務／責任遊戲使用 `STRICT`，一般欄位只可依固定 `FALLBACK` 或 `OPTIONAL_HIDE` 政策處理，不得靜默替換。
 - 編輯器顯示 draft revision、published revision、更新者、更新時間及 unsaved 狀態。
 - 受限富文字只允許核准的標題、段落、粗／斜體、條列與安全連結；禁止 script、inline event、iframe、任意 style 與未核准 embed。
 - 聯絡資訊欄位包含客服 Email、服務時間、地址與回覆說明；Email 與時間格式需驗證。
@@ -66,18 +66,18 @@
 
 ## 6. 發布前檢查與預覽
 
-檢查至少包含：必要語系、必填欄位、長度、富文字 schema、URL allowlist、HTML sanitation、聯絡格式、版本衝突及變更摘要。預覽必須標示內容 key、語系、revision 與非公開狀態；沒有完整官網預覽時，不得以單一編輯器畫面宣稱最終前台成果。
+檢查至少包含：必要語系、必填欄位、長度、富文字 schema、URL allowlist、HTML sanitation、聯絡格式、素材、base／expected revision、權限、核准與風險分類。精確預覽由 Preview Manifest 固定 Revision、四語解析、區塊來源、素材、renderer、validation 與 hash；不得靜默切換 latest。
 
 ## 7. 儲存、發布與頁面狀態
 
 - 儲存草稿回傳新 revision；切換內容、語系或離頁前處理 unsaved changes。
-- 發布只針對目前 `content_key` 的核准 snapshot；成功後建立不可變發布事件。
+- Publish／Disable／Restore 只針對目前 `content_key` 的 exact Revision；成功後切換 Published Snapshot 並建立不可變事件。
 - 若 published revision 已變更，回傳 conflict 並要求比較／重新整理，不可覆蓋他人內容。
 - 支援 loading、empty、validation error、sanitization rejected、conflict、preview error、publish queued／failed／succeeded、stale、Forbidden。
 
-## 8. API、權限與稽核草案
+## 8. API、權限與稽核語意
 
-API 提供摘要、內容 key 列表、draft／published snapshot、驗證、儲存、預覽及發布 job。條款、隱私權與負責任遊戲可要求較高 permission 或核准；每次儲存／發布記錄 before／after revision、actor、理由、時間與結果。正式契約依 `TBD-API-006`、`TBD-SEC-005`。
+後端提供 Entry／Revision／Snapshot、驗證、Create Revision、Preview Manifest／Token、Submit／Approve／Reject、Publish／Disable／Restore Job、timeline 與 allowed actions。法務類必須經不同一人的核准；每次儲存、預覽、核准、發布與失敗記錄 exact reference、actor、理由、結果與 trace。正式 path、schema、角色及 permission key 待實作 Mapping。
 
 ## 9. 響應式、無障礙與驗收
 
@@ -85,11 +85,6 @@ API 提供摘要、內容 key 列表、draft／published snapshot、驗證、儲
 
 驗收條件：四類內容與四語系可追溯；聯絡資訊結構化；草稿不直接公開；非法 HTML／連結可被阻擋；衝突不覆蓋內容；發布事件可追溯且失敗保持既有公開版本。
 
-## 10. 待確認與 Draft 移除條件
+## 10. 已確認基準與實作 Mapping
 
-- `TBD-DOM-005`、`TBD-DAT-006`：內容發布、語系、fallback 與 schema。
-- `TBD-API-006`：內容 CRUD、驗證、預覽及發布 API。
-- `TBD-SEC-005`：XSS、連結、CSP、預覽與草稿安全。
-- `TBD-SEC-001`、`TBD-SEC-003`：權限及特殊內容核准。
-
-正式內容 schema、fallback、富文字安全、版本／發布、API、權限與核准規則完成後，才可改為 Confirmed。
+DP04 已確認內容獨立發布、四語原子性、欄位語系政策、受限富文字安全、精確預覽、高風險核准、Revision／Job／Snapshot、衝突、失敗與還原。仍待 Mapping 的項目為正式內容 schema、sanitizer／CSP 實作、API path、角色與 permission key、Renderer／CDN、保存及驗收證據；完成後才可改為 Confirmed。

@@ -1,8 +1,8 @@
 export const book = {
     title: 'Provider Portal 產品與系統規格書',
     shortTitle: 'Provider Portal Specs',
-    version: '0.19.0-phase-three-pack-03-reconciled',
-    updatedAt: '2026-08-18',
+    version: '0.20.0-phase-three-pack-04-baseline',
+    updatedAt: '2026-08-20',
     owner: 'Provider Portal Product / Engineering',
     status: 'Phase 3 · Product Contract Baselines',
     description: '供產品、前端、後端、QA 與 GGAP 對接團隊共同使用的 Provider Portal 規格入口。',
@@ -413,6 +413,7 @@ export const appendices = [
     { ...section('decision-pack-02-monitoring-risk', 'M', 'Decision Pack 02｜監控與風控共用產品契約', 'Signal、Detection Result、Risk Event、Alert、緩解、隔離、GGAP 通知與稽核的目前需求基準。', 'content/appendices/decision-pack-02-monitoring-risk.md'), status: 'confirmed' },
     { ...section('decision-pack-03-game-release-lifecycle', 'N', 'Decision Pack 03｜遊戲版本與發布生命週期', 'Game、Version、Artifact、環境晉級、快速／高風險發布、全域可用性、回滾與既有 Round 相容的目前需求基準。', 'content/appendices/decision-pack-03-game-release-lifecycle.md'), status: 'confirmed' },
     { ...section('decision-pack-03-implementation-reconciliation', 'O', 'Decision Pack 03｜原型實作差異清單', '逐項對照 DP03 需求基準、目前 Portal 原型、mock 限制、Provider Backend 與 GGAP 待接軌內容。', 'content/appendices/decision-pack-03-implementation-reconciliation.md'), status: 'confirmed' },
+    { ...section('decision-pack-04-content-publishing-contract', 'P', 'Decision Pack 04｜官網與大廳內容發布契約', '官網與大廳的 Revision、四語內容、精確預覽、獨立發布流、核准、停用、還原與公開追溯需求基準。', 'content/appendices/decision-pack-04-content-publishing-contract.md'), status: 'confirmed' },
 ]
 
 function page(id, title, route, component, prototype, sources, overrides = {}) {

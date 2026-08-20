@@ -21,7 +21,8 @@
     "spec:decision-pack-03-check": "npm run spec:build && node scripts/check-decision-pack-03.mjs",
     "spec:decision-pack-03-source-check": "node scripts/check-decision-pack-03-source-specs.mjs",
     "spec:decision-pack-03-reconciliation-check": "npm run spec:build && node scripts/check-decision-pack-03-reconciliation.mjs",
-    "spec:seal-check": "npm run spec:batch-d-check && node scripts/check-phase-two-seal.mjs && node scripts/check-decision-pack-01.mjs && node scripts/check-decision-pack-02.mjs && node scripts/check-decision-pack-02-source-specs.mjs && node scripts/check-decision-pack-03.mjs && node scripts/check-decision-pack-03-source-specs.mjs && node scripts/check-decision-pack-03-reconciliation.mjs",
+    "spec:decision-pack-04-check": "npm run spec:build && node scripts/check-decision-pack-04.mjs",
+    "spec:seal-check": "npm run spec:batch-d-check && node scripts/check-phase-two-seal.mjs && node scripts/check-decision-pack-01.mjs && node scripts/check-decision-pack-02.mjs && node scripts/check-decision-pack-02-source-specs.mjs && node scripts/check-decision-pack-03.mjs && node scripts/check-decision-pack-03-source-specs.mjs && node scripts/check-decision-pack-03-reconciliation.mjs && node scripts/check-decision-pack-04.mjs",
     "spec:seal": "npm run spec:seal-check && npm run type-check && npm run build",
     "type-check": "vue-tsc --noEmit",
     "preview": "vite preview"

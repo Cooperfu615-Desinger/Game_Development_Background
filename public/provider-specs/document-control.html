@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.19.0-phase-three-pack-03-reconciled</span>
+            <span>0.20.0-phase-three-pack-04-baseline</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -36,7 +36,7 @@
         <aside class="sidebar" id="spec-navigation" data-sidebar>
             <div class="sidebar-intro">
                 <span class="sidebar-kicker">SPECIFICATION MANUAL</span>
-                <p>2026-08-18 更新</p>
+                <p>2026-08-20 更新</p>
             </div>
             <nav aria-label="規格書章節">
 
@@ -384,6 +384,10 @@
                         <i class="status-dot status-confirmed" aria-hidden="true"></i>
                         <span>Decision Pack 03｜原型實作差異清單</span>
 
+                    </a><a href="decision-pack-04-content-publishing-contract.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>Decision Pack 04｜官網與大廳內容發布契約</span>
+
                     </a>
             </div>
         </details>
@@ -442,7 +446,7 @@
 </tr>
 <tr>
 <td>目前版本</td>
-<td><code>0.19.0-phase-three-pack-03-reconciled</code></td>
+<td><code>0.20.0-phase-three-pack-04-baseline</code></td>
 </tr>
 <tr>
 <td>目前狀態</td>
@@ -555,6 +559,7 @@
 <p>第三階段附錄 M《Decision Pack 02｜監控與風控共用產品契約》採用「目前需求基準」定位，不再以替代方案或逐題核准問卷表達。它直接定義 Signal → Detection Result → Risk Event → Alert → Mitigation Job → Recovery 的完整產品閉環，以及規則版本、事件／告警生命週期、隔離、GGAP 通知、可靠性與稽核要求。現行三個頁面仍是前端 mock；API path、實際門檻、permission key、資料表與 GGAP payload 屬外部驗證點，取得證據後以版本差異更新，不降低目前功能需求的完整度。</p>
 <p>第三階段附錄 N《Decision Pack 03｜遊戲版本與發布生命週期》採用「目前需求基準」定位，直接定義 Game、Version、Artifact、Release、Test／DEMO／Production 晉級、標準快速發布＋高風險發布、Provider 全域可用性、GGAP 代理商開關邊界、回滾與既有 Game Round 相容。日常發布以自動檢查與單一發布管理者加速，數值、金額、契約、資料結構及安全變更才要求第二人核准；內容已回寫 Portal、遊戲列表、GGAP 契約、六個遊戲管理頁與共用資料／API／安全／QA 規格。Backend Git 只用於後續實作 Mapping，不阻擋本產品需求成立。</p>
 <p>第三階段附錄 O《Decision Pack 03｜原型實作差異清單》已完成需求、原型與正式交付的逐項對照。Portal 的生命週期畫面與 mock 互動列為 <code>ALIGNED_PROTOTYPE</code>／<code>MOCK_ONLY</code>；資料持久化、CI/CD、權限與稽核列為 <code>BACKEND_PENDING</code>；GGAP 事件、ACK 與 Launch Gate 列為 <code>GGAP_PENDING</code>。這些分類不得互相替代，也不得因原型可操作而宣告正式功能完成。</p>
+<p>第三階段附錄 P《Decision Pack 04｜官網與大廳內容發布契約》採用「目前需求基準」定位，直接定義 Content Entry、Revision、Published Snapshot、Publish Job、Preview Manifest、Publication Event，以及官網 Banner、官網內容、大廳單款遊戲內容與 Lobby Catalog 四條獨立發布流。四語系、不可變素材版本、精確預覽、一般快速／高風險第二人核准、排程、停用、還原、失敗保留舊版與 37 個跨頁驗收情境均已成立；實際 API、資料表、CDN、Scheduler、permission 與 GGAP Launch Mapping 待取得證據後補，不阻擋本產品契約成立。</p>
 
                     </article>
                     <aside class="page-outline" aria-label="本頁目錄">
@@ -570,7 +575,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.19.0-phase-three-pack-03-reconciled · 2026-08-18</span>
+                    <span>0.20.0-phase-three-pack-04-baseline · 2026-08-20</span>
                 </footer>
             </div>
         </main>

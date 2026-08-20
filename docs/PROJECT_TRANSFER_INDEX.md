@@ -1,8 +1,8 @@
 # 遊戲商 Provider Portal 文件索引
 
-> 文件版本：2.26.0
-> 更新日期：2026-08-18
-> 文件狀態：規格網站已進入第三階段；Decision Pack 01、02、03 均已形成目前需求基準；Decision Pack 02、03 已同步至對應原始 Spec MD；Pack 03 Portal 原型與正式差異清單已完成，Backend／GGAP Git 只作後續 Mapping
+> 文件版本：2.27.0
+> 更新日期：2026-08-20
+> 文件狀態：規格網站已進入第三階段；Decision Pack 01–04 均已形成目前需求基準；Decision Pack 02、03 已同步至對應原始 Spec MD，Decision Pack 04 的原始 Spec MD 與 Portal 原型尚待後續依序同步
 
 ## 閱讀前提
 
@@ -61,6 +61,10 @@
 - [`../public/provider-specs/decision-pack-03-implementation-reconciliation.html`](../public/provider-specs/decision-pack-03-implementation-reconciliation.html)
   - 逐項對照 DP03 需求基準、目前原型、mock-only 限制、Provider Backend／CI/CD 待辦、GGAP 待接軌內容與正式上線阻擋條件。
   - 原型可操作不等於正式副作用完成；後續取得 Backend／GGAP Git 時，依清單更新 Mapping 結果，不回頭用現況覆蓋產品需求。
+- [`../public/provider-specs/decision-pack-04-content-publishing-contract.html`](../public/provider-specs/decision-pack-04-content-publishing-contract.html)
+  - 第三階段官網與大廳內容發布共用產品契約，定義 Content Entry、Revision、Published Snapshot、Publish Job、精確預覽、四語系／素材 Fallback、四條獨立發布流、核准、停用、還原與公開追溯。
+  - 本包是目前需求基準，不等待 Backend Git 才成立；API、資料表、CDN、Scheduler、permission 與 GGAP Launch Mapping 於取得證據後補。
+  - 目前只完成規格網站上游契約；`GAME_WEBSITE_SPEC.md`、`GAME_LOBBY_SPEC.md`、八個頁面規格與 Portal Vue 原型尚未依 DP04 回寫或修改。
 - [`../public/provider-specs/game-round-records.html`](../public/provider-specs/game-round-records.html)、[`../public/provider-specs/finance-overview.html`](../public/provider-specs/finance-overview.html)、[`../public/provider-specs/finance-agent-games.html`](../public/provider-specs/finance-agent-games.html)
   - 第二階段 Batch A 完整 Draft：Game Round 查詢、全域財務摘要及代理商 × 遊戲彙總。
   - 三頁均提供原型對齊的置頂畫面示意、完整規格、跨頁導流、驗收與集中 TBD 對照。

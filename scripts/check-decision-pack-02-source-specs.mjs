@@ -120,7 +120,7 @@ for (const text of ['Monitoring Signal', 'Detection Result', 'Risk Event', 'Aler
     assert(pack.includes(text), `Decision Pack 02 上游缺少 ${text}`)
 }
 
-assert(projectIndex.includes('文件版本：2.26.0'), '專案交接索引必須同步 Decision Pack 03 實作差異版本')
+assert(projectIndex.includes('文件版本：2.27.0'), '專案交接索引必須同步目前 Decision Pack 文件版本')
 assert(projectIndex.includes('Decision Pack 02、03 已同步至對應原始 Spec MD'), '專案交接索引必須記錄 Decision Pack 02／03 Spec MD 同步狀態')
 
 if (failures.length) {

@@ -9,7 +9,7 @@
 | 文件名稱 | Provider Portal 產品與系統規格書 |
 | 適用產品 | GGAP Provider Portal |
 | 主要讀者 | 產品、前端、後端、QA、GGAP 對接團隊 |
-| 目前版本 | `0.19.0-phase-three-pack-03-reconciled` |
+| 目前版本 | `0.20.0-phase-three-pack-04-baseline` |
 | 目前狀態 | Phase 3 · Product Contract Baselines |
 | 主要語言 | 台灣繁體中文；技術值與協定名稱保留英文 |
 
@@ -89,3 +89,5 @@
 第三階段附錄 N《Decision Pack 03｜遊戲版本與發布生命週期》採用「目前需求基準」定位，直接定義 Game、Version、Artifact、Release、Test／DEMO／Production 晉級、標準快速發布＋高風險發布、Provider 全域可用性、GGAP 代理商開關邊界、回滾與既有 Game Round 相容。日常發布以自動檢查與單一發布管理者加速，數值、金額、契約、資料結構及安全變更才要求第二人核准；內容已回寫 Portal、遊戲列表、GGAP 契約、六個遊戲管理頁與共用資料／API／安全／QA 規格。Backend Git 只用於後續實作 Mapping，不阻擋本產品需求成立。
 
 第三階段附錄 O《Decision Pack 03｜原型實作差異清單》已完成需求、原型與正式交付的逐項對照。Portal 的生命週期畫面與 mock 互動列為 `ALIGNED_PROTOTYPE`／`MOCK_ONLY`；資料持久化、CI/CD、權限與稽核列為 `BACKEND_PENDING`；GGAP 事件、ACK 與 Launch Gate 列為 `GGAP_PENDING`。這些分類不得互相替代，也不得因原型可操作而宣告正式功能完成。
+
+第三階段附錄 P《Decision Pack 04｜官網與大廳內容發布契約》採用「目前需求基準」定位，直接定義 Content Entry、Revision、Published Snapshot、Publish Job、Preview Manifest、Publication Event，以及官網 Banner、官網內容、大廳單款遊戲內容與 Lobby Catalog 四條獨立發布流。四語系、不可變素材版本、精確預覽、一般快速／高風險第二人核准、排程、停用、還原、失敗保留舊版與 37 個跨頁驗收情境均已成立；實際 API、資料表、CDN、Scheduler、permission 與 GGAP Launch Mapping 待取得證據後補，不阻擋本產品契約成立。

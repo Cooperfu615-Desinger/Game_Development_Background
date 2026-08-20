@@ -27,7 +27,7 @@
         </button>
         <div class="topbar-meta">
             <strong class="spec-context-label">SPEC</strong>
-            <span>0.19.0-phase-three-pack-03-reconciled</span>
+            <span>0.20.0-phase-three-pack-04-baseline</span>
             <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
         </div>
     </header>
@@ -36,7 +36,7 @@
         <aside class="sidebar" id="spec-navigation" data-sidebar>
             <div class="sidebar-intro">
                 <span class="sidebar-kicker">SPECIFICATION MANUAL</span>
-                <p>2026-08-18 更新</p>
+                <p>2026-08-20 更新</p>
             </div>
             <nav aria-label="規格書章節">
 
@@ -384,6 +384,10 @@
                         <i class="status-dot status-confirmed" aria-hidden="true"></i>
                         <span>Decision Pack 03｜原型實作差異清單</span>
 
+                    </a><a href="decision-pack-04-content-publishing-contract.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>Decision Pack 04｜官網與大廳內容發布契約</span>
+
                     </a>
             </div>
         </details>
@@ -462,6 +466,8 @@
 <li><a href="decision-pack-03-game-release-lifecycle.html"><code>DP-03｜遊戲版本與發布生命週期</code></a> 直接記錄 Game、Version、Artifact、Release、三環境晉級、快速／高風險發布、全域可用性、回滾與既有 Game Round 相容。</li>
 <li>DP-03 是產品需求基準；現有資料表、CI/CD、Launch Token、GGAP 遊戲開關、permission 與 audit 只作後續實作 Mapping，不是規格成立的前置條件。</li>
 <li><a href="decision-pack-03-implementation-reconciliation.html"><code>DP-03｜原型實作差異清單</code></a> 分開標示已對齊原型、mock-only、Provider Backend、GGAP 與非本輪範圍，並集中保存正式上線阻擋條件。</li>
+<li><a href="decision-pack-04-content-publishing-contract.html"><code>DP-04｜官網與大廳內容發布契約</code></a> 直接記錄 Content Entry、Revision、Published Snapshot、Publish Job、四語系／素材 Fallback、精確預覽、四條獨立發布流、核准、停用、還原與公開追溯。</li>
+<li>DP-04 是產品需求基準；實際 API、資料表、Queue、Scheduler、CDN、permission key 與 GGAP Launch Mapping 屬後續實作對照，不是內容發布契約成立的前置條件。</li>
 <li>取得責任方或後端證據後，以版本紀錄更新規格與剩餘限制，不直接刪除原始問題或靜默覆蓋需求。集中 TBD 的 Partial／Definition／External 狀態代表技術契約仍待對照，不把已成立的產品需求降回審閱問卷。</li>
 </ul>
 <h2 id="六類-tbd-登錄">六類 TBD 登錄</h2><h3 id="01-domain-產品領域與生命週期">01 Domain｜產品領域與生命週期</h3><section class="tbd-card-list tbd-category-domain" aria-label="產品領域與生命週期 TBD">
@@ -522,10 +528,10 @@
 <div><span>Domain</span><code>TBD-DOM-005</code><h4>官網與大廳發布模型</h4></div>
 <div class="tbd-card__state"><b class="tbd-priority tbd-priority-p1">P1</b><span class="tbd-status tbd-status-definition">待定義</span></div>
 </header>
-<p class="tbd-card__question">確認官網內容、大廳公開內容、遊戲全域上架、草稿／公開版本、預覽及回復是獨立還是關聯生命週期。</p>
+<p class="tbd-card__question">產品語意已由 DP04 定義；待將現有 Content Entry、Revision、Published Snapshot、Publish Job、Preview Manifest 與四條獨立發布流映射至實際 Backend。</p>
 <div class="tbd-card__meta">
 <div><strong>責任方</strong><p class="tbd-chip-list"><span>Product</span><span>Content Operations</span><span>Frontend</span><span>Backend</span></p></div>
-<div><strong>需要時間</strong><p>Batch D 開始前</p></div>
+<div><strong>需要時間</strong><p>正式 Backend 實作前</p></div>
 <div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>QA</span></p></div></div>
 <div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="website-banners.html">Banner 管理</a><a href="website-content.html">內容管理</a><a href="website-releases.html">發布紀錄</a><a href="lobby-overview.html">大廳總覽</a><a href="lobby-games.html">遊戲清單</a><a href="lobby-management.html">遊戲管理</a><a href="lobby-preview.html">大廳預覽</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-website-lobby">官網與遊戲大廳鏈</a></nav></div></div>
 </article>
@@ -613,10 +619,10 @@
 <div><span>Data</span><code>TBD-DAT-006</code><h4>多語內容、素材與 fallback schema</h4></div>
 <div class="tbd-card__state"><b class="tbd-priority tbd-priority-p1">P1</b><span class="tbd-status tbd-status-definition">待定義</span></div>
 </header>
-<p class="tbd-card__question">確認語系清單、繁中預設、fallback、文字／富文字限制、媒體格式、尺寸、大小、版本、裝置用途與可存取替代文字。</p>
+<p class="tbd-card__question">DP04 已固定四語系、欄位政策、fallback 鏈及不可變素材版本語意；待映射實際 schema、格式限制、媒體處理與 renderer 支援。</p>
 <div class="tbd-card__meta">
 <div><strong>責任方</strong><p class="tbd-chip-list"><span>Product</span><span>Content Operations</span><span>Frontend</span><span>Backend</span></p></div>
-<div><strong>需要時間</strong><p>Batch C／D 開始前</p></div>
+<div><strong>需要時間</strong><p>正式內容 API 前</p></div>
 <div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>QA</span></p></div></div>
 <div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="game-assets.html">遊戲素材</a><a href="website-banners.html">Banner 管理</a><a href="website-content.html">內容管理</a><a href="website-releases.html">發布紀錄</a><a href="lobby-management.html">遊戲管理</a><a href="lobby-preview.html">大廳預覽</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-game-lifecycle">遊戲生命週期鏈</a><a href="page-dependency-map.html#dependency-website-lobby">官網與遊戲大廳鏈</a></nav></div></div>
 </article>
@@ -690,10 +696,10 @@
 <div><span>API</span><code>TBD-API-006</code><h4>官網與遊戲大廳 API</h4></div>
 <div class="tbd-card__state"><b class="tbd-priority tbd-priority-p1">P1</b><span class="tbd-status tbd-status-definition">待定義</span></div>
 </header>
-<p class="tbd-card__question">定義 Banner、內容、發布紀錄、大廳遊戲、管理、DEMO 指標與預覽的 CRUD、版本、檢查與發布介面。</p>
+<p class="tbd-card__question">依 DP04 映射 Entry、Revision、Validation、Preview、Approval、Job、Snapshot、Delivery、DEMO readiness 與 Audit 的實際 API、錯誤及冪等介面。</p>
 <div class="tbd-card__meta">
 <div><strong>責任方</strong><p class="tbd-chip-list"><span>Backend</span><span>Frontend</span><span>Content Operations</span></p></div>
-<div><strong>需要時間</strong><p>Batch D 開始前</p></div>
+<div><strong>需要時間</strong><p>Portal 原型接正式 API 前</p></div>
 <div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>QA</span></p></div></div>
 <div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="website-banners.html">Banner 管理</a><a href="website-content.html">內容管理</a><a href="website-releases.html">發布紀錄</a><a href="lobby-overview.html">大廳總覽</a><a href="lobby-games.html">遊戲清單</a><a href="lobby-management.html">遊戲管理</a><a href="lobby-demo.html">DEMO環境數據</a><a href="lobby-preview.html">大廳預覽</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-website-lobby">官網與遊戲大廳鏈</a></nav></div></div>
 </article>
@@ -729,7 +735,7 @@
 <div><span>Security</span><code>TBD-SEC-003</code><h4>高風險操作、核准、併發與稽核</h4></div>
 <div class="tbd-card__state"><b class="tbd-priority tbd-priority-p0">P0</b><span class="tbd-status tbd-status-partial">部分已有</span></div>
 </header>
-<p class="tbd-card__question">遊戲 Release 已採一般一人＋高風險第二人核准；待映射 permission、approval、併發、稽核，並另補風控與內容發布的實際規則。</p>
+<p class="tbd-card__question">DP03 與 DP04 已採一般一人＋高風險第二人核准，並定義 Revision／Publication conflict 與 append-only audit；待映射實際 permission、approval、lock、audit 及風控操作規則。</p>
 <div class="tbd-card__meta">
 <div><strong>責任方</strong><p class="tbd-chip-list"><span>Product</span><span>Security</span><span>Backend</span><span>SRE</span></p></div>
 <div><strong>需要時間</strong><p>高風險操作實作前</p></div>
@@ -755,10 +761,10 @@
 <div><span>Security</span><code>TBD-SEC-005</code><h4>公開內容、預覽與媒體安全</h4></div>
 <div class="tbd-card__state"><b class="tbd-priority tbd-priority-p1">P1</b><span class="tbd-status tbd-status-definition">待定義</span></div>
 </header>
-<p class="tbd-card__question">定義富文字／連結清理、媒體掃描、預覽存取、分享 token、草稿洩漏、CSP 及公開內容發布安全檢查。</p>
+<p class="tbd-card__question">DP04 已定義 sanitize、allowlist、CSP、素材撤銷、短效具 scope 預覽與非匿名分享原則；待映射實際掃描器、token、header、renderer 與安全規則。</p>
 <div class="tbd-card__meta">
 <div><strong>責任方</strong><p class="tbd-chip-list"><span>Security</span><span>Frontend</span><span>Backend</span><span>Content Operations</span></p></div>
-<div><strong>需要時間</strong><p>Batch D 驗收前</p></div>
+<div><strong>需要時間</strong><p>正式預覽與公開前</p></div>
 <div><strong>阻擋範圍</strong><p class="tbd-chip-list tbd-chip-list-blocks"><span>Frontend</span><span>Backend</span><span>QA</span><span>正式上線</span></p></div></div>
 <div class="tbd-card__links"><div><strong>影響頁面</strong><nav><a href="website-banners.html">Banner 管理</a><a href="website-content.html">內容管理</a><a href="lobby-management.html">遊戲管理</a><a href="lobby-preview.html">大廳預覽</a></nav></div><div><strong>業務鏈</strong><nav><a href="page-dependency-map.html#dependency-website-lobby">官網與遊戲大廳鏈</a></nav></div></div>
 </article>
@@ -1033,7 +1039,7 @@
     </nav>
                 <footer class="document-footer">
                     <span>Provider Portal Product / Engineering</span>
-                    <span>0.19.0-phase-three-pack-03-reconciled · 2026-08-18</span>
+                    <span>0.20.0-phase-three-pack-04-baseline · 2026-08-20</span>
                 </footer>
             </div>
         </main>

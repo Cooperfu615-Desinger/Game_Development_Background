@@ -1,5 +1,15 @@
 # 版本紀錄
 
+## 0.20.0-phase-three-pack-04-baseline · 2026-08-20
+
+- 建立附錄 P《Decision Pack 04｜官網與大廳內容發布契約》，作為八個官網／大廳頁面的上游產品需求基準。
+- 定義 Content Entry、Revision、Published Snapshot、Publish Job、Preview Manifest、Publication Event，以及 Revision／Job／Public／Delivery 四組獨立狀態。
+- 固定官網 Banner、官網內容、Lobby Game Content、Lobby Catalog 四條獨立發布流，以及 `zh-TW`、`zh-CN`、`en`、`ja` 四語系、欄位政策與素材 Fallback。
+- 補齊精確預覽、三階段驗證、一般快速／高風險第二人核准、排程、停用、Emergency Disable、還原、補償與 append-only audit。
+- 建立八頁責任矩陣、DP03 × DP04 結果矩陣、替代狀態與 37 個最低跨頁驗收情境。
+- 分開產品語意契約與實作 Mapping；實際 API、資料表、Queue、Scheduler、CDN、permission 與 GGAP Launch 證據不阻擋 DP04 成立。
+- 本版本只建立規格網站上游契約，尚未回寫 `GAME_WEBSITE_SPEC.md`、`GAME_LOBBY_SPEC.md` 或修改 Portal Vue 原型。
+
 ## 0.19.0-phase-three-pack-03-reconciled · 2026-08-18
 
 - 新增附錄 O《Decision Pack 03｜原型實作差異清單》，逐項區分 `ALIGNED_PROTOTYPE`、`MOCK_ONLY`、`BACKEND_PENDING`、`GGAP_PENDING` 與 `OUT_OF_SCOPE`。

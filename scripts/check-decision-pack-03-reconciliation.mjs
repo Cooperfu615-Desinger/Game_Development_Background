@@ -42,7 +42,7 @@ const [
 const failures = []
 let assertionCount = 0
 
-assert(book.version === '0.19.0-phase-three-pack-03-reconciled', '規格網站版本必須標示 DP03 原型實作差異已整理')
+assert(book.version === '0.20.0-phase-three-pack-04-baseline', '規格網站版本必須保留 DP03 差異清單並包含 Pack 04 基準')
 assert(appendix?.number === 'O', 'DP03 實作差異清單必須使用附錄 O')
 assert(appendix?.status === 'confirmed', 'DP03 實作差異清單必須標示為已確認的現況對照')
 assert(appendix?.content === 'content/appendices/decision-pack-03-implementation-reconciliation.md', '附錄 O 必須追溯正式 Markdown 來源')
@@ -109,7 +109,7 @@ assert(environmentView.includes('發布模擬已完成'), '環境與發布操作
 assert(searchIndex.includes(`"url":"${reconciliationId}.html"`), 'DP03 實作差異清單必須進入全文搜尋索引')
 assert(openIssues.includes(`${reconciliationId}.html`), '集中 TBD 頁必須提供 DP03 實作差異清單入口')
 assert(projectIndex.includes(`${reconciliationId}.html`), '專案交接索引必須提供 DP03 實作差異清單入口')
-assert(projectIndex.includes('文件版本：2.26.0'), '專案交接索引必須同步實作差異版本')
+assert(projectIndex.includes('文件版本：2.27.0'), '專案交接索引必須同步目前 Decision Pack 文件版本')
 assert(!html.includes('GENERATED_'), 'DP03 實作差異清單不得包含未替換的生成標記')
 
 if (failures.length) {

@@ -1,0 +1,1397 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="官網與大廳的 Revision、四語內容、精確預覽、獨立發布流、核准、停用、還原與公開追溯需求基準。">
+    <meta name="color-scheme" content="light">
+    <title>Decision Pack 04｜官網與大廳內容發布契約｜Provider Portal 產品與系統規格書</title>
+    <link rel="stylesheet" href="assets/site.css">
+    <script src="assets/search-index.js" defer></script>
+    <script src="assets/site.js" defer></script>
+</head>
+<body data-page-id="decision-pack-04-content-publishing-contract">
+    <a class="skip-link" href="#main-content">跳至主要內容</a>
+    <header class="topbar">
+        <button class="icon-button nav-trigger" type="button" data-nav-trigger aria-label="開啟規格目錄" aria-expanded="false" aria-controls="spec-navigation">
+            <span></span><span></span><span></span>
+        </button>
+        <a class="wordmark" href="index.html" aria-label="回到規格書首頁">
+            <span class="wordmark-mark" aria-hidden="true">▦</span>
+            <span><strong>Provider Portal</strong><small>產品與系統規格書</small></span>
+        </a>
+        <button class="search-trigger" type="button" data-search-trigger>
+            <span aria-hidden="true">⌕</span>
+            <span>搜尋規格</span>
+            <kbd>⌘ K</kbd>
+        </button>
+        <div class="topbar-meta">
+            <strong class="spec-context-label">SPEC</strong>
+            <span>0.20.0-phase-three-pack-04-baseline</span>
+            <span class="topbar-status">Phase 3 · Product Contract Baselines</span>
+        </div>
+    </header>
+
+    <div class="shell">
+        <aside class="sidebar" id="spec-navigation" data-sidebar>
+            <div class="sidebar-intro">
+                <span class="sidebar-kicker">SPECIFICATION MANUAL</span>
+                <p>2026-08-20 更新</p>
+            </div>
+            <nav aria-label="規格書章節">
+
+        <details class="nav-group" >
+            <summary>開始閱讀<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="index.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>規格書首頁</span>
+
+                    </a><a href="document-control.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>文件治理與使用方式</span>
+
+                    </a><a href="product-overview.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>產品定位與目標</span>
+
+                    </a><a href="system-boundary.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>系統與責任邊界</span>
+
+                    </a><a href="information-architecture.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>資訊架構與頁面地圖</span>
+
+                    </a><a href="common-domain-rules.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>共通領域規則</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.1 總覽<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="dashboard-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="dashboard.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>儀表板</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.2 遊戲管理<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="game-management-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="game-list.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲列表</span>
+
+                    </a><a href="game-environments.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>環境與發布</span>
+
+                    </a><a href="game-settings.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲設定</span>
+
+                    </a><a href="game-math.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>數值設定</span>
+
+                    </a><a href="game-versions.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲版本</span>
+
+                    </a><a href="game-assets.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲素材</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.3 數據與報表<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="data-reporting-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="game-round-records.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲紀錄</span>
+                        <b>PILOT</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.4 遊戲商財務<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="provider-finance-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="finance-overview.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>財務總覽</span>
+
+                    </a><a href="finance-agent-games.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>代理商 × 遊戲彙總</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.5 遊戲監控與風控<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="monitoring-risk-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="monitoring-overview.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>監控總覽</span>
+
+                    </a><a href="risk-reports.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>風控報表</span>
+
+                    </a><a href="risk-alerts.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>風控告警／處理</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.6 GGAP 對接<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="ggap-integration-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>對接總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-catalog-sync.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>遊戲目錄同步</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-requests.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>請求與回呼紀錄</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-errors.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>錯誤與重試</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="ggap-settings.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>對接設定</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.7 通知中心<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="notifications-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="notifications.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>全部通知</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="notification-preferences.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>通知偏好</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.8 官方網站<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="official-website-module.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+
+                    </a><a href="website-banners.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>Banner 管理</span>
+
+                    </a><a href="website-content.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>內容管理</span>
+
+                    </a><a href="website-releases.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>發布紀錄</span>
+
+                    </a><a href="lobby-overview.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>大廳總覽</span>
+
+                    </a><a href="lobby-games.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲清單</span>
+
+                    </a><a href="lobby-management.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>遊戲管理</span>
+
+                    </a><a href="lobby-demo.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>DEMO環境數據</span>
+
+                    </a><a href="lobby-preview.html" >
+                        <i class="status-dot status-draft" aria-hidden="true"></i>
+                        <span>大廳預覽</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>05.9 系統設定<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="system-settings-module.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>模組總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-overview.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>設定總覽</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-permissions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>使用者與權限</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-api-keys.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>API key 與憑證</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a><a href="settings-audit-logs.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>操作紀錄</span>
+                        <b class="nav-scope nav-scope-deferred">延後</b>
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" >
+            <summary>共通規格<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="api-integration.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>API 與整合契約</span>
+
+                    </a><a href="security-permissions.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>安全與權限</span>
+
+                    </a><a href="non-functional-requirements.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>非功能性需求</span>
+
+                    </a><a href="acceptance-qa.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>驗收與 QA</span>
+
+                    </a>
+            </div>
+        </details>
+
+        <details class="nav-group" open>
+            <summary>附錄<span aria-hidden="true"></span></summary>
+            <div class="nav-items">
+                <a href="data-dictionary.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>資料字典</span>
+
+                    </a><a href="status-enums.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>狀態與枚舉</span>
+
+                    </a><a href="route-page-matrix.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>Route 與頁面矩陣</span>
+
+                    </a><a href="open-issues.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>待決策與校正清單</span>
+
+                    </a><a href="changelog.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>版本紀錄</span>
+
+                    </a><a href="spec-book-authoring-guide.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>規格書撰寫與交接規範</span>
+
+                    </a><a href="page-readiness-matrix.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>第一階段頁面完成度矩陣</span>
+
+                    </a><a href="page-reconciliation.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>第一階段頁面三層校準</span>
+
+                    </a><a href="page-dependency-map.html" >
+                        <i class="status-dot status-outline" aria-hidden="true"></i>
+                        <span>第一階段跨頁依賴圖</span>
+
+                    </a><a href="phase-one-validation-report.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>第一階段封版驗證報告</span>
+
+                    </a><a href="phase-two-validation-report.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>第二階段封版驗證報告</span>
+
+                    </a><a href="decision-pack-01-round-finance.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>Decision Pack 01｜Game Round、投注與財務共用產品契約</span>
+
+                    </a><a href="decision-pack-02-monitoring-risk.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>Decision Pack 02｜監控與風控共用產品契約</span>
+
+                    </a><a href="decision-pack-03-game-release-lifecycle.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>Decision Pack 03｜遊戲版本與發布生命週期</span>
+
+                    </a><a href="decision-pack-03-implementation-reconciliation.html" >
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>Decision Pack 03｜原型實作差異清單</span>
+
+                    </a><a href="decision-pack-04-content-publishing-contract.html" aria-current="page">
+                        <i class="status-dot status-confirmed" aria-hidden="true"></i>
+                        <span>Decision Pack 04｜官網與大廳內容發布契約</span>
+
+                    </a>
+            </div>
+        </details>
+
+            </nav>
+            <div class="sidebar-legend">
+                <p>規格狀態</p>
+                <span><i class="status-dot status-confirmed"></i>已確認</span><span><i class="status-dot status-draft"></i>草案</span><span><i class="status-dot status-outline"></i>待整理</span><span><i class="status-dot status-tbd"></i>待決策</span>
+            </div>
+        </aside>
+        <button class="sidebar-scrim" type="button" data-nav-close aria-label="關閉規格目錄"></button>
+
+        <main id="main-content" class="main-content" tabindex="-1">
+            <div class="page-frame ">
+                <header class="page-header">
+                    <div>
+                        <p class="eyebrow">附錄 P</p>
+                        <h1>Decision Pack 04｜官網與大廳內容發布契約</h1>
+                        <p class="page-summary">官網與大廳的 Revision、四語內容、精確預覽、獨立發布流、核准、停用、還原與公開追溯需求基準。</p>
+                    </div>
+                    <div class="page-status-stack">
+                        <span class="status-badge status-confirmed">已確認</span>
+
+
+                    </div>
+                </header>
+
+                <section class="metadata-card" aria-label="章節追溯資訊">
+        <div class="metadata-grid">
+            <div><span>章節編號</span><code>P</code></div><div><span>規格狀態</span><code>已確認</code></div>
+        </div>
+    </section>
+
+
+                <div class="content-layout">
+                    <article class="spec-content">
+                        <section class="decision-pack-hero decision-pack-hero--content" data-pack="DP / 04" aria-label="Decision Pack 04 摘要">
+  <div class="decision-pack-hero__identity">
+    <span>PHASE 3 · PRODUCT CONTRACT 04</span>
+    <strong>讓每一份公開內容都能精確預覽、安全發布、失敗保留舊版並完整追溯</strong>
+    <p>本包直接定義 Provider 自有官網與遊戲大廳的內容生命週期。編輯中的 Revision 永不直接改變公開畫面；每次發布都綁定確切內容、語系、素材、驗證與核准證據，並由獨立 Published Snapshot 表示使用者目前真正看到的版本。</p>
+  </div>
+  <div class="decision-pack-hero__stats">
+    <div><strong>09</strong><span>共用契約群組</span></div>
+    <div><strong>04</strong><span>獨立發布流</span></div>
+    <div><strong>04</strong><span>固定公開語系</span></div>
+    <div><strong>37</strong><span>最低驗收情境</span></div>
+  </div>
+  <nav class="decision-pack-hero__nav decision-pack-hero__nav--content" aria-label="九項契約快速導覽">
+    <a href="#1-核心物件與責任邊界"><b>01</b><span>核心物件</span></a>
+    <a href="#2-共用引擎與獨立發布流"><b>02</b><span>發布流</span></a>
+    <a href="#3-revision-job-與公開生命週期"><b>03</b><span>生命週期</span></a>
+    <a href="#4-多語內容素材與-fallback"><b>04</b><span>語系素材</span></a>
+    <a href="#5-驗證與精確預覽"><b>05</b><span>驗證預覽</span></a>
+    <a href="#6-發布排程停用與還原"><b>06</b><span>發布復原</span></a>
+    <a href="#7-權限核准併發與稽核"><b>07</b><span>治理稽核</span></a>
+    <a href="#8-跨頁依賴替代狀態與驗收"><b>08</b><span>依賴驗收</span></a>
+    <a href="#9-後端契約原型對照與外部邊界"><b>09</b><span>實作接軌</span></a>
+  </nav>
+</section><h2 id="文件定位">文件定位</h2><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>目前需求基準</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>契約編號</td>
+<td><code>DP-04</code></td>
+</tr>
+<tr>
+<td>主題</td>
+<td>官網與大廳內容編輯、Revision、驗證、精確預覽、核准、發布、排程、停用、還原與追溯</td>
+</tr>
+<tr>
+<td>直接影響頁面</td>
+<td>Banner 管理、內容管理、官網發布紀錄、大廳總覽、遊戲清單、遊戲管理、大廳預覽</td>
+</tr>
+<tr>
+<td>支援頁面</td>
+<td>DEMO 環境數據只提供 readiness／telemetry，不參與正式內容發布</td>
+</tr>
+<tr>
+<td>上游依賴</td>
+<td>DP03 Game、Version、Asset 與 Provider global availability 的穩定識別及狀態</td>
+</tr>
+<tr>
+<td>外部邊界</td>
+<td>GGAP 代理商開關與 Launch Gate 不由本包建立；通知中心、系統設定仍維持 Deferred</td>
+</tr>
+<tr>
+<td>現行程式</td>
+<td>八個頁面均已有前端內容原型；正式內容持久化、發布副作用與公開前台串接尚待後續實作</td>
+</tr>
+<tr>
+<td>文件用途</td>
+<td>表達目前希望具備的完整產品功能；Backend、CDN、權限與 GGAP 證據取得後只補實作 Mapping</td>
+</tr>
+</tbody></table></div>
+<p>本包不是等待 Backend Git 的草稿。產品行為依本包成立；實際 API path、資料表、Queue、Scheduler、CDN、permission key、event topic 與 GGAP Launch payload 取得後再建立 Mapping，不以現況缺口降低目前需求。</p>
+<h2 id="不可違反的產品邊界">不可違反的產品邊界</h2><ol>
+<li>DP04 只管理 Provider 自有官網與遊戲大廳的公開內容，不建立或修改 DP03 的 Game、Version、Artifact、Release 或遊戲數值。</li>
+<li>編輯、儲存與預覽不得直接改變公開內容；只有成功完成的 Publish Job 可以切換 Published Snapshot。</li>
+<li>官網 Banner、官網內容、大廳單款遊戲內容與大廳 Catalog 共用發布引擎，但各自擁有獨立 Revision、Job、Snapshot、失敗與還原歷程。</li>
+<li>公開內容可在遊戲不可啟動時顯示「即將推出」或維護資訊；能否真正 Launch 仍同時受 DP03 全域狀態與 GGAP 代理商開關控制。</li>
+<li>Published Snapshot 必須固定確切 Revision、四語系有效內容、素材版本、Fallback 結果、驗證規則版本及核准證據，不得在執行時自動追蹤 <code>latest</code>。</li>
+<li>發布失敗必須保留舊的公開 Snapshot；還原不是原地覆寫，而是以歷史 Snapshot 建立新 Revision 與新 Publish Job。</li>
+<li>DEMO 帳號、展示額度、試玩工作階段與 telemetry 不建立 Provider 會員、錢包或正式 Game Session，也不進入 Production Game Round、財務或 Provider 風控。</li>
+<li>前端的 <code>allowed_actions</code> 只控制操作呈現；後端每次儲存、預覽、核准、發布、停用與還原仍須重新驗證權限與資源版本。</li>
+</ol>
+<h2 id="從編輯到公開的完整鏈">從編輯到公開的完整鏈</h2><ol class="content-publishing-flow" aria-label="官網與大廳內容發布鏈">
+  <li><b>01</b><strong>Content Entry</strong><span>穩定內容主體與 publication scope</span></li>
+  <li><b>02</b><strong>Revision</strong><span>不可變文字、語系、素材與設定快照</span></li>
+  <li><b>03</b><strong>Validation</strong><span>規則、依賴、安全與公開條件檢查</span></li>
+  <li><b>04</b><strong>Preview</strong><span>依確切 Manifest 還原預計公開畫面</span></li>
+  <li><b>05</b><strong>Publish Job</strong><span>立即、排程、停用或還原的執行工作</span></li>
+  <li><b>06</b><strong>Snapshot</strong><span>對外唯一可見且可追溯的公開版本</span></li>
+</ol><p>鏈上每一層保存自己的 ID、狀態與時間。內容是否可繼續編輯、某次發布工作是否成功、目前公開的是哪個版本，以及 CDN 是否已健康傳播，是四個不同問題。</p>
+<hr>
+<h2 id="1-核心物件與責任邊界">1. 核心物件與責任邊界</h2><div class="decision-item-meta"><span>DP04-01</span><a href="open-issues.html#tbd-dom-005">TBD-DOM-005</a><a href="open-issues.html#tbd-dat-004">TBD-DAT-004</a><i>Product · Content Operations · Backend</i></div><aside class="decision-recommendation">
+  <strong>目前需求基準</strong>
+  <p>Content Entry 是穩定主體，Revision 是不可變編輯版本，Published Snapshot 是公開事實，Publish Job 是一次執行工作，Preview Manifest 是精確預覽輸入，Publication Event 是不可覆寫歷程。</p>
+</aside><h3 id="1-1-六個核心物件">1.1 六個核心物件</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>物件</th>
+<th>正式責任</th>
+<th>建議主識別</th>
+<th>不得混入的責任</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Content Entry</td>
+<td>表示一個可獨立維護的 Banner、法務內容、大廳遊戲內容或 Catalog</td>
+<td><code>content_entry_id</code></td>
+<td>不保存目前公開內容的可變副本</td>
+</tr>
+<tr>
+<td>Content Revision</td>
+<td>一次完整儲存形成的不可變文字、語系、素材與設定快照</td>
+<td><code>revision_id</code></td>
+<td>不以原地更新取代新 Revision</td>
+</tr>
+<tr>
+<td>Published Snapshot</td>
+<td>某 publication scope 目前真正對外生效的完整內容</td>
+<td><code>snapshot_id</code></td>
+<td>不引用 <code>latest</code> Revision 或素材</td>
+</tr>
+<tr>
+<td>Publish Job</td>
+<td>一次 publish、disable 或 restore 的執行與結果</td>
+<td><code>publish_job_id</code></td>
+<td>不把公開狀態直接當 Job 狀態</td>
+</tr>
+<tr>
+<td>Preview Manifest</td>
+<td>指定 Revision、公共基底、語系、裝置及依賴解析結果</td>
+<td><code>preview_manifest_id</code></td>
+<td>不在開啟時重新挑選最新版本</td>
+</tr>
+<tr>
+<td>Publication Event</td>
+<td>儲存、驗證、核准、執行、切換、失敗、補償與還原證據</td>
+<td><code>publication_event_id</code></td>
+<td>不得因資源刪除或結案而消失</td>
+</tr>
+</tbody></table></div>
+<h3 id="1-2-publication-scope">1.2 Publication Scope</h3><p><code>publication_scope</code> 是同時只能有一筆狀態變更工作的鎖定範圍，也是 Published Snapshot 的唯一性範圍。第一版至少包含：</p>
+<ul>
+<li>單一官網 Banner slot 或 Banner Entry。</li>
+<li>單一官網內容區塊，例如條款、隱私權、負責任遊戲或聯絡資訊。</li>
+<li>單一 Lobby Game Content。</li>
+<li>整份 Lobby Catalog。</li>
+</ul>
+<p>同一 scope 在同一時間只有一個有效公開 Snapshot，以及最多一個執行中或尚未完成的 state-changing Job。不同 scope 可以平行發布。</p>
+<h3 id="1-3-三個互不取代的公開控制">1.3 三個互不取代的公開控制</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>控制層</th>
+<th>責任方</th>
+<th>回答的問題</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DP03 技術可用性</td>
+<td>Provider Game／Release</td>
+<td>遊戲版本是否可被新 Launch 使用？</td>
+</tr>
+<tr>
+<td>DP04 內容可見性</td>
+<td>Provider Content Publishing</td>
+<td>官網或大廳要顯示什麼內容與操作？</td>
+</tr>
+<tr>
+<td>GGAP 代理商 Launch Gate</td>
+<td>GGAP</td>
+<td>某代理商是否可啟動已全域可用的遊戲？</td>
+</tr>
+</tbody></table></div>
+<p>DP04 不得直接修改 DP03 或 GGAP 的狀態。公開 Snapshot 可以將遊戲標示為「即將推出」或「維護中」，但不得因內容顯示為可玩就繞過其他兩層控制。</p>
+<hr>
+<h2 id="2-共用引擎與獨立發布流">2. 共用引擎與獨立發布流</h2><div class="decision-item-meta"><span>DP04-02</span><a href="open-issues.html#tbd-dom-005">TBD-DOM-005</a><a href="open-issues.html#tbd-api-006">TBD-API-006</a><i>Product · Content Operations · Frontend · Backend</i></div><aside class="decision-recommendation">
+  <strong>目前需求基準</strong>
+  <p>四種內容共用 Revision、驗證、預覽、核准、Job、Snapshot 與稽核能力，但任何一條發布成功或失敗都不得自動改變另一條發布流。</p>
+</aside><div class="publishing-stream-grid" aria-label="四條獨立內容發布流">
+  <article><b>01 · WEBSITE</b><strong>Banner</strong><span>版位、排程、CTA、四語文案與裝置素材。</span></article>
+  <article><b>02 · WEBSITE</b><strong>Static Content</strong><span>法務、隱私、責任遊戲與結構化聯絡資訊。</span></article>
+  <article><b>03 · LOBBY</b><strong>Game Content</strong><span>單款遊戲公開名稱、介紹、標籤、CTA 與素材。</span></article>
+  <article><b>04 · LOBBY</b><strong>Catalog</strong><span>跨遊戲收錄、排序、分組、置頂與公開清單。</span></article>
+</div><h3 id="2-1-獨立性規則">2.1 獨立性規則</h3><ul>
+<li>官網 Banner 與官網內容可以分開發布、停用與還原。</li>
+<li>Lobby Game Content 是單款遊戲的公開內容；Lobby Catalog 是跨遊戲集合與排序，兩者必須分開版本化。</li>
+<li>單款遊戲內容更新不自動重排 Catalog；Catalog 發布也不原地修改單款遊戲內容。</li>
+<li>官網《發布紀錄》只列官網 Banner 與官網內容的 Job、Snapshot 與失敗，不混入大廳發布。</li>
+<li>大廳發布歷程由大廳管理與遊戲詳情呈現；未來可增加跨模組 Audit 查詢，但不得因此共用同一個 Job。</li>
+<li>第一版不提供「官網＋大廳整站原子發布」。若未來存在大型聯合活動需求，再新增可選 Release Bundle；Bundle 也只能協調多筆獨立 Job，不改變各自 Snapshot。</li>
+</ul>
+<h3 id="2-2-共用能力與內容專屬規則">2.2 共用能力與內容專屬規則</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>四條發布流共用</th>
+<th>內容專屬補充</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Revision</td>
+<td>不可變、完整快照、具 base revision</td>
+<td>各內容型別有自己的 schema</td>
+</tr>
+<tr>
+<td>Validation</td>
+<td>Blocking／Warning／Info、規則版本</td>
+<td>Banner 檢查版位；法務檢查嚴格語系；Lobby 檢查遊戲依賴</td>
+</tr>
+<tr>
+<td>Preview</td>
+<td>Exact Revision／Manifest</td>
+<td>官網可整站預覽；大廳可指定 Catalog 與 Game Content 組合</td>
+</tr>
+<tr>
+<td>Publish Job</td>
+<td>立即、排程、停用、還原</td>
+<td>Banner 可額外設定生效／結束時間</td>
+</tr>
+<tr>
+<td>Snapshot</td>
+<td>固定有效內容與解析結果</td>
+<td>Catalog Snapshot 保存確切收錄遊戲內容版本</td>
+</tr>
+<tr>
+<td>Audit</td>
+<td>Append-only、可依 ID 追溯</td>
+<td>不同模組可以有不同檢視入口</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="3-revision-job-與公開生命週期">3. Revision Job 與公開生命週期</h2><div class="decision-item-meta"><span>DP04-03</span><a href="open-issues.html#tbd-dom-005">TBD-DOM-005</a><a href="open-issues.html#tbd-dat-004">TBD-DAT-004</a><a href="open-issues.html#tbd-nfr-003">TBD-NFR-003</a><i>Product · Backend · QA · SRE</i></div><aside class="decision-recommendation">
+  <strong>目前需求基準</strong>
+  <p>Revision、Publish Job、Public 與 Delivery 各自擁有狀態；任何頁面都不得用一個 `status` 同時表示內容成熟度、發布工作進度、公開結果與 CDN 健康。</p>
+</aside><h3 id="3-1-revision-狀態">3.1 Revision 狀態</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>API 值</th>
+<th>顯示名稱</th>
+<th>正式語意</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>draft</code></td>
+<td>草稿</td>
+<td>已儲存但仍可由後續新 Revision 取代；本身內容不可原地改寫</td>
+</tr>
+<tr>
+<td><code>ready</code></td>
+<td>可發布</td>
+<td>指定規則版本驗證通過，可被預覽、核准或建立 Job</td>
+</tr>
+<tr>
+<td><code>superseded</code></td>
+<td>已被新版本取代</td>
+<td>同一 Entry 已有更新 Revision；仍可查詢與比較</td>
+</tr>
+<tr>
+<td><code>archived</code></td>
+<td>已封存</td>
+<td>不再作一般發布候選；歷史 Snapshot 與 Audit 仍可追溯</td>
+</tr>
+</tbody></table></div>
+<p>瀏覽器尚未儲存的輸入只是 local edit buffer，不是 Revision。每次成功儲存都建立新的 <code>revision_id</code>；修改內容、語系、素材、CTA、排程規則或 Catalog 排序均不得覆寫既有 Revision。</p>
+<h3 id="3-2-publish-job-狀態">3.2 Publish Job 狀態</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>API 值</th>
+<th>顯示名稱</th>
+<th>正式語意</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>queued</code></td>
+<td>已建立</td>
+<td>已接受工作，等待立即執行或排程確認</td>
+</tr>
+<tr>
+<td><code>scheduled</code></td>
+<td>已排程</td>
+<td>綁定確切 Revision 與執行時間，等待再次預檢</td>
+</tr>
+<tr>
+<td><code>running</code></td>
+<td>執行中</td>
+<td>正在產生 Snapshot、傳播、切換或驗證</td>
+</tr>
+<tr>
+<td><code>succeeded</code></td>
+<td>已成功</td>
+<td>目標公開狀態已原子切換並留下成功證據</td>
+</tr>
+<tr>
+<td><code>failed</code></td>
+<td>已失敗</td>
+<td>本次工作停止；保存階段、原因、舊 Snapshot 與補償結果</td>
+</tr>
+<tr>
+<td><code>cancelled</code></td>
+<td>已取消</td>
+<td>在不可逆副作用前取消，保存操作者與原因</td>
+</tr>
+</tbody></table></div>
+<p>若發布前檢查存在 Blocking，請求直接回傳 Validation Failed，不建立 Job。已排程工作執行前因依賴變動而不再符合條件，則建立或保留 Job 並標記 <code>failed / precondition_failed</code>。</p>
+<h3 id="3-3-public-與-delivery-狀態">3.3 Public 與 Delivery 狀態</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>維度</th>
+<th>API 值</th>
+<th>顯示名稱</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Public</td>
+<td><code>unpublished</code></td>
+<td>尚未有公開 Snapshot</td>
+</tr>
+<tr>
+<td>Public</td>
+<td><code>published</code></td>
+<td>有一筆目前有效的 Published Snapshot</td>
+</tr>
+<tr>
+<td>Public</td>
+<td><code>disabled</code></td>
+<td>已保留歷史，但目前不對外提供該內容</td>
+</tr>
+<tr>
+<td>Delivery</td>
+<td><code>propagating</code></td>
+<td>Snapshot 已切換，公開節點仍在傳播或驗證</td>
+</tr>
+<tr>
+<td>Delivery</td>
+<td><code>healthy</code></td>
+<td>公開節點已確認提供目標 Snapshot</td>
+</tr>
+<tr>
+<td>Delivery</td>
+<td><code>degraded</code></td>
+<td>部分節點、語系或裝置未達預期，但可提供安全內容</td>
+</tr>
+<tr>
+<td>Delivery</td>
+<td><code>failed</code></td>
+<td>公開交付驗證失敗，需補償、回復或人工處理</td>
+</tr>
+</tbody></table></div>
+<h3 id="3-4-不可變與併發基準">3.4 不可變與併發基準</h3><ul>
+<li>Revision 以 <code>base_revision_id</code> 或 ETag 做 optimistic concurrency；衝突時保留使用者未儲存輸入，提供比較與重新套用，不盲目合併。</li>
+<li>Job 綁定 <code>revision_id</code>、<code>expected_published_revision_id</code>、validation result、approval 與 manifest hash，不允許執行時換成最新版本。</li>
+<li>同一 publication scope 同時只允許一筆尚未完成的 state-changing Job。</li>
+<li>Publish success 以原子指標或等效交易切換目前 Snapshot；失敗不得留下半新半舊的未定狀態。</li>
+<li>Restore 將歷史 Snapshot 複製為新 Revision，再重新驗證與建立新 Job；歷史紀錄不退回舊時間點。</li>
+<li>已公開的 Revision、Snapshot、Job 與 Publication Event 不得 hard delete。</li>
+</ul>
+<hr>
+<h2 id="4-多語內容素材與-fallback">4. 多語內容素材與 Fallback</h2><div class="decision-item-meta"><span>DP04-04</span><a href="open-issues.html#tbd-dat-006">TBD-DAT-006</a><a href="open-issues.html#tbd-sec-005">TBD-SEC-005</a><i>Product · Content Operations · Accessibility · Security</i></div><aside class="decision-recommendation">
+  <strong>目前需求基準</strong>
+  <p>第一版固定 `zh-TW`、`zh-CN`、`en`、`ja` 四個公開語系並原子發布；Fallback 只能用於明確允許的欄位，Published Snapshot 必須保存最終實際採用的語系與素材版本。</p>
+</aside><h3 id="4-1-公開語系">4.1 公開語系</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>Locale</th>
+<th>顯示名稱</th>
+<th>預設 Fallback 鏈</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>zh-TW</code></td>
+<td>台灣繁體中文</td>
+<td>無；為主要編輯與校對語系</td>
+</tr>
+<tr>
+<td><code>zh-CN</code></td>
+<td>簡體中文</td>
+<td><code>zh-TW</code></td>
+</tr>
+<tr>
+<td><code>en</code></td>
+<td>English</td>
+<td><code>zh-TW</code></td>
+</tr>
+<tr>
+<td><code>ja</code></td>
+<td>日本語</td>
+<td><code>en</code> → <code>zh-TW</code></td>
+</tr>
+</tbody></table></div>
+<p>每筆 Revision 保存四個語系的完整快照。第一版不提供語系個別發布，以免使用者在同一 publication scope 看到不同時間點的規則、CTA 或遊戲狀態。</p>
+<h3 id="4-2-欄位語系政策">4.2 欄位語系政策</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>政策</th>
+<th>行為</th>
+<th>適用範例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>STRICT</code></td>
+<td>所有必要語系都必須有有效內容，缺少即 Blocking</td>
+<td>條款、隱私、責任遊戲、重要風險提示</td>
+</tr>
+<tr>
+<td><code>FALLBACK</code></td>
+<td>可依固定鏈使用其他語系；Validation 顯示實際來源</td>
+<td>一般遊戲介紹、非關鍵行銷副標</td>
+</tr>
+<tr>
+<td><code>OPTIONAL_HIDE</code></td>
+<td>缺少時隱藏該非必要欄位，不回退整個區塊</td>
+<td>次要徽章、選配補充文案</td>
+</tr>
+</tbody></table></div>
+<p>Fallback 不可跨越欄位政策，也不得把任意第一個可用語系當成結果。Snapshot 需保存 <code>requested_locale</code>、<code>resolved_locale</code>、<code>fallback_chain</code> 與是否隱藏。</p>
+<h3 id="4-3-素材參照">4.3 素材參照</h3><p>DP04 不保存媒體 binary，而是引用 DP03 已建立的不可變素材版本。每個參照至少包含：</p>
+<ul>
+<li><code>asset_id</code> 與 <code>asset_version_id</code>。</li>
+<li><code>usage</code>、<code>locale</code>、<code>device</code> 與版位。</li>
+<li>checksum、媒體型別、尺寸與替代文字版本。</li>
+<li>驗證當下的安全掃描與可用狀態。</li>
+</ul>
+<p>不得引用 <code>latest asset</code>。沒有文字的共用素材可使用 locale-neutral <code>und</code>；含文字的圖片必須有對應 locale 版本。Desktop／Mobile 素材只有在版面與可讀性已確認安全時才可 Fallback，否則依欄位政策阻擋發布或隱藏。</p>
+<h3 id="4-4-素材失效與安全撤銷">4.4 素材失效與安全撤銷</h3><ul>
+<li>一般素材被新版本取代時，既有 Snapshot 可繼續引用原版本；新 Revision 由營運人員決定是否升級。</li>
+<li>素材被標記為 security-revoked 時，不得繼續由新 Publish Job 使用。</li>
+<li>已公開 Snapshot 命中安全撤銷時，系統必須立即標示受影響 scope、套用安全替代內容或停用、建立高優先事件，並要求新 Revision 修復。</li>
+<li>Snapshot 必須保存有效素材解析結果，避免未來素材更新讓歷史預覽產生漂移。</li>
+</ul>
+<hr>
+<h2 id="5-驗證與精確預覽">5. 驗證與精確預覽</h2><div class="decision-item-meta"><span>DP04-05</span><a href="open-issues.html#tbd-api-006">TBD-API-006</a><a href="open-issues.html#tbd-sec-005">TBD-SEC-005</a><a href="open-issues.html#tbd-nfr-004">TBD-NFR-004</a><i>Content Operations · Frontend · Backend · Security · QA</i></div><aside class="decision-recommendation">
+  <strong>目前需求基準</strong>
+  <p>預覽必須由指定 Revision 與不可變 Preview Manifest 還原；發布前檢查分成編輯即時、後端權威與執行時重驗三階段，Blocking 不允許人工略過。</p>
+</aside><h3 id="5-1-三階段檢查">5.1 三階段檢查</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>階段</th>
+<th>執行時機</th>
+<th>責任</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Edit-time Validation</td>
+<td>編輯與儲存前後</td>
+<td>快速提示必填、長度、格式、素材尺寸與本地可判斷問題</td>
+</tr>
+<tr>
+<td>Authoritative Pre-publish Validation</td>
+<td>建立 Ready、預覽確認、提交核准與建立 Job 前</td>
+<td>由後端依規則版本檢查完整內容、安全、依賴、權限與公開條件</td>
+</tr>
+<tr>
+<td>Execution-time Revalidation</td>
+<td>排程或立即 Job 真正執行前</td>
+<td>重查會隨時間變動的依賴、權限、素材撤銷、目前 Snapshot 與核准有效性</td>
+</tr>
+</tbody></table></div>
+<h3 id="5-2-嚴重度">5.2 嚴重度</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>Severity</th>
+<th>行為</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>BLOCKING</code></td>
+<td>不得建立或執行 Publish Job；第一版沒有 override</td>
+</tr>
+<tr>
+<td><code>WARNING</code></td>
+<td>可繼續，但必須明確確認並保存操作者、原因與規則版本</td>
+</tr>
+<tr>
+<td><code>INFO</code></td>
+<td>提供改善或資訊，不阻擋流程</td>
+</tr>
+</tbody></table></div>
+<p>Validation Result 至少保存 <code>rule_id</code>、<code>rule_version</code>、severity、result、<code>message_code</code>、<code>field_path</code>、locale、device、source snapshot、<code>detected_at</code> 與 remediation link，並綁定 <code>revision_id</code>、manifest hash 與完整規則版本。</p>
+<h3 id="5-3-共通檢查範圍">5.3 共通檢查範圍</h3><ul>
+<li>Revision 完整性、base revision、schema 與必要欄位。</li>
+<li>四語系及欄位層級 <code>STRICT</code>／<code>FALLBACK</code>／<code>OPTIONAL_HIDE</code>。</li>
+<li>素材存在、安全狀態、checksum、格式、尺寸、裝置版本與 alt text。</li>
+<li>CTA 類型、內外部 URL、HTTPS、domain allowlist 與 redirect 安全。</li>
+<li>富文字 sanitize、禁止標籤、嵌入來源、CSP 與外部媒體政策。</li>
+<li>optimistic concurrency、expected published revision 與同 scope active job。</li>
+<li>排程時間、publication window、操作者權限、核准與風險分類。</li>
+<li>DP03 Game／Version／Asset／global availability 等外部依賴快照。</li>
+</ul>
+<p>官網 Banner 額外檢查版位、裝置、開始／結束時間與 CTA；法務內容要求四語系嚴格完整；Lobby 額外檢查 game reference、DP03 相容、coming soon／playable 語意及 Catalog 排序完整性。</p>
+<h3 id="5-4-精確預覽">5.4 精確預覽</h3><p>Preview Manifest 至少固定：</p>
+<ul>
+<li>目標 <code>revision_id</code> 或 <code>catalog_revision_id</code>。</li>
+<li>每個區塊採用 draft 還是目前 public 的明確來源。</li>
+<li>每個語系、裝置與欄位的 resolved value／Fallback 結果。</li>
+<li>每個素材的不可變版本與 checksum。</li>
+<li>DP03 依賴快照、遊戲狀態與可玩性呈現。</li>
+<li>renderer version、validation result 及 manifest hash。</li>
+</ul>
+<p>提供單一內容預覽與完整官網／大廳組合預覽。組合預覽允許 draft 與 public 混合，但介面必須清楚標示每個區塊來源；不得在開啟或重新整理時靜默切換到 <code>latest</code>。</p>
+<h3 id="5-5-預覽安全與人工確認">5.5 預覽安全與人工確認</h3><ul>
+<li>Preview token 必須短效、具 Provider／Revision／Manifest scope、可撤銷且不可由 query string 長期保存。</li>
+<li>第一版不提供匿名分享；使用者必須具備預覽權限。</li>
+<li>預覽使用獨立認證與 Cache-Control，不得被搜尋引擎或公開 CDN 索引。</li>
+<li>外部連結、iframe、script、媒體與互動受 CSP／allowlist 限制；DEMO Launch 只能進 Sandbox。</li>
+<li>自動檢查永遠必要；只有法務內容、主要 CTA、playable 狀態、重要素材或版面大幅變更，才額外要求人工預覽確認。</li>
+<li>人工確認保存 <code>previewed_revision_id</code>、manifest hash、操作者與時間；內容或 manifest 改變後自動失效。</li>
+</ul>
+<hr>
+<h2 id="6-發布排程停用與還原">6. 發布排程停用與還原</h2><div class="decision-item-meta"><span>DP04-06</span><a href="open-issues.html#tbd-dat-003">TBD-DAT-003</a><a href="open-issues.html#tbd-api-006">TBD-API-006</a><a href="open-issues.html#tbd-nfr-003">TBD-NFR-003</a><i>Content Operations · Backend · SRE · QA</i></div><aside class="decision-recommendation">
+  <strong>目前需求基準</strong>
+  <p>Publish、Disable 與 Restore 都建立獨立 Job；立即與排程發布都綁定確切 Revision，切換失敗保留舊 Snapshot，重試與還原均建立新紀錄。</p>
+</aside><h3 id="6-1-job-類型與必要資料">6.1 Job 類型與必要資料</h3><p>第一版 <code>job_type</code>：</p>
+<ul>
+<li><code>publish</code>：將指定 Revision 發布為目標 Snapshot。</li>
+<li><code>disable</code>：停止公開指定 scope，但保留全部歷史。</li>
+<li><code>restore</code>：以歷史 Snapshot 產生的新 Revision 重新發布。</li>
+</ul>
+<p>Job 至少保存：Job／Entry／Revision／Scope ID、job type、expected published revision、effective time、status、actor、reason、idempotency key、validation、approval、source／target snapshot、retry／restore relation、trace ID 及各階段時間。</p>
+<h3 id="6-2-立即發布">6.2 立即發布</h3><pre><code class="language-text">指定 Ready Revision → 權威驗證 → Warning 確認／必要核准
+→ Scope Lock → 產生 Snapshot → 公開傳播 → 原子切換
+→ Delivery Verify → Append-only Audit
+</code></pre>
+<ul>
+<li>切換前任何失敗都保留舊 Snapshot。</li>
+<li>切換後 Delivery Verify 失敗，系統先執行可預期補償；無法安全回復時標記 <code>degraded</code> 或 <code>failed</code> 並發出事件。</li>
+<li>Job <code>succeeded</code> 表示目標公開狀態已成立；Delivery 可短暫為 <code>propagating</code>，但必須在可觀測期限內轉為健康或明確降級。</li>
+</ul>
+<h3 id="6-3-排程發布">6.3 排程發布</h3><ul>
+<li>後端以 UTC 保存，介面預設以 <code>Asia/Taipei</code> 顯示並同時顯示時區。</li>
+<li>排程綁定確切 Revision、expected published revision、validation、approval 及執行時間，不追蹤 latest。</li>
+<li>執行前重驗素材撤銷、DP03 狀態、權限、核准、規則版本與 public concurrency。</li>
+<li>第一版同一 scope 只允許一筆未完成的排程 Job；修改排程以取消舊 Job 並建立新 Job 表示。</li>
+<li><code>queued</code>／<code>scheduled</code> 可取消；<code>running</code> 原則上不可一般取消，只能等待結果或進入緊急處理。</li>
+</ul>
+<p>Banner 的開始與結束時間屬同一 Publish Job 的 effective window，不為每個時間點建立互相無法追溯的 UI timer。若結束時需要回到先前內容，必須明確保存結束動作與目標 Snapshot。</p>
+<h3 id="6-4-停用-緊急停用與還原">6.4 停用、緊急停用與還原</h3><ul>
+<li>一般 Disable 需具權限、填寫原因、通過必要核准並建立 Job。</li>
+<li>Emergency Disable 可由具專屬能力的單一操作者立即執行，不等待事前核准；必須填寫原因、取消同 scope 未來排程並進入事後覆核。</li>
+<li>Disable 不刪除 Entry、Revision、Snapshot 或歷程；重新公開必須以新 Job 執行。</li>
+<li>Restore 選擇歷史 Snapshot，複製為新 Revision，顯示與目前內容差異，重新驗證、核准並建立新 Job。</li>
+<li>失敗重試建立新 <code>publish_job_id</code> 並保存 <code>retry_of_job_id</code>，不把原 Job 改回執行中。</li>
+</ul>
+<h3 id="6-5-dp03-狀態覆蓋">6.5 DP03 狀態覆蓋</h3><ul>
+<li><code>available</code>：DP04 Published Snapshot 可依內容設定顯示 playable CTA，最後仍由 GGAP Launch Gate 判斷。</li>
+<li><code>maintenance</code>：大廳可保留公開內容，但以維護狀態覆蓋 CTA，不要求建立新 Revision。</li>
+<li><code>suspended</code>：不得提供 Launch；前台顯示安全不可用狀態或依政策隱藏。</li>
+<li><code>retired</code>：不得 Launch，系統建立內容停用／Catalog 移除工作提示，不自動改寫歷史 Revision。</li>
+</ul>
+<p>DP03 即時狀態覆蓋是 runtime safety overlay，不是 DP04 內容修改。內容人員需要調整文字或 Catalog 時仍建立新的 Revision 與 Job。</p>
+<h3 id="6-6-事件與通知邊界">6.6 事件與通知邊界</h3><p>每次 Job 追加 queued、validated、approved、started、snapshot_created、activated、verified、failed、compensated、cancelled 等 Publication Event。通知中心仍為 Deferred；DP04 只發出穩定事件與導流 ID，不決定通知管道、偏好、已讀或保存介面。</p>
+<hr>
+<h2 id="7-權限核准併發與稽核">7. 權限核准併發與稽核</h2><div class="decision-item-meta"><span>DP04-07</span><a href="open-issues.html#tbd-sec-001">TBD-SEC-001</a><a href="open-issues.html#tbd-sec-003">TBD-SEC-003</a><a href="open-issues.html#tbd-ext-003">TBD-EXT-003</a><i>Product · Security · Content Operations · Backend</i></div><aside class="decision-recommendation">
+  <strong>目前需求基準</strong>
+  <p>一般內容採具發布能力者的一人快速通道；法務、外部網域、可玩性、大量 Catalog、安全與重要 Warning 等高風險變更要求第二人核准。實際角色名稱與 permission key 待系統設定 Mapping。</p>
+</aside><h3 id="7-1-capability-模型">7.1 Capability 模型</h3><p>系統設定仍為 Deferred，因此本包先定義能力，不鎖定角色名稱：</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>主要操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Content Read</td>
+<td>查詢 Entry、Revision、Snapshot、Job 與歷程</td>
+</tr>
+<tr>
+<td>Content Edit</td>
+<td>建立 Revision、更新 local buffer、封存草稿</td>
+</tr>
+<tr>
+<td>Content Preview</td>
+<td>建立 Manifest／Token 並開啟精確預覽</td>
+</tr>
+<tr>
+<td>Content Submit</td>
+<td>提交高風險 Revision 核准</td>
+</tr>
+<tr>
+<td>Content Publish</td>
+<td>建立立即／排程 Publish Job 與取消未執行工作</td>
+</tr>
+<tr>
+<td>Content Disable／Restore</td>
+<td>一般停用、歷史還原與重新公開</td>
+</tr>
+<tr>
+<td>High-risk Approve</td>
+<td>核准或拒絕綁定確切 Revision 的高風險發布</td>
+</tr>
+<tr>
+<td>Emergency Disable</td>
+<td>不經事前核准立即停用並進入事後覆核</td>
+</tr>
+<tr>
+<td>Publication Audit Read</td>
+<td>查詢及依授權範圍匯出發布稽核</td>
+</tr>
+</tbody></table></div>
+<p>權限 scope 至少可限制 Provider、module、content type／entry、action 與 risk level。未授權預設拒絕。</p>
+<h3 id="7-2-快速與高風險通道">7.2 快速與高風險通道</h3><div class="content-approval-lanes" aria-label="內容發布兩種治理通道">
+  <article class="content-approval-lane content-approval-lane--fast"><span>DEFAULT · FAST</span><strong>一般內容快速通道</strong><p>既有網域 CTA、一般 Banner、一般遊戲文案、非關鍵素材、小範圍排序與不改變 playable 語意的更新。</p><code>自動檢查 → 一位具發布能力者 → 發布</code></article>
+  <article class="content-approval-lane content-approval-lane--guarded"><span>EXCEPTION · GUARDED</span><strong>高風險第二人核准</strong><p>法務內容、新外部網域、playable／launch exposure、大量 Catalog、重要警語、安全規則或撤銷素材還原。</p><code>自動檢查 → 不同一人核准 → 發布</code></article>
+</div><ul>
+<li>一般通道允許同一位具權限者編輯並發布，不強制所有內容雙人流程。</li>
+<li>高風險 Revision 的 submitter 不得自行 approve。</li>
+<li>重要 Warning、CSP／外部媒體、主要 CTA、法務與大量 Catalog 變更必須由風險分類器或規則明確標記。</li>
+<li>Emergency Disable 是安全例外，只能減少公開範圍，不得用來發布新內容。</li>
+</ul>
+<h3 id="7-3-核准有效性">7.3 核准有效性</h3><p>Approval 至少綁定 <code>revision_id</code>、manifest hash、validation result、publication scope、risk classification、approver、reason 與時間。以下任一變更都使核准失效：</p>
+<ul>
+<li>Revision、Manifest 或有效內容改變。</li>
+<li>Validation 規則或結果出現新的 Blocking／高風險 Warning。</li>
+<li>expected published revision 改變。</li>
+<li>publication scope 或風險分類改變。</li>
+<li>Submitter／approver 權限遭撤銷，或核准超過有效時間。</li>
+<li>依賴素材遭安全撤銷。</li>
+</ul>
+<h3 id="7-4-兩種衝突">7.4 兩種衝突</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>衝突</th>
+<th>觸發</th>
+<th>處理方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Revision Conflict</td>
+<td>儲存時 base revision／ETag 已過期</td>
+<td>保留未儲存內容，顯示新舊差異，使用者選擇重新套用後建立新 Revision</td>
+</tr>
+<tr>
+<td>Publication Conflict</td>
+<td>建立或執行 Job 時 current snapshot 不等於 expected published revision</td>
+<td>不切換公開內容；重新比較、驗證並建立新 Job</td>
+</tr>
+</tbody></table></div>
+<p>Lobby Catalog 以整份 Catalog Revision 作鎖定單位，不嘗試在伺服器盲目合併兩個排序結果。</p>
+<h3 id="7-5-append-only-audit">7.5 Append-only Audit</h3><p>每筆 Audit 至少保存：audit／provider／resource／entry／revision／job／snapshot ID、action、actor、role／permission snapshot、before／after reference、approval、validation、reason、result、error code、request／trace ID 與時間。</p>
+<p>Audit 保存參照、摘要與必要差異，不記錄 Preview token、秘密資料或未遮罩的敏感 payload。至少記錄：</p>
+<ul>
+<li>Revision 儲存、封存與比較。</li>
+<li>Preview Manifest／Token 建立、撤銷與失效。</li>
+<li>Validation、Warning 確認與人工預覽確認。</li>
+<li>Submit、Approve、Reject、approval expiry。</li>
+<li>Publish、Schedule、Cancel、Disable、Restore、Emergency Disable。</li>
+<li>Revision／Publication Conflict、Forbidden 與 Validation Failed。</li>
+<li>Delivery degradation、補償、重試、事後覆核與 Audit 匯出。</li>
+</ul>
+<h3 id="7-6-前端必須區分的錯誤">7.6 前端必須區分的錯誤</h3><p><code>Forbidden</code>、<code>Revision Conflict</code>、<code>Publication Conflict</code>、<code>Approval Required</code>、<code>Approval Expired</code>、<code>Job In Progress</code>、<code>Validation Failed</code>、<code>Dependency Changed</code> 不得被統一顯示為「操作失敗」。每個錯誤都要提供可行下一步，並保留 <code>trace_id</code> 供支援追蹤。</p>
+<hr>
+<h2 id="8-跨頁依賴替代狀態與驗收">8. 跨頁依賴替代狀態與驗收</h2><div class="decision-item-meta"><span>DP04-08</span><a href="open-issues.html#tbd-dom-006">TBD-DOM-006</a><a href="open-issues.html#tbd-nfr-002">TBD-NFR-002</a><a href="open-issues.html#tbd-nfr-004">TBD-NFR-004</a><i>Product · Frontend · Backend · QA</i></div><aside class="decision-recommendation">
+  <strong>目前需求基準</strong>
+  <p>八個內容頁只能呈現自己負責的工作與公開結果；所有頁面都必須涵蓋正常、空白、錯誤、權限、衝突、依賴變動、工作執行與 Delivery 降級狀態，並以至少 37 個跨頁情境驗收。</p>
+</aside><h3 id="8-1-頁面責任矩陣">8.1 頁面責任矩陣</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>頁面</th>
+<th>主要讀取</th>
+<th>允許操作</th>
+<th>不得取代</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="website-banners.html">Banner 管理</a></td>
+<td>Banner Entry、Revision、Validation、Public Snapshot</td>
+<td>編輯、預覽、發布、排程、停用、還原</td>
+<td>官網其他內容與大廳發布</td>
+</tr>
+<tr>
+<td><a href="website-content.html">內容管理</a></td>
+<td>法務／聯絡 Entry、四語 Revision、Validation</td>
+<td>編輯、預覽、發布、排程、停用、還原</td>
+<td>Banner 與大廳內容</td>
+</tr>
+<tr>
+<td><a href="website-releases.html">官網發布紀錄</a></td>
+<td>官網 Job、Snapshot、Event、Error、Audit</td>
+<td>查詢、追溯、依權限導向重試／還原</td>
+<td>大廳發布歷程或遊戲版本發布</td>
+</tr>
+<tr>
+<td><a href="lobby-overview.html">大廳總覽</a></td>
+<td>Catalog／Game Content 公開摘要、readiness、Delivery</td>
+<td>觀察與導向工作頁</td>
+<td>內容編輯、核准與正式發布</td>
+</tr>
+<tr>
+<td><a href="lobby-games.html">大廳遊戲清單</a></td>
+<td>Published Catalog 與每款公開結果</td>
+<td>查詢、篩選、導向詳情</td>
+<td>DP03 Game master 或草稿編輯</td>
+</tr>
+<tr>
+<td><a href="lobby-management.html">大廳遊戲管理</a></td>
+<td>Game Content／Catalog Revision、Validation、Job</td>
+<td>編輯、排序、預覽、核准、發布、停用、還原</td>
+<td>DP03 版本、數值、素材 binary</td>
+</tr>
+<tr>
+<td><a href="lobby-demo.html">DEMO 環境數據</a></td>
+<td>Sandbox readiness、telemetry、資料品質</td>
+<td>查詢、重整、導向問題</td>
+<td>正式 Game Round、財務、會員、錢包與發布事實</td>
+</tr>
+<tr>
+<td><a href="lobby-preview.html">大廳預覽</a></td>
+<td>Exact Manifest、Revision、locale、device、依賴快照</td>
+<td>切換預覽視角與回到來源</td>
+<td>編輯、核准、發布或自動切換 latest</td>
+</tr>
+</tbody></table></div>
+<h3 id="8-2-兩條依賴鏈">8.2 兩條依賴鏈</h3><pre><code class="language-text">DP03 Asset Version
+  → 官網 Banner／Content Revision
+  → Validation → Exact Preview → Publish Job
+  → Website Published Snapshot → 官網發布紀錄
+</code></pre>
+<pre><code class="language-text">DP03 Game／Version／Asset／Global Availability
+  → Lobby Game Content Revision
+  → Lobby Catalog Revision → Exact Preview → Publish Job
+  → Lobby Published Catalog → 大廳總覽／遊戲清單
+</code></pre>
+<p>DEMO telemetry 只提供 readiness 與品質證據。DEMO 指標良好不會自動發布內容，指標不佳也不改寫 Revision；它只產生 Validation、Warning 或營運工作脈絡。</p>
+<h3 id="8-3-dp03-dp04-公開結果矩陣">8.3 DP03 × DP04 公開結果矩陣</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>DP03／DP04 組合</th>
+<th>前台結果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>available</code>＋DP04 published playable</td>
+<td>顯示內容與 Launch 入口；最終仍驗證 GGAP gate</td>
+</tr>
+<tr>
+<td><code>maintenance</code>＋DP04 published</td>
+<td>內容可見，顯示維護並停用 CTA</td>
+</tr>
+<tr>
+<td><code>suspended</code>＋DP04 published</td>
+<td>不可 Launch；依安全政策顯示不可用或隱藏</td>
+</tr>
+<tr>
+<td>DP04 published coming soon＋尚不可用</td>
+<td>顯示「即將推出」，不得 Launch</td>
+</tr>
+<tr>
+<td><code>retired</code>＋DP04 published</td>
+<td>不可 Launch，建立停用／Catalog 移除工作</td>
+</tr>
+<tr>
+<td>DP04 <code>disabled</code></td>
+<td>不公開該 scope，無論 DP03 是否 available</td>
+</tr>
+</tbody></table></div>
+<h3 id="8-4-deep-link">8.4 Deep Link</h3><p>允許使用 <code>content_entry_id</code>、<code>revision_id</code>、<code>publish_job_id</code>、<code>game_id</code>、<code>catalog_revision_id</code>、<code>mode</code>、<code>locale</code> 與 <code>device</code> 建立可重載的內部導流。Preview token、秘密資料與未遮罩 payload 不得放入 URL。目標 Revision 不存在或無權限時顯示明確狀態，不可靜默改看目前公開版本。</p>
+<h3 id="8-5-替代狀態">8.5 替代狀態</h3><p>共通頁面至少支援：Loading、Empty、Query Failed、Partial Source、Stale、Forbidden、Revision Missing、Dependency Unavailable、Validation Failed、Revision Conflict、Publication Conflict、Approval Required／Expired、Job Queued／Scheduled／Running／Failed、Delivery Propagating／Degraded／Failed。</p>
+<p>編輯頁另外支援：未儲存內容、儲存失敗、新 Revision 已存在、語系不完整、Fallback Warning、素材撤銷、Preview Failed、同 scope 已有 Job、Published Snapshot 已改變。</p>
+<p>預覽頁另外支援：Token Expired、Manifest Missing、Asset Failed、Fallback Applied、DEMO Launch Blocked、部分區塊使用 Public、權限被撤銷及來源 Revision 已被新版本取代；任何情況都不得自動切換 latest。</p>
+<p>發布紀錄必須顯示失敗階段、error code、activation 是否發生、補償結果、目前 Snapshot、retry／restore relation、source Revision 與 trace ID。</p>
+<h3 id="8-6-最低-37-個驗收情境">8.6 最低 37 個驗收情境</h3><h4 id="revision-與公開分離">Revision 與公開分離</h4><ol>
+<li>編輯 local buffer 不改變公開頁。</li>
+<li>每次成功儲存建立新 Revision，舊 Revision 不被覆寫。</li>
+<li>預覽指定 Revision，不因新草稿出現而漂移。</li>
+<li>發布成功後目前 Snapshot 指向確切 Revision。</li>
+<li>發布失敗後公開內容仍是舊 Snapshot。</li>
+<li>Restore 產生新 Revision 與新 Job，不改寫歷史。</li>
+</ol>
+<h4 id="語系與素材">語系與素材</h4><ol start="7">
+<li><code>STRICT</code> 欄位缺少任一必要語系時阻擋發布。</li>
+<li><code>FALLBACK</code> 依固定鏈解析並在預覽標示來源。</li>
+<li><code>OPTIONAL_HIDE</code> 缺少內容時只隱藏指定欄位。</li>
+<li>Published Snapshot 保存四語系有效值與 resolved locale。</li>
+<li>素材固定 asset version，不因新素材上傳而改變公開畫面。</li>
+<li>含文字素材不得以 <code>und</code> 取代 locale-specific 版本。</li>
+<li>Security-revoked 素材阻擋新發布並觸發既有公開處理。</li>
+</ol>
+<h4 id="發布與排程">發布與排程</h4><ol start="14">
+<li>立即發布依 exact Revision 建立 Job。</li>
+<li>排程發布等待期間新 Revision 不改變目標內容。</li>
+<li>排程執行前重新驗證動態依賴。</li>
+<li>Expected published revision 不符時產生 Publication Conflict。</li>
+<li>同 scope 第二筆未完成 Job 被拒絕並提供既有 Job 導流。</li>
+<li>取消 queued／scheduled Job 不改變公開 Snapshot。</li>
+<li>Running Job 不提供一般取消。</li>
+<li>Retry 建立新 Job 並連回原失敗 Job。</li>
+</ol>
+<h4 id="權限與核准">權限與核准</h4><ol start="22">
+<li>無 Read 權限不可取得內容或透過 deep link 繞過。</li>
+<li><code>allowed_actions</code> 隱藏不允許操作，但後端仍拒絕偽造請求。</li>
+<li>一般低風險內容可由一位具發布能力者完成。</li>
+<li>高風險內容要求不同 submitter 的第二人核准。</li>
+<li>Revision／Manifest／Validation 改變使核准失效。</li>
+<li>權限撤銷後已排程工作執行前失敗，不沿用過期授權。</li>
+<li>Emergency Disable 可先停用並建立事後覆核，不可發布新內容。</li>
+</ol>
+<h4 id="失敗-停用與還原">失敗、停用與還原</h4><ol start="29">
+<li>Snapshot 切換前失敗完全保留舊內容。</li>
+<li>切換後 Delivery Verify 失敗執行補償並記錄結果。</li>
+<li>無法安全補償時顯示 degraded／failed 與支援 trace。</li>
+<li>Disable 保留 Entry、Revision、Snapshot 與 Audit。</li>
+<li>Restore 前重新驗證目前規則、素材與依賴。</li>
+</ol>
+<h4 id="dp03-大廳與-demo">DP03、大廳與 DEMO</h4><ol start="34">
+<li><code>maintenance</code> 即時覆蓋 CTA，但不改寫 Content Revision。</li>
+<li><code>suspended</code>／<code>retired</code> 不可透過 DP04 playable 文案繞過 Launch Gate。</li>
+<li>Catalog 固定確切 Game Content Revision 與排序，不在讀取時追蹤 latest。</li>
+<li>DEMO identity、credit 與 telemetry 不進入 Production Game Round、財務、會員、錢包或 Provider 風控。</li>
+</ol>
+<p>以上情境同時需要 Desktop 與 390px Mobile 抽驗；操作須支援鍵盤與可見焦點，狀態不得只依顏色辨識，長 ID／繁中錯誤／多語內容不得造成頁面級水平溢位。</p>
+<hr>
+<h2 id="9-後端契約原型對照與外部邊界">9. 後端契約原型對照與外部邊界</h2><div class="decision-item-meta"><span>DP04-09</span><a href="open-issues.html#tbd-api-001">TBD-API-001</a><a href="open-issues.html#tbd-api-006">TBD-API-006</a><a href="open-issues.html#tbd-ext-003">TBD-EXT-003</a><i>Product · Frontend · Backend · Security · SRE</i></div><aside class="decision-recommendation">
+  <strong>目前需求基準</strong>
+  <p>本包先鎖定後端必須達成的資料語意與行為，不預先指定 API URL、資料表、Queue 或 CDN 技術。取得 Backend／GGAP Git 後只補實作 Mapping 與差異，不以現有程式限制覆蓋本基準。</p>
+</aside><h3 id="9-1-兩層契約">9.1 兩層契約</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>層級</th>
+<th>現在是否成立</th>
+<th>內容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>產品語意契約</td>
+<td>是；以本包為目前需求基準</td>
+<td>核心物件、狀態、版本、驗證、預覽、核准、發布、失敗、還原、權限邏輯、稽核與驗收</td>
+</tr>
+<tr>
+<td>實作對照契約</td>
+<td>取得實際 Backend／基礎設施後補</td>
+<td>API URL／Method、request／response 欄位、資料表、Queue、Scheduler、CDN、permission key、event topic 與 error transport</td>
+</tr>
+</tbody></table></div>
+<p>資料庫、Framework、Message Queue、Object Storage、CDN 或 CI/CD 選型不是本包產品決策。只要後端能證明符合產品語意、原子性、可靠性、安全與可觀測性，即可採用既有技術。</p>
+<h3 id="9-2-後端最少語意能力">9.2 後端最少語意能力</h3><div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>必須達成的結果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Query Content Entry／Revision</td>
+<td>取得穩定主體、版本歷程、目前公開狀態及 allowed actions</td>
+</tr>
+<tr>
+<td>Create Revision</td>
+<td>依 base revision 建立不可變新版本，衝突不覆蓋他人內容</td>
+</tr>
+<tr>
+<td>Run Validation</td>
+<td>以指定規則版本回傳 Blocking／Warning／Info 及欄位定位</td>
+</tr>
+<tr>
+<td>Create Preview Manifest／Token</td>
+<td>固定 exact Revision、依賴、語系、素材與 renderer version</td>
+</tr>
+<tr>
+<td>Submit／Approve／Reject</td>
+<td>綁定 exact Revision、risk、manifest 與 validation evidence</td>
+</tr>
+<tr>
+<td>Create Publish／Disable／Restore Job</td>
+<td>支援立即、排程、停用、還原、冪等與 expected public version</td>
+</tr>
+<tr>
+<td>Cancel Scheduled Job</td>
+<td>只取消可安全取消的工作並保留原因與 Audit</td>
+</tr>
+<tr>
+<td>Query Job Timeline</td>
+<td>提供階段、錯誤、切換、補償、重試及 trace</td>
+</tr>
+<tr>
+<td>Query Published Snapshot</td>
+<td>明確回答目前實際對外的 exact Snapshot 與 Delivery 狀態</td>
+</tr>
+<tr>
+<td>Query Allowed Actions</td>
+<td>依操作者與 resource scope 提供介面提示；不取代後端授權</td>
+</tr>
+</tbody></table></div>
+<h3 id="9-3-共用-request-response-原則">9.3 共用 Request／Response 原則</h3><p>狀態變更請求原則上攜帶 <code>provider_id</code>、resource／entry／revision／scope ID、<code>base_revision_id</code> 或 ETag、<code>expected_published_revision_id</code>、<code>request_id</code>、<code>idempotency_key</code>、操作者、原因、有效時間與 validation／approval reference。</p>
+<p>回應至少提供最新資源狀態、Revision／ETag、<code>allowed_actions</code>、<code>server_time</code>、<code>trace_id</code>、標準 error code 及是否可重試。重送同一 idempotency key 不得產生第二次發布副作用。</p>
+<h3 id="9-4-事件契約">9.4 事件契約</h3><p>DP04 定義必須發生的語意事件，不限定 Queue、Webhook 或其他技術：</p>
+<ul>
+<li><code>content_revision_created</code></li>
+<li><code>content_validation_completed</code></li>
+<li><code>content_submitted</code>／<code>content_approved</code>／<code>content_rejected</code></li>
+<li><code>publish_job_created</code>／<code>publish_job_cancelled</code>／<code>publish_job_started</code></li>
+<li><code>published_snapshot_activated</code></li>
+<li><code>publish_job_failed</code>／<code>publish_compensated</code></li>
+<li><code>content_disabled</code>／<code>content_restored</code></li>
+<li><code>content_delivery_degraded</code>／<code>content_delivery_recovered</code></li>
+</ul>
+<p>事件至少包含 Provider、resource type、Entry／Revision／Job／Snapshot ID、actor、occurred time、result、error code 與 trace ID。通知中心只可消費這些事件，不反向成為發布成功的必要條件。</p>
+<h3 id="9-5-原型映射原則">9.5 原型映射原則</h3><ul>
+<li>原型中的狀態、按鈕、Dialog、抽屜、錯誤與 Mock 資料使用本包定義的語意，不自行建立另一套 lifecycle。</li>
+<li>按鈕可用性依 <code>allowed_actions</code>、Validation、Approval、Concurrency 與 Job 狀態呈現。</li>
+<li>Route 只保存可重載的 ID、mode、locale 與 device，不保存 preview token 或秘密資料。</li>
+<li>Mock 操作可以模擬 Revision、Job 與 Snapshot 轉換，但必須標示不具正式持久化、公開前台、CDN 或 Audit 副作用。</li>
+<li>DEMO 數據不能因版面相似而併入正式內容、Round、財務或風控資料。</li>
+</ul>
+<h3 id="9-6-取得外部證據後補的-mapping">9.6 取得外部證據後補的 Mapping</h3><ul>
+<li>後端實際 API、schema、enum、資料表與索引。</li>
+<li>Scheduler、Worker、Queue、Outbox、鎖與冪等的實際設計。</li>
+<li>Object Storage、CDN、Cache Invalidation、原子切換及補償方式。</li>
+<li>Provider Identity／Role 與本包 Capability 的 permission key 對照。</li>
+<li>官網及大廳公開 renderer 如何讀取 Published Snapshot。</li>
+<li>DP03 Game、Version、Asset、global status 的實際欄位與事件。</li>
+<li>GGAP 代理商開關、Launch API 與錯誤狀態，只影響最後可玩性驗證。</li>
+<li>Audit、Trace、Metrics、Log 與 Alert 的實際格式及保存政策。</li>
+</ul>
+<p>GGAP Git 不影響官網與大廳的編輯、Revision、Preview、Publish、Disable 或 Restore 契約；它只用於確認玩家真正啟動遊戲時的 agent gate、Launch 結果與錯誤 Mapping。</p>
+<h3 id="9-7-差異處理">9.7 差異處理</h3><ol>
+<li>將實際欄位、狀態與流程映射到本包產品語意。</li>
+<li>可直接對應者標記為 Aligned。</li>
+<li>可透過 Adapter 轉換者記錄轉換、責任方與測試證據。</li>
+<li>缺少能力者建立 Implementation Gap，不把 Mock 宣告為完成。</li>
+<li>行為衝突者回到產品層決定修實作或修規格。</li>
+<li>未經確認不得因現有程式限制而降低公開安全、不可變、失敗保留舊版或追溯要求。</li>
+</ol>
+<h3 id="9-8-本包完成條件">9.8 本包完成條件</h3><ul>
+<li>四條發布流共用語意但獨立 Revision、Job、Snapshot 與失敗。</li>
+<li>Revision、Job、Public、Delivery 四種狀態分開。</li>
+<li>四語系、素材版本、Fallback 與 validation resolution 固定進 Snapshot。</li>
+<li>預覽與發布都綁定 exact Revision，不使用 latest。</li>
+<li>發布失敗保留舊公開內容，停用與還原可完整追溯。</li>
+<li>一般內容走一人快速通道，高風險內容要求不同一人核准。</li>
+<li>DP04 不繞過 DP03 技術可用性或 GGAP 代理商 Launch Gate。</li>
+<li>八頁責任、替代狀態、deep link、37 個驗收情境與後端接軌方式均可追蹤。</li>
+</ul>
+<p>達成以上條件即視為 DP04 產品需求基準完整。實際 Backend／CDN／權限／GGAP Mapping 是後續工程接軌工作，不重開本包產品決策。</p>
+<h2 id="規格同步與後續實作範圍">規格同步與後續實作範圍</h2><p>本包目前先作為規格網站的上游產品契約。後續依序：</p>
+<ol>
+<li>回寫 <code>docs/GAME_WEBSITE_SPEC.md</code>、<code>docs/GAME_LOBBY_SPEC.md</code> 及八個對應規格網站頁面。</li>
+<li>同步共通領域規則、資料字典、enum、API、安全、非功能性與 QA 章節。</li>
+<li>另開開發 session 對照 Portal 原型，建立正式差異清單後再修改 Vue 與 mock。</li>
+<li>取得 Backend／GGAP Git 後補實作 Mapping，不靜默改寫本需求基準。</li>
+</ol>
+<p>規格網站、原始 Spec MD 與 Portal 原型必須依上述順序對齊，避免畫面先行產生另一套內容發布生命週期。</p>
+
+                    </article>
+                    <aside class="page-outline" aria-label="本頁目錄">
+        <p>本頁目錄</p>
+        <nav><a class="outline-level-2" href="#文件定位">文件定位</a><a class="outline-level-2" href="#不可違反的產品邊界">不可違反的產品邊界</a><a class="outline-level-2" href="#從編輯到公開的完整鏈">從編輯到公開的完整鏈</a><a class="outline-level-2" href="#1-核心物件與責任邊界">1. 核心物件與責任邊界</a><a class="outline-level-3" href="#1-1-六個核心物件">1.1 六個核心物件</a><a class="outline-level-3" href="#1-2-publication-scope">1.2 Publication Scope</a><a class="outline-level-3" href="#1-3-三個互不取代的公開控制">1.3 三個互不取代的公開控制</a><a class="outline-level-2" href="#2-共用引擎與獨立發布流">2. 共用引擎與獨立發布流</a><a class="outline-level-3" href="#2-1-獨立性規則">2.1 獨立性規則</a><a class="outline-level-3" href="#2-2-共用能力與內容專屬規則">2.2 共用能力與內容專屬規則</a><a class="outline-level-2" href="#3-revision-job-與公開生命週期">3. Revision Job 與公開生命週期</a><a class="outline-level-3" href="#3-1-revision-狀態">3.1 Revision 狀態</a><a class="outline-level-3" href="#3-2-publish-job-狀態">3.2 Publish Job 狀態</a><a class="outline-level-3" href="#3-3-public-與-delivery-狀態">3.3 Public 與 Delivery 狀態</a><a class="outline-level-3" href="#3-4-不可變與併發基準">3.4 不可變與併發基準</a><a class="outline-level-2" href="#4-多語內容素材與-fallback">4. 多語內容素材與 Fallback</a><a class="outline-level-3" href="#4-1-公開語系">4.1 公開語系</a><a class="outline-level-3" href="#4-2-欄位語系政策">4.2 欄位語系政策</a><a class="outline-level-3" href="#4-3-素材參照">4.3 素材參照</a><a class="outline-level-3" href="#4-4-素材失效與安全撤銷">4.4 素材失效與安全撤銷</a><a class="outline-level-2" href="#5-驗證與精確預覽">5. 驗證與精確預覽</a><a class="outline-level-3" href="#5-1-三階段檢查">5.1 三階段檢查</a><a class="outline-level-3" href="#5-2-嚴重度">5.2 嚴重度</a><a class="outline-level-3" href="#5-3-共通檢查範圍">5.3 共通檢查範圍</a><a class="outline-level-3" href="#5-4-精確預覽">5.4 精確預覽</a><a class="outline-level-3" href="#5-5-預覽安全與人工確認">5.5 預覽安全與人工確認</a><a class="outline-level-2" href="#6-發布排程停用與還原">6. 發布排程停用與還原</a><a class="outline-level-3" href="#6-1-job-類型與必要資料">6.1 Job 類型與必要資料</a><a class="outline-level-3" href="#6-2-立即發布">6.2 立即發布</a><a class="outline-level-3" href="#6-3-排程發布">6.3 排程發布</a><a class="outline-level-3" href="#6-4-停用-緊急停用與還原">6.4 停用、緊急停用與還原</a><a class="outline-level-3" href="#6-5-dp03-狀態覆蓋">6.5 DP03 狀態覆蓋</a><a class="outline-level-3" href="#6-6-事件與通知邊界">6.6 事件與通知邊界</a><a class="outline-level-2" href="#7-權限核准併發與稽核">7. 權限核准併發與稽核</a><a class="outline-level-3" href="#7-1-capability-模型">7.1 Capability 模型</a><a class="outline-level-3" href="#7-2-快速與高風險通道">7.2 快速與高風險通道</a><a class="outline-level-3" href="#7-3-核准有效性">7.3 核准有效性</a><a class="outline-level-3" href="#7-4-兩種衝突">7.4 兩種衝突</a><a class="outline-level-3" href="#7-5-append-only-audit">7.5 Append-only Audit</a><a class="outline-level-3" href="#7-6-前端必須區分的錯誤">7.6 前端必須區分的錯誤</a><a class="outline-level-2" href="#8-跨頁依賴替代狀態與驗收">8. 跨頁依賴替代狀態與驗收</a><a class="outline-level-3" href="#8-1-頁面責任矩陣">8.1 頁面責任矩陣</a><a class="outline-level-3" href="#8-2-兩條依賴鏈">8.2 兩條依賴鏈</a><a class="outline-level-3" href="#8-3-dp03-dp04-公開結果矩陣">8.3 DP03 × DP04 公開結果矩陣</a><a class="outline-level-3" href="#8-4-deep-link">8.4 Deep Link</a><a class="outline-level-3" href="#8-5-替代狀態">8.5 替代狀態</a><a class="outline-level-3" href="#8-6-最低-37-個驗收情境">8.6 最低 37 個驗收情境</a><a class="outline-level-2" href="#9-後端契約原型對照與外部邊界">9. 後端契約原型對照與外部邊界</a><a class="outline-level-3" href="#9-1-兩層契約">9.1 兩層契約</a><a class="outline-level-3" href="#9-2-後端最少語意能力">9.2 後端最少語意能力</a><a class="outline-level-3" href="#9-3-共用-request-response-原則">9.3 共用 Request／Response 原則</a><a class="outline-level-3" href="#9-4-事件契約">9.4 事件契約</a><a class="outline-level-3" href="#9-5-原型映射原則">9.5 原型映射原則</a><a class="outline-level-3" href="#9-6-取得外部證據後補的-mapping">9.6 取得外部證據後補的 Mapping</a><a class="outline-level-3" href="#9-7-差異處理">9.7 差異處理</a><a class="outline-level-3" href="#9-8-本包完成條件">9.8 本包完成條件</a><a class="outline-level-2" href="#規格同步與後續實作範圍">規格同步與後續實作範圍</a></nav>
+        <a class="back-to-top" href="#main-content">回到頁首 ↑</a>
+    </aside>
+                </div>
+
+                <nav class="previous-next" aria-label="上一章與下一章">
+        <a class="previous-link" href="decision-pack-03-implementation-reconciliation.html"><span>← 上一章</span><strong>Decision Pack 03｜原型實作差異清單</strong></a>
+        <span></span>
+    </nav>
+                <footer class="document-footer">
+                    <span>Provider Portal Product / Engineering</span>
+                    <span>0.20.0-phase-three-pack-04-baseline · 2026-08-20</span>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <dialog class="search-dialog" data-search-dialog aria-labelledby="search-dialog-title">
+        <div class="search-dialog-header">
+            <div>
+                <p class="eyebrow">全文檢索</p>
+                <h2 id="search-dialog-title">搜尋規格書</h2>
+            </div>
+            <button class="icon-button dialog-close" type="button" data-search-close aria-label="關閉搜尋">×</button>
+        </div>
+        <label class="search-field">
+            <span class="sr-only">輸入章節、route、欄位或關鍵字</span>
+            <span aria-hidden="true">⌕</span>
+            <input type="search" data-search-input autocomplete="off" placeholder="例如：Game Round、/reports、USDT">
+        </label>
+        <p class="search-hint" data-search-hint>可搜尋章節名稱、內文、route、欄位與技術值。</p>
+        <div class="search-results" data-search-results></div>
+    </dialog>
+</body>
+</html>
